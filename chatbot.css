@@ -1,0 +1,350 @@
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS PARA CHATBOT
+   ========================================================================== */
+
+/* Hero Chatbot */
+.hero-chatbot {
+    padding-top: 140px;
+    padding-bottom: var(--espaciado-xl);
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    background: var(--gris-oscuro);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-chatbot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(111, 66, 193, 0.95), rgba(81, 45, 168, 0.85));
+    z-index: 1;
+}
+
+.hero-chatbot .container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.hero-chatbot h1 {
+    color: var(--blanco);
+    margin-bottom: var(--espaciado-sm);
+    font-size: var(--texto-4xl);
+}
+
+.hero-chatbot h2 {
+    color: var(--blanco);
+    margin-bottom: var(--espaciado-md);
+    font-size: var(--texto-xl);
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.hero-chatbot .hero-icon {
+    background: rgba(255, 255, 255, 0.1);
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin: 0 auto;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Pulsar Botón */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(111, 66, 193, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(111, 66, 193, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(111, 66, 193, 0);
+    }
+}
+
+.pulse-button {
+    animation: pulse 2s infinite;
+    background: #6f42c1;
+}
+
+.pulse-button:hover {
+    background: #512da8;
+}
+
+/* Sección Resultados */
+.resultados-section {
+    background-color: var(--blanco);
+    padding: var(--espaciado-xl) 0;
+}
+
+.resultados-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--espaciado-md);
+}
+
+.resultado-card {
+    background-color: var(--gris-claro);
+    padding: var(--espaciado-md);
+    border-radius: var(--borde-redondo-md);
+    text-align: center;
+    transition: transform var(--transicion-media);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.resultado-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-media);
+    border-left: 3px solid #6f42c1;
+    background-color: #f9f7fc;
+}
+
+.resultado-numero {
+    font-size: var(--texto-3xl);
+    font-weight: 700;
+    color: #6f42c1;
+    margin-bottom: var(--espaciado-sm);
+}
+
+.resultado-card p {
+    font-size: var(--texto-md);
+    margin-bottom: 0;
+}
+
+/* Sección Usos */
+.usos-section {
+    background-color: var(--gris-claro);
+    padding: var(--espaciado-xl) 0;
+}
+
+.usos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--espaciado-md);
+}
+
+.uso-card {
+    background-color: var(--blanco);
+    padding: var(--espaciado-md);
+    border-radius: var(--borde-redondo-md);
+    text-align: center;
+    transition: transform var(--transicion-media), box-shadow var(--transicion-media);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.uso-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-media);
+}
+
+.uso-icon {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(111, 66, 193, 0.1);
+    color: #6f42c1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto var(--espaciado-sm);
+    font-size: var(--texto-xl);
+}
+
+.uso-card h3 {
+    color: #6f42c1;
+    margin-bottom: var(--espaciado-sm);
+    font-weight: 700;
+}
+
+/* Sección Planes */
+.planes-section {
+    background-color: var(--blanco);
+    padding: var(--espaciado-xl) 0;
+}
+
+.planes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--espaciado-lg);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.plan-card {
+    background-color: var(--gris-claro);
+    border-radius: var(--borde-redondo-lg);
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+    transition: transform var(--transicion-media);
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.plan-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--sombra-media);
+}
+
+.plan-destacado {
+    border: 2px solid #6f42c1;
+    background-color: #f9f7fc;
+}
+
+.plan-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #6f42c1;
+    color: var(--blanco);
+    padding: 8px 16px;
+    font-size: var(--texto-sm);
+    font-weight: 600;
+    border-bottom-left-radius: var(--borde-redondo-md);
+    z-index: 1;
+}
+
+.plan-header {
+    padding: var(--espaciado-md);
+    text-align: center;
+}
+
+.plan-header h3 {
+    color: #6f42c1;
+    font-size: var(--texto-xl);
+    margin-bottom: var(--espaciado-sm);
+}
+
+.plan-precio {
+    font-size: var(--texto-3xl);
+    font-weight: 700;
+    color: #6f42c1;
+}
+
+.plan-precio span {
+    font-size: var(--texto-md);
+    font-weight: 400;
+}
+
+.plan-features {
+    padding: 0 var(--espaciado-md);
+    flex-grow: 1;
+}
+
+.plan-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.plan-features li {
+    padding: 10px 0;
+    display: flex;
+    align-items: flex-start;
+}
+
+.plan-features li i {
+    color: #6f42c1;
+    margin-right: var(--espaciado-sm);
+    margin-top: 3px;
+}
+
+.plan-cta {
+    padding: var(--espaciado-md);
+    text-align: center;
+}
+
+.plan-cta .btn {
+    width: 100%;
+    background-color: #6f42c1;
+}
+
+.plan-cta .btn:hover {
+    background-color: #512da8;
+}
+
+/* Formulario de contacto */
+.contacto {
+    background-color: var(--gris-claro);
+}
+
+.contacto-icon {
+    color: #6f42c1;
+}
+
+.contacto-form .btn {
+    background-color: #6f42c1;
+}
+
+.contacto-form .btn:hover {
+    background-color: #512da8;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .hero-chatbot h1 {
+        font-size: var(--texto-3xl);
+    }
+    
+    .hero-chatbot h2 {
+        font-size: var(--texto-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-chatbot .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .planes-grid {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+    }
+    
+    .contacto-form {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-group.full-width {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-chatbot h1 {
+        font-size: var(--texto-2xl);
+    }
+    
+    .hero-chatbot h2 {
+        font-size: var(--texto-md);
+    }
+    
+    .resultado-numero {
+        font-size: var(--texto-2xl);
+    }
+}

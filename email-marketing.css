@@ -1,0 +1,263 @@
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS PARA EMAIL MARKETING
+   ========================================================================== */
+
+/* Hero Email */
+.hero-email {
+    padding-top: 140px;
+    padding-bottom: var(--espaciado-xl);
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    background: var(--gris-oscuro);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-email::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 164, 189, 0.95), rgba(0, 130, 155, 0.85));
+    z-index: 1;
+}
+
+.hero-email .container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.hero-email h1 {
+    color: var(--blanco);
+    margin-bottom: var(--espaciado-sm);
+    font-size: var(--texto-4xl);
+}
+
+.hero-email h2 {
+    color: var(--blanco);
+    margin-bottom: var(--espaciado-md);
+    font-size: var(--texto-xl);
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.hero-email .hero-icon {
+    background: rgba(255, 255, 255, 0.1);
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin: 0 auto;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Pulsar Botón */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 164, 189, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(0, 164, 189, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 164, 189, 0);
+    }
+}
+
+.pulse-button {
+    animation: pulse 2s infinite;
+    background: #00a4bd;
+}
+
+.pulse-button:hover {
+    background: #00829b;
+}
+
+/* Sección Beneficios */
+.beneficios-section {
+    background-color: var(--blanco);
+    padding: var(--espaciado-xl) 0;
+}
+
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--espaciado-md);
+}
+
+.beneficio-card {
+    padding: var(--espaciado-md);
+    border-radius: var(--borde-redondo-md);
+    text-align: center;
+    transition: transform var(--transicion-media);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--gris-claro);
+}
+
+.beneficio-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-media);
+}
+
+.beneficio-icon {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(0, 164, 189, 0.1);
+    color: #00a4bd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto var(--espaciado-sm);
+    font-size: var(--texto-xl);
+}
+
+.beneficio-card h3 {
+    color: #00a4bd;
+    margin-bottom: var(--espaciado-sm);
+}
+
+/* Sección Servicios */
+.servicios-email-section {
+    background-color: var(--gris-claro);
+    padding: var(--espaciado-xl) 0;
+}
+
+.servicios-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espaciado-lg);
+    align-items: center;
+}
+
+.servicios-info h2 {
+    margin-bottom: var(--espaciado-md);
+    color: #00a4bd;
+}
+
+.servicios-lista {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--espaciado-md);
+}
+
+.servicios-lista li {
+    margin-bottom: var(--espaciado-sm);
+    display: flex;
+    align-items: center;
+}
+
+.servicios-lista li i {
+    color: #00a4bd;
+    margin-right: var(--espaciado-sm);
+}
+
+.servicios-cta {
+    margin-top: var(--espaciado-md);
+}
+
+.precio-destacado {
+    font-size: var(--texto-xl);
+    font-weight: 700;
+    color: #00a4bd;
+    margin-bottom: var(--espaciado-sm);
+}
+
+.servicios-cta .btn {
+    background-color: #00a4bd;
+}
+
+.servicios-cta .btn:hover {
+    background-color: #00829b;
+}
+
+.servicios-imagen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.email-imagen {
+    max-width: 100%;
+    border-radius: var(--borde-redondo-md);
+    box-shadow: var(--sombra-media);
+}
+
+/* Formulario de contacto */
+.contacto {
+    background-color: var(--blanco);
+}
+
+.contacto-icon {
+    color: #00a4bd;
+}
+
+.contacto-form .btn {
+    background-color: #00a4bd;
+}
+
+.contacto-form .btn:hover {
+    background-color: #00829b;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .hero-email h1 {
+        font-size: var(--texto-3xl);
+    }
+    
+    .hero-email h2 {
+        font-size: var(--texto-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-email .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .servicios-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .servicios-imagen {
+        order: -1;
+        margin-bottom: var(--espaciado-md);
+    }
+    
+    .contacto-form {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-group.full-width {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-email h1 {
+        font-size: var(--texto-2xl);
+    }
+    
+    .hero-email h2 {
+        font-size: var(--texto-md);
+    }
+}
