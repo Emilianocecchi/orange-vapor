@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     scrollTopBtn.style.position = 'fixed';
     scrollTopBtn.style.bottom = '20px';
     scrollTopBtn.style.right = '20px';
-    scrollTopBtn.style.backgroundColor = 'var(--naranja-principal)';
+    scrollTopBtn.style.backgroundColor = '#dc3545';
     scrollTopBtn.style.color = 'white';
     scrollTopBtn.style.width = '50px';
     scrollTopBtn.style.height = '50px';
@@ -66,6 +66,51 @@ document.addEventListener('DOMContentLoaded', function() {
     scrollTopBtn.style.boxShadow = '0 3px 6px rgba(0,0,0,0.16)';
     scrollTopBtn.style.zIndex = '99';
     scrollTopBtn.style.transition = 'all 0.3s ease';
+    
+    // Efecto de vapor burbujas
+    function createVaporBubbles() {
+        const vaporEffect = document.querySelector('.vapor-effect');
+        if (!vaporEffect) return;
+        
+        // Función para crear burbujas de vapor aleatoriamente
+        function createRandomBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('vapor-bubble');
+            
+            // Posicionamiento aleatorio
+            const posX = Math.random() * 100; // posición X en porcentaje
+            const size = 50 + Math.random() * 200; // tamaño entre 50 y 250px
+            const delay = Math.random() * 5; // retraso de animación de 0 a 5 segundos
+            const duration = 10 + Math.random() * 20; // duración entre 10 y 30 segundos
+            
+            // Aplicar estilos
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${posX}%`;
+            bubble.style.bottom = '-20%';
+            bubble.style.animationDelay = `${delay}s`;
+            bubble.style.animationDuration = `${duration}s`;
+            
+            // Añadir burbuja al DOM
+            vaporEffect.appendChild(bubble);
+            
+            // Eliminar burbuja después de que termine la animación
+            setTimeout(() => {
+                bubble.remove();
+            }, (delay + duration) * 1000);
+        }
+        
+        // Crear burbujas periódicamente
+        setInterval(createRandomBubble, 3000);
+        
+        // Crear algunas burbujas iniciales
+        for (let i = 0; i < 3; i++) {
+            createRandomBubble();
+        }
+    }
+    
+    // Ejecutar la creación de burbujas de vapor
+    createVaporBubbles();
     
     // Simular escasez con contador decreciente
     let availableSpots = 1; // 3 spots totales - 2 ya ocupados
@@ -89,49 +134,197 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Formulario de contacto específico para Optimización Express
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+    // Efectos de destacado para elementos importantes
+    function highlightElements() {
+        // Destacar el precio
+        const precioInfo = document.querySelector('.precio-info');
+        if (precioInfo) {
+            setTimeout(() => {
+                precioInfo.classList.add('highlighted');
+                setTimeout(() => {
+                    precioInfo.classList.remove('highlighted');
+                }, 1000);
+            }, 3000); // Destacar después de 3 segundos
+        }
+        
+        // Destacar el bonus
+        const bonusSection = document.querySelector('.bonus-section');
+        if (bonusSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('bonus-highlight');
+                            setTimeout(() => {
+                                entry.target.classList.remove('bonus-highlight');
+                            }, 1500);
+                        }, 500);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.7 });
             
-            // Validación básica del formulario
-            const nombre = document.getElementById('nombre').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const telefono = document.getElementById('telefono').value.trim();
-            const plataforma = document.getElementById('plataforma').value;
-            const presupuesto = document.getElementById('presupuesto').value;
-            
-            if (!nombre || !email || !telefono || !plataforma || !presupuesto) {
-                alert('Por favor, completa todos los campos requeridos.');
-                return;
-            }
-            
-            // Verificar si quedan spots disponibles
-            if (availableSpots <= 0) {
-                alert('¡Lo sentimos! Todos los spots están ocupados actualmente. Te añadiremos a nuestra lista de espera y te contactaremos en cuanto haya disponibilidad.');
-            } else {
-                // Disminuir spots disponibles
-                availableSpots--;
-                updateSpots();
-                
-                // Mensaje de éxito
-                alert('¡Felicidades! Has asegurado tu lugar. Te contactaremos dentro de las próximas 24 horas para coordinar tu auditoría gratuita.');
-            }
-            
-            // Restablecer el formulario
-            contactForm.reset();
-            
-            // Scroll hacia arriba
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+            observer.observe(bonusSection);
+        }
     }
     
-    // Resaltar enlaces de navegación activos para esta landing page
+    // Ejecutar efectos de destacado
+    highlightElements();
+    
+    // Simular reservas aleatorias
+    function simulateRandomBookings() {
+        // Solo ejecutar si hay lugares disponibles
+        if (availableSpots > 0) {
+            // 20% de probabilidad cada 45 segundos
+            if (Math.random() < 0.2) {
+                // Mostrar notificación de nueva reserva
+                showBookingNotification();
+            }
+        }
+    }
+    
+    // Mostrar notificación de reserva
+    function showBookingNotification() {
+        // Solo mostrar si la página lleva más de 15 segundos cargada y el usuario ha hecho scroll
+        if (document.documentElement.scrollTop > 300) {
+            const notification = document.createElement('div');
+            notification.className = 'booking-notification';
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="notification-content">
+                    <p>¡Alguien acaba de reservar su diagnóstico!</p>
+                    <span>Quedan ${availableSpots} lugares disponibles esta semana</span>
+                </div>
+                <button class="notification-close"><i class="fas fa-times"></i></button>
+            `;
+            
+            // Estilos para la notificación
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.left = '20px';
+            notification.style.backgroundColor = 'white';
+            notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            notification.style.borderRadius = '8px';
+            notification.style.padding = '15px';
+            notification.style.display = 'flex';
+            notification.style.alignItems = 'center';
+            notification.style.maxWidth = '320px';
+            notification.style.zIndex = '1000';
+            notification.style.animation = 'fadeInUp 0.5s forwards';
+            
+            // Estilos para el icono
+            const notificationIcon = notification.querySelector('.notification-icon');
+            notificationIcon.style.width = '40px';
+            notificationIcon.style.height = '40px';
+            notificationIcon.style.borderRadius = '50%';
+            notificationIcon.style.backgroundColor = 'rgba(220, 53, 69, 0.1)';
+            notificationIcon.style.display = 'flex';
+            notificationIcon.style.alignItems = 'center';
+            notificationIcon.style.justifyContent = 'center';
+            notificationIcon.style.marginRight = '15px';
+            notificationIcon.style.color = '#dc3545';
+            
+            // Estilos para el contenido
+            const notificationContent = notification.querySelector('.notification-content');
+            notificationContent.style.flex = '1';
+            
+            // Estilos para el texto
+            const notificationText = notification.querySelector('.notification-content p');
+            notificationText.style.margin = '0 0 5px 0';
+            notificationText.style.fontWeight = '600';
+            
+            // Estilos para el subtexto
+            const notificationSubtext = notification.querySelector('.notification-content span');
+            notificationSubtext.style.fontSize = '12px';
+            notificationSubtext.style.color = '#666';
+            
+            // Estilos para el botón de cerrar
+            const closeButton = notification.querySelector('.notification-close');
+            closeButton.style.background = 'none';
+            closeButton.style.border = 'none';
+            closeButton.style.color = '#999';
+            closeButton.style.cursor = 'pointer';
+            closeButton.style.padding = '5px';
+            closeButton.style.marginLeft = '10px';
+            
+            // Añadir la notificación al DOM
+            document.body.appendChild(notification);
+            
+            // Cerrar la notificación al hacer clic en el botón de cerrar
+            closeButton.addEventListener('click', function() {
+                notification.style.animation = 'fadeOutDown 0.5s forwards';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            });
+            
+            // Cerrar automáticamente después de 8 segundos
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    notification.style.animation = 'fadeOutDown 0.5s forwards';
+                    setTimeout(() => {
+                        if (document.body.contains(notification)) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 500);
+                }
+            }, 8000);
+        }
+    }
+    
+    // Iniciar simulación de reservas cada 45 segundos
+    setInterval(simulateRandomBookings, 45000);
+    
+    // Añadir animaciones CSS para las notificaciones
+    const styleElement = document.createElement('style');
+    styleElement.textContent = `
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeOutDown {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        .highlighted {
+            animation: highlight-pulse 1s ease;
+        }
+        
+        @keyframes highlight-pulse {
+            0% { transform: scale(1); box-shadow: none; }
+            50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(220, 53, 69, 0.5); }
+            100% { transform: scale(1); box-shadow: none; }
+        }
+        
+        .bonus-highlight {
+            animation: bonus-glow 1.5s ease;
+        }
+        
+        @keyframes bonus-glow {
+            0% { box-shadow: none; }
+            50% { box-shadow: 0 0 25px rgba(220, 53, 69, 0.6); }
+            100% { box-shadow: none; }
+        }
+    `;
+    document.head.appendChild(styleElement);
+    
+    // Resaltar enlaces de navegación activos
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         if (link.getAttribute('href') === 'optimizacion-express.html') {
@@ -140,4 +333,77 @@ document.addEventListener('DOMContentLoaded', function() {
             link.classList.remove('active');
         }
     });
+    
+    // Animaciones al hacer scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    // Función para comprobar si un elemento es visible en la ventana
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.75 &&
+            rect.bottom >= 0
+        );
+    }
+    
+    // Función para animar elementos cuando son visibles
+    function animateElementsOnScroll() {
+        fadeElements.forEach(element => {
+            if (isElementInViewport(element) && !element.classList.contains('visible')) {
+                element.classList.add('visible');
+            }
+        });
+    }
+    
+    // Llamar a la función inicialmente
+    animateElementsOnScroll();
+    
+    // Y al hacer scroll
+    window.addEventListener('scroll', animateElementsOnScroll);
+    
+    // Smooth scroll para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Manejar el formulario de HubSpot
+    // Verificar periódicamente si el iframe del formulario está cargado
+    let hubspotFormCheck = setInterval(() => {
+        const hubspotFrame = document.querySelector('.hs-form-frame iframe');
+        if (hubspotFrame) {
+            clearInterval(hubspotFormCheck);
+            console.log('Formulario de HubSpot cargado correctamente');
+            
+            // Cuando el formulario está completamente cargado, hacer scroll hasta él si hay un hash en la URL
+            if (window.location.hash === '#contacto-form') {
+                setTimeout(() => {
+                    const formElement = document.getElementById('contacto-form');
+                    if (formElement) {
+                        window.scrollTo({
+                            top: formElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 500);
+            }
+        }
+    }, 1000);
+    
+    // Detener el intervalo después de 10 segundos de intentos
+    setTimeout(() => {
+        clearInterval(hubspotFormCheck);
+    }, 10000);
 });
