@@ -190,3 +190,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Llamar una vez para animar elementos visibles inicialmente
     handleScrollAnimations();
 });
+
