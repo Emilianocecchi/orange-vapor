@@ -1540,41 +1540,97 @@ p {
 }
 
 /* CTA Flotante */
+
 .cta-flotante {
     position: fixed;
     bottom: 30px;
     right: 30px;
     z-index: 99;
+    perspective: 1000px; /* Added for potential 3D effects */
 }
 
 .btn-flotante {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     padding: 12px 20px;
     background-color: #00829b;
     color: #FFFFFF;
     border-radius: 9999px;
     font-weight: 600;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 
+        0 8px 30px rgba(0, 0, 0, 0.12),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Added subtle shadow */
+    transition: 
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.2s ease; /* Smoothed transitions */
+    text-decoration: none; /* Ensures no underline if used as a link */
+    outline: none;
+    border: none;
+    cursor: pointer;
+    will-change: transform, box-shadow; /* Performance optimization */
 }
 
 .btn-flotante:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px) scale(1.03); /* Slight scale on hover */
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.15),
+        0 6px 10px -2px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+    background-color: #006a80; /* Inherits the hover color from original */
+}
+
+.btn-flotante:focus-visible {
+    outline: 2px solid rgba(0, 130, 155, 0.5); /* Accessibility focus state */
+    outline-offset: 3px;
 }
 
 .btn-flotante i {
     font-size: 1.125rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
 }
 
 .email-btn-flotante {
     background-color: #00829b;
+    position: relative;
+    overflow: hidden; /* For potential hover effects */
 }
 
 .email-btn-flotante:hover {
     background-color: #006a80;
+}
+
+/* Optional: Add a subtle pulse animation */
+@keyframes subtle-pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.btn-flotante.pulse {
+    animation: subtle-pulse 2s infinite;
+}
+
+/* Responsive considerations */
+@media (max-width: 600px) {
+    .cta-flotante {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .btn-flotante {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
 }
 
 /* ==========================================================================
