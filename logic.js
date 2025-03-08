@@ -1,6 +1,6 @@
 /**
- * Orange Vapor - JavaScript Principal
- * Añade interactividad y funcionalidades al sitio web
+ * Orange Vapor - JavaScript Optimizado
+ * Enfocado en la experiencia del usuario y claridad del mensaje principal (Grunt Test)
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Activar enlace correspondiente
         if (filename === '' || filename === 'index.html') {
-            // Home page - ningún enlace activo o especial para home
+            // En la home page, se maneja con el scroll
         } else if (filename.includes('ads.html')) {
             const adsLink = document.querySelector('a[href="ads.html"]');
             if (adsLink) adsLink.classList.add('active');
@@ -128,11 +128,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Sólo actualizar enlaces internos de la página principal
-            document.querySelectorAll('a[href^="#"]').forEach(link => {
+            // Actualizar enlaces de navegación principal
+            document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
+                const href = link.getAttribute('href');
+                if (href) {
+                    const sectionId = href.startsWith('#') ? href.substring(1) : href.split('#')[1];
+                    if (sectionId === current) {
+                        link.classList.add('active');
+                    }
                 }
             });
         }
@@ -154,22 +158,36 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
+                // Offset más pequeño para asegurar que se vea el encabezado de la sección
+                const navOffset = 80;
+                
                 window.scrollTo({
-                    top: targetElement.offsetTop - 80,
+                    top: targetElement.offsetTop - navOffset,
                     behavior: 'smooth'
                 });
+                
+                // Actualizar URL para reflejar la sección (mejora UX y permite compartir enlaces)
+                history.pushState(null, null, targetId);
             }
         });
     });
     
     // =========================================================================
-    // ANIMACIONES AL SCROLL
+    // ANIMACIONES AL SCROLL - Optimizadas para enfatizar contenido clave
     // =========================================================================
     
     // Detectar elementos para animar al hacer scroll
     const fadeElements = document.querySelectorAll('.fade-in');
     
-    // Crear un observador de intersección para activar animaciones
+    // Animación inmediata para elementos clave en la vista inicial (hero section)
+    const heroFadeElements = document.querySelectorAll('#home .fade-in');
+    heroFadeElements.forEach(element => {
+        setTimeout(() => {
+            element.classList.add('visible');
+        }, 300); // Pequeño retraso para asegurar que todo esté cargado
+    });
+    
+    // Crear un observador de intersección para activar animaciones al hacer scroll
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -183,13 +201,15 @@ document.addEventListener('DOMContentLoaded', function() {
         rootMargin: '0px 0px -50px 0px'
     });
     
-    // Observar todos los elementos con la clase fade-in
+    // Observar todos los elementos con la clase fade-in (excepto los del hero)
     fadeElements.forEach(element => {
-        observer.observe(element);
+        if (!element.closest('#home')) {
+            observer.observe(element);
+        }
     });
     
     // =========================================================================
-    // EFECTOS DE VAPOR
+    // EFECTOS DE VAPOR - Mantenidos pero optimizados
     // =========================================================================
     
     // Añadir efectos de vapor dinámicos
@@ -197,16 +217,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const vaporEffect = document.querySelector('.vapor-effect');
         if (!vaporEffect) return;
         
+        // Reducimos el número de burbujas para mejorar rendimiento
+        const maxBubbles = 5;
+        let bubbleCount = 0;
+        
         // Función para crear burbujas de vapor aleatoriamente
         function createRandomBubble() {
+            // Limitar número máximo de burbujas activas
+            if (bubbleCount >= maxBubbles) return;
+            
             const bubble = document.createElement('div');
             bubble.classList.add('vapor-bubble');
             
             // Posicionamiento aleatorio
             const posX = Math.random() * 100; // posición X en porcentaje
-            const size = 50 + Math.random() * 200; // tamaño entre 50 y 250px
-            const delay = Math.random() * 5; // retraso de animación de 0 a 5 segundos
-            const duration = 10 + Math.random() * 20; // duración entre 10 y 30 segundos
+            const size = 50 + Math.random() * 150; // tamaño entre 50 y 200px
+            const delay = Math.random() * 3; // retraso de animación de 0 a 3 segundos
+            const duration = 10 + Math.random() * 10; // duración entre 10 y 20 segundos
             
             // Aplicar estilos
             bubble.style.width = `${size}px`;
@@ -218,32 +245,37 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Añadir burbuja al DOM
             vaporEffect.appendChild(bubble);
+            bubbleCount++;
             
             // Eliminar burbuja después de que termine la animación
             setTimeout(() => {
                 bubble.remove();
+                bubbleCount--;
             }, (delay + duration) * 1000);
         }
         
         // Crear burbujas periódicamente
-        setInterval(createRandomBubble, 3000);
+        setInterval(createRandomBubble, 5000); // Reducimos frecuencia para mejor rendimiento
         
         // Crear algunas burbujas iniciales
         for (let i = 0; i < 3; i++) {
-            createRandomBubble();
+            setTimeout(() => createRandomBubble(), i * 1000);
         }
     }
     
-    // Ejecutar la creación de burbujas de vapor
-    createVaporBubbles();
+    // Ejecutar la creación de burbujas de vapor solo si estamos en desktop
+    if (window.innerWidth > 768) {
+        createVaporBubbles();
+    }
     
     // =========================================================================
-    // ANIMACIÓN DE MÉTRICAS
+    // ANIMACIÓN DE MÉTRICAS - Adaptada para presentar los resultados claramente
     // =========================================================================
     
     // Animar los valores de métricas cuando son visibles
     const metricElements = document.querySelectorAll('.metric-after');
     
+    // Mejorar la observación de métricas para asegurar que se animen
     const metricObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -262,12 +294,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Utilizamos requestAnimationFrame para una animación suave
                         let startTime = null;
-                        const duration = 2000; // 2 segundos de duración
+                        const duration = 1500; // 1.5 segundos de duración (más rápido que antes)
                         
                         function animateValue(timestamp) {
                             if (!startTime) startTime = timestamp;
                             const progress = Math.min((timestamp - startTime) / duration, 1);
-                            const currentValue = startValue + progress * (endValue - startValue);
+                            
+                            // Usamos una función de ease-out para que se desacelere al final
+                            const easeOutProgress = 1 - Math.pow(1 - progress, 3);
+                            const currentValue = startValue + easeOutProgress * (endValue - startValue);
                             
                             // Formatear el valor con los decimales correctos
                             const formattedValue = currentValue.toFixed(decimalPlaces);
@@ -275,6 +310,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             
                             if (progress < 1) {
                                 requestAnimationFrame(animateValue);
+                            } else {
+                                // Al finalizar, destacar el valor final con un pequeño efecto
+                                metric.style.transform = 'scale(1.05)';
+                                setTimeout(() => {
+                                    metric.style.transform = 'scale(1)';
+                                }, 150);
                             }
                         }
                         
@@ -290,7 +331,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }, {
-        threshold: 0.5
+        threshold: 0.5,
+        rootMargin: '0px 0px -10% 0px' // Activar un poco antes para mejor efecto
     });
     
     // Observar todos los elementos de métricas
@@ -299,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // =========================================================================
-    // FORMULARIO DE CONTACTO Y HUBSPOT
+    // FORMULARIO DE CONTACTO Y HUBSPOT - Optimizado para conversión
     // =========================================================================
     
     // Comprobar si el formulario de HubSpot está listo
@@ -308,6 +350,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (hsFormFrame && typeof window.hbspt !== 'undefined') {
             // HubSpot está disponible, podríamos hacer personalizaciones adicionales aquí
             console.log('HubSpot form is ready');
+            
+            // Añadir enfoque automático al formulario si se llegó desde un CTA
+            if (window.location.hash === '#contacto-form' || window.location.hash === '#contacto') {
+                setTimeout(() => {
+                    const formIframe = hsFormFrame.querySelector('iframe');
+                    if (formIframe) {
+                        // Intentar enfocar el iframe
+                        formIframe.focus();
+                    }
+                }, 1000);
+            }
         }
     }
     
@@ -315,30 +368,42 @@ document.addEventListener('DOMContentLoaded', function() {
     let hubspotCheckInterval = setInterval(() => {
         checkHubspotForm();
         
-        // Después de 10 segundos, dejamos de verificar
+        // Después de 5 segundos, dejamos de verificar
         setTimeout(() => {
             clearInterval(hubspotCheckInterval);
-        }, 10000);
+        }, 5000);
     }, 1000);
     
     // =========================================================================
-    // BOTONES CTA
+    // BOTONES CTA - Mejorados para facilitar la conversión
     // =========================================================================
     
     // Función para scroll suave al formulario de contacto desde botones CTA
     const ctaButtons = document.querySelectorAll(
         '.hero-buttons .btn, ' +
         '.cta-box .btn, ' +
-        '.cta-section .btn, ' +
         '.btn-outline[href="#contacto"], ' +
         '.nav-cta .btn, ' +
-        '.garantia-box .btn, ' +
         '.btn-flotante, ' +
         '.proceso-card .btn'
     );
     
-    // Agregar event listener a cada botón
+    // Agregar event listener con destacado al hacer clic
     ctaButtons.forEach(button => {
+        // Añadir efecto de pulsación al hacer click
+        button.addEventListener('mousedown', function() {
+            this.style.transform = 'scale(0.95)';
+        });
+        
+        button.addEventListener('mouseup', function() {
+            this.style.transform = '';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+        });
+        
+        // Gestionar navegación
         button.addEventListener('click', function(event) {
             // Solo prevenir si el enlace es interno
             const href = this.getAttribute('href');
@@ -349,14 +414,53 @@ document.addEventListener('DOMContentLoaded', function() {
                 const contactForm = document.getElementById('contacto-form');
                 
                 if (contactForm) {
-                    // Calcular la posición del formulario
+                    // Añadir indicador visual para guiar al usuario
                     const formPosition = contactForm.getBoundingClientRect().top + window.pageYOffset;
+                    
+                    // Crear indicador pulsante temporal
+                    const indicator = document.createElement('div');
+                    indicator.style.position = 'absolute';
+                    indicator.style.top = '-20px';
+                    indicator.style.left = '50%';
+                    indicator.style.transform = 'translateX(-50%)';
+                    indicator.style.width = '40px';
+                    indicator.style.height = '40px';
+                    indicator.style.borderRadius = '50%';
+                    indicator.style.backgroundColor = 'rgba(255, 126, 0, 0.3)';
+                    indicator.style.zIndex = '10';
+                    indicator.style.animation = 'pulse 1.5s infinite';
+                    
+                    // Añadir keyframes para la animación
+                    if (!document.querySelector('#pulse-animation')) {
+                        const styleSheet = document.createElement('style');
+                        styleSheet.id = 'pulse-animation';
+                        styleSheet.textContent = `
+                            @keyframes pulse {
+                                0% { transform: translateX(-50%) scale(0.8); opacity: 0.8; }
+                                50% { transform: translateX(-50%) scale(1.2); opacity: 0.6; }
+                                100% { transform: translateX(-50%) scale(0.8); opacity: 0.8; }
+                            }
+                        `;
+                        document.head.appendChild(styleSheet);
+                    }
+                    
+                    // Añadir al formulario
+                    contactForm.style.position = 'relative';
+                    contactForm.appendChild(indicator);
+                    
+                    // Eliminar después de 3 segundos
+                    setTimeout(() => {
+                        indicator.remove();
+                    }, 3000);
                     
                     // Hacer scroll suave hasta el formulario
                     window.scrollTo({
                         top: formPosition - 100,
                         behavior: 'smooth'
                     });
+                    
+                    // Actualizar la URL para reflejar el objetivo
+                    history.pushState(null, null, '#contacto-form');
                 } else if (href.startsWith('#')) {
                     // Si no hay formulario pero es un enlace de anclaje, navegar al ancla
                     const targetElement = document.querySelector(href);
@@ -365,11 +469,93 @@ document.addEventListener('DOMContentLoaded', function() {
                             top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
+                        
+                        // Actualizar la URL
+                        history.pushState(null, null, href);
                     }
                 }
             }
         });
     });
+    
+    // =========================================================================
+    // OPTIMIZACIÓN MOBILE - Mejor experiencia en dispositivos móviles
+    // =========================================================================
+    
+    // Ajustes específicos para dispositivos móviles
+    function setupMobileEnhancements() {
+        if (window.innerWidth <= 768) {
+            // En móvil, hacer los CTAs más accesibles
+            const mainCTA = document.querySelector('.hero-buttons .btn');
+            if (mainCTA) {
+                mainCTA.style.width = '100%';
+                mainCTA.style.padding = '16px 24px';
+                mainCTA.style.fontSize = '1.1rem';
+            }
+            
+            // Simplificar animaciones para mejor rendimiento
+            document.body.classList.add('mobile-optimized');
+            
+            // Ajustar scroll del hero para mejor vista del contenido
+            const heroButtons = document.querySelector('.hero-buttons');
+            if (heroButtons) {
+                heroButtons.addEventListener('click', function() {
+                    const serviciosSection = document.getElementById('servicios');
+                    if (serviciosSection) {
+                        setTimeout(() => {
+                            window.scrollTo({
+                                top: serviciosSection.offsetTop - 70,
+                                behavior: 'smooth'
+                            });
+                        }, 200);
+                    }
+                });
+            }
+        }
+    }
+    
+    // Ejecutar optimizaciones para móvil
+    setupMobileEnhancements();
+    
+    // Reconfigurar en cambio de tamaño
+    window.addEventListener('resize', function() {
+        setupMobileEnhancements();
+    });
+    
+    // =========================================================================
+    // CARGA DIFERIDA DE IMÁGENES - Mejor rendimiento
+    // =========================================================================
+    
+    // Lazy load para imágenes que no están en la vista inicial
+    const lazyImages = document.querySelectorAll('img:not(.profile-image)');
+    
+    if ('loading' in HTMLImageElement.prototype) {
+        // Navegador soporta lazy loading nativo
+        lazyImages.forEach(img => {
+            img.loading = 'lazy';
+        });
+    } else {
+        // Fallback para navegadores que no soportan lazy loading
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const src = img.getAttribute('data-src');
+                    if (src) {
+                        img.src = src;
+                        img.removeAttribute('data-src');
+                    }
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        lazyImages.forEach(img => {
+            if (!img.src && img.getAttribute('data-src')) {
+                imageObserver.observe(img);
+            }
+        });
+    }
     
     // =========================================================================
     // INICIALIZACIÓN Y FINALIZACIÓN
@@ -380,19 +566,85 @@ document.addEventListener('DOMContentLoaded', function() {
         // Eliminar cualquier clase de precarga si existe
         document.body.classList.remove('preload');
         
-        // Activar la primera sección de animación
-        const firstSection = document.querySelector('.hero');
-        if (firstSection) {
-            const fadeElements = firstSection.querySelectorAll('.fade-in');
-            fadeElements.forEach(el => {
-                el.classList.add('visible');
-            });
-        }
-        
         // Iniciar animación de scroll
         const scrollIndicator = document.querySelector('.scroll-indicator');
         if (scrollIndicator) {
             scrollIndicator.style.opacity = '1';
+        }
+        
+        // Verificar si hay un hash en la URL para navegar directamente
+        if (window.location.hash) {
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }, 500);
+            }
+        }
+    });
+    
+    // Interactividad para los service-pills en el hero
+    const servicePills = document.querySelectorAll('.service-pill');
+    
+    servicePills.forEach(pill => {
+        pill.addEventListener('click', function() {
+            // Determinar qué sección debe mostrarse basado en la clase del pill
+            let targetSection = '#servicios';
+            
+            if (this.classList.contains('express-pill')) {
+                targetSection = '#optimizacion-express';
+            }
+            
+            // Scroll a la sección correspondiente
+            const section = document.querySelector(targetSection);
+            if (section) {
+                window.scrollTo({
+                    top: section.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Destacar brevemente la tarjeta correspondiente en la sección de servicios
+                if (targetSection === '#servicios') {
+                    let serviceCard = null;
+                    
+                    if (this.classList.contains('ads-pill')) {
+                        serviceCard = document.querySelector('.soluciones-card.ads');
+                    } else if (this.classList.contains('email-pill')) {
+                        serviceCard = document.querySelector('.soluciones-card.email');
+                    } else if (this.classList.contains('chatbot-pill')) {
+                        serviceCard = document.querySelector('.soluciones-card.chatbot');
+                    }
+                    
+                    if (serviceCard) {
+                        serviceCard.style.transform = 'scale(1.05)';
+                        serviceCard.style.boxShadow = 'var(--sombra-fuerte)';
+                        setTimeout(() => {
+                            serviceCard.style.transform = '';
+                            serviceCard.style.boxShadow = '';
+                        }, 2000);
+                    }
+                }
+            }
+        });
+    });
+
+    // Mostrar inmediatamente el contenido crítico para el Grunt Test
+    // Asegurarnos que los elementos clave se muestran sin esperar animaciones
+    const criticalElements = [
+        document.querySelector('#home h1'),
+        document.querySelector('#home .hero-subtitle'),
+        document.querySelector('#home .grunt-test-services'),
+        document.querySelector('#home .grunt-test-points'),
+        document.querySelector('#home .hero-buttons'),
+        document.querySelector('#servicios .seccion-titulo')
+    ];
+    
+    criticalElements.forEach(el => {
+        if (el && el.closest('.fade-in')) {
+            el.closest('.fade-in').classList.add('visible');
         }
     });
 });
