@@ -1,6 +1,6 @@
 /**
- * Orange Vapor - Chatbot Landing Page
- * JavaScript Específico para la landing page de Chatbot
+ * Orange Vapor - Contacto Landing Page
+ * JavaScript Específico para la landing page de Contacto
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     scrollTopBtn.style.position = 'fixed';
     scrollTopBtn.style.bottom = '20px';
     scrollTopBtn.style.right = '20px';
-    scrollTopBtn.style.backgroundColor = '#6f42c1';
+    scrollTopBtn.style.backgroundColor = '#FF7E00';
     scrollTopBtn.style.color = 'white';
     scrollTopBtn.style.width = '50px';
     scrollTopBtn.style.height = '50px';
@@ -43,362 +43,253 @@ document.addEventListener('DOMContentLoaded', function() {
     scrollTopBtn.style.zIndex = '99';
     scrollTopBtn.style.transition = 'all 0.3s ease';
     
-    // Añadir un chatbot de demostración (simulado)
-    setTimeout(function() {
-        // Crear el botón de chatbot
-        const chatbotBtn = document.createElement('button');
-        chatbotBtn.className = 'chatbot-demo-btn';
-        chatbotBtn.innerHTML = '<i class="fas fa-comment"></i>';
-        chatbotBtn.setAttribute('aria-label', 'Abrir demo de chatbot');
-        document.body.appendChild(chatbotBtn);
-        
-        // Crear el contenedor del chatbot
-        const chatbotContainer = document.createElement('div');
-        chatbotContainer.className = 'chatbot-demo-container';
-        chatbotContainer.style.display = 'none';
-        
-        // Cabecera del chatbot
-        const chatbotHeader = document.createElement('div');
-        chatbotHeader.className = 'chatbot-demo-header';
-        chatbotHeader.innerHTML = `
-            <div class="chatbot-title">
-                <i class="fas fa-robot"></i> Chatbot Demo
-            </div>
-            <button class="chatbot-close"><i class="fas fa-times"></i></button>
-        `;
-        
-        // Contenido del chatbot
-        const chatbotContent = document.createElement('div');
-        chatbotContent.className = 'chatbot-demo-content';
-        chatbotContent.innerHTML = `
-            <div class="chat-message bot">
-                <p>👋 ¡Hola! Soy el chatbot de demostración de Orange Vapor. ¿En qué puedo ayudarte hoy?</p>
-            </div>
-            <div class="chat-options">
-                <button class="chat-option">💡 ¿Qué son los chatbots?</button>
-                <button class="chat-option">💰 ¿Cuánto cuesta un chatbot?</button>
-                <button class="chat-option">🔧 ¿Cómo funciona?</button>
-                <button class="chat-option">📞 Quiero hablar con un humano</button>
-            </div>
-        `;
-        
-        // Pie del chatbot
-        const chatbotFooter = document.createElement('div');
-        chatbotFooter.className = 'chatbot-demo-footer';
-        chatbotFooter.innerHTML = `
-            <input type="text" placeholder="Escribe tu mensaje..." disabled>
-            <button class="chatbot-send-btn" disabled><i class="fas fa-paper-plane"></i></button>
-        `;
-        
-        // Ensamblar el chatbot
-        chatbotContainer.appendChild(chatbotHeader);
-        chatbotContainer.appendChild(chatbotContent);
-        chatbotContainer.appendChild(chatbotFooter);
-        document.body.appendChild(chatbotContainer);
-        
-        // Estilos del chatbot
-        chatbotBtn.style.position = 'fixed';
-        chatbotBtn.style.bottom = '20px';
-        chatbotBtn.style.left = '20px';
-        chatbotBtn.style.width = '60px';
-        chatbotBtn.style.height = '60px';
-        chatbotBtn.style.borderRadius = '50%';
-        chatbotBtn.style.backgroundColor = '#6f42c1';
-        chatbotBtn.style.color = 'white';
-        chatbotBtn.style.border = 'none';
-        chatbotBtn.style.fontSize = '24px';
-        chatbotBtn.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
-        chatbotBtn.style.cursor = 'pointer';
-        chatbotBtn.style.zIndex = '1000';
-        chatbotBtn.style.transition = 'all 0.3s ease';
-        
-        chatbotContainer.style.position = 'fixed';
-        chatbotContainer.style.bottom = '90px';
-        chatbotContainer.style.left = '20px';
-        chatbotContainer.style.width = '350px';
-        chatbotContainer.style.height = '450px';
-        chatbotContainer.style.borderRadius = '10px';
-        chatbotContainer.style.backgroundColor = 'white';
-        chatbotContainer.style.boxShadow = '0 5px 25px rgba(0,0,0,0.2)';
-        chatbotContainer.style.display = 'none';
-        chatbotContainer.style.flexDirection = 'column';
-        chatbotContainer.style.overflow = 'hidden';
-        chatbotContainer.style.zIndex = '1000';
-        chatbotContainer.style.transition = 'all 0.3s ease';
-        
-        chatbotHeader.style.padding = '15px';
-        chatbotHeader.style.backgroundColor = '#6f42c1';
-        chatbotHeader.style.color = 'white';
-        chatbotHeader.style.display = 'flex';
-        chatbotHeader.style.justifyContent = 'space-between';
-        chatbotHeader.style.alignItems = 'center';
-        
-        chatbotContent.style.flex = '1';
-        chatbotContent.style.padding = '15px';
-        chatbotContent.style.overflowY = 'auto';
-        
-        chatbotFooter.style.padding = '10px 15px';
-        chatbotFooter.style.borderTop = '1px solid #eee';
-        chatbotFooter.style.display = 'flex';
-        
-        // Estilos para los elementos dentro del chatbot
-        const style = document.createElement('style');
-        style.textContent = `
-            .chat-message {
-                margin-bottom: 15px;
-                max-width: 80%;
-            }
-            .chat-message.bot {
-                margin-right: auto;
-            }
-            .chat-message.user {
-                margin-left: auto;
-            }
-            .chat-message p {
-                padding: 10px 15px;
-                border-radius: 15px;
-                margin: 0;
-            }
-            .chat-message.bot p {
-                background-color: #f0f0f0;
-            }
-            .chat-message.user p {
-                background-color: #6f42c1;
-                color: white;
-            }
-            .chat-options {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-                margin-top: 15px;
-            }
-            .chat-option {
-                padding: 10px;
-                background-color: #f9f7fc;
-                border: 1px solid #e6e6e6;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                text-align: left;
-                font-size: 14px;
-            }
-            .chat-option:hover {
-                background-color: #f0ebfa;
-                border-color: #6f42c1;
-            }
-            .chatbot-demo-footer input {
-                flex: 1;
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 20px;
-                margin-right: 10px;
-            }
-            .chatbot-send-btn {
-                background-color: #6f42c1;
-                color: white;
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border: none;
-            }
-            .chatbot-close {
-                background: transparent;
-                border: none;
-                color: white;
-                font-size: 16px;
-                cursor: pointer;
-            }
-            .chatbot-title {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                font-weight: 600;
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Evento de toggle para el chatbot
-        chatbotBtn.addEventListener('click', function() {
-            if (chatbotContainer.style.display === 'none') {
-                chatbotContainer.style.display = 'flex';
-                chatbotBtn.innerHTML = '<i class="fas fa-times"></i>';
-                
-                // Animación de entrada
-                chatbotContainer.style.opacity = '0';
-                chatbotContainer.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    chatbotContainer.style.opacity = '1';
-                    chatbotContainer.style.transform = 'translateY(0)';
-                }, 50);
-            } else {
-                // Animación de salida
-                chatbotContainer.style.opacity = '0';
-                chatbotContainer.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    chatbotContainer.style.display = 'none';
-                    chatbotBtn.innerHTML = '<i class="fas fa-comment"></i>';
-                }, 300);
-            }
-        });
-        
-        // Cerrar chatbot al hacer clic en el botón de cerrar
-        document.querySelector('.chatbot-close').addEventListener('click', function() {
-            chatbotContainer.style.opacity = '0';
-            chatbotContainer.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                chatbotContainer.style.display = 'none';
-                chatbotBtn.innerHTML = '<i class="fas fa-comment"></i>';
-            }, 300);
-        });
-        
-        // Interactividad de las opciones del chatbot
-        document.querySelectorAll('.chat-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Mostrar la opción seleccionada como mensaje del usuario
-                const chatContent = document.querySelector('.chatbot-demo-content');
-                const userMessageEl = document.createElement('div');
-                userMessageEl.className = 'chat-message user';
-                userMessageEl.innerHTML = `<p>${this.textContent}</p>`;
-                chatContent.appendChild(userMessageEl);
-                
-                // Ocultar las opciones actuales
-                document.querySelector('.chat-options').remove();
-                
-                // Simular "escribiendo..."
-                const typingEl = document.createElement('div');
-                typingEl.className = 'chat-message bot';
-                typingEl.innerHTML = `<p>Escribiendo...</p>`;
-                chatContent.appendChild(typingEl);
-                chatContent.scrollTop = chatContent.scrollHeight;
-                
-                // Respuesta del bot después de un breve retraso
-                setTimeout(() => {
-                    typingEl.remove();
-                    
-                    // Respuesta del bot basada en la opción seleccionada
-                    const botResponse = document.createElement('div');
-                    botResponse.className = 'chat-message bot';
-                    
-                    let responseText = '';
-                    let newOptions = [];
-                    
-                    if (this.textContent.includes('¿Qué son los chatbots?')) {
-                        responseText = 'Los chatbots son programas informáticos que simulan conversaciones humanas. Permiten automatizar la comunicación con clientes, responder preguntas frecuentes y calificar leads, entre otras funciones.';
-                        newOptions = ['¿Cuánto tiempo lleva implementar un chatbot?', '¿Necesito conocimientos técnicos?'];
-                    } else if (this.textContent.includes('¿Cuánto cuesta un chatbot?')) {
-                        responseText = 'Nuestros planes de chatbot comienzan desde $299/mes para el plan básico. También ofrecemos soluciones personalizadas según tus necesidades específicas.';
-                        newOptions = ['¿Qué incluye el plan básico?', '¿Hay período de prueba?'];
-                    } else if (this.textContent.includes('¿Cómo funciona?')) {
-                        responseText = 'Nuestros chatbots funcionan 24/7 atendiendo consultas, calificando leads y automatizando procesos. Se integran con tu sitio web, WhatsApp, Facebook y otras plataformas.';
-                        newOptions = ['¿Se integra con mi CRM?', '¿Puedo personalizar las respuestas?'];
-                    } else if (this.textContent.includes('hablar con un humano')) {
-                        responseText = 'Por supuesto. Completa el formulario de contacto y uno de nuestros especialistas te contactará en menos de 24 horas.';
-                        newOptions = ['Agendar llamada', 'Volver al inicio'];
-                    } else {
-                        responseText = 'Gracias por tu interés. Para recibir información más detallada, te recomendamos completar el formulario de contacto.';
-                        newOptions = ['Entendido', 'Volver al inicio'];
-                    }
-                    
-                    botResponse.innerHTML = `<p>${responseText}</p>`;
-                    chatContent.appendChild(botResponse);
-                    
-                    // Nuevas opciones
-                    const newOptionsEl = document.createElement('div');
-                    newOptionsEl.className = 'chat-options';
-                    
-                    newOptions.forEach(optionText => {
-                        const optionBtn = document.createElement('button');
-                        optionBtn.className = 'chat-option';
-                        optionBtn.textContent = optionText;
-                        optionBtn.addEventListener('click', function() {
-                            // Similar a la lógica anterior pero simplificada
-                            const userMsg = document.createElement('div');
-                            userMsg.className = 'chat-message user';
-                            userMsg.innerHTML = `<p>${this.textContent}</p>`;
-                            chatContent.appendChild(userMsg);
-                            
-                            newOptionsEl.remove();
-                            
-                            // Mensaje final que dirige al formulario
-                            setTimeout(() => {
-                                const finalMsg = document.createElement('div');
-                                finalMsg.className = 'chat-message bot';
-                                finalMsg.innerHTML = `<p>Para obtener información personalizada y una demostración completa, te invitamos a completar el formulario de contacto. ¡Estaremos encantados de ayudarte!</p>`;
-                                chatContent.appendChild(finalMsg);
-                                chatContent.scrollTop = chatContent.scrollHeight;
-                            }, 800);
-                        });
-                        newOptionsEl.appendChild(optionBtn);
-                    });
-                    
-                    chatContent.appendChild(newOptionsEl);
-                    chatContent.scrollTop = chatContent.scrollHeight;
-                }, 1500);
-            });
-        });
-    }, 3000); // Mostrar el chatbot después de 3 segundos
+    // Mejora del header al hacer scroll
+    const header = document.getElementById('header');
     
-    // Formulario de contacto
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validación básica del formulario
-            const nombre = document.getElementById('nombre').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const telefono = document.getElementById('telefono').value.trim();
-            
-            if (!nombre || !email || !telefono) {
-                alert('Por favor, completa todos los campos requeridos.');
-                return;
-            }
-            
-            // Mensaje personalizado según objetivo seleccionado
-            const objetivo = document.getElementById('objetivo').value;
-            let mensaje = '¡Gracias por contactarnos! ';
-            
-            switch(objetivo) {
-                case 'atencion':
-                    mensaje += 'Te mostraremos cómo mejorar la atención al cliente con nuestros chatbots automatizados.';
-                    break;
-                case 'ventas':
-                    mensaje += 'Te explicaremos cómo nuestros chatbots pueden incrementar tus ventas a través de conversiones automatizadas.';
-                    break;
-                case 'leads':
-                    mensaje += 'Te demostraremos cómo nuestros chatbots pueden captar y calificar leads de forma efectiva.';
-                    break;
-                case 'costos':
-                    mensaje += 'Te mostraremos cómo reducir tus costos operativos automatizando la atención con chatbots.';
-                    break;
-                default:
-                    mensaje += 'Pronto te contactaremos para mostrarte una demo de nuestros chatbots.';
-            }
-            
-            alert(mensaje);
-            
-            // Restablecer el formulario
-            contactForm.reset();
-        });
+    function updateHeaderState() {
+        if (window.scrollY > 50) {
+            header.classList.add('sticky');
+        } else {
+            header.classList.remove('sticky');
+        }
     }
     
-    // Inicializar las animaciones de elementos visibles al cargar
-    function initVisibleAnimations() {
-        const fadeElements = document.querySelectorAll('.fade-in');
-        fadeElements.forEach(element => {
-            const rect = element.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
+    // Inicializar el estado del header al cargar
+    updateHeaderState();
+    
+    // Actualizar el estado del header al hacer scroll
+    window.addEventListener('scroll', updateHeaderState);
+    
+    // Interactividad para los FAQs
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            // Comprobar si este FAQ ya está activo
+            const isActive = item.classList.contains('active');
             
-            if (rect.top <= windowHeight * 0.75) {
+            // Cerrar todos los FAQs abiertos
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+            
+            // Si este FAQ no estaba activo, abrirlo
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+    
+    // Abrir el primer FAQ por defecto
+    if (faqItems.length > 0) {
+        faqItems[0].classList.add('active');
+    }
+    
+    // Navegación suave para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Actualizar URL para reflejar la sección (mejora UX y permite compartir enlaces)
+                history.pushState(null, null, targetId);
+            }
+        });
+    });
+    
+    // Animación para los elementos benefits-card al hacer hover
+    const benefitCards = document.querySelectorAll('.benefit-card');
+    benefitCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+            this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.1)';
+            
+            // Animar el ícono del beneficio
+            const icon = this.querySelector('.benefit-icon');
+            if (icon) {
+                icon.style.transform = 'scale(1.1)';
+                icon.style.backgroundColor = 'rgba(255, 126, 0, 0.2)';
+                icon.style.transition = 'all 0.3s ease';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.05)';
+            
+            // Restaurar el ícono del beneficio
+            const icon = this.querySelector('.benefit-icon');
+            if (icon) {
+                icon.style.transform = 'scale(1)';
+                icon.style.backgroundColor = 'rgba(255, 126, 0, 0.1)';
+            }
+        });
+    });
+    
+    // Animación de entrada para elementos visibles
+    function checkVisibility() {
+        const elements = document.querySelectorAll('.fade-in');
+        const windowHeight = window.innerHeight;
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            
+            if (elementPosition < windowHeight * 0.9) { // Elemento visible al 90% del viewport
                 element.classList.add('visible');
             }
         });
     }
     
-    // Llamar a la función al cargar la página
-    setTimeout(initVisibleAnimations, 100);
+    // Verificar la visibilidad de los elementos al cargar la página
+    checkVisibility();
+    
+    // Verificar la visibilidad al hacer scroll
+    window.addEventListener('scroll', checkVisibility);
+    
+    // Verificar si HubSpot form está cargado
+    function checkHubspotForm() {
+        const hsFormFrame = document.querySelector('.hs-form-frame');
+        if (hsFormFrame && typeof window.hbspt !== 'undefined') {
+            console.log('HubSpot form is ready');
+            
+            // Si llegamos al formulario desde un enlace, enfocar el formulario
+            if (window.location.hash === '#contacto-form') {
+                setTimeout(() => {
+                    const formIframe = hsFormFrame.querySelector('iframe');
+                    if (formIframe) {
+                        formIframe.focus();
+                    }
+                }, 1000);
+            }
+        }
+    }
+    
+    // Verificar periódicamente si HubSpot form está listo
+    let hubspotCheckInterval = setInterval(() => {
+        checkHubspotForm();
+        
+        // Después de 5 segundos, detener la verificación
+        setTimeout(() => {
+            clearInterval(hubspotCheckInterval);
+        }, 5000);
+    }, 1000);
+    
+    // Animación para los enlaces de redes sociales
+    const socialLinks = document.querySelectorAll('.social-icons a');
+    socialLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) rotate(5deg)';
+            this.style.backgroundColor = '#FF7E00';
+            this.style.color = '#FFFFFF';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) rotate(0)';
+            this.style.backgroundColor = 'rgba(255, 126, 0, 0.1)';
+            this.style.color = '#FF7E00';
+        });
+    });
+    
+    // Mobile nav toggle
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            mobileToggle.setAttribute('aria-expanded', 
+                mobileToggle.getAttribute('aria-expanded') === 'false' ? 'true' : 'false'
+            );
+        });
+    }
+    
+    // Toggle del menú desplegable en móvil
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                this.parentElement.classList.toggle('active');
+                const icon = this.querySelector('i');
+                if (this.parentElement.classList.contains('active')) {
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    icon.style.transform = 'rotate(0)';
+                }
+            }
+        });
+    });
+    
+    // Verificar si hay un hash en la URL para navegar directamente
+    if (window.location.hash) {
+        const targetElement = document.querySelector(window.location.hash);
+        if (targetElement) {
+            setTimeout(() => {
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }, 500);
+        }
+    }
+    
+    // Efecto pulsante para el botón principal en el hero
+    function addPulseEffect() {
+        const heroCta = document.querySelector('.hero-contacto .btn:not(.btn-outline)');
+        if (heroCta) {
+            heroCta.classList.add('pulse-effect');
+            
+            // Estilos para la animación de pulso
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse-effect {
+                    0% {
+                        box-shadow: 0 0 0 0 rgba(255, 126, 0, 0.7);
+                    }
+                    70% {
+                        box-shadow: 0 0 0 15px rgba(255, 126, 0, 0);
+                    }
+                    100% {
+                        box-shadow: 0 0 0 0 rgba(255, 126, 0, 0);
+                    }
+                }
+                
+                .pulse-effect {
+                    animation: pulse-effect 2s infinite;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    
+    // Agregar efecto pulsante después de 1.5 segundos
+    setTimeout(addPulseEffect, 1500);
+    
+    // Detectar cuando el sitio está completamente cargado
+    window.addEventListener('load', function() {
+        // Eliminar cualquier clase de precarga
+        document.body.classList.remove('preload');
+        
+        // Volver a verificar la visibilidad de los elementos
+        checkVisibility();
+    });
 });
