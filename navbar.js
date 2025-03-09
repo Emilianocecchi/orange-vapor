@@ -92,33 +92,41 @@
     // HANDLERS Y FUNCIONES PRINCIPALES
     // =========================================================================
     
-    // Optimización de scroll con requestAnimationFrame
+    // Optimización mejorada de scroll con requestAnimationFrame
     function handleScroll() {
+        // Usar requestAnimationFrame para optimizar rendimiento
         if (!isScrolling) {
             window.requestAnimationFrame(() => {
+                // Llamar a updateHeaderState directamente sin condiciones adicionales
                 updateHeaderState();
+                
+                // Otras funciones relacionadas con scroll
                 updateNavActiveState();
+                
+                // Resetear flag de scroll
                 isScrolling = false;
             });
+            
             isScrolling = true;
         }
     }
     
-    // Actualizar estado del header al hacer scroll - CORREGIDO
+    // Función corregida para la animación del logo
     function updateHeaderState() {
-        const currentScroll = window.scrollY;
+        const scrollPosition = window.scrollY;
         
-        // CORRECCIÓN: Verificar dirección del scroll y actualizar apropiadamente
-        if (currentScroll <= 50) {
-            // Si estamos en la parte superior, quitar sticky
-            header.classList.remove('sticky');
+        // Simplificación extrema para asegurar consistencia
+        if (scrollPosition > 50) {
+            // Si hacemos scroll down más de 50px, activar sticky
+            if (!header.classList.contains('sticky')) {
+                header.classList.add('sticky');
+            }
         } else {
-            // Si bajamos más de 50px, activar sticky
-            header.classList.add('sticky');
+            // Si estamos arriba (menos de 50px), desactivar sticky
+            if (header.classList.contains('sticky')) {
+                header.classList.remove('sticky');
+            }
         }
-        
-        // Guardar posición para próxima comparación
-        lastScrollTop = currentScroll;
     }
     
     // Toggle menú móvil
