@@ -1,160 +1,340 @@
 /**
  * Orange Vapor - Navbar Module
- * Script independiente para la funcionalidad del navbar
+ * Script profesional optimizado para UX/UI
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-    // =========================================================================
-    // ELEMENTOS DEL DOM
-    // =========================================================================
-    const header = document.getElementById('header');
-    const mobileToggle = document.querySelector('.mobile-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const logo = document.querySelector('.logo');
-    const logoText = document.querySelector('.logo-text');
-    const logoInitials = document.querySelector('.logo-initials');
-    const ctaButton = document.querySelector('.nav-cta .btn');
+(function() {
+    'use strict';
     
     // =========================================================================
-    // FUNCIONES PRINCIPALES
+    // VARIABLES Y SELECTORES DOM
     // =========================================================================
+    let header,
+        mobileToggle,
+        navMenu,
+        dropdownToggles,
+        navLinks,
+        dropdowns,
+        logoFull,
+        logoShort,
+        ctaButton,
+        lastScrollTop = 0,
+        isScrolling = false,
+        resizeTimer,
+        hasUserScrolled = false;
     
-    // Header adhesivo (sticky) al hacer scroll con animación mejorada
-    function updateHeaderState() {
-        const scrollPosition = window.scrollY;
+    // =========================================================================
+    // INICIALIZACIÓN Y CAPTURA DE ELEMENTOS
+    // =========================================================================
+    function init() {
+        // Capturar elementos del DOM
+        header = document.getElementById('header');
+        mobileToggle = document.querySelector('.mobile-toggle');
+        navMenu = document.getElementById('nav-menu');
+        dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        navLinks = document.querySelectorAll('.nav-link');
+        dropdowns = document.querySelectorAll('.dropdown');
+        logoFull = document.querySelector('.logo-full');
+        logoShort = document.querySelector('.logo-short');
+        ctaButton = document.querySelector('.cta-button');
         
-        // Transición principal: sticky header y animación del logo
-        if (scrollPosition > 50) {
-            if (!header.classList.contains('sticky')) {
-                header.classList.add('sticky');
-                
-                // Añadir efecto de transición al logo
-                if (logo) {
-                    logo.classList.add('logo-transition');
+        // Inicializar estado de la navbar
+        updateHeaderState();
+        
+        // Agregar los event listeners
+        attachEventListeners();
+        
+        // Establecer enlaces activos según URL
+        setActiveNavLinks();
+        
+        // Iniciar posible animación del CTA
+        initCTAAnimation();
+    }
+    
+    // =========================================================================
+    // EVENT LISTENERS
+    // =========================================================================
+    function attachEventListeners() {
+        // Scroll events
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // Mobile toggle
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', toggleMobileMenu);
+        }
+        
+        // Dropdown toggles para móvil
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const parent = this.closest('.dropdown');
+                    toggleDropdown(parent);
+                }
+            });
+        });
+        
+        // Click en enlaces para cerrar el menú móvil
+        navLinks.forEach(link => {
+            // Excluimos los dropdown toggles
+            if (!link.classList.contains('dropdown-toggle')) {
+                link.addEventListener('click', closeMobileMenu);
+            }
+        });
+        
+        // Focus events para accesibilidad en dropdowns
+        dropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            const items = dropdown.querySelectorAll('.dropdown-item');
+            
+            if (toggle && items.length) {
+                // Mantener el menú abierto cuando se enfoca en sus elementos
+                items.forEach(item => {
+                    item.addEventListener('focus', () => {
+                        dropdown.classList.add('active');
+                    });
                     
-                    // Efecto de enfoque en CTA después de scrollear
-                    if (ctaButton && !ctaButton.classList.contains('pulse-btn')) {
+                    item.addEventListener('blur', () => {
+                        // Pequeño timeout para permitir cambio de foco entre items
                         setTimeout(() => {
-                            ctaButton.classList.add('pulse-btn');
-                        }, 500);
-                    }
+                            const activeElement = document.activeElement;
+                            const isChildOfDropdown = dropdown.contains(activeElement);
+                            if (!isChildOfDropdown) {
+                                dropdown.classList.remove('active');
+                            }
+                        }, 10);
+                    });
+                });
+            }
+        });
+        
+        // Click fuera para cerrar menús
+        document.addEventListener('click', handleOutsideClick);
+        
+        // Resize events
+        window.addEventListener('resize', handleResize, { passive: true });
+        
+        // Logo interacción
+        const logo = document.querySelector('.logo');
+        if (logo) {
+            logo.addEventListener('mouseenter', animateLogo);
+        }
+    }
+    
+    // =========================================================================
+    // HANDLERS Y FUNCIONES PRINCIPALES
+    // =========================================================================
+    
+    // Optimización de scroll con requestAnimationFrame
+    function handleScroll() {
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
+                updateHeaderState();
+                updateNavActiveState();
+                isScrolling = false;
+                
+                // Actualizar estado de scroll del usuario
+                if (!hasUserScrolled && window.scrollY > 100) {
+                    hasUserScrolled = true;
+                    document.body.classList.add('has-scrolled');
+                }
+            });
+            isScrolling = true;
+        }
+    }
+    
+    // Actualizar estado del header al hacer scroll
+    function updateHeaderState() {
+        const currentScroll = window.scrollY;
+        
+        // Transición principal: sticky header al bajar
+        if (currentScroll > 50) {
+            header.classList.add('sticky');
+            
+            // Primera vez que se activa sticky
+            if (!header.hasAttribute('data-sticky')) {
+                header.setAttribute('data-sticky', 'true');
+                
+                // Animar CTA al activar sticky primera vez
+                if (ctaButton && !ctaButton.classList.contains('pulse-animation')) {
+                    ctaButton.classList.add('pulse-animation');
+                    
+                    // Quitar animación después de unos segundos
+                    setTimeout(() => {
+                        ctaButton.classList.remove('pulse-animation');
+                    }, 5000);
+                }
+                
+                // Mejorar transición del logo
+                if (logoFull && logoShort) {
+                    logoFull.style.transition = 'transform 0.4s var(--ease-elastic), opacity 0.3s var(--ease-in-out)';
+                    logoShort.style.transition = 'transform 0.4s var(--ease-elastic), opacity 0.3s var(--ease-in-out)';
                 }
             }
         } else {
-            if (header.classList.contains('sticky')) {
-                header.classList.remove('sticky');
-                
-                // Quitar efectos de transición
-                if (logo) {
-                    logo.classList.remove('logo-transition');
-                }
-                
-                // Remover animación del CTA
-                if (ctaButton) {
-                    ctaButton.classList.remove('pulse-btn');
-                }
+            header.classList.remove('sticky');
+            if (header.hasAttribute('data-sticky')) {
+                header.removeAttribute('data-sticky');
             }
         }
         
-        // Efecto de paralaje sutil en el logo durante el scroll inicial
-        if (logoText && logoInitials && scrollPosition <= 80) {
-            const parallaxSpeed = 0.05;
-            const parallaxOffset = scrollPosition * parallaxSpeed;
-            
-            // Efecto sutil de movimiento mientras se hace scroll
-            logoText.style.transform = `translateY(${-parallaxOffset}px)`;
+        // Guardar posición para dirección de scroll
+        lastScrollTop = currentScroll;
+    }
+    
+    // Toggle menú móvil
+    function toggleMobileMenu() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
+        // Toggle clases
+        this.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        
+        // Actualizar atributos ARIA
+        this.setAttribute('aria-expanded', !isExpanded);
+        
+        // Controlar scroll del body
+        document.body.style.overflow = !isExpanded ? 'hidden' : '';
+        
+        // Resetear dropdowns si cerramos menú
+        if (isExpanded) {
+            resetDropdowns();
         }
     }
     
-    // Inicializar el estado del header al cargar
-    updateHeaderState();
+    // Toggle dropdown específico
+    function toggleDropdown(dropdown) {
+        // Si ya está activo, cerrarlo
+        if (dropdown.classList.contains('active')) {
+            dropdown.classList.remove('active');
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            if (toggle) {
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+            return;
+        }
+        
+        // Cerrar otros dropdowns activos primero
+        resetDropdowns();
+        
+        // Abrir este dropdown
+        dropdown.classList.add('active');
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        if (toggle) {
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+    }
     
-    // Optimización de rendimiento con requestAnimationFrame para scroll events
-    let scrollTimeout;
-    window.addEventListener('scroll', function() {
-        if (!scrollTimeout) {
-            scrollTimeout = window.requestAnimationFrame(function() {
-                updateHeaderState();
-                scrollTimeout = null;
+    // Cerrar todos los dropdowns
+    function resetDropdowns() {
+        dropdowns.forEach(dropdown => {
+            dropdown.classList.remove('active');
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            if (toggle) {
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+    
+    // Cerrar menú móvil
+    function closeMobileMenu() {
+        if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            
+            if (mobileToggle) {
+                mobileToggle.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            }
+            
+            // Restaurar scroll
+            document.body.style.overflow = '';
+        }
+    }
+    
+    // Click fuera de elementos interactivos
+    function handleOutsideClick(e) {
+        // Click fuera del menú móvil
+        if (window.innerWidth <= 768 && navMenu && navMenu.classList.contains('active')) {
+            if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                closeMobileMenu();
+            }
+        }
+        
+        // Click fuera de dropdowns en desktop
+        if (window.innerWidth > 768) {
+            dropdowns.forEach(dropdown => {
+                if (dropdown.classList.contains('active') && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
             });
         }
-    });
-    
-    // Toggle del menú móvil con animación mejorada
-    if (mobileToggle) {
-        mobileToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            
-            // Actualizar aria-expanded para accesibilidad
-            const isExpanded = this.classList.contains('active');
-            this.setAttribute('aria-expanded', isExpanded);
-            
-            // Bloquear scroll en el body cuando el menú está abierto en móvil
-            document.body.style.overflow = isExpanded ? 'hidden' : '';
-        });
     }
     
-    // Toggle del menú desplegable en móvil con animación mejorada
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
+    // Manejar cambios de tamaño de ventana
+    function handleResize() {
+        // Debounce para evitar demasiadas llamadas
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            // Si pasamos de móvil a desktop
+            if (window.innerWidth > 768) {
+                // Restaurar scroll
+                document.body.style.overflow = '';
                 
-                const dropdown = this.parentElement;
-                const dropdownMenu = this.nextElementSibling;
-                const icon = this.querySelector('i');
-                
-                // Toggle de la clase active
-                dropdown.classList.toggle('active');
-                
-                // Animación del icono
-                if (dropdown.classList.contains('active')) {
-                    icon.style.transform = 'rotate(180deg)';
-                } else {
-                    icon.style.transform = 'rotate(0)';
-                }
-            }
-        });
-    });
-    
-    // Cerrar menú al hacer clic en un enlace
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            // No cerrar si es un dropdown toggle en móvil
-            if (this.classList.contains('dropdown-toggle') && window.innerWidth <= 768) {
-                return;
-            }
-            
-            if (window.innerWidth <= 768) {
-                navMenu.classList.remove('active');
-                
+                // Resetear botón móvil
                 if (mobileToggle) {
                     mobileToggle.classList.remove('active');
                     mobileToggle.setAttribute('aria-expanded', 'false');
                 }
                 
-                // Restaurar scroll
-                document.body.style.overflow = '';
+                // Resetear menú
+                if (navMenu) {
+                    navMenu.classList.remove('active');
+                }
             }
-        });
-    });
+        }, 150);
+    }
     
-    // Cerrar menú al hacer clic fuera de él
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
-            if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
-                mobileToggle.classList.remove('active');
-                mobileToggle.setAttribute('aria-expanded', 'false');
-                document.body.style.overflow = '';
-            }
+    // Animación del logo en hover
+    function animateLogo() {
+        const logoElement = this.querySelector(header.classList.contains('sticky') ? '.logo-short' : '.logo-full');
+        
+        if (logoElement) {
+            const letters = logoElement.querySelectorAll('span');
+            
+            letters.forEach((letter, index) => {
+                // Resetear cualquier animación previa
+                letter.style.animation = 'none';
+                letter.offsetHeight; // Forzar reflow
+                
+                // Aplicar nueva animación con delay
+                letter.style.animation = `logoHover 0.8s var(--ease-bounce) ${index * 0.05}s`;
+            });
         }
-    });
+    }
     
-    // Gestión de enlaces activos basado en la URL actual
+    // Inicializar posible animación del CTA
+    function initCTAAnimation() {
+        // Solo si es primera visita (podría usarse localStorage)
+        if (ctaButton && !sessionStorage.getItem('visited')) {
+            setTimeout(() => {
+                ctaButton.classList.add('pulse-animation');
+                
+                // Quitar después de unos segundos
+                setTimeout(() => {
+                    ctaButton.classList.remove('pulse-animation');
+                }, 5000);
+            }, 2000);
+            
+            // Marcar como visitado
+            sessionStorage.setItem('visited', 'true');
+        }
+    }
+    
+    // =========================================================================
+    // FUNCIONES PARA ENLACES ACTIVOS
+    // =========================================================================
+    
+    // Establecer enlaces activos según URL
     function setActiveNavLinks() {
         const currentUrl = window.location.pathname;
         const filename = currentUrl.split('/').pop();
@@ -164,174 +344,150 @@ document.addEventListener('DOMContentLoaded', function() {
             link.classList.remove('active');
         });
         
-        // Activar enlace correspondiente según la página actual
+        // Activar enlace según la página actual
         if (filename === '' || filename === 'index.html') {
-            // En la home page, se maneja con el scroll
+            // En la home page, activamos enlaces según sección visible
+            if (window.location.hash) {
+                const hash = window.location.hash.substring(1);
+                activateLinkByHash(hash);
+            }
         } else if (filename.includes('ads.html')) {
-            const adsLink = document.querySelector('a[href="ads.html"]');
-            if (adsLink) adsLink.classList.add('active');
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            if (dropdownToggle) dropdownToggle.classList.add('active');
+            activateDropdownItem('ads.html');
         } else if (filename.includes('google-ads.html')) {
-            const googleAdsLink = document.querySelector('a[href="google-ads.html"]');
-            if (googleAdsLink) googleAdsLink.classList.add('active');
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            if (dropdownToggle) dropdownToggle.classList.add('active');
+            activateDropdownItem('google-ads.html');
         } else if (filename.includes('email-marketing.html')) {
-            const emailLink = document.querySelector('a[href="email-marketing.html"]');
-            if (emailLink) emailLink.classList.add('active');
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            if (dropdownToggle) dropdownToggle.classList.add('active');
+            activateDropdownItem('email-marketing.html');
         } else if (filename.includes('chatbot.html')) {
-            const chatbotLink = document.querySelector('a[href="chatbot.html"]');
-            if (chatbotLink) chatbotLink.classList.add('active');
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            if (dropdownToggle) dropdownToggle.classList.add('active');
+            activateDropdownItem('chatbot.html');
         } else if (filename.includes('optimizacion-express.html')) {
-            const optimizacionLink = document.querySelector('a[href="optimizacion-express.html"]');
-            if (optimizacionLink) optimizacionLink.classList.add('active');
+            document.querySelector('a[href="optimizacion-express.html"]')?.classList.add('active');
         } else if (filename.includes('contacto.html')) {
-            const contactoLink = document.querySelector('a[href="contacto.html"]');
-            if (contactoLink) contactoLink.classList.add('active');
+            document.querySelector('a[href="contacto.html"]')?.classList.add('active');
         }
     }
     
-    // Llamar a esta función al cargar la página
-    setActiveNavLinks();
+    // Activar un item de dropdown y su toggle
+    function activateDropdownItem(href) {
+        const item = document.querySelector(`a[href="${href}"]`);
+        const dropdown = item?.closest('.dropdown');
+        
+        if (item) item.classList.add('active');
+        if (dropdown) {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            if (toggle) toggle.classList.add('active');
+        }
+    }
     
-    // =========================================================================
-    // NAVEGACIÓN ACTIVA POR SECCIONES (PARA PÁGINA PRINCIPAL)
-    // =========================================================================
+    // Activar enlace según hash
+    function activateLinkByHash(hash) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href) {
+                const linkHash = href.startsWith('#') ? href.substring(1) : '';
+                if (linkHash === hash) {
+                    link.classList.add('active');
+                }
+            }
+        });
+    }
     
-    // Si estamos en la página principal, actualizamos los enlaces activos al desplazarnos
-    if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
-        // Navegación activa según la sección visible (solo en la página principal)
-        function setActiveNavLinkBySection() {
+    // Actualizar enlaces activos según sección visible
+    function updateNavActiveState() {
+        // Solo para página principal
+        if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
             const sections = document.querySelectorAll('section[id]');
-            let current = '';
+            let currentSection = '';
             
-            // Identificar qué sección está actualmente visible
             sections.forEach(section => {
                 const sectionTop = section.offsetTop - 100;
                 const sectionHeight = section.offsetHeight;
                 
                 if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
+                    currentSection = section.getAttribute('id');
                 }
             });
             
-            // Actualizar enlaces de navegación principal
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                const href = link.getAttribute('href');
-                if (href) {
-                    const sectionId = href.startsWith('#') ? href.substring(1) : href.split('#')[1];
-                    if (sectionId === current) {
-                        link.classList.add('active');
+            if (currentSection) {
+                // Actualizar enlaces de navegación
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    
+                    const href = link.getAttribute('href');
+                    if (href) {
+                        const sectionId = href.startsWith('#') ? href.substring(1) : href.split('#')[1];
+                        if (sectionId === currentSection) {
+                            link.classList.add('active');
+                        }
                     }
+                });
+                
+                // Actualizar URL sin provocar scroll
+                const newUrl = `${window.location.pathname}#${currentSection}`;
+                history.replaceState(null, '', newUrl);
+            }
+        }
+    }
+    
+    // =========================================================================
+    // NAVEGACIÓN SUAVE (SMOOTH SCROLL)
+    // =========================================================================
+    
+    // Inicializar scroll suave para enlaces internos
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]:not(.dropdown-toggle)').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                
+                if (targetId === '#') return;
+                
+                e.preventDefault();
+                
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Cerrar menú móvil primero si está abierto
+                    closeMobileMenu();
+                    
+                    // Calcular offset según altura del header
+                    const headerHeight = header.offsetHeight;
+                    const offset = headerHeight + 16;
+                    
+                    // Scroll suave con animación
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Actualizar URL
+                    if (history.pushState) {
+                        history.pushState(null, null, targetId);
+                    } else {
+                        location.hash = targetId;
+                    }
+                    
+                    // Activar el enlace
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
                 }
             });
-        }
-        
-        // Optimización con requestAnimationFrame
-        let scrollAnimationFrame;
-        window.addEventListener('scroll', function() {
-            if (!scrollAnimationFrame) {
-                scrollAnimationFrame = window.requestAnimationFrame(function() {
-                    setActiveNavLinkBySection();
-                    scrollAnimationFrame = null;
-                });
-            }
         });
     }
     
     // =========================================================================
-    // NAVEGACIÓN SUAVE (SMOOTH SCROLL) PARA ENLACES INTERNOS
+    // INICIALIZACIÓN AL CARGAR LA PÁGINA
     // =========================================================================
-    
-    // Navegación suave para enlaces internos dentro del navbar
-    document.querySelectorAll('#nav-menu a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            
-            // No aplicar a los dropdowns en móvil
-            if (targetId === '#' || (this.classList.contains('dropdown-toggle') && window.innerWidth <= 768)) {
-                return;
-            }
-            
-            e.preventDefault();
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                // Offset para compensar la altura del header
-                const headerHeight = header.offsetHeight;
-                const navOffset = headerHeight + 20;
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - navOffset,
-                    behavior: 'smooth'
-                });
-                
-                // Actualizar URL para reflejar la sección
-                history.pushState(null, null, targetId);
-            }
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        init();
+        initSmoothScroll();
     });
     
-    // =========================================================================
-    // INTERACCIÓN CON EL BOTÓN CTA
-    // =========================================================================
-    
-    // Mejorar interacción del botón CTA
-    if (ctaButton) {
-        // Detener animación de pulso al hover
-        ctaButton.addEventListener('mouseenter', function() {
-            if (this.classList.contains('pulse-btn')) {
-                this.classList.remove('pulse-btn');
-                this.dataset.wasAnimating = 'true';
-            }
-        });
-        
-        // Restaurar animación al quitar hover
-        ctaButton.addEventListener('mouseleave', function() {
-            if (this.dataset.wasAnimating === 'true' && window.scrollY > 50) {
-                setTimeout(() => {
-                    this.classList.add('pulse-btn');
-                }, 1500);
-            }
-        });
-        
-        // Efecto de clic
-        ctaButton.addEventListener('mousedown', function() {
-            this.style.transform = 'scale(0.95)';
-        });
-        
-        ctaButton.addEventListener('mouseup', function() {
-            this.style.transform = '';
-        });
-    }
-    
-    // =========================================================================
-    // RESIZE HANDLER
-    // =========================================================================
-    
-    // Manejar cambios de tamaño de ventana
-    window.addEventListener('resize', function() {
-        // Restaurar elementos si pasamos de móvil a desktop
-        if (window.innerWidth > 768) {
-            // Restaurar scroll
-            document.body.style.overflow = '';
-            
-            // Resetear estado del botón móvil
-            if (mobileToggle) {
-                mobileToggle.classList.remove('active');
-                mobileToggle.setAttribute('aria-expanded', 'false');
-            }
-            
-            // Resetear dropdowns
-            document.querySelectorAll('.dropdown').forEach(dropdown => {
-                dropdown.classList.remove('active');
-            });
-        }
-    });
-});
+    // Exponer funciones que puedan ser útiles para otros scripts
+    window.NavbarModule = {
+        updateHeaderState,
+        closeMobileMenu
+    };
+})();
