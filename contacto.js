@@ -1,6 +1,6 @@
 /**
  * Orange Vapor - Página de Contacto
- * JavaScript Específico para la página de contacto
+ * JavaScript específico para la página de contacto
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -23,51 +23,34 @@ document.addEventListener('DOMContentLoaded', function() {
             item.classList.toggle('active');
         });
     });
-
-    // Manejo de animaciones al scroll
-    function handleScrollAnimations() {
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        fadeElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementTop < windowHeight * 0.8) {
+    
+    // Asegurar que las animaciones al scroll funcionen en esta página específica
+    const contactoFadeElements = document.querySelectorAll('.contacto-page .fade-in');
+    
+    contactoFadeElements.forEach(element => {
+        // Animar elementos del hero inmediatamente
+        if (element.closest('#hero')) {
+            setTimeout(() => {
                 element.classList.add('visible');
-            }
-        });
-    }
+            }, 300);
+        }
+    });
     
-    // Inicializar animaciones
-    window.addEventListener('scroll', handleScrollAnimations);
-    
-    // Llamar una vez para animar elementos visibles inicialmente
-    handleScrollAnimations();
-    
-    // Animación inmediata para elementos del hero
-    const heroElements = document.querySelectorAll('#hero .fade-in');
-    setTimeout(() => {
-        heroElements.forEach(element => {
-            element.classList.add('visible');
-        });
-    }, 300);
-
-    // Scroll suave para enlaces internos
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // Scroll suave para enlaces internos específicos de contacto
+    document.querySelectorAll('.contacto-page a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || !href) return;
+            
+            const targetElement = document.querySelector(href);
+            if (!targetElement) return;
+            
             e.preventDefault();
             
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
+            window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+            });
         });
     });
 });
