@@ -1,6 +1,32 @@
 /* ==========================================================================
-   FOOTER
+   FOOTER - Estilos extraídos en un archivo independiente
    ========================================================================== */
+
+:root {
+    /* Variables necesarias para el footer */
+    --naranja-principal: #FF7E00;
+    --naranja-secundario: #FF9F45;
+    --blanco: #FFFFFF;
+    --negro: #222222;
+    --gris-oscuro: #333333;
+    --gris-medio: #666666;
+    --gris-claro: #F5F5F5;
+    --espaciado-xs: 0.5rem;
+    --espaciado-sm: 1rem;
+    --espaciado-md: 2rem;
+    --espaciado-lg: 4rem;
+    --fuente-principal: 'Montserrat', sans-serif;
+    --fuente-secundaria: 'Open Sans', sans-serif;
+    --texto-xs: 0.75rem;
+    --texto-sm: 0.875rem;
+    --texto-base: 1rem;
+    --texto-md: 1.125rem;
+    --texto-lg: 1.25rem;
+    --texto-xl: 1.5rem;
+    --transicion-rapida: 0.2s ease;
+    --ancho-maximo: 1200px;
+}
+
 .footer {
     background-color: var(--gris-oscuro);
     color: rgba(255, 255, 255, 0.7);
@@ -90,7 +116,22 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* También debes incluir las reglas para media queries */
+.social-links {
+    margin-top: var(--espaciado-sm);
+}
+
+.social-links a {
+    margin: 0 5px;
+    font-size: var(--texto-lg);
+    color: var(--gris-medio);
+    transition: color var(--transicion-rapida);
+}
+
+.social-links a:hover {
+    color: var(--naranja-principal);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
     .footer-content {
         grid-template-columns: 1fr;
@@ -100,5 +141,9 @@
     .footer-column h4::after {
         left: 50%;
         transform: translateX(-50%);
+    }
+    
+    .footer-contact ul li {
+        justify-content: center;
     }
 }
