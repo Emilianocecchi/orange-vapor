@@ -20,8 +20,7 @@
         ctaButton,
         lastScrollTop = 0,
         isScrolling = false,
-        resizeTimer,
-        hasUserScrolled = false;
+        resizeTimer;
     
     // =========================================================================
     // INICIALIZACIÓN Y CAPTURA DE ELEMENTOS
@@ -55,7 +54,7 @@
     // EVENT LISTENERS
     // =========================================================================
     function attachEventListeners() {
-        // Scroll events
+        // Scroll events - usando throttle para mejor rendimiento
         window.addEventListener('scroll', handleScroll, { passive: true });
         
         // Mobile toggle
@@ -82,29 +81,42 @@
             }
         });
         
-        // Focus events para accesibilidad en dropdowns
+        // Mejorar interacción con los dropdowns para desktop
         dropdowns.forEach(dropdown => {
-            const toggle = dropdown.querySelector('.dropdown-toggle');
-            const items = dropdown.querySelectorAll('.dropdown-item');
+            // Prevenir que el menú desaparezca al mover de toggle a menú
+            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
             
-            if (toggle && items.length) {
-                // Mantener el menú abierto cuando se enfoca en sus elementos
-                items.forEach(item => {
-                    item.addEventListener('focus', () => {
-                        dropdown.classList.add('active');
+            if (dropdownMenu) {
+                // Asegurar que los eventos de mouse se manejen correctamente
+                let dropdownTimeout;
+                
+                dropdown.addEventListener('mouseenter', () => {
+                    clearTimeout(dropdownTimeout);
+                    dropdowns.forEach(d => {
+                        if (d !== dropdown) d.classList.remove('active');
+                    });
+                    dropdown.classList.add('active');
+                });
+                
+                dropdown.addEventListener('mouseleave', () => {
+                    // Delay para evitar que el menú desaparezca inmediatamente
+                    dropdownTimeout = setTimeout(() => {
+                        dropdown.classList.remove('active');
+                    }, 100);
+                });
+                
+                // Si el usuario mueve el mouse al menú, mantenerlo visible
+                if (dropdownMenu) {
+                    dropdownMenu.addEventListener('mouseenter', () => {
+                        clearTimeout(dropdownTimeout);
                     });
                     
-                    item.addEventListener('blur', () => {
-                        // Pequeño timeout para permitir cambio de foco entre items
-                        setTimeout(() => {
-                            const activeElement = document.activeElement;
-                            const isChildOfDropdown = dropdown.contains(activeElement);
-                            if (!isChildOfDropdown) {
-                                dropdown.classList.remove('active');
-                            }
-                        }, 10);
+                    dropdownMenu.addEventListener('mouseleave', () => {
+                        dropdownTimeout = setTimeout(() => {
+                            dropdown.classList.remove('active');
+                        }, 100);
                     });
-                });
+                }
             }
         });
         
@@ -113,12 +125,6 @@
         
         // Resize events
         window.addEventListener('resize', handleResize, { passive: true });
-        
-        // Logo interacción
-        const logo = document.querySelector('.logo');
-        if (logo) {
-            logo.addEventListener('mouseenter', animateLogo);
-        }
     }
     
     // =========================================================================
@@ -132,53 +138,25 @@
                 updateHeaderState();
                 updateNavActiveState();
                 isScrolling = false;
-                
-                // Actualizar estado de scroll del usuario
-                if (!hasUserScrolled && window.scrollY > 100) {
-                    hasUserScrolled = true;
-                    document.body.classList.add('has-scrolled');
-                }
             });
             isScrolling = true;
         }
     }
     
-    // Actualizar estado del header al hacer scroll
+    // Actualizar estado del header al hacer scroll - CORREGIDO
     function updateHeaderState() {
         const currentScroll = window.scrollY;
         
-        // Transición principal: sticky header al bajar
-        if (currentScroll > 50) {
-            header.classList.add('sticky');
-            
-            // Primera vez que se activa sticky
-            if (!header.hasAttribute('data-sticky')) {
-                header.setAttribute('data-sticky', 'true');
-                
-                // Animar CTA al activar sticky primera vez
-                if (ctaButton && !ctaButton.classList.contains('pulse-animation')) {
-                    ctaButton.classList.add('pulse-animation');
-                    
-                    // Quitar animación después de unos segundos
-                    setTimeout(() => {
-                        ctaButton.classList.remove('pulse-animation');
-                    }, 5000);
-                }
-                
-                // Mejorar transición del logo
-                if (logoFull && logoShort) {
-                    logoFull.style.transition = 'transform 0.4s var(--ease-elastic), opacity 0.3s var(--ease-in-out)';
-                    logoShort.style.transition = 'transform 0.4s var(--ease-elastic), opacity 0.3s var(--ease-in-out)';
-                }
-            }
-        } else {
+        // CORRECCIÓN: Verificar dirección del scroll y actualizar apropiadamente
+        if (currentScroll <= 50) {
+            // Si estamos en la parte superior, quitar sticky
             header.classList.remove('sticky');
-            if (header.hasAttribute('data-sticky')) {
-                header.removeAttribute('data-sticky');
-            }
+        } else {
+            // Si bajamos más de 50px, activar sticky
+            header.classList.add('sticky');
         }
         
-        // Guardar posición para dirección de scroll
+        // Guardar posición para próxima comparación
         lastScrollTop = currentScroll;
     }
     
@@ -204,24 +182,19 @@
     
     // Toggle dropdown específico
     function toggleDropdown(dropdown) {
-        // Si ya está activo, cerrarlo
-        if (dropdown.classList.contains('active')) {
-            dropdown.classList.remove('active');
-            const toggle = dropdown.querySelector('.dropdown-toggle');
-            if (toggle) {
-                toggle.setAttribute('aria-expanded', 'false');
-            }
-            return;
-        }
-        
-        // Cerrar otros dropdowns activos primero
-        resetDropdowns();
-        
-        // Abrir este dropdown
-        dropdown.classList.add('active');
+        // Toggle directo en móvil
+        dropdown.classList.toggle('active');
         const toggle = dropdown.querySelector('.dropdown-toggle');
+        
         if (toggle) {
-            toggle.setAttribute('aria-expanded', 'true');
+            const isExpanded = dropdown.classList.contains('active');
+            toggle.setAttribute('aria-expanded', isExpanded);
+            
+            // Rotar ícono
+            const icon = toggle.querySelector('.dropdown-icon');
+            if (icon) {
+                icon.style.transform = isExpanded ? 'rotate(180deg)' : '';
+            }
         }
     }
     
@@ -259,15 +232,6 @@
                 closeMobileMenu();
             }
         }
-        
-        // Click fuera de dropdowns en desktop
-        if (window.innerWidth > 768) {
-            dropdowns.forEach(dropdown => {
-                if (dropdown.classList.contains('active') && !dropdown.contains(e.target)) {
-                    dropdown.classList.remove('active');
-                }
-            });
-        }
     }
     
     // Manejar cambios de tamaño de ventana
@@ -292,24 +256,6 @@
                 }
             }
         }, 150);
-    }
-    
-    // Animación del logo en hover
-    function animateLogo() {
-        const logoElement = this.querySelector(header.classList.contains('sticky') ? '.logo-short' : '.logo-full');
-        
-        if (logoElement) {
-            const letters = logoElement.querySelectorAll('span');
-            
-            letters.forEach((letter, index) => {
-                // Resetear cualquier animación previa
-                letter.style.animation = 'none';
-                letter.offsetHeight; // Forzar reflow
-                
-                // Aplicar nueva animación con delay
-                letter.style.animation = `logoHover 0.8s var(--ease-bounce) ${index * 0.05}s`;
-            });
-        }
     }
     
     // Inicializar posible animación del CTA
