@@ -1,6 +1,5 @@
 /* ======================================================================
    VARIABLES PARA EL NAVBAR
-   (Puedes incluir estas variables en tu archivo principal o usar las que ya tienes)
    ====================================================================== */
 :root {
     /* Colores */
@@ -34,6 +33,7 @@
     /* Transiciones */
     --transicion-rapida: 0.2s ease;
     --transicion-media: 0.3s ease;
+    --transicion-curva: 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.4);
 }
 
 /* ======================================================================
@@ -63,14 +63,21 @@
 }
 
 /* ======================================================================
-   LOGO
+   LOGO Y ANIMACIÓN MEJORADA
    ====================================================================== */
 .logo {
     font-family: var(--fuente-principal);
     font-weight: 700;
     font-size: var(--texto-xl);
     color: var(--negro);
+    display: flex;
+    text-decoration: none;
+    perspective: 1000px;
+}
+
+.logo-wrapper {
     position: relative;
+    height: 40px;
     display: flex;
     align-items: center;
     overflow: visible;
@@ -78,48 +85,74 @@
 
 /* Texto del logo */
 .logo-text {
-    transition: opacity var(--transicion-media), transform var(--transicion-media);
+    transition: all var(--transicion-curva);
     opacity: 1;
-    transform: translateY(0);
+    transform: translateZ(0) rotateX(0);
+    transform-origin: center;
     display: block;
+    backface-visibility: hidden;
 }
 
 .logo-text span {
     color: var(--naranja-principal);
+    position: relative;
 }
 
-/* Iniciales del logo (OV) */
+/* Efecto de brillo en hover */
+.logo:hover .logo-text {
+    text-shadow: 0 0 10px rgba(255, 126, 0, 0.2);
+}
+
+/* Iniciales del logo (OV) con animación mejorada */
 .logo-initials {
     position: absolute;
     left: 0;
     top: 0;
     opacity: 0;
-    transform: translateY(10px);
-    transition: opacity var(--transicion-media), transform var(--transicion-media);
+    transform: translateZ(-60px) rotateX(90deg);
+    transform-origin: center;
+    transition: all var(--transicion-curva);
     display: flex;
     align-items: center;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 800;
+    letter-spacing: -1px;
+    backface-visibility: hidden;
 }
 
 .logo-letter-o {
     color: var(--negro);
-    margin-right: -0.1rem;
+    transform: translateX(0) scale(1);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-block;
 }
 
 .logo-letter-v {
     color: var(--naranja-principal);
+    transform: translateX(0) scale(1);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-block;
+    margin-left: -1px;
 }
 
-/* Logo en modo sticky - transformación a OV */
+/* Logo en modo sticky - transformación 3D a OV */
 #header.sticky .logo-text {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateZ(-60px) rotateX(-90deg);
 }
 
 #header.sticky .logo-initials {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateZ(0) rotateX(0);
+}
+
+/* Animación de letras al hacer hover en modo sticky */
+#header.sticky .logo:hover .logo-letter-o {
+    transform: translateX(-2px) scale(1.1);
+}
+
+#header.sticky .logo:hover .logo-letter-v {
+    transform: translateX(2px) scale(1.1);
 }
 
 /* ======================================================================
@@ -128,7 +161,7 @@
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1.5rem;
 }
 
 .nav-link {
@@ -149,7 +182,8 @@
     width: 0;
     height: 2px;
     background-color: var(--naranja-principal);
-    transition: width var(--transicion-media);
+    transition: width var(--transicion-media), transform var(--transicion-media);
+    transform-origin: left;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -161,15 +195,14 @@
 }
 
 .nav-cta {
-    margin-left: 0.5rem;
+    margin-left: 1rem;
 }
 
 .nav-cta .btn {
-    padding: 10px 16px;
+    padding: 10px 24px;
     white-space: nowrap;
     border-radius: var(--borde-redondo-md);
-    transition: all var(--transicion-rapida);
-    box-shadow: 0 3px 6px rgba(255, 126, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     background-color: var(--naranja-principal);
     color: var(--blanco);
     font-family: var(--fuente-principal);
@@ -177,12 +210,48 @@
     font-size: var(--texto-sm);
     display: inline-block;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: none;
+}
+
+/* Efecto de brillo deslizante */
+.nav-cta .btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.8s ease;
 }
 
 .nav-cta .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(255, 126, 0, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(255, 126, 0, 0.3);
     background-color: var(--naranja-oscuro);
+}
+
+.nav-cta .btn:hover:before {
+    left: 100%;
+}
+
+/* Animación de pulso para el botón CTA */
+.pulse-btn {
+    animation: pulse-animation 2.5s infinite;
+}
+
+@keyframes pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 126, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 12px rgba(255, 126, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 126, 0, 0);
+    }
 }
 
 /* ======================================================================
@@ -195,12 +264,12 @@
 .dropdown-toggle {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 
 .dropdown-toggle i {
     font-size: 12px;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
 }
 
 .dropdown:hover .dropdown-toggle i {
@@ -209,37 +278,59 @@
 
 .dropdown-menu {
     position: absolute;
-    top: 100%;
-    left: 0;
-    min-width: 180px;
+    top: calc(100% + 8px);
+    left: -10px;
+    min-width: 220px;
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-md);
     box-shadow: var(--sombra-media);
-    padding: 8px 0;
+    padding: 12px 0;
     z-index: 100;
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    pointer-events: none;
+    border-top: 3px solid var(--naranja-principal);
 }
 
 .dropdown:hover .dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    pointer-events: auto;
 }
 
 .dropdown-item {
     display: block;
-    padding: 8px 16px;
+    padding: 10px 20px;
     color: var(--gris-oscuro);
-    transition: all 0.2s ease;
+    transition: all var(--transicion-media);
+    position: relative;
+}
+
+.dropdown-item:before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--naranja-principal);
+    transition: width var(--transicion-media);
+    opacity: 0;
 }
 
 .dropdown-item:hover {
-    background-color: rgba(255, 126, 0, 0.1);
+    background-color: rgba(255, 126, 0, 0.08);
     color: var(--naranja-principal);
-    padding-left: 20px;
+    padding-left: 26px;
+}
+
+.dropdown-item:hover:before {
+    width: 6px;
+    opacity: 1;
 }
 
 .dropdown-item.active {
@@ -259,11 +350,12 @@
 .mobile-toggle {
     display: none;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     background: transparent;
     border: none;
     cursor: pointer;
     z-index: 20;
+    padding: 8px;
 }
 
 .mobile-toggle span {
@@ -271,7 +363,12 @@
     width: 28px;
     height: 3px;
     background-color: var(--gris-oscuro);
-    transition: var(--transicion-rapida);
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+#header.sticky .mobile-toggle span {
+    width: 24px;
 }
 
 /* ======================================================================
@@ -279,7 +376,7 @@
    ====================================================================== */
 @media (max-width: 1024px) {
     .nav-menu {
-        gap: 0.8rem;
+        gap: 1rem;
     }
     
     .nav-link {
@@ -288,7 +385,7 @@
     }
     
     .nav-cta .btn {
-        padding: 8px 12px;
+        padding: 8px 16px;
         font-size: var(--texto-xs);
     }
 }
@@ -310,10 +407,13 @@
         transform: translateY(-150%);
         opacity: 0;
         pointer-events: none;
-        transition: all var(--transicion-media);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         z-index: 100;
         align-items: flex-start;
-        gap: 1rem;
+        gap: 1.2rem;
+        border-radius: 0 0 16px 16px;
+        max-height: 85vh;
+        overflow-y: auto;
     }
     
     .nav-menu.active {
@@ -324,7 +424,7 @@
     
     .nav-cta {
         margin-left: 0;
-        margin-top: 0.5rem;
+        margin-top: 1rem;
         width: 100%;
     }
     
@@ -337,22 +437,30 @@
     .nav-link {
         color: var(--gris-oscuro);
         width: 100%;
+        font-size: var(--texto-sm);
     }
     
     .dropdown-menu {
         position: static;
-        background-color: transparent;
+        background-color: var(--gris-claro);
         box-shadow: none;
-        padding-left: 20px;
+        padding: 8px 0;
         margin-top: 5px;
         display: none;
         opacity: 1;
         visibility: visible;
         transform: none;
+        border-radius: 8px;
+        border-top: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
     }
     
     .dropdown.active .dropdown-menu {
         display: block;
+        max-height: 500px;
+        padding: 8px 0;
     }
     
     .dropdown-toggle {
@@ -361,11 +469,23 @@
     }
     
     .dropdown-item {
-        padding: 8px 0;
-        color: var(--gris-oscuro) !important;
+        padding: 10px 16px;
     }
     
     .dropdown-item:hover {
-        background-color: transparent;
+        background-color: rgba(255, 126, 0, 0.1);
+    }
+    
+    /* Animación hamburguesa a X */
+    .mobile-toggle.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    
+    .mobile-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-toggle.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
     }
 }
