@@ -26,22 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Estilizar el botón de scroll top
-    scrollTopBtn.style.position = 'fixed';
-    scrollTopBtn.style.bottom = '20px';
-    scrollTopBtn.style.right = '20px';
-    scrollTopBtn.style.backgroundColor = '#00829b';
-    scrollTopBtn.style.color = 'white';
-    scrollTopBtn.style.width = '50px';
-    scrollTopBtn.style.height = '50px';
-    scrollTopBtn.style.borderRadius = '50%';
-    scrollTopBtn.style.border = 'none';
-    scrollTopBtn.style.fontSize = '20px';
-    scrollTopBtn.style.cursor = 'pointer';
-    scrollTopBtn.style.boxShadow = '0 3px 6px rgba(0,0,0,0.16)';
-    scrollTopBtn.style.zIndex = '99';
-    scrollTopBtn.style.transition = 'all 0.3s ease';
-    
     // Inicializar las animaciones de elementos visibles al cargar
     function initVisibleAnimations() {
         const fadeElements = document.querySelectorAll('.fade-in');
@@ -260,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Verificar periódicamente si el formulario de HubSpot está listo
+   // Verificar periódicamente si el formulario de HubSpot está listo
     let hubspotCheckInterval = setInterval(() => {
         checkHubspotForm();
         
@@ -269,23 +253,6 @@ document.addEventListener('DOMContentLoaded', function() {
             clearInterval(hubspotCheckInterval);
         }, 5000);
     }, 1000);
-    
-    // Mejora del header al hacer scroll
-    const header = document.getElementById('header');
-    
-    function updateHeaderState() {
-        if (window.scrollY > 50) {
-            header.classList.add('sticky');
-        } else {
-            header.classList.remove('sticky');
-        }
-    }
-    
-    // Inicializar el estado del header al cargar
-    updateHeaderState();
-    
-    // Actualizar el estado del header al hacer scroll
-    window.addEventListener('scroll', updateHeaderState);
     
     // Detectar cuando el sitio está completamente cargado
     window.addEventListener('load', function() {
@@ -315,4 +282,198 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+    
+    // Efecto de vapor en el fondo
+    function createVaporBubbles() {
+        const vaporEffect = document.querySelector('.email-vapor');
+        if (!vaporEffect) return;
+        
+        // Limitar el número de burbujas para mejor rendimiento
+        const maxBubbles = 5;
+        let bubbleCount = 0;
+        
+        // Función para crear burbujas de vapor aleatoriamente
+        function createRandomBubble() {
+            // Salir si ya tenemos el máximo de burbujas
+            if (bubbleCount >= maxBubbles) return;
+            
+            const bubble = document.createElement('div');
+            bubble.classList.add('vapor-bubble');
+            
+            // Posicionamiento aleatorio
+            const posX = Math.random() * 100; // posición X en porcentaje
+            const size = 50 + Math.random() * 200; // tamaño entre 50 y 250px
+            const delay = Math.random() * 5; // retraso de animación de 0 a 5 segundos
+            const duration = 10 + Math.random() * 20; // duración entre 10 y 30 segundos
+            
+            // Aplicar estilos
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${posX}%`;
+            bubble.style.bottom = '-20%';
+            bubble.style.animationDelay = `${delay}s`;
+            bubble.style.animationDuration = `${duration}s`;
+            
+            // Añadir burbuja al DOM
+            vaporEffect.appendChild(bubble);
+            bubbleCount++;
+            
+            // Eliminar burbuja después de que termine la animación
+            setTimeout(() => {
+                if (bubble.parentNode === vaporEffect) {
+                    bubble.remove();
+                    bubbleCount--;
+                }
+            }, (delay + duration) * 1000);
+        }
+        
+        // Crear burbujas periódicamente - reducido para mejor rendimiento
+        const bubbleInterval = setInterval(createRandomBubble, 4000);
+        
+        // Crear algunas burbujas iniciales con retraso para no afectar carga inicial
+        setTimeout(() => {
+            for (let i = 0; i < 2; i++) {
+                createRandomBubble();
+            }
+        }, 2000);
+        
+        // Limpieza al cambiar de página
+        window.addEventListener('beforeunload', function() {
+            clearInterval(bubbleInterval);
+        });
+    }
+    
+    // Solo crear efectos de vapor después de cargar elementos esenciales
+    setTimeout(createVaporBubbles, 1000);
+    
+    // Destacar elementos importantes en el hero para el Grunt Test
+    function highlightGruntElements() {
+        const criticalElements = [
+            document.querySelector('.email-hero h1'),
+            document.querySelector('.email-hero .hero-subtitle'),
+            document.querySelector('.grunt-test-points'),
+            document.querySelector('.hero-buttons')
+        ];
+        
+        criticalElements.forEach(element => {
+            if (element && element.closest('.fade-in')) {
+                element.closest('.fade-in').classList.add('visible');
+            }
+        });
+    }
+    
+    // Llamar a la función para destacar elementos importantes en cuanto se cargue el DOM
+    highlightGruntElements();
+    
+    // Interacción mejorada con los elementos de la sección de resultados
+    const resultadoStories = document.querySelectorAll('.resultado-story');
+    
+    resultadoStories.forEach(story => {
+        story.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+            this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+            
+            // Destacar el ícono con un pequeño efecto
+            const icon = this.querySelector('.resultado-icon');
+            if (icon) {
+                icon.style.transform = 'scale(1.1) rotate(5deg)';
+            }
+        });
+        
+        story.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '';
+            
+            // Restaurar el ícono
+            const icon = this.querySelector('.resultado-icon');
+            if (icon) {
+                icon.style.transform = '';
+            }
+        });
+    });
+    
+    // Animación para los CTA 
+    const ctaButtons = document.querySelectorAll('.btn-lg');
+    
+    ctaButtons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px)';
+            this.style.boxShadow = '0 10px 20px rgba(0, 130, 155, 0.3)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.boxShadow = '';
+        });
+    });
+    
+    // Mejoras en la interacción con las tarjetas de beneficios
+    const beneficioCards = document.querySelectorAll('.beneficio-email-card');
+    
+    beneficioCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            // Animar el icono
+            const icon = this.querySelector('.beneficio-icon');
+            if (icon) {
+                icon.style.transform = 'scale(1.1) rotate(5deg)';
+                icon.style.backgroundColor = 'rgba(0, 130, 155, 0.2)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            // Restaurar el icono
+            const icon = this.querySelector('.beneficio-icon');
+            if (icon) {
+                icon.style.transform = '';
+                icon.style.backgroundColor = '';
+            }
+        });
+    });
+    
+    // Añadir animaciones CSS adicionales para el sitio
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = `
+        @keyframes bubble-rise {
+            0% { transform: translateY(100px); opacity: 0; }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+        
+        .vapor-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(0, 130, 155, 0.3) 0%, rgba(0, 163, 196, 0.1) 50%, rgba(255, 255, 255, 0) 70%);
+            opacity: 0;
+            z-index: 1;
+            box-shadow: 0 0 40px rgba(0, 130, 155, 0.1);
+            animation: bubble-rise 15s ease-in-out infinite;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--blanco);
+            font-size: 20px;
+            animation: bounce 2s infinite;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+    `;
+    document.head.appendChild(styleSheet);
 });
