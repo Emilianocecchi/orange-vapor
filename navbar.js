@@ -81,45 +81,6 @@
             }
         });
         
-        // Mejorar interacción con los dropdowns para desktop
-        dropdowns.forEach(dropdown => {
-            // Prevenir que el menú desaparezca al mover de toggle a menú
-            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-            
-            if (dropdownMenu) {
-                // Asegurar que los eventos de mouse se manejen correctamente
-                let dropdownTimeout;
-                
-                dropdown.addEventListener('mouseenter', () => {
-                    clearTimeout(dropdownTimeout);
-                    dropdowns.forEach(d => {
-                        if (d !== dropdown) d.classList.remove('active');
-                    });
-                    dropdown.classList.add('active');
-                });
-                
-                dropdown.addEventListener('mouseleave', () => {
-                    // Delay para evitar que el menú desaparezca inmediatamente
-                    dropdownTimeout = setTimeout(() => {
-                        dropdown.classList.remove('active');
-                    }, 100);
-                });
-                
-                // Si el usuario mueve el mouse al menú, mantenerlo visible
-                if (dropdownMenu) {
-                    dropdownMenu.addEventListener('mouseenter', () => {
-                        clearTimeout(dropdownTimeout);
-                    });
-                    
-                    dropdownMenu.addEventListener('mouseleave', () => {
-                        dropdownTimeout = setTimeout(() => {
-                            dropdown.classList.remove('active');
-                        }, 100);
-                    });
-                }
-            }
-        });
-        
         // Click fuera para cerrar menús
         document.addEventListener('click', handleOutsideClick);
         
@@ -277,6 +238,87 @@
     }
     
     // =========================================================================
+    // MEJORA DE DROPDOWNS
+    // =========================================================================
+    
+    /**
+     * Comprueba si el ratón está actualmente sobre un elemento
+     */
+    function isMouseOverElement(element) {
+        if (!event) return false;
+        
+        const rect = element.getBoundingClientRect();
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+        
+        return (
+            mouseX >= rect.left &&
+            mouseX <= rect.right &&
+            mouseY >= rect.top &&
+            mouseY <= rect.bottom
+        );
+    }
+    
+    /**
+     * Configuración mejorada para los dropdowns
+     */
+    function setupDropdowns() {
+        dropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            
+            if (!toggle || !menu) return;
+            
+            // Variables para controlar el estado
+            let isOpen = false;
+            let timeoutId = null;
+            
+            // Para desktop, usar mouse events
+            if (window.innerWidth > 768) {
+                // Al entrar al dropdown
+                dropdown.addEventListener('mouseenter', function(e) {
+                    clearTimeout(timeoutId);
+                    dropdown.classList.add('active');
+                    isOpen = true;
+                });
+                
+                // Al salir del dropdown
+                dropdown.addEventListener('mouseleave', function(e) {
+                    timeoutId = setTimeout(() => {
+                        if (!isOpen || (e.relatedTarget && !menu.contains(e.relatedTarget) && !dropdown.contains(e.relatedTarget))) {
+                            dropdown.classList.remove('active');
+                            isOpen = false;
+                        }
+                    }, 150);
+                });
+                
+                // Al entrar al menú directamente
+                menu.addEventListener('mouseenter', () => {
+                    clearTimeout(timeoutId);
+                    dropdown.classList.add('active');
+                    isOpen = true;
+                });
+                
+                // Al salir del menú
+                menu.addEventListener('mouseleave', (e) => {
+                    if (!dropdown.contains(e.relatedTarget)) {
+                        dropdown.classList.remove('active');
+                        isOpen = false;
+                    }
+                });
+                
+                // Evitar que el clic en toggle cierre el menú en desktop
+                toggle.addEventListener('click', (e) => {
+                    if (window.innerWidth > 768) {
+                        e.preventDefault();
+                        dropdown.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+    
+    // =========================================================================
     // FUNCIONES PARA ENLACES ACTIVOS
     // =========================================================================
     
@@ -429,6 +471,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         init();
         initSmoothScroll();
+        setupDropdowns(); // Configuración mejorada de dropdowns
     });
     
     // Exponer funciones que puedan ser útiles para otros scripts
