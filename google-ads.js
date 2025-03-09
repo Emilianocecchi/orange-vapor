@@ -243,37 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(simulateRandomBookings, 45000);
     
     // =========================================================================
-    // SCROLL SUAVE Y NAVEGACIÓN
-    // =========================================================================
-    
-    // Scroll suave para enlaces internos
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                // Destacar el destino brevemente
-                targetElement.style.animation = 'highlight-pulse 1s ease';
-                
-                // Scroll suave
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                
-                // Quitar la animación después
-                setTimeout(() => {
-                    targetElement.style.animation = '';
-                }, 1000);
-            }
-        });
-    });
-    
-    // =========================================================================
     // EFECTOS VISUALES - Elementos decorativos
     // =========================================================================
     
@@ -523,11 +492,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }, 500);
             }
-        }
-        
-        // Asegurar que el header se actualice correctamente
-        if (typeof updateHeaderState === 'function') {
-            updateHeaderState();
         }
     });
 });
