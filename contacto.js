@@ -1,5 +1,6 @@
 /**
- * Orange Vapor - Funcionalidad específica de la página de contacto
+ * Orange Vapor - Página de Contacto
+ * JavaScript Específico para la página de contacto
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -15,23 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
             faqItems.forEach(otherItem => {
                 if (otherItem !== item && otherItem.classList.contains('active')) {
                     otherItem.classList.remove('active');
-                    otherItem.querySelector('.faq-answer').style.maxHeight = '0';
-                    otherItem.querySelector('.faq-answer').style.padding = '0 1.5rem';
                 }
             });
             
             // Alternar estado actual
-            const isActive = item.classList.contains('active');
-            
-            if (isActive) {
-                item.classList.remove('active');
-                answer.style.maxHeight = '0';
-                answer.style.padding = '0 1.5rem';
-            } else {
-                item.classList.add('active');
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-                answer.style.padding = '0 1.5rem 1.5rem';
-            }
+            item.classList.toggle('active');
         });
     });
 
@@ -43,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const elementTop = element.getBoundingClientRect().top;
             const windowHeight = window.innerHeight;
             
-            if (elementTop < windowHeight * 0.85) {
+            if (elementTop < windowHeight * 0.8) {
                 element.classList.add('visible');
             }
         });
@@ -53,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', handleScrollAnimations);
     
     // Llamar una vez para animar elementos visibles inicialmente
-    setTimeout(handleScrollAnimations, 100);
+    handleScrollAnimations();
     
     // Animación inmediata para elementos del hero
     const heroElements = document.querySelectorAll('#hero .fade-in');
@@ -78,9 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: targetElement.offsetTop - 80,
                     behavior: 'smooth'
                 });
-                
-                // Actualizar URL (opcional)
-                history.pushState(null, null, targetId);
             }
         });
     });
