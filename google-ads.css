@@ -1247,14 +1247,7 @@
     min-height: 450px;
 }
 
-/* CTA Flotante */
-.cta-flotante {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 99;
-}
-
+/* CTA Flotante - Estilo específico para Google Ads */
 .btn-flotante {
     display: flex;
     align-items: center;
@@ -1313,21 +1306,10 @@
     100% { transform: translateY(-100px); opacity: 0; }
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-    40% { transform: translateY(-10px) translateX(-50%); }
-    60% { transform: translateY(-5px) translateX(-50%); }
-}
-
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+@keyframes highlight-pulse {
+    0% { transform: scale(1); box-shadow: none; }
+    50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(66, 133, 244, 0.5); }
+    100% { transform: scale(1); box-shadow: none; }
 }
 
 /* Notificación de Booking */
@@ -1366,12 +1348,6 @@
         opacity: 0;
         transform: translateY(20px);
     }
-}
-
-@keyframes highlight-pulse {
-    0% { transform: scale(1); box-shadow: none; }
-    50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(66, 133, 244, 0.5); }
-    100% { transform: scale(1); box-shadow: none; }
 }
 
 /* Media Queries */
@@ -1524,127 +1500,4 @@
     .presupuesto-grid {
         grid-template-columns: 1fr;
     }
-
-   /* ==========================================================================
-   FOOTER
-   ========================================================================== */
-.footer {
-    background-color: var(--gris-oscuro);
-    color: rgba(255, 255, 255, 0.7);
-    padding-top: var(--espaciado-lg);
-    position: relative;
-}
-
-.footer::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    background: linear-gradient(to top, rgba(255, 126, 0, 0.1), transparent);
-    border-radius: 50% 50% 0 0;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: var(--espaciado-md);
-    margin-bottom: var(--espaciado-md);
-}
-
-.footer-about {
-    padding-right: var(--espaciado-md);
-}
-
-.footer-logo {
-    color: var(--blanco);
-    font-family: var(--fuente-principal);
-    font-weight: 700;
-    font-size: var(--texto-xl);
-    margin-bottom: var(--espaciado-sm);
-    display: inline-block;
-}
-
-.footer-logo span {
-    color: var(--naranja-principal);
-}
-
-.footer-about p {
-    margin-bottom: var(--espaciado-md);
-    line-height: 1.6;
-}
-
-.footer-column h4 {
-    color: var(--blanco);
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.footer-column h4::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 30px;
-    height: 2px;
-    background-color: var(--naranja-principal);
-}
-
-.footer-column ul li {
-    margin-bottom: 10px;
-}
-
-.footer-column ul li a:hover {
-    color: var(--naranja-principal);
-}
-
-.footer-contact ul li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 15px;
-}
-
-.footer-contact ul li i {
-    margin-right: 10px;
-    color: var(--naranja-principal);
-    margin-top: 5px;
-}
-
-.footer-bottom {
-    padding: var(--espaciado-sm) 0;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* CTA Flotante */
-.cta-flotante {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 99;
-}
-
-.btn-flotante {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 20px;
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-    border-radius: var(--borde-redondo-full);
-    font-weight: 600;
-    box-shadow: var(--sombra-media);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.btn-flotante:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--sombra-fuerte);
-}
-
-.btn-flotante i {
-    font-size: var(--texto-md);
-}
-
 }
