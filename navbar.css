@@ -135,7 +135,7 @@ button {
 }
 
 /* ======================================================================
-   LOGO Y ANIMACIÓN
+   LOGO Y ANIMACIÓN CORREGIDA
    ====================================================================== */
 .logo {
     display: block;
@@ -168,15 +168,14 @@ button {
     letter-spacing: -0.01em;
     backface-visibility: hidden;
     transform-style: preserve-3d;
-    transition: transform var(--duration-slow) var(--ease-elastic),
-                opacity var(--duration-slow) var(--ease-elastic);
 }
 
 /* Logo completo (Orange Vapor) */
 .logo-full {
     transform: rotateX(0) translateZ(0);
     opacity: 1;
-    color: var(--gris-90);
+    visibility: visible;
+    transition: transform 0.4s ease, opacity 0.4s ease, visibility 0s;
 }
 
 .logo-full .vapor {
@@ -188,6 +187,8 @@ button {
 .logo-short {
     transform: rotateX(-90deg) translateZ(20px);
     opacity: 0;
+    visibility: hidden;
+    transition: transform 0.4s ease, opacity 0.4s ease, visibility 0s 0.4s;
     font-size: var(--text-3xl);
     font-weight: 800;
     color: var(--gris-90);
@@ -197,15 +198,19 @@ button {
     color: var(--naranja-principal);
 }
 
-/* Estado sticky - cambio de logo */
+/* Estado sticky - cambio de logo - SIMPLIFICADO */
 #header.sticky .logo-full {
     transform: rotateX(90deg) translateZ(20px);
     opacity: 0;
+    visibility: hidden;
+    transition: transform 0.4s ease, opacity 0.4s ease, visibility 0s 0.4s;
 }
 
 #header.sticky .logo-short {
     transform: rotateX(0) translateZ(0);
     opacity: 1;
+    visibility: visible;
+    transition: transform 0.4s ease, opacity 0.4s ease, visibility 0s;
 }
 
 /* Efectos hover para el logo */
@@ -637,7 +642,7 @@ button {
         justify-content: space-between;
     }
     
-    .dropdown::after {
+    .dropdown::before {
         display: none;
     }
     
