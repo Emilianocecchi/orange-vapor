@@ -111,10 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Estilizar el botón de scroll top
+    // Estilizar el botón de scroll top - MODIFICADO: Ahora a la izquierda
     scrollTopBtn.style.position = 'fixed';
     scrollTopBtn.style.bottom = '20px';
-    scrollTopBtn.style.right = '20px';
+    scrollTopBtn.style.left = '20px'; // MODIFICADO: Era right: '20px'
     scrollTopBtn.style.backgroundColor = '#1877f2';
     scrollTopBtn.style.color = 'white';
     scrollTopBtn.style.width = '50px';
