@@ -402,7 +402,7 @@ button {
 }
 
 /* ======================================================================
-   MENÚ DESPLEGABLE (CORREGIDO)
+   MENÚ DESPLEGABLE (CORRECCIÓN DEFINITIVA)
    ====================================================================== */
 .dropdown {
     position: relative;
@@ -420,10 +420,27 @@ button {
     font-size: 0.8em;
 }
 
-/* Para mantener visible el menú durante la transición del mouse */
-.dropdown-menu {
+/* Crear un puente visible entre el botón y el menú */
+.dropdown::before {
+    content: '';
     position: absolute;
     top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20px; /* Puente entre botón y menú */
+    z-index: 11;
+}
+
+/* Estado activo del dropdown */
+.dropdown.active .dropdown-icon,
+.dropdown:hover .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+/* Menú desplegable - posicionamiento más accesible */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 15px); /* Posicionado más abajo para acomodar el puente */
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--blanco);
@@ -433,11 +450,9 @@ button {
     box-shadow: var(--sombra-lg);
     opacity: 0;
     visibility: hidden;
-    transition: opacity var(--duration-normal) var(--ease-out),
-                visibility var(--duration-normal) var(--ease-out);
+    transition: opacity 0.3s, visibility 0.3s; /* Transición simplificada */
     z-index: 10;
     pointer-events: none;
-    margin-top: 10px;
 }
 
 /* Triángulo arriba del dropdown */
@@ -453,27 +468,19 @@ button {
     box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.04);
 }
 
-/* Área de detección más amplia para evitar que desaparezca el menú */
-.dropdown::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 20px; /* Área invisible para mantener hover */
-    z-index: 5;
-}
-
-.dropdown:hover .dropdown-icon {
-    transform: rotate(180deg);
-}
-
-/* Mostrar el menú en hover con retraso en desaparición */
+/* Mostrar el menú cuando el dropdown o el menú están en hover */
 .dropdown:hover .dropdown-menu,
-.dropdown-menu:hover {
+.dropdown.active .dropdown-menu {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+}
+
+/* Estilo para dispositivos táctiles en modo desktop */
+@media (hover: hover) {
+    .dropdown-menu {
+        display: block; /* Garantiza que siempre esté en el DOM */
+    }
 }
 
 /* Ítems del dropdown */
