@@ -1,0 +1,371 @@
+/* ======================================================================
+   VARIABLES PARA EL NAVBAR
+   (Puedes incluir estas variables en tu archivo principal o usar las que ya tienes)
+   ====================================================================== */
+:root {
+    /* Colores */
+    --naranja-principal: #FF7E00;
+    --naranja-claro: #FFE0C2;
+    --naranja-oscuro: #E56F00;
+    --blanco: #FFFFFF;
+    --negro: #222222;
+    --gris-oscuro: #333333;
+    --gris-medio: #666666;
+    --gris-claro: #F5F5F5;
+    
+    /* Sombras */
+    --sombra-suave: 0 5px 15px rgba(0, 0, 0, 0.05);
+    --sombra-media: 0 8px 30px rgba(0, 0, 0, 0.12);
+    
+    /* Bordes */
+    --borde-redondo-md: 8px;
+    --borde-redondo-full: 9999px;
+    
+    /* Fuentes */
+    --fuente-principal: 'Montserrat', sans-serif;
+    --fuente-secundaria: 'Open Sans', sans-serif;
+    --texto-xs: 0.75rem;
+    --texto-sm: 0.875rem;
+    --texto-base: 1rem;
+    --texto-md: 1.125rem;
+    --texto-lg: 1.25rem;
+    --texto-xl: 1.5rem;
+    
+    /* Transiciones */
+    --transicion-rapida: 0.2s ease;
+    --transicion-media: 0.3s ease;
+}
+
+/* ======================================================================
+   HEADER Y NAVEGACIÓN
+   ====================================================================== */
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--blanco);
+    transition: all var(--transicion-media);
+    padding: 20px 0;
+}
+
+#header.sticky {
+    background-color: var(--blanco);
+    box-shadow: var(--sombra-suave);
+    padding: 12px 0;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ======================================================================
+   LOGO
+   ====================================================================== */
+.logo {
+    font-family: var(--fuente-principal);
+    font-weight: 700;
+    font-size: var(--texto-xl);
+    color: var(--negro);
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+}
+
+/* Texto del logo */
+.logo-text {
+    transition: opacity var(--transicion-media), transform var(--transicion-media);
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
+}
+
+.logo-text span {
+    color: var(--naranja-principal);
+}
+
+/* Iniciales del logo (OV) */
+.logo-initials {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--transicion-media), transform var(--transicion-media);
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.logo-letter-o {
+    color: var(--negro);
+    margin-right: -0.1rem;
+}
+
+.logo-letter-v {
+    color: var(--naranja-principal);
+}
+
+/* Logo en modo sticky - transformación a OV */
+#header.sticky .logo-text {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+#header.sticky .logo-initials {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ======================================================================
+   MENÚ DE NAVEGACIÓN
+   ====================================================================== */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.nav-link {
+    color: var(--gris-oscuro);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: var(--texto-sm);
+    padding: 0.5rem;
+    position: relative;
+    transition: color var(--transicion-rapida);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--naranja-principal);
+    transition: width var(--transicion-media);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--naranja-principal);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+.nav-cta {
+    margin-left: 0.5rem;
+}
+
+.nav-cta .btn {
+    padding: 10px 16px;
+    white-space: nowrap;
+    border-radius: var(--borde-redondo-md);
+    transition: all var(--transicion-rapida);
+    box-shadow: 0 3px 6px rgba(255, 126, 0, 0.2);
+    background-color: var(--naranja-principal);
+    color: var(--blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: var(--texto-sm);
+    display: inline-block;
+    text-align: center;
+}
+
+.nav-cta .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255, 126, 0, 0.3);
+    background-color: var(--naranja-oscuro);
+}
+
+/* ======================================================================
+   MENÚ DESPLEGABLE
+   ====================================================================== */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropdown-toggle i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .dropdown-toggle i {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-md);
+    box-shadow: var(--sombra-media);
+    padding: 8px 0;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 16px;
+    color: var(--gris-oscuro);
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 126, 0, 0.1);
+    color: var(--naranja-principal);
+    padding-left: 20px;
+}
+
+.dropdown-item.active {
+    color: var(--naranja-principal);
+    font-weight: 600;
+    background-color: rgba(255, 126, 0, 0.05);
+}
+
+.dropdown-item.featured-item {
+    font-weight: 600;
+    color: var(--naranja-principal);
+}
+
+/* ======================================================================
+   BOTÓN MÓVIL
+   ====================================================================== */
+.mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.mobile-toggle span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: var(--gris-oscuro);
+    transition: var(--transicion-rapida);
+}
+
+/* ======================================================================
+   MEDIA QUERIES
+   ====================================================================== */
+@media (max-width: 1024px) {
+    .nav-menu {
+        gap: 0.8rem;
+    }
+    
+    .nav-link {
+        font-size: var(--texto-xs);
+        padding: 0.4rem;
+    }
+    
+    .nav-cta .btn {
+        padding: 8px 12px;
+        font-size: var(--texto-xs);
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-toggle {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: var(--blanco);
+        padding: 20px;
+        box-shadow: var(--sombra-media);
+        transform: translateY(-150%);
+        opacity: 0;
+        pointer-events: none;
+        transition: all var(--transicion-media);
+        z-index: 100;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+    
+    .nav-cta {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+    
+    .nav-cta .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-link {
+        color: var(--gris-oscuro);
+        width: 100%;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        background-color: transparent;
+        box-shadow: none;
+        padding-left: 20px;
+        margin-top: 5px;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+    
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+    
+    .dropdown-toggle {
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .dropdown-item {
+        padding: 8px 0;
+        color: var(--gris-oscuro) !important;
+    }
+    
+    .dropdown-item:hover {
+        background-color: transparent;
+    }
+}
