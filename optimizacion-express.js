@@ -90,6 +90,13 @@ document.addEventListener('DOMContentLoaded', function() {
             bubble.style.bottom = '-20%';
             bubble.style.animationDelay = `${delay}s`;
             bubble.style.animationDuration = `${duration}s`;
+            bubble.style.position = 'absolute';
+            bubble.style.borderRadius = '50%';
+            bubble.style.background = 'radial-gradient(circle at center, rgba(220, 53, 69, 0.3) 0%, rgba(255, 107, 107, 0.1) 50%, rgba(255, 255, 255, 0) 70%)';
+            bubble.style.opacity = '0';
+            bubble.style.zIndex = '1';
+            bubble.style.boxShadow = '0 0 40px rgba(220, 53, 69, 0.1)';
+            bubble.style.animation = 'bubble-rise 15s ease-in-out infinite';
             
             // Añadir burbuja al DOM
             vaporEffect.appendChild(bubble);
@@ -321,18 +328,15 @@ document.addEventListener('DOMContentLoaded', function() {
             50% { box-shadow: 0 0 25px rgba(220, 53, 69, 0.6); }
             100% { box-shadow: none; }
         }
+        
+        @keyframes bubble-rise {
+            0% { transform: translateY(100px); opacity: 0; }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
     `;
     document.head.appendChild(styleElement);
-    
-    // Resaltar enlaces de navegación activos
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        if (link.getAttribute('href') === 'optimizacion-express.html') {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
-        }
-    });
     
     // Animaciones al hacer scroll
     const fadeElements = document.querySelectorAll('.fade-in');
