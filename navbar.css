@@ -251,6 +251,7 @@ button {
     padding: var(--space-xs) var(--space-xs);
     transition: color var(--duration-fast) var(--ease-in-out);
     white-space: nowrap;
+    gap: var(--space-xs);
 }
 
 /* Efecto de línea inferior en hover y active */
@@ -314,6 +315,10 @@ button {
     animation: pulse 1.5s infinite;
 }
 
+.express-link i {
+    color: var(--rojo-express);
+}
+
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -357,7 +362,6 @@ button {
 
 /* Ícono de flecha */
 .arrow-icon {
-    stroke: currentColor;
     transition: transform var(--duration-normal) var(--ease-bounce);
 }
 
@@ -398,7 +402,7 @@ button {
 }
 
 /* ======================================================================
-   MENÚ DESPLEGABLE
+   MENÚ DESPLEGABLE (CORREGIDO)
    ====================================================================== */
 .dropdown {
     position: relative;
@@ -413,20 +417,15 @@ button {
 
 .dropdown-icon {
     transition: transform var(--duration-normal) var(--ease-in-out);
-    stroke: currentColor;
-    stroke-width: 2;
+    font-size: 0.8em;
 }
 
-.dropdown:hover .dropdown-icon,
-.dropdown.active .dropdown-icon {
-    transform: rotate(180deg);
-}
-
+/* Para mantener visible el menú durante la transición del mouse */
 .dropdown-menu {
     position: absolute;
-    top: calc(100% + 10px);
+    top: 100%;
     left: 50%;
-    transform: translateX(-50%) translateY(10px);
+    transform: translateX(-50%);
     background-color: var(--blanco);
     min-width: 220px;
     padding: var(--space-sm) var(--space-xs);
@@ -434,9 +433,11 @@ button {
     box-shadow: var(--sombra-lg);
     opacity: 0;
     visibility: hidden;
-    transition: all var(--duration-normal) var(--ease-out);
+    transition: opacity var(--duration-normal) var(--ease-out),
+                visibility var(--duration-normal) var(--ease-out);
     z-index: 10;
     pointer-events: none;
+    margin-top: 10px;
 }
 
 /* Triángulo arriba del dropdown */
@@ -452,10 +453,26 @@ button {
     box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.04);
 }
 
-.dropdown:hover .dropdown-menu {
+/* Área de detección más amplia para evitar que desaparezca el menú */
+.dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20px; /* Área invisible para mantener hover */
+    z-index: 5;
+}
+
+.dropdown:hover .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+/* Mostrar el menú en hover con retraso en desaparición */
+.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
     pointer-events: auto;
 }
 
@@ -490,7 +507,8 @@ button {
 
 .item-icon {
     opacity: 0.8;
-    stroke: currentColor;
+    width: 16px;
+    text-align: center;
 }
 
 .dropdown-item:hover .item-icon {
@@ -610,6 +628,10 @@ button {
     .dropdown-toggle {
         width: 100%;
         justify-content: space-between;
+    }
+    
+    .dropdown::after {
+        display: none;
     }
     
     .dropdown-menu {
