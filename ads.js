@@ -12,42 +12,57 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.hero-guarantee'),
         document.querySelector('.hero-buttons')
     ];
-
-    // Add interactivity to the Meta Ad mockup
-const adButton = document.querySelector('.ad-button');
-if (adButton) {
-    adButton.addEventListener('click', function() {
-        this.innerHTML = '¡Gracias por tu interés!';
-        this.style.backgroundColor = '#4CAF50';
-        
-        setTimeout(() => {
-            this.innerHTML = 'Comprar ahora';
-            this.style.backgroundColor = '#1877f2';
-        }, 2000);
-    });
-}
-
-// Make engagement items interactive
-const engagementItems = document.querySelectorAll('.engagement-item');
-engagementItems.forEach(item => {
-    item.addEventListener('click', function() {
-        const countElement = this.querySelector('span');
-        const currentCount = parseInt(countElement.textContent);
-        countElement.textContent = currentCount + 1;
-        
-        // Add a temporary highlight effect
-        this.style.color = '#1877f2';
-        setTimeout(() => {
-            this.style.color = '#65676B';
-        }, 1000);
-    });
-});
     
     criticalElements.forEach(element => {
         if (element && element.closest('.fade-in')) {
             element.closest('.fade-in').classList.add('visible');
         }
     });
+    
+    // Add interactivity to the Meta Ad mockup
+    const adButton = document.querySelector('.ad-button');
+    if (adButton) {
+        adButton.addEventListener('click', function() {
+            this.innerHTML = '¡Gracias por tu interés!';
+            this.style.backgroundColor = '#4CAF50';
+            
+            setTimeout(() => {
+                this.innerHTML = 'Reserva ahora';
+                this.style.backgroundColor = '#1877f2';
+            }, 2000);
+        });
+    }
+
+    // Make engagement items interactive
+    const engagementItems = document.querySelectorAll('.engagement-item');
+    engagementItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const countElement = this.querySelector('span');
+            const currentCount = parseInt(countElement.textContent);
+            countElement.textContent = currentCount + 1;
+            
+            // Add a temporary highlight effect
+            this.style.color = '#1877f2';
+            
+            // Add a small bump animation
+            this.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+                this.style.color = '#65676B';
+            }, 300);
+        });
+    });
+
+    // Add subtle animation to the landscape
+    const sun = document.querySelector('.sun');
+    if (sun) {
+        setInterval(() => {
+            sun.style.boxShadow = '0 0 30px rgba(255, 215, 0, 0.8)';
+            setTimeout(() => {
+                sun.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.6)';
+            }, 1000);
+        }, 2000);
+    }
     
     // Interacción con las métricas del hero
     const metricPills = document.querySelectorAll('.metric-pill');
