@@ -12,6 +12,36 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.hero-guarantee'),
         document.querySelector('.hero-buttons')
     ];
+
+    // Add interactivity to the Meta Ad mockup
+const adButton = document.querySelector('.ad-button');
+if (adButton) {
+    adButton.addEventListener('click', function() {
+        this.innerHTML = '¡Gracias por tu interés!';
+        this.style.backgroundColor = '#4CAF50';
+        
+        setTimeout(() => {
+            this.innerHTML = 'Comprar ahora';
+            this.style.backgroundColor = '#1877f2';
+        }, 2000);
+    });
+}
+
+// Make engagement items interactive
+const engagementItems = document.querySelectorAll('.engagement-item');
+engagementItems.forEach(item => {
+    item.addEventListener('click', function() {
+        const countElement = this.querySelector('span');
+        const currentCount = parseInt(countElement.textContent);
+        countElement.textContent = currentCount + 1;
+        
+        // Add a temporary highlight effect
+        this.style.color = '#1877f2';
+        setTimeout(() => {
+            this.style.color = '#65676B';
+        }, 1000);
+    });
+});
     
     criticalElements.forEach(element => {
         if (element && element.closest('.fade-in')) {
