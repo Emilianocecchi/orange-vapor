@@ -1175,7 +1175,7 @@
 
 .meta-ad-device {
     width: 350px;
-    max-height: 500px;
+    max-height: 530px;
     background-color: #FFFFFF;
     border-radius: 16px;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
@@ -1236,20 +1236,95 @@
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #f0f0f0;
+    overflow: hidden;
+    position: relative;
 }
 
-.ad-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #65676B;
+/* Landscape illustration */
+.landscape-illustration {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
-.ad-placeholder i {
-    font-size: 40px;
-    margin-bottom: 10px;
-    color: #1877f2;
+.sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to bottom, #87CEEB, #B0E2FF);
+}
+
+.sun {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: #FFD700;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+.mountain-back {
+    position: absolute;
+    bottom: 40%;
+    left: -10%;
+    width: 70%;
+    height: 100px;
+    background-color: #6B8E23;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    opacity: 0.8;
+}
+
+.mountain-front {
+    position: absolute;
+    bottom: 40%;
+    right: -10%;
+    width: 80%;
+    height: 130px;
+    background-color: #556B2F;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.lake {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to bottom, #4682B4, #5F9EA0);
+}
+
+.tree {
+    position: absolute;
+    bottom: 40%;
+    left: 75px;
+    width: 14px;
+    height: 30px;
+}
+
+.tree:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    width: 4px;
+    height: 15px;
+    background-color: #8B4513;
+}
+
+.tree:after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 14px;
+    height: 20px;
+    background-color: #2E8B57;
+    border-radius: 50% 50% 20% 20%;
 }
 
 .ad-copy {
@@ -1257,6 +1332,15 @@
     font-size: 14px;
     color: #333;
     border-bottom: 1px solid #f0f0f0;
+    line-height: 1.4;
+}
+
+.ad-copy p {
+    margin: 0;
+}
+
+.ad-copy strong {
+    color: #1877f2;
 }
 
 .ad-cta {
@@ -1272,11 +1356,13 @@
     border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .ad-button:hover {
     background-color: #166fe5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ad-engagement {
@@ -1294,6 +1380,11 @@
     color: #65676B;
     font-size: 13px;
     cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.engagement-item:hover {
+    color: #1877f2;
 }
 
 .ad-stats-badge {
@@ -1312,6 +1403,19 @@
     box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4);
     z-index: 6;
     border: 3px solid rgba(255, 255, 255, 0.2);
+    animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+    0% {
+        box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4);
+    }
+    50% {
+        box-shadow: 0 5px 30px rgba(24, 119, 242, 0.7);
+    }
+    100% {
+        box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4);
+    }
 }
 
 .stats-value {
@@ -1335,36 +1439,13 @@
     .ad-image {
         height: 160px;
     }
-}
-
-
-.cta-botones .btn:hover {
-    background-color: var(--blanco);
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-}
-
-.cta-final-section .spots-container {
-    background-color: rgba(255, 255, 255, 0.15);
-    padding: var(--espaciado-sm);
-    border-radius: var(--borde-redondo-md);
-    margin: var(--espaciado-md) auto 0;
-    max-width: 400px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.cta-final-section .spots-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    gap: 10px;
-}
-
-.cta-final-section .spots-fire {
-    margin-right: 0;
-    font-size: var(--texto-lg);
+    
+    .sun {
+        width: 30px;
+        height: 30px;
+        top: 20px;
+        right: 30px;
+    }
 }
 
 /* Formulario de contacto mejorado */
