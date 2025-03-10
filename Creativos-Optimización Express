@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anuncios Meta Ads - Orange Vapor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables CSS */
+        :root {
+            /* Colores de Orange Vapor */
+            --naranja-principal: #FF7E00;
+            --naranja-secundario: #FF9F45;
+            --naranja-claro: #FFE0C2;
+            --naranja-oscuro: #E56F00;
+
+            /* Colores para Optimización Express */
+            --rojo-principal: #dc3545; /* Fondo plano */
+            --rojo-claro: #ff6b6b;
+            --rojo-oscuro: #c82333;
+            --rojo-transparente: rgba(220, 53, 69, 0.1);
+
+            /* Colores neutrales */
+            --blanco: #FFFFFF;
+            --negro: #222222;
+            --gris-oscuro: #333333;
+            --gris-medio: #666666;
+            --gris-claro: #F5F5F5;
+            --gris-borde: #E0E0E0;
+
+            /* Sombras */
+            --sombra-suave: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --sombra-media: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --sombra-fuerte: 0 10px 40px rgba(0, 0, 0, 0.2);
+
+            /* Bordes */
+            --borde-redondo-sm: 4px;
+            --borde-redondo-md: 8px;
+            --borde-redondo-lg: 16px;
+            --borde-redondo-full: 9999px;
+
+            /* Espaciado */
+            --espaciado-xs: 0.5rem;
+            --espaciado-sm: 0.5rem;
+            --espaciado-md: 2rem;
+            --espaciado-lg: 4rem;
+
+            /* Tipografía */
+            --fuente-principal: 'Montserrat', sans-serif;
+            --fuente-secundaria: 'Open Sans', sans-serif;
+            --texto-xs: 0.75rem;
+            --texto-sm: 0.875rem;
+            --texto-base: 1rem;
+            --texto-md: 1.125rem;
+            --texto-lg: 1.25rem;
+            --texto-xl: 1.5rem;
+            --texto-2xl: 2rem;
+            --texto-3xl: 2.5rem;
+        }
+
+        /* Estilos base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--fuente-secundaria);
+            color: var(--gris-oscuro);
+            line-height: 1.6;
+            background-color: var(--gris-claro);
+            padding: 40px;
+        }
+
+        h1 {
+            font-family: var(--fuente-principal);
+            text-align: center;
+            margin-bottom: var(--espaciado-lg);
+            color: var(--rojo-principal);
+        }
+
+        h2 {
+            font-family: var(--fuente-principal);
+            margin-top: var(--espaciado-lg);
+            margin-bottom: var(--espaciado-md);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--rojo-principal);
+        }
+
+        /* Contenedor de anuncios */
+        .ad-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--espaciado-md);
+            margin-bottom: var(--espaciado-lg);
+        }
+
+        .ad-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ad-label {
+            margin-top: var(--espaciado-sm);
+            font-weight: 600;
+            color: var(--negro);
+        }
+
+        /* Estilos de los anuncios */
+        .ad-preview {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--blanco);
+            border-radius: 0;
+            box-shadow: var(--sombra-media);
+        }
+
+        .ad-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--rojo-principal); /* Fondo plano */
+            z-index: 1;
+        }
+
+        .ad-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><rect width="5" height="5" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.15;
+            z-index: 2;
+        }
+
+        .ad-vapor {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 70%);
+            z-index: 2;
+        }
+
+        .ad-vapor-1 {
+            width: 50%;
+            height: 50%;
+            bottom: -20%;
+            left: -20%;
+            opacity: 0.2;
+        }
+
+        .ad-vapor-2 {
+            width: 40%;
+            height: 40%;
+            top: -10%;
+            right: -10%;
+            opacity: 0.15;
+        }
+
+        .ad-content {
+            position: relative;
+            z-index: 5;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: var(--blanco);
+            padding: var(--espaciado-sm);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Ajustes específicos para Story/Reel */
+        .story-reel .ad-content {
+            padding: 0.5rem; /* Reducido para maximizar espacio */
+        }
+
+        .story-reel .ad-title {
+            font-size: var(--texto-lg); /* 1.25rem */
+        }
+
+        .story-reel .ad-subtitle {
+            font-size: var(--texto-sm); /* 0.875rem */
+        }
+
+        .story-reel .ad-benefits li {
+            font-size: var(--texto-sm); /* 0.875rem */
+        }
+
+        .story-reel .ad-cta {
+            padding: 0.5rem 1rem; /* Botón más compacto */
+            font-size: var(--texto-sm); /* 0.875rem */
+        }
+
+        .ad-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--espaciado-xs);
+        }
+
+        .ad-logo {
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: var(--texto-xl);
+            color: var(--blanco);
+        }
+
+        .ad-logo span {
+            color: var(--naranja-principal);
+        }
+
+        .ad-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: var(--borde-redondo-full);
+            font-size: var(--texto-xs);
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+
+        .ad-badge i {
+            margin-right: 0.25rem;
+        }
+
+        .ad-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .ad-icon {
+            margin-bottom: var(--espaciado-xs);
+            font-size: var(--texto-2xl);
+        }
+
+        .ad-title {
+            font-family: var(--fuente-principal);
+            font-weight: 800;
+            font-size: var(--texto-xl);
+            margin: var(--espaciado-xs) 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .ad-subtitle {
+            font-size: var(--texto-md);
+            margin-bottom: var(--espaciado-sm);
+            opacity: 0.9;
+        }
+
+        .ad-benefits {
+            list-style: none;
+            padding: 0;
+            margin: var(--espaciado-sm) 0;
+            text-align: center;
+        }
+
+        .ad-benefits li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: var(--texto-base);
+            margin-bottom: var(--espaciado-xs);
+        }
+
+        .ad-footer {
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .ad-cta {
+            background: var(--naranja-principal);
+            color: var(--blanco);
+            font-weight: 700;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--borde-redondo-md);
+            font-size: var(--texto-base);
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Formatos específicos */
+        .feed-square { width: 350px; height: 350px; }
+        .story-reel { width: 200px; height: 356px; }
+        .carousel-slide { width: 350px; height: 350px; }
+    </style>
+</head>
+<body>
+    <h1>Anuncios Meta Ads - Orange Vapor</h1>
+
+    <!-- Feed Square (1080x1080) -->
+    <h2>Feed Square (1080x1080)</h2>
+    <div class="ad-container">
+        <div class="ad-item">
+            <div class="ad-preview feed-square">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h2 class="ad-title">¿Ads sin resultados?</h2>
+                        <p class="ad-subtitle">Optimizamos en 48hs</p>
+                    </div>
+                    <div class="ad-footer">
+                        <div class="ad-cta">Auditoría Gratis</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Variante 1</div>
+        </div>
+
+        <div class="ad-item">
+            <div class="ad-preview feed-square">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
+                        <h2 class="ad-title">+20% ventas</h2>
+                        <p class="ad-subtitle">Resultados garantizados</p>
+                    </div>
+                    <div class="ad-footer">
+                        <div class="ad-cta">Auditoría Gratis</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Variante 2</div>
+        </div>
+
+        <div class="ad-item">
+            <div class="ad-preview feed-square">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <h2 class="ad-title">Pará de perder dinero</h2>
+                        <p class="ad-subtitle">Optimizamos tu presupuesto</p>
+                    </div>
+                    <div class="ad-footer">
+                        <div class="ad-cta">Auditoría Gratis</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Variante 3</div>
+        </div>
+    </div>
+
+    <!-- Story/Reel (1080x1920) -->
+    <h2>Story/Reel (1080x1920)</h2>
+    <div class="ad-container">
+        <div class="ad-item">
+            <div class="ad-preview story-reel">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h2 class="ad-title">¿Ads sin ROI?</h2>
+                        <ul class="ad-benefits">
+                            <li><i class="fas fa-bolt"></i> Optimización en 48hs</li>
+                            <li><i class="fas fa-search-dollar"></i> Detectamos fugas</li>
+                            <li><i class="fas fa-chart-line"></i> +20% ventas</li>
+                        </ul>
+                    </div>
+                    <div class="ad-footer">
+                        <div class="ad-cta">Auditoría Gratis</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Variante 1</div>
+        </div>
+
+        <div class="ad-item">
+            <div class="ad-preview story-reel">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
+                        <h2 class="ad-title">Aumentá tus ventas</h2>
+                        <ul class="ad-benefits">
+                            <li><i class="fas fa-bolt"></i> En solo 48hs</li>
+                            <li><i class="fas fa-check"></i> Resultados reales</li>
+                            <li><i class="fas fa-shield-alt"></i> Garantizado</li>
+                        </ul>
+                    </div>
+                    <div class="ad-footer">
+                        <div class="ad-cta">Auditoría Gratis</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Variante 2</div>
+        </div>
+
+        <div class="ad-item">
+            <div class="ad-preview story-reel">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <h2 class="ad-title">Optimizá tu presupuesto</h2>
+                        <ul class="ad-benefits">
+                            <li><i class="fas fa-search-dollar"></i> Auditoría gratis</li>
+                            <li><i class="fas fa-bolt"></i> Resultados rápidos</li>
+                            <li><i class="fas fa-check"></i> Sin riesgos</li>
+                        </ul>
+                    </div>
+                    <div class="ad-footer">
+                        <div class="ad-cta">Auditoría Gratis</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Variante 3</div>
+        </div>
+    </div>
+
+    <!-- Carrusel 1080x1080 -->
+    <h2>Carrusel 1080x1080</h2>
+    <div class="ad-container">
+        <div class="ad-item">
+            <div class="ad-preview carousel-slide">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h2 class="ad-title">¿Ads sin resultados?</h2>
+                        <p class="ad-subtitle">Pará de perder dinero</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Slide 1</div>
+        </div>
+
+        <div class="ad-item">
+            <div class="ad-preview carousel-slide">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-bolt"></i></div>
+                        <h2 class="ad-title">Optimización Express</h2>
+                        <p class="ad-subtitle">En solo 48hs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Slide 2</div>
+        </div>
+
+        <div class="ad-item">
+            <div class="ad-preview carousel-slide">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
+                        <h2 class="ad-title">+20% ventas</h2>
+                        <p class="ad-subtitle">Resultados garantizados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Slide 3</div>
+        </div>
+
+        <div class="ad-item">
+            <div class="ad-preview carousel-slide">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-search-dollar"></i></div>
+                        <h2 class="ad-title">Auditoría Gratis</h2>
+                    </div>
+                    <div class="ad-footer">
+                        <div class="ad-cta">Reservá Ahora</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Slide 4</div>
+        </div>
+    </div>
+
+    <!-- Carrusel 1080x1920 -->
+    <h2>Carrusel 1080x1920</h2>
+    <div class="ad-container">
+        <div class="ad-item">
+            <div class="ad-preview story-reel">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h2 class="ad-title">¿Ads sin ROI?</h2>
+                        <p class="ad-subtitle">Optimizamos tus campañas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Slide 1</div>
+        </div>
+
+        <div class="ad-item">
+            <div class="ad-preview story-reel">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-bolt"></i></div>
+                        <h2 class="ad-title">Resultados en 48hs</h2>
+                        <p class="ad-subtitle">Optimización Express</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Slide 2</div>
+        </div>
+
+        <div class="ad-item">
+            <div class="ad-preview story-reel">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
+                        <h2 class="ad-title">Aumentá tus ventas</h2>
+                        <p class="ad-subtitle">+20% garantizado</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Slide 3</div>
+        </div>
+
+        <div class="ad-item">
+            <div class="ad-preview story-reel">
+                <div class="ad-bg"></div>
+                <div class="ad-pattern"></div>
+                <div class="ad-vapor ad-vapor-1"></div>
+                <div class="ad-vapor ad-vapor-2"></div>
+                <div class="ad-content">
+                    <div class="ad-header">
+                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-icon"><i class="fas fa-search-dollar"></i></div>
+                        <h2 class="ad-title">Auditoría Gratis</h2>
+                    </div>
+                    <div class="ad-footer">
+                        <div class="ad-cta">Reservá Ahora</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-label">Slide 4</div>
+        </div>
+    </div>
+</body>
+</html>
