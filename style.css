@@ -1734,25 +1734,27 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN CONTACTO
+   SECCIÓN CONTACTO CON CALENDLY A TAMAÑO COMPLETO
    ========================================================================== */
+
+/* Hack para evitar scroll interno y mostrar Calendly a tamaño completo */
 .contacto {
     background-color: var(--gris-claro);
     padding: var(--espaciado-xl) 0;
 }
 
+/* Cambiamos completamente el layout para dar espacio suficiente al Calendly */
 .contacto-content {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--espaciado-md);
+    flex-direction: column;
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
+    gap: var(--espaciado-lg);
 }
 
 .contacto-beneficios {
-    flex: 1;
+    width: 100%;
     padding: var(--espaciado-md);
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-md);
@@ -1767,6 +1769,9 @@ p {
 
 .beneficios-lista {
     margin-bottom: var(--espaciado-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaciado-sm);
 }
 
 .beneficios-lista li {
@@ -1774,6 +1779,7 @@ p {
     align-items: flex-start;
     margin-bottom: var(--espaciado-sm);
     color: var(--texto-oscuro);
+    width: calc(50% - var(--espaciado-sm));
 }
 
 .beneficios-lista li i {
@@ -1796,59 +1802,76 @@ p {
     margin-right: 10px;
 }
 
+/* Contenedor del Calendly - Sin restricciones */
 .contacto-form {
-    flex: 2;
-    padding: var(--espaciado-md);
+    width: 100%;
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-md);
     box-shadow: var(--sombra-suave);
-    /* Aumentamos significativamente la altura para mostrar todo el contenido de Calendly */
-    min-height: 900px;
+    padding: 0;
+    overflow: hidden;
+    height: 1000px;
 }
 
-/* Calendly Widget */
+/* Widget de Calendly a tamaño completo */
 .calendly-inline-widget {
-    width: 100%;
-    height: 860px !important; /* Forzamos la altura con !important */
+    width: 100% !important;
+    height: 1000px !important;
+    min-width: 320px;
+    overflow: hidden !important;
+    display: block;
     border: none;
-    overflow: visible !important; /* Aseguramos que no haya scroll interno */
+    margin: 0;
+    padding: 0;
+    transform: scale(1) !important;
+    transform-origin: center top !important;
+}
+
+/* Hack para evitar scroll interno */
+body .calendly-inline-widget iframe {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: block !important;
+    transform: none !important;
 }
 
 /* Ajustes responsive */
 @media (max-width: 1024px) {
     .contacto-content {
-        flex-direction: column;
+        padding: 0 var(--espaciado-sm);
     }
     
     .contacto-form {
-        width: 100%;
-        min-height: 900px;
+        height: 900px;
     }
     
-    .contacto-beneficios {
-        width: 100%;
-        margin-bottom: var(--espaciado-md);
+    .calendly-inline-widget {
+        height: 900px !important;
     }
 }
 
 @media (max-width: 768px) {
+    .beneficios-lista li {
+        width: 100%;
+    }
+    
     .contacto-form {
-        padding: var(--espaciado-sm);
-        min-height: 950px;
+        height: 950px;
     }
     
     .calendly-inline-widget {
-        height: 910px !important;
+        height: 950px !important;
     }
 }
 
 @media (max-width: 576px) {
     .contacto-form {
-        min-height: 1000px;
+        height: 1050px;
     }
     
     .calendly-inline-widget {
-        height: 960px !important;
+        height: 1050px !important;
     }
 }
 /* ==========================================================================
