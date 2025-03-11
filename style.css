@@ -1802,22 +1802,54 @@ p {
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-md);
     box-shadow: var(--sombra-suave);
+    /* Ajuste de altura para Calendly */
+    min-height: 750px;
 }
 
-/* HubSpot Form */
-.hs-form-frame {
+/* Calendly Widget */
+.calendly-inline-widget {
     width: 100%;
-    max-width: 100%;
+    height: 700px;
     border: none;
-    padding: 0;
-    margin: 0 auto;
-    background: transparent;
+    overflow: visible;
 }
 
-.hs-form-frame iframe {
-    width: 100%;
-    min-height: 480px;
-    overflow: hidden;
+/* Ajustes responsive */
+@media (max-width: 1024px) {
+    .contacto-content {
+        flex-direction: column;
+    }
+    
+    .contacto-form {
+        width: 100%;
+        min-height: 750px;
+    }
+    
+    .contacto-beneficios {
+        width: 100%;
+        margin-bottom: var(--espaciado-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .contacto-form {
+        padding: var(--espaciado-sm);
+        min-height: 770px;
+    }
+    
+    .calendly-inline-widget {
+        height: 740px;
+    }
+}
+
+@media (max-width: 576px) {
+    .contacto-form {
+        min-height: 800px;
+    }
+    
+    .calendly-inline-widget {
+        height: 770px;
+    }
 }
 
 /* ==========================================================================
