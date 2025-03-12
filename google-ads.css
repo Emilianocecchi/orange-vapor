@@ -1427,24 +1427,24 @@
     font-size: var(--texto-lg);
 }
 
-/* Formulario de contacto ajustado */
+/* Formulario de contacto ajustado para Calendly en Google Ads */
 .contacto {
     background-color: var(--gris-claro);
-    padding: var(--espaciado-xl) 0;
+    padding-top: var(--espaciado-xl);
+    padding-bottom: 0;  /* Sin padding inferior */
 }
 
 .contacto-content {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--espaciado-md);
+    flex-direction: column;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
+    gap: var(--espaciado-md);
 }
 
 .contacto-beneficios {
-    flex: 1;
+    width: 100%;
     padding: var(--espaciado-md);
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-md);
@@ -1455,10 +1455,16 @@
     color: var(--texto-oscuro);
     margin-bottom: var(--espaciado-md);
     font-weight: 700;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(66, 133, 244, 0.1); /* Color azul de Google */
 }
 
 .beneficios-lista {
     margin-bottom: var(--espaciado-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaciado-sm);
 }
 
 .beneficios-lista li {
@@ -1466,10 +1472,11 @@
     align-items: flex-start;
     margin-bottom: var(--espaciado-sm);
     color: var(--texto-oscuro);
+    width: calc(50% - var(--espaciado-sm));
 }
 
 .beneficios-lista li i {
-    color: var(--google-blue);
+    color: var(--google-blue);  /* Color azul de Google */
     margin-right: 10px;
     flex-shrink: 0;
     margin-top: 5px;
@@ -1478,30 +1485,46 @@
 .contacto-garantia {
     display: flex;
     align-items: center;
+    justify-content: center;
     color: var(--texto-oscuro);
     font-weight: 600;
     margin-top: var(--espaciado-md);
+    padding: 12px 20px;
+    background-color: rgba(66, 133, 244, 0.05); /* Color azul de Google con opacidad */
+    border-radius: var(--borde-redondo-md);
 }
 
 .contacto-garantia i {
-    color: var(--google-blue);
+    color: var(--google-blue);  /* Color azul de Google */
     margin-right: 10px;
 }
 
-/* HubSpot Form Container */
-.hubspot-form-container {
-    flex: 2;
-    width: 100%;
-    padding: var(--espaciado-md);
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-md);
-    box-shadow: var(--sombra-suave);
+/* Widget de Calendly completamente integrado */
+.calendly-inline-widget {
+    width: 100% !important;
+    height: 750px !important;
+    min-width: 320px;
+    overflow: hidden !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: scale(1) !important;
+    transform-origin: center top !important;
 }
 
-.hs-form-frame {
-    width: 100%;
-    min-height: 450px;
+/* Ajustes para el iframe interno */
+body .calendly-inline-widget iframe {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: block !important;
+    transform: none !important;
+    background-color: transparent !important;
 }
+
 
 /* CTA Flotante - Estilo específico para Google Ads */
 .btn-flotante {
@@ -1665,3 +1688,19 @@
     .proceso-timeline::before {
         left: 20px;
     }
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+    .beneficios-lista li {
+        width: 100%;
+    }
+    
+    .calendly-inline-widget {
+        height: 800px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .calendly-inline-widget {
+        height: 850px !important;
+    }
+}
