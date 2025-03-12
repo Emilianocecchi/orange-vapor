@@ -1,6 +1,6 @@
 /**
  * Orange Vapor - Navbar Module
- * Script profesional optimizado para UX/UI
+ * Script optimizado para rendimiento y UX
  */
 
 (function() {
@@ -92,18 +92,12 @@
     // HANDLERS Y FUNCIONES PRINCIPALES
     // =========================================================================
     
-    // Optimización mejorada de scroll con requestAnimationFrame
+    // Optimización de scroll con requestAnimationFrame
     function handleScroll() {
-        // Usar requestAnimationFrame para optimizar rendimiento
         if (!isScrolling) {
             window.requestAnimationFrame(() => {
-                // Llamar a updateHeaderState directamente sin condiciones adicionales
                 updateHeaderState();
-                
-                // Otras funciones relacionadas con scroll
                 updateNavActiveState();
-                
-                // Resetear flag de scroll
                 isScrolling = false;
             });
             
@@ -111,18 +105,15 @@
         }
     }
     
-    // Función corregida para la animación del logo
+    // Función para la animación del logo
     function updateHeaderState() {
         const scrollPosition = window.scrollY;
         
-        // Simplificación extrema para asegurar consistencia
         if (scrollPosition > 50) {
-            // Si hacemos scroll down más de 50px, activar sticky
             if (!header.classList.contains('sticky')) {
                 header.classList.add('sticky');
             }
         } else {
-            // Si estamos arriba (menos de 50px), desactivar sticky
             if (header.classList.contains('sticky')) {
                 header.classList.remove('sticky');
             }
@@ -227,14 +218,12 @@
         }, 150);
     }
     
-    // Inicializar posible animación del CTA
+    // Inicializar animación del CTA para primera visita
     function initCTAAnimation() {
-        // Solo si es primera visita (podría usarse localStorage)
         if (ctaButton && !sessionStorage.getItem('visited')) {
             setTimeout(() => {
                 ctaButton.classList.add('pulse-animation');
                 
-                // Quitar después de unos segundos
                 setTimeout(() => {
                     ctaButton.classList.remove('pulse-animation');
                 }, 5000);
@@ -249,27 +238,6 @@
     // MEJORA DE DROPDOWNS
     // =========================================================================
     
-    /**
-     * Comprueba si el ratón está actualmente sobre un elemento
-     */
-    function isMouseOverElement(element) {
-        if (!event) return false;
-        
-        const rect = element.getBoundingClientRect();
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
-        
-        return (
-            mouseX >= rect.left &&
-            mouseX <= rect.right &&
-            mouseY >= rect.top &&
-            mouseY <= rect.bottom
-        );
-    }
-    
-    /**
-     * Configuración mejorada para los dropdowns
-     */
     function setupDropdowns() {
         dropdowns.forEach(dropdown => {
             const toggle = dropdown.querySelector('.dropdown-toggle');
@@ -277,42 +245,16 @@
             
             if (!toggle || !menu) return;
             
-            // Variables para controlar el estado
-            let isOpen = false;
-            let timeoutId = null;
-            
             // Para desktop, usar mouse events
             if (window.innerWidth > 768) {
                 // Al entrar al dropdown
-                dropdown.addEventListener('mouseenter', function(e) {
-                    clearTimeout(timeoutId);
+                dropdown.addEventListener('mouseenter', function() {
                     dropdown.classList.add('active');
-                    isOpen = true;
                 });
                 
                 // Al salir del dropdown
-                dropdown.addEventListener('mouseleave', function(e) {
-                    timeoutId = setTimeout(() => {
-                        if (!isOpen || (e.relatedTarget && !menu.contains(e.relatedTarget) && !dropdown.contains(e.relatedTarget))) {
-                            dropdown.classList.remove('active');
-                            isOpen = false;
-                        }
-                    }, 150);
-                });
-                
-                // Al entrar al menú directamente
-                menu.addEventListener('mouseenter', () => {
-                    clearTimeout(timeoutId);
-                    dropdown.classList.add('active');
-                    isOpen = true;
-                });
-                
-                // Al salir del menú
-                menu.addEventListener('mouseleave', (e) => {
-                    if (!dropdown.contains(e.relatedTarget)) {
-                        dropdown.classList.remove('active');
-                        isOpen = false;
-                    }
+                dropdown.addEventListener('mouseleave', function() {
+                    dropdown.classList.remove('active');
                 });
                 
                 // Evitar que el clic en toggle cierre el menú en desktop
@@ -474,15 +416,15 @@
     }
     
     // =========================================================================
-    // INICIALIZACIÓN AL CARGAR LA PÁGINA
+    // INICIALIZACIÓN
     // =========================================================================
     document.addEventListener('DOMContentLoaded', function() {
         init();
         initSmoothScroll();
-        setupDropdowns(); // Configuración mejorada de dropdowns
+        setupDropdowns();
     });
     
-    // Exponer funciones que puedan ser útiles para otros scripts
+    // Exponer funciones útiles para otros scripts
     window.NavbarModule = {
         updateHeaderState,
         closeMobileMenu
