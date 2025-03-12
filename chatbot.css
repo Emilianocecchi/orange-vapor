@@ -1401,78 +1401,131 @@ p {
 /* ==========================================================================
    SECCIÓN CONTACTO
    ========================================================================== */
+/* Estilos actualizados para la sección de contacto con Calendly */
 .contacto {
-  background-color: var(--white);
-  padding: 4rem 0;
+    background-color: var(--light-gray);
+    padding-top: 4rem;
+    padding-bottom: 0; /* Sin padding inferior */
+    position: relative;
 }
 
+.contacto::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(111, 66, 193, 0.1), transparent);
+}
+
+/* Container principal con layout actualizado */
 .contacto-content {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 2rem;
 }
 
+/* Estilos mejorados para los beneficios */
 .contacto-beneficios {
-  background-color: #f8f5ff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
 }
 
 .contacto-beneficios h3 {
-  color: var(--secondary-color);
-  margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(111, 66, 193, 0.2);
 }
 
+/* Layout de lista en dos columnas */
 .beneficios-lista {
-  margin-bottom: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
 }
 
 .beneficios-lista li {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-  color: var(--text-color);
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    width: calc(50% - 1.5rem);
+    padding: 8px 0;
+    font-size: 1rem;
+    border-bottom: 1px dashed rgba(111, 66, 193, 0.1);
+}
+
+.beneficios-lista li:last-of-type,
+.beneficios-lista li:nth-last-of-type(2) {
+    border-bottom: none;
 }
 
 .beneficios-lista li i {
-  color: var(--primary-color);
-  margin-right: 10px;
-  flex-shrink: 0;
-  margin-top: 5px;
+    color: var(--primary-color);
+    margin-right: 12px;
+    flex-shrink: 0;
+    margin-top: 5px;
+    font-size: 18px;
 }
 
+/* Garantía mejorada */
 .contacto-garantia {
-  display: flex;
-  align-items: center;
-  color: var(--text-color);
-  font-weight: 600;
-  margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    font-weight: 600;
+    margin-top: 2rem;
+    padding: 15px 25px;
+    background-color: rgba(111, 66, 193, 0.1);
+    border-radius: 8px;
+    font-size: 1rem;
 }
 
 .contacto-garantia i {
-  color: var(--primary-color);
-  margin-right: 10px;
+    color: var(--primary-color);
+    margin-right: 12px;
+    font-size: 18px;
 }
 
-.contacto-form {
-  background-color: var(--white);
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+/* Widget de Calendly */
+.calendly-inline-widget {
+    width: 100% !important;
+    height: 750px !important;
+    min-width: 320px;
+    overflow: hidden !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: scale(1) !important;
+    transform-origin: center top !important;
 }
 
-/* HubSpot Form */
-.hs-form-frame {
-  width: 100%;
-  min-height: 500px;
-  border: none;
-  margin: 0 auto;
-  background: transparent;
+/* Ajustes para el iframe interno */
+body .calendly-inline-widget iframe {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: block !important;
+    transform: none !important;
+    background-color: transparent !important;
 }
-
 /* CTA Flotante */
 .cta-flotante {
   position: fixed;
@@ -1633,6 +1686,16 @@ p {
   .desafios-grid {
     grid-template-columns: 1fr;
   }
+
+    .beneficios-lista li {
+        width: 100%;
+    }
+    
+    .calendly-inline-widget {
+        height: 800px !important;
+    }
+
+   
 }
 
 @media (max-width: 576px) {
@@ -1680,4 +1743,11 @@ p {
   .estadisticas-grid {
     grid-template-columns: 1fr;
   }
+
+   .calendly-inline-widget {
+        height: 850px !important;
+    }
 }
+
+
+
