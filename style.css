@@ -1545,6 +1545,9 @@ p {
 /* ==========================================================================
    SECCIÓN DESAFÍOS
    ========================================================================== */
+/* ==========================================================================
+   SECCIÓN DESAFÍOS - ESTILOS ACTUALIZADOS
+   ========================================================================== */
 .desafios {
     background-color: var(--blanco);
     padding: var(--espaciado-xl) 0;
@@ -1595,9 +1598,9 @@ p {
 .desafios-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--espaciado-md);
+    gap: var(--espaciado-lg); /* Aumentado el espaciado entre tarjetas */
     margin-top: var(--espaciado-lg);
-    max-width: 1000px;
+    max-width: 1100px; /* Ligero aumento para dar más "respiración" */
     margin-left: auto;
     margin-right: auto;
 }
@@ -1605,12 +1608,13 @@ p {
 .desafio-item {
     position: relative;
     background-color: var(--blanco);
-    padding: var(--espaciado-md);
+    padding: var(--espaciado-md) var(--espaciado-lg); /* Más padding horizontal */
     border-radius: var(--borde-redondo-lg);
     box-shadow: var(--sombra-media);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    align-items: center;
+    flex-direction: column; /* Cambiado a columna para mejor layout */
+    align-items: flex-start;
     gap: var(--espaciado-sm);
 }
 
@@ -1630,22 +1634,38 @@ p {
     background: var(--naranja-gradiente);
     border-radius: 50%;
     box-shadow: var(--sombra-media);
-    flex-shrink: 0;
+    margin-bottom: var(--espaciado-sm);
+}
+
+/* Nuevo elemento para el título del desafío */
+.desafio-titulo {
+    font-family: var(--fuente-principal);
+    font-weight: 700;
+    font-size: var(--texto-lg);
+    color: var(--naranja-principal);
+    margin-bottom: 5px;
+    display: block;
 }
 
 .desafio-item p {
     color: var(--texto-oscuro);
     font-size: var(--texto-md);
-    line-height: 1.5;
-    font-weight: 600;
+    line-height: 1.6;
+    font-weight: 400; /* Cambiado de 600 a 400 para quitar negrita */
     margin: 0;
+}
+
+/* Destacar estadísticas */
+.desafio-stat {
+    font-weight: 700;
+    color: var(--naranja-oscuro);
 }
 
 .desafios-mensaje-container {
     margin-top: var(--espaciado-xl);
     position: relative;
     background: transparent;
-    max-width: 1000px;
+    max-width: 900px; /* Ligeramente reducido para mejorar legibilidad */
     margin-left: auto;
     margin-right: auto;
 }
@@ -1722,6 +1742,24 @@ p {
     line-height: 1.8;
     max-width: 800px;
     margin: 0 auto;
+    font-weight: 400; /* Normal, no negrita */
+}
+
+/* Media queries */
+@media (max-width: 992px) {
+    .desafios-grid {
+        gap: var(--espaciado-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .desafios-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .desafio-item {
+        padding: var(--espaciado-md);
+    }
 }
 
 /* ==========================================================================
