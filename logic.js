@@ -462,7 +462,285 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+// JavaScript para la sección de Servicios Mensuales
+document.addEventListener('DOMContentLoaded', function() {
+    // Observador para animar los elementos al scrollear
+    const serviciosMensuales = document.querySelector('.servicios-mensuales');
+    if (serviciosMensuales) {
+        const servicioCards = document.querySelectorAll('.servicio-mensual-card');
+        const ofertaEspecial = document.querySelector('.oferta-especial');
+        const serviciosGarantia = document.querySelector('.servicios-garantia');
+        
+        // Observador de intersección para animaciones
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Si es el contenedor principal, comenzar animación de las tarjetas escalonada
+                    if (entry.target === serviciosMensuales) {
+                        servicioCards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('visible');
+                                card.style.transform = 'translateY(0)';
+                                card.style.opacity = '1';
+                            }, 100 * index);
+                        });
+                        
+                        // Animar oferta especial después de las tarjetas
+                        if (ofertaEspecial) {
+                            setTimeout(() => {
+                                ofertaEspecial.classList.add('visible');
+                                ofertaEspecial.style.transform = 'translateY(0)';
+                                ofertaEspecial.style.opacity = '1';
+                            }, 100 * servicioCards.length + 100);
+                        }
+                        
+                        // Animar garantía al final
+                        if (serviciosGarantia) {
+                            setTimeout(() => {
+                                serviciosGarantia.classList.add('visible');
+                                serviciosGarantia.style.transform = 'translateY(0)';
+                                serviciosGarantia.style.opacity = '1';
+                            }, 100 * servicioCards.length + 300);
+                        }
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        // Configurar elementos para animación
+        servicioCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        if (ofertaEspecial) {
+            ofertaEspecial.style.opacity = '0';
+            ofertaEspecial.style.transform = 'translateY(20px)';
+            ofertaEspecial.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        }
+        
+        if (serviciosGarantia) {
+            serviciosGarantia.style.opacity = '0';
+            serviciosGarantia.style.transform = 'translateY(20px)';
+            serviciosGarantia.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        }
+        
+        // Comenzar a observar
+        observer.observe(serviciosMensuales);
+    }
+    
+    // Efecto de hover en las tarjetas
+    const cards = document.querySelectorAll('.servicio-mensual-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            // Obtener el botón dentro de esta tarjeta
+            const button = this.querySelector('.btn-servicio');
+            if (button) {
+                button.style.transform = 'translateY(-5px)';
+                button.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const button = this.querySelector('.btn-servicio');
+            if (button) {
+                button.style.transform = '';
+                button.style.boxShadow = '';
+            }
+        });
+    });
+    
+    // Efecto de destello para la oferta especial
+    const ofertaEspecial = document.querySelector('.oferta-especial');
+    if (ofertaEspecial) {
+        // Crear un efecto de destello periódico
+        setInterval(() => {
+            ofertaEspecial.classList.add('oferta-destello');
+            setTimeout(() => {
+                ofertaEspecial.classList.remove('oferta-destello');
+            }, 700);
+        }, 5000);
+        
+        // Agregar estilos para el destello si no existen
+        if (!document.querySelector('#oferta-destello-estilo')) {
+            const styleSheet = document.createElement('style');
+            styleSheet.id = 'oferta-destello-estilo';
+            styleSheet.textContent = `
+                @keyframes ofertaDestello {
+                    0% { box-shadow: 0 0 5px rgba(255, 126, 0, 0.1); }
+                    50% { box-shadow: 0 0 15px rgba(255, 126, 0, 0.3); }
+                    100% { box-shadow: 0 0 5px rgba(255, 126, 0, 0.1); }
+                }
+                
+                .oferta-destello {
+                    animation: ofertaDestello 0.7s ease;
+                }
+            `;
+            document.head.appendChild(styleSheet);
+        }
+    }
+    
+    // Eventos de navegación para botones de contacto
+    const contactButtons = document.querySelectorAll('.servicios-mensuales .btn');
+    contactButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            if (this.getAttribute('href') === '#contacto') {
+                e.preventDefault();
+                const contactoSection = document.getElementById('contacto');
+                if (contactoSection) {
+                    window.scrollTo({
+                        top: contactoSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Efecto visual en el formulario de contacto
+                    const contactoForm = document.querySelector('.contacto-content');
+                    if (contactoForm) {
+                        contactoForm.classList.add('destacado-temporal');
+                        setTimeout(() => {
+                            contactoForm.classList.remove('destacado-temporal');
+                        }, 2000);
+                    }
+                }
+            }
+        });
+    });
+    
+    // Estilo para destacado temporal
+    if (!document.querySelector('#destacado-temporal-estilo')) {
+        const styleSheet = document.createElement('style');
+        styleSheet.id = 'destacado-temporal-estilo';
+        styleSheet.textContent = `
+            .destacado-temporal {
+                animation: pulseDestacado 2s ease;
+            }
+            
+            @keyframes pulseDestacado {
+                0% { box-shadow: 0 0 0 0 rgba(255, 126, 0, 0.4); }
+                70% { box-shadow: 0 0 0 15px rgba(255, 126, 0, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(255, 126, 0, 0); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    }
+});
 
+
+    // Código para el Express Box
+document.addEventListener('DOMContentLoaded', function() {
+    // Animación para los elementos del box de entregables
+    const expressBox = document.querySelector('.express-box-container');
+    const expressBoxItems = document.querySelectorAll('.express-box-list li');
+    
+    // Verificar si el box existe en la página
+    if (expressBox) {
+        // Crear efecto de hover para los ítems de la lista
+        expressBoxItems.forEach((item, index) => {
+            // Agregar un pequeño retraso escalonado a la aparición inicial
+            if (window.innerWidth > 768) {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-20px)';
+                item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                item.style.transitionDelay = (index * 0.1) + 's';
+            }
+            
+            // Interactividad al hacer hover
+            item.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'rgba(255, 126, 0, 0.05)';
+                this.style.borderRadius = '8px';
+                this.style.padding = '8px';
+                this.style.marginLeft = '-8px';
+                this.style.marginRight = '-8px';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = '';
+                this.style.padding = '';
+                this.style.marginLeft = '';
+                this.style.marginRight = '';
+            });
+        });
+        
+        // Observador de intersección para activar las animaciones al hacer scroll
+        const boxObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animar el box cuando sea visible
+                    expressBox.classList.add('visible');
+                    
+                    // Animar cada ítem de la lista con un retraso escalonado
+                    expressBoxItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        }, 300 + (index * 100)); // 300ms base + 100ms por cada ítem
+                    });
+                    
+                    // Dejar de observar una vez animado
+                    boxObserver.unobserve(expressBox);
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        // Comenzar a observar el box
+        boxObserver.observe(expressBox);
+    }
+    
+    // Efecto de pulsación para el botón CTA del box
+    const expressCTA = document.querySelector('.express-box-footer .btn');
+    if (expressCTA) {
+        expressCTA.addEventListener('click', function(event) {
+            if (this.getAttribute('href') === '#contacto') {
+                event.preventDefault();
+                const contactForm = document.getElementById('contacto');
+                if (contactForm) {
+                    window.scrollTo({
+                        top: contactForm.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Efecto de destacado en el formulario de contacto
+                    setTimeout(() => {
+                        const formContainer = document.querySelector('.contacto-content');
+                        if (formContainer) {
+                            formContainer.style.animation = 'pulse-highlight 1.5s';
+                            
+                            // Limpiar la animación después
+                            setTimeout(() => {
+                                formContainer.style.animation = '';
+                            }, 1500);
+                        }
+                    }, 800);
+                }
+            }
+        });
+    }
+    
+    // Agregar estilo de pulsación para la animación del formulario si no existe
+    if (!document.querySelector('#pulse-highlight-animation')) {
+        const styleSheet = document.createElement('style');
+        styleSheet.id = 'pulse-highlight-animation';
+        styleSheet.textContent = `
+            @keyframes pulse-highlight {
+                0% { box-shadow: 0 0 0 0 rgba(255, 126, 0, 0.4); }
+                70% { box-shadow: 0 0 0 15px rgba(255, 126, 0, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(255, 126, 0, 0); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    }
+});
+
+
+    
     // Mostrar inmediatamente el contenido crítico para el Grunt Test
     // Asegurarnos que los elementos clave se muestran sin esperar animaciones
     const criticalElements = [
