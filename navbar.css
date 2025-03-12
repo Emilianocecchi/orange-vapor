@@ -6,7 +6,7 @@
     --naranja-principal: #FF7E00;
     --naranja-hover: #E56F00;
     --naranja-light: rgba(255, 126, 0, 0.1);
-    --rojo-express: #dc3546;
+    --rojo-express: #dc3545;
     --rojo-express-hover: #c82333;
     --rojo-express-light: rgba(220, 53, 70, 0.1);
     
@@ -66,38 +66,13 @@
     --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
     --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
     --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-    --ease-elastic: cubic-bezier(0.76, 0, 0.24, 1.05);
 }
 
 /* ======================================================================
    ESTILOS GLOBALES PARA EL NAVBAR
    ====================================================================== */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
-    /* Margin para compensar la navbar fixed */
     scroll-padding-top: 80px;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-ul, ol {
-    list-style: none;
-}
-
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    padding: 0;
 }
 
 /* ======================================================================
@@ -120,13 +95,6 @@ button {
     box-shadow: var(--sombra-md);
 }
 
-.container {
-    width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
-}
-
 .navbar {
     display: flex;
     align-items: center;
@@ -135,7 +103,7 @@ button {
 }
 
 /* ======================================================================
-   LOGO Y ANIMACIÓN CORREGIDA
+   LOGO Y ANIMACIÓN
    ====================================================================== */
 .logo {
     display: block;
@@ -198,7 +166,7 @@ button {
     color: var(--naranja-principal);
 }
 
-/* Estado sticky - cambio de logo - SIMPLIFICADO */
+/* Estado sticky - cambio de logo */
 #header.sticky .logo-full {
     transform: rotateX(90deg) translateZ(20px);
     opacity: 0;
@@ -228,12 +196,6 @@ button {
 @keyframes logoHover {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-4px); }
-}
-
-/* Clases helper para transición */
-.hidden {
-    visibility: hidden;
-    pointer-events: none;
 }
 
 /* ======================================================================
@@ -407,7 +369,7 @@ button {
 }
 
 /* ======================================================================
-   MENÚ DESPLEGABLE (CORRECCIÓN DEFINITIVA)
+   MENÚ DESPLEGABLE
    ====================================================================== */
 .dropdown {
     position: relative;
@@ -442,10 +404,10 @@ button {
     transform: rotate(180deg);
 }
 
-/* Menú desplegable - posicionamiento más accesible */
+/* Menú desplegable */
 .dropdown-menu {
     position: absolute;
-    top: calc(100% + 15px); /* Posicionado más abajo para acomodar el puente */
+    top: calc(100% + 15px);
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--blanco);
@@ -455,7 +417,7 @@ button {
     box-shadow: var(--sombra-lg);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s; /* Transición simplificada */
+    transition: opacity 0.3s, visibility 0.3s;
     z-index: 10;
     pointer-events: none;
 }
@@ -473,19 +435,12 @@ button {
     box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.04);
 }
 
-/* Mostrar el menú cuando el dropdown o el menú están en hover */
+/* Mostrar el menú cuando el dropdown está en hover */
 .dropdown:hover .dropdown-menu,
 .dropdown.active .dropdown-menu {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-}
-
-/* Estilo para dispositivos táctiles en modo desktop */
-@media (hover: hover) {
-    .dropdown-menu {
-        display: block; /* Garantiza que siempre esté en el DOM */
-    }
 }
 
 /* Ítems del dropdown */
@@ -691,7 +646,7 @@ button {
 }
 
 /* ======================================================================
-   ANIMACIONES Y MEJORAS DE RENDIMIENTO
+   OPTIMIZACIONES DE RENDIMIENTO
    ====================================================================== */
 @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
@@ -702,7 +657,7 @@ button {
     }
 }
 
-/* Mejora en renderizado para transiciones */
+/* Mejora en renderizado */
 .nav-link, 
 .dropdown-menu, 
 .dropdown-item, 
