@@ -1,6 +1,6 @@
 /**
  * Orange Vapor - JavaScript Optimizado
- * Enfocado en la experiencia del usuario y claridad del mensaje principal (Grunt Test)
+ * Enfocado en la experiencia del usuario y claridad del mensaje principal
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -41,67 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // =========================================================================
-    // EFECTOS DE VAPOR - Mantenidos pero optimizados
-    // =========================================================================
-    
-    // Añadir efectos de vapor dinámicos
-    function createVaporBubbles() {
-        const vaporEffect = document.querySelector('.vapor-effect');
-        if (!vaporEffect) return;
-        
-        // Reducimos el número de burbujas para mejorar rendimiento
-        const maxBubbles = 5;
-        let bubbleCount = 0;
-        
-        // Función para crear burbujas de vapor aleatoriamente
-        function createRandomBubble() {
-            // Limitar número máximo de burbujas activas
-            if (bubbleCount >= maxBubbles) return;
-            
-            const bubble = document.createElement('div');
-            bubble.classList.add('vapor-bubble');
-            
-            // Posicionamiento aleatorio
-            const posX = Math.random() * 100; // posición X en porcentaje
-            const size = 50 + Math.random() * 150; // tamaño entre 50 y 200px
-            const delay = Math.random() * 3; // retraso de animación de 0 a 3 segundos
-            const duration = 10 + Math.random() * 10; // duración entre 10 y 20 segundos
-            
-            // Aplicar estilos
-            bubble.style.width = `${size}px`;
-            bubble.style.height = `${size}px`;
-            bubble.style.left = `${posX}%`;
-            bubble.style.bottom = '-20%';
-            bubble.style.animationDelay = `${delay}s`;
-            bubble.style.animationDuration = `${duration}s`;
-            
-            // Añadir burbuja al DOM
-            vaporEffect.appendChild(bubble);
-            bubbleCount++;
-            
-            // Eliminar burbuja después de que termine la animación
-            setTimeout(() => {
-                bubble.remove();
-                bubbleCount--;
-            }, (delay + duration) * 1000);
-        }
-        
-        // Crear burbujas periódicamente
-        setInterval(createRandomBubble, 5000); // Reducimos frecuencia para mejor rendimiento
-        
-        // Crear algunas burbujas iniciales
-        for (let i = 0; i < 3; i++) {
-            setTimeout(() => createRandomBubble(), i * 1000);
-        }
-    }
-    
-    // Ejecutar la creación de burbujas de vapor solo si estamos en desktop
-    if (window.innerWidth > 768) {
-        createVaporBubbles();
-    }
-    
-    // =========================================================================
-    // ANIMACIÓN DE MÉTRICAS - Adaptada para presentar los resultados claramente
+    // ANIMACIÓN DE MÉTRICAS
     // =========================================================================
     
     // Animar los valores de métricas cuando son visibles
@@ -126,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Utilizamos requestAnimationFrame para una animación suave
                         let startTime = null;
-                        const duration = 1500; // 1.5 segundos de duración (más rápido que antes)
+                        const duration = 1500; // 1.5 segundos de duración
                         
                         function animateValue(timestamp) {
                             if (!startTime) startTime = timestamp;
@@ -173,40 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // =========================================================================
-    // FORMULARIO DE CONTACTO Y HUBSPOT - Optimizado para conversión
-    // =========================================================================
-    
-    // Comprobar si el formulario de HubSpot está listo
-    function checkHubspotForm() {
-        const hsFormFrame = document.querySelector('.hs-form-frame');
-        if (hsFormFrame && typeof window.hbspt !== 'undefined') {
-            // HubSpot está disponible, podríamos hacer personalizaciones adicionales aquí
-            console.log('HubSpot form is ready');
-            
-            // Añadir enfoque automático al formulario si se llegó desde un CTA
-            if (window.location.hash === '#contacto-form' || window.location.hash === '#contacto') {
-                setTimeout(() => {
-                    const formIframe = hsFormFrame.querySelector('iframe');
-                    if (formIframe) {
-                        // Intentar enfocar el iframe
-                        formIframe.focus();
-                    }
-                }, 1000);
-            }
-        }
-    }
-    
-    // Verificar periódicamente si el formulario de HubSpot está listo
-    let hubspotCheckInterval = setInterval(() => {
-        checkHubspotForm();
-        
-        // Después de 5 segundos, dejamos de verificar
-        setTimeout(() => {
-            clearInterval(hubspotCheckInterval);
-        }, 5000);
-    }, 1000);
-    
-    // =========================================================================
     // BOTONES CTA - Mejorados para facilitar la conversión
     // =========================================================================
     
@@ -243,56 +149,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 event.preventDefault();
                 
                 // Obtener el formulario de contacto
-                const contactForm = document.getElementById('contacto-form');
+                const contactForm = document.getElementById('contacto');
                 
                 if (contactForm) {
-                    // Añadir indicador visual para guiar al usuario
-                    const formPosition = contactForm.getBoundingClientRect().top + window.pageYOffset;
-                    
-                    // Crear indicador pulsante temporal
-                    const indicator = document.createElement('div');
-                    indicator.style.position = 'absolute';
-                    indicator.style.top = '-20px';
-                    indicator.style.left = '50%';
-                    indicator.style.transform = 'translateX(-50%)';
-                    indicator.style.width = '40px';
-                    indicator.style.height = '40px';
-                    indicator.style.borderRadius = '50%';
-                    indicator.style.backgroundColor = 'rgba(255, 126, 0, 0.3)';
-                    indicator.style.zIndex = '10';
-                    indicator.style.animation = 'pulse 1.5s infinite';
-                    
-                    // Añadir keyframes para la animación
-                    if (!document.querySelector('#pulse-animation')) {
-                        const styleSheet = document.createElement('style');
-                        styleSheet.id = 'pulse-animation';
-                        styleSheet.textContent = `
-                            @keyframes pulse {
-                                0% { transform: translateX(-50%) scale(0.8); opacity: 0.8; }
-                                50% { transform: translateX(-50%) scale(1.2); opacity: 0.6; }
-                                100% { transform: translateX(-50%) scale(0.8); opacity: 0.8; }
-                            }
-                        `;
-                        document.head.appendChild(styleSheet);
-                    }
-                    
-                    // Añadir al formulario
-                    contactForm.style.position = 'relative';
-                    contactForm.appendChild(indicator);
-                    
-                    // Eliminar después de 3 segundos
-                    setTimeout(() => {
-                        indicator.remove();
-                    }, 3000);
-                    
                     // Hacer scroll suave hasta el formulario
                     window.scrollTo({
-                        top: formPosition - 100,
+                        top: contactForm.offsetTop - 80,
                         behavior: 'smooth'
                     });
                     
                     // Actualizar la URL para reflejar el objetivo
-                    history.pushState(null, null, '#contacto-form');
+                    history.pushState(null, null, '#contacto');
                 } else if (href.startsWith('#')) {
                     // Si no hay formulario pero es un enlace de anclaje, navegar al ancla
                     const targetElement = document.querySelector(href);
@@ -390,33 +257,203 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =========================================================================
-    // INICIALIZACIÓN Y FINALIZACIÓN
+    // SERVICIOS MENSUALES - Animaciones y efectos
     // =========================================================================
     
-    // Detectar cuando el sitio está completamente cargado
-    window.addEventListener('load', function() {
-        // Eliminar cualquier clase de precarga si existe
-        document.body.classList.remove('preload');
+    // Observador para animar los elementos al scrollear
+    const serviciosMensuales = document.querySelector('.servicios-mensuales');
+    if (serviciosMensuales) {
+        const servicioCards = document.querySelectorAll('.servicio-mensual-card');
+        const ofertaEspecial = document.querySelector('.oferta-especial');
+        const serviciosGarantia = document.querySelector('.servicios-garantia');
         
-        // Iniciar animación de scroll
-        const scrollIndicator = document.querySelector('.scroll-indicator');
-        if (scrollIndicator) {
-            scrollIndicator.style.opacity = '1';
+        // Observador de intersección para animaciones
+        const serviciosObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Si es el contenedor principal, comenzar animación de las tarjetas escalonada
+                    if (entry.target === serviciosMensuales) {
+                        servicioCards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('visible');
+                                card.style.transform = 'translateY(0)';
+                                card.style.opacity = '1';
+                            }, 100 * index);
+                        });
+                        
+                        // Animar oferta especial después de las tarjetas
+                        if (ofertaEspecial) {
+                            setTimeout(() => {
+                                ofertaEspecial.classList.add('visible');
+                                ofertaEspecial.style.transform = 'translateY(0)';
+                                ofertaEspecial.style.opacity = '1';
+                            }, 100 * servicioCards.length + 100);
+                        }
+                        
+                        // Animar garantía al final
+                        if (serviciosGarantia) {
+                            setTimeout(() => {
+                                serviciosGarantia.classList.add('visible');
+                                serviciosGarantia.style.transform = 'translateY(0)';
+                                serviciosGarantia.style.opacity = '1';
+                            }, 100 * servicioCards.length + 300);
+                        }
+                    }
+                    
+                    serviciosObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        // Configurar elementos para animación
+        servicioCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        if (ofertaEspecial) {
+            ofertaEspecial.style.opacity = '0';
+            ofertaEspecial.style.transform = 'translateY(20px)';
+            ofertaEspecial.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         }
         
-        // Verificar si hay un hash en la URL para navegar directamente
-        if (window.location.hash) {
-            const targetElement = document.querySelector(window.location.hash);
-            if (targetElement) {
-                setTimeout(() => {
+        if (serviciosGarantia) {
+            serviciosGarantia.style.opacity = '0';
+            serviciosGarantia.style.transform = 'translateY(20px)';
+            serviciosGarantia.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        }
+        
+        // Comenzar a observar
+        serviciosObserver.observe(serviciosMensuales);
+    }
+    
+    // Efecto de hover en las tarjetas
+    const cards = document.querySelectorAll('.servicio-mensual-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            // Obtener el botón dentro de esta tarjeta
+            const button = this.querySelector('.btn-servicio');
+            if (button) {
+                button.style.transform = 'translateY(-5px)';
+                button.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const button = this.querySelector('.btn-servicio');
+            if (button) {
+                button.style.transform = '';
+                button.style.boxShadow = '';
+            }
+        });
+    });
+    
+    // Eventos de navegación para botones de contacto
+    const contactButtons = document.querySelectorAll('.servicios-mensuales .btn');
+    contactButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            if (this.getAttribute('href') === '#contacto') {
+                e.preventDefault();
+                const contactoSection = document.getElementById('contacto');
+                if (contactoSection) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: contactoSection.offsetTop - 80,
                         behavior: 'smooth'
                     });
-                }, 500);
+                }
             }
-        }
+        });
     });
+    
+    // =========================================================================
+    // EXPRESS BOX - Animaciones y efectos
+    // =========================================================================
+    
+    // Animación para los elementos del box de entregables
+    const expressBox = document.querySelector('.express-box-container');
+    const expressBoxItems = document.querySelectorAll('.express-box-list li');
+    
+    // Verificar si el box existe en la página
+    if (expressBox) {
+        // Observador de intersección para activar las animaciones al hacer scroll
+        const boxObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animar el box cuando sea visible
+                    expressBox.classList.add('visible');
+                    
+                    // Animar cada ítem de la lista con un retraso escalonado
+                    expressBoxItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        }, 300 + (index * 100)); // 300ms base + 100ms por cada ítem
+                    });
+                    
+                    // Dejar de observar una vez animado
+                    boxObserver.unobserve(expressBox);
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        // Crear efecto inicial para los ítems
+        if (window.innerWidth > 768) {
+            expressBoxItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-20px)';
+                item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                item.style.transitionDelay = (index * 0.1) + 's';
+            });
+        }
+        
+        // Comenzar a observar el box
+        boxObserver.observe(expressBox);
+        
+        // Interactividad al hover para los ítems de la lista
+        expressBoxItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'rgba(255, 126, 0, 0.05)';
+                this.style.borderRadius = '8px';
+                this.style.padding = '8px';
+                this.style.marginLeft = '-8px';
+                this.style.marginRight = '-8px';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = '';
+                this.style.padding = '';
+                this.style.marginLeft = '';
+                this.style.marginRight = '';
+            });
+        });
+    }
+    
+    // Efecto de pulsación para el botón CTA del box
+    const expressCTA = document.querySelector('.express-box-footer .btn');
+    if (expressCTA) {
+        expressCTA.addEventListener('click', function(event) {
+            if (this.getAttribute('href') === '#contacto') {
+                event.preventDefault();
+                const contactForm = document.getElementById('contacto');
+                if (contactForm) {
+                    window.scrollTo({
+                        top: contactForm.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    }
+    
+    // =========================================================================
+    // NAVEGACIÓN DE SERVICE PILLS - Sección Hero
+    // =========================================================================
     
     // Interactividad para los service-pills en el hero
     const servicePills = document.querySelectorAll('.service-pill');
@@ -462,286 +499,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-// JavaScript para la sección de Servicios Mensuales
-document.addEventListener('DOMContentLoaded', function() {
-    // Observador para animar los elementos al scrollear
-    const serviciosMensuales = document.querySelector('.servicios-mensuales');
-    if (serviciosMensuales) {
-        const servicioCards = document.querySelectorAll('.servicio-mensual-card');
-        const ofertaEspecial = document.querySelector('.oferta-especial');
-        const serviciosGarantia = document.querySelector('.servicios-garantia');
+    
+    // =========================================================================
+    // INICIALIZACIÓN Y FINALIZACIÓN
+    // =========================================================================
+    
+    // Detectar cuando el sitio está completamente cargado
+    window.addEventListener('load', function() {
+        // Eliminar cualquier clase de precarga si existe
+        document.body.classList.remove('preload');
         
-        // Observador de intersección para animaciones
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Si es el contenedor principal, comenzar animación de las tarjetas escalonada
-                    if (entry.target === serviciosMensuales) {
-                        servicioCards.forEach((card, index) => {
-                            setTimeout(() => {
-                                card.classList.add('visible');
-                                card.style.transform = 'translateY(0)';
-                                card.style.opacity = '1';
-                            }, 100 * index);
-                        });
-                        
-                        // Animar oferta especial después de las tarjetas
-                        if (ofertaEspecial) {
-                            setTimeout(() => {
-                                ofertaEspecial.classList.add('visible');
-                                ofertaEspecial.style.transform = 'translateY(0)';
-                                ofertaEspecial.style.opacity = '1';
-                            }, 100 * servicioCards.length + 100);
-                        }
-                        
-                        // Animar garantía al final
-                        if (serviciosGarantia) {
-                            setTimeout(() => {
-                                serviciosGarantia.classList.add('visible');
-                                serviciosGarantia.style.transform = 'translateY(0)';
-                                serviciosGarantia.style.opacity = '1';
-                            }, 100 * servicioCards.length + 300);
-                        }
-                    }
-                    
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        
-        // Configurar elementos para animación
-        servicioCards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        });
-        
-        if (ofertaEspecial) {
-            ofertaEspecial.style.opacity = '0';
-            ofertaEspecial.style.transform = 'translateY(20px)';
-            ofertaEspecial.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        // Iniciar animación de scroll
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        if (scrollIndicator) {
+            scrollIndicator.style.opacity = '1';
         }
         
-        if (serviciosGarantia) {
-            serviciosGarantia.style.opacity = '0';
-            serviciosGarantia.style.transform = 'translateY(20px)';
-            serviciosGarantia.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        }
-        
-        // Comenzar a observar
-        observer.observe(serviciosMensuales);
-    }
-    
-    // Efecto de hover en las tarjetas
-    const cards = document.querySelectorAll('.servicio-mensual-card');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            // Obtener el botón dentro de esta tarjeta
-            const button = this.querySelector('.btn-servicio');
-            if (button) {
-                button.style.transform = 'translateY(-5px)';
-                button.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            const button = this.querySelector('.btn-servicio');
-            if (button) {
-                button.style.transform = '';
-                button.style.boxShadow = '';
-            }
-        });
-    });
-    
-    // Efecto de destello para la oferta especial
-    const ofertaEspecial = document.querySelector('.oferta-especial');
-    if (ofertaEspecial) {
-        // Crear un efecto de destello periódico
-        setInterval(() => {
-            ofertaEspecial.classList.add('oferta-destello');
-            setTimeout(() => {
-                ofertaEspecial.classList.remove('oferta-destello');
-            }, 700);
-        }, 5000);
-        
-        // Agregar estilos para el destello si no existen
-        if (!document.querySelector('#oferta-destello-estilo')) {
-            const styleSheet = document.createElement('style');
-            styleSheet.id = 'oferta-destello-estilo';
-            styleSheet.textContent = `
-                @keyframes ofertaDestello {
-                    0% { box-shadow: 0 0 5px rgba(255, 126, 0, 0.1); }
-                    50% { box-shadow: 0 0 15px rgba(255, 126, 0, 0.3); }
-                    100% { box-shadow: 0 0 5px rgba(255, 126, 0, 0.1); }
-                }
-                
-                .oferta-destello {
-                    animation: ofertaDestello 0.7s ease;
-                }
-            `;
-            document.head.appendChild(styleSheet);
-        }
-    }
-    
-    // Eventos de navegación para botones de contacto
-    const contactButtons = document.querySelectorAll('.servicios-mensuales .btn');
-    contactButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            if (this.getAttribute('href') === '#contacto') {
-                e.preventDefault();
-                const contactoSection = document.getElementById('contacto');
-                if (contactoSection) {
+        // Verificar si hay un hash en la URL para navegar directamente
+        if (window.location.hash) {
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                setTimeout(() => {
                     window.scrollTo({
-                        top: contactoSection.offsetTop - 80,
+                        top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-                    
-                    // Efecto visual en el formulario de contacto
-                    const contactoForm = document.querySelector('.contacto-content');
-                    if (contactoForm) {
-                        contactoForm.classList.add('destacado-temporal');
-                        setTimeout(() => {
-                            contactoForm.classList.remove('destacado-temporal');
-                        }, 2000);
-                    }
-                }
+                }, 500);
             }
-        });
+        }
     });
     
-    // Estilo para destacado temporal
-    if (!document.querySelector('#destacado-temporal-estilo')) {
-        const styleSheet = document.createElement('style');
-        styleSheet.id = 'destacado-temporal-estilo';
-        styleSheet.textContent = `
-            .destacado-temporal {
-                animation: pulseDestacado 2s ease;
-            }
-            
-            @keyframes pulseDestacado {
-                0% { box-shadow: 0 0 0 0 rgba(255, 126, 0, 0.4); }
-                70% { box-shadow: 0 0 0 15px rgba(255, 126, 0, 0); }
-                100% { box-shadow: 0 0 0 0 rgba(255, 126, 0, 0); }
-            }
-        `;
-        document.head.appendChild(styleSheet);
-    }
-});
-
-
-    // Código para el Express Box
-document.addEventListener('DOMContentLoaded', function() {
-    // Animación para los elementos del box de entregables
-    const expressBox = document.querySelector('.express-box-container');
-    const expressBoxItems = document.querySelectorAll('.express-box-list li');
-    
-    // Verificar si el box existe en la página
-    if (expressBox) {
-        // Crear efecto de hover para los ítems de la lista
-        expressBoxItems.forEach((item, index) => {
-            // Agregar un pequeño retraso escalonado a la aparición inicial
-            if (window.innerWidth > 768) {
-                item.style.opacity = '0';
-                item.style.transform = 'translateX(-20px)';
-                item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-                item.style.transitionDelay = (index * 0.1) + 's';
-            }
-            
-            // Interactividad al hacer hover
-            item.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = 'rgba(255, 126, 0, 0.05)';
-                this.style.borderRadius = '8px';
-                this.style.padding = '8px';
-                this.style.marginLeft = '-8px';
-                this.style.marginRight = '-8px';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.backgroundColor = '';
-                this.style.padding = '';
-                this.style.marginLeft = '';
-                this.style.marginRight = '';
-            });
-        });
-        
-        // Observador de intersección para activar las animaciones al hacer scroll
-        const boxObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Animar el box cuando sea visible
-                    expressBox.classList.add('visible');
-                    
-                    // Animar cada ítem de la lista con un retraso escalonado
-                    expressBoxItems.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'translateX(0)';
-                        }, 300 + (index * 100)); // 300ms base + 100ms por cada ítem
-                    });
-                    
-                    // Dejar de observar una vez animado
-                    boxObserver.unobserve(expressBox);
-                }
-            });
-        }, {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        });
-        
-        // Comenzar a observar el box
-        boxObserver.observe(expressBox);
-    }
-    
-    // Efecto de pulsación para el botón CTA del box
-    const expressCTA = document.querySelector('.express-box-footer .btn');
-    if (expressCTA) {
-        expressCTA.addEventListener('click', function(event) {
-            if (this.getAttribute('href') === '#contacto') {
-                event.preventDefault();
-                const contactForm = document.getElementById('contacto');
-                if (contactForm) {
-                    window.scrollTo({
-                        top: contactForm.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Efecto de destacado en el formulario de contacto
-                    setTimeout(() => {
-                        const formContainer = document.querySelector('.contacto-content');
-                        if (formContainer) {
-                            formContainer.style.animation = 'pulse-highlight 1.5s';
-                            
-                            // Limpiar la animación después
-                            setTimeout(() => {
-                                formContainer.style.animation = '';
-                            }, 1500);
-                        }
-                    }, 800);
-                }
-            }
-        });
-    }
-    
-    // Agregar estilo de pulsación para la animación del formulario si no existe
-    if (!document.querySelector('#pulse-highlight-animation')) {
-        const styleSheet = document.createElement('style');
-        styleSheet.id = 'pulse-highlight-animation';
-        styleSheet.textContent = `
-            @keyframes pulse-highlight {
-                0% { box-shadow: 0 0 0 0 rgba(255, 126, 0, 0.4); }
-                70% { box-shadow: 0 0 0 15px rgba(255, 126, 0, 0); }
-                100% { box-shadow: 0 0 0 0 rgba(255, 126, 0, 0); }
-            }
-        `;
-        document.head.appendChild(styleSheet);
-    }
-});
-
-
-    
-    // Mostrar inmediatamente el contenido crítico para el Grunt Test
+    // Mostrar inmediatamente el contenido crítico
     // Asegurarnos que los elementos clave se muestran sin esperar animaciones
     const criticalElements = [
         document.querySelector('#home h1'),
