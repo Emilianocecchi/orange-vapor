@@ -1191,7 +1191,7 @@
     font-size: var(--texto-lg);
 }
 
-/* Formulario de contacto mejorado */
+/* Formulario de contacto con Calendly */
 .contacto {
     background-color: var(--blanco);
     padding: var(--espaciado-xl) 0;
@@ -1284,8 +1284,8 @@
     font-size: var(--texto-md);
 }
 
-/* HubSpot Form Container - Mejorado */
-.hubspot-form-container {
+/* Calendly Container - Nuevo estilo */
+.calendly-container {
     flex: 2;
     width: 100%;
     padding: var(--espaciado-lg);
@@ -1296,14 +1296,15 @@
     transition: box-shadow 0.3s ease;
 }
 
-.hubspot-form-container:hover {
+.calendly-container:hover {
     box-shadow: var(--sombra-fuerte);
 }
 
-.hs-form-frame {
+.calendly-inline-widget {
     width: 100%;
-    min-height: 450px;
+    min-height: 650px;
 }
+
 /* ==========================================================================
    FOOTER
    ========================================================================== */
@@ -1448,73 +1449,6 @@
 .scroll-top-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-}
-
-/* Media Queries para las secciones mejoradas */
-@media (max-width: 1024px) {
-    .presupuesto-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .testimonio-metricas {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .contacto-content {
-        flex-direction: column;
-    }
-    
-    .contacto-beneficios,
-    .hubspot-form-container {
-        width: 100%;
-    }
-}
-
-/* Media queries para el footer */
-@media (max-width: 768px) {
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: var(--espaciado-lg);
-    }
-    
-    .footer-column h4::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .footer .social-links {
-        justify-content: center;
-    }
-    
-    .footer-contact ul li {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 576px) {
-    .presupuesto-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .presupuesto-titulo {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .cta-final-content h2 {
-        font-size: var(--texto-2xl);
-    }
-    
-    .cta-final-content p {
-        font-size: var(--texto-base);
-    }
-    
-    .faq-question h3 {
-        font-size: var(--texto-base);
-    }
 }
 
 /* Meta Ad Mockup Styles */
@@ -1788,8 +1722,111 @@
     letter-spacing: 0.5px;
 }
 
-/* Mobile responsive adjustments */
+/* Media Queries */
+@media (max-width: 1024px) {
+    .presupuesto-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .testimonio-metricas {
+        grid-template-columns: 1fr;
+    }
+    
+    .calendly-inline-widget {
+        min-height: 700px;
+    }
+}
+
 @media (max-width: 768px) {
+    .hero-ads .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-ads p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .grunt-test-metrics {
+        justify-content: center;
+    }
+    
+    .contacto-content {
+        flex-direction: column;
+    }
+    
+    .contacto-beneficios,
+    .calendly-container {
+        width: 100%;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: var(--espaciado-lg);
+    }
+    
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer .social-links {
+        justify-content: center;
+    }
+    
+    .footer-contact ul li {
+        justify-content: center;
+    }
+    
+    .proceso-timeline::before {
+        left: 20px;
+    }
+    
+    .proceso-paso {
+        width: calc(100% - 50px);
+        margin-left: 50px !important;
+        margin-right: 0 !important;
+    }
+    
+    .proceso-paso:nth-child(odd) .paso-numero,
+    .proceso-paso:nth-child(even) .paso-numero {
+        left: -50px;
+        right: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-ads h1 {
+        font-size: var(--texto-2xl);
+    }
+    
+    .hero-ads h2 {
+        font-size: var(--texto-lg);
+    }
+    
+    .presupuesto-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .presupuesto-titulo {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .cta-final-content h2 {
+        font-size: var(--texto-2xl);
+    }
+    
+    .cta-final-content p {
+        font-size: var(--texto-base);
+    }
+    
+    .faq-question h3 {
+        font-size: var(--texto-base);
+    }
+    
     .meta-ad-device {
         width: 300px;
     }
@@ -1803,5 +1840,9 @@
         height: 30px;
         top: 20px;
         right: 30px;
+    }
+    
+    .calendly-inline-widget {
+        min-height: 600px;
     }
 }
