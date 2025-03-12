@@ -1,7 +1,7 @@
 /* ==========================================================================
    VARIABLES GLOBALES
    ========================================================================== */
-   :root {
+:root {
     /* Paleta de colores principal */
     --naranja-principal: #FF7E00;
     --naranja-secundario: #FF9F45;
@@ -22,7 +22,6 @@
     --texto-oscuro: #333333;
     --texto-claro: #666666;
     --texto-ligero: #999999;
-    --sombra-naranja: 0 10px 20px rgba(255, 126, 0, 0.2);
     
     /* Sombras */
     --sombra-suave: 0 5px 15px rgba(0, 0, 0, 0.05);
@@ -361,7 +360,7 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN HERO - Optimizada para el Grunt Test
+   SECCIÓN HERO - Optimizada
    ========================================================================== */
 .hero {
     padding-top: 160px;
@@ -428,7 +427,7 @@ p {
     line-height: 1.5;
 }
 
-/* Servicios en Hero - Nuevo */
+/* Servicios en Hero */
 .grunt-test-services {
     display: flex;
     flex-wrap: wrap;
@@ -445,6 +444,7 @@ p {
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(4px);
     transition: transform 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .service-pill:hover {
@@ -565,9 +565,10 @@ p {
     font-size: 7rem;
     font-weight: 900;
     filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
-    left: -45px; /* Cambiado de -30px para aumentar la separación */
+    left: -45px;
     z-index: 11;
 }
+
 .hero-letter-v {
     position: absolute;
     content: "V";
@@ -575,67 +576,8 @@ p {
     font-size: 7rem;
     font-weight: 900;
     filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
-    left: 45px; /* Cambiado de 30px para aumentar la separación */
+    left: 45px;
     z-index: 12;
-}
-
-
-/* Efecto de vapor */
-.vapor-effect {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.vapor-bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, rgba(255, 126, 0, 0.3) 0%, rgba(255, 158, 69, 0.1) 50%, rgba(255, 224, 194, 0) 70%);
-    opacity: 0;
-    z-index: 1;
-    box-shadow: 0 0 40px rgba(255, 126, 0, 0.1);
-}
-
-.vapor-bubble-1 {
-    width: 300px;
-    height: 300px;
-    right: -50px;
-    top: 20%;
-    animation: bubble-rise 15s ease-in-out infinite;
-    animation-delay: 0s;
-}
-
-.vapor-bubble-2 {
-    width: 200px;
-    height: 200px;
-    right: 10%;
-    top: 50%;
-    animation: bubble-rise 18s ease-in-out infinite;
-    animation-delay: 2s;
-}
-
-.vapor-bubble-3 {
-    width: 150px;
-    height: 150px;
-    right: 30%;
-    top: 30%;
-    animation: bubble-rise 12s ease-in-out infinite;
-    animation-delay: 5s;
-}
-
-.hero-vapor {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background: radial-gradient(ellipse at top right, rgba(255, 126, 0, 0.15), transparent 70%);
-    z-index: 0;
 }
 
 .scroll-indicator {
@@ -662,12 +604,11 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN SERVICIOS - Resaltado para claridad
+   SECCIÓN SERVICIOS
    ========================================================================== */
 .servicios {
     background-color: var(--gris-claro);
-    padding-top: var(--espaciado-xl);
-    padding-bottom: var(--espaciado-xl);
+    padding: var(--espaciado-xl) 0;
 }
 
 .servicios-grid {
@@ -804,7 +745,7 @@ p {
     margin-bottom: var(--espaciado-md);
 }
 
-/* Característics de las tarjetas - Nuevo */
+/* Características de las tarjetas */
 .card-features {
     display: flex;
     flex-direction: column;
@@ -876,18 +817,13 @@ p {
     color: white;
 }
 
-
 /* ==========================================================================
-   SECCIÓN ENTREGABLES SERVICIOS
+   SECCIÓN SERVICIOS MENSUALES
    ========================================================================== */
-
-
-/* Estilos para la sección de Servicios Mensuales */
 .servicios-mensuales {
     background-color: var(--fondo-claro);
     padding: var(--espaciado-xl) 0;
     position: relative;
-    overflow: hidden;
 }
 
 .servicios-mensuales::before {
@@ -1226,33 +1162,6 @@ p {
     color: var(--texto-oscuro);
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-    .servicios-mensuales-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .servicios-mensuales-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .oferta-especial {
-        padding: var(--espaciado-md);
-    }
-    
-    .oferta-especial h3 {
-        font-size: var(--texto-lg);
-    }
-}
-
-
-
-
-
-
-
 /* ==========================================================================
    SECCIÓN OPTIMIZACIÓN EXPRESS
    ========================================================================== */
@@ -1260,7 +1169,6 @@ p {
     background-color: var(--blanco);
     padding: var(--espaciado-xl) 0;
     position: relative;
-    overflow: hidden;
 }
 
 .optimizacion-express::before {
@@ -1410,8 +1318,6 @@ p {
 /* ==========================================================================
    SECCIÓN ENTREGABLES OPTIMIZACIÓN EXPRESS
    ========================================================================== */
-
-/* Estilos para el box de entregables express */
 .express-box {
     padding: var(--espaciado-lg) 0;
     position: relative;
@@ -1524,29 +1430,8 @@ p {
     flex-shrink: 0;
 }
 
-@media (max-width: 768px) {
-    .express-box-header,
-    .express-box-footer {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .express-box-footer .btn {
-        width: 100%;
-    }
-    
-    .express-box-garantia {
-        max-width: none;
-    }
-}
-
-
-
 /* ==========================================================================
    SECCIÓN DESAFÍOS
-   ========================================================================== */
-/* ==========================================================================
-   SECCIÓN DESAFÍOS - ESTILOS ACTUALIZADOS
    ========================================================================== */
 .desafios {
     background-color: var(--blanco);
@@ -1598,9 +1483,9 @@ p {
 .desafios-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--espaciado-lg); /* Aumentado el espaciado entre tarjetas */
+    gap: var(--espaciado-lg);
     margin-top: var(--espaciado-lg);
-    max-width: 1100px; /* Ligero aumento para dar más "respiración" */
+    max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1608,12 +1493,12 @@ p {
 .desafio-item {
     position: relative;
     background-color: var(--blanco);
-    padding: var(--espaciado-md) var(--espaciado-lg); /* Más padding horizontal */
+    padding: var(--espaciado-md) var(--espaciado-lg);
     border-radius: var(--borde-redondo-lg);
     box-shadow: var(--sombra-media);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    flex-direction: column; /* Cambiado a columna para mejor layout */
+    flex-direction: column;
     align-items: flex-start;
     gap: var(--espaciado-sm);
 }
@@ -1651,7 +1536,7 @@ p {
     color: var(--texto-oscuro);
     font-size: var(--texto-md);
     line-height: 1.6;
-    font-weight: 400; /* Cambiado de 600 a 400 para quitar negrita */
+    font-weight: 400;
     margin: 0;
 }
 
@@ -1665,7 +1550,7 @@ p {
     margin-top: var(--espaciado-xl);
     position: relative;
     background: transparent;
-    max-width: 900px; /* Ligeramente reducido para mejorar legibilidad */
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1742,28 +1627,11 @@ p {
     line-height: 1.8;
     max-width: 800px;
     margin: 0 auto;
-    font-weight: 400; /* Normal, no negrita */
-}
-
-/* Media queries */
-@media (max-width: 992px) {
-    .desafios-grid {
-        gap: var(--espaciado-md);
-    }
-}
-
-@media (max-width: 768px) {
-    .desafios-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .desafio-item {
-        padding: var(--espaciado-md);
-    }
+    font-weight: 400;
 }
 
 /* ==========================================================================
-   SECCIÓN PROCESO / PLAN
+   SECCIÓN PROCESO
    ========================================================================== */
 .plan-section {
     padding: var(--espaciado-xl) 0;
@@ -2284,15 +2152,14 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN CONTACTO CON CALENDLY SIN CONTENEDOR VISIBLE
+   SECCIÓN CONTACTO CON CALENDLY
    ========================================================================== */
 .contacto {
     background-color: var(--gris-claro);
     padding-top: var(--espaciado-xl);
-    padding-bottom: 0;  /* Sin padding inferior */
+    padding-bottom: 0;
 }
 
-/* Layout optimizado sin efectos de contenedor */
 .contacto-content {
     display: flex;
     flex-direction: column;
@@ -2358,7 +2225,7 @@ p {
     margin-right: 10px;
 }
 
-/* Widget de Calendly completamente integrado */
+/* Widget de Calendly */
 .calendly-inline-widget {
     width: 100% !important;
     height: 750px !important;
@@ -2374,7 +2241,6 @@ p {
     transform-origin: center top !important;
 }
 
-/* Ajustes para el iframe interno */
 body .calendly-inline-widget iframe {
     width: 100% !important;
     height: 100% !important;
@@ -2390,7 +2256,7 @@ body .calendly-inline-widget iframe {
 .footer {
     background-color: var(--gris-oscuro);
     color: rgba(255, 255, 255, 0.7);
-    padding-top: 0;  /* CAMBIO: Eliminado el padding superior */
+    padding-top: 0;
     position: relative;
 }
 
@@ -2514,19 +2380,6 @@ body .calendly-inline-widget iframe {
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes bubble-rise {
-    0% { transform: translateY(100px); opacity: 0; }
-    20% { opacity: 0.7; }
-    80% { opacity: 0.7; }
-    100% { transform: translateY(-100px); opacity: 0; }
-}
-
-@keyframes floating {
-    0% { transform: translateY(0) translateX(0) rotate(0); opacity: 0.3; }
-    50% { transform: translateY(-15px) translateX(10px) rotate(2deg); opacity: 0.5; }
-    100% { transform: translateY(0) translateX(0) rotate(0); opacity: 0.3; }
-}
-
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
@@ -2536,21 +2389,6 @@ body .calendly-inline-widget iframe {
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* ==========================================================================
-   EFECTOS DE VAPOR Y FONDOS
-   ========================================================================== */
-.vapor-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.05;
-    pointer-events: none;
-    background: radial-gradient(circle at 90% 10%, transparent 0%, transparent 60%, rgba(255, 126, 0, 0.1) 100%);
 }
 
 /* ==========================================================================
@@ -2673,18 +2511,26 @@ body .calendly-inline-widget iframe {
         padding: var(--espaciado-sm);
     }
     
-    .hs-form-frame iframe {
-        min-height: 550px;
-    }
-    
-    /* Ajustes responsivos para el widget de Calendly */
     .calendly-inline-widget {
-        height: 800px !important;  /* CAMBIO: Reducido de 900px a 800px */
+        height: 800px !important;
     }
-}
     
     .beneficios-lista li {
         width: 100%;
+    }
+    
+    .express-box-header,
+    .express-box-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .express-box-footer .btn {
+        width: 100%;
+    }
+    
+    .express-box-garantia {
+        max-width: none;
     }
 }
 
@@ -2736,8 +2582,7 @@ body .calendly-inline-widget iframe {
         bottom: 15px;
     }
     
-    /* Ajustes adicionales para el widget de Calendly en móviles */
-     .calendly-inline-widget {
-        height: 800px !important;  /* CAMBIO: Reducido de 900px a 800px */
+    .calendly-inline-widget {
+        height: 800px !important;
     }
 }
