@@ -1090,10 +1090,11 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Sección Contacto */
+/* Sección Contacto ajustada para Calendly en Email Marketing */
 .contacto {
     background-color: var(--gris-claro);
-    padding: var(--espaciado-xl) 0;
+    padding-top: var(--espaciado-xl);
+    padding-bottom: 0; /* Sin padding inferior */
     position: relative;
 }
 
@@ -1111,22 +1112,22 @@
     color: var(--email-principal);
 }
 
+/* Cambio de dirección - ahora en columna (vertical) */
 .contacto-content {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--espaciado-lg);
+    flex-direction: column;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
+    gap: var(--espaciado-md);
 }
 
 .contacto-beneficios {
-    flex: 1;
-    padding: var(--espaciado-lg);
+    width: 100%;
+    padding: var(--espaciado-md);
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-md);
-    box-shadow: var(--sombra-media);
+    box-shadow: var(--sombra-suave);
     border: 1px solid #e0e0e0;
 }
 
@@ -1134,16 +1135,17 @@
     color: var(--email-principal);
     margin-bottom: var(--espaciado-md);
     font-weight: 700;
-    font-size: var(--texto-xl);
     text-align: center;
     padding-bottom: 10px;
     border-bottom: 2px solid rgba(0, 130, 155, 0.1);
 }
 
+/* Organizar beneficios en dos columnas */
 .beneficios-lista {
     margin-bottom: var(--espaciado-md);
-    padding-left: 0;
-    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaciado-sm);
 }
 
 .beneficios-lista li {
@@ -1151,20 +1153,21 @@
     align-items: flex-start;
     margin-bottom: var(--espaciado-sm);
     color: var(--texto-oscuro);
+    width: calc(50% - var(--espaciado-sm));
     padding: 8px 0;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
 }
 
-.beneficios-lista li:last-child {
+.beneficios-lista li:last-of-type, 
+.beneficios-lista li:nth-last-of-type(2) {
     border-bottom: none;
 }
 
 .beneficios-lista li i {
     color: var(--email-principal);
-    margin-right: 15px;
+    margin-right: 10px;
     flex-shrink: 0;
     margin-top: 5px;
-    font-size: var(--texto-md);
 }
 
 .contacto-garantia {
@@ -1182,23 +1185,34 @@
 .contacto-garantia i {
     color: var(--email-principal);
     margin-right: 10px;
-    font-size: var(--texto-md);
 }
 
-.contacto-form {
-    flex: 2;
-    width: 100%;
-    padding: var(--espaciado-lg);
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-md);
-    box-shadow: var(--sombra-media);
-    border: 1px solid #e0e0e0;
-    transition: box-shadow 0.3s ease;
+/* Widget de Calendly completamente integrado */
+.calendly-inline-widget {
+    width: 100% !important;
+    height: 750px !important;
+    min-width: 320px;
+    overflow: hidden !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: scale(1) !important;
+    transform-origin: center top !important;
 }
 
-.contacto-form:hover {
-    box-shadow: var(--sombra-fuerte);
+/* Ajustes para el iframe interno */
+body .calendly-inline-widget iframe {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: block !important;
+    transform: none !important;
+    background-color: transparent !important;
 }
+
 
 /* Botón de volver arriba */
 .scroll-top-btn {
@@ -1354,5 +1368,21 @@
         width: 40px;
         height: 40px;
         font-size: 16px;
+    }
+}
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+    .beneficios-lista li {
+        width: 100%;
+    }
+    
+    .calendly-inline-widget {
+        height: 800px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .calendly-inline-widget {
+        height: 850px !important;
     }
 }
