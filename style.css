@@ -876,6 +876,383 @@ p {
     color: white;
 }
 
+
+/* ==========================================================================
+   SECCIÓN ENTREGABLES SERVICIOS
+   ========================================================================== */
+
+
+/* Estilos para la sección de Servicios Mensuales */
+.servicios-mensuales {
+    background-color: var(--fondo-claro);
+    padding: var(--espaciado-xl) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.servicios-mensuales::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 80% 10%, rgba(255, 126, 0, 0.05), transparent 70%),
+        radial-gradient(circle at 20% 90%, rgba(255, 126, 0, 0.05), transparent 70%);
+    z-index: 0;
+}
+
+.servicios-mensuales .container {
+    position: relative;
+    z-index: 1;
+}
+
+.servicios-mensuales-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--espaciado-md);
+    margin-top: var(--espaciado-lg);
+}
+
+.servicio-mensual-card {
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: var(--sombra-suave);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.servicio-mensual-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-media);
+}
+
+/* Colores específicos por servicio */
+.meta-card {
+    border-top: 5px solid var(--color-ads);
+}
+
+.google-card {
+    border-top: 5px solid transparent;
+    position: relative;
+}
+
+.google-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853);
+}
+
+.email-card {
+    border-top: 5px solid var(--color-email);
+}
+
+.chatbot-card {
+    border-top: 5px solid var(--color-chatbot);
+}
+
+.servicio-header {
+    padding: var(--espaciado-md);
+    text-align: center;
+    border-bottom: 1px solid var(--gris-borde);
+    position: relative;
+}
+
+.servicio-icon {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(66, 133, 244, 0.1);
+    color: var(--color-ads);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin: 0 auto var(--espaciado-sm);
+}
+
+.google-icon {
+    position: relative;
+    background: white;
+    color: transparent;
+    overflow: hidden;
+}
+
+.google-icon i {
+    background: linear-gradient(to bottom, #4285F4, #EA4335, #FBBC05, #34A853);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 36px;
+}
+
+.meta-card .servicio-icon {
+    background-color: rgba(66, 133, 244, 0.1);
+    color: var(--color-ads);
+}
+
+.email-card .servicio-icon {
+    background-color: rgba(0, 130, 155, 0.1);
+    color: var(--color-email);
+}
+
+.chatbot-card .servicio-icon {
+    background-color: rgba(111, 66, 193, 0.1);
+    color: var(--color-chatbot);
+}
+
+.servicio-header h3 {
+    color: var(--texto-oscuro);
+    margin-bottom: var(--espaciado-xs);
+    font-size: var(--texto-xl);
+}
+
+.meta-card .servicio-header h3 {
+    color: var(--color-ads);
+}
+
+.google-card .servicio-header h3 {
+    background: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853);
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.email-card .servicio-header h3 {
+    color: var(--color-email);
+}
+
+.chatbot-card .servicio-header h3 {
+    color: var(--color-chatbot);
+}
+
+.servicio-precio {
+    display: inline-flex;
+    align-items: baseline;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: var(--borde-redondo-md);
+    padding: 5px 12px;
+    margin-top: var(--espaciado-xs);
+}
+
+.precio-valor {
+    font-size: var(--texto-2xl);
+    font-weight: 700;
+    color: var(--texto-oscuro);
+}
+
+.precio-periodo {
+    font-size: var(--texto-sm);
+    color: var(--texto-claro);
+    margin-left: 2px;
+}
+
+.servicio-content {
+    padding: var(--espaciado-md);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.servicio-content p {
+    margin-bottom: var(--espaciado-md);
+    color: var(--texto-claro);
+    font-size: var(--texto-md);
+}
+
+.servicio-features {
+    margin: 0 0 var(--espaciado-md);
+    flex-grow: 1;
+}
+
+.servicio-features li {
+    display: flex;
+    margin-bottom: var(--espaciado-sm);
+    align-items: flex-start;
+}
+
+.servicio-features li i {
+    color: #28a745;
+    margin-right: 10px;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.meta-card .servicio-features li i {
+    color: var(--color-ads);
+}
+
+.google-card .servicio-features li i {
+    color: #34A853; /* Verde de Google */
+}
+
+.email-card .servicio-features li i {
+    color: var(--color-email);
+}
+
+.chatbot-card .servicio-features li i {
+    color: var(--color-chatbot);
+}
+
+.btn-servicio {
+    width: 100%;
+    margin-top: auto;
+    text-align: center;
+}
+
+.btn-meta {
+    background-color: var(--color-ads);
+    border-color: var(--color-ads);
+}
+
+.btn-meta:hover {
+    background-color: #3367d6;
+}
+
+.btn-google {
+    background: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853);
+    border: none;
+}
+
+.btn-google:hover {
+    opacity: 0.9;
+}
+
+.btn-email {
+    background-color: var(--color-email);
+    border-color: var(--color-email);
+}
+
+.btn-email:hover {
+    background-color: #006a7f;
+}
+
+.btn-chatbot {
+    background-color: var(--color-chatbot);
+    border-color: var(--color-chatbot);
+}
+
+.btn-chatbot:hover {
+    background-color: #5e35b1;
+}
+
+/* Oferta especial */
+.oferta-especial {
+    background: linear-gradient(to right, rgba(255, 126, 0, 0.1), rgba(255, 159, 69, 0.05));
+    margin-top: var(--espaciado-lg);
+    padding: var(--espaciado-md) var(--espaciado-lg);
+    border-radius: var(--borde-redondo-lg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+    border: 1px dashed var(--naranja-principal);
+}
+
+.oferta-especial::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background-color: rgba(255, 126, 0, 0.1);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.oferta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--naranja-principal);
+    color: var(--blanco);
+    padding: 6px 15px;
+    border-radius: var(--borde-redondo-full);
+    font-weight: 600;
+    margin-bottom: var(--espaciado-sm);
+    position: relative;
+    z-index: 1;
+}
+
+.oferta-especial h3 {
+    color: var(--texto-oscuro);
+    margin-bottom: var(--espaciado-md);
+    position: relative;
+    z-index: 1;
+}
+
+.precio-destacado {
+    color: var(--naranja-principal);
+    font-weight: 700;
+    font-size: var(--texto-2xl);
+}
+
+.oferta-especial .btn {
+    position: relative;
+    z-index: 1;
+}
+
+/* Garantía */
+.servicios-garantia {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--espaciado-sm);
+    background-color: var(--blanco);
+    padding: var(--espaciado-sm) var(--espaciado-md);
+    border-radius: var(--borde-redondo-full);
+    margin-top: var(--espaciado-md);
+    box-shadow: var(--sombra-suave);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.garantia-icon {
+    color: var(--naranja-principal);
+    font-size: var(--texto-xl);
+}
+
+.servicios-garantia p {
+    margin: 0;
+    color: var(--texto-oscuro);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .servicios-mensuales-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .servicios-mensuales-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .oferta-especial {
+        padding: var(--espaciado-md);
+    }
+    
+    .oferta-especial h3 {
+        font-size: var(--texto-lg);
+    }
+}
+
+
+
+
+
+
+
 /* ==========================================================================
    SECCIÓN OPTIMIZACIÓN EXPRESS
    ========================================================================== */
