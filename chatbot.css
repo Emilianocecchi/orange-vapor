@@ -14,6 +14,30 @@
   /* Color naranja para elementos de navegación */
   --brand-orange: #FF7E00;
   --brand-orange-dark: #E67300;
+  
+  /* Espaciado y tamaños */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+  
+  /* Sombras */
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 8px 15px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.2);
+  
+  /* Bordes */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+  --border-radius-full: 9999px;
+  
+  /* Transiciones */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
 }
 
 /* ==========================================================================
@@ -47,7 +71,7 @@ img {
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--transition-fast);
 }
 
 button, input, select, textarea {
@@ -73,12 +97,12 @@ ul, ol {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
 }
 
 section {
-  padding: 4rem 0;
+  padding: var(--spacing-lg) 0;
   position: relative;
 }
 
@@ -88,19 +112,19 @@ section {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
   line-height: 1.2;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-sm);
   font-weight: 700;
   color: #222222;
 }
 
 h1 {
   font-size: 3rem;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-md);
 }
 
 h2 {
   font-size: 2.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-md);
 }
 
 h3 {
@@ -112,7 +136,7 @@ h4 {
 }
 
 p {
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-sm);
 }
 
 .text-center { text-align: center; }
@@ -124,7 +148,7 @@ p {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: var(--spacing-lg);
 }
 
 .seccion-titulo span.subtitulo {
@@ -132,10 +156,10 @@ p {
   padding: 5px 15px;
   background-color: rgba(111, 66, 193, 0.1);
   color: var(--primary-color);
-  border-radius: 9999px;
+  border-radius: var(--border-radius-full);
   font-size: 0.875rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-xs);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -144,7 +168,7 @@ p {
   color: var(--text-color);
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-sm);
   position: relative;
   display: inline-block;
 }
@@ -163,7 +187,7 @@ p {
 .seccion-titulo p {
   color: var(--text-light);
   max-width: 700px;
-  margin: 2rem auto 0;
+  margin: var(--spacing-md) auto 0;
 }
 
 .subtitulo {
@@ -174,7 +198,7 @@ p {
   color: var(--primary-color);
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-xs);
 }
 
 /* ==========================================================================
@@ -188,14 +212,14 @@ p {
   color: var(--white);
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: var(--border-radius-md);
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all var(--transition-medium);
   text-align: center;
   z-index: 1;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn::before {
@@ -207,12 +231,12 @@ p {
   height: 100%;
   background-color: var(--secondary-color);
   z-index: -1;
-  transition: width 0.3s ease;
+  transition: width var(--transition-medium);
 }
 
 .btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .btn:hover::before {
@@ -245,7 +269,7 @@ p {
 .nav-cta .cta-button {
   background-color: var(--brand-orange);
   color: var(--white);
-  transition: all 0.3s ease;
+  transition: all var(--transition-medium);
 }
 
 .nav-cta .cta-button:hover {
@@ -275,7 +299,7 @@ p {
    ========================================================================== */
 .chatbot-hero {
   padding-top: 160px;
-  padding-bottom: 8rem;
+  padding-bottom: var(--spacing-xl);
   min-height: 90vh;
   display: flex;
   align-items: center;
@@ -318,8 +342,8 @@ p {
   gap: 10px;
   padding: 8px 16px;
   background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 9999px;
-  margin-bottom: 2rem;
+  border-radius: var(--border-radius-full);
+  margin-bottom: var(--spacing-md);
 }
 
 .chatbot-hero .service-tag i {
@@ -337,14 +361,14 @@ p {
 .chatbot-hero h1 {
   color: var(--white);
   font-size: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-sm);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 .chatbot-hero .hero-subtitle {
   color: var(--white);
   font-size: 1.25rem;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-md);
   max-width: 600px;
 }
 
@@ -352,7 +376,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .grunt-point {
@@ -361,7 +385,7 @@ p {
   gap: 10px;
   background-color: rgba(255, 255, 255, 0.15);
   padding: 10px 15px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-md);
 }
 
 .grunt-point i {
@@ -377,18 +401,14 @@ p {
 
 .hero-buttons {
   display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  margin-left: 0;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
 }
 
 .hero-image {
   position: relative;
-  overflow: visible;
   height: 300px;
   width: 100%;
-  padding: 0;
-  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -409,7 +429,7 @@ p {
   width: 330px;
   height: 500px;
   background-color: var(--white);
-  border-radius: 16px;
+  border-radius: var(--border-radius-lg);
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   display: flex;
@@ -484,7 +504,7 @@ p {
 
 .message-bubble {
   padding: 12px 15px;
-  border-radius: 16px;
+  border-radius: var(--border-radius-lg);
   color: var(--text-color);
   position: relative;
 }
@@ -521,7 +541,7 @@ p {
   border-radius: 20px;
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
   border: 1px solid var(--border-color);
 }
 
@@ -558,7 +578,7 @@ p {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .send-btn:hover {
@@ -578,7 +598,7 @@ p {
   align-items: center;
   justify-content: center;
   color: var(--white);
-  box-shadow: 0 5px 15px rgba(111, 66, 193, 0.4);
+  box-shadow: var(--shadow-md);
   z-index: 6;
   border: 3px solid rgba(255, 255, 255, 0.2);
 }
@@ -607,50 +627,39 @@ p {
   z-index: 3;
 }
 
-/* Efecto de vapor */
-.chatbot-vapor {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(ellipse at top right, rgba(111, 66, 193, 0.15), transparent 70%);
-  z-index: 0;
-}
-
 /* ==========================================================================
    SECCIÓN ESTADÍSTICAS
    ========================================================================== */
 .estadisticas {
   background-color: var(--white);
-  padding: 4rem 0;
+  padding: var(--spacing-lg) 0;
 }
 
 .estadisticas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
+  gap: var(--spacing-md);
 }
 
 .estadistica-card {
   background-color: #f8f5ff;
-  padding: 2rem;
-  border-radius: 8px;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
   border-left: 3px solid var(--primary-color);
 }
 
 .estadistica-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .estadistica-numero {
   font-size: 3rem;
   font-weight: 700;
   color: var(--primary-color);
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-sm);
   line-height: 1;
 }
 
@@ -664,19 +673,19 @@ p {
    ========================================================================== */
 .desafios {
   background-color: #f8f5ff;
-  padding: 4rem 0;
+  padding: var(--spacing-lg) 0;
 }
 
 .desafios-intro {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: var(--spacing-lg);
 }
 
 .desafios-intro h2 {
   text-align: center;
   position: relative;
-  padding-bottom: 1rem;
-  margin-bottom: 2rem;
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
   color: var(--secondary-color);
   font-size: 2.5rem;
 }
@@ -695,8 +704,8 @@ p {
 .desafios-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-top: 4rem;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
@@ -705,18 +714,18 @@ p {
 .desafio-item {
   position: relative;
   background-color: var(--white);
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--spacing-sm);
 }
 
 .desafio-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-md);
 }
 
 .desafio-icon {
@@ -729,7 +738,7 @@ p {
   color: var(--white);
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   border-radius: 50%;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
   flex-shrink: 0;
 }
 
@@ -742,7 +751,7 @@ p {
 }
 
 .desafios-mensaje-container {
-  margin-top: 4rem;
+  margin-top: var(--spacing-lg);
   position: relative;
   background: transparent;
   max-width: 1000px;
@@ -753,8 +762,8 @@ p {
 .desafios-mensaje-content {
   background-color: var(--white);
   padding: 3rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
   text-align: center;
   position: relative;
   border-left: 4px solid var(--primary-color);
@@ -768,7 +777,7 @@ p {
   margin-bottom: 1.5rem;
   padding: 8px 20px;
   background-color: rgba(111, 66, 193, 0.1);
-  border-radius: 9999px;
+  border-radius: var(--border-radius-full);
 }
 
 .desafios-mensaje-texto {
@@ -783,29 +792,29 @@ p {
    ========================================================================== */
 .beneficios-chatbot {
   background-color: var(--white);
-  padding: 4rem 0;
+  padding: var(--spacing-lg) 0;
 }
 
 .beneficios-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 4rem;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
 }
 
 .beneficio-chatbot-card {
   background-color: #f8f5ff;
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-medium);
   height: 100%;
   border-top: 4px solid var(--primary-color);
 }
 
 .beneficio-chatbot-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .beneficio-chatbot-card .beneficio-icon {
@@ -823,7 +832,7 @@ p {
 
 .beneficio-chatbot-card h3 {
   color: var(--secondary-color);
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-sm);
   font-weight: 700;
 }
 
@@ -837,7 +846,7 @@ p {
    ========================================================================== */
 .como-funciona {
   background-color: #f8f5ff;
-  padding: 4rem 0;
+  padding: var(--spacing-lg) 0;
 }
 
 .proceso-timeline {
@@ -865,18 +874,18 @@ p {
   position: relative;
   margin-bottom: 70px;
   counter-increment: step-counter;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-medium);
   padding: 25px 30px;
-  border-radius: 16px;
+  border-radius: var(--border-radius-lg);
   background-color: var(--white);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
   width: calc(50% - 40px);
   z-index: 1;
 }
 
 .proceso-paso:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .proceso-paso:last-child {
@@ -906,7 +915,7 @@ p {
   position: absolute;
   top: 0;
   z-index: 5;
-  transition: all 0.3s ease;
+  transition: all var(--transition-medium);
 }
 
 .proceso-paso:nth-child(odd) .paso-numero {
@@ -937,7 +946,7 @@ p {
   justify-content: center;
   font-size: 28px;
   margin-bottom: 20px;
-  transition: all 0.3s ease;
+  transition: all var(--transition-medium);
   border: 2px dashed rgba(111, 66, 193, 0.2);
 }
 
@@ -966,22 +975,22 @@ p {
    ========================================================================== */
 .plataformas-section {
   background-color: var(--white);
-  padding: 4rem 0;
+  padding: var(--spacing-lg) 0;
 }
 
 .plataformas-grid, .usos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-top: 4rem;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
 }
 
 .plataforma-card, .uso-card {
   background-color: #f8f5ff;
-  padding: 2rem;
-  border-radius: 8px;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -990,7 +999,7 @@ p {
 
 .plataforma-card:hover, .uso-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .plataforma-icon, .uso-icon {
@@ -1008,7 +1017,7 @@ p {
 
 .plataforma-card h3, .uso-card h3 {
   color: var(--secondary-color);
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-sm);
   font-weight: 700;
 }
 
@@ -1026,23 +1035,23 @@ p {
    ========================================================================== */
 .planes-section {
   background-color: #f8f5ff;
-  padding: 4rem 0;
+  padding: var(--spacing-lg) 0;
 }
 
 .planes-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
+  gap: var(--spacing-md);
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .plan-card {
   background-color: var(--white);
-  border-radius: 16px;
+  border-radius: var(--border-radius-lg);
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
   position: relative;
   height: 100%;
   display: flex;
@@ -1051,7 +1060,7 @@ p {
 
 .plan-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .plan-destacado {
@@ -1075,12 +1084,12 @@ p {
   padding: 8px 16px;
   font-size: 0.875rem;
   font-weight: 600;
-  border-bottom-left-radius: 8px;
+  border-bottom-left-radius: var(--border-radius-md);
   z-index: 1;
 }
 
 .plan-header {
-  padding: 2rem;
+  padding: var(--spacing-md);
   text-align: center;
   border-bottom: 1px solid #f0f0f0;
 }
@@ -1088,7 +1097,7 @@ p {
 .plan-header h3 {
   color: var(--secondary-color);
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-sm);
 }
 
 .plan-precio {
@@ -1103,7 +1112,7 @@ p {
 }
 
 .plan-features {
-  padding: 2rem;
+  padding: var(--spacing-md);
   flex-grow: 1;
 }
 
@@ -1122,13 +1131,13 @@ p {
 
 .plan-features li i {
   color: var(--primary-color);
-  margin-right: 1rem;
+  margin-right: var(--spacing-sm);
   margin-top: 3px;
   flex-shrink: 0;
 }
 
 .plan-cta {
-  padding: 2rem;
+  padding: var(--spacing-md);
   text-align: center;
 }
 
@@ -1146,17 +1155,17 @@ p {
    ========================================================================== */
 .resultados {
   background-color: var(--white);
-  padding: 4rem 0;
+  padding: var(--spacing-lg) 0;
 }
 
 .credibilidad-banner {
   background-color: rgba(111, 66, 193, 0.1);
   color: var(--primary-color);
-  padding: 1rem 2rem;
-  border-radius: 9999px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-full);
   display: inline-flex;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-md);
   font-weight: 600;
 }
 
@@ -1167,22 +1176,22 @@ p {
 .resultados-stories {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin: 4rem 0;
+  gap: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
 }
 
 .resultado-story {
   background-color: var(--white);
-  border-radius: 16px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
   height: 100%;
 }
 
 .resultado-story:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .resultado-story.chatbot {
@@ -1192,8 +1201,8 @@ p {
 .resultado-header {
   display: flex;
   align-items: center;
-  padding: 2rem;
-  border-radius: 16px 16px 0 0;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
 }
 
 .resultado-header-chatbot {
@@ -1210,7 +1219,7 @@ p {
   justify-content: center;
   font-size: 24px;
   margin-right: 15px;
-  transition: all 0.3s ease;
+  transition: all var(--transition-medium);
 }
 
 .resultado-story.chatbot .resultado-icon {
@@ -1229,12 +1238,12 @@ p {
 }
 
 .resultado-content {
-  padding: 2rem;
+  padding: var(--spacing-md);
 }
 
 .resultado-content p {
   color: var(--text-light);
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .client-name {
@@ -1300,24 +1309,24 @@ p {
 
 .cta-box {
   background-color: rgba(111, 66, 193, 0.1);
-  padding: 2rem;
-  border-radius: 16px;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-lg);
   text-align: center;
-  margin-top: 4rem;
+  margin-top: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: var(--spacing-md);
 }
 
 .cta-icon {
   color: var(--primary-color);
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-sm);
 }
 
 .cta-box p {
   font-size: 1.125rem;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-md);
   color: var(--text-color);
   max-width: 800px;
 }
@@ -1331,7 +1340,7 @@ p {
    ========================================================================== */
 .faq-seccion {
   background-color: #f8f5ff;
-  padding: 4rem 0;
+  padding: var(--spacing-lg) 0;
 }
 
 .faq-grid {
@@ -1339,20 +1348,20 @@ p {
   grid-template-columns: 1fr;
   gap: 1.5rem;
   max-width: 900px;
-  margin: 4rem auto 0;
+  margin: var(--spacing-lg) auto 0;
 }
 
 .faq-item {
   background-color: var(--white);
-  border-radius: 8px;
+  border-radius: var(--border-radius-md);
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-medium);
   border-left: 3px solid transparent;
 }
 
 .faq-item:hover, .faq-item.active {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   border-left-color: var(--primary-color);
 }
 
@@ -1374,7 +1383,7 @@ p {
 
 .faq-question i {
   color: var(--primary-color);
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-medium);
 }
 
 .faq-answer {
@@ -1401,131 +1410,131 @@ p {
 /* ==========================================================================
    SECCIÓN CONTACTO
    ========================================================================== */
-/* Estilos actualizados para la sección de contacto con Calendly */
 .contacto {
-    background-color: var(--light-gray);
-    padding-top: 4rem;
-    padding-bottom: 0; /* Sin padding inferior */
-    position: relative;
+  background-color: var(--light-gray);
+  padding-top: var(--spacing-lg);
+  padding-bottom: 0; /* Sin padding inferior */
+  position: relative;
 }
 
 .contacto::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    background: linear-gradient(to bottom, rgba(111, 66, 193, 0.1), transparent);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to bottom, rgba(111, 66, 193, 0.1), transparent);
 }
 
 /* Container principal con layout actualizado */
 .contacto-content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  gap: var(--spacing-md);
 }
 
 /* Estilos mejorados para los beneficios */
 .contacto-beneficios {
-    width: 100%;
-    padding: 2rem;
-    background-color: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e0e0e0;
+  width: 100%;
+  padding: var(--spacing-md);
+  background-color: var(--white);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  border: 1px solid #e0e0e0;
 }
 
 .contacto-beneficios h3 {
-    color: var(--primary-color);
-    margin-bottom: 2rem;
-    font-weight: 700;
-    font-size: 1.5rem;
-    text-align: center;
-    padding-bottom: 15px;
-    border-bottom: 2px solid rgba(111, 66, 193, 0.2);
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(111, 66, 193, 0.2);
 }
 
 /* Layout de lista en dos columnas */
 .beneficios-lista {
-    margin-bottom: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
 .beneficios-lista li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-    width: calc(50% - 1.5rem);
-    padding: 8px 0;
-    font-size: 1rem;
-    border-bottom: 1px dashed rgba(111, 66, 193, 0.1);
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  width: calc(50% - 1.5rem);
+  padding: 8px 0;
+  font-size: 1rem;
+  border-bottom: 1px dashed rgba(111, 66, 193, 0.1);
 }
 
 .beneficios-lista li:last-of-type,
 .beneficios-lista li:nth-last-of-type(2) {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .beneficios-lista li i {
-    color: var(--primary-color);
-    margin-right: 12px;
-    flex-shrink: 0;
-    margin-top: 5px;
-    font-size: 18px;
+  color: var(--primary-color);
+  margin-right: 12px;
+  flex-shrink: 0;
+  margin-top: 5px;
+  font-size: 18px;
 }
 
 /* Garantía mejorada */
 .contacto-garantia {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-color);
-    font-weight: 600;
-    margin-top: 2rem;
-    padding: 15px 25px;
-    background-color: rgba(111, 66, 193, 0.1);
-    border-radius: 8px;
-    font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  font-weight: 600;
+  margin-top: var(--spacing-md);
+  padding: 15px 25px;
+  background-color: rgba(111, 66, 193, 0.1);
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
 }
 
 .contacto-garantia i {
-    color: var(--primary-color);
-    margin-right: 12px;
-    font-size: 18px;
+  color: var(--primary-color);
+  margin-right: 12px;
+  font-size: 18px;
 }
 
 /* Widget de Calendly */
 .calendly-inline-widget {
-    width: 100% !important;
-    height: 750px !important;
-    min-width: 320px;
-    overflow: hidden !important;
-    background-color: transparent !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    border: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    transform: scale(1) !important;
-    transform-origin: center top !important;
+  width: 100% !important;
+  height: 750px !important;
+  min-width: 320px;
+  overflow: hidden !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: scale(1) !important;
+  transform-origin: center top !important;
 }
 
 /* Ajustes para el iframe interno */
 body .calendly-inline-widget iframe {
-    width: 100% !important;
-    height: 100% !important;
-    overflow: hidden !important;
-    display: block !important;
-    transform: none !important;
-    background-color: transparent !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  display: block !important;
+  transform: none !important;
+  background-color: transparent !important;
 }
+
 /* CTA Flotante */
 .cta-flotante {
   position: fixed;
@@ -1541,15 +1550,15 @@ body .calendly-inline-widget iframe {
   padding: 12px 20px;
   background-color: var(--primary-color);
   color: var(--white);
-  border-radius: 9999px;
+  border-radius: var(--border-radius-full);
   font-weight: 600;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
 }
 
 .btn-flotante:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-flotante i {
@@ -1687,15 +1696,13 @@ body .calendly-inline-widget iframe {
     grid-template-columns: 1fr;
   }
 
-    .beneficios-lista li {
-        width: 100%;
-    }
+  .beneficios-lista li {
+    width: 100%;
+  }
     
-    .calendly-inline-widget {
-        height: 800px !important;
-    }
-
-   
+  .calendly-inline-widget {
+    height: 800px !important;
+  }
 }
 
 @media (max-width: 576px) {
@@ -1744,10 +1751,7 @@ body .calendly-inline-widget iframe {
     grid-template-columns: 1fr;
   }
 
-   .calendly-inline-widget {
-        height: 850px !important;
-    }
+  .calendly-inline-widget {
+    height: 850px !important;
+  }
 }
-
-
-
