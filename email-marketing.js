@@ -226,34 +226,6 @@ document.addEventListener('DOMContentLoaded', function() {
         metricObserver.observe(metric);
     });
     
-    // Comprobar si el formulario de HubSpot está listo
-    function checkHubspotForm() {
-        const hsFormFrame = document.querySelector('.hs-form-frame');
-        if (hsFormFrame && typeof window.hbspt !== 'undefined') {
-            console.log('HubSpot form is ready');
-            
-            // Añadir enfoque automático al formulario si se llegó desde un CTA
-            if (window.location.hash === '#contacto-form' || window.location.hash === '#contacto') {
-                setTimeout(() => {
-                    const formIframe = hsFormFrame.querySelector('iframe');
-                    if (formIframe) {
-                        formIframe.focus();
-                    }
-                }, 1000);
-            }
-        }
-    }
-    
-   // Verificar periódicamente si el formulario de HubSpot está listo
-    let hubspotCheckInterval = setInterval(() => {
-        checkHubspotForm();
-        
-        // Después de 5 segundos, dejamos de verificar
-        setTimeout(() => {
-            clearInterval(hubspotCheckInterval);
-        }, 5000);
-    }, 1000);
-    
     // Detectar cuando el sitio está completamente cargado
     window.addEventListener('load', function() {
         // Eliminar cualquier clase de precarga si existe
@@ -282,89 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    
-    // Efecto de vapor en el fondo
-    function createVaporBubbles() {
-        const vaporEffect = document.querySelector('.email-vapor');
-        if (!vaporEffect) return;
-        
-        // Limitar el número de burbujas para mejor rendimiento
-        const maxBubbles = 5;
-        let bubbleCount = 0;
-        
-        // Función para crear burbujas de vapor aleatoriamente
-        function createRandomBubble() {
-            // Salir si ya tenemos el máximo de burbujas
-            if (bubbleCount >= maxBubbles) return;
-            
-            const bubble = document.createElement('div');
-            bubble.classList.add('vapor-bubble');
-            
-            // Posicionamiento aleatorio
-            const posX = Math.random() * 100; // posición X en porcentaje
-            const size = 50 + Math.random() * 200; // tamaño entre 50 y 250px
-            const delay = Math.random() * 5; // retraso de animación de 0 a 5 segundos
-            const duration = 10 + Math.random() * 20; // duración entre 10 y 30 segundos
-            
-            // Aplicar estilos
-            bubble.style.width = `${size}px`;
-            bubble.style.height = `${size}px`;
-            bubble.style.left = `${posX}%`;
-            bubble.style.bottom = '-20%';
-            bubble.style.animationDelay = `${delay}s`;
-            bubble.style.animationDuration = `${duration}s`;
-            
-            // Añadir burbuja al DOM
-            vaporEffect.appendChild(bubble);
-            bubbleCount++;
-            
-            // Eliminar burbuja después de que termine la animación
-            setTimeout(() => {
-                if (bubble.parentNode === vaporEffect) {
-                    bubble.remove();
-                    bubbleCount--;
-                }
-            }, (delay + duration) * 1000);
-        }
-        
-        // Crear burbujas periódicamente - reducido para mejor rendimiento
-        const bubbleInterval = setInterval(createRandomBubble, 4000);
-        
-        // Crear algunas burbujas iniciales con retraso para no afectar carga inicial
-        setTimeout(() => {
-            for (let i = 0; i < 2; i++) {
-                createRandomBubble();
-            }
-        }, 2000);
-        
-        // Limpieza al cambiar de página
-        window.addEventListener('beforeunload', function() {
-            clearInterval(bubbleInterval);
-        });
-    }
-    
-    // Solo crear efectos de vapor después de cargar elementos esenciales
-    setTimeout(createVaporBubbles, 1000);
-    
-    // Destacar elementos importantes en el hero para el Grunt Test
-    function highlightGruntElements() {
-        const criticalElements = [
-            document.querySelector('.email-hero h1'),
-            document.querySelector('.email-hero .hero-subtitle'),
-            document.querySelector('.grunt-test-points'),
-            document.querySelector('.hero-buttons')
-        ];
-        
-        criticalElements.forEach(element => {
-            if (element && element.closest('.fade-in')) {
-                element.closest('.fade-in').classList.add('visible');
-            }
-        });
-    }
-    
-    // Llamar a la función para destacar elementos importantes en cuanto se cargue el DOM
-    highlightGruntElements();
-    
+
     // Interacción mejorada con los elementos de la sección de resultados
     const resultadoStories = document.querySelectorAll('.resultado-story');
     
@@ -393,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Animación para los CTA 
-    const ctaButtons = document.querySelectorAll('.btn-lg');
+    const ctaButtons = document.querySelectorAll('.btn-lg, .btn-servicio');
     
     ctaButtons.forEach(button => {
         button.addEventListener('mouseenter', function() {
@@ -429,51 +319,72 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Mejora en la interacción con las tarjetas de funcionalidades
+    const funcionalidadCards = document.querySelectorAll('.funcionalidad-card');
     
-    // Añadir animaciones CSS adicionales para el sitio
-    const styleSheet = document.createElement('style');
-    styleSheet.textContent = `
-        @keyframes bubble-rise {
-            0% { transform: translateY(100px); opacity: 0; }
-            20% { opacity: 0.7; }
-            80% { opacity: 0.7; }
-            100% { transform: translateY(-100px); opacity: 0; }
-        }
-        
-        .vapor-bubble {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(0, 130, 155, 0.3) 0%, rgba(0, 163, 196, 0.1) 50%, rgba(255, 255, 255, 0) 70%);
-            opacity: 0;
-            z-index: 1;
-            box-shadow: 0 0 40px rgba(0, 130, 155, 0.1);
-            animation: bubble-rise 15s ease-in-out infinite;
-        }
-        
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--blanco);
-            font-size: 20px;
-            animation: bounce 2s infinite;
-            z-index: 3;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0) translateX(-50%);
+    funcionalidadCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            const icon = this.querySelector('.funcionalidad-icon');
+            if (icon) {
+                icon.style.transform = 'scale(1.1) rotate(3deg)';
+                icon.style.backgroundColor = 'rgba(0, 130, 155, 0.2)';
             }
-            40% {
-                transform: translateY(-10px) translateX(-50%);
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('.funcionalidad-icon');
+            if (icon) {
+                icon.style.transform = '';
+                icon.style.backgroundColor = '';
             }
-            60% {
-                transform: translateY(-5px) translateX(-50%);
+        });
+    });
+
+    // Destaca elementos importantes para el Grunt Test
+    function highlightGruntElements() {
+        const criticalElements = [
+            document.querySelector('.email-hero h1'),
+            document.querySelector('.email-hero .hero-subtitle'),
+            document.querySelector('.grunt-test-points'),
+            document.querySelector('.hero-buttons')
+        ];
+        
+        criticalElements.forEach(element => {
+            if (element && element.closest('.fade-in')) {
+                element.closest('.fade-in').classList.add('visible');
+            }
+        });
+    }
+    
+    // Llamar a la función para destacar elementos importantes en cuanto se cargue el DOM
+    highlightGruntElements();
+    
+    // Asegura que el Calendly se cargue correctamente
+    function checkCalendlyWidget() {
+        const calendlyWidget = document.querySelector('.calendly-inline-widget');
+        if (calendlyWidget && typeof window.Calendly !== 'undefined') {
+            console.log('Calendly widget is ready');
+            
+            // Añadir enfoque automático al formulario si se llegó desde un CTA
+            if (window.location.hash === '#contacto-form') {
+                setTimeout(() => {
+                    const widgetIframe = calendlyWidget.querySelector('iframe');
+                    if (widgetIframe) {
+                        widgetIframe.focus();
+                    }
+                }, 1000);
             }
         }
-    `;
-    document.head.appendChild(styleSheet);
+    }
+    
+    // Verificar periódicamente si el widget de Calendly está listo
+    let calendlyCheckInterval = setInterval(() => {
+        checkCalendlyWidget();
+        
+        // Después de 5 segundos, dejamos de verificar
+        setTimeout(() => {
+            clearInterval(calendlyCheckInterval);
+        }, 5000);
+    }, 1000);
 });
