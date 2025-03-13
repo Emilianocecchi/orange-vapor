@@ -1,6 +1,6 @@
 /**
  * Orange Vapor - Google Ads Landing Page
- * JavaScript optimizado según principios de StoryBrand
+ * JavaScript optimizado para mejor rendimiento y experiencia de usuario
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -39,6 +39,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar animaciones
     animateElementsOnScroll();
     window.addEventListener('scroll', animateElementsOnScroll);
+
+    // Crear un observador de intersección para mayor eficiencia
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Dejar de observar después de que el elemento sea visible
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    // Observar todos los elementos con fade-in que no están en el hero
+    fadeElements.forEach(element => {
+        if (!element.closest('.hero-google')) {
+            observer.observe(element);
+        }
+    });
 
     // =========================================================================
     // TABS DE SERVICIOS - Google Ads específicos
@@ -86,26 +107,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Efecto de destaque para resultados 
-    function highlightResults() {
-        const resultCards = document.querySelectorAll('.resultado-card');
-        
-        resultCards.forEach((card, index) => {
-            setTimeout(() => {
-                card.style.animation = 'highlight-pulse 1s ease';
-                setTimeout(() => {
-                    card.style.animation = '';
-                }, 1000);
-            }, index * 600);
-        });
-    }
-    
-    // Ejecutar efecto de destaque para resultados cuando sean visibles
     const resultadosSection = document.querySelector('.resultados-section');
     if (resultadosSection) {
         const resultadosObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(highlightResults, 500);
+                    setTimeout(() => {
+                        const resultCards = document.querySelectorAll('.resultado-card');
+                        resultCards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.style.animation = 'highlight-pulse 1s ease';
+                                setTimeout(() => {
+                                    card.style.animation = '';
+                                }, 1000);
+                            }, index * 300);
+                        });
+                    }, 500);
                     resultadosObserver.unobserve(entry.target);
                 }
             });
@@ -175,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateOfertaTag();
     
     // Simulación de urgencia (cada 45 segundos con 10% de probabilidad)
-    function simulateRandomBookings() {
+    setInterval(() => {
         if (availableSpots > 0 && Math.random() < 0.1) {
             availableSpots--;
             updateOfertaTag();
@@ -185,34 +202,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 showBookingNotification();
             }
         }
-    }
+    }, 45000);
     
     // Notificación de reserva
     function showBookingNotification() {
         const notification = document.createElement('div');
         notification.className = 'booking-notification';
+        notification.style.position = 'fixed';
+        notification.style.bottom = '20px';
+        notification.style.left = '20px';
+        notification.style.backgroundColor = 'white';
+        notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+        notification.style.borderRadius = '8px';
+        notification.style.padding = '15px';
+        notification.style.display = 'flex';
+        notification.style.alignItems = 'center';
+        notification.style.maxWidth = '320px';
+        notification.style.zIndex = '1000';
+        notification.style.animation = 'fadeInUp 0.5s forwards';
+        
         notification.innerHTML = `
-            <div class="notification-icon">
+            <div class="notification-icon" style="width:40px;height:40px;border-radius:50%;background-color:rgba(66,133,244,0.1);display:flex;align-items:center;justify-content:center;margin-right:15px;color:#4285F4;">
                 <i class="fas fa-user-check"></i>
             </div>
             <div class="notification-content">
-                <p>¡Alguien acaba de reservar su diagnóstico!</p>
-                <span>Quedan ${availableSpots} lugares con precio especial</span>
+                <p style="margin:0;font-weight:600;">¡Alguien acaba de reservar su diagnóstico!</p>
+                <span style="font-size:0.9rem;color:#666;">Quedan ${availableSpots} lugares con precio especial</span>
             </div>
-            <button class="notification-close"><i class="fas fa-times"></i></button>
+            <button class="notification-close" style="position:absolute;top:5px;right:5px;background:none;border:none;cursor:pointer;color:#999;font-size:12px;"><i class="fas fa-times"></i></button>
         `;
-        
-        // Estilos para el icono
-        const notificationIcon = notification.querySelector('.notification-icon');
-        notificationIcon.style.width = '40px';
-        notificationIcon.style.height = '40px';
-        notificationIcon.style.borderRadius = '50%';
-        notificationIcon.style.backgroundColor = 'rgba(66, 133, 244, 0.1)';
-        notificationIcon.style.display = 'flex';
-        notificationIcon.style.alignItems = 'center';
-        notificationIcon.style.justifyContent = 'center';
-        notificationIcon.style.marginRight = '15px';
-        notificationIcon.style.color = '#4285F4';
         
         // Añadir la notificación al DOM
         document.body.appendChild(notification);
@@ -239,91 +257,47 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 8000);
     }
     
-    // Iniciar simulación de reservas cada 45 segundos
-    setInterval(simulateRandomBookings, 45000);
-    
-    // =========================================================================
-    // EFECTOS VISUALES - Elementos decorativos
-    // =========================================================================
-    
-    // Efectos de vapor
-    function createVaporBubbles() {
-        const vaporEffect = document.querySelector('.vapor-effect');
-        if (!vaporEffect) return;
-        
-        function createRandomBubble() {
-            const bubble = document.createElement('div');
-            bubble.classList.add('vapor-bubble');
-            
-            const posX = Math.random() * 100;
-            const size = 50 + Math.random() * 150;
-            const delay = Math.random() * 3;
-            const duration = 10 + Math.random() * 10;
-            
-            bubble.style.width = `${size}px`;
-            bubble.style.height = `${size}px`;
-            bubble.style.left = `${posX}%`;
-            bubble.style.bottom = '-20%';
-            bubble.style.animationDelay = `${delay}s`;
-            bubble.style.animationDuration = `${duration}s`;
-            
-            vaporEffect.appendChild(bubble);
-            
-            setTimeout(() => {
-                bubble.remove();
-            }, (delay + duration) * 1000);
+    // Agregar estilos para animaciones de notificación
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        // Crear burbujas cada 3 segundos (máximo 5)
-        let count = 0;
-        const maxBubbles = 5;
-        
-        const bubbleInterval = setInterval(() => {
-            if (count < maxBubbles) {
-                createRandomBubble();
-                count++;
-            } else {
-                clearInterval(bubbleInterval);
-            }
-        }, 3000);
-        
-        // Crear algunas burbujas iniciales
-        for (let i = 0; i < 3; i++) {
-            setTimeout(createRandomBubble, i * 800);
+        @keyframes fadeOutDown {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
         }
-    }
-    
-    // Ejecutar efectos de vapor
-    createVaporBubbles();
+        .booking-notification {
+            animation: fadeInUp 0.5s forwards;
+        }
+    `;
+    document.head.appendChild(style);
     
     // =========================================================================
     // EFECTOS STORYBRAND - Resaltado de elementos clave según el marco SB7
     // =========================================================================
     
     // Destacar los pasos del plan - elemento crucial de StoryBrand
-    function highlightPlanSteps() {
-        const procesoPasos = document.querySelectorAll('.proceso-paso');
-        
-        procesoPasos.forEach((paso, index) => {
-            setTimeout(() => {
-                paso.style.transform = 'translateY(-5px)';
-                paso.style.boxShadow = 'var(--sombra-media)';
-                
-                setTimeout(() => {
-                    paso.style.transform = '';
-                    paso.style.boxShadow = '';
-                }, 500);
-            }, index * 700);
-        });
-    }
-
-    // Observar cuándo la sección de plan está visible
     const planSection = document.querySelector('.plan-section');
     if (planSection) {
         const planObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(highlightPlanSteps, 500);
+                    setTimeout(() => {
+                        const procesoPasos = document.querySelectorAll('.proceso-paso');
+                        procesoPasos.forEach((paso, index) => {
+                            setTimeout(() => {
+                                paso.style.transform = 'translateY(-5px)';
+                                paso.style.boxShadow = 'var(--sombra-media)';
+                                
+                                setTimeout(() => {
+                                    paso.style.transform = '';
+                                    paso.style.boxShadow = '';
+                                }, 500);
+                            }, index * 700);
+                        });
+                    }, 500);
                     planObserver.unobserve(entry.target);
                 }
             });
@@ -360,6 +334,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =========================================================================
+    // BOTÓN VOLVER ARRIBA
+    // =========================================================================
+    
+    const scrollTopBtn = document.querySelector('.scroll-top-btn');
+    
+    // Mostrar/ocultar botón según el scroll
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 700) {
+            scrollTopBtn.style.display = 'block';
+        } else {
+            scrollTopBtn.style.display = 'none';
+        }
+    });
+    
+    // Funcionalidad del botón
+    scrollTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // =========================================================================
     // OPTIMIZACIONES MÓVILES
     // =========================================================================
 
@@ -392,6 +389,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // =========================================================================
     // FORMULARIO DE CONTACTO - Enfocado en la conversión
     // =========================================================================
+    
+    // Gestionar navegación suave a secciones al hacer clic en enlaces internos
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                e.preventDefault();
+                const offsetTop = targetElement.offsetTop - 80;
+                
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Actualizar el hash en la URL sin provocar scroll
+                history.pushState(null, null, targetId);
+            }
+        });
+    });
     
     // Enfocar automáticamente el formulario cuando se navega a él
     function checkContactForm() {
