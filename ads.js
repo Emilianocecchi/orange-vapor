@@ -1,10 +1,10 @@
 /**
  * Orange Vapor - Meta Ads Landing Page
- * JavaScript optimizado para resaltar los elementos clave y pasar el "Grunt Test"
+ * JavaScript optimizado para mejorar la experiencia del usuario y convertir visitantes
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos críticos para el Grunt Test - Mostrar inmediatamente
+    // Elementos críticos - Mostrar inmediatamente
     const criticalElements = [
         document.querySelector('.hero-ads h1'),
         document.querySelector('.hero-ads h2'),
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.backgroundColor = '#4CAF50';
             
             setTimeout(() => {
-                this.innerHTML = 'Reserva ahora';
+                this.innerHTML = 'Reservá ahora';
                 this.style.backgroundColor = '#1877f2';
             }, 2000);
         });
@@ -134,12 +134,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Mostrar/ocultar botón de "Volver arriba" al hacer scroll
-    const scrollTopBtn = document.createElement('button');
-    scrollTopBtn.className = 'scroll-top-btn';
-    scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    scrollTopBtn.setAttribute('aria-label', 'Volver arriba');
-    scrollTopBtn.style.display = 'none';
-    document.body.appendChild(scrollTopBtn);
+    const scrollTopBtn = document.querySelector('.scroll-top-btn') || document.createElement('button');
+    
+    if (!document.querySelector('.scroll-top-btn')) {
+        scrollTopBtn.className = 'scroll-top-btn';
+        scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        scrollTopBtn.setAttribute('aria-label', 'Volver arriba');
+        scrollTopBtn.style.display = 'none';
+        document.body.appendChild(scrollTopBtn);
+    }
     
     scrollTopBtn.addEventListener('click', function() {
         window.scrollTo({
@@ -155,85 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollTopBtn.style.display = 'none';
         }
     });
-    
-    // Estilizar el botón de scroll top - MODIFICADO: Ahora a la izquierda
-    scrollTopBtn.style.position = 'fixed';
-    scrollTopBtn.style.bottom = '20px';
-    scrollTopBtn.style.left = '20px'; // MODIFICADO: Era right: '20px'
-    scrollTopBtn.style.backgroundColor = '#1877f2';
-    scrollTopBtn.style.color = 'white';
-    scrollTopBtn.style.width = '50px';
-    scrollTopBtn.style.height = '50px';
-    scrollTopBtn.style.borderRadius = '50%';
-    scrollTopBtn.style.border = 'none';
-    scrollTopBtn.style.fontSize = '20px';
-    scrollTopBtn.style.cursor = 'pointer';
-    scrollTopBtn.style.boxShadow = '0 3px 6px rgba(0,0,0,0.16)';
-    scrollTopBtn.style.zIndex = '99';
-    scrollTopBtn.style.transition = 'all 0.3s ease';
-    
-    // Efecto de vapor burbujas - optimizado para rendimiento
-    function createVaporBubbles() {
-        const vaporEffect = document.querySelector('.vapor-effect');
-        if (!vaporEffect) return;
-        
-        // Limitar el número de burbujas para mejor rendimiento
-        const maxBubbles = 5;
-        let bubbleCount = 0;
-        
-        // Función para crear burbujas de vapor aleatoriamente
-        function createRandomBubble() {
-            // Salir si ya tenemos el máximo de burbujas
-            if (bubbleCount >= maxBubbles) return;
-            
-            const bubble = document.createElement('div');
-            bubble.classList.add('vapor-bubble');
-            
-            // Posicionamiento aleatorio
-            const posX = Math.random() * 100; // posición X en porcentaje
-            const size = 50 + Math.random() * 200; // tamaño entre 50 y 250px
-            const delay = Math.random() * 5; // retraso de animación de 0 a 5 segundos
-            const duration = 10 + Math.random() * 20; // duración entre 10 y 30 segundos
-            
-            // Aplicar estilos
-            bubble.style.width = `${size}px`;
-            bubble.style.height = `${size}px`;
-            bubble.style.left = `${posX}%`;
-            bubble.style.bottom = '-20%';
-            bubble.style.animationDelay = `${delay}s`;
-            bubble.style.animationDuration = `${duration}s`;
-            
-            // Añadir burbuja al DOM
-            vaporEffect.appendChild(bubble);
-            bubbleCount++;
-            
-            // Eliminar burbuja después de que termine la animación
-            setTimeout(() => {
-                if (bubble.parentNode === vaporEffect) {
-                    bubble.remove();
-                    bubbleCount--;
-                }
-            }, (delay + duration) * 1000);
-        }
-        
-        // Crear burbujas periódicamente - reducido para mejor rendimiento
-        const bubbleInterval = setInterval(createRandomBubble, 4000);
-        
-        // Crear algunas burbujas iniciales con retraso para no afectar carga inicial
-        setTimeout(() => {
-            for (let i = 0; i < 2; i++) {
-                createRandomBubble();
-            }
-        }, 2000);
-        
-        // Limpieza al cambiar de página
-        window.addEventListener('beforeunload', function() {
-            clearInterval(bubbleInterval);
-        });
-    }
-    
-    // Solo crear efectos de vapor después de cargar elementos esenciales
-    setTimeout(createVaporBubbles, 1000);
     
     // Contador de disponibilidad para oferta especial
     let availableSpots = 3; // Lugares que quedan disponibles con precio especial
@@ -261,11 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Actualizar CTA y añadir lista de espera
                 const ctaButtons = document.querySelectorAll('.pulse-button');
                 ctaButtons.forEach(button => {
-                    if (button.textContent.includes('SOLICITAR')) {
-                        button.textContent = 'UNIRSE A LISTA DE ESPERA';
-                    } else {
-                        button.textContent = 'UNIRSE A LISTA DE ESPERA';
-                    }
+                    button.textContent = 'UNIRSE A LISTA DE ESPERA';
                     button.classList.remove('pulse-button');
                 });
             }
@@ -388,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initialTimeElapsed = true;
     }, 15000);
     
-    // Iniciar simulación de reservas cada 40 segundos (menos frecuente para no molestar)
+    // Iniciar simulación de reservas cada 40 segundos
     setInterval(simulateRandomBookings, 40000);
     
     // Añadir animaciones CSS para las notificaciones
@@ -414,13 +334,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 opacity: 0;
                 transform: translateY(20px);
             }
-        }
-        
-        @keyframes bubble-rise {
-            0% { transform: translateY(100px); opacity: 0; }
-            20% { opacity: 0.7; }
-            80% { opacity: 0.7; }
-            100% { transform: translateY(-100px); opacity: 0; }
         }
         
         @keyframes highlight-pulse {
@@ -468,9 +381,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                // Destacar brevemente el área objetivo
-                const originalBackground = targetElement.style.background;
-                
                 window.scrollTo({
                     top: targetElement.offsetTop - 80,
                     behavior: 'smooth'
@@ -479,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Efecto de highlight para que el usuario sepa dónde ha llegado
                 if (targetId === '#contacto-form') {
                     setTimeout(() => {
-                        const form = document.querySelector('.hubspot-form-container');
+                        const form = document.querySelector('.contacto-beneficios');
                         if (form) {
                             form.style.boxShadow = '0 0 0 3px #1877f2';
                             setTimeout(() => {
@@ -492,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Efecto hover en las cards de resultado cuando el usuario hace scroll
+    // Efectos de entrada para las cards de resultado
     const resultadoCards = document.querySelectorAll('.resultado-card');
     
     // Crear un observador para las cards de resultado
@@ -527,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resultadoObserver.observe(card);
     });
     
-    // Asegurarnos que los botones CTAs sean altamente visibles
+    // Mejorar la experiencia con los botones CTAs
     const ctaButtons = document.querySelectorAll('.btn-lg, .btn-flotante');
     
     ctaButtons.forEach(button => {
@@ -560,10 +470,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 modal.innerHTML = `
                     <div class="exit-modal-content">
                         <button class="exit-modal-close">&times;</button>
-                        <h3>¡Espera un momento!</h3>
+                        <h3>¡Esperá un momento!</h3>
                         <p>Antes de irte, ¿te gustaría un diagnóstico gratuito de tus Meta Ads?</p>
-                        <p>Descubre cuánto potencial están perdiendo tus campañas actuales.</p>
-                        <a href="#contacto-form" class="btn btn-lg">Solicitar Diagnóstico Gratuito</a>
+                        <p>Descubrí cuánto potencial están perdiendo tus campañas actuales.</p>
+                        <a href="#contacto-form" class="btn btn-lg">Solicitá Diagnóstico Gratuito</a>
                     </div>
                 `;
                 
@@ -650,7 +560,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                             
                             // Destacar el formulario
-                            const form = document.querySelector('.hubspot-form-container');
+                            const form = document.querySelector('.contacto-beneficios');
                             if (form) {
                                 form.style.boxShadow = '0 0 0 3px #1877f2';
                                 setTimeout(() => {
@@ -664,7 +574,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Detectar si hay un hash en la URL y navegar automaticamente
+    // Detectar si hay un hash en la URL y navegar automáticamente
     if (window.location.hash) {
         setTimeout(() => {
             const targetElement = document.querySelector(window.location.hash);
@@ -676,4 +586,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 1000);
     }
+    
+    // Inicializar animaciones de fade-in
+    const fadeElements = document.querySelectorAll('.fade-in:not(.visible)');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    fadeElements.forEach(element => {
+        observer.observe(element);
+    });
 });
