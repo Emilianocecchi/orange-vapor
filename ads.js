@@ -1,9 +1,13 @@
 /**
  * Orange Vapor - Meta Ads Landing Page
- * JavaScript optimizado para mejorar la experiencia del usuario y convertir visitantes
+ * JavaScript optimizado para mejorar la experiencia del usuario y conversión
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    // =========================================================================
+    // INICIALIZACIÓN Y ELEMENTOS CRÍTICOS
+    // =========================================================================
+    
     // Elementos críticos - Mostrar inmediatamente
     const criticalElements = [
         document.querySelector('.hero-ads h1'),
@@ -19,7 +23,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Add interactivity to the Meta Ad mockup
+    // =========================================================================
+    // MOCKUP DE META ADS - INTERACTIVIDAD
+    // =========================================================================
+    
+    // Añadir interactividad al mockup de Meta Ad
     const adButton = document.querySelector('.ad-button');
     if (adButton) {
         adButton.addEventListener('click', function() {
@@ -33,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Make engagement items interactive
+    // Hacer interactivos los elementos de engagement
     const engagementItems = document.querySelectorAll('.engagement-item');
     engagementItems.forEach(item => {
         item.addEventListener('click', function() {
@@ -41,10 +49,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentCount = parseInt(countElement.textContent);
             countElement.textContent = currentCount + 1;
             
-            // Add a temporary highlight effect
+            // Añadir efecto de resaltado temporal
             this.style.color = '#1877f2';
             
-            // Add a small bump animation
+            // Añadir animación de rebote pequeña
             this.style.transform = 'scale(1.2)';
             setTimeout(() => {
                 this.style.transform = 'scale(1)';
@@ -53,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add subtle animation to the landscape
+    // Añadir animación sutil a la ilustración del paisaje
     const sun = document.querySelector('.sun');
     if (sun) {
         setInterval(() => {
@@ -64,17 +72,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 2000);
     }
     
-    // Interacción con las métricas del hero
+    // =========================================================================
+    // INTERACCIÓN CON METRICS PILLS DEL HERO
+    // =========================================================================
+    
     const metricPills = document.querySelectorAll('.metric-pill');
     
     metricPills.forEach(pill => {
         pill.addEventListener('click', function() {
-            // Determinar qué sección debe mostrarse basado en la clase
+            // Determinar qué sección debe mostrarse
             let targetSection = '.resultados-section';
             const resultadosSection = document.querySelector(targetSection);
             
             if (resultadosSection) {
-                // Añadir un efecto de scroll suave
+                // Scroll suave a la sección
                 window.scrollTo({
                     top: resultadosSection.offsetTop - 80,
                     behavior: 'smooth'
@@ -109,7 +120,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // FAQ Accordion
+    // =========================================================================
+    // FAQ ACCORDION
+    // =========================================================================
+    
     const faqItems = document.querySelectorAll('.faq-item');
     
     faqItems.forEach(item => {
@@ -133,16 +147,11 @@ document.addEventListener('DOMContentLoaded', function() {
         faqItems[0].classList.add('active');
     }
     
-    // Mostrar/ocultar botón de "Volver arriba" al hacer scroll
-    const scrollTopBtn = document.querySelector('.scroll-top-btn') || document.createElement('button');
+    // =========================================================================
+    // BOTÓN "VOLVER ARRIBA"
+    // =========================================================================
     
-    if (!document.querySelector('.scroll-top-btn')) {
-        scrollTopBtn.className = 'scroll-top-btn';
-        scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-        scrollTopBtn.setAttribute('aria-label', 'Volver arriba');
-        scrollTopBtn.style.display = 'none';
-        document.body.appendChild(scrollTopBtn);
-    }
+    const scrollTopBtn = document.querySelector('.scroll-top-btn');
     
     scrollTopBtn.addEventListener('click', function() {
         window.scrollTo({
@@ -159,23 +168,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Contador de disponibilidad para oferta especial
-    let availableSpots = 3; // Lugares que quedan disponibles con precio especial
-    const ofertaTag = document.querySelector('.oferta-tag');
+    // =========================================================================
+    // SIMULACIÓN DE ESCASEZ - CONTADOR DE DISPONIBILIDAD
+    // =========================================================================
+    
+    let availableSpots = 3; // Lugares disponibles con precio especial
     const spotsLabel = document.querySelector('.spots-label span:last-child');
     
-    // Actualizar la etiqueta de oferta y lugares disponibles
-    function updateOfertaTag() {
-        if (ofertaTag) {
-            if (availableSpots > 0) {
-                ofertaTag.innerHTML = `<i class="fas fa-tag"></i> Precio especial para primeros 5 clientes <span class="spots-count">(${availableSpots} disponibles)</span>`;
-            } else {
-                ofertaTag.innerHTML = `<i class="fas fa-exclamation-circle"></i> ¡Oferta agotada! Precio regular`;
-                ofertaTag.style.backgroundColor = '#f8f9fa';
-                ofertaTag.style.color = '#666';
-            }
-        }
-        
+    // Actualizar etiqueta de lugares disponibles
+    function updateSpotsLabel() {
         if (spotsLabel) {
             if (availableSpots > 0) {
                 spotsLabel.textContent = `Solo ${availableSpots} lugares disponibles con precio especial`;
@@ -188,23 +189,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     button.textContent = 'UNIRSE A LISTA DE ESPERA';
                     button.classList.remove('pulse-button');
                 });
-            }
-        }
-    }
-    
-    // Inicializar contadores
-    updateOfertaTag();
-    
-    // Simular reservas aleatorias - mejorado para mejor UX
-    function simulateRandomBookings() {
-        // Solo ejecutar si hay lugares disponibles
-        if (availableSpots > 0) {
-            // Probabilidad baja para que no sea demasiado agresivo
-            if (Math.random() < 0.1) {
-                availableSpots--;
-                updateOfertaTag();
-                // Mostrar notificación de nueva reserva
-                showBookingNotification();
             }
         }
     }
@@ -302,7 +286,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Esperar un tiempo inicial antes de mostrar notificaciones
+    // Simular reservas aleatorias
+    function simulateRandomBookings() {
+        // Solo ejecutar si hay lugares disponibles
+        if (availableSpots > 0) {
+            // Probabilidad baja para que no sea demasiado agresivo
+            if (Math.random() < 0.1) {
+                availableSpots--;
+                updateSpotsLabel();
+                // Mostrar notificación de nueva reserva
+                showBookingNotification();
+            }
+        }
+    }
+    
+    // Inicializar
     let initialTimeElapsed = false;
     setTimeout(() => {
         initialTimeElapsed = true;
@@ -344,7 +342,11 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(styleElement);
     
-    // Animación de elementos interactivos
+    // =========================================================================
+    // INTERACTIVIDAD DE ELEMENTOS
+    // =========================================================================
+    
+    // Animación para problemas items
     const problemaItems = document.querySelectorAll('.problema-item');
     problemaItems.forEach(item => {
         item.addEventListener('mouseenter', function() {
@@ -363,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Resaltar enlaces de navegación activos para esta landing page
+    // Resaltar enlaces de navegación activos
     const navLinks = document.querySelectorAll('.nav-link, .dropdown-item');
     navLinks.forEach(link => {
         if (link.getAttribute('href') === 'ads.html') {
@@ -371,7 +373,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Smooth scroll para enlaces internos
+    // =========================================================================
+    // NAVEGACIÓN INTERNA SUAVE
+    // =========================================================================
+    
+    // Scroll suave para enlaces internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -386,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
                 
-                // Efecto de highlight para que el usuario sepa dónde ha llegado
+                // Efecto de highlight para destacar el destino
                 if (targetId === '#contacto-form') {
                     setTimeout(() => {
                         const form = document.querySelector('.contacto-beneficios');
@@ -402,6 +408,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // =========================================================================
+    // EFECTOS DE ENTRADA Y ANIMACIONES
+    // =========================================================================
+    
     // Efectos de entrada para las cards de resultado
     const resultadoCards = document.querySelectorAll('.resultado-card');
     
@@ -409,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultadoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Añadir un efecto de entrada suave
+                // Añadir efecto de entrada suave
                 entry.target.style.opacity = '0';
                 entry.target.style.transform = 'translateY(20px)';
                 
@@ -419,7 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     entry.target.style.transform = 'translateY(0)';
                 }, 200);
                 
-                // Después añadir un efecto de pulso
+                // Después añadir efecto de pulso
                 setTimeout(() => {
                     entry.target.style.animation = 'highlight-pulse 1s ease';
                     setTimeout(() => {
@@ -441,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const ctaButtons = document.querySelectorAll('.btn-lg, .btn-flotante');
     
     ctaButtons.forEach(button => {
-        // Añadir efecto de pulsación al hacer hover
+        // Añadir efecto de elevación al hover
         button.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-5px)';
             this.style.boxShadow = '0 10px 20px rgba(24, 119, 242, 0.3)';
@@ -453,7 +463,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Detectar si el usuario está a punto de irse para mostrar un último CTA
+    // =========================================================================
+    // DETECTOR DE INTENCIÓN DE SALIDA
+    // =========================================================================
+    
     let exitIntentShown = false;
     
     document.addEventListener('mouseleave', function(e) {
@@ -574,6 +587,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // =========================================================================
+    // NAVEGACIÓN DESDE URL
+    // =========================================================================
+    
     // Detectar si hay un hash en la URL y navegar automáticamente
     if (window.location.hash) {
         setTimeout(() => {
@@ -586,6 +603,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 1000);
     }
+    
+    // =========================================================================
+    // ANIMACIONES DE ELEMENTOS AL SCROLL
+    // =========================================================================
     
     // Inicializar animaciones de fade-in
     const fadeElements = document.querySelectorAll('.fade-in:not(.visible)');
