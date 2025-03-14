@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orange Vapor - Documento de Inicio de Proyecto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            /* Paleta de colores principal */
+            --naranja-principal: #FF7E00;
+            --naranja-secundario: #FF9F45;
+            --naranja-claro: #FFE0C2;
+            --naranja-oscuro: #E56F00;
+            --naranja-gradiente: linear-gradient(135deg, #FF7E00, #FF9F45);
+            
+            /* Colores complementarios */
+            --blanco: #FFFFFF;
+            --negro: #222222;
+            --gris-oscuro: #333333;
+            --gris-medio: #666666;
+            --gris-claro: #F5F5F5;
+            --gris-borde: #E0E0E0;
+            
+            /* Variables adicionales */
+            --fondo-claro: #F9F9F9;
+            --texto-oscuro: #333333;
+            --texto-claro: #666666;
+            --texto-ligero: #999999;
+            
+            /* Sombras */
+            --sombra-suave: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --sombra-media: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --sombra-fuerte: 0 10px 40px rgba(0, 0, 0, 0.2);
+            
+            /* Bordes */
+            --borde-fino: 1px;
+            --borde-medio: 2px;
+            --borde-redondo-sm: 4px;
+            --borde-redondo-md: 8px;
+            --borde-redondo-lg: 16px;
+            --borde-redondo-xl: 24px;
+            --borde-redondo-full: 9999px;
+            
+            /* Espaciado */
+            --espaciado-xs: 0.5rem;
+            --espaciado-sm: 1rem;
+            --espaciado-md: 2rem;
+            --espaciado-lg: 4rem;
+            --espaciado-xl: 8rem;
+            
+            /* Fuentes */
+            --fuente-principal: 'Montserrat', sans-serif;
+            --fuente-secundaria: 'Open Sans', sans-serif;
+            
+            /* Tamaños de fuente */
+            --texto-xs: 0.75rem;
+            --texto-sm: 0.875rem;
+            --texto-base: 1rem;
+            --texto-md: 1.125rem;
+            --texto-lg: 1.25rem;
+            --texto-xl: 1.5rem;
+            --texto-2xl: 2rem;
+            --texto-3xl: 2.5rem;
+            --texto-4xl: 3rem;
+            
+            /* Colores específicos de servicios */
+            --color-ads: #4285F4;
+            --color-google: #EA4335;
+            --color-email: #00829b;
+            --color-chatbot: #6f42c1;
+            
+            /* Fondos con opacidad para tarjetas */
+            --bg-ads: rgba(66, 133, 244, 0.1);
+            --bg-google: rgba(234, 67, 53, 0.1);
+            --bg-email: rgba(0, 130, 155, 0.1);
+            --bg-chatbot: rgba(111, 66, 193, 0.1);
+        }
+
+        /* Reset y Estilos Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--fuente-secundaria);
+            color: var(--texto-oscuro);
+            line-height: 1.6;
+            background-color: var(--gris-claro);
+            padding: 0;
+            margin: 0;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--fuente-principal);
+            line-height: 1.2;
+            margin-bottom: var(--espaciado-sm);
+            font-weight: 700;
+            color: var(--negro);
+        }
+
+        p {
+            margin-bottom: var(--espaciado-sm);
+        }
+
+        ul, ol {
+            margin-bottom: var(--espaciado-md);
+            padding-left: var(--espaciado-md);
+        }
+
+        li {
+            margin-bottom: var(--espaciado-xs);
+        }
+
+        a {
+            color: var(--naranja-principal);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--espaciado-md);
+            background-color: var(--blanco);
+            box-shadow: var(--sombra-media);
+        }
+
+        .pdf-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: var(--blanco);
+            box-shadow: var(--sombra-media);
+            border-radius: var(--borde-redondo-lg);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: var(--naranja-gradiente);
+            color: var(--blanco);
+            padding: var(--espaciado-lg) var(--espaciado-md);
+            text-align: center;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 48" fill="%23FFFFFF"><path d="M0,48 L1440,48 L1440,0 C1380,24 1320,36 1260,42 C1180,50 1100,48 1020,42 C940,36 860,24 780,18 C700,12 620,12 540,18 C460,24 380,36 300,42 C220,48 140,48 60,42 C40,40 20,36 0,30 L0,48 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .logo-container {
+            margin-bottom: var(--espaciado-md);
+        }
+
+        .logo {
+            font-family: var(--fuente-principal);
+            font-weight: 800;
+            font-size: var(--texto-3xl);
+            color: var(--blanco);
+        }
+
+        .logo span {
+            color: var(--negro);
+        }
+
+        .header h1 {
+            font-size: var(--texto-2xl);
+            color: var(--blanco);
+            margin-bottom: var(--espaciado-sm);
+        }
+
+        .header p {
+            font-size: var(--texto-md);
+            margin-bottom: var(--espaciado-sm);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Sección de Introducción */
+        .intro {
+            padding: var(--espaciado-md);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro h2 {
+            color: var(--naranja-principal);
+            margin-bottom: var(--espaciado-sm);
+            position: relative;
+            display: inline-block;
+        }
+
+        .intro h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--naranja-principal);
+        }
+
+        .intro p {
+            margin-bottom: var(--espaciado-md);
+            font-size: var(--texto-md);
+        }
+
+        /* Secciones de Servicios */
+        .services {
+            padding: var(--espaciado-md);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--espaciado-md);
+            padding-bottom: var(--espaciado-xs);
+            border-bottom: 2px solid var(--gris-borde);
+        }
+
+        .section-title i {
+            margin-right: var(--espaciado-sm);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--texto-md);
+        }
+
+        .section-title h2 {
+            margin-bottom: 0;
+            font-size: var(--texto-xl);
+        }
+
+        .service-card {
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondo-md);
+            box-shadow: var(--sombra-suave);
+            margin-bottom: var(--espaciado-md);
+            overflow: hidden;
+            border-left: 4px solid;
+        }
+
+        .service-card-header {
+            padding: var(--espaciado-sm) var(--espaciado-md);
+            display: flex;
+            align-items: center;
+        }
+
+        .service-icon {
+            margin-right: var(--espaciado-sm);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--texto-md);
+        }
+
+        .service-title {
+            margin: 0;
+            font-size: var(--texto-lg);
+        }
+
+        .service-content {
+            padding: var(--espaciado-md);
+            background-color: var(--fondo-claro);
+        }
+
+        .service-content h3 {
+            font-size: var(--texto-md);
+            margin-bottom: var(--espaciado-sm);
+        }
+
+        .service-content p {
+            margin-bottom: var(--espaciado-sm);
+        }
+
+        /* Estilos específicos por servicio */
+        .meta-ads {
+            background-color: var(--bg-ads);
+            border-color: var(--color-ads);
+        }
+
+        .meta-ads .service-icon {
+            background-color: var(--color-ads);
+        }
+
+        .meta-ads .service-title {
+            color: var(--color-ads);
+        }
+
+        .google-ads {
+            background-color: var(--bg-google);
+            border-color: var(--color-google);
+        }
+
+        .google-ads .service-icon {
+            background-color: var(--color-google);
+        }
+
+        .google-ads .service-title {
+            color: var(--color-google);
+        }
+
+        .email-marketing {
+            background-color: var(--bg-email);
+            border-color: var(--color-email);
+        }
+
+        .email-marketing .service-icon {
+            background-color: var(--color-email);
+        }
+
+        .email-marketing .service-title {
+            color: var(--color-email);
+        }
+
+        .chatbot {
+            background-color: var(--bg-chatbot);
+            border-color: var(--color-chatbot);
+        }
+
+        .chatbot .service-icon {
+            background-color: var(--color-chatbot);
+        }
+
+        .chatbot .service-title {
+            color: var(--color-chatbot);
+        }
+
+        /* Información general */
+        .general-info {
+            background-color: var(--fondo-claro);
+            border-radius: var(--borde-redondo-md);
+            padding: var(--espaciado-md);
+            margin-bottom: var(--espaciado-md);
+        }
+
+        .general-info h3 {
+            color: var(--naranja-principal);
+            margin-bottom: var(--espaciado-sm);
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--naranja-principal);
+            color: var(--blanco);
+            font-family: var(--fuente-principal);
+            font-weight: 600;
+            border-radius: var(--borde-redondo-md);
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--naranja-oscuro);
+            transform: translateY(-3px);
+            box-shadow: var(--sombra-media);
+            text-decoration: none;
+        }
+
+        .btn-lg {
+            padding: 15px 30px;
+            font-size: var(--texto-lg);
+        }
+
+        .download-container {
+            text-align: center;
+            margin: var(--espaciado-md) 0;
+            position: sticky;
+            bottom: 20px;
+            z-index: 100;
+        }
+
+        .download-btn {
+            background-color: var(--naranja-principal);
+            box-shadow: var(--sombra-media);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .download-btn i {
+            font-size: var(--texto-lg);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: var(--espaciado-sm);
+        }
+
+        .checklist li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--naranja-principal);
+            border-radius: 3px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--gris-oscuro);
+            color: var(--blanco);
+            text-align: center;
+            padding: var(--espaciado-md);
+            margin-top: var(--espaciado-md);
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: var(--texto-sm);
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .header {
+                padding: var(--espaciado-md);
+            }
+
+            .header h1 {
+                font-size: var(--texto-xl);
+            }
+
+            .intro h2 {
+                font-size: var(--texto-xl);
+            }
+
+            .section-title h2 {
+                font-size: var(--texto-lg);
+            }
+
+            .service-title {
+                font-size: var(--texto-md);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: var(--texto-lg);
+            }
+
+            .service-card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .service-icon {
+                margin-bottom: var(--espaciado-xs);
+            }
+
+            .btn-lg {
+                padding: 12px 24px;
+                font-size: var(--texto-base);
+            }
+        }
+
+        /* Estilos para impresión */
+        @media print {
+            body {
+                background-color: var(--blanco);
+            }
+
+            .pdf-container {
+                box-shadow: none;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .download-container {
+                display: none;
+            }
+        }
+
+        /* Estilos para los separadores de página */
+        .page-break {
+            page-break-after: always;
+        }
+
+        /* Tabla de contenidos */
+        .toc {
+            margin-bottom: var(--espaciado-md);
+            padding: var(--espaciado-md);
+            background-color: var(--fondo-claro);
+            border-radius: var(--borde-redondo-md);
+        }
+
+        .toc h3 {
+            margin-bottom: var(--espaciado-sm);
+            color: var(--naranja-principal);
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: var(--espaciado-xs);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .toc li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--naranja-principal);
+        }
+
+        .toc a {
+            color: var(--texto-oscuro);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            color: var(--naranja-principal);
+        }
+
+        /* Estilos para las páginas de servicios */
+        .service-page {
+            display: none;
+            padding: var(--espaciado-md);
+        }
+
+        .service-page.active {
+            display: block;
+        }
+
+        .service-page-header {
+            text-align: center;
+            margin-bottom: var(--espaciado-md);
+        }
+
+        .service-page-header h2 {
+            color: var(--texto-oscuro);
+            margin-bottom: var(--espaciado-sm);
+            position: relative;
+            display: inline-block;
+        }
+
+        .service-page-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--naranja-principal);
+        }
+
+        /* Navegación de servicios */
+        .service-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: var(--espaciado-md);
+            border-bottom: 1px solid var(--gris-borde);
+            padding-bottom: var(--espaciado-sm);
+        }
+
+        .service-nav-item {
+            padding: var(--espaciado-xs) var(--espaciado-sm);
+            margin: 0 var(--espaciado-xs);
+            cursor: pointer;
+            border-radius: var(--borde-redondo-sm);
+            transition: all 0.3s ease;
+        }
+
+        .service-nav-item:hover {
+            background-color: var(--gris-claro);
+        }
+
+        .service-nav-item.active {
+            background-color: var(--naranja-claro);
+            color: var(--naranja-principal);
+            font-weight: 600;
+        }
+
+        /* Secciones de las páginas de servicios */
+        .service-section {
+            margin-bottom: var(--espaciado-md);
+            padding: var(--espaciado-md);
+            background-color: var(--fondo-claro);
+            border-radius: var(--borde-redondo-md);
+        }
+
+        .service-section h3 {
+            margin-bottom: var(--espaciado-sm);
+            color: var(--naranja-principal);
+        }
+
+        .form-group {
+            margin-bottom: var(--espaciado-md);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--espaciado-xs);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--gris-borde);
+            border-radius: var(--borde-redondo-sm);
+            font-family: var(--fuente-secundaria);
+            font-size: var(--texto-base);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <div class="pdf-container" id="pdf-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo">Orange<span>Vapor</span></div>
+            </div>
+            <h1>Documento de Inicio de Proyecto</h1>
+            <p>Este documento contiene toda la información que necesitamos para comenzar a trabajar juntos y garantizar el éxito de tu estrategia de marketing digital.</p>
+        </header>
+
+        <!-- Introducción -->
+        <section class="intro">
+            <h2>¡Bienvenido a Orange Vapor!</h2>
+            <p>Estamos entusiasmados de comenzar a trabajar contigo. Para asegurar un inicio eficiente y resultados óptimos, necesitamos que nos proporciones acceso a ciertas plataformas e información clave relacionada con tu negocio.</p>
+            <p>Este documento detalla todo lo que necesitamos para cada uno de nuestros servicios. Por favor, completa las secciones correspondientes a los servicios que has contratado.</p>
+        </section>
+
+        <!-- Tabla de Contenidos -->
+        <div class="toc container">
+            <h3>Contenido</h3>
+            <ul>
+                <li><a href="#general-info">Información General de la Empresa</a></li>
+                <li><a href="#meta-ads">Meta Ads (Facebook/Instagram)</a></li>
+                <li><a href="#google-ads">Google Ads</a></li>
+                <li><a href="#email-marketing">Email Marketing</a></li>
+                <li><a href="#chatbot">Chatbot</a></li>
+            </ul>
+        </div>
+
+        <!-- Información General -->
+        <section class="services" id="general-info">
+            <div class="section-title">
+                <i class="fas fa-building" style="background-color: var(--naranja-principal);"></i>
+                <h2>Información General de la Empresa</h2>
+            </div>
+
+            <div class="general-info">
+                <h3>Información Básica</h3>
+                <ul class="checklist">
+                    <li>Nombre completo de la empresa</li>
+                    <li>Sitio web</li>
+                    <li>Logotipo (formato vectorial preferido)</li>
+                    <li>Paleta de colores de la marca (códigos hexadecimales)</li>
+                    <li>Manual de marca (si está disponible)</li>
+                </ul>
+
+                <h3>Información del Negocio</h3>
+                <ul class="checklist">
+                    <li>Descripción de la empresa (breve párrafo)</li>
+                    <li>Principales productos o servicios</li>
+                    <li>Propuesta de valor única</li>
+                    <li>Público objetivo (detalles demográficos y psicográficos)</li>
+                    <li>Competidores principales (3-5)</li>
+                </ul>
+
+                <h3>Objetivos de Marketing</h3>
+                <ul class="checklist">
+                    <li>Objetivos de negocio a corto plazo (3-6 meses)</li>
+                    <li>Objetivos de negocio a largo plazo (6-12 meses)</li>
+                    <li>KPIs prioritarios para medir el éxito</li>
+                    <li>Presupuesto mensual para marketing digital</li>
+                </ul>
+
+                <h3>Acceso a Herramientas de Análisis</h3>
+                <ul class="checklist">
+                    <li>Acceso a Google Analytics (rol de Editor o superior)</li>
+                    <li>Acceso a Google Search Console (si está configurado)</li>
+                    <li>Acceso a cualquier plataforma de análisis de datos adicional que utilices</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Meta Ads (Facebook/Instagram) -->
+        <section class="services" id="meta-ads">
+            <div class="section-title">
+                <i class="fab fa-facebook" style="background-color: var(--color-ads);"></i>
+                <h2>Meta Ads (Facebook/Instagram)</h2>
+            </div>
+
+            <div class="service-card meta-ads">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <h3 class="service-title">Acceso al Business Manager</h3>
+                </div>
+                <div class="service-content">
+                    <h3>Necesitamos los siguientes permisos:</h3>
+                    <p>Para administrar eficientemente tus campañas publicitarias en Meta, necesitamos acceso a tu cuenta de Business Manager. Si no tienes una, te ayudaremos a crearla.</p>
+                    <ul class="checklist">
+                        <li>ID del Business Manager</li>
+                        <li>Acceso como administrador a la cuenta publicitaria</li>
+                        <li>Acceso como administrador al catálogo de productos (para e-commerce)</li>
+                    </ul>
+
+                    <p><strong>Paso a paso para dar acceso:</strong></p>
+                    <ol>
+                        <li>Inicia sesión en <a href="https://business.facebook.com" target="_blank">business.facebook.com</a></li>
+                        <li>Ve a "Configuración del negocio"</li>
+                        <li>Selecciona "Usuarios" y luego "Agregar"</li>
+                        <li>Ingresa el correo de nuestro administrador: emiliano@orangevapor.com</li>
+                        <li>Asigna el rol de "Administrador" para el negocio</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="service-card meta-ads">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="service-title">Implementación del Pixel de Facebook</h3>
+                </div>
+                <div class="service-content">
+                    <p>El Pixel de Facebook es esencial para rastrear conversiones y optimizar campañas. Necesitamos:</p>
+                    <ul class="checklist">
+                        <li>Acceso a la plataforma CMS de tu sitio web (WordPress, Shopify, Wix, etc.)</li>
+                        <li>O bien, colaboración con tu desarrollador web para implementar el código del Pixel</li>
+                        <li>Información sobre los eventos clave a rastrear (compras, registros, suscripciones, etc.)</li>
+                    </ul>
+
+                    <h3>Eventos de conversión principales:</h3>
+                    <p>Por favor, indica cuáles de estos eventos son relevantes para tu negocio:</p>
+                    <ul class="checklist">
+                        <li>Compras / Transacciones</li>
+                        <li>Registros / Suscripciones</li>
+                        <li>Contactos / Leads</li>
+                        <li>Adiciones al carrito</li>
+                        <li>Inicios de proceso de compra</li>
+                        <li>Vistas de página de producto</li>
+                        <li>Eventos personalizados (especificar)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="service-card meta-ads">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <h3 class="service-title">Contenido para Anuncios</h3>
+                </div>
+                <div class="service-content">
+                    <p>Para crear anuncios efectivos, necesitamos acceso a los siguientes materiales:</p>
+                    <ul class="checklist">
+                        <li>Imágenes de alta calidad de productos/servicios (mínimo 10)</li>
+                        <li>Videos promocionales (si están disponibles)</li>
+                        <li>Testimonios de clientes (texto o video)</li>
+                        <li>Documentos de propuesta de valor/beneficios de productos</li>
+                    </ul>
+
+                    <h3>Especificaciones recomendadas:</h3>
+                    <ul>
+                        <li><strong>Imágenes:</strong> Resolución mínima de 1080 x 1080 píxeles, formato JPG o PNG</li>
+                        <li><strong>Videos:</strong> Resolución mínima de 720p, duración recomendada de 15-60 segundos</li>
+                        <li><strong>Ratio de aspecto:</strong> 1:1 (cuadrado), 4:5 (vertical), 16:9 (horizontal)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Google Ads -->
+        <section class="services" id="google-ads">
+            <div class="section-title">
+                <i class="fab fa-google" style="background-color: var(--color-google);"></i>
+                <h2>Google Ads</h2>
+            </div>
+
+            <div class="service-card google-ads">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h3 class="service-title">Acceso a la Cuenta de Google Ads</h3>
+                </div>
+                <div class="service-content">
+                    <p>Necesitamos acceso a tu cuenta de Google Ads. Si no tienes una cuenta, te ayudaremos a crearla.</p>
+                    <ul class="checklist">
+                        <li>Dirección de correo electrónico asociada a la cuenta</li>
+                        <li>Acceso como administrador a la cuenta de Google Ads</li>
+                    </ul>
+
+                    <p><strong>Paso a paso para dar acceso:</strong></p>
+                    <ol>
+                        <li>Inicia sesión en <a href="https://ads.google.com" target="_blank">ads.google.com</a></li>
+                        <li>Haz clic en el icono de herramientas (llave inglesa) en la esquina superior derecha</li>
+                        <li>En la sección "Configuración", selecciona "Acceso y seguridad"</li>
+                        <li>Haz clic en el botón "+" para agregar un nuevo usuario</li>
+                        <li>Ingresa el correo electrónico: emiliano@orangevapor.com</li>
+                        <li>Asigna el nivel de acceso "Administrador" y confirma</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="service-card google-ads">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="service-title">Palabras Clave e Investigación</h3>
+                </div>
+                <div class="service-content">
+                    <p>Para optimizar tus campañas de búsqueda, necesitamos entender mejor tu industria y tus objetivos:</p>
+                    <ul class="checklist">
+                        <li>Lista de productos/servicios prioritarios para promocionar</li>
+                        <li>Palabras clave que ya sabes que funcionan (si tienes experiencia previa)</li>
+                        <li>Palabras clave negativas que debemos evitar</li>
+                        <li>Términos técnicos o jerga específica de tu industria</li>
+                        <li>Área geográfica objetivo (países, estados, ciudades)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="service-card google-ads">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="service-title">Configuración de Conversiones</h3>
+                </div>
+                <div class="service-content">
+                    <p>Para medir la efectividad de tus campañas, necesitamos configurar el seguimiento de conversiones:</p>
+                    <ul class="checklist">
+                        <li>Acceso a Google Analytics (con rol de Editor)</li>
+                        <li>Acceso al CMS de tu sitio web o al equipo de desarrollo</li>
+                        <li>Definición de objetivos de conversión (ventas, formularios, llamadas, etc.)</li>
+                    </ul>
+
+                    <h3>Acciones que quieres rastrear:</h3>
+                    <ul class="checklist">
+                        <li>Compras o transacciones</li>
+                        <li>Envíos de formularios de contacto o leads</li>
+                        <li>Llamadas desde anuncios</li>
+                        <li>Descargas de información</li>
+                        <li>Tiempo en sitio o páginas vistas</li>
+                        <li>Acciones personalizadas (especificar)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Email Marketing -->
+        <section class="services" id="email-marketing">
+            <div class="section-title">
+                <i class="fas fa-envelope" style="background-color: var(--color-email);"></i>
+                <h2>Email Marketing</h2>
+            </div>
+
+            <div class="service-card email-marketing">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h3 class="service-title">Acceso a Plataforma de Email Marketing</h3>
+                </div>
+                <div class="service-content">
+                    <p>Necesitamos acceso a tu plataforma de email marketing existente o te ayudaremos a configurar una nueva:</p>
+                    <ul class="checklist">
+                        <li>Nombre de la plataforma que utilizas (Mailchimp, HubSpot, ActiveCampaign, etc.)</li>
+                        <li>Credenciales de acceso (usuario y contraseña) o invitación como administrador</li>
+                        <li>Información sobre integraciones existentes con CRM u otras herramientas</li>
+                    </ul>
+
+                    <p><strong>Plataformas con las que trabajamos:</strong></p>
+                    <ul>
+                        <li>Mailchimp</li>
+                        <li>ActiveCampaign</li>
+                        <li>HubSpot</li>
+                        <li>Klaviyo</li>
+                        <li>SendinBlue (Brevo)</li>
+                        <li>Otras (consultar)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="service-card email-marketing">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="service-title">Base de Datos y Segmentación</h3>
+                </div>
+                <div class="service-content">
+                    <p>Para implementar estrategias efectivas de email marketing, necesitamos información sobre tus listas:</p>
+                    <ul class="checklist">
+                        <li>Tamaño actual de la base de datos</li>
+                        <li>Segmentaciones actuales (si existen)</li>
+                        <li>Fuentes principales de captación de suscriptores</li>
+                        <li>Información de cumplimiento legal (permisos y consentimientos)</li>
+                        <li>Historial de campañas anteriores (si existen)</li>
+                    </ul>
+
+                    <h3>Datos que deberías compartir:</h3>
+                    <ul>
+                        <li>Tasas históricas de apertura y clic</li>
+                        <li>Tipos de campañas con mejor rendimiento</li>
+                        <li>Horarios y días de la semana preferidos</li>
+                        <li>Principales desafíos enfrentados</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="service-card email-marketing">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <h3 class="service-title">Contenido para Campañas</h3>
+                </div>
+                <div class="service-content">
+                    <p>Para crear campañas de email efectivas, necesitamos acceso a los siguientes materiales:</p>
+                    <ul class="checklist">
+                        <li>Logo en formato vectorial (preferiblemente)</li>
+                        <li>Imágenes de productos o servicios</li>
+                        <li>Contenido previo de newsletters (si existe)</li>
+                        <li>Manual de marca o guía de estilo</li>
+                        <li>Documentos de venta o argumentarios</li>
+                    </ul>
+
+                    <h3>Flujos de email a configurar:</h3>
+                    <p>¿Qué secuencias automatizadas te interesan?</p>
+                    <ul class="checklist">
+                        <li>Bienvenida para nuevos suscriptores</li>
+                        <li>Nutrición de leads y educación</li>
+                        <li>Recuperación de carritos abandonados</li>
+                        <li>Reactivación de clientes inactivos</li>
+                        <li>Post-compra y fidelización</li>
+                        <li>Felicitaciones de cumpleaños/aniversarios</li>
+                        <li>Flujos personalizados (especificar)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chatbot -->
+        <section class="services" id="chatbot">
+            <div class="section-title">
+                <i class="fas fa-robot" style="background-color: var(--color-chatbot);"></i>
+                <h2>Chatbot</h2>
+            </div>
+
+            <div class="service-card chatbot">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="service-title">Acceso e Implementación</h3>
+                </div>
+                <div class="service-content">
+                    <p>Para implementar un chatbot efectivo, necesitamos la siguiente información y accesos:</p>
+                    <ul class="checklist">
+                        <li>Plataforma de chatbot actual (si existe)</li>
+                        <li>Acceso al CMS de tu sitio web o al equipo de desarrollo</li>
+                        <li>Acceso a tus cuentas de redes sociales (Facebook, Instagram, WhatsApp Business)</li>
+                    </ul>
+
+                    <p><strong>Plataformas con las que trabajamos:</strong></p>
+                    <ul>
+                        <li>ManyChat</li>
+                        <li>Chatfuel</li>
+                        <li>MobileMonkey</li>
+                        <li>Drift</li>
+                        <li>Intercom</li>
+                        <li>Other platforms upon request</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="service-card chatbot">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="service-title">Flujos de Conversación</h3>
+                </div>
+                <div class="service-content">
+                    <p>Para diseñar flujos de conversación efectivos, necesitamos entender:</p>
+                    <ul class="checklist">
+                        <li>Preguntas frecuentes de los clientes</li>
+                        <li>Procesos de venta y atención actuales</li>
+                        <li>Objetivos principales del chatbot (ventas, soporte, información)</li>
+                        <li>Información relevante que debe recopilarse de los leads</li>
+                    </ul>
+
+                    <h3>Información sobre tus clientes:</h3>
+                    <ul class="checklist">
+                        <li>Perfil demográfico de tu cliente ideal</li>
+                        <li>Principales objeciones o dudas durante el proceso de compra</li>
+                        <li>Canales preferidos de comunicación</li>
+                        <li>Horarios de mayor interacción</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="service-card chatbot">
+                <div class="service-card-header">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="service-title">Integraciones y Automatización</h3>
+                </div>
+                <div class="service-content">
+                    <p>Para maximizar la eficiencia del chatbot, necesitamos información sobre:</p>
+                    <ul class="checklist">
+                        <li>CRM o software de gestión de clientes actual</li>
+                        <li>Herramientas de email marketing</li>
+                        <li>Sistemas de tickets o atención al cliente</li>
+                        <li>Calendarios para programación de citas (si aplica)</li>
+                        <li>Otras herramientas o software relevante</li>
+                    </ul>
+
+                    <h3>Automatizaciones deseadas:</h3>
+                    <p>¿Qué procesos te gustaría automatizar?</p>
+                    <ul class="checklist">
+                        <li>Calificación de leads</li>
+                        <li>Programación de citas o demostraciones</li>
+                        <li>Respuestas a preguntas frecuentes</li>
+                        <li>Soporte básico al cliente</li>
+                        <li>Notificaciones de ofertas o promociones</li>
+                        <li>Seguimiento post-compra</li>
+                        <li>Procesos personalizados (especificar)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navegación de servicios -->
+        <div class="service-nav container">
+            <div class="service-nav-item active" data-target="main">General</div>
+            <div class="service-nav-item" data-target="meta-ads-page">Meta Ads</div>
+            <div class="service-nav-item" data-target="google-ads-page">Google Ads</div>
+            <div class="service-nav-item" data-target="email-page">Email Marketing</div>
+            <div class="service-nav-item" data-target="chatbot-page">Chatbot</div>
+        </div>
+
+        <!-- Páginas de servicios específicos -->
+        <div class="service-pages container">
+            <!-- Página principal (general) -->
+            <div class="service-page active" id="main">
+                <div class="service-page-header">
+                    <h2>Información General del Proyecto</h2>
+                </div>
+                <div class="service-section">
+                    <h3>Información de la Empresa</h3>
+                    <div class="form-group">
+                        <label for="company-name">Nombre de la empresa:</label>
+                        <input type="text" class="form-control" id="company-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="website">Sitio web:</label>
+                        <input type="text" class="form-control" id="website">
+                    </div>
+                    <div class="form-group">
+                        <label for="company-description">Breve descripción de la empresa:</label>
+                        <textarea class="form-control" id="company-description" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>Objetivos de Marketing</h3>
+                    <div class="form-group">
+                        <label for="short-term-goals">Objetivos a corto plazo (3-6 meses):</label>
+                        <textarea class="form-control" id="short-term-goals" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="long-term-goals">Objetivos a largo plazo (6-12 meses):</label>
+                        <textarea class="form-control" id="long-term-goals" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="kpis">KPIs prioritarios:</label>
+                        <textarea class="form-control" id="kpis" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>Acceso a Herramientas de Análisis</h3>
+                    <div class="form-group">
+                        <label for="analytics-email">Correo electrónico para compartir acceso a Google Analytics:</label>
+                        <input type="email" class="form-control" id="analytics-email">
+                    </div>
+                    <div class="form-group">
+                        <label for="search-console-email">Correo electrónico para compartir acceso a Search Console:</label>
+                        <input type="email" class="form-control" id="search-console-email">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página de Meta Ads -->
+            <div class="service-page" id="meta-ads-page">
+                <div class="service-page-header">
+                    <h2>Meta Ads (Facebook/Instagram)</h2>
+                </div>
+                <div class="service-section">
+                    <h3>Acceso al Business Manager</h3>
+                    <div class="form-group">
+                        <label for="business-manager-id">ID del Business Manager:</label>
+                        <input type="text" class="form-control" id="business-manager-id">
+                    </div>
+                    <div class="form-group">
+                        <label for="ad-account-id">ID de la cuenta publicitaria:</label>
+                        <input type="text" class="form-control" id="ad-account-id">
+                    </div>
+                    <div class="form-group">
+                        <label for="bm-admin-email">Correo electrónico del administrador actual:</label>
+                        <input type="email" class="form-control" id="bm-admin-email">
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>Pixel de Facebook</h3>
+                    <div class="form-group">
+                        <label for="pixel-id">ID del Pixel (si ya existe):</label>
+                        <input type="text" class="form-control" id="pixel-id">
+                    </div>
+                    <div class="form-group">
+                        <label for="website-platform">Plataforma del sitio web (WordPress, Shopify, etc.):</label>
+                        <input type="text" class="form-control" id="website-platform">
+                    </div>
+                    <div class="form-group">
+                        <label for="developer-contact">Datos de contacto del desarrollador web (si aplica):</label>
+                        <input type="text" class="form-control" id="developer-contact">
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>Contenido para Anuncios</h3>
+                    <div class="form-group">
+                        <label for="ad-content-notes">Información adicional sobre materiales disponibles:</label>
+                        <textarea class="form-control" id="ad-content-notes" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Selecciona los materiales que puedes proporcionar:</label>
+                        <div>
+                            <input type="checkbox" id="images-available">
+                            <label for="images-available">Imágenes de alta calidad</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="videos-available">
+                            <label for="videos-available">Videos promocionales</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="testimonials-available">
+                            <label for="testimonials-available">Testimonios de clientes</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página de Google Ads -->
+            <div class="service-page" id="google-ads-page">
+                <div class="service-page-header">
+                    <h2>Google Ads</h2>
+                </div>
+                <div class="service-section">
+                    <h3>Acceso a la Cuenta</h3>
+                    <div class="form-group">
+                        <label for="google-ads-id">ID de la cuenta de Google Ads (si existe):</label>
+                        <input type="text" class="form-control" id="google-ads-id">
+                    </div>
+                    <div class="form-group">
+                        <label for="google-ads-email">Correo electrónico asociado a la cuenta:</label>
+                        <input type="email" class="form-control" id="google-ads-email">
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>Palabras Clave e Investigación</h3>
+                    <div class="form-group">
+                        <label for="priority-products">Productos/servicios prioritarios para promocionar:</label>
+                        <textarea class="form-control" id="priority-products" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="existing-keywords">Palabras clave que ya sabes que funcionan:</label>
+                        <textarea class="form-control" id="existing-keywords" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="negative-keywords">Palabras clave negativas que debemos evitar:</label>
+                        <textarea class="form-control" id="negative-keywords" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="target-locations">Áreas geográficas objetivo:</label>
+                        <textarea class="form-control" id="target-locations" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>Configuración de Conversiones</h3>
+                    <div class="form-group">
+                        <label>Acciones que quieres rastrear:</label>
+                        <div>
+                            <input type="checkbox" id="track-purchases">
+                            <label for="track-purchases">Compras o transacciones</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="track-leads">
+                            <label for="track-leads">Envío de formularios de contacto</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="track-calls">
+                            <label for="track-calls">Llamadas desde anuncios</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="track-downloads">
+                            <label for="track-downloads">Descargas de información</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="custom-actions">Acciones personalizadas a rastrear (especificar):</label>
+                        <textarea class="form-control" id="custom-actions" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página de Email Marketing -->
+            <div class="service-page" id="email-page">
+                <div class="service-page-header">
+                    <h2>Email Marketing</h2>
+                </div>
+                <div class="service-section">
+                    <h3>Acceso a Plataforma</h3>
+                    <div class="form-group">
+                        <label for="email-platform">Plataforma de email marketing actual:</label>
+                        <input type="text" class="form-control" id="email-platform">
+                    </div>
+                    <div class="form-group">
+                        <label for="email-platform-admin">Correo para dar acceso como administrador:</label>
+                        <input type="email" class="form-control" id="email-platform-admin">
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>Base de Datos y Segmentación</h3>
+                    <div class="form-group">
+                        <label for="db-size">Tamaño actual de la base de datos (número aproximado):</label>
+                        <input type="text" class="form-control" id="db-size">
+                    </div>
+                    <div class="form-group">
+                        <label for="segments">Segmentaciones actuales (si existen):</label>
+                        <textarea class="form-control" id="segments" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="acquisition-sources">Fuentes principales de captación de suscriptores:</label>
+                        <textarea class="form-control" id="acquisition-sources" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>Flujos de Email</h3>
+                    <div class="form-group">
+                        <label>¿Qué secuencias automatizadas te interesan?</label>
+                        <div>
+                            <input type="checkbox" id="welcome-flow">
+                            <label for="welcome-flow">Bienvenida para nuevos suscriptores</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="lead-nurturing">
+                            <label for="lead-nurturing">Nutrición de leads y educación</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="abandoned-cart">
+                            <label for="abandoned-cart">Recuperación de carritos abandonados</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="reactivation">
+                            <label for="reactivation">Reactivación de clientes inactivos</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="post-purchase">
+                            <label for="post-purchase">Post-compra y fidelización</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="custom-flows">Flujos personalizados (especificar):</label>
+                        <textarea class="form-control" id="custom-flows" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página de Chatbot -->
+            <div class="service-page" id="chatbot-page">
+                <div class="service-page-header">
+                    <h2>Chatbot</h2>
+                </div>
+                <div class="service-section">
+                    <h3>Acceso e Implementación</h3>
+                    <div class="form-group">
+                        <label for="current-chatbot">Plataforma de chatbot actual (si existe):</label>
+                        <input type="text" class="form-control" id="current-chatbot">
+                    </div>
+                    <div class="form-group">
+                        <label for="chatbot-admin">Correo para dar acceso como administrador:</label>
+                        <input type="email" class="form-control" id="chatbot-admin">
+                    </div>
+                    <div class="form-group">
+                        <label for="social-accounts">Cuentas de redes sociales a conectar:</label>
+                        <textarea class="form-control" id="social-accounts" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>Flujos de Conversación</h3>
+                    <div class="form-group">
+                        <label for="faq">Preguntas frecuentes de los clientes:</label>
+                        <textarea class="form-control" id="faq" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="chatbot-goals">Objetivos principales del chatbot:</label>
+                        <textarea class="form-control" id="chatbot-goals" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="lead-info">Información relevante a recopilar de los leads:</label>
+                        <textarea class="form-control" id="lead-info" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>Integraciones y Automatización</h3>
+                    <div class="form-group">
+                        <label for="current-crm">CRM o software de gestión de clientes actual:</label>
+                        <input type="text" class="form-control" id="current-crm">
+                    </div>
+                    <div class="form-group">
+                        <label>¿Qué procesos te gustaría automatizar?</label>
+                        <div>
+                            <input type="checkbox" id="lead-qualification">
+                            <label for="lead-qualification">Calificación de leads</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="appointment-scheduling">
+                            <label for="appointment-scheduling">Programación de citas o demostraciones</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="faq-answers">
+                            <label for="faq-answers">Respuestas a preguntas frecuentes</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="basic-support">
+                            <label for="basic-support">Soporte básico al cliente</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="custom-processes">Procesos personalizados (especificar):</label>
+                        <textarea class="form-control" id="custom-processes" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Orange Vapor. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <!-- Botón de descarga -->
+    <div class="download-container">
+        <button class="btn btn-lg download-btn" id="download-pdf">
+            <i class="fas fa-file-pdf"></i> Descargar en PDF
+        </button>
+    </div>
+
+    <script>
+        // Función para descargar PDF
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            const element = document.getElementById('pdf-content');
+            const opt = {
+                margin: 10,
+                filename: 'OrangeVapor_Documento_Inicio.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Generar el PDF
+            html2pdf().from(element).set(opt).save();
+        });
+
+        // Navegación entre páginas de servicios
+        document.querySelectorAll('.service-nav-item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                // Remover clase activa de todos los ítems
+                document.querySelectorAll('.service-nav-item').forEach(function(nav) {
+                    nav.classList.remove('active');
+                });
+                
+                // Agregar clase activa al ítem actual
+                this.classList.add('active');
+                
+                // Ocultar todas las páginas
+                document.querySelectorAll('.service-page').forEach(function(page) {
+                    page.classList.remove('active');
+                });
+                
+                // Mostrar la página correspondiente
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
