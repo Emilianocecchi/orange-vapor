@@ -18,7 +18,6 @@
             --naranja-secundario: #FF9F45;
             --naranja-claro: #FFE0C2;
             --naranja-oscuro: #E56F00;
-            --naranja-gradiente: linear-gradient(135deg, #FF7E00, #FF9F45);
             
             /* Colores complementarios */
             --blanco: #FFFFFF;
@@ -57,6 +56,11 @@
             line-height: 1.6;
             color: var(--texto-oscuro);
             background-color: var(--blanco);
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
         }
 
         /* Para impresión */
@@ -71,10 +75,78 @@
             .page {
                 page-break-after: always;
                 position: relative;
+                width: 210mm;
+                min-height: 297mm;
             }
             
             .no-print {
                 display: none !important;
+            }
+            
+            /* Asegurar que se impriman los colores */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            /* Garantizar que se impriman fondos */
+            body, .page, .cover, .service-card, .package-section, .guarantee-section, .contact-cta {
+                background-color: white !important;
+                color: black !important;
+            }
+            
+            /* Establecer colores explícitos para la portada */
+            .cover {
+                background-color: #FF7E00 !important;
+                color: white !important;
+            }
+            
+            .cover::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #FF7E00 !important;
+                z-index: -1;
+            }
+            
+            /* Colores para servicios */
+            .service-ads { border-top-color: #4285F4 !important; }
+            .service-google { border-top-color: #4285F4 !important; }
+            .service-email { border-top-color: #00829b !important; }
+            .service-chatbot { border-top-color: #6f42c1 !important; }
+            .service-express { border-top-color: #dc3545 !important; }
+            
+            .service-ads .service-icon { background-color: #4285F4 !important; }
+            .service-google .service-icon { background-color: #4285F4 !important; }
+            .service-email .service-icon { background-color: #00829b !important; }
+            .service-chatbot .service-icon { background-color: #6f42c1 !important; }
+            .service-express .service-icon { background-color: #dc3545 !important; }
+            
+            /* Fondos de color para secciones especiales */
+            .package-section {
+                background-color: #FFE0C2 !important;
+            }
+            
+            .package-badge {
+                background-color: #FF7E00 !important;
+                color: white !important;
+            }
+            
+            .package-price {
+                background-color: white !important;
+            }
+            
+            .contact-cta {
+                background-color: #FF7E00 !important;
+                color: white !important;
+            }
+            
+            .guarantee-section {
+                background-color: #F9F9F9 !important;
             }
         }
 
@@ -96,8 +168,8 @@
 
         /* Portada */
         .cover {
-            background: var(--naranja-gradiente);
-            color: var(--blanco);
+            background-color: #FF7E00;
+            color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -133,7 +205,7 @@
         }
 
         .cover-logo span.vapor {
-            color: var(--blanco);
+            color: white;
         }
 
         .cover-tagline {
@@ -163,7 +235,6 @@
             border-radius: 30px;
             display: flex;
             align-items: center;
-            backdrop-filter: blur(4px);
         }
 
         .cover-service i {
@@ -173,8 +244,8 @@
         .cover-action {
             margin-top: 40px;
             padding: 15px 30px;
-            background-color: var(--blanco);
-            color: var(--naranja-principal);
+            background-color: white;
+            color: #FF7E00;
             font-family: var(--fuente-principal);
             font-weight: 700;
             font-size: 18px;
@@ -212,7 +283,7 @@
         }
 
         .logo .vapor {
-            color: var(--naranja-principal);
+            color: #FF7E00;
             margin-left: 3px;
         }
 
@@ -227,7 +298,7 @@
         }
 
         .header-contact i {
-            color: var(--naranja-principal);
+            color: #FF7E00;
             width: 16px;
             margin-right: 5px;
         }
@@ -240,19 +311,19 @@
             display: flex;
             justify-content: space-between;
             padding-top: 10px;
-            border-top: 1px solid var(--naranja-claro);
+            border-top: 1px solid #FFE0C2;
             font-size: 12px;
             color: var(--texto-claro);
         }
 
         .footer-links a {
-            color: var(--naranja-principal);
+            color: #FF7E00;
             text-decoration: none;
             margin-left: 15px;
         }
 
         .page-number {
-            color: var(--naranja-principal);
+            color: #FF7E00;
             font-weight: 600;
         }
 
@@ -261,7 +332,7 @@
             font-family: var(--fuente-principal);
             font-weight: 700;
             font-size: 28px;
-            color: var(--naranja-principal);
+            color: #FF7E00;
             margin-bottom: 20px;
             text-align: center;
         }
@@ -283,7 +354,7 @@
             left: 0;
             width: 60%;
             height: 3px;
-            background-color: var(--naranja-principal);
+            background-color: #FF7E00;
         }
 
         .intro-text {
@@ -301,7 +372,7 @@
         }
 
         .service-card {
-            background-color: var(--blanco);
+            background-color: white;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             overflow: hidden;
@@ -309,14 +380,14 @@
             flex-direction: column;
             position: relative;
             height: 100%;
-            border-top: 5px solid var(--naranja-principal);
+            border-top: 5px solid #FF7E00;
         }
 
-        .service-ads { border-top-color: var(--color-ads); }
-        .service-google { border-top-color: var(--color-ads); }
-        .service-email { border-top-color: var(--color-email); }
-        .service-chatbot { border-top-color: var(--color-chatbot); }
-        .service-express { border-top-color: var(--color-express); }
+        .service-ads { border-top-color: #4285F4; }
+        .service-google { border-top-color: #4285F4; }
+        .service-email { border-top-color: #00829b; }
+        .service-chatbot { border-top-color: #6f42c1; }
+        .service-express { border-top-color: #dc3545; }
 
         .service-header {
             padding: 20px;
@@ -338,11 +409,11 @@
             flex-shrink: 0;
         }
 
-        .service-ads .service-icon { background-color: var(--color-ads); }
-        .service-google .service-icon { background-color: var(--color-ads); }
-        .service-email .service-icon { background-color: var(--color-email); }
-        .service-chatbot .service-icon { background-color: var(--color-chatbot); }
-        .service-express .service-icon { background-color: var(--color-express); }
+        .service-ads .service-icon { background-color: #4285F4; }
+        .service-google .service-icon { background-color: #4285F4; }
+        .service-email .service-icon { background-color: #00829b; }
+        .service-chatbot .service-icon { background-color: #6f42c1; }
+        .service-express .service-icon { background-color: #dc3545; }
 
         .service-title {
             font-family: var(--fuente-principal);
@@ -351,11 +422,11 @@
             margin: 0;
         }
 
-        .service-ads .service-title { color: var(--color-ads); }
-        .service-google .service-title { color: var(--color-ads); }
-        .service-email .service-title { color: var(--color-email); }
-        .service-chatbot .service-title { color: var(--color-chatbot); }
-        .service-express .service-title { color: var(--color-express); }
+        .service-ads .service-title { color: #4285F4; }
+        .service-google .service-title { color: #4285F4; }
+        .service-email .service-title { color: #00829b; }
+        .service-chatbot .service-title { color: #6f42c1; }
+        .service-express .service-title { color: #dc3545; }
 
         .service-content {
             padding: 20px;
@@ -389,14 +460,14 @@
             font-weight: 900;
             position: absolute;
             left: 0;
-            color: var(--naranja-principal);
+            color: #FF7E00;
         }
 
-        .service-ads .benefit-list li:before { color: var(--color-ads); }
-        .service-google .benefit-list li:before { color: var(--color-ads); }
-        .service-email .benefit-list li:before { color: var(--color-email); }
-        .service-chatbot .benefit-list li:before { color: var(--color-chatbot); }
-        .service-express .benefit-list li:before { color: var(--color-express); }
+        .service-ads .benefit-list li:before { color: #4285F4; }
+        .service-google .benefit-list li:before { color: #4285F4; }
+        .service-email .benefit-list li:before { color: #00829b; }
+        .service-chatbot .benefit-list li:before { color: #6f42c1; }
+        .service-express .benefit-list li:before { color: #dc3545; }
 
         .service-price {
             text-align: right;
@@ -408,7 +479,7 @@
             font-family: var(--fuente-principal);
             font-weight: 700;
             font-size: 24px;
-            color: var(--naranja-principal);
+            color: #FF7E00;
         }
 
         .price-period {
@@ -418,19 +489,20 @@
 
         /* Paquete completo */
         .package-section {
-            background-color: var(--naranja-claro);
+            background-color: #FFE0C2;
             padding: 30px;
             border-radius: 10px;
             margin-top: 40px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
 
         .package-badge {
             position: absolute;
             top: 0;
             right: 0;
-            background-color: var(--naranja-principal);
+            background-color: #FF7E00;
             color: white;
             padding: 8px 20px;
             font-weight: 600;
@@ -445,7 +517,7 @@
             font-family: var(--fuente-principal);
             font-weight: 700;
             font-size: 24px;
-            color: var(--naranja-oscuro);
+            color: #E56F00;
             margin-bottom: 20px;
             text-align: center;
         }
@@ -507,7 +579,7 @@
             font-family: var(--fuente-principal);
             font-weight: 800;
             font-size: 36px;
-            color: var(--naranja-principal);
+            color: #FF7E00;
             margin-bottom: 5px;
         }
 
@@ -519,7 +591,7 @@
 
         .package-price-save {
             display: inline-block;
-            background-color: var(--naranja-principal);
+            background-color: #FF7E00;
             color: white;
             padding: 6px 12px;
             border-radius: 20px;
@@ -531,7 +603,7 @@
         /* Garantía */
         .guarantee-section {
             margin-top: 40px;
-            background-color: var(--fondo-claro);
+            background-color: #F9F9F9;
             padding: 20px;
             border-radius: 10px;
             display: flex;
@@ -542,7 +614,7 @@
 
         .guarantee-icon {
             font-size: 40px;
-            color: var(--naranja-principal);
+            color: #FF7E00;
             flex-shrink: 0;
         }
 
@@ -550,7 +622,7 @@
             font-family: var(--fuente-principal);
             font-weight: 700;
             font-size: 18px;
-            color: var(--naranja-oscuro);
+            color: #E56F00;
             margin-bottom: 5px;
         }
 
@@ -602,7 +674,7 @@
         }
 
         .team-role {
-            color: var(--naranja-principal);
+            color: #FF7E00;
             font-weight: 600;
             margin-bottom: 10px;
             font-size: 14px;
@@ -615,7 +687,7 @@
 
         /* CTA Final */
         .contact-cta {
-            background-color: var(--naranja-principal);
+            background-color: #FF7E00;
             color: white;
             padding: 30px;
             border-radius: 10px;
@@ -657,7 +729,7 @@
         .btn {
             display: inline-block;
             padding: 12px 24px;
-            background-color: var(--naranja-principal);
+            background-color: #FF7E00;
             color: white;
             text-decoration: none;
             border-radius: 6px;
@@ -672,35 +744,30 @@
         }
 
         .btn:hover {
-            background-color: var(--naranja-oscuro);
+            background-color: #E56F00;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 126, 0, 0.3);
         }
         
-        /* Watermark section for non-printed version */
-        .watermark {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.03;
-            user-select: none;
+        /* Background overlay para CSS cuando se quiera imprimir */
+        .bg-orange {
+            background-color: #FF7E00 !important;
+            color: white !important;
         }
         
-        .watermark img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .bg-orange-light {
+            background-color: #FFE0C2 !important;
+        }
+        
+        .text-orange {
+            color: #FF7E00 !important;
         }
     </style>
 </head>
 <body>
     <div class="brochure">
         <!-- Portada -->
-        <div class="page cover">
+        <div class="page cover bg-orange">
             <div class="cover-content">
                 <div class="cover-logo">
                     Orange<span class="vapor">Vapor</span>
@@ -742,16 +809,16 @@
         <div class="page">
             <header class="header">
                 <div class="logo">
-                    Orange<span class="vapor">Vapor</span>
+                    Orange<span class="vapor text-orange">Vapor</span>
                 </div>
                 <div class="header-contact">
-                    <p><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</p>
-                    <p><i class="fas fa-phone"></i> +54 1130011554</p>
-                    <p><i class="fas fa-envelope"></i> emiliano@orangevapor.com</p>
+                    <p><i class="fas fa-map-marker-alt text-orange"></i> Buenos Aires, Argentina</p>
+                    <p><i class="fas fa-phone text-orange"></i> +54 1130011554</p>
+                    <p><i class="fas fa-envelope text-orange"></i> emiliano@orangevapor.com</p>
                 </div>
             </header>
 
-            <div class="page-title">
+            <div class="page-title text-orange">
                 La diferencia entre invertir y gastar en marketing digital
             </div>
 
@@ -785,7 +852,7 @@
                             </ul>
                         </div>
                         <div class="service-price">
-                            <span class="price-amount">US$299</span>
+                            <span class="price-amount text-orange">US$299</span>
                             <span class="price-period">/mes</span>
                         </div>
                     </div>
@@ -814,7 +881,7 @@
                             </ul>
                         </div>
                         <div class="service-price">
-                            <span class="price-amount">US$299</span>
+                            <span class="price-amount text-orange">US$299</span>
                             <span class="price-period">/mes</span>
                         </div>
                     </div>
@@ -843,7 +910,7 @@
                             </ul>
                         </div>
                         <div class="service-price">
-                            <span class="price-amount">US$299</span>
+                            <span class="price-amount text-orange">US$299</span>
                             <span class="price-period">/mes</span>
                         </div>
                     </div>
@@ -872,7 +939,7 @@
                             </ul>
                         </div>
                         <div class="service-price">
-                            <span class="price-amount">US$299</span>
+                            <span class="price-amount text-orange">US$299</span>
                             <span class="price-period">/mes</span>
                         </div>
                     </div>
@@ -882,7 +949,7 @@
             <footer class="footer">
                 <div>Orange Vapor © 2025</div>
                 <div class="footer-links">
-                    <span class="page-number">1</span>
+                    <span class="page-number text-orange">1</span>
                 </div>
             </footer>
         </div>
@@ -891,12 +958,12 @@
         <div class="page">
             <header class="header">
                 <div class="logo">
-                    Orange<span class="vapor">Vapor</span>
+                    Orange<span class="vapor text-orange">Vapor</span>
                 </div>
                 <div class="header-contact">
-                    <p><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</p>
-                    <p><i class="fas fa-phone"></i> +54 1130011554</p>
-                    <p><i class="fas fa-envelope"></i> emiliano@orangevapor.com</p>
+                    <p><i class="fas fa-map-marker-alt text-orange"></i> Buenos Aires, Argentina</p>
+                    <p><i class="fas fa-phone text-orange"></i> +54 1130011554</p>
+                    <p><i class="fas fa-envelope text-orange"></i> emiliano@orangevapor.com</p>
                 </div>
             </header>
 
@@ -925,15 +992,15 @@
                         </ul>
                     </div>
                     <div class="service-price">
-                        <span class="price-amount">US$299</span>
+                        <span class="price-amount text-orange">US$299</span>
                         <span class="price-period">servicio único</span>
                     </div>
                 </div>
             </div>
 
             <!-- Paquete Completo -->
-            <div class="package-section">
-                <div class="package-badge">¡OFERTA ESPECIAL!</div>
+            <div class="package-section bg-orange-light">
+                <div class="package-badge bg-orange">¡OFERTA ESPECIAL!</div>
                 <div class="package-title">Paquete Completo de Servicios</div>
                 <div class="package-content">
                     <div class="package-description">
@@ -941,25 +1008,25 @@
                         
                         <div class="package-services">
                             <div class="package-service-item">
-                                <div class="package-service-icon" style="background-color: var(--color-ads);">
+                                <div class="package-service-icon" style="background-color: #4285F4;">
                                     <i class="fab fa-facebook-f"></i>
                                 </div>
                                 <span>Meta Ads</span>
                             </div>
                             <div class="package-service-item">
-                                <div class="package-service-icon" style="background-color: var(--color-ads);">
+                                <div class="package-service-icon" style="background-color: #4285F4;">
                                     <i class="fab fa-google"></i>
                                 </div>
                                 <span>Google Ads</span>
                             </div>
                             <div class="package-service-item">
-                                <div class="package-service-icon" style="background-color: var(--color-email);">
+                                <div class="package-service-icon" style="background-color: #00829b;">
                                     <i class="fas fa-envelope"></i>
                                 </div>
                                 <span>Email Marketing</span>
                             </div>
                             <div class="package-service-item">
-                                <div class="package-service-icon" style="background-color: var(--color-chatbot);">
+                                <div class="package-service-icon" style="background-color: #6f42c1;">
                                     <i class="fas fa-robot"></i>
                                 </div>
                                 <span>Chatbot</span>
@@ -971,16 +1038,16 @@
                     
                     <div class="package-price">
                         <div class="package-price-regular">US$1,196 /mes</div>
-                        <div class="package-price-amount">US$1,000</div>
+                        <div class="package-price-amount text-orange">US$1,000</div>
                         <div class="package-price-period">/mes</div>
-                        <div class="package-price-save">¡Ahorrás US$196!</div>
+                        <div class="package-price-save bg-orange">¡Ahorrás US$196!</div>
                     </div>
                 </div>
             </div>
 
             <!-- Garantía -->
             <div class="guarantee-section">
-                <div class="guarantee-icon">
+                <div class="guarantee-icon text-orange">
                     <i class="fas fa-shield-alt"></i>
                 </div>
                 <div class="guarantee-content">
@@ -992,7 +1059,7 @@
             <footer class="footer">
                 <div>Orange Vapor © 2025</div>
                 <div class="footer-links">
-                    <span class="page-number">2</span>
+                    <span class="page-number text-orange">2</span>
                 </div>
             </footer>
         </div>
@@ -1001,12 +1068,12 @@
         <div class="page">
             <header class="header">
                 <div class="logo">
-                    Orange<span class="vapor">Vapor</span>
+                    Orange<span class="vapor text-orange">Vapor</span>
                 </div>
                 <div class="header-contact">
-                    <p><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</p>
-                    <p><i class="fas fa-phone"></i> +54 1130011554</p>
-                    <p><i class="fas fa-envelope"></i> emiliano@orangevapor.com</p>
+                    <p><i class="fas fa-map-marker-alt text-orange"></i> Buenos Aires, Argentina</p>
+                    <p><i class="fas fa-phone text-orange"></i> +54 1130011554</p>
+                    <p><i class="fas fa-envelope text-orange"></i> emiliano@orangevapor.com</p>
                 </div>
             </header>
 
@@ -1024,7 +1091,7 @@
                             <img src="https://media.licdn.com/dms/image/v2/D4D03AQGMBstWC1OBlg/profile-displayphoto-shrink_200_200/B4DZThGN0VHYAY-/0/1738943291295?e=1746662400&v=beta&t=_FE9qOC8W-1ihM4a6-s8GrW3OfZwNLcVn0v46ZIIWhI" alt="Emiliano Cecchi">
                         </div>
                         <h3 class="team-name">Emiliano Cecchi</h3>
-                        <div class="team-role">Director de Estrategia Digital</div>
+                        <div class="team-role text-orange">Director de Estrategia Digital</div>
                         <p class="team-bio">8 años de Experiencia en Marketing Digital y E-commerce. Ex-líder del equipo de E-commerce de Hunter Douglas Argentina.</p>
                     </div>
                     
@@ -1033,14 +1100,14 @@
                             <img src="https://media.licdn.com/dms/image/v2/D4D03AQFzKVN_97EuCA/profile-displayphoto-shrink_800_800/B4DZUFiPEVHkAc-/0/1739554616070?e=1746662400&v=beta&t=mZQnzBWjAyvlnYM6Q_p0EZQVtc7f3a1UqbGrg-iqum8" alt="Yobanny Ortega">
                         </div>
                         <h3 class="team-name">Yobanny Ortega</h3>
-                        <div class="team-role">Director de Publicidad Digital</div>
+                        <div class="team-role text-orange">Director de Publicidad Digital</div>
                         <p class="team-bio">Ex-líder de equipos de compras de medios digitales en agencias internacionales como Publicis Media.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Información de contacto -->
-            <div class="contact-cta">
+            <div class="contact-cta bg-orange">
                 <h3>¿Listo para potenciar tu negocio?</h3>
                 <p>Agendá una auditoría gratuita de tus campañas actuales y descubre el potencial oculto de tu presupuesto de marketing.</p>
                 <div class="contact-info">
@@ -1051,20 +1118,15 @@
             <footer class="footer">
                 <div>Orange Vapor © 2025</div>
                 <div class="footer-links">
-                    <span class="page-number">3</span>
+                    <span class="page-number text-orange">3</span>
                 </div>
             </footer>
         </div>
 
         <!-- Botones de acción (solo visibles en la versión web) -->
         <div class="action-buttons no-print">
-            <button class="btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Descargar como PDF</button>
+            <button class="btn bg-orange" onclick="window.print()"><i class="fas fa-file-pdf"></i> Descargar como PDF</button>
         </div>
-    </div>
-    
-    <!-- Watermark for visualization only, not shown in print -->
-    <div class="watermark no-print">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500' viewBox='0 0 500 500'%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='36' font-weight='bold' text-anchor='middle' fill='%23000' dominant-baseline='middle' transform='rotate(-45, 250, 250)'%3EOrange Vapor%3C/text%3E%3C/svg%3E" alt="">
     </div>
 </body>
 </html>
