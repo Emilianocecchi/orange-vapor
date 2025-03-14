@@ -61,7 +61,8 @@
             margin: 0 auto;
             padding: 30px;
             background-color: var(--blanco);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
         @media print {
@@ -76,6 +77,8 @@
                 margin: 0;
                 width: 100%;
                 max-width: none;
+                border-radius: 0;
+                padding: 20px;
             }
 
             .no-print {
@@ -124,7 +127,7 @@
             align-items: flex-start;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 2px solid var(--naranja-claro);
+            border-bottom: 2px solid var(--naranja-principal);
         }
 
         .company-info {
@@ -155,16 +158,24 @@
             color: var(--texto-claro);
         }
 
+        .company-details p i {
+            color: var(--naranja-principal);
+            width: 18px;
+            display: inline-block;
+        }
+
         .document-info {
             text-align: right;
         }
 
         .document-title {
             font-family: var(--fuente-principal);
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
             color: var(--naranja-principal);
             margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .document-number {
@@ -182,9 +193,10 @@
         .client-section {
             display: flex;
             margin-bottom: 30px;
-            padding: 15px;
+            padding: 20px;
             background-color: var(--fondo-claro);
             border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .client-info, .project-info {
@@ -195,13 +207,21 @@
             font-family: var(--fuente-principal);
             font-weight: 700;
             font-size: 16px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: var(--naranja-oscuro);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            font-size: 18px;
+            color: var(--naranja-principal);
         }
 
         .info-row {
             display: flex;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .info-label {
@@ -227,47 +247,69 @@
             color: var(--naranja-principal);
             margin-bottom: 15px;
             padding-bottom: 8px;
-            border-bottom: 1px solid var(--gris-borde);
+            border-bottom: 2px solid var(--naranja-claro);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header i {
+            margin-right: 10px;
         }
 
         .services-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .services-table th {
-            background-color: var(--gris-claro);
+            background-color: var(--gris-oscuro);
+            color: var(--blanco);
             text-align: left;
-            padding: 10px;
+            padding: 12px 15px;
             font-weight: 600;
-            color: var(--texto-oscuro);
+            font-size: 14px;
         }
 
         .services-table td {
-            padding: 12px 10px;
+            padding: 15px;
             border-bottom: 1px solid var(--gris-borde);
+            vertical-align: top;
+        }
+
+        .services-table tr:last-child td {
+            border-bottom: none;
         }
 
         .service-name {
             font-weight: 600;
             display: flex;
             align-items: center;
+            font-size: 15px;
+            margin-bottom: 4px;
         }
 
-        .service-color-block {
-            width: 24px;
-            height: 24px;
+        .service-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
             border-radius: 4px;
             margin-right: 10px;
+            background-color: transparent;
+            color: white;
             flex-shrink: 0;
         }
 
-        .meta-color { background-color: var(--color-ads); }
-        .google-color { background-color: var(--color-ads); }
-        .email-color { background-color: var(--color-email); }
-        .chatbot-color { background-color: var(--color-chatbot); }
-        .express-color { background-color: var(--color-express); }
+        .meta-icon { background-color: var(--color-ads); }
+        .google-icon { background-color: var(--color-ads); }
+        .email-icon { background-color: var(--color-email); }
+        .chatbot-icon { background-color: var(--color-chatbot); }
+        .express-icon { background-color: var(--color-express); }
 
         .service-description {
             font-size: 13px;
@@ -278,11 +320,13 @@
         .service-checkbox {
             width: 18px;
             height: 18px;
+            margin-right: 5px;
         }
 
         .price {
             font-weight: 600;
             text-align: right;
+            font-size: 15px;
         }
 
         tr.package-note td {
@@ -291,34 +335,40 @@
             font-weight: 600;
             font-style: italic;
             text-align: center;
-            padding: 10px;
+            padding: 12px 15px;
             border-bottom: none;
         }
 
         .special-offer {
             display: flex;
             align-items: center;
-            margin-top: 10px;
-            padding: 10px 15px;
+            margin-top: 15px;
+            padding: 12px 15px;
             background-color: var(--naranja-claro);
             border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .special-offer i {
             color: var(--naranja-principal);
-            font-size: 16px;
+            font-size: 18px;
             margin-right: 10px;
+            flex-shrink: 0;
         }
 
         /* Summary */
         .summary-section {
             margin-left: auto;
             width: 350px;
+            margin-top: 25px;
         }
 
         .summary-table {
             width: 100%;
             border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .summary-table tr {
@@ -327,12 +377,17 @@
 
         .summary-table tr:last-child {
             border-bottom: none;
-            border-top: 2px solid var(--naranja-principal);
+            background-color: var(--naranja-claro);
+        }
+
+        .summary-table tr:last-child td {
+            color: var(--naranja-oscuro);
             font-weight: 700;
+            font-size: 16px;
         }
 
         .summary-table td {
-            padding: 8px 10px;
+            padding: 12px 15px;
         }
 
         .summary-table td:last-child {
@@ -343,46 +398,129 @@
         .terms-section {
             margin-top: 40px;
             margin-bottom: 30px;
-            padding: 15px;
+            padding: 20px;
             background-color: var(--fondo-claro);
             border-radius: 8px;
             font-size: 13px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .terms-section h3 {
             font-family: var(--fuente-principal);
             font-size: 16px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: var(--naranja-oscuro);
+            display: flex;
+            align-items: center;
+        }
+
+        .terms-section h3 i {
+            margin-right: 10px;
+            color: var(--naranja-principal);
         }
 
         .terms-section ul {
             padding-left: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .terms-section li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 5px;
         }
 
         .guarantee {
             display: flex;
             align-items: center;
             background: var(--naranja-claro);
-            padding: 10px 15px;
+            padding: 15px;
             border-radius: 6px;
             margin-top: 15px;
+            border-left: 4px solid var(--naranja-principal);
         }
 
         .guarantee i {
             color: var(--naranja-principal);
-            font-size: 18px;
-            margin-right: 10px;
+            font-size: 20px;
+            margin-right: 15px;
         }
 
         .guarantee p {
             color: var(--naranja-oscuro);
             font-weight: 600;
+            margin: 0;
+        }
+
+        /* Notes Section */
+        .notes-section {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .notes-content {
+            border: 1px solid var(--gris-borde);
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 80px;
+        }
+
+        /* Next Steps Section */
+        .next-steps {
+            margin-top: 30px;
+            background-color: var(--fondo-claro);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .next-steps h3 {
+            font-family: var(--fuente-principal);
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--naranja-oscuro);
+            display: flex;
+            align-items: center;
+        }
+
+        .next-steps h3 i {
+            margin-right: 10px;
+            color: var(--naranja-principal);
+        }
+
+        .steps-list {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .step-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            background-color: var(--blanco);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-item i {
+            font-size: 24px;
+            color: var(--naranja-principal);
+            margin-bottom: 10px;
+        }
+
+        .step-item h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: var(--texto-oscuro);
+        }
+
+        .step-item p {
+            font-size: 12px;
+            color: var(--texto-claro);
             margin: 0;
         }
 
@@ -435,26 +573,31 @@
             color: white;
             border: none;
             border-radius: 6px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-family: var(--fuente-principal);
             font-weight: 600;
             font-size: 14px;
             cursor: pointer;
             margin: 0 10px;
             text-decoration: none;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(255, 126, 0, 0.2);
         }
 
         .action-button.secondary {
             background-color: var(--gris-medio);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         .action-button:hover {
             background-color: var(--naranja-oscuro);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 126, 0, 0.3);
         }
 
         .action-button.secondary:hover {
             background-color: var(--gris-oscuro);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         /* Form elements for editing */
@@ -463,17 +606,27 @@
         textarea,
         select {
             font-family: var(--fuente-secundaria);
-            padding: 6px 8px;
+            padding: 8px 10px;
             border: 1px solid var(--gris-borde);
             border-radius: 4px;
             font-size: 14px;
             width: 100%;
             background-color: var(--blanco);
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, 
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--naranja-principal);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 126, 0, 0.2);
         }
 
         textarea {
             resize: vertical;
-            min-height: 60px;
+            min-height: 80px;
         }
 
         .editable-field {
@@ -504,6 +657,12 @@
             opacity: 0;
             transition: all 0.3s ease;
             z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .toast i {
+            margin-right: 10px;
         }
 
         .toast.show {
@@ -523,10 +682,10 @@
                     </div>
                 </div>
                 <div class="company-details">
-                    <p>Buenos Aires, Argentina</p>
-                    <p>+54 1130011554</p>
-                    <p>emiliano@orangevapor.com</p>
-                    <p>www.orangevapor.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</p>
+                    <p><i class="fas fa-phone"></i> +54 1130011554</p>
+                    <p><i class="fas fa-envelope"></i> emiliano@orangevapor.com</p>
+                    <p><i class="fas fa-globe"></i> www.orangevapor.com</p>
                 </div>
             </div>
             <div class="document-info">
@@ -539,7 +698,9 @@
         <!-- Client Information -->
         <section class="client-section">
             <div class="client-info">
-                <div class="section-title">INFORMACIÓN DEL CLIENTE</div>
+                <div class="section-title">
+                    <i class="fas fa-user-tie"></i> INFORMACIÓN DEL CLIENTE
+                </div>
                 <div class="info-row">
                     <div class="info-label">Cliente:</div>
                     <div class="info-value">
@@ -566,7 +727,9 @@
                 </div>
             </div>
             <div class="project-info">
-                <div class="section-title">INFORMACIÓN DEL PROYECTO</div>
+                <div class="section-title">
+                    <i class="fas fa-project-diagram"></i> INFORMACIÓN DEL PROYECTO
+                </div>
                 <div class="info-row">
                     <div class="info-label">Proyecto:</div>
                     <div class="info-value">
@@ -590,21 +753,14 @@
                         </select>
                     </div>
                 </div>
-                <div class="info-row">
-                    <div class="info-label">Responsable:</div>
-                    <div class="info-value">
-                        <select id="project-responsible">
-                            <option value="Emiliano Cecchi" selected>Emiliano Cecchi</option>
-                            <option value="Yobanny Ortega">Yobanny Ortega</option>
-                        </select>
-                    </div>
-                </div>
             </div>
         </section>
 
         <!-- Services -->
         <section class="services-section">
-            <div class="section-header">SERVICIOS</div>
+            <div class="section-header">
+                <i class="fas fa-cogs"></i> SERVICIOS
+            </div>
             
             <table class="services-table" id="services-table">
                 <thead>
@@ -616,12 +772,12 @@
                 </thead>
                 <tbody>
                     <tr class="service-row" data-service="meta">
-                        <td>
+                        <td style="text-align: center;">
                             <input type="checkbox" class="service-checkbox" id="check-meta" checked>
                         </td>
                         <td>
                             <div class="service-name">
-                                <div class="service-color-block meta-color"></div>
+                                <div class="service-icon meta-icon"><i class="fab fa-facebook-f"></i></div>
                                 Meta Ads
                             </div>
                             <div class="service-description">Campañas gestionadas profesionalmente para maximizar tu ROI.</div>
@@ -629,12 +785,12 @@
                         <td class="price">US$299.00</td>
                     </tr>
                     <tr class="service-row" data-service="google">
-                        <td>
+                        <td style="text-align: center;">
                             <input type="checkbox" class="service-checkbox" id="check-google" checked>
                         </td>
                         <td>
                             <div class="service-name">
-                                <div class="service-color-block google-color"></div>
+                                <div class="service-icon google-icon"><i class="fab fa-google"></i></div>
                                 Google Ads
                             </div>
                             <div class="service-description">Posicionamiento estratégico en búsquedas con alto potencial de conversión.</div>
@@ -642,12 +798,12 @@
                         <td class="price">US$299.00</td>
                     </tr>
                     <tr class="service-row" data-service="email">
-                        <td>
+                        <td style="text-align: center;">
                             <input type="checkbox" class="service-checkbox" id="check-email" checked>
                         </td>
                         <td>
                             <div class="service-name">
-                                <div class="service-color-block email-color"></div>
+                                <div class="service-icon email-icon"><i class="fas fa-envelope"></i></div>
                                 Email Marketing
                             </div>
                             <div class="service-description">Automatización que convierte suscriptores en clientes recurrentes.</div>
@@ -655,12 +811,12 @@
                         <td class="price">US$299.00</td>
                     </tr>
                     <tr class="service-row" data-service="chatbot">
-                        <td>
+                        <td style="text-align: center;">
                             <input type="checkbox" class="service-checkbox" id="check-chatbot" checked>
                         </td>
                         <td>
                             <div class="service-name">
-                                <div class="service-color-block chatbot-color"></div>
+                                <div class="service-icon chatbot-icon"><i class="fas fa-robot"></i></div>
                                 Chatbot
                             </div>
                             <div class="service-description">Atención 24/7 que captura leads y responde consultas automáticamente.</div>
@@ -673,12 +829,12 @@
                         </td>
                     </tr>
                     <tr class="service-row" data-service="express">
-                        <td>
+                        <td style="text-align: center;">
                             <input type="checkbox" class="service-checkbox" id="check-express">
                         </td>
                         <td>
                             <div class="service-name">
-                                <div class="service-color-block express-color"></div>
+                                <div class="service-icon express-icon"><i class="fas fa-bolt"></i></div>
                                 Optimización Express
                             </div>
                             <div class="service-description">En solo 48 horas, aplicamos nuestro sistema de Detección de Fugas para identificar dónde estás perdiendo presupuesto.</div>
@@ -714,12 +870,23 @@
             </div>
         </section>
 
+        <!-- Notes Section -->
+        <section class="notes-section">
+            <div class="section-header">
+                <i class="fas fa-pencil-alt"></i> OBSERVACIONES
+            </div>
+            <div class="notes-content">
+                <textarea id="notes" placeholder="Ingrese aquí cualquier observación o detalle adicional sobre este presupuesto..."></textarea>
+            </div>
+        </section>
+
         <!-- Terms and Conditions -->
         <section class="terms-section">
-            <h3>TÉRMINOS Y CONDICIONES</h3>
+            <h3><i class="fas fa-file-contract"></i> TÉRMINOS Y CONDICIONES</h3>
             <ul>
                 <li>Este presupuesto tiene una validez de 15 días a partir de la fecha de emisión.</li>
                 <li>El pago se realiza mensualmente mediante transferencia bancaria o tarjeta de crédito.</li>
+                <li>Los pagos pueden realizarse en dólares estadounidenses (USD) o en pesos argentinos (ARS) al tipo de cambio de dólar oficial del día del pago.</li>
                 <li>Los servicios comienzan una vez recibido el primer pago.</li>
                 <li>Se entregará un informe mensual detallando el desempeño de cada servicio contratado.</li>
                 <li>La duración mínima recomendada del contrato es de 3 meses para obtener resultados óptimos.</li>
@@ -728,6 +895,33 @@
             <div class="guarantee">
                 <i class="fas fa-shield-alt"></i>
                 <p>Nuestro compromiso: Si no alcanzamos los KPIs acordados, solo pagás la mitad.</p>
+            </div>
+        </section>
+
+        <!-- Next Steps Section -->
+        <section class="next-steps">
+            <h3><i class="fas fa-forward"></i> PRÓXIMOS PASOS</h3>
+            <div class="steps-list">
+                <div class="step-item">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>Aceptación</h4>
+                    <p>Confirmar la aceptación del presupuesto por email</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-file-signature"></i>
+                    <h4>Contrato</h4>
+                    <p>Firmar el contrato de servicios</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-credit-card"></i>
+                    <h4>Pago inicial</h4>
+                    <p>Realizar el primer pago mensual</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-rocket"></i>
+                    <h4>Inicio</h4>
+                    <p>Comenzar la implementación de la estrategia</p>
+                </div>
             </div>
         </section>
 
@@ -747,13 +941,16 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons no-print">
-            <button class="action-button" onclick="window.print()">Descargar PDF</button>
-            <button class="action-button secondary" onclick="resetForm()">Restablecer</button>
+            <button class="action-button" onclick="window.print()"><i class="fas fa-file-pdf"></i> Descargar PDF</button>
+            <button class="action-button secondary" onclick="resetForm()"><i class="fas fa-redo-alt"></i> Restablecer</button>
         </div>
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="toast no-print">Los cálculos han sido actualizados</div>
+    <div id="toast" class="toast no-print">
+        <i class="fas fa-check-circle"></i>
+        <span>Los cálculos han sido actualizados</span>
+    </div>
 
     <script>
         // Set today's date as default
@@ -802,6 +999,9 @@
             
             // Reset dates
             setToday();
+            
+            // Reset notes
+            document.getElementById('notes').value = '';
             
             // Recalculate totals
             calculateTotals();
@@ -869,7 +1069,8 @@
         // Show toast notification
         function showToast(message) {
             const toast = document.getElementById('toast');
-            toast.textContent = message;
+            const toastMessage = toast.querySelector('span');
+            toastMessage.textContent = message;
             toast.classList.add('show');
             
             setTimeout(() => {
