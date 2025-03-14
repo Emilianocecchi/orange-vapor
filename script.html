@@ -1,10 +1,4 @@
-/* Destacado para cifras y promesas importantes */
-        .destacado {
-            background-color: #FFFF00;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-weight: 700;
-        }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -352,6 +346,55 @@
         .back-to-top:hover {
             opacity: 1;
             transform: translateY(-3px);
+        }
+
+        .btn-express {
+            background-color: var(--naranja-principal);
+            box-shadow: 0 5px 15px rgba(255, 126, 0, 0.3);
+        }
+
+        .btn-express:hover {
+            background-color: var(--naranja-oscuro);
+            box-shadow: 0 8px 20px rgba(255, 126, 0, 0.4);
+        }
+
+        .express-badge {
+            display: inline-block;
+            background-color: var(--naranja-claro);
+            color: var(--naranja-principal);
+            font-weight: 600;
+            font-size: var(--texto-sm);
+            padding: 6px 16px;
+            border-radius: var(--borde-redondo-full);
+            margin-bottom: var(--espaciado-sm);
+        }
+
+        .express-info h2 {
+            color: var(--naranja-principal);
+            font-size: var(--texto-3xl);
+            margin-bottom: var(--espaciado-md);
+            font-weight: 800;
+        }
+
+        .express-benefit i {
+            background-color: rgba(255, 126, 0, 0.1);
+            color: var(--naranja-principal);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--texto-xl);
+            flex-shrink: 0;
+        }
+        
+        /* Destacado para cifras y promesas importantes */
+        .destacado {
+            background-color: #FFFF00;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 700;
         }
 
         /* Responsive */
@@ -770,13 +813,30 @@
         });
         
         // Botón volver arriba
-        window.addEventListener('scroll', function() {
-            var backToTop = document.querySelector('.back-to-top');
+        const backToTop = document.querySelector('.back-to-top');
+        
+        // Función para mostrar u ocultar el botón dependiendo del scroll
+        function toggleBackToTopButton() {
             if (window.pageYOffset > 300) {
                 backToTop.style.display = 'flex';
             } else {
                 backToTop.style.display = 'none';
             }
+        }
+        
+        // Inicialmente ocultar el botón
+        backToTop.style.display = 'none';
+        
+        // Listener para el evento scroll
+        window.addEventListener('scroll', toggleBackToTopButton);
+        
+        // Listener para el click en el botón
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
         
         // Destacar sección activa en la navegación al hacer scroll
