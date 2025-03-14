@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presupuesto - Orange Vapor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Paleta de colores principal */
+            --naranja-principal: #FF7E00;
+            --naranja-secundario: #FF9F45;
+            --naranja-claro: #FFE0C2;
+            --naranja-oscuro: #E56F00;
+            --naranja-gradiente: linear-gradient(135deg, #FF7E00, #FF9F45);
+            
+            /* Colores complementarios */
+            --blanco: #FFFFFF;
+            --negro: #222222;
+            --gris-oscuro: #333333;
+            --gris-medio: #666666;
+            --gris-claro: #F5F5F5;
+            --gris-borde: #E0E0E0;
+            
+            /* Variables adicionales */
+            --fondo-claro: #F9F9F9;
+            --texto-oscuro: #333333;
+            --texto-claro: #666666;
+            
+            /* Colores específicos de servicios */
+            --color-ads: #4285F4;
+            --color-email: #00829b;
+            --color-chatbot: #6f42c1;
+            --color-express: #dc3545;
+
+            /* Fuentes */
+            --fuente-principal: 'Montserrat', sans-serif;
+            --fuente-secundaria: 'Open Sans', sans-serif;
+        }
+
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--fuente-secundaria);
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--texto-oscuro);
+            background-color: var(--gris-claro);
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        .presupuesto-container {
+            max-width: 210mm; /* A4 width */
+            margin: 0 auto;
+            padding: 30px;
+            background-color: var(--blanco);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: none;
+            }
+            
+            .presupuesto-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            input[type="checkbox"] {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                border: 1px solid var(--gris-medio);
+                width: 16px;
+                height: 16px;
+                position: relative;
+            }
+
+            input[type="checkbox"]:checked:after {
+                content: '✓';
+                position: absolute;
+                top: -2px;
+                left: 2px;
+                color: var(--naranja-principal);
+                font-size: 14px;
+            }
+            
+            input, textarea, .editable-field {
+                border: none !important;
+                padding: 0 !important;
+                outline: none !important;
+                background: transparent !important;
+            }
+            
+            select {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                border: none !important;
+                background: transparent !important;
+            }
+        }
+
+        /* Header */
+        .presupuesto-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--naranja-claro);
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            margin-right: 15px;
+        }
+
+        .company-logo {
+            font-family: var(--fuente-principal);
+            font-weight: 800;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+        }
+
+        .company-logo .vapor {
+            color: var(--naranja-principal);
+            margin-left: 3px;
+        }
+
+        .company-details p {
+            margin: 3px 0;
+            font-size: 12px;
+            color: var(--texto-claro);
+        }
+
+        .document-info {
+            text-align: right;
+        }
+
+        .document-title {
+            font-family: var(--fuente-principal);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--naranja-principal);
+            margin-bottom: 8px;
+        }
+
+        .document-number {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .document-date {
+            font-size: 14px;
+            color: var(--texto-claro);
+        }
+
+        /* Client Info */
+        .client-section {
+            display: flex;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: var(--fondo-claro);
+            border-radius: 8px;
+        }
+
+        .client-info, .project-info {
+            flex: 1;
+        }
+
+        .section-title {
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--naranja-oscuro);
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            width: 120px;
+            color: var(--texto-oscuro);
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            flex: 1;
+        }
+
+        /* Services Section */
+        .services-section {
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--naranja-principal);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--gris-borde);
+        }
+
+        .services-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .services-table th {
+            background-color: var(--gris-claro);
+            text-align: left;
+            padding: 10px;
+            font-weight: 600;
+            color: var(--texto-oscuro);
+        }
+
+        .services-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--gris-borde);
+        }
+
+        .service-name {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-color-block {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .meta-color { background-color: var(--color-ads); }
+        .google-color { background-color: var(--color-ads); }
+        .email-color { background-color: var(--color-email); }
+        .chatbot-color { background-color: var(--color-chatbot); }
+        .express-color { background-color: var(--color-express); }
+
+        .service-description {
+            font-size: 13px;
+            color: var(--texto-claro);
+            margin-top: 4px;
+        }
+
+        .service-checkbox {
+            width: 18px;
+            height: 18px;
+        }
+
+        .price {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        tr.package-note td {
+            background-color: var(--naranja-claro);
+            color: var(--naranja-oscuro);
+            font-weight: 600;
+            font-style: italic;
+            text-align: center;
+            padding: 10px;
+            border-bottom: none;
+        }
+
+        .special-offer {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: var(--naranja-claro);
+            border-radius: 6px;
+        }
+
+        .special-offer i {
+            color: var(--naranja-principal);
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        /* Summary */
+        .summary-section {
+            margin-left: auto;
+            width: 350px;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .summary-table tr {
+            border-bottom: 1px solid var(--gris-borde);
+        }
+
+        .summary-table tr:last-child {
+            border-bottom: none;
+            border-top: 2px solid var(--naranja-principal);
+            font-weight: 700;
+        }
+
+        .summary-table td {
+            padding: 8px 10px;
+        }
+
+        .summary-table td:last-child {
+            text-align: right;
+        }
+
+        /* Terms Section */
+        .terms-section {
+            margin-top: 40px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: var(--fondo-claro);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .terms-section h3 {
+            font-family: var(--fuente-principal);
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--naranja-oscuro);
+        }
+
+        .terms-section ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .terms-section li {
+            margin-bottom: 5px;
+        }
+
+        .guarantee {
+            display: flex;
+            align-items: center;
+            background: var(--naranja-claro);
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .guarantee i {
+            color: var(--naranja-principal);
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .guarantee p {
+            color: var(--naranja-oscuro);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* Footer */
+        .presupuesto-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid var(--naranja-claro);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer-info {
+            flex: 1;
+        }
+
+        .footer-info p {
+            margin: 5px 0;
+            font-size: 13px;
+            color: var(--texto-claro);
+        }
+
+        .footer-info p i {
+            color: var(--naranja-principal);
+            width: 16px;
+            margin-right: 8px;
+        }
+
+        .footer-signature {
+            text-align: center;
+            width: 200px;
+        }
+
+        .signature-line {
+            width: 100%;
+            height: 1px;
+            background-color: var(--gris-borde);
+            margin: 50px 0 8px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .action-button {
+            display: inline-block;
+            background-color: var(--naranja-principal);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-family: var(--fuente-principal);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .action-button.secondary {
+            background-color: var(--gris-medio);
+        }
+
+        .action-button:hover {
+            background-color: var(--naranja-oscuro);
+        }
+
+        .action-button.secondary:hover {
+            background-color: var(--gris-oscuro);
+        }
+
+        /* Form elements for editing */
+        input[type="text"], 
+        input[type="date"],
+        textarea,
+        select {
+            font-family: var(--fuente-secundaria);
+            padding: 6px 8px;
+            border: 1px solid var(--gris-borde);
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            background-color: var(--blanco);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .editable-field {
+            border: 1px solid transparent;
+            padding: 5px;
+            border-radius: 4px;
+            transition: border-color 0.2s;
+            min-height: 20px;
+            cursor: text;
+        }
+
+        .editable-field:hover, .editable-field:focus {
+            border-color: var(--gris-borde);
+            outline: none;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--naranja-principal);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transform: translateY(-100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="presupuesto-container">
+        <!-- Header -->
+        <header class="presupuesto-header">
+            <div class="company-info">
+                <div class="logo-container">
+                    <div class="company-logo">
+                        <span>Orange</span><span class="vapor">Vapor</span>
+                    </div>
+                </div>
+                <div class="company-details">
+                    <p>Buenos Aires, Argentina</p>
+                    <p>+54 1130011554</p>
+                    <p>emiliano@orangevapor.com</p>
+                    <p>www.orangevapor.com</p>
+                </div>
+            </div>
+            <div class="document-info">
+                <div class="document-title">PRESUPUESTO</div>
+                <div class="document-number">Nº <input type="text" id="presupuesto-number" value="OV-2025-001"></div>
+                <div class="document-date">Fecha: <input type="date" id="presupuesto-date" value="2025-03-14"></div>
+            </div>
+        </header>
+
+        <!-- Client Information -->
+        <section class="client-section">
+            <div class="client-info">
+                <div class="section-title">INFORMACIÓN DEL CLIENTE</div>
+                <div class="info-row">
+                    <div class="info-label">Cliente:</div>
+                    <div class="info-value">
+                        <input type="text" id="client-name" placeholder="Nombre del Cliente">
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Empresa:</div>
+                    <div class="info-value">
+                        <input type="text" id="client-company" placeholder="Nombre de la Empresa">
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Email:</div>
+                    <div class="info-value">
+                        <input type="text" id="client-email" placeholder="cliente@empresa.com">
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Teléfono:</div>
+                    <div class="info-value">
+                        <input type="text" id="client-phone" placeholder="+54 9 11 1234 5678">
+                    </div>
+                </div>
+            </div>
+            <div class="project-info">
+                <div class="section-title">INFORMACIÓN DEL PROYECTO</div>
+                <div class="info-row">
+                    <div class="info-label">Proyecto:</div>
+                    <div class="info-value">
+                        <input type="text" id="project-name" placeholder="Estrategia de Marketing Digital">
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Inicio:</div>
+                    <div class="info-value">
+                        <input type="date" id="project-start-date">
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Duración:</div>
+                    <div class="info-value">
+                        <select id="project-duration">
+                            <option value="1 mes">1 mes</option>
+                            <option value="3 meses">3 meses</option>
+                            <option value="6 meses" selected>6 meses</option>
+                            <option value="12 meses">12 meses</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Responsable:</div>
+                    <div class="info-value">
+                        <select id="project-responsible">
+                            <option value="Emiliano Cecchi" selected>Emiliano Cecchi</option>
+                            <option value="Yobanny Ortega">Yobanny Ortega</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="services-section">
+            <div class="section-header">SERVICIOS</div>
+            
+            <table class="services-table" id="services-table">
+                <thead>
+                    <tr>
+                        <th width="10%">Incluir</th>
+                        <th width="65%">Servicio</th>
+                        <th width="25%">Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="service-row" data-service="meta">
+                        <td>
+                            <input type="checkbox" class="service-checkbox" id="check-meta" checked>
+                        </td>
+                        <td>
+                            <div class="service-name">
+                                <div class="service-color-block meta-color"></div>
+                                Meta Ads
+                            </div>
+                            <div class="service-description">Campañas gestionadas profesionalmente para maximizar tu ROI.</div>
+                        </td>
+                        <td class="price">US$299.00</td>
+                    </tr>
+                    <tr class="service-row" data-service="google">
+                        <td>
+                            <input type="checkbox" class="service-checkbox" id="check-google" checked>
+                        </td>
+                        <td>
+                            <div class="service-name">
+                                <div class="service-color-block google-color"></div>
+                                Google Ads
+                            </div>
+                            <div class="service-description">Posicionamiento estratégico en búsquedas con alto potencial de conversión.</div>
+                        </td>
+                        <td class="price">US$299.00</td>
+                    </tr>
+                    <tr class="service-row" data-service="email">
+                        <td>
+                            <input type="checkbox" class="service-checkbox" id="check-email" checked>
+                        </td>
+                        <td>
+                            <div class="service-name">
+                                <div class="service-color-block email-color"></div>
+                                Email Marketing
+                            </div>
+                            <div class="service-description">Automatización que convierte suscriptores en clientes recurrentes.</div>
+                        </td>
+                        <td class="price">US$299.00</td>
+                    </tr>
+                    <tr class="service-row" data-service="chatbot">
+                        <td>
+                            <input type="checkbox" class="service-checkbox" id="check-chatbot" checked>
+                        </td>
+                        <td>
+                            <div class="service-name">
+                                <div class="service-color-block chatbot-color"></div>
+                                Chatbot
+                            </div>
+                            <div class="service-description">Atención 24/7 que captura leads y responde consultas automáticamente.</div>
+                        </td>
+                        <td class="price">US$299.00</td>
+                    </tr>
+                    <tr class="package-note">
+                        <td colspan="3">
+                            <i class="fas fa-percentage"></i> Contratando los 4 servicios anteriores (Meta Ads, Google Ads, Email Marketing y Chatbot) obtienes un descuento de paquete completo.
+                        </td>
+                    </tr>
+                    <tr class="service-row" data-service="express">
+                        <td>
+                            <input type="checkbox" class="service-checkbox" id="check-express">
+                        </td>
+                        <td>
+                            <div class="service-name">
+                                <div class="service-color-block express-color"></div>
+                                Optimización Express
+                            </div>
+                            <div class="service-description">En solo 48 horas, aplicamos nuestro sistema de Detección de Fugas para identificar dónde estás perdiendo presupuesto.</div>
+                        </td>
+                        <td class="price">US$299.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="special-offer">
+                <i class="fas fa-bolt"></i>
+                <span>Optimización Express es un servicio independiente que se realiza en 48 horas para detectar y corregir problemas en tus campañas actuales.</span>
+            </div>
+            
+            <!-- Summary -->
+            <div class="summary-section">
+                <table class="summary-table" id="summary-table">
+                    <tbody>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td id="summary-subtotal">US$1,196.00</td>
+                        </tr>
+                        <tr id="discount-row">
+                            <td>Descuento paquete completo</td>
+                            <td id="summary-discount">-US$196.00</td>
+                        </tr>
+                        <tr>
+                            <td>TOTAL</td>
+                            <td id="summary-total">US$1,000.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Terms and Conditions -->
+        <section class="terms-section">
+            <h3>TÉRMINOS Y CONDICIONES</h3>
+            <ul>
+                <li>Este presupuesto tiene una validez de 15 días a partir de la fecha de emisión.</li>
+                <li>El pago se realiza mensualmente mediante transferencia bancaria o tarjeta de crédito.</li>
+                <li>Los servicios comienzan una vez recibido el primer pago.</li>
+                <li>Se entregará un informe mensual detallando el desempeño de cada servicio contratado.</li>
+                <li>La duración mínima recomendada del contrato es de 3 meses para obtener resultados óptimos.</li>
+            </ul>
+            
+            <div class="guarantee">
+                <i class="fas fa-shield-alt"></i>
+                <p>Nuestro compromiso: Si no alcanzamos los KPIs acordados, solo pagás la mitad.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="presupuesto-footer">
+            <div class="footer-info">
+                <p><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</p>
+                <p><i class="fas fa-phone"></i> +54 1130011554</p>
+                <p><i class="fas fa-envelope"></i> emiliano@orangevapor.com</p>
+                <p><i class="fas fa-globe"></i> www.orangevapor.com</p>
+            </div>
+            <div class="footer-signature">
+                <div class="signature-line"></div>
+                <p>Firma y aclaración</p>
+            </div>
+        </footer>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons no-print">
+            <button class="action-button" onclick="window.print()">Descargar PDF</button>
+            <button class="action-button secondary" onclick="resetForm()">Restablecer</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast no-print">Los cálculos han sido actualizados</div>
+
+    <script>
+        // Set today's date as default
+        document.addEventListener('DOMContentLoaded', function() {
+            setToday();
+            calculateTotals();
+            
+            // Add event listeners
+            const serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+            
+            serviceCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', calculateTotals);
+            });
+        });
+
+        // Set today's date
+        function setToday() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('presupuesto-date').value = formattedDate;
+            
+            // Set project start date to next Monday by default
+            let nextMonday = new Date();
+            nextMonday.setDate(nextMonday.getDate() + (8 - nextMonday.getDay()) % 7);
+            document.getElementById('project-start-date').value = nextMonday.toISOString().split('T')[0];
+        }
+
+        // Reset the form
+        function resetForm() {
+            // Reset checkboxes
+            document.getElementById('check-meta').checked = true;
+            document.getElementById('check-google').checked = true;
+            document.getElementById('check-email').checked = true;
+            document.getElementById('check-chatbot').checked = true;
+            document.getElementById('check-express').checked = false;
+            
+            // Reset client info
+            document.getElementById('client-name').value = '';
+            document.getElementById('client-company').value = '';
+            document.getElementById('client-email').value = '';
+            document.getElementById('client-phone').value = '';
+            
+            // Reset project info
+            document.getElementById('project-name').value = 'Estrategia de Marketing Digital';
+            document.getElementById('project-duration').value = '6 meses';
+            
+            // Reset dates
+            setToday();
+            
+            // Recalculate totals
+            calculateTotals();
+            
+            // Show toast
+            showToast('Formulario restablecido');
+        }
+
+        // Calculate totals based on selected services
+        function calculateTotals() {
+            const services = [
+                {
+                    id: 'meta',
+                    checked: document.getElementById('check-meta').checked,
+                    price: 299
+                },
+                {
+                    id: 'google',
+                    checked: document.getElementById('check-google').checked,
+                    price: 299
+                },
+                {
+                    id: 'email',
+                    checked: document.getElementById('check-email').checked,
+                    price: 299
+                },
+                {
+                    id: 'chatbot',
+                    checked: document.getElementById('check-chatbot').checked,
+                    price: 299
+                },
+                {
+                    id: 'express',
+                    checked: document.getElementById('check-express').checked,
+                    price: 299
+                }
+            ];
+            
+            // Calculate subtotal
+            const subtotal = services.reduce((sum, service) => {
+                return sum + (service.checked ? service.price : 0);
+            }, 0);
+            
+            // Check if full package discount applies
+            const hasAllCore = services.slice(0, 4).every(service => service.checked);
+            const discountRow = document.getElementById('discount-row');
+            let discount = 0;
+            
+            if (hasAllCore) {
+                discount = 196;
+                discountRow.style.display = '';
+            } else {
+                discountRow.style.display = 'none';
+            }
+            
+            // Calculate total
+            const total = subtotal - discount;
+            
+            // Update summary
+            document.getElementById('summary-subtotal').textContent = `US$${subtotal.toFixed(2)}`;
+            document.getElementById('summary-discount').textContent = `-US$${discount.toFixed(2)}`;
+            document.getElementById('summary-total').textContent = `US$${total.toFixed(2)}`;
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
