@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orange Vapor - Servicios de Marketing Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
+        :root {
+            /* Paleta de colores principal */
+            --naranja-principal: #FF7E00;
+            --naranja-secundario: #FF9F45;
+            --naranja-claro: #FFE0C2;
+            --naranja-oscuro: #E56F00;
+            --naranja-gradiente: linear-gradient(135deg, #FF7E00, #FF9F45);
+            
+            /* Colores complementarios */
+            --blanco: #FFFFFF;
+            --negro: #222222;
+            --gris-oscuro: #333333;
+            --gris-medio: #666666;
+            --gris-claro: #F5F5F5;
+            --gris-borde: #E0E0E0;
+            
+            /* Variables adicionales */
+            --fondo-claro: #F9F9F9;
+            --texto-oscuro: #333333;
+            --texto-claro: #666666;
+            
+            /* Colores específicos de servicios */
+            --color-ads: #4285F4;
+            --color-email: #00829b;
+            --color-chatbot: #6f42c1;
+            --color-express: #dc3545;
+
+            /* Fuentes */
+            --fuente-principal: 'Montserrat', sans-serif;
+            --fuente-secundaria: 'Open Sans', sans-serif;
+        }
+
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--fuente-secundaria);
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--texto-oscuro);
+            background-color: var(--blanco);
+        }
+
+        /* Para impresión */
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .page {
+                page-break-after: always;
+                position: relative;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Estructura principal */
+        .brochure {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: var(--blanco);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Portada */
+        .cover {
+            background: var(--naranja-gradiente);
+            color: var(--blanco);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><rect width="5" height="5" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.2;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            max-width: 80%;
+        }
+
+        .cover-logo {
+            font-family: var(--fuente-principal);
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .cover-logo span.vapor {
+            color: var(--blanco);
+        }
+
+        .cover-tagline {
+            font-family: var(--fuente-principal);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .cover-description {
+            font-size: 18px;
+            margin-bottom: 60px;
+            max-width: 80%;
+        }
+
+        .cover-services {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .cover-service {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .cover-service i {
+            margin-right: 10px;
+        }
+
+        .cover-action {
+            margin-top: 40px;
+            padding: 15px 30px;
+            background-color: var(--blanco);
+            color: var(--naranja-principal);
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: 18px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cover-footer {
+            position: absolute;
+            bottom: 15mm;
+            text-align: center;
+            width: calc(100% - 30mm);
+        }
+
+        .cover-footer p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Encabezado y pie de página */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-family: var(--fuente-principal);
+            font-weight: 800;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo .vapor {
+            color: var(--naranja-principal);
+            margin-left: 3px;
+        }
+
+        .header-contact {
+            font-size: 12px;
+            color: var(--texto-claro);
+            text-align: right;
+        }
+
+        .header-contact p {
+            margin: 3px 0;
+        }
+
+        .header-contact i {
+            color: var(--naranja-principal);
+            width: 16px;
+            margin-right: 5px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 15mm;
+            left: 15mm;
+            right: 15mm;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 1px solid var(--naranja-claro);
+            font-size: 12px;
+            color: var(--texto-claro);
+        }
+
+        .footer-links a {
+            color: var(--naranja-principal);
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .page-number {
+            color: var(--naranja-principal);
+            font-weight: 600;
+        }
+
+        /* Contenido */
+        .page-title {
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: 28px;
+            color: var(--naranja-principal);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--texto-oscuro);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background-color: var(--naranja-principal);
+        }
+
+        .intro-text {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            max-width: 90%;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .service-card {
+            background-color: var(--blanco);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 100%;
+            border-top: 5px solid var(--naranja-principal);
+        }
+
+        .service-ads { border-top-color: var(--color-ads); }
+        .service-google { border-top-color: var(--color-ads); }
+        .service-email { border-top-color: var(--color-email); }
+        .service-chatbot { border-top-color: var(--color-chatbot); }
+        .service-express { border-top-color: var(--color-express); }
+
+        .service-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--gris-claro);
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .service-ads .service-icon { background-color: var(--color-ads); }
+        .service-google .service-icon { background-color: var(--color-ads); }
+        .service-email .service-icon { background-color: var(--color-email); }
+        .service-chatbot .service-icon { background-color: var(--color-chatbot); }
+        .service-express .service-icon { background-color: var(--color-express); }
+
+        .service-title {
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .service-ads .service-title { color: var(--color-ads); }
+        .service-google .service-title { color: var(--color-ads); }
+        .service-email .service-title { color: var(--color-email); }
+        .service-chatbot .service-title { color: var(--color-chatbot); }
+        .service-express .service-title { color: var(--color-express); }
+
+        .service-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-description {
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .service-benefits {
+            margin-bottom: 20px;
+        }
+
+        .benefit-list {
+            list-style: none;
+        }
+
+        .benefit-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+        }
+
+        .benefit-list li:before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--naranja-principal);
+        }
+
+        .service-ads .benefit-list li:before { color: var(--color-ads); }
+        .service-google .benefit-list li:before { color: var(--color-ads); }
+        .service-email .benefit-list li:before { color: var(--color-email); }
+        .service-chatbot .benefit-list li:before { color: var(--color-chatbot); }
+        .service-express .benefit-list li:before { color: var(--color-express); }
+
+        .service-price {
+            text-align: right;
+            border-top: 1px solid var(--gris-claro);
+            padding-top: 15px;
+        }
+
+        .price-amount {
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--naranja-principal);
+        }
+
+        .price-period {
+            font-size: 14px;
+            color: var(--texto-claro);
+        }
+
+        /* Paquete completo */
+        .package-section {
+            background-color: var(--naranja-claro);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .package-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--naranja-principal);
+            color: white;
+            padding: 8px 20px;
+            font-weight: 600;
+            transform: translateY(-0%) translateX(0%) rotate(0deg);
+            transform-origin: top right;
+            font-size: 14px;
+            z-index: 1;
+            box-shadow: -2px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .package-title {
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--naranja-oscuro);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .package-content {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .package-description {
+            flex: 1;
+        }
+
+        .package-description p {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .package-services {
+            margin-bottom: 20px;
+        }
+
+        .package-service-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .package-service-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .package-price {
+            flex: 0 0 250px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .package-price-regular {
+            text-decoration: line-through;
+            color: var(--texto-claro);
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .package-price-amount {
+            font-family: var(--fuente-principal);
+            font-weight: 800;
+            font-size: 36px;
+            color: var(--naranja-principal);
+            margin-bottom: 5px;
+        }
+
+        .package-price-period {
+            font-size: 16px;
+            color: var(--texto-claro);
+            margin-bottom: 15px;
+        }
+
+        .package-price-save {
+            display: inline-block;
+            background-color: var(--naranja-principal);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Garantía */
+        .guarantee-section {
+            margin-top: 40px;
+            background-color: var(--fondo-claro);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .guarantee-icon {
+            font-size: 40px;
+            color: var(--naranja-principal);
+            flex-shrink: 0;
+        }
+
+        .guarantee-content h3 {
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--naranja-oscuro);
+            margin-bottom: 5px;
+        }
+
+        .guarantee-content p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Equipo */
+        .team-section {
+            margin-top: 40px;
+        }
+
+        .team-members {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .team-member {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .team-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-name {
+            font-family: var(--fuente-principal);
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .team-role {
+            color: var(--naranja-principal);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .team-bio {
+            font-size: 13px;
+            color: var(--texto-claro);
+        }
+
+        /* CTA Final */
+        .contact-cta {
+            background-color: var(--naranja-principal);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 5px 20px rgba(255, 126, 0, 0.2);
+        }
+
+        .contact-cta h3 {
+            font-family: var(--fuente-principal);
+            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .contact-cta p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-info {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+        }
+
+        /* Botones de acción */
+        .action-buttons {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--naranja-principal);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-family: var(--fuente-principal);
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(255, 126, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--naranja-oscuro);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 126, 0, 0.3);
+        }
+        
+        /* Watermark section for non-printed version */
+        .watermark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.03;
+            user-select: none;
+        }
+        
+        .watermark img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="brochure">
+        <!-- Portada -->
+        <div class="page cover">
+            <div class="cover-content">
+                <div class="cover-logo">
+                    Orange<span class="vapor">Vapor</span>
+                </div>
+                <div class="cover-tagline">
+                    Maximizá tus Resultados en Marketing Digital
+                </div>
+                <div class="cover-description">
+                    Agencia especializada en Ads, Email Marketing y Chatbots para multiplicar tu ROI y convertir clics en ventas reales.
+                </div>
+                <div class="cover-services">
+                    <div class="cover-service">
+                        <i class="fas fa-ad"></i>
+                        <span>Meta & Google Ads</span>
+                    </div>
+                    <div class="cover-service">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Marketing</span>
+                    </div>
+                    <div class="cover-service">
+                        <i class="fas fa-robot"></i>
+                        <span>Chatbots</span>
+                    </div>
+                    <div class="cover-service">
+                        <i class="fas fa-bolt"></i>
+                        <span>Optimización Express</span>
+                    </div>
+                </div>
+                <div class="cover-action">
+                    Catálogo de Servicios 2025
+                </div>
+            </div>
+            <div class="cover-footer">
+                <p>Si no alcanzamos los KPIs acordados, solo pagás la mitad.</p>
+            </div>
+        </div>
+
+        <!-- Introducción -->
+        <div class="page">
+            <header class="header">
+                <div class="logo">
+                    Orange<span class="vapor">Vapor</span>
+                </div>
+                <div class="header-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</p>
+                    <p><i class="fas fa-phone"></i> +54 1130011554</p>
+                    <p><i class="fas fa-envelope"></i> emiliano@orangevapor.com</p>
+                </div>
+            </header>
+
+            <div class="page-title">
+                La diferencia entre invertir y gastar en marketing digital
+            </div>
+
+            <p class="intro-text">
+                En Orange Vapor no creemos en el marketing digital como un gasto, sino como una inversión que debe generar retornos medibles. Nuestro método ROI First™ convierte cada peso invertido en resultados que impactan directamente tu cuenta bancaria.
+            </p>
+
+            <div class="section-title">Nuestros servicios</div>
+
+            <div class="service-grid">
+                <!-- Meta Ads -->
+                <div class="service-card service-ads">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <h3 class="service-title">Meta Ads</h3>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-description">
+                            <p>Maximizá tu ROI con nuestra metodología de Audiencias de Alto Valor, que identifica exactamente dónde están los clientes que realmente compran (no solo los que hacen clic).</p>
+                        </div>
+                        <div class="service-benefits">
+                            <h4>¿Qué incluye?</h4>
+                            <ul class="benefit-list">
+                                <li>Optimización diaria de campañas y presupuestos</li>
+                                <li>4 creatividades nuevas por mes (imagen o carrusel)</li>
+                                <li>Ajuste continuo de audiencias y segmentación</li>
+                                <li>Informes semanales con métricas clave</li>
+                                <li>Estrategia adaptativa según resultados</li>
+                            </ul>
+                        </div>
+                        <div class="service-price">
+                            <span class="price-amount">US$299</span>
+                            <span class="price-period">/mes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Ads -->
+                <div class="service-card service-google">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <h3 class="service-title">Google Ads</h3>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-description">
+                            <p>Posicionamiento estratégico en búsquedas con alto potencial de conversión. Capturamos clientes en el momento exacto en que están buscando lo que ofreces.</p>
+                        </div>
+                        <div class="service-benefits">
+                            <h4>¿Qué incluye?</h4>
+                            <ul class="benefit-list">
+                                <li>Investigación mensual de palabras clave rentables</li>
+                                <li>Optimización semanal de pujas y presupuestos</li>
+                                <li>Creación continua de anuncios A/B para mejorar CTR</li>
+                                <li>Mejora de Quality Score para reducir costos</li>
+                                <li>Análisis de competencia para detectar oportunidades</li>
+                            </ul>
+                        </div>
+                        <div class="service-price">
+                            <span class="price-amount">US$299</span>
+                            <span class="price-period">/mes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email Marketing -->
+                <div class="service-card service-email">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="service-title">Email Marketing</h3>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-description">
+                            <p>Nurturing automatizado que convierte prospectos en clientes leales y mantiene a tu audiencia conectada, generando ingresos recurrentes sin depender solo de la publicidad.</p>
+                        </div>
+                        <div class="service-benefits">
+                            <h4>¿Qué incluye?</h4>
+                            <ul class="benefit-list">
+                                <li>2 campañas masivas diseñadas profesionalmente</li>
+                                <li>1 secuencia automatizada nueva o mejorada</li>
+                                <li>Segmentación dinámica basada en comportamiento</li>
+                                <li>Optimización de asuntos para aumentar aperturas</li>
+                                <li>Análisis de conversión para mejorar resultados</li>
+                            </ul>
+                        </div>
+                        <div class="service-price">
+                            <span class="price-amount">US$299</span>
+                            <span class="price-period">/mes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chatbot -->
+                <div class="service-card service-chatbot">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="service-title">Chatbot</h3>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-description">
+                            <p>Atención 24/7 que humaniza tu marca y mejora la experiencia del cliente, capturando leads constantemente incluso cuando tu equipo no está disponible.</p>
+                        </div>
+                        <div class="service-benefits">
+                            <h4>¿Qué incluye?</h4>
+                            <ul class="benefit-list">
+                                <li>Actualización mensual de respuestas y flujos</li>
+                                <li>Integración con CRM y herramientas de marketing</li>
+                                <li>Personalizaciones según comportamiento</li>
+                                <li>Reportes de conversaciones y puntos de abandono</li>
+                                <li>Soporte técnico continuo</li>
+                            </ul>
+                        </div>
+                        <div class="service-price">
+                            <span class="price-amount">US$299</span>
+                            <span class="price-period">/mes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div>Orange Vapor © 2025</div>
+                <div class="footer-links">
+                    <span class="page-number">1</span>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Optimización Express y Paquete -->
+        <div class="page">
+            <header class="header">
+                <div class="logo">
+                    Orange<span class="vapor">Vapor</span>
+                </div>
+                <div class="header-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</p>
+                    <p><i class="fas fa-phone"></i> +54 1130011554</p>
+                    <p><i class="fas fa-envelope"></i> emiliano@orangevapor.com</p>
+                </div>
+            </header>
+
+            <!-- Optimización Express -->
+            <div class="section-title">Servicio Express</div>
+
+            <div class="service-card service-express" style="max-width: 100%; margin-bottom: 40px;">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="service-title">Optimización Express</h3>
+                </div>
+                <div class="service-content">
+                    <div class="service-description">
+                        <p>En solo 48 horas, aplicamos nuestro sistema de Detección de Fugas™ para identificar dónde estás perdiendo presupuesto y lo transformamos en oportunidades de venta. La semana pasada, una tienda online descubrió que el 63% de su presupuesto se desperdiciaba en una configuración incorrecta que nadie había notado.</p>
+                    </div>
+                    <div class="service-benefits">
+                        <h4>¿Qué incluye?</h4>
+                        <ul class="benefit-list">
+                            <li>Análisis completo de tus campañas actuales y detección de fugas presupuestarias</li>
+                            <li>Estrategia personalizada para Meta y Google Ads basada en tu audiencia real</li>
+                            <li>Estructura optimizada de campañas con segmentación de alto rendimiento</li>
+                            <li>Configuración técnica de píxeles, conversiones y seguimiento</li>
+                            <li>Pack básico de 3 anuncios visuales y 5 textos persuasivos listos para usar</li>
+                        </ul>
+                    </div>
+                    <div class="service-price">
+                        <span class="price-amount">US$299</span>
+                        <span class="price-period">servicio único</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paquete Completo -->
+            <div class="package-section">
+                <div class="package-badge">¡OFERTA ESPECIAL!</div>
+                <div class="package-title">Paquete Completo de Servicios</div>
+                <div class="package-content">
+                    <div class="package-description">
+                        <p>Contratá los 4 servicios principales por un precio especial y ahorrá casi $200 mensuales. Este paquete integral te brinda una solución completa de marketing digital, maximizando sinergias entre canales:</p>
+                        
+                        <div class="package-services">
+                            <div class="package-service-item">
+                                <div class="package-service-icon" style="background-color: var(--color-ads);">
+                                    <i class="fab fa-facebook-f"></i>
+                                </div>
+                                <span>Meta Ads</span>
+                            </div>
+                            <div class="package-service-item">
+                                <div class="package-service-icon" style="background-color: var(--color-ads);">
+                                    <i class="fab fa-google"></i>
+                                </div>
+                                <span>Google Ads</span>
+                            </div>
+                            <div class="package-service-item">
+                                <div class="package-service-icon" style="background-color: var(--color-email);">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <span>Email Marketing</span>
+                            </div>
+                            <div class="package-service-item">
+                                <div class="package-service-icon" style="background-color: var(--color-chatbot);">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <span>Chatbot</span>
+                            </div>
+                        </div>
+                        
+                        <p>Los pagos pueden realizarse en dólares estadounidenses (USD) o en pesos argentinos (ARS) al tipo de cambio de dólar oficial del día del pago.</p>
+                    </div>
+                    
+                    <div class="package-price">
+                        <div class="package-price-regular">US$1,196 /mes</div>
+                        <div class="package-price-amount">US$1,000</div>
+                        <div class="package-price-period">/mes</div>
+                        <div class="package-price-save">¡Ahorrás US$196!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Garantía -->
+            <div class="guarantee-section">
+                <div class="guarantee-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="guarantee-content">
+                    <h3>Nuestro compromiso de resultados</h3>
+                    <p>Si no alcanzamos los KPIs acordados, solo pagás la mitad. Este modelo único de riesgo compartido demuestra nuestra confianza en los resultados que entregamos.</p>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div>Orange Vapor © 2025</div>
+                <div class="footer-links">
+                    <span class="page-number">2</span>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Equipo y Contacto -->
+        <div class="page">
+            <header class="header">
+                <div class="logo">
+                    Orange<span class="vapor">Vapor</span>
+                </div>
+                <div class="header-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</p>
+                    <p><i class="fas fa-phone"></i> +54 1130011554</p>
+                    <p><i class="fas fa-envelope"></i> emiliano@orangevapor.com</p>
+                </div>
+            </header>
+
+            <!-- Equipo -->
+            <div class="section-title">El Equipo: Experiencia Real Aplicada a Tu Negocio</div>
+            
+            <p class="intro-text">
+                No somos teóricos del marketing. Aplicamos conocimiento real de industria con resultados comprobables. Nuestro enfoque personalizado nos diferencia de las grandes agencias.
+            </p>
+
+            <div class="team-section">
+                <div class="team-members">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D4D03AQGMBstWC1OBlg/profile-displayphoto-shrink_200_200/B4DZThGN0VHYAY-/0/1738943291295?e=1746662400&v=beta&t=_FE9qOC8W-1ihM4a6-s8GrW3OfZwNLcVn0v46ZIIWhI" alt="Emiliano Cecchi">
+                        </div>
+                        <h3 class="team-name">Emiliano Cecchi</h3>
+                        <div class="team-role">Director de Estrategia Digital</div>
+                        <p class="team-bio">8 años de Experiencia en Marketing Digital y E-commerce. Ex-líder del equipo de E-commerce de Hunter Douglas Argentina.</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D4D03AQFzKVN_97EuCA/profile-displayphoto-shrink_800_800/B4DZUFiPEVHkAc-/0/1739554616070?e=1746662400&v=beta&t=mZQnzBWjAyvlnYM6Q_p0EZQVtc7f3a1UqbGrg-iqum8" alt="Yobanny Ortega">
+                        </div>
+                        <h3 class="team-name">Yobanny Ortega</h3>
+                        <div class="team-role">Director de Publicidad Digital</div>
+                        <p class="team-bio">Ex-líder de equipos de compras de medios digitales en agencias internacionales como Publicis Media.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información de contacto -->
+            <div class="contact-cta">
+                <h3>¿Listo para potenciar tu negocio?</h3>
+                <p>Agendá una auditoría gratuita de tus campañas actuales y descubre el potencial oculto de tu presupuesto de marketing.</p>
+                <div class="contact-info">
+                    <i class="fas fa-phone"></i> +54 1130011554 &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fas fa-envelope"></i> emiliano@orangevapor.com
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div>Orange Vapor © 2025</div>
+                <div class="footer-links">
+                    <span class="page-number">3</span>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Botones de acción (solo visibles en la versión web) -->
+        <div class="action-buttons no-print">
+            <button class="btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Descargar como PDF</button>
+        </div>
+    </div>
+    
+    <!-- Watermark for visualization only, not shown in print -->
+    <div class="watermark no-print">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500' viewBox='0 0 500 500'%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='36' font-weight='bold' text-anchor='middle' fill='%23000' dominant-baseline='middle' transform='rotate(-45, 250, 250)'%3EOrange Vapor%3C/text%3E%3C/svg%3E" alt="">
+    </div>
+</body>
+</html>
