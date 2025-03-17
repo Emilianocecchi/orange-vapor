@@ -501,10 +501,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
 
                 
-               <!-- Principio del widget integrado de Calendly -->
-<div class="calendly-inline-widget" data-url="https://calendly.com/emiliano-orangevapor/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=ff7e00" style="min-width:320px;height:700px;"></div>
+              <!-- Reemplaza la sección actual de Calendly con este código -->
+<div class="calendly-inline-widget" 
+     data-url="https://calendly.com/emiliano-orangevapor/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=ff7e00" 
+     style="min-width:320px;height:700px;">
+</div>
 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-<!-- Final del widget integrado de Calendly -->
+
+<!-- Código para manejo correcto de eventos de Calendly -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Función para manejar eventos de Calendly
+  window.addEventListener('message', function(e) {
+    if (e.origin !== 'https://calendly.com') return;
+    
+    if (e.data.event && e.data.event.indexOf('calendly') === 0) {
+      console.log('Calendly event:', e.data.event);
+      
+      // Puedes agregar código específico para diferentes eventos de Calendly
+      if (e.data.event === 'calendly.event_scheduled') {
+        // Por ejemplo, redirigir a una página de agradecimiento
+        // window.location = '/gracias.html';
+        console.log('Cita agendada exitosamente');
+      }
+    }
+  });
+});
+</script>
             </div>
         </div>
     </section>
