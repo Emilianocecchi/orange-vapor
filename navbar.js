@@ -22,6 +22,11 @@
         isScrolling = false,
         resizeTimer;
     
+    // Variables para controlar replaceState
+    let lastReplaceStateTime = 0;
+    let lastSection = '';
+    let replaceStateCount = 0;
+    
     // =========================================================================
     // INICIALIZACIÓN Y CAPTURA DE ELEMENTOS
     // =========================================================================
@@ -330,6 +335,7 @@
     }
     
     // Actualizar enlaces activos según sección visible
+    // FUNCIÓN OPTIMIZADA PARA EVITAR ERRORES DE REPLACESTATE
     function updateNavActiveState() {
         // Solo para página principal
         if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
@@ -345,8 +351,9 @@
                 }
             });
             
-            if (currentSection) {
-                // Actualizar enlaces de navegación
+            // Solo actualizar si hay una sección identificada y es diferente a la última
+            if (currentSection && currentSection !== lastSection) {
+                // Actualizar navegación visual
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.classList.remove('active');
                     
@@ -359,9 +366,24 @@
                     }
                 });
                 
-                // Actualizar URL sin provocar scroll
-                const newUrl = `${window.location.pathname}#${currentSection}`;
-                history.replaceState(null, '', newUrl);
+                // Control de límite de replaceState
+                const now = Date.now();
+                
+                // Reiniciar contador si han pasado 10 segundos
+                if (now - lastReplaceStateTime > 10000) {
+                    replaceStateCount = 0;
+                    lastReplaceStateTime = now;
+                }
+                
+                // Solo actualizar URL si no excedemos el límite
+                if (replaceStateCount < 90) { // Margen de seguridad
+                    const newUrl = `${window.location.pathname}#${currentSection}`;
+                    history.replaceState(null, '', newUrl);
+                    replaceStateCount++;
+                    
+                    // Actualizar sección actual
+                    lastSection = currentSection;
+                }
             }
         }
     }
