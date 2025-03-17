@@ -923,106 +923,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
 
-
- <!-- Solución mejorada para problemas de reCAPTCHA y Pendo.js -->
+<!-- Implementación corregida de Calendly -->
 <div class="calendly-inline-widget" 
-     data-url="https://calendly.com/emiliano-orangevapor/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=ff7e00&background_color=ffffff&text_color=333333&embed_domain=orangevapor.com" 
+     data-url="https://calendly.com/emiliano-orangevapor/30min?embed_domain=www.orangevapor.com&hide_event_type_details=1&hide_gdpr_banner=1&primary_color=ff7e00" 
      style="min-width:320px;height:700px;">
 </div>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
-<!-- Script para manejar problemas de reCAPTCHA y Pendo -->
+<!-- Script simple para manejo de eventos -->
 <script>
-// Interceptar y arreglar problemas de Pendo.js antes de cargar Calendly
-(function() {
-  // 1. Detener intentos de comunicación incorrectos de Pendo
-  const originalPostMessage = window.postMessage;
-  window.postMessage = function(message, targetOrigin, transfer) {
-    // Prevenir mensajes de Pendo a Calendly
-    if (targetOrigin === 'https://calendly.com' && typeof message === 'object') {
-      console.log('Interceptado mensaje potencialmente problemático a Calendly');
-      return; // No enviar el mensaje
-    }
-    return originalPostMessage.call(this, message, targetOrigin, transfer);
-  };
-  
-  // 2. Sobrescribir temporalmente fetch/XHR para inyectar credenciales en solicitudes de reCAPTCHA
-  const originalFetch = window.fetch;
-  window.fetch = function(resource, options) {
-    if (resource && typeof resource === 'string' && resource.includes('recaptcha')) {
-      options = options || {};
-      options.credentials = 'include';
-      options.mode = 'cors';
-    }
-    return originalFetch.call(this, resource, options);
-  };
-  
-  const originalOpen = XMLHttpRequest.prototype.open;
-  XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
-    if (url && typeof url === 'string' && url.includes('recaptcha')) {
-      this.withCredentials = true;
-    }
-    return originalOpen.call(this, method, url, async, user, password);
-  };
-  
-  // 3. Cargar Calendly con un retraso para permitir que estas soluciones tengan efecto
-  setTimeout(() => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    script.crossOrigin = 'anonymous';
-    document.body.appendChild(script);
-  }, 500);
-})();
-
-// Listener de eventos mejorado
-window.addEventListener('DOMContentLoaded', function() {
-  window.addEventListener('message', function(e) {
-    // Solo procesar mensajes de Calendly
-    if (e.origin !== 'https://calendly.com') return;
+window.addEventListener('message', function(e) {
+  if (e.origin !== 'https://calendly.com') return;
     
-    if (e.data.event && e.data.event.indexOf('calendly') === 0) {
-      console.log('Evento Calendly:', e.data.event);
+  if (e.data.event && e.data.event.indexOf('calendly') === 0) {
+    console.log('Evento Calendly:', e.data.event);
       
-      // Manejar eventos específicos
-      if (e.data.event === 'calendly.event_scheduled') {
-        // Conversión de Google Ads para evento agendado
-        if (typeof gtag === 'function') {
-          gtag('event', 'conversion', {
-            'send_to': 'AW-16933747032/fhQjCL2MyasaENjy0Yo_'
-          });
-        }
+    if (e.data.event === 'calendly.event_scheduled') {
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-16933747032/fhQjCL2MyasaENjy0Yo_'
+        });
       }
     }
-  });
-});
-</script>
-
-<!-- Script para manejar errores de carga de recursos -->
-<script>
-window.addEventListener('error', function(e) {
-  // Solo manejar errores de carga de recursos
-  if (!e.target || !e.target.src) return;
-  
-  const errorSrc = e.target.src;
-  console.warn('Error al cargar recurso:', errorSrc);
-  
-  // Manejar errores específicos de reCAPTCHA
-  if (errorSrc.includes('recaptcha') || errorSrc.includes('pat')) {
-    console.log('Detectado error con reCAPTCHA - intentando solución alternativa');
-    
-    // Inyectar un script de reCAPTCHA alternativo
-    setTimeout(() => {
-      const recaptchaScript = document.createElement('script');
-      recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
-      recaptchaScript.async = true;
-      recaptchaScript.defer = true;
-      document.head.appendChild(recaptchaScript);
-    }, 1000);
-    
-    e.preventDefault();
   }
-}, true);
+});
 </script>
             </div>
         </div>
