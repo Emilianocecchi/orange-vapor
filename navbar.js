@@ -3,7 +3,8 @@
  * Script optimizado para rendimiento y UX
  */
 
-(function() {
+// Función global para inicializar la navegación
+function initNavbar() {
     'use strict';
     
     // =========================================================================
@@ -437,18 +438,21 @@
         });
     }
     
-    // =========================================================================
-    // INICIALIZACIÓN
-    // =========================================================================
-    document.addEventListener('DOMContentLoaded', function() {
-        init();
-        initSmoothScroll();
-        setupDropdowns();
-    });
+    // Ejecutar inicialización
+    init();
+    initSmoothScroll();
+    setupDropdowns();
     
     // Exponer funciones útiles para otros scripts
     window.NavbarModule = {
         updateHeaderState,
         closeMobileMenu
     };
-})();
+}
+
+// Inicializar automáticamente si el DOM ya está cargado
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavbar);
+} else {
+    initNavbar();
+}
