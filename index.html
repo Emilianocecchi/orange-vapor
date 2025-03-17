@@ -896,6 +896,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
+
+
+    
     <!-- Sección Contacto con Calendly -->
     <section id="contacto" class="contacto">
         <div class="container">
@@ -919,11 +922,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <i class="fas fa-shield-alt"></i> Sin tocar tu presupuesto, nos das acceso en modo lectura
                     </div>
                 </div>
-                
-                <!-- Principio del widget integrado de Calendly -->
-<div class="calendly-inline-widget" data-url="https://calendly.com/emiliano-orangevapor/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=ff7e00" style="min-width:320px;height:700px;"></div>
+
+
+  <!-- Versión corregida de integración Calendly -->
+<div class="calendly-inline-widget" 
+     data-url="https://calendly.com/emiliano-orangevapor/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=ff7e00&background_color=ffffff&text_color=333333" 
+     style="min-width:320px;height:700px;">
+</div>
 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-<!-- Final del widget integrado de Calendly -->
+
+<!-- Listener de eventos mejorado -->
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  // Configurar listener de mensajes de Calendly
+  window.addEventListener('message', function(e) {
+    // Verificar el origen antes de procesar
+    if (e.origin !== 'https://calendly.com') return;
+    
+    if (e.data.event && e.data.event.indexOf('calendly') === 0) {
+      console.log('Evento Calendly:', e.data.event);
+      
+      // Manejar eventos específicos
+      if (e.data.event === 'calendly.event_scheduled') {
+        // Conversión de Google Ads para evento agendado
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            'send_to': 'AW-16933747032/fhQjCL2MyasaENjy0Yo_'
+          });
+        }
+      }
+    }
+  });
+});
+</script>
             </div>
         </div>
     </section> 
