@@ -3,16 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anuncios Meta Ads - Orange Vapor</title>
+    <title>Creativos para Landing Pages - Orange Vapor</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --rojo-principal: #dc3545;
+            /* Colores base */
             --naranja-principal: #FF7E00;
             --blanco: #FFFFFF;
             --gris-oscuro: #333333;
             --gris-claro: #F5F5F5;
+            
+            /* Colores específicos */
+            --meta-ads-principal: #dc3545;
+            --google-blue: #4285F4;
+            --google-red: #DB4437;
+            --google-yellow: #F4B400;
+            --google-green: #0F9D58;
+            --chatbot-principal: #6f42c1;
+            --email-principal: #00829b;
         }
         
         body {
@@ -33,7 +42,7 @@
         h1 {
             text-align: center;
             margin-bottom: 30px;
-            color: var(--rojo-principal);
+            color: var(--naranja-principal);
             font-weight: 800;
         }
         
@@ -42,8 +51,62 @@
             margin-bottom: 20px;
             font-weight: 700;
             color: var(--gris-oscuro);
-            border-bottom: 2px solid var(--rojo-principal);
+            border-bottom: 2px solid var(--naranja-principal);
             padding-bottom: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            justify-content: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            margin: 0 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .tab:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        
+        .tab.active {
+            color: var(--blanco);
+        }
+        
+        .tab-meta.active {
+            background-color: var(--meta-ads-principal);
+        }
+        
+        .tab-google.active {
+            background: linear-gradient(135deg, #4285F4, #DB4437, #F4B400, #0F9D58);
+        }
+        
+        .tab-chatbot.active {
+            background-color: var(--chatbot-principal);
+        }
+        
+        .tab-email.active {
+            background-color: var(--email-principal);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
         }
         
         .ad-grid {
@@ -63,6 +126,13 @@
             width: 300px;
             border: 1px solid #ddd;
             margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .ad-preview:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
         .ad-preview svg {
@@ -102,7 +172,19 @@
         }
         
         .download-btn.png {
-            background-color: var(--rojo-principal);
+            background-color: var(--meta-ads-principal);
+        }
+        
+        .download-btn.png.google {
+            background-color: var(--google-blue);
+        }
+        
+        .download-btn.png.chatbot {
+            background-color: var(--chatbot-principal);
+        }
+        
+        .download-btn.png.email {
+            background-color: var(--email-principal);
         }
         
         .action-buttons {
@@ -118,7 +200,6 @@
             border: none;
             border-radius: 4px;
             color: var(--blanco);
-            background-color: var(--rojo-principal);
             cursor: pointer;
             font-weight: 600;
             display: flex;
@@ -133,12 +214,26 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         
+        .action-button.meta {
+            background-color: var(--meta-ads-principal);
+        }
+        
+        .action-button.google {
+            background: linear-gradient(135deg, #4285F4, #DB4437, #F4B400, #0F9D58);
+        }
+        
+        .action-button.chatbot {
+            background-color: var(--chatbot-principal);
+        }
+        
+        .action-button.email {
+            background-color: var(--email-principal);
+        }
+        
         .toast {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: var(--rojo-principal);
-            color: var(--blanco);
             padding: 12px 20px;
             border-radius: 4px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
@@ -149,6 +244,24 @@
             opacity: 0;
             transition: all 0.3s;
             z-index: 100;
+            background-color: var(--naranja-principal);
+            color: var(--blanco);
+        }
+        
+        .toast.meta {
+            background-color: var(--meta-ads-principal);
+        }
+        
+        .toast.google {
+            background: linear-gradient(135deg, #4285F4, #DB4437, #F4B400, #0F9D58);
+        }
+        
+        .toast.chatbot {
+            background-color: var(--chatbot-principal);
+        }
+        
+        .toast.email {
+            background-color: var(--email-principal);
         }
         
         .toast.show {
@@ -159,424 +272,1219 @@
         .toast i {
             margin-right: 10px;
         }
+        
+        /* Carrusel */
+        .carousel-container {
+            display: flex;
+            overflow-x: hidden;
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-slide svg {
+            display: block;
+        }
+        
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            gap: 5px;
+        }
+        
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .carousel-dot.active {
+            background-color: var(--naranja-principal);
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        .carousel-nav:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .carousel-prev {
+            left: 10px;
+        }
+        
+        .carousel-next {
+            right: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Anuncios Meta Ads - Orange Vapor</h1>
+        <h1>Creativos para Landing Pages - Orange Vapor</h1>
         
-        <div class="action-buttons">
-            <button class="action-button" onclick="downloadAllAsPNG()">
-                <i class="fas fa-file-image"></i> Descargar Todos como PNG
-            </button>
+        <!-- Tabs para cambiar entre tipos de creativos -->
+        <div class="tabs">
+            <button class="tab tab-meta active" data-tab="meta-tab">Meta Ads</button>
+            <button class="tab tab-google" data-tab="google-tab">Google Ads</button>
+            <button class="tab tab-chatbot" data-tab="chatbot-tab">Chatbot</button>
+            <button class="tab tab-email" data-tab="email-tab">Email Marketing</button>
         </div>
         
-        <!-- Feed Square (1080x1080) -->
-        <h2>Feed Square (1080x1080)</h2>
-        <div class="ad-grid">
-            <!-- Variante 1 -->
-            <div class="ad-container">
-                <div class="ad-preview" id="preview-square-1">
-                    <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Fondo -->
-                        <rect width="1080" height="1080" fill="#dc3545"/>
-                        
-                        <!-- Logo -->
-                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                            Orange<tspan fill="#FF7E00">Vapor</tspan>
-                        </text>
-                        
-                        <!-- Badge -->
-                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                            ⚡ Express
-                        </text>
-                        
-                        <!-- Icono circular -->
-                        <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                        <text x="540" y="400" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
-                            ⚠
-                        </text>
-                        
-                        <!-- Título -->
-                        <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                            ¿Ads sin resultados?
-                        </text>
-                        
-                        <!-- Subtítulo -->
-                        <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
-                            Optimizamos en 48hs
-                        </text>
-                        
-                        <!-- Texto Auditoría Gratis -->
-                        <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                            Auditoría Gratis
-                        </text>
-                    </svg>
-                </div>
-                <div class="ad-label">Variante 1</div>
-                <div class="download-buttons">
-                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-square-1', 'Ads-sin-resultados')">
-                        <i class="fas fa-file-image"></i> PNG
-                    </button>
-                </div>
+        <!-- META ADS CONTENT -->
+        <div id="meta-tab" class="tab-content active">
+            <div class="action-buttons">
+                <button class="action-button meta" onclick="downloadAllAsPNG('meta')">
+                    <i class="fas fa-file-image"></i> Descargar Todos como PNG
+                </button>
             </div>
             
-            <!-- Variante 2 -->
-            <div class="ad-container">
-                <div class="ad-preview" id="preview-square-2">
-                    <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Fondo -->
-                        <rect width="1080" height="1080" fill="#dc3545"/>
-                        
-                        <!-- Logo -->
-                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                            Orange<tspan fill="#FF7E00">Vapor</tspan>
-                        </text>
-                        
-                        <!-- Badge -->
-                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                            ⚡ Express
-                        </text>
-                        
-                        <!-- Icono circular -->
-                        <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                        <text x="540" y="400" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
-                            📈
-                        </text>
-                        
-                        <!-- Título -->
-                        <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                            +20% ventas
-                        </text>
-                        
-                        <!-- Subtítulo -->
-                        <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
-                            Resultados garantizados
-                        </text>
-                        
-                        <!-- Texto Auditoría Gratis -->
-                        <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                            Auditoría Gratis
-                        </text>
-                    </svg>
+            <!-- Feed Square (1080x1080) -->
+            <h2>Feed Square (1080x1080)</h2>
+            <div class="ad-grid">
+                <!-- Variante 1 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-meta-square-1">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1080" fill="#dc3545"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>⚡ Express</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>⚠</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                ¿Ads sin resultados?
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                Leads a clientes
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                Optimizamos en 48hs
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 1</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png" onclick="downloadSVGAsPNG('preview-meta-square-1', 'Meta-Ads-sin-resultados')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
                 </div>
-                <div class="ad-label">Variante 2</div>
-                <div class="download-buttons">
-                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-square-2', 'Mas-ventas')">
-                        <i class="fas fa-file-image"></i> PNG
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Variante 3 -->
-            <div class="ad-container">
-                <div class="ad-preview" id="preview-square-3">
-                    <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Fondo -->
-                        <rect width="1080" height="1080" fill="#dc3545"/>
-                        
-                        <!-- Logo -->
-                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                            Orange<tspan fill="#FF7E00">Vapor</tspan>
-                        </text>
-                        
-                        <!-- Badge -->
-                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                            ⚡ Express
-                        </text>
-                        
-                        <!-- Icono circular -->
-                        <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                        <text x="540" y="400" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
-                            💰
-                        </text>
-                        
-                        <!-- Título -->
-                        <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                            Pará de perder dinero
-                        </text>
-                        
-                        <!-- Subtítulo -->
-                        <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
-                            Optimizamos tu presupuesto
-                        </text>
-                        
-                        <!-- Texto Auditoría Gratis -->
-                        <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                            Auditoría Gratis
-                        </text>
-                    </svg>
-                </div>
-                <div class="ad-label">Variante 3</div>
-                <div class="download-buttons">
-                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-square-3', 'Para-de-perder-dinero')">
-                        <i class="fas fa-file-image"></i> PNG
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Story/Reel (1080x1920) -->
-        <h2>Story/Reel (1080x1920)</h2>
-        <div class="ad-grid">
-            <!-- Variante 1 -->
-            <div class="ad-container">
-                <div class="ad-preview" id="preview-story-1">
-                    <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Fondo -->
-                        <rect width="1080" height="1920" fill="#dc3545"/>
-                        
-                        <!-- Logo -->
-                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                            Orange<tspan fill="#FF7E00">Vapor</tspan>
-                        </text>
-                        
-                        <!-- Badge -->
-                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                            ⚡ Express
-                        </text>
-                        
-                        <!-- Icono circular -->
-                        <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
-                        <text x="540" y="470" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
-                            ⚠
-                        </text>
-                        
-                        <!-- Título -->
-                        <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                            ¿Ads sin ROI?
-                        </text>
-                        
-                        <!-- Lista de beneficios -->
-                        <text x="540" y="800" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                            ⚡ Optimización en 48hs
-                        </text>
-                        <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                            🔍 Detectamos fugas
-                        </text>
-                        <text x="540" y="1000" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                            📈 +20% ventas
-                        </text>
-                        
-                        <!-- Texto Auditoría Gratis -->
-                        <text x="540" y="1650" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                            Auditoría Gratis
-                        </text>
-                    </svg>
-                </div>
-                <div class="ad-label">Variante 1</div>
-                <div class="download-buttons">
-                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-story-1', 'Story-Ads-sin-ROI')">
-                        <i class="fas fa-file-image"></i> PNG
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Variante 2 -->
-            <div class="ad-container">
-                <div class="ad-preview" id="preview-story-2">
-                    <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Fondo -->
-                        <rect width="1080" height="1920" fill="#dc3545"/>
-                        
-                        <!-- Logo -->
-                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                            Orange<tspan fill="#FF7E00">Vapor</tspan>
-                        </text>
-                        
-                        <!-- Badge -->
-                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                            ⚡ Express
-                        </text>
-                        
-                        <!-- Icono circular -->
-                        <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
-                        <text x="540" y="470" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
-                            📈
-                        </text>
-                        
-                        <!-- Título -->
-                        <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                            Aumentá tus ventas
-                        </text>
-                        
-                        <!-- Lista de beneficios -->
-                        <text x="540" y="800" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                            ⚡ En solo 48hs
-                        </text>
-                        <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                            ✓ Resultados reales
-                        </text>
-                        <text x="540" y="1000" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                            🛡️ Garantizado
-                        </text>
-                        
-                        <!-- Texto Auditoría Gratis -->
-                        <text x="540" y="1650" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                            Auditoría Gratis
-                        </text>
-                    </svg>
-                </div>
-                <div class="ad-label">Variante 2</div>
-                <div class="download-buttons">
-                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-story-2', 'Story-Aumenta-ventas')">
-                        <i class="fas fa-file-image"></i> PNG
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Variante 3 -->
-            <div class="ad-container">
-                <div class="ad-preview" id="preview-story-3">
-                    <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Fondo -->
-                        <rect width="1080" height="1920" fill="#dc3545"/>
-                        
-                        <!-- Logo -->
-                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                            Orange<tspan fill="#FF7E00">Vapor</tspan>
-                        </text>
-                        
-                        <!-- Badge -->
-                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                            ⚡ Express
-                        </text>
-                        
-                        <!-- Icono circular -->
-                        <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
-                        <text x="540" y="470" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
-                            💰
-                        </text>
-                        
-                        <!-- Título -->
-                        <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                            Optimizá tu presupuesto
-                        </text>
-                        
-                        <!-- Lista de beneficios -->
-                        <text x="540" y="800" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                            🔍 Auditoría gratis
-                        </text>
-                        <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                            ⚡ Resultados rápidos
-                        </text>
-                        <text x="540" y="1000" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                            ✓ Sin riesgos
-                        </text>
-                        
-                        <!-- Texto Auditoría Gratis -->
-                        <text x="540" y="1650" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                            Auditoría Gratis
-                        </text>
-                    </svg>
-                </div>
-                <div class="ad-label">Variante 3</div>
-                <div class="download-buttons">
-                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-story-3', 'Story-Optimiza-presupuesto')">
-                        <i class="fas fa-file-image"></i> PNG
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toast-message">Descarga completada</span>
-    </div>
-    
-    <script>
-        // Función para descargar SVG como PNG
-        function downloadSVGAsPNG(elementId, filename) {
-            const svgElement = document.getElementById(elementId).querySelector('svg');
-            const canvas = document.createElement('canvas');
-            
-            // Obtener dimensiones del viewBox
-            const viewBox = svgElement.getAttribute('viewBox').split(' ');
-            const width = parseInt(viewBox[2]);
-            const height = parseInt(viewBox[3]);
-            
-            // Configurar canvas con dimensiones originales
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#dc3545';
-            ctx.fillRect(0, 0, width, height);
-            
-            // Convertir SVG a imagen
-            const svgString = new XMLSerializer().serializeToString(svgElement);
-            const img = new Image();
-            
-            // Crear un Blob del SVG
-            const svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
-            const URL = window.URL || window.webkitURL || window;
-            const svgUrl = URL.createObjectURL(svgBlob);
-            
-            img.onload = function() {
-                // Dibujar SVG en canvas
-                ctx.drawImage(img, 0, 0, width, height);
-                URL.revokeObjectURL(svgUrl);
                 
-                // Convertir a PNG y descargar
-                const imgURL = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = filename + '.png';
-                link.href = imgURL;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                <!-- Variante 2 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-meta-square-2">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1080" fill="#dc3545"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>⚡ Express</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>📈</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                +20% ventas
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                Resultados garantizados
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 2</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png" onclick="downloadSVGAsPNG('preview-meta-square-2', 'Meta-Mas-ventas')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
                 
-                showToast(`PNG "${filename}" descargado correctamente`);
-            };
+                <!-- Variante 3 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-meta-square-3">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1080" fill="#dc3545"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>⚡ Express</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>💰</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Pará de perder dinero
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                Optimizamos tu presupuesto
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 3</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png" onclick="downloadSVGAsPNG('preview-meta-square-3', 'Meta-Para-de-perder-dinero')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+            </div>
             
-            img.src = svgUrl;
-        }
+            <!-- Story/Reel (1080x1920) -->
+            <h2>Story/Reel (1080x1920)</h2>
+            <div class="ad-grid">
+                <!-- Variante 1 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-meta-story-1">
+                        <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1920" fill="#dc3545"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>⚡ Express</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="470" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>⚠</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                ¿Ads sin ROI?
+                            </text>
+                            
+                            <!-- Lista de beneficios -->
+                            <text x="540" y="800" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                                <tspan>⚡ Optimización en 48hs</tspan>
+                            </text>
+                            <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                                <tspan>🔍 Detectamos fugas</tspan>
+                            </text>
+                            <text x="540" y="1000" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                                <tspan>📈 +20% ventas</tspan>
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="1650" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 1</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png" onclick="downloadSVGAsPNG('preview-meta-story-1', 'Meta-Story-Ads-sin-ROI')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Otras variantes de Story/Reel -->
+                <!-- ... (omitidas para brevedad) ... -->
+            </div>
+            
+            <!-- Carrusel Meta Ads -->
+            <h2>Carrusel (1080x1080)</h2>
+            <div class="ad-grid">
+                <div class="ad-container">
+                    <div class="carousel-container" id="carousel-meta">
+                        <div class="carousel-slide" id="carousel-meta-slide-1">
+                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Fondo -->
+                                <rect width="1080" height="1080" fill="#dc3545"/>
+                                
+                                <!-- Número de slide -->
+                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
+                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    1
+                                </text>
+                                
+                                <!-- Logo -->
+                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
+                                </text>
+                                
+                                <!-- Título -->
+                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    ¿Ads sin resultados?
+                                </text>
+                            </svg>
+                        </div>
+                        <div class="carousel-slide" id="carousel-meta-slide-2">
+                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Fondo -->
+                                <rect width="1080" height="1080" fill="#dc3545"/>
+                                
+                                <!-- Número de slide -->
+                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
+                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    2
+                                </text>
+                                
+                                <!-- Logo -->
+                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
+                                </text>
+                                
+                                <!-- Título -->
+                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    Optimizamos en 48hs
+                                </text>
+                            </svg>
+                        </div>
+                        <div class="carousel-slide" id="carousel-meta-slide-3">
+                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Fondo -->
+                                <rect width="1080" height="1080" fill="#dc3545"/>
+                                
+                                <!-- Número de slide -->
+                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
+                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    3
+                                </text>
+                                
+                                <!-- Logo -->
+                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
+                                </text>
+                                
+                                <!-- Título -->
+                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    Auditoría Gratis
+                                </text>
+                            </svg>
+                        </div>
+                        <div class="carousel-nav carousel-prev" onclick="moveCarousel('meta', -1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="carousel-nav carousel-next" onclick="moveCarousel('meta', 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="carousel-controls" id="carousel-meta-controls">
+                        <div class="carousel-dot active" onclick="goToSlide('meta', 0)"></div>
+                        <div class="carousel-dot" onclick="goToSlide('meta', 1)"></div>
+                        <div class="carousel-dot" onclick="goToSlide('meta', 2)"></div>
+                    </div>
+                    <div class="ad-label">Carrusel Meta Ads</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png" onclick="downloadCarouselAsPNG('carousel-meta', 'Meta-Carrusel')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        // Descargar todos los anuncios como PNG
-        function downloadAllAsPNG() {
-            const items = [
-                {id: 'preview-square-1', name: 'Ads-sin-resultados'},
-                {id: 'preview-square-2', name: 'Mas-ventas'},
-                {id: 'preview-square-3', name: 'Para-de-perder-dinero'},
-                {id: 'preview-story-1', name: 'Story-Ads-sin-ROI'},
-                {id: 'preview-story-2', name: 'Story-Aumenta-ventas'},
-                {id: 'preview-story-3', name: 'Story-Optimiza-presupuesto'}
-            ];
+        <!-- GOOGLE ADS CONTENT -->
+        <div id="google-tab" class="tab-content">
+            <div class="action-buttons">
+                <button class="action-button google" onclick="downloadAllAsPNG('google')">
+                    <i class="fas fa-file-image"></i> Descargar Todos como PNG
+                </button>
+            </div>
             
-            showToast('Preparando descarga de todos los anuncios...');
+            <!-- Feed Square (1080x1080) -->
+            <h2>Feed Square (1080x1080)</h2>
+            <div class="ad-grid">
+                <!-- Variante 1 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-google-square-1">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo con degradado de colores de Google -->
+                            <defs>
+                                <linearGradient id="googleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4285F4"/>
+                                    <stop offset="33%" stop-color="#0F9D58"/>
+                                    <stop offset="66%" stop-color="#F4B400"/>
+                                    <stop offset="100%" stop-color="#DB4437"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="1080" height="1080" fill="url(#googleGradient)"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>🔍 Google Ads</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>🎯</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Multiplica tus Ventas
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                2.8x ROAS garantizado
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 1</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png google" onclick="downloadSVGAsPNG('preview-google-square-1', 'Google-Multiplica-Ventas')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Variante 2 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-google-square-2">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo con degradado de colores de Google -->
+                            <defs>
+                                <linearGradient id="googleGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4285F4"/>
+                                    <stop offset="33%" stop-color="#0F9D58"/>
+                                    <stop offset="66%" stop-color="#F4B400"/>
+                                    <stop offset="100%" stop-color="#DB4437"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="1080" height="1080" fill="url(#googleGradient2)"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>🔍 Google Ads</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>📉</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Reduce tu CPA
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                -35% en 30 días
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 2</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png google" onclick="downloadSVGAsPNG('preview-google-square-2', 'Google-Reduce-CPA')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Variante 3 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-google-square-3">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo con degradado de colores de Google -->
+                            <defs>
+                                <linearGradient id="googleGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4285F4"/>
+                                    <stop offset="33%" stop-color="#0F9D58"/>
+                                    <stop offset="66%" stop-color="#F4B400"/>
+                                    <stop offset="100%" stop-color="#DB4437"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="1080" height="1080" fill="url(#googleGradient3)"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>🔍 Google Ads</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>💼</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Resultados Medibles
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                Especialistas certificados
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 3</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png google" onclick="downloadSVGAsPNG('preview-google-square-3', 'Google-Resultados-Medibles')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+            </div>
             
-            items.forEach((item, index) => {
-                setTimeout(() => {
-                    downloadSVGAsPNG(item.id, item.name);
-                    
-                    if (index === items.length - 1) {
-                        setTimeout(() => {
-                            showToast('Descarga de todos los anuncios completada');
-                        }, 1000);
-                    }
-                }, index * 800);
-            });
-        }
+            <!-- Story/Reel (1080x1920) -->
+            <h2>Story/Reel (1080x1920)</h2>
+            <div class="ad-grid">
+                <!-- Variante 1 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-google-story-1">
+                        <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo con degradado de colores de Google -->
+                            <defs>
+                                <linearGradient id="googleGradientStory" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4285F4"/>
+                                    <stop offset="33%" stop-color="#0F9D58"/>
+                                    <stop offset="66%" stop-color="#F4B400"/>
+                                    <stop offset="100%" stop-color="#DB4437"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="1080" height="1920" fill="url(#googleGradientStory)"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>🔍 Google Ads</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="470" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>🎯</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="70" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Multiplica
+                            </text>
+                            <text x="540" y="750" font-family="Montserrat, sans-serif" font-size="70" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                tus Ventas
+                            </text>
+                            
+                            <!-- Lista de beneficios -->
+                            <text x="540" y="950" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                                <tspan>📈 2.8x ROAS garantizado</tspan>
+                            </text>
+                            <text x="540" y="1050" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                                <tspan>📉 -35% CPA en 30 días</tspan>
+                            </text>
+                            <text x="540" y="1150" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                                <tspan>🛡️ Resultados garantizados</tspan>
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="1650" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 1</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png google" onclick="downloadSVGAsPNG('preview-google-story-1', 'Google-Story-Multiplica-Ventas')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Otras variantes de Story/Reel -->
+                <!-- ... (omitidas para brevedad) ... -->
+            </div>
+
+            <!-- Carrusel Google Ads -->
+            <h2>Carrusel (1080x1080)</h2>
+            <div class="ad-grid">
+                <div class="ad-container">
+                    <div class="carousel-container" id="carousel-google">
+                        <div class="carousel-slide" id="carousel-google-slide-1">
+                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Fondo con degradado de colores de Google -->
+                                <defs>
+                                    <linearGradient id="googleGradientCarousel1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#4285F4"/>
+                                        <stop offset="33%" stop-color="#0F9D58"/>
+                                        <stop offset="66%" stop-color="#F4B400"/>
+                                        <stop offset="100%" stop-color="#DB4437"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="1080" height="1080" fill="url(#googleGradientCarousel1)"/>
+                                
+                                <!-- Número de slide -->
+                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
+                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    1
+                                </text>
+                                
+                                <!-- Logo -->
+                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
+                                </text>
+                                
+                                <!-- Título -->
+                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    Multiplica tus Ventas
+                                </text>
+                            </svg>
+                        </div>
+                        <div class="carousel-slide" id="carousel-google-slide-2">
+                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Fondo con degradado de colores de Google -->
+                                <defs>
+                                    <linearGradient id="googleGradientCarousel2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#4285F4"/>
+                                        <stop offset="33%" stop-color="#0F9D58"/>
+                                        <stop offset="66%" stop-color="#F4B400"/>
+                                        <stop offset="100%" stop-color="#DB4437"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="1080" height="1080" fill="url(#googleGradientCarousel2)"/>
+                                
+                                <!-- Número de slide -->
+                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
+                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    2
+                                </text>
+                                
+                                <!-- Logo -->
+                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
+                                </text>
+                                
+                                <!-- Título -->
+                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    2.8x ROAS garantizado
+                                </text>
+                            </svg>
+                        </div>
+                        <div class="carousel-slide" id="carousel-google-slide-3">
+                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Fondo con degradado de colores de Google -->
+                                <defs>
+                                    <linearGradient id="googleGradientCarousel3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#4285F4"/>
+                                        <stop offset="33%" stop-color="#0F9D58"/>
+                                        <stop offset="66%" stop-color="#F4B400"/>
+                                        <stop offset="100%" stop-color="#DB4437"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="1080" height="1080" fill="url(#googleGradientCarousel3)"/>
+                                
+                                <!-- Número de slide -->
+                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
+                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    3
+                                </text>
+                                
+                                <!-- Logo -->
+                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
+                                </text>
+                                
+                                <!-- Título -->
+                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    Auditoría Gratis
+                                </text>
+                            </svg>
+                        </div>
+                        <div class="carousel-nav carousel-prev" onclick="moveCarousel('google', -1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="carousel-nav carousel-next" onclick="moveCarousel('google', 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="carousel-controls" id="carousel-google-controls">
+                        <div class="carousel-dot active" onclick="goToSlide('google', 0)"></div>
+                        <div class="carousel-dot" onclick="goToSlide('google', 1)"></div>
+                        <div class="carousel-dot" onclick="goToSlide('google', 2)"></div>
+                    </div>
+                    <div class="ad-label">Carrusel Google Ads</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png google" onclick="downloadCarouselAsPNG('carousel-google', 'Google-Carrusel')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        // Mostrar notificación toast
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toast-message');
+        <!-- CHATBOT CONTENT -->
+        <div id="chatbot-tab" class="tab-content">
+            <div class="action-buttons">
+                <button class="action-button chatbot" onclick="downloadAllAsPNG('chatbot')">
+                    <i class="fas fa-file-image"></i> Descargar Todos como PNG
+                </button>
+            </div>
             
-            toastMessage.textContent = message;
-            toast.classList.add('show');
+            <!-- Feed Square (1080x1080) -->
+            <h2>Feed Square (1080x1080)</h2>
+            <div class="ad-grid">
+                <!-- Variante 1 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-chatbot-square-1">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1080" fill="#6f42c1"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>🤖 Chatbot</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>💬</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Atención 24/7
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                Automatiza tus ventas
+                            </text>
+                            
+                            <!-- Texto Demo Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Demo Gratuita
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 1</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png chatbot" onclick="downloadSVGAsPNG('preview-chatbot-square-1', 'Chatbot-Atencion-24-7')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Variante 2 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-chatbot-square-2">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1080" fill="#6f42c1"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>🤖 Chatbot</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>💰</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                -70% en costos
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                Reduce gastos de atención
+                            </text>
+                            
+                            <!-- Texto Demo Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Demo Gratuita
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 2</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png chatbot" onclick="downloadSVGAsPNG('preview-chatbot-square-2', 'Chatbot-Reduce-Costos')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Variante 3 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-chatbot-square-3">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1080" fill="#6f42c1"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>🤖 Chatbot</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>📱</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                WhatsApp Bot
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                Respuestas automáticas
+                            </text>
+                            
+                            <!-- Texto Demo Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Demo Gratuita
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 3</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png chatbot" onclick="downloadSVGAsPNG('preview-chatbot-square-3', 'Chatbot-WhatsApp-Bot')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+            </div>
             
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-    </script>
-</body>
-</html>
+            <!-- Story/Reel (1080x1920) -->
+            <h2>Story/Reel (1080x1920)</h2>
+            <div class="ad-grid">
+                <!-- Variante 1 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-chatbot-story-1">
+                        <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1920" fill="#6f42c1"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>🤖 Chatbot</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="470" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>💬</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Chatbot 24/7
+                            </text>
+                            
+                            <!-- Lista de beneficios -->
+                            <text x="540" y="800" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                                <tspan>🕒 Atención automática 24 horas</tspan>
+                            </text>
+                            <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                                <tspan>💰 Reduce costos hasta un 70%</tspan>
+                            </text>
+                            <text x="540" y="1000" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                                <tspan>🔄 Más conversiones automáticas</tspan>
+                            </text>
+                            
+                            <!-- Texto Demo Gratis -->
+                            <text x="540" y="1650" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Demo Gratuita
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 1</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png chatbot" onclick="downloadSVGAsPNG('preview-chatbot-story-1', 'Chatbot-Story-Atencion-24-7')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Otras variantes de Story/Reel -->
+                <!-- ... (omitidas para brevedad) ... -->
+            </div>
+
+            <!-- Carrusel Chatbot -->
+            <h2>Carrusel (1080x1080)</h2>
+            <div class="ad-grid">
+                <div class="ad-container">
+                    <div class="carousel-container" id="carousel-chatbot">
+                        <div class="carousel-slide" id="carousel-chatbot-slide-1">
+                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Fondo -->
+                                <rect width="1080" height="1080" fill="#6f42c1"/>
+                                
+                                <!-- Número de slide -->
+                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
+                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    1
+                                </text>
+                                
+                                <!-- Logo -->
+                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
+                                </text>
+                                
+                                <!-- Título -->
+                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    Chatbot 24/7
+                                </text>
+                            </svg>
+                        </div>
+                        <div class="carousel-slide" id="carousel-chatbot-slide-2">
+                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Fondo -->
+                                <rect width="1080" height="1080" fill="#6f42c1"/>
+                                
+                                <!-- Número de slide -->
+                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
+                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    2
+                                </text>
+                                
+                                <!-- Logo -->
+                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
+                                </text>
+                                
+                                <!-- Título -->
+                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    -70% en Costos
+                                </text>
+                            </svg>
+                        </div>
+                        <div class="carousel-slide" id="carousel-chatbot-slide-3">
+                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Fondo -->
+                                <rect width="1080" height="1080" fill="#6f42c1"/>
+                                
+                                <!-- Número de slide -->
+                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
+                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    3
+                                </text>
+                                
+                                <!-- Logo -->
+                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
+                                </text>
+                                
+                                <!-- Título -->
+                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                    Demo Gratuita
+                                </text>
+                            </svg>
+                        </div>
+                        <div class="carousel-nav carousel-prev" onclick="moveCarousel('chatbot', -1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="carousel-nav carousel-next" onclick="moveCarousel('chatbot', 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="carousel-controls" id="carousel-chatbot-controls">
+                        <div class="carousel-dot active" onclick="goToSlide('chatbot', 0)"></div>
+                        <div class="carousel-dot" onclick="goToSlide('chatbot', 1)"></div>
+                        <div class="carousel-dot" onclick="goToSlide('chatbot', 2)"></div>
+                    </div>
+                    <div class="ad-label">Carrusel Chatbot</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png chatbot" onclick="downloadCarouselAsPNG('carousel-chatbot', 'Chatbot-Carrusel')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- EMAIL MARKETING CONTENT -->
+        <div id="email-tab" class="tab-content">
+            <div class="action-buttons">
+                <button class="action-button email" onclick="downloadAllAsPNG('email')">
+                    <i class="fas fa-file-image"></i> Descargar Todos como PNG
+                </button>
+            </div>
+            
+            <!-- Feed Square (1080x1080) -->
+            <h2>Feed Square (1080x1080)</h2>
+            <div class="ad-grid">
+                <!-- Variante 1 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-email-square-1">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1080" fill="#00829b"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>✉️ Email</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>📧</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Secuencias Automáticas
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                Ventas 24/7
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 1</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png email" onclick="downloadSVGAsPNG('preview-email-square-1', 'Email-Secuencias-Automaticas')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Variante 2 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-email-square-2">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1080" fill="#00829b"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>✉️ Email</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>📊</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                38% Tasa de Apertura
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                                vs 15% del mercado
+                            </text>
+                            
+                            <!-- Texto Auditoría Gratis -->
+                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                                Auditoría Gratis
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="ad-label">Variante 2</div>
+                    <div class="download-buttons">
+                        <button class="download-btn png email" onclick="downloadSVGAsPNG('preview-email-square-2', 'Email-Tasa-Apertura')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Variante 3 -->
+                <div class="ad-container">
+                    <div class="ad-preview" id="preview-email-square-3">
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fondo -->
+                            <rect width="1080" height="1080" fill="#00829b"/>
+                            
+                            <!-- Logo -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <!-- Badge -->
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>✉️ Email</tspan>
+                            </text>
+                            
+                            <!-- Icono circular -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                                <tspan>🔄</tspan>
+                            </text>
+                            
+                            <!-- Título -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Nurturing Automatizado
+                            </text>
+                            
+                            <!-- Subtítulo -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-
