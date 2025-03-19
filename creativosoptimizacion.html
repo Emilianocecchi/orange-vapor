@@ -24,11 +24,18 @@
             --email-principal: #00829b;
         }
         
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--gris-claro);
             padding: 30px;
             color: var(--gris-oscuro);
+            overflow-x: hidden;
         }
         
         .container {
@@ -36,7 +43,8 @@
             margin: 0 auto;
             background-color: var(--blanco);
             padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 15px;
         }
         
         h1 {
@@ -44,6 +52,20 @@
             margin-bottom: 30px;
             color: var(--naranja-principal);
             font-weight: 800;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--naranja-principal), var(--meta-ads-principal));
+            border-radius: 2px;
         }
         
         h2 {
@@ -51,8 +73,53 @@
             margin-bottom: 20px;
             font-weight: 700;
             color: var(--gris-oscuro);
-            border-bottom: 2px solid var(--naranja-principal);
             padding-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .meta-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--meta-ads-principal);
+            border-radius: 1.5px;
+        }
+        
+        .google-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
+            border-radius: 1.5px;
+        }
+        
+        .chatbot-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--chatbot-principal);
+            border-radius: 1.5px;
+        }
+        
+        .email-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--email-principal);
+            border-radius: 1.5px;
         }
         
         .tabs {
@@ -62,27 +129,55 @@
             justify-content: center;
             border-bottom: 1px solid #ddd;
             padding-bottom: 10px;
+            position: sticky;
+            top: 0;
+            background-color: var(--blanco);
+            z-index: 100;
+            border-radius: 10px;
+            padding-top: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
         .tab {
-            padding: 12px 24px;
+            padding: 15px 30px;
             cursor: pointer;
-            background-color: transparent;
+            background-color: var(--gris-claro);
             border: none;
-            border-radius: 5px 5px 0 0;
+            border-radius: 30px;
             font-weight: 600;
             font-size: 16px;
             transition: all 0.3s;
-            margin: 0 5px;
+            margin: 0 8px;
             font-family: 'Montserrat', sans-serif;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.5s;
+        }
+        
+        .tab:hover::before {
+            left: 100%;
         }
         
         .tab:hover {
-            background-color: rgba(0,0,0,0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
         .tab.active {
             color: var(--blanco);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .tab-meta.active {
@@ -103,6 +198,12 @@
         
         .tab-content {
             display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .tab-content.active {
@@ -120,55 +221,128 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-color: var(--blanco);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ad-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+        
+        .ad-container.meta::before {
+            background-color: var(--meta-ads-principal);
+        }
+        
+        .ad-container.google::before {
+            background: linear-gradient(to right, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
+        }
+        
+        .ad-container.chatbot::before {
+            background-color: var(--chatbot-principal);
+        }
+        
+        .ad-container.email::before {
+            background-color: var(--email-principal);
+        }
+        
+        .ad-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
         
         .ad-preview {
             width: 300px;
-            border: 1px solid #ddd;
             margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ad-preview::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+            pointer-events: none;
+            border-radius: 10px;
         }
         
         .ad-preview:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: scale(1.03);
         }
         
         .ad-preview svg {
             display: block;
+            border-radius: 10px;
         }
         
         .ad-label {
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-weight: 700;
+            margin-bottom: 15px;
             color: var(--gris-oscuro);
+            background-color: var(--gris-claro);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
         }
         
         .download-buttons {
             display: flex;
-            gap: 8px;
+            gap: 10px;
+            margin-top: 5px;
         }
         
         .download-btn {
-            padding: 8px 12px;
+            padding: 10px 20px;
             font-size: 14px;
             border: none;
-            border-radius: 4px;
+            border-radius: 30px;
             color: var(--blanco);
-            background-color: var(--naranja-principal);
             cursor: pointer;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             font-family: 'Montserrat', sans-serif;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.5s;
+        }
+        
+        .download-btn:hover::before {
+            left: 100%;
         }
         
         .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .download-btn.png {
@@ -191,27 +365,46 @@
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
         
         .action-button {
-            padding: 10px 20px;
+            padding: 15px 25px;
             font-size: 16px;
             border: none;
-            border-radius: 4px;
+            border-radius: 30px;
             color: var(--blanco);
             cursor: pointer;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-family: 'Montserrat', sans-serif;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.5s;
+        }
+        
+        .action-button:hover::before {
+            left: 100%;
         }
         
         .action-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
         
         .action-button.meta {
@@ -234,10 +427,10 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            padding: 12px 20px;
-            border-radius: 4px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            font-weight: 500;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-weight: 600;
             display: flex;
             align-items: center;
             transform: translateY(100px);
@@ -270,75 +463,192 @@
         }
         
         .toast i {
-            margin-right: 10px;
+            margin-right: 15px;
+            font-size: 20px;
         }
         
-        /* Carrusel */
+        /* Estilos para carrusel real */
         .carousel-container {
-            display: flex;
-            overflow-x: hidden;
-            position: relative;
             width: 300px;
             height: 300px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
         }
         
-        .carousel-slide {
-            min-width: 100%;
+        .true-carousel {
+            width: 100%;
+            height: 100%;
+            background-color: var(--meta-ads-principal);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .true-carousel.google {
+            background: linear-gradient(135deg, #4285F4, #DB4437, #F4B400, #0F9D58);
+        }
+        
+        .true-carousel.chatbot {
+            background-color: var(--chatbot-principal);
+        }
+        
+        .true-carousel.email {
+            background-color: var(--email-principal);
+        }
+        
+        .carousel-slides {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%;
+            height: 100%;
+            display: flex;
             transition: transform 0.5s ease;
         }
         
-        .carousel-slide svg {
-            display: block;
+        .carousel-slide {
+            width: 33.33%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
         
-        .carousel-controls {
+        .slide-number {
+            font-size: 80px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+        
+        .slide-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .slide-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .carousel-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
             display: flex;
             justify-content: center;
-            margin-top: 10px;
-            gap: 5px;
+            gap: 10px;
         }
         
-        .carousel-dot {
+        .carousel-indicator {
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: #ddd;
+            background-color: rgba(255,255,255,0.5);
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
         
-        .carousel-dot.active {
-            background-color: var(--naranja-principal);
+        .carousel-indicator.active {
+            background-color: white;
+            transform: scale(1.3);
         }
         
-        .carousel-nav {
+        .carousel-arrows {
             position: absolute;
             top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
             transform: translateY(-50%);
+        }
+        
+        .carousel-arrow {
             width: 40px;
             height: 40px;
-            background-color: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
+            background-color: rgba(255,255,255,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 10;
             transition: all 0.3s;
+            color: white;
+            font-size: 18px;
         }
         
-        .carousel-nav:hover {
-            background-color: rgba(255, 255, 255, 0.9);
+        .carousel-arrow:hover {
+            background-color: rgba(255,255,255,0.5);
+            transform: scale(1.1);
         }
         
-        .carousel-prev {
-            left: 10px;
+        /* Elementos visuales decorativos */
+        .decorative-shape {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.4;
         }
         
-        .carousel-next {
-            right: 10px;
+        .shape-circle {
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .shape-square {
+            background-color: rgba(255,255,255,0.15);
+            transform: rotate(45deg);
+        }
+        
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 50px solid rgba(255,255,255,0.15);
+        }
+        
+        .shape-dots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+        
+        .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.3);
+        }
+        
+        .shape-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'><path d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23fff'/></svg>") no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
@@ -360,17 +670,39 @@
                 <button class="action-button meta" onclick="downloadAllAsPNG('meta')">
                     <i class="fas fa-file-image"></i> Descargar Todos como PNG
                 </button>
+                <button class="action-button meta" onclick="downloadCarouselAsPNG('meta-carousel', 'Meta-Carrusel')">
+                    <i class="fas fa-images"></i> Descargar Carrusel Completo
+                </button>
             </div>
             
             <!-- Feed Square (1080x1080) -->
-            <h2>Feed Square (1080x1080)</h2>
+            <h2 class="meta-heading">Feed Square (1080x1080)</h2>
             <div class="ad-grid">
                 <!-- Variante 1 -->
-                <div class="ad-container">
+                <div class="ad-container meta">
                     <div class="ad-preview" id="preview-meta-square-1">
                         <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1080" fill="#dc3545"/>
+                            <!-- Fondo con degradado y patrón -->
+                            <defs>
+                                <linearGradient id="metaGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc3545"/>
+                                    <stop offset="100%" stop-color="#b52b38"/>
+                                </linearGradient>
+                                <pattern id="metaPattern1" patternUnits="userSpaceOnUse" width="50" height="50" patternTransform="rotate(45)">
+                                    <rect width="50" height="50" fill="none"/>
+                                    <circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.3)"/>
+                                </pattern>
+                            </defs>
+                            <rect width="1080" height="1080" fill="url(#metaGradient1)"/>
+                            <rect width="1080" height="1080" fill="url(#metaPattern1)"/>
+                            
+                            <!-- Elementos decorativos -->
+                            <circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.1)"/>
+                            <circle cx="900" cy="900" r="150" fill="rgba(255,255,255,0.05)"/>
+                            <rect x="800" y="200" width="80" height="80" fill="rgba(255,255,255,0.1)" transform="rotate(45 840 240)"/>
+                            
+                            <!-- Wave en parte inferior -->
+                            <path d="M0,1080 L0,900 C150,950 300,980 450,950 C600,920 750,830 900,850 C1050,870 1080,930 1080,960 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
                             
                             <!-- Logo -->
                             <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
@@ -383,31 +715,26 @@
                                 <tspan>⚡ Express</tspan>
                             </text>
                             
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                            <!-- Icono circular con efecto -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+                            <circle cx="540" cy="380" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
                                 <tspan>⚠</tspan>
                             </text>
                             
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            <!-- Título con efecto -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
                                 ¿Ads sin resultados?
                             </text>
                             
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
-                                Leads a clientes
-                            </text>
-                            
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                                Auditoría Gratis
-                            </text>shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                            <!-- Subtítulo con sombra -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
                                 Optimizamos en 48hs
                             </text>
                             
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                            <!-- Texto Auditoría Gratis con efecto -->
+                            <rect x="340" y="800" width="400" height="90" rx="45" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="860" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
                                 Auditoría Gratis
                             </text>
                         </svg>
@@ -421,11 +748,31 @@
                 </div>
                 
                 <!-- Variante 2 -->
-                <div class="ad-container">
+                <div class="ad-container meta">
                     <div class="ad-preview" id="preview-meta-square-2">
                         <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1080" fill="#dc3545"/>
+                            <!-- Fondo con degradado y patrón -->
+                            <defs>
+                                <linearGradient id="metaGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc3545"/>
+                                    <stop offset="100%" stop-color="#b52b38"/>
+                                </linearGradient>
+                                <pattern id="metaPattern2" patternUnits="userSpaceOnUse" width="60" height="60">
+                                    <rect width="60" height="60" fill="none"/>
+                                    <path d="M0,30 L60,30" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                                    <path d="M30,0 L30,60" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                                </pattern>
+                            </defs>
+                            <rect width="1080" height="1080" fill="url(#metaGradient2)"/>
+                            <rect width="1080" height="1080" fill="url(#metaPattern2)"/>
+                            
+                            <!-- Elementos decorativos -->
+                            <circle cx="100" cy="950" r="200" fill="rgba(255,255,255,0.05)"/>
+                            <circle cx="900" cy="200" r="150" fill="rgba(255,255,255,0.05)"/>
+                            <rect x="100" y="100" width="100" height="100" fill="rgba(255,255,255,0.08)" transform="rotate(30 150 150)"/>
+                            
+                            <!-- Wave en parte inferior -->
+                            <path d="M0,1080 L0,930 C200,960 400,900 600,930 C800,960 1000,930 1080,915 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
                             
                             <!-- Logo -->
                             <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
@@ -438,24 +785,26 @@
                                 <tspan>⚡ Express</tspan>
                             </text>
                             
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                            <!-- Icono circular con efecto -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+                            <circle cx="540" cy="380" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
                                 <tspan>📈</tspan>
                             </text>
                             
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            <!-- Título con efecto -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
                                 +20% ventas
                             </text>
                             
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                            <!-- Subtítulo con sombra -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
                                 Resultados garantizados
                             </text>
                             
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                            <!-- Texto Auditoría Gratis con efecto -->
+                            <rect x="340" y="800" width="400" height="90" rx="45" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="860" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
                                 Auditoría Gratis
                             </text>
                         </svg>
@@ -467,65 +816,36 @@
                         </button>
                     </div>
                 </div>
-                
-                <!-- Variante 3 -->
-                <div class="ad-container">
-                    <div class="ad-preview" id="preview-meta-square-3">
-                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1080" fill="#dc3545"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>⚡ Express</tspan>
-                            </text>
-                            
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
-                                <tspan>💰</tspan>
-                            </text>
-                            
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                Pará de perder dinero
-                            </text>
-                            
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
-                                Optimizamos tu presupuesto
-                            </text>
-                            
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                                Auditoría Gratis
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="ad-label">Variante 3</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png" onclick="downloadSVGAsPNG('preview-meta-square-3', 'Meta-Para-de-perder-dinero')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
             </div>
             
             <!-- Story/Reel (1080x1920) -->
-            <h2>Story/Reel (1080x1920)</h2>
+            <h2 class="meta-heading">Story/Reel (1080x1920)</h2>
             <div class="ad-grid">
                 <!-- Variante 1 -->
-                <div class="ad-container">
+                <div class="ad-container meta">
                     <div class="ad-preview" id="preview-meta-story-1">
                         <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1920" fill="#dc3545"/>
+                            <!-- Fondo con degradado y patrón -->
+                            <defs>
+                                <linearGradient id="metaGradientStory" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc3545"/>
+                                    <stop offset="100%" stop-color="#b52b38"/>
+                                </linearGradient>
+                                <pattern id="metaPatternStory" patternUnits="userSpaceOnUse" width="50" height="50" patternTransform="rotate(45)">
+                                    <rect width="50" height="50" fill="none"/>
+                                    <circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.2)"/>
+                                </pattern>
+                            </defs>
+                            <rect width="1080" height="1920" fill="url(#metaGradientStory)"/>
+                            <rect width="1080" height="1920" fill="url(#metaPatternStory)"/>
+                            
+                            <!-- Elementos decorativos -->
+                            <circle cx="200" cy="300" r="200" fill="rgba(255,255,255,0.05)"/>
+                            <circle cx="900" cy="1600" r="300" fill="rgba(255,255,255,0.05)"/>
+                            <rect x="800" y="400" width="150" height="150" fill="rgba(255,255,255,0.08)" transform="rotate(30 875 475)"/>
+                            
+                            <!-- Wave en parte inferior -->
+                            <path d="M0,1920 L0,1720 C200,1750 400,1680 600,1720 C800,1760 1000,1720 1080,1700 L1080,1920 Z" fill="rgba(255,255,255,0.1)"/>
                             
                             <!-- Logo -->
                             <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
@@ -538,30 +858,37 @@
                                 <tspan>⚡ Express</tspan>
                             </text>
                             
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="470" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                            <!-- Icono circular con efecto -->
+                            <circle cx="540" cy="450" r="80" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+                            <circle cx="540" cy="450" r="90" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                            <text x="540" y="470" font-family="sans-serif" font-size="70" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
                                 <tspan>⚠</tspan>
                             </text>
                             
-                            <!-- Título -->
-                            <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            <!-- Título con efecto -->
+                            <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
                                 ¿Ads sin ROI?
                             </text>
                             
-                            <!-- Lista de beneficios -->
-                            <text x="540" y="800" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            <!-- Lista de beneficios con iconos y efectos -->
+                            <rect x="200" y="770" width="680" height="80" rx="40" fill="rgba(255,255,255,0.1)"/>
+                            <text x="540" y="825" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.3));">
                                 <tspan>⚡ Optimización en 48hs</tspan>
                             </text>
-                            <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            
+                            <rect x="200" y="870" width="680" height="80" rx="40" fill="rgba(255,255,255,0.1)"/>
+                            <text x="540" y="925" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.3));">
                                 <tspan>🔍 Detectamos fugas</tspan>
                             </text>
-                            <text x="540" y="1000" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            
+                            <rect x="200" y="970" width="680" height="80" rx="40" fill="rgba(255,255,255,0.1)"/>
+                            <text x="540" y="1025" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.3));">
                                 <tspan>📈 +20% ventas</tspan>
                             </text>
                             
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="1650" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                            <!-- Texto Auditoría Gratis con efecto -->
+                            <rect x="290" y="1620" width="500" height="100" rx="50" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="1685" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
                                 Auditoría Gratis
                             </text>
                         </svg>
@@ -573,97 +900,69 @@
                         </button>
                     </div>
                 </div>
-                
-                <!-- Otras variantes de Story/Reel -->
-                <!-- ... (omitidas para brevedad) ... -->
             </div>
             
             <!-- Carrusel Meta Ads -->
-            <h2>Carrusel (1080x1080)</h2>
+            <h2 class="meta-heading">Carrusel (1080x1080)</h2>
             <div class="ad-grid">
-                <div class="ad-container">
-                    <div class="carousel-container" id="carousel-meta">
-                        <div class="carousel-slide" id="carousel-meta-slide-1">
-                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Fondo -->
-                                <rect width="1080" height="1080" fill="#dc3545"/>
-                                
-                                <!-- Número de slide -->
-                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
-                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    1
-                                </text>
-                                
-                                <!-- Logo -->
-                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
-                                </text>
-                                
-                                <!-- Título -->
-                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    ¿Ads sin resultados?
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="carousel-slide" id="carousel-meta-slide-2">
-                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Fondo -->
-                                <rect width="1080" height="1080" fill="#dc3545"/>
-                                
-                                <!-- Número de slide -->
-                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
-                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    2
-                                </text>
-                                
-                                <!-- Logo -->
-                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
-                                </text>
-                                
-                                <!-- Título -->
-                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    Optimizamos en 48hs
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="carousel-slide" id="carousel-meta-slide-3">
-                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Fondo -->
-                                <rect width="1080" height="1080" fill="#dc3545"/>
-                                
-                                <!-- Número de slide -->
-                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
-                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    3
-                                </text>
-                                
-                                <!-- Logo -->
-                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
-                                </text>
-                                
-                                <!-- Título -->
-                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    Auditoría Gratis
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="carousel-nav carousel-prev" onclick="moveCarousel('meta', -1)">
-                            <i class="fas fa-chevron-left"></i>
-                        </div>
-                        <div class="carousel-nav carousel-next" onclick="moveCarousel('meta', 1)">
-                            <i class="fas fa-chevron-right"></i>
+                <div class="ad-container meta">
+                    <div class="carousel-container" id="meta-carousel">
+                        <div class="true-carousel">
+                            <div class="carousel-logo">Orange<span style="color:#FF7E00">Vapor</span></div>
+                            <div class="carousel-slides" style="transform: translateX(0%);">
+                                <div class="carousel-slide">
+                                    <div class="slide-number">1</div>
+                                    <div class="slide-title">¿Ads sin resultados?</div>
+                                    <div class="slide-subtitle">Optimización express en 48hs</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:80px;height:80px;top:20px;right:20px;"></div>
+                                    <div class="decorative-shape shape-square" style="width:40px;height:40px;bottom:40px;left:60px;"></div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="slide-number">2</div>
+                                    <div class="slide-title">+20% de ventas</div>
+                                    <div class="slide-subtitle">Resultados garantizados</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:60px;height:60px;bottom:30px;right:40px;"></div>
+                                    <div class="decorative-shape shape-triangle" style="top:30px;left:40px;"></div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="slide-number">3</div>
+                                    <div class="slide-title">Auditoría Gratis</div>
+                                    <div class="slide-subtitle">Detectamos oportunidades de mejora</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:50px;height:50px;top:50px;left:30px;"></div>
+                                    <div class="decorative-shape shape-square" style="width:30px;height:30px;bottom:50px;right:50px;"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Indicadores de carrusel -->
+                            <div class="carousel-indicators">
+                                <div class="carousel-indicator active" onclick="moveCarousel('meta', 0)"></div>
+                                <div class="carousel-indicator" onclick="moveCarousel('meta', 1)"></div>
+                                <div class="carousel-indicator" onclick="moveCarousel('meta', 2)"></div>
+                            </div>
+                            
+                            <!-- Flechas de navegación -->
+                            <div class="carousel-arrows">
+                                <div class="carousel-arrow" onclick="prevSlide('meta')">
+                                    <i class="fas fa-chevron-left"></i>
+                                </div>
+                                <div class="carousel-arrow" onclick="nextSlide('meta')">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Wave en parte inferior -->
+                            <div class="shape-wave"></div>
                         </div>
                     </div>
-                    <div class="carousel-controls" id="carousel-meta-controls">
-                        <div class="carousel-dot active" onclick="goToSlide('meta', 0)"></div>
-                        <div class="carousel-dot" onclick="goToSlide('meta', 1)"></div>
-                        <div class="carousel-dot" onclick="goToSlide('meta', 2)"></div>
-                    </div>
-                    <div class="ad-label">Carrusel Meta Ads</div>
+                    <div class="ad-label">Carrusel Completo</div>
                     <div class="download-buttons">
-                        <button class="download-btn png" onclick="downloadCarouselAsPNG('carousel-meta', 'Meta-Carrusel')">
+                        <button class="download-btn png" onclick="downloadCarouselAsPNG('meta-carousel', 'Meta-Carrusel')">
                             <i class="fas fa-file-image"></i> PNG
                         </button>
                     </div>
@@ -677,25 +976,41 @@
                 <button class="action-button google" onclick="downloadAllAsPNG('google')">
                     <i class="fas fa-file-image"></i> Descargar Todos como PNG
                 </button>
+                <button class="action-button google" onclick="downloadCarouselAsPNG('google-carousel', 'Google-Carrusel')">
+                    <i class="fas fa-images"></i> Descargar Carrusel Completo
+                </button>
             </div>
             
             <!-- Feed Square (1080x1080) -->
-            <h2>Feed Square (1080x1080)</h2>
+            <h2 class="google-heading">Feed Square (1080x1080)</h2>
             <div class="ad-grid">
                 <!-- Variante 1 -->
-                <div class="ad-container">
+                <div class="ad-container google">
                     <div class="ad-preview" id="preview-google-square-1">
                         <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo con degradado de colores de Google -->
+                            <!-- Fondo con degradado y patrón -->
                             <defs>
-                                <linearGradient id="googleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <linearGradient id="googleGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stop-color="#4285F4"/>
                                     <stop offset="33%" stop-color="#0F9D58"/>
                                     <stop offset="66%" stop-color="#F4B400"/>
                                     <stop offset="100%" stop-color="#DB4437"/>
                                 </linearGradient>
+                                <pattern id="googlePattern1" patternUnits="userSpaceOnUse" width="50" height="50" patternTransform="rotate(45)">
+                                    <rect width="50" height="50" fill="none"/>
+                                    <circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.3)"/>
+                                </pattern>
                             </defs>
-                            <rect width="1080" height="1080" fill="url(#googleGradient)"/>
+                            <rect width="1080" height="1080" fill="url(#googleGradient1)"/>
+                            <rect width="1080" height="1080" fill="url(#googlePattern1)"/>
+                            
+                            <!-- Elementos decorativos -->
+                            <circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.1)"/>
+                            <circle cx="900" cy="900" r="150" fill="rgba(255,255,255,0.05)"/>
+                            <rect x="800" y="200" width="80" height="80" fill="rgba(255,255,255,0.1)" transform="rotate(45 840 240)"/>
+                            
+                            <!-- Wave en parte inferior -->
+                            <path d="M0,1080 L0,900 C150,950 300,980 450,950 C600,920 750,830 900,850 C1050,870 1080,930 1080,960 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
                             
                             <!-- Logo -->
                             <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
@@ -708,24 +1023,26 @@
                                 <tspan>🔍 Google Ads</tspan>
                             </text>
                             
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                            <!-- Icono circular con efecto -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+                            <circle cx="540" cy="380" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
                                 <tspan>🎯</tspan>
                             </text>
                             
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            <!-- Título con efecto -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
                                 Multiplica tus Ventas
                             </text>
                             
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                            <!-- Subtítulo con sombra -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
                                 2.8x ROAS garantizado
                             </text>
                             
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                            <!-- Texto Auditoría Gratis con efecto -->
+                            <rect x="340" y="800" width="400" height="90" rx="45" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="860" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
                                 Auditoría Gratis
                             </text>
                         </svg>
@@ -737,302 +1054,69 @@
                         </button>
                     </div>
                 </div>
-                
-                <!-- Variante 2 -->
-                <div class="ad-container">
-                    <div class="ad-preview" id="preview-google-square-2">
-                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo con degradado de colores de Google -->
-                            <defs>
-                                <linearGradient id="googleGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#4285F4"/>
-                                    <stop offset="33%" stop-color="#0F9D58"/>
-                                    <stop offset="66%" stop-color="#F4B400"/>
-                                    <stop offset="100%" stop-color="#DB4437"/>
-                                </linearGradient>
-                            </defs>
-                            <rect width="1080" height="1080" fill="url(#googleGradient2)"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>🔍 Google Ads</tspan>
-                            </text>
-                            
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
-                                <tspan>📉</tspan>
-                            </text>
-                            
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                Reduce tu CPA
-                            </text>
-                            
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
-                                -35% en 30 días
-                            </text>
-                            
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                                Auditoría Gratis
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="ad-label">Variante 2</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png google" onclick="downloadSVGAsPNG('preview-google-square-2', 'Google-Reduce-CPA')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Variante 3 -->
-                <div class="ad-container">
-                    <div class="ad-preview" id="preview-google-square-3">
-                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo con degradado de colores de Google -->
-                            <defs>
-                                <linearGradient id="googleGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#4285F4"/>
-                                    <stop offset="33%" stop-color="#0F9D58"/>
-                                    <stop offset="66%" stop-color="#F4B400"/>
-                                    <stop offset="100%" stop-color="#DB4437"/>
-                                </linearGradient>
-                            </defs>
-                            <rect width="1080" height="1080" fill="url(#googleGradient3)"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>🔍 Google Ads</tspan>
-                            </text>
-                            
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
-                                <tspan>💼</tspan>
-                            </text>
-                            
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                Resultados Medibles
-                            </text>
-                            
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
-                                Especialistas certificados
-                            </text>
-                            
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                                Auditoría Gratis
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="ad-label">Variante 3</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png google" onclick="downloadSVGAsPNG('preview-google-square-3', 'Google-Resultados-Medibles')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
             </div>
             
-            <!-- Story/Reel (1080x1920) -->
-            <h2>Story/Reel (1080x1920)</h2>
-            <div class="ad-grid">
-                <!-- Variante 1 -->
-                <div class="ad-container">
-                    <div class="ad-preview" id="preview-google-story-1">
-                        <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo con degradado de colores de Google -->
-                            <defs>
-                                <linearGradient id="googleGradientStory" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#4285F4"/>
-                                    <stop offset="33%" stop-color="#0F9D58"/>
-                                    <stop offset="66%" stop-color="#F4B400"/>
-                                    <stop offset="100%" stop-color="#DB4437"/>
-                                </linearGradient>
-                            </defs>
-                            <rect width="1080" height="1920" fill="url(#googleGradientStory)"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>🔍 Google Ads</tspan>
-                            </text>
-                            
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="470" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
-                                <tspan>🎯</tspan>
-                            </text>
-                            
-                            <!-- Título -->
-                            <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="70" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                Multiplica
-                            </text>
-                            <text x="540" y="750" font-family="Montserrat, sans-serif" font-size="70" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                tus Ventas
-                            </text>
-                            
-                            <!-- Lista de beneficios -->
-                            <text x="540" y="950" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                                <tspan>📈 2.8x ROAS garantizado</tspan>
-                            </text>
-                            <text x="540" y="1050" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                                <tspan>📉 -35% CPA en 30 días</tspan>
-                            </text>
-                            <text x="540" y="1150" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                                <tspan>🛡️ Resultados garantizados</tspan>
-                            </text>
-                            
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="1650" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                                Auditoría Gratis
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="ad-label">Variante 1</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png google" onclick="downloadSVGAsPNG('preview-google-story-1', 'Google-Story-Multiplica-Ventas')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Otras variantes de Story/Reel -->
-                <!-- ... (omitidas para brevedad) ... -->
-            </div>
-
             <!-- Carrusel Google Ads -->
-            <h2>Carrusel (1080x1080)</h2>
+            <h2 class="google-heading">Carrusel (1080x1080)</h2>
             <div class="ad-grid">
-                <div class="ad-container">
-                    <div class="carousel-container" id="carousel-google">
-                        <div class="carousel-slide" id="carousel-google-slide-1">
-                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Fondo con degradado de colores de Google -->
-                                <defs>
-                                    <linearGradient id="googleGradientCarousel1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#4285F4"/>
-                                        <stop offset="33%" stop-color="#0F9D58"/>
-                                        <stop offset="66%" stop-color="#F4B400"/>
-                                        <stop offset="100%" stop-color="#DB4437"/>
-                                    </linearGradient>
-                                </defs>
-                                <rect width="1080" height="1080" fill="url(#googleGradientCarousel1)"/>
-                                
-                                <!-- Número de slide -->
-                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
-                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    1
-                                </text>
-                                
-                                <!-- Logo -->
-                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
-                                </text>
-                                
-                                <!-- Título -->
-                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    Multiplica tus Ventas
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="carousel-slide" id="carousel-google-slide-2">
-                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Fondo con degradado de colores de Google -->
-                                <defs>
-                                    <linearGradient id="googleGradientCarousel2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#4285F4"/>
-                                        <stop offset="33%" stop-color="#0F9D58"/>
-                                        <stop offset="66%" stop-color="#F4B400"/>
-                                        <stop offset="100%" stop-color="#DB4437"/>
-                                    </linearGradient>
-                                </defs>
-                                <rect width="1080" height="1080" fill="url(#googleGradientCarousel2)"/>
-                                
-                                <!-- Número de slide -->
-                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
-                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    2
-                                </text>
-                                
-                                <!-- Logo -->
-                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
-                                </text>
-                                
-                                <!-- Título -->
-                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    2.8x ROAS garantizado
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="carousel-slide" id="carousel-google-slide-3">
-                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Fondo con degradado de colores de Google -->
-                                <defs>
-                                    <linearGradient id="googleGradientCarousel3" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#4285F4"/>
-                                        <stop offset="33%" stop-color="#0F9D58"/>
-                                        <stop offset="66%" stop-color="#F4B400"/>
-                                        <stop offset="100%" stop-color="#DB4437"/>
-                                    </linearGradient>
-                                </defs>
-                                <rect width="1080" height="1080" fill="url(#googleGradientCarousel3)"/>
-                                
-                                <!-- Número de slide -->
-                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
-                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    3
-                                </text>
-                                
-                                <!-- Logo -->
-                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
-                                </text>
-                                
-                                <!-- Título -->
-                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    Auditoría Gratis
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="carousel-nav carousel-prev" onclick="moveCarousel('google', -1)">
-                            <i class="fas fa-chevron-left"></i>
-                        </div>
-                        <div class="carousel-nav carousel-next" onclick="moveCarousel('google', 1)">
-                            <i class="fas fa-chevron-right"></i>
+                <div class="ad-container google">
+                    <div class="carousel-container" id="google-carousel">
+                        <div class="true-carousel google">
+                            <div class="carousel-logo">Orange<span style="color:#FF7E00">Vapor</span></div>
+                            <div class="carousel-slides" style="transform: translateX(0%);">
+                                <div class="carousel-slide">
+                                    <div class="slide-number">1</div>
+                                    <div class="slide-title">Multiplica tus Ventas</div>
+                                    <div class="slide-subtitle">Optimiza tus campañas de Google Ads</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:80px;height:80px;top:20px;right:20px;"></div>
+                                    <div class="decorative-shape shape-square" style="width:40px;height:40px;bottom:40px;left:60px;"></div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="slide-number">2</div>
+                                    <div class="slide-title">2.8x ROAS garantizado</div>
+                                    <div class="slide-subtitle">Resultados medibles y asegurados</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:60px;height:60px;bottom:30px;right:40px;"></div>
+                                    <div class="decorative-shape shape-triangle" style="top:30px;left:40px;"></div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="slide-number">3</div>
+                                    <div class="slide-title">Auditoría Gratis</div>
+                                    <div class="slide-subtitle">Analizamos tus oportunidades</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:50px;height:50px;top:50px;left:30px;"></div>
+                                    <div class="decorative-shape shape-square" style="width:30px;height:30px;bottom:50px;right:50px;"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Indicadores de carrusel -->
+                            <div class="carousel-indicators">
+                                <div class="carousel-indicator active" onclick="moveCarousel('google', 0)"></div>
+                                <div class="carousel-indicator" onclick="moveCarousel('google', 1)"></div>
+                                <div class="carousel-indicator" onclick="moveCarousel('google', 2)"></div>
+                            </div>
+                            
+                            <!-- Flechas de navegación -->
+                            <div class="carousel-arrows">
+                                <div class="carousel-arrow" onclick="prevSlide('google')">
+                                    <i class="fas fa-chevron-left"></i>
+                                </div>
+                                <div class="carousel-arrow" onclick="nextSlide('google')">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Wave en parte inferior -->
+                            <div class="shape-wave"></div>
                         </div>
                     </div>
-                    <div class="carousel-controls" id="carousel-google-controls">
-                        <div class="carousel-dot active" onclick="goToSlide('google', 0)"></div>
-                        <div class="carousel-dot" onclick="goToSlide('google', 1)"></div>
-                        <div class="carousel-dot" onclick="goToSlide('google', 2)"></div>
-                    </div>
-                    <div class="ad-label">Carrusel Google Ads</div>
+                    <div class="ad-label">Carrusel Completo</div>
                     <div class="download-buttons">
-                        <button class="download-btn png google" onclick="downloadCarouselAsPNG('carousel-google', 'Google-Carrusel')">
+                        <button class="download-btn png google" onclick="downloadCarouselAsPNG('google-carousel', 'Google-Carrusel')">
                             <i class="fas fa-file-image"></i> PNG
                         </button>
                     </div>
@@ -1046,17 +1130,39 @@
                 <button class="action-button chatbot" onclick="downloadAllAsPNG('chatbot')">
                     <i class="fas fa-file-image"></i> Descargar Todos como PNG
                 </button>
+                <button class="action-button chatbot" onclick="downloadCarouselAsPNG('chatbot-carousel', 'Chatbot-Carrusel')">
+                    <i class="fas fa-images"></i> Descargar Carrusel Completo
+                </button>
             </div>
             
             <!-- Feed Square (1080x1080) -->
-            <h2>Feed Square (1080x1080)</h2>
+            <h2 class="chatbot-heading">Feed Square (1080x1080)</h2>
             <div class="ad-grid">
                 <!-- Variante 1 -->
-                <div class="ad-container">
+                <div class="ad-container chatbot">
                     <div class="ad-preview" id="preview-chatbot-square-1">
                         <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1080" fill="#6f42c1"/>
+                            <!-- Fondo con degradado y patrón -->
+                            <defs>
+                                <linearGradient id="chatbotGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#6f42c1"/>
+                                    <stop offset="100%" stop-color="#563098"/>
+                                </linearGradient>
+                                <pattern id="chatbotPattern1" patternUnits="userSpaceOnUse" width="50" height="50" patternTransform="rotate(45)">
+                                    <rect width="50" height="50" fill="none"/>
+                                    <circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.3)"/>
+                                </pattern>
+                            </defs>
+                            <rect width="1080" height="1080" fill="url(#chatbotGradient1)"/>
+                            <rect width="1080" height="1080" fill="url(#chatbotPattern1)"/>
+                            
+                            <!-- Elementos decorativos -->
+                            <circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.1)"/>
+                            <circle cx="900" cy="900" r="150" fill="rgba(255,255,255,0.05)"/>
+                            <rect x="800" y="200" width="80" height="80" fill="rgba(255,255,255,0.1)" transform="rotate(45 840 240)"/>
+                            
+                            <!-- Wave en parte inferior -->
+                            <path d="M0,1080 L0,900 C150,950 300,980 450,950 C600,920 750,830 900,850 C1050,870 1080,930 1080,960 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
                             
                             <!-- Logo -->
                             <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
@@ -1069,24 +1175,26 @@
                                 <tspan>🤖 Chatbot</tspan>
                             </text>
                             
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                            <!-- Icono circular con efecto -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+                            <circle cx="540" cy="380" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
                                 <tspan>💬</tspan>
                             </text>
                             
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            <!-- Título con efecto -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
                                 Atención 24/7
                             </text>
                             
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                            <!-- Subtítulo con sombra -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
                                 Automatiza tus ventas
                             </text>
                             
-                            <!-- Texto Demo Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                            <!-- Texto Demo Gratis con efecto -->
+                            <rect x="340" y="800" width="400" height="90" rx="45" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="860" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
                                 Demo Gratuita
                             </text>
                         </svg>
@@ -1098,251 +1206,69 @@
                         </button>
                     </div>
                 </div>
-                
-                <!-- Variante 2 -->
-                <div class="ad-container">
-                    <div class="ad-preview" id="preview-chatbot-square-2">
-                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1080" fill="#6f42c1"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>🤖 Chatbot</tspan>
-                            </text>
-                            
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
-                                <tspan>💰</tspan>
-                            </text>
-                            
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                -70% en costos
-                            </text>
-                            
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
-                                Reduce gastos de atención
-                            </text>
-                            
-                            <!-- Texto Demo Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                                Demo Gratuita
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="ad-label">Variante 2</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png chatbot" onclick="downloadSVGAsPNG('preview-chatbot-square-2', 'Chatbot-Reduce-Costos')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Variante 3 -->
-                <div class="ad-container">
-                    <div class="ad-preview" id="preview-chatbot-square-3">
-                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1080" fill="#6f42c1"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>🤖 Chatbot</tspan>
-                            </text>
-                            
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
-                                <tspan>📱</tspan>
-                            </text>
-                            
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                WhatsApp Bot
-                            </text>
-                            
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
-                                Respuestas automáticas
-                            </text>
-                            
-                            <!-- Texto Demo Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                                Demo Gratuita
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="ad-label">Variante 3</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png chatbot" onclick="downloadSVGAsPNG('preview-chatbot-square-3', 'Chatbot-WhatsApp-Bot')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
             </div>
             
-            <!-- Story/Reel (1080x1920) -->
-            <h2>Story/Reel (1080x1920)</h2>
-            <div class="ad-grid">
-                <!-- Variante 1 -->
-                <div class="ad-container">
-                    <div class="ad-preview" id="preview-chatbot-story-1">
-                        <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1920" fill="#6f42c1"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>🤖 Chatbot</tspan>
-                            </text>
-                            
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="470" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
-                                <tspan>💬</tspan>
-                            </text>
-                            
-                            <!-- Título -->
-                            <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                Chatbot 24/7
-                            </text>
-                            
-                            <!-- Lista de beneficios -->
-                            <text x="540" y="800" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                                <tspan>🕒 Atención automática 24 horas</tspan>
-                            </text>
-                            <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                                <tspan>💰 Reduce costos hasta un 70%</tspan>
-                            </text>
-                            <text x="540" y="1000" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
-                                <tspan>🔄 Más conversiones automáticas</tspan>
-                            </text>
-                            
-                            <!-- Texto Demo Gratis -->
-                            <text x="540" y="1650" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                                Demo Gratuita
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="ad-label">Variante 1</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png chatbot" onclick="downloadSVGAsPNG('preview-chatbot-story-1', 'Chatbot-Story-Atencion-24-7')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Otras variantes de Story/Reel -->
-                <!-- ... (omitidas para brevedad) ... -->
-            </div>
-
             <!-- Carrusel Chatbot -->
-            <h2>Carrusel (1080x1080)</h2>
+            <h2 class="chatbot-heading">Carrusel (1080x1080)</h2>
             <div class="ad-grid">
-                <div class="ad-container">
-                    <div class="carousel-container" id="carousel-chatbot">
-                        <div class="carousel-slide" id="carousel-chatbot-slide-1">
-                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Fondo -->
-                                <rect width="1080" height="1080" fill="#6f42c1"/>
-                                
-                                <!-- Número de slide -->
-                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
-                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    1
-                                </text>
-                                
-                                <!-- Logo -->
-                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
-                                </text>
-                                
-                                <!-- Título -->
-                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    Chatbot 24/7
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="carousel-slide" id="carousel-chatbot-slide-2">
-                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Fondo -->
-                                <rect width="1080" height="1080" fill="#6f42c1"/>
-                                
-                                <!-- Número de slide -->
-                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
-                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    2
-                                </text>
-                                
-                                <!-- Logo -->
-                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
-                                </text>
-                                
-                                <!-- Título -->
-                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    -70% en Costos
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="carousel-slide" id="carousel-chatbot-slide-3">
-                            <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Fondo -->
-                                <rect width="1080" height="1080" fill="#6f42c1"/>
-                                
-                                <!-- Número de slide -->
-                                <circle cx="540" cy="540" r="300" fill="rgba(255,255,255,0.1)"/>
-                                <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="200" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    3
-                                </text>
-                                
-                                <!-- Logo -->
-                                <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                    Orange<tspan fill="#FF7E00">Vapor</tspan>
-                                </text>
-                                
-                                <!-- Título -->
-                                <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                    Demo Gratuita
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="carousel-nav carousel-prev" onclick="moveCarousel('chatbot', -1)">
-                            <i class="fas fa-chevron-left"></i>
-                        </div>
-                        <div class="carousel-nav carousel-next" onclick="moveCarousel('chatbot', 1)">
-                            <i class="fas fa-chevron-right"></i>
+                <div class="ad-container chatbot">
+                    <div class="carousel-container" id="chatbot-carousel">
+                        <div class="true-carousel chatbot">
+                            <div class="carousel-logo">Orange<span style="color:#FF7E00">Vapor</span></div>
+                            <div class="carousel-slides" style="transform: translateX(0%);">
+                                <div class="carousel-slide">
+                                    <div class="slide-number">1</div>
+                                    <div class="slide-title">Chatbot 24/7</div>
+                                    <div class="slide-subtitle">Atención automática constante</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:80px;height:80px;top:20px;right:20px;"></div>
+                                    <div class="decorative-shape shape-square" style="width:40px;height:40px;bottom:40px;left:60px;"></div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="slide-number">2</div>
+                                    <div class="slide-title">-70% en Costos</div>
+                                    <div class="slide-subtitle">Reduce gastos de atención</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:60px;height:60px;bottom:30px;right:40px;"></div>
+                                    <div class="decorative-shape shape-triangle" style="top:30px;left:40px;"></div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="slide-number">3</div>
+                                    <div class="slide-title">Demo Gratuita</div>
+                                    <div class="slide-subtitle">Prueba sin compromiso</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:50px;height:50px;top:50px;left:30px;"></div>
+                                    <div class="decorative-shape shape-square" style="width:30px;height:30px;bottom:50px;right:50px;"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Indicadores de carrusel -->
+                            <div class="carousel-indicators">
+                                <div class="carousel-indicator active" onclick="moveCarousel('chatbot', 0)"></div>
+                                <div class="carousel-indicator" onclick="moveCarousel('chatbot', 1)"></div>
+                                <div class="carousel-indicator" onclick="moveCarousel('chatbot', 2)"></div>
+                            </div>
+                            
+                            <!-- Flechas de navegación -->
+                            <div class="carousel-arrows">
+                                <div class="carousel-arrow" onclick="prevSlide('chatbot')">
+                                    <i class="fas fa-chevron-left"></i>
+                                </div>
+                                <div class="carousel-arrow" onclick="nextSlide('chatbot')">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Wave en parte inferior -->
+                            <div class="shape-wave"></div>
                         </div>
                     </div>
-                    <div class="carousel-controls" id="carousel-chatbot-controls">
-                        <div class="carousel-dot active" onclick="goToSlide('chatbot', 0)"></div>
-                        <div class="carousel-dot" onclick="goToSlide('chatbot', 1)"></div>
-                        <div class="carousel-dot" onclick="goToSlide('chatbot', 2)"></div>
-                    </div>
-                    <div class="ad-label">Carrusel Chatbot</div>
+                    <div class="ad-label">Carrusel Completo</div>
                     <div class="download-buttons">
-                        <button class="download-btn png chatbot" onclick="downloadCarouselAsPNG('carousel-chatbot', 'Chatbot-Carrusel')">
+                        <button class="download-btn png chatbot" onclick="downloadCarouselAsPNG('chatbot-carousel', 'Chatbot-Carrusel')">
                             <i class="fas fa-file-image"></i> PNG
                         </button>
                     </div>
@@ -1356,17 +1282,39 @@
                 <button class="action-button email" onclick="downloadAllAsPNG('email')">
                     <i class="fas fa-file-image"></i> Descargar Todos como PNG
                 </button>
+                <button class="action-button email" onclick="downloadCarouselAsPNG('email-carousel', 'Email-Carrusel')">
+                    <i class="fas fa-images"></i> Descargar Carrusel Completo
+                </button>
             </div>
             
             <!-- Feed Square (1080x1080) -->
-            <h2>Feed Square (1080x1080)</h2>
+            <h2 class="email-heading">Feed Square (1080x1080)</h2>
             <div class="ad-grid">
                 <!-- Variante 1 -->
-                <div class="ad-container">
+                <div class="ad-container email">
                     <div class="ad-preview" id="preview-email-square-1">
                         <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1080" fill="#00829b"/>
+                            <!-- Fondo con degradado y patrón -->
+                            <defs>
+                                <linearGradient id="emailGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#00829b"/>
+                                    <stop offset="100%" stop-color="#00677c"/>
+                                </linearGradient>
+                                <pattern id="emailPattern1" patternUnits="userSpaceOnUse" width="50" height="50" patternTransform="rotate(45)">
+                                    <rect width="50" height="50" fill="none"/>
+                                    <circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.3)"/>
+                                </pattern>
+                            </defs>
+                            <rect width="1080" height="1080" fill="url(#emailGradient1)"/>
+                            <rect width="1080" height="1080" fill="url(#emailPattern1)"/>
+                            
+                            <!-- Elementos decorativos -->
+                            <circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.1)"/>
+                            <circle cx="900" cy="900" r="150" fill="rgba(255,255,255,0.05)"/>
+                            <rect x="800" y="200" width="80" height="80" fill="rgba(255,255,255,0.1)" transform="rotate(45 840 240)"/>
+                            
+                            <!-- Wave en parte inferior -->
+                            <path d="M0,1080 L0,900 C150,950 300,980 450,950 C600,920 750,830 900,850 C1050,870 1080,930 1080,960 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
                             
                             <!-- Logo -->
                             <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
@@ -1379,24 +1327,26 @@
                                 <tspan>✉️ Email</tspan>
                             </text>
                             
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
+                            <!-- Icono circular con efecto -->
+                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+                            <circle cx="540" cy="380" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
                                 <tspan>📧</tspan>
                             </text>
                             
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            <!-- Título con efecto -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
                                 Secuencias Automáticas
                             </text>
                             
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                            <!-- Subtítulo con sombra -->
+                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
                                 Ventas 24/7
                             </text>
                             
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
+                            <!-- Texto Auditoría Gratis con efecto -->
+                            <rect x="340" y="800" width="400" height="90" rx="45" fill="rgba(255,255,255,0.2)"/>
+                            <text x="540" y="860" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
                                 Auditoría Gratis
                             </text>
                         </svg>
@@ -1408,83 +1358,334 @@
                         </button>
                     </div>
                 </div>
-                
-                <!-- Variante 2 -->
-                <div class="ad-container">
-                    <div class="ad-preview" id="preview-email-square-2">
-                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1080" fill="#00829b"/>
+            </div>
+            
+            <!-- Carrusel Email Marketing -->
+            <h2 class="email-heading">Carrusel (1080x1080)</h2>
+            <div class="ad-grid">
+                <div class="ad-container email">
+                    <div class="carousel-container" id="email-carousel">
+                        <div class="true-carousel email">
+                            <div class="carousel-logo">Orange<span style="color:#FF7E00">Vapor</span></div>
+                            <div class="carousel-slides" style="transform: translateX(0%);">
+                                <div class="carousel-slide">
+                                    <div class="slide-number">1</div>
+                                    <div class="slide-title">Email Marketing</div>
+                                    <div class="slide-subtitle">Secuencias que venden</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:80px;height:80px;top:20px;right:20px;"></div>
+                                    <div class="decorative-shape shape-square" style="width:40px;height:40px;bottom:40px;left:60px;"></div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="slide-number">2</div>
+                                    <div class="slide-title">38% Tasa de Apertura</div>
+                                    <div class="slide-subtitle">vs. 15% promedio del mercado</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:60px;height:60px;bottom:30px;right:40px;"></div>
+                                    <div class="decorative-shape shape-triangle" style="top:30px;left:40px;"></div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="slide-number">3</div>
+                                    <div class="slide-title">Auditoría Gratis</div>
+                                    <div class="slide-subtitle">Optimiza tu estrategia de email</div>
+                                    
+                                    <!-- Elementos decorativos -->
+                                    <div class="decorative-shape shape-circle" style="width:50px;height:50px;top:50px;left:30px;"></div>
+                                    <div class="decorative-shape shape-square" style="width:30px;height:30px;bottom:50px;right:50px;"></div>
+                                </div>
+                            </div>
                             
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
+                            <!-- Indicadores de carrusel -->
+                            <div class="carousel-indicators">
+                                <div class="carousel-indicator active" onclick="moveCarousel('email', 0)"></div>
+                                <div class="carousel-indicator" onclick="moveCarousel('email', 1)"></div>
+                                <div class="carousel-indicator" onclick="moveCarousel('email', 2)"></div>
+                            </div>
                             
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>✉️ Email</tspan>
-                            </text>
+                            <!-- Flechas de navegación -->
+                            <div class="carousel-arrows">
+                                <div class="carousel-arrow" onclick="prevSlide('email')">
+                                    <i class="fas fa-chevron-left"></i>
+                                </div>
+                                <div class="carousel-arrow" onclick="nextSlide('email')">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
                             
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
-                                <tspan>📊</tspan>
-                            </text>
-                            
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                38% Tasa de Apertura
-                            </text>
-                            
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
-                                vs 15% del mercado
-                            </text>
-                            
-                            <!-- Texto Auditoría Gratis -->
-                            <text x="540" y="850" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));">
-                                Auditoría Gratis
-                            </text>
-                        </svg>
+                            <!-- Wave en parte inferior -->
+                            <div class="shape-wave"></div>
+                        </div>
                     </div>
-                    <div class="ad-label">Variante 2</div>
+                    <div class="ad-label">Carrusel Completo</div>
                     <div class="download-buttons">
-                        <button class="download-btn png email" onclick="downloadSVGAsPNG('preview-email-square-2', 'Email-Tasa-Apertura')">
+                        <button class="download-btn png email" onclick="downloadCarouselAsPNG('email-carousel', 'Email-Carrusel')">
                             <i class="fas fa-file-image"></i> PNG
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notifications -->
+    <div id="toast-meta" class="toast meta">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message-meta">Descarga completada</span>
+    </div>
+    
+    <div id="toast-google" class="toast google">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message-google">Descarga completada</span>
+    </div>
+    
+    <div id="toast-chatbot" class="toast chatbot">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message-chatbot">Descarga completada</span>
+    </div>
+    
+    <div id="toast-email" class="toast email">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message-email">Descarga completada</span>
+    </div>
+    
+    <script>
+        // Cambio de tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remover clase active de todos los tabs
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    // Añadir clase active al tab clickeado
+                    this.classList.add('active');
+                    
+                    // Remover clase active de todos los contenidos
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    // Mostrar el contenido correspondiente
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+        
+        // Funciones para controlar el carrusel
+        const carousels = {
+            'meta': { currentSlide: 0 },
+            'google': { currentSlide: 0 },
+            'chatbot': { currentSlide: 0 },
+            'email': { currentSlide: 0 }
+        };
+        
+        function moveCarousel(type, slideIndex) {
+            carousels[type].currentSlide = slideIndex;
+            updateCarouselPosition(type);
+        }
+        
+        function nextSlide(type) {
+            const totalSlides = 3; // Asumimos que todos tienen 3 slides
+            carousels[type].currentSlide = (carousels[type].currentSlide + 1) % totalSlides;
+            updateCarouselPosition(type);
+        }
+        
+        function prevSlide(type) {
+            const totalSlides = 3; // Asumimos que todos tienen 3 slides
+            carousels[type].currentSlide = (carousels[type].currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarouselPosition(type);
+        }
+        
+        function updateCarouselPosition(type) {
+            const container = document.querySelector(`#${type}-carousel .carousel-slides`);
+            const indicators = document.querySelectorAll(`#${type}-carousel .carousel-indicator`);
+            
+            // Actualizar la posición del carrusel
+            container.style.transform = `translateX(-${carousels[type].currentSlide * 33.33}%)`;
+            
+            // Actualizar los indicadores
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === carousels[type].currentSlide);
+            });
+        }
+        
+        // Función para descargar SVG como PNG
+        function downloadSVGAsPNG(elementId, filename) {
+            const svgElement = document.getElementById(elementId).querySelector('svg');
+            const canvas = document.createElement('canvas');
+            
+            // Obtener dimensiones del viewBox
+            const viewBox = svgElement.getAttribute('viewBox').split(' ');
+            const width = parseInt(viewBox[2]);
+            const height = parseInt(viewBox[3]);
+            
+            // Configurar canvas con dimensiones originales
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            
+            // Convertir SVG a imagen
+            const svgString = new XMLSerializer().serializeToString(svgElement);
+            const img = new Image();
+            
+            // Crear un Blob del SVG
+            const svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+            const URL = window.URL || window.webkitURL || window;
+            const svgUrl = URL.createObjectURL(svgBlob);
+            
+            img.onload = function() {
+                // Dibujar SVG en canvas
+                ctx.drawImage(img, 0, 0, width, height);
+                URL.revokeObjectURL(svgUrl);
                 
-                <!-- Variante 3 -->
-                <div class="ad-container">
-                    <div class="ad-preview" id="preview-email-square-3">
-                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo -->
-                            <rect width="1080" height="1080" fill="#00829b"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>✉️ Email</tspan>
-                            </text>
-                            
-                            <!-- Icono circular -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle">
-                                <tspan>🔄</tspan>
-                            </text>
-                            
-                            <!-- Título -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
-                                Nurturing Automatizado
-                            </text>
-                            
-                            <!-- Subtítulo -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-
+                // Convertir a PNG y descargar
+                const imgURL = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = filename + '.png';
+                link.href = imgURL;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Determinar tipo para el toast
+                let type = 'meta';
+                if (elementId.includes('google')) type = 'google';
+                if (elementId.includes('chatbot')) type = 'chatbot';
+                if (elementId.includes('email')) type = 'email';
+                
+                showToast(`PNG "${filename}" descargado correctamente`, type);
+            };
+            
+            img.src = svgUrl;
+        }
+        
+        // Función para descargar carrusel como PNG
+        function downloadCarouselAsPNG(carouselId, filename) {
+            const carouselElement = document.getElementById(carouselId);
+            const canvas = document.createElement('canvas');
+            
+            // Configurar tamaño del canvas para carrusel completo
+            canvas.width = 1080;
+            canvas.height = 1080;
+            const ctx = canvas.getContext('2d');
+            
+            // Obtener tipo de carrusel para toast
+            const type = carouselId.split('-')[0];
+            
+            html2canvas(carouselElement, {
+                scale: 3.6, // Escala para mejor calidad
+                allowTaint: true,
+                useCORS: true
+            }).then(carouselCanvas => {
+                // Dibujar el carrusel en el canvas
+                ctx.drawImage(carouselCanvas, 0, 0, 1080, 1080);
+                
+                // Convertir a PNG y descargar
+                const imgURL = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = filename + '.png';
+                link.href = imgURL;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showToast(`Carrusel "${filename}" descargado correctamente`, type);
+            });
+        }
+        
+        // Descargar todos los anuncios como PNG
+        function downloadAllAsPNG(type) {
+            const selectors = {
+                meta: ['preview-meta-square-1', 'preview-meta-square-2', 'preview-meta-story-1', 'meta-carousel'],
+                google: ['preview-google-square-1', 'google-carousel'],
+                chatbot: ['preview-chatbot-square-1', 'chatbot-carousel'],
+                email: ['preview-email-square-1', 'email-carousel']
+            };
+            
+            const filenames = {
+                meta: ['Meta-Ads-sin-resultados', 'Meta-Mas-ventas', 'Meta-Story-Ads-sin-ROI', 'Meta-Carrusel'],
+                google: ['Google-Multiplica-Ventas', 'Google-Carrusel'],
+                chatbot: ['Chatbot-Atencion-24-7', 'Chatbot-Carrusel'],
+                email: ['Email-Secuencias-Automaticas', 'Email-Carrusel']
+            };
+            
+            showToast(`Preparando descarga de todos los anuncios de ${type}...`, type);
+            
+            const items = selectors[type].map((id, index) => ({
+                id: id,
+                name: filenames[type][index],
+                isCarousel: id.includes('carousel')
+            }));
+            
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    if (item.isCarousel) {
+                        downloadCarouselAsPNG(item.id, item.name);
+                    } else {
+                        downloadSVGAsPNG(item.id, item.name);
+                    }
+                    
+                    if (index === items.length - 1) {
+                        setTimeout(() => {
+                            showToast(`Descarga de todos los anuncios de ${type} completada`, type);
+                        }, 1000);
+                    }
+                }, index * 1000);
+            });
+        }
+        
+        // Mostrar notificación toast
+        function showToast(message, type) {
+            const toast = document.getElementById(`toast-${type}`);
+            const toastMessage = document.getElementById(`toast-message-${type}`);
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Biblioteca html2canvas para capturar carruseles (simulada)
+        // En producción se debe incluir la librería real
+        const html2canvas = (function() {
+            function createCanvasMock(element) {
+                const canvas = document.createElement('canvas');
+                canvas.width = element.clientWidth * 3.6;
+                canvas.height = element.clientHeight * 3.6;
+                
+                // Dibujar un rectángulo del color del tipo de carrusel
+                const ctx = canvas.getContext('2d');
+                
+                if (element.id.includes('meta')) {
+                    ctx.fillStyle = '#dc3545';
+                } else if (element.id.includes('google')) {
+                    ctx.fillStyle = '#4285F4';
+                } else if (element.id.includes('chatbot')) {
+                    ctx.fillStyle = '#6f42c1';
+                } else if (element.id.includes('email')) {
+                    ctx.fillStyle = '#00829b';
+                }
+                
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Añadir texto "CARRUSEL"
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = 'bold 100px Montserrat';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('CARRUSEL', canvas.width/2, canvas.height/2);
+                
+                return canvas;
+            }
+            
+            return function(element, options) {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        resolve(createCanvasMock(element));
+                    }, 500);
+                });
+            };
+        })();
+    </script>
+</body>
+</html>
