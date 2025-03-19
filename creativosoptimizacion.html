@@ -6,33 +6,22 @@
     <title>Anuncios Meta Ads - Orange Vapor</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        /* Variables CSS */
         :root {
             --rojo-principal: #dc3545;
             --naranja-principal: #FF7E00;
             --blanco: #FFFFFF;
             --gris-oscuro: #333333;
             --gris-claro: #F5F5F5;
-            --fuente-principal: 'Montserrat', sans-serif;
         }
-
-        /* Estilos base */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        
         body {
-            font-family: var(--fuente-principal);
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--gris-claro);
             padding: 30px;
             color: var(--gris-oscuro);
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -40,14 +29,14 @@
             padding: 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
+        
         h1 {
             text-align: center;
             margin-bottom: 30px;
             color: var(--rojo-principal);
             font-weight: 800;
         }
-
+        
         h2 {
             margin-top: 40px;
             margin-bottom: 20px;
@@ -56,182 +45,41 @@
             border-bottom: 2px solid var(--rojo-principal);
             padding-bottom: 10px;
         }
-
-        /* Grid de anuncios */
+        
         .ad-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
+            margin-bottom: 40px;
         }
-
-        /* Contenedor de anuncio individual */
+        
         .ad-container {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
-        /* Vista previa del anuncio */
+        
         .ad-preview {
             width: 300px;
-            height: 300px;
-            position: relative;
-            overflow: hidden;
-            background-color: var(--rojo-principal);
+            border: 1px solid #ddd;
             margin-bottom: 15px;
         }
-
-        .ad-preview.story {
-            height: 533px; /* Proporción 9:16 para stories en tamaño reducido */
+        
+        .ad-preview svg {
+            display: block;
         }
-
-        /* Contenido del anuncio */
-        .ad-content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Logo y badge */
-        .ad-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .ad-logo {
-            font-weight: 800;
-            font-size: 22px;
-            color: var(--blanco);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
-
-        .ad-logo span {
-            color: var(--naranja-principal);
-        }
-
-        .ad-badge {
-            display: inline-flex;
-            align-items: center;
-            background-color: rgba(255,255,255,0.2);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--blanco);
-        }
-
-        .ad-badge i {
-            margin-right: 5px;
-        }
-
-        /* Cuerpo del anuncio */
-        .ad-body {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Icono central */
-        .icon-circle {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-            color: var(--blanco);
-            font-size: 20px;
-        }
-
-        /* Título y subtítulo */
-        .ad-title {
-            font-weight: 800;
-            font-size: 28px;
-            color: var(--blanco);
-            margin-bottom: 10px;
-            line-height: 1.2;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        .story .ad-title {
-            font-size: 24px;
-        }
-
-        .ad-subtitle {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--blanco);
-            margin-bottom: 15px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-
-        .story .ad-subtitle {
-            font-size: 16px;
-        }
-
-        /* Lista de beneficios */
-        .benefits-list {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        .benefits-list li {
-            color: var(--blanco);
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .benefits-list li i {
-            margin-right: 8px;
-        }
-
-        /* Botón CTA */
-        .ad-footer {
-            margin-top: auto;
-            text-align: center;
-        }
-
-        .cta-button {
-            background-color: var(--naranja-principal);
-            color: var(--blanco);
-            padding: 8px 16px;
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            display: inline-block;
-        }
-
-        /* Etiqueta y botones */
+        
         .ad-label {
             font-weight: 600;
             margin-bottom: 10px;
             color: var(--gris-oscuro);
         }
-
+        
         .download-buttons {
             display: flex;
             gap: 8px;
         }
-
+        
         .download-btn {
             padding: 8px 12px;
             font-size: 14px;
@@ -244,27 +92,26 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-family: var(--fuente-principal);
+            font-family: 'Montserrat', sans-serif;
             transition: all 0.2s;
         }
-
+        
         .download-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-
+        
         .download-btn.png {
             background-color: var(--rojo-principal);
         }
-
-        /* Botones de acción global */
+        
         .action-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-bottom: 30px;
         }
-
+        
         .action-button {
             padding: 10px 20px;
             font-size: 16px;
@@ -277,16 +124,15 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: var(--fuente-principal);
+            font-family: 'Montserrat', sans-serif;
             transition: all 0.2s;
         }
-
+        
         .action-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
-
-        /* Toast notification */
+        
         .toast {
             position: fixed;
             bottom: 20px;
@@ -304,578 +150,427 @@
             transition: all 0.3s;
             z-index: 100;
         }
-
+        
         .toast.show {
             transform: translateY(0);
             opacity: 1;
         }
-
+        
         .toast i {
             margin-right: 10px;
-        }
-
-        /* Contenedor oculto para anuncios originales */
-        .original-ads {
-            position: absolute;
-            left: -9999px;
-            top: -9999px;
-            visibility: hidden;
-        }
-
-        /* Anuncios en tamaño original */
-        .ad-original {
-            background-color: var(--rojo-principal);
-        }
-
-        .ad-original.square {
-            width: 1080px;
-            height: 1080px;
-        }
-
-        .ad-original.story {
-            width: 1080px;
-            height: 1920px;
-        }
-
-        .ad-original .ad-content {
-            padding: 60px;
-        }
-
-        .ad-original .ad-logo {
-            font-size: 60px;
-        }
-
-        .ad-original .ad-badge {
-            padding: 8px 20px;
-            font-size: 24px;
-        }
-
-        .ad-original .icon-circle {
-            width: 140px;
-            height: 140px;
-            font-size: 60px;
-            margin-bottom: 40px;
-        }
-
-        .ad-original .ad-title {
-            font-size: 80px;
-            margin-bottom: 20px;
-        }
-
-        .ad-original .ad-subtitle {
-            font-size: 48px;
-            margin-bottom: 30px;
-        }
-
-        .ad-original .benefits-list li {
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-
-        .ad-original .benefits-list li i {
-            font-size: 30px;
-            margin-right: 15px;
-        }
-
-        .ad-original .cta-button {
-            padding: 20px 40px;
-            font-size: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .ad-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 20px;
-            }
-            
-            .ad-preview {
-                width: 250px;
-                height: 250px;
-            }
-            
-            .ad-preview.story {
-                height: 444px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Anuncios Meta Ads - Orange Vapor</h1>
-
+        
         <div class="action-buttons">
-            <button class="action-button" onclick="downloadAllAsPDF()">
-                <i class="fas fa-file-pdf"></i> Descargar Todos como PDF
-            </button>
             <button class="action-button" onclick="downloadAllAsPNG()">
                 <i class="fas fa-file-image"></i> Descargar Todos como PNG
             </button>
         </div>
-
+        
         <!-- Feed Square (1080x1080) -->
         <h2>Feed Square (1080x1080)</h2>
         <div class="ad-grid">
             <!-- Variante 1 -->
             <div class="ad-container">
                 <div class="ad-preview" id="preview-square-1">
-                    <div class="ad-content">
-                        <div class="ad-header">
-                            <div class="ad-logo">Orange<span>Vapor</span></div>
-                            <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                        </div>
-                        <div class="ad-body">
-                            <div class="icon-circle">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <h3 class="ad-title">¿Ads sin resultados?</h3>
-                            <p class="ad-subtitle">Optimizamos en 48hs</p>
-                        </div>
-                        <div class="ad-footer">
-                            <div class="cta-button">Auditoría Gratis</div>
-                        </div>
-                    </div>
+                    <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Fondo -->
+                        <rect width="1080" height="1080" fill="#dc3545"/>
+                        
+                        <!-- Logo -->
+                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                            Orange<tspan fill="#FF7E00">Vapor</tspan>
+                        </text>
+                        
+                        <!-- Badge -->
+                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                            ⚡ Express
+                        </text>
+                        
+                        <!-- Icono circular -->
+                        <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                        <text x="540" y="400" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
+                            ⚠
+                        </text>
+                        
+                        <!-- Título -->
+                        <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            ¿Ads sin resultados?
+                        </text>
+                        
+                        <!-- Subtítulo -->
+                        <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                            Optimizamos en 48hs
+                        </text>
+                        
+                        <!-- Botón CTA -->
+                        <rect x="340" y="900" width="400" height="100" fill="#FF7E00"/>
+                        <text x="540" y="965" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle">
+                            AUDITORÍA GRATIS
+                        </text>
+                    </svg>
                 </div>
                 <div class="ad-label">Variante 1</div>
                 <div class="download-buttons">
-                    <button class="download-btn pdf" onclick="downloadAsPDF('square-1')">
-                        <i class="fas fa-file-pdf"></i> PDF
-                    </button>
-                    <button class="download-btn png" onclick="downloadAsPNG('square-1')">
+                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-square-1', 'Ads-sin-resultados')">
                         <i class="fas fa-file-image"></i> PNG
                     </button>
                 </div>
             </div>
-
+            
             <!-- Variante 2 -->
             <div class="ad-container">
                 <div class="ad-preview" id="preview-square-2">
-                    <div class="ad-content">
-                        <div class="ad-header">
-                            <div class="ad-logo">Orange<span>Vapor</span></div>
-                            <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                        </div>
-                        <div class="ad-body">
-                            <div class="icon-circle">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <h3 class="ad-title">+20% ventas</h3>
-                            <p class="ad-subtitle">Resultados garantizados</p>
-                        </div>
-                        <div class="ad-footer">
-                            <div class="cta-button">Auditoría Gratis</div>
-                        </div>
-                    </div>
+                    <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Fondo -->
+                        <rect width="1080" height="1080" fill="#dc3545"/>
+                        
+                        <!-- Logo -->
+                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                            Orange<tspan fill="#FF7E00">Vapor</tspan>
+                        </text>
+                        
+                        <!-- Badge -->
+                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                            ⚡ Express
+                        </text>
+                        
+                        <!-- Icono circular -->
+                        <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                        <text x="540" y="400" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
+                            📈
+                        </text>
+                        
+                        <!-- Título -->
+                        <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            +20% ventas
+                        </text>
+                        
+                        <!-- Subtítulo -->
+                        <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                            Resultados garantizados
+                        </text>
+                        
+                        <!-- Botón CTA -->
+                        <rect x="340" y="900" width="400" height="100" fill="#FF7E00"/>
+                        <text x="540" y="965" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle">
+                            AUDITORÍA GRATIS
+                        </text>
+                    </svg>
                 </div>
                 <div class="ad-label">Variante 2</div>
                 <div class="download-buttons">
-                    <button class="download-btn pdf" onclick="downloadAsPDF('square-2')">
-                        <i class="fas fa-file-pdf"></i> PDF
-                    </button>
-                    <button class="download-btn png" onclick="downloadAsPNG('square-2')">
+                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-square-2', 'Mas-ventas')">
                         <i class="fas fa-file-image"></i> PNG
                     </button>
                 </div>
             </div>
-
+            
             <!-- Variante 3 -->
             <div class="ad-container">
                 <div class="ad-preview" id="preview-square-3">
-                    <div class="ad-content">
-                        <div class="ad-header">
-                            <div class="ad-logo">Orange<span>Vapor</span></div>
-                            <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                        </div>
-                        <div class="ad-body">
-                            <div class="icon-circle">
-                                <i class="fas fa-money-bill-wave"></i>
-                            </div>
-                            <h3 class="ad-title">Pará de perder dinero</h3>
-                            <p class="ad-subtitle">Optimizamos tu presupuesto</p>
-                        </div>
-                        <div class="ad-footer">
-                            <div class="cta-button">Auditoría Gratis</div>
-                        </div>
-                    </div>
+                    <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Fondo -->
+                        <rect width="1080" height="1080" fill="#dc3545"/>
+                        
+                        <!-- Logo -->
+                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                            Orange<tspan fill="#FF7E00">Vapor</tspan>
+                        </text>
+                        
+                        <!-- Badge -->
+                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                            ⚡ Express
+                        </text>
+                        
+                        <!-- Icono circular -->
+                        <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)"/>
+                        <text x="540" y="400" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
+                            💰
+                        </text>
+                        
+                        <!-- Título -->
+                        <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            Pará de perder dinero
+                        </text>
+                        
+                        <!-- Subtítulo -->
+                        <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));">
+                            Optimizamos tu presupuesto
+                        </text>
+                        
+                        <!-- Botón CTA -->
+                        <rect x="340" y="900" width="400" height="100" fill="#FF7E00"/>
+                        <text x="540" y="965" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle">
+                            AUDITORÍA GRATIS
+                        </text>
+                    </svg>
                 </div>
                 <div class="ad-label">Variante 3</div>
                 <div class="download-buttons">
-                    <button class="download-btn pdf" onclick="downloadAsPDF('square-3')">
-                        <i class="fas fa-file-pdf"></i> PDF
-                    </button>
-                    <button class="download-btn png" onclick="downloadAsPNG('square-3')">
+                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-square-3', 'Para-de-perder-dinero')">
                         <i class="fas fa-file-image"></i> PNG
                     </button>
                 </div>
             </div>
         </div>
-
+        
         <!-- Story/Reel (1080x1920) -->
         <h2>Story/Reel (1080x1920)</h2>
         <div class="ad-grid">
             <!-- Variante 1 -->
             <div class="ad-container">
-                <div class="ad-preview story" id="preview-story-1">
-                    <div class="ad-content">
-                        <div class="ad-header">
-                            <div class="ad-logo">Orange<span>Vapor</span></div>
-                            <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                        </div>
-                        <div class="ad-body">
-                            <div class="icon-circle">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <h3 class="ad-title">¿Ads sin ROI?</h3>
-                            <ul class="benefits-list">
-                                <li><i class="fas fa-bolt"></i> Optimización en 48hs</li>
-                                <li><i class="fas fa-search-dollar"></i> Detectamos fugas</li>
-                                <li><i class="fas fa-chart-line"></i> +20% ventas</li>
-                            </ul>
-                        </div>
-                        <div class="ad-footer">
-                            <div class="cta-button">Auditoría Gratis</div>
-                        </div>
-                    </div>
+                <div class="ad-preview" id="preview-story-1">
+                    <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Fondo -->
+                        <rect width="1080" height="1920" fill="#dc3545"/>
+                        
+                        <!-- Logo -->
+                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                            Orange<tspan fill="#FF7E00">Vapor</tspan>
+                        </text>
+                        
+                        <!-- Badge -->
+                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                            ⚡ Express
+                        </text>
+                        
+                        <!-- Icono circular -->
+                        <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
+                        <text x="540" y="470" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
+                            ⚠
+                        </text>
+                        
+                        <!-- Título -->
+                        <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            ¿Ads sin ROI?
+                        </text>
+                        
+                        <!-- Lista de beneficios -->
+                        <text x="540" y="800" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            ⚡ Optimización en 48hs
+                        </text>
+                        <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            🔍 Detectamos fugas
+                        </text>
+                        <text x="540" y="1000" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            📈 +20% ventas
+                        </text>
+                        
+                        <!-- Botón CTA -->
+                        <rect x="340" y="1650" width="400" height="100" fill="#FF7E00"/>
+                        <text x="540" y="1715" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle">
+                            AUDITORÍA GRATIS
+                        </text>
+                    </svg>
                 </div>
                 <div class="ad-label">Variante 1</div>
                 <div class="download-buttons">
-                    <button class="download-btn pdf" onclick="downloadAsPDF('story-1')">
-                        <i class="fas fa-file-pdf"></i> PDF
-                    </button>
-                    <button class="download-btn png" onclick="downloadAsPNG('story-1')">
+                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-story-1', 'Story-Ads-sin-ROI')">
                         <i class="fas fa-file-image"></i> PNG
                     </button>
                 </div>
             </div>
-
+            
             <!-- Variante 2 -->
             <div class="ad-container">
-                <div class="ad-preview story" id="preview-story-2">
-                    <div class="ad-content">
-                        <div class="ad-header">
-                            <div class="ad-logo">Orange<span>Vapor</span></div>
-                            <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                        </div>
-                        <div class="ad-body">
-                            <div class="icon-circle">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <h3 class="ad-title">Aumentá tus ventas</h3>
-                            <ul class="benefits-list">
-                                <li><i class="fas fa-bolt"></i> En solo 48hs</li>
-                                <li><i class="fas fa-check"></i> Resultados reales</li>
-                                <li><i class="fas fa-shield-alt"></i> Garantizado</li>
-                            </ul>
-                        </div>
-                        <div class="ad-footer">
-                            <div class="cta-button">Auditoría Gratis</div>
-                        </div>
-                    </div>
+                <div class="ad-preview" id="preview-story-2">
+                    <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Fondo -->
+                        <rect width="1080" height="1920" fill="#dc3545"/>
+                        
+                        <!-- Logo -->
+                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                            Orange<tspan fill="#FF7E00">Vapor</tspan>
+                        </text>
+                        
+                        <!-- Badge -->
+                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                            ⚡ Express
+                        </text>
+                        
+                        <!-- Icono circular -->
+                        <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
+                        <text x="540" y="470" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
+                            📈
+                        </text>
+                        
+                        <!-- Título -->
+                        <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            Aumentá tus ventas
+                        </text>
+                        
+                        <!-- Lista de beneficios -->
+                        <text x="540" y="800" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            ⚡ En solo 48hs
+                        </text>
+                        <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            ✓ Resultados reales
+                        </text>
+                        <text x="540" y="1000" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            🛡️ Garantizado
+                        </text>
+                        
+                        <!-- Botón CTA -->
+                        <rect x="340" y="1650" width="400" height="100" fill="#FF7E00"/>
+                        <text x="540" y="1715" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle">
+                            AUDITORÍA GRATIS
+                        </text>
+                    </svg>
                 </div>
                 <div class="ad-label">Variante 2</div>
                 <div class="download-buttons">
-                    <button class="download-btn pdf" onclick="downloadAsPDF('story-2')">
-                        <i class="fas fa-file-pdf"></i> PDF
-                    </button>
-                    <button class="download-btn png" onclick="downloadAsPNG('story-2')">
+                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-story-2', 'Story-Aumenta-ventas')">
                         <i class="fas fa-file-image"></i> PNG
                     </button>
                 </div>
             </div>
-
+            
             <!-- Variante 3 -->
             <div class="ad-container">
-                <div class="ad-preview story" id="preview-story-3">
-                    <div class="ad-content">
-                        <div class="ad-header">
-                            <div class="ad-logo">Orange<span>Vapor</span></div>
-                            <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                        </div>
-                        <div class="ad-body">
-                            <div class="icon-circle">
-                                <i class="fas fa-money-bill-wave"></i>
-                            </div>
-                            <h3 class="ad-title">Optimizá tu presupuesto</h3>
-                            <ul class="benefits-list">
-                                <li><i class="fas fa-search-dollar"></i> Auditoría gratis</li>
-                                <li><i class="fas fa-bolt"></i> Resultados rápidos</li>
-                                <li><i class="fas fa-check"></i> Sin riesgos</li>
-                            </ul>
-                        </div>
-                        <div class="ad-footer">
-                            <div class="cta-button">Auditoría Gratis</div>
-                        </div>
-                    </div>
+                <div class="ad-preview" id="preview-story-3">
+                    <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Fondo -->
+                        <rect width="1080" height="1920" fill="#dc3545"/>
+                        
+                        <!-- Logo -->
+                        <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                            Orange<tspan fill="#FF7E00">Vapor</tspan>
+                        </text>
+                        
+                        <!-- Badge -->
+                        <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                        <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                            ⚡ Express
+                        </text>
+                        
+                        <!-- Icono circular -->
+                        <circle cx="540" cy="450" r="70" fill="rgba(255,255,255,0.2)"/>
+                        <text x="540" y="470" font-family="FontAwesome" font-size="60" fill="white" text-anchor="middle">
+                            💰
+                        </text>
+                        
+                        <!-- Título -->
+                        <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            Optimizá tu presupuesto
+                        </text>
+                        
+                        <!-- Lista de beneficios -->
+                        <text x="540" y="800" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            🔍 Auditoría gratis
+                        </text>
+                        <text x="540" y="900" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            ⚡ Resultados rápidos
+                        </text>
+                        <text x="540" y="1000" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle">
+                            ✓ Sin riesgos
+                        </text>
+                        
+                        <!-- Botón CTA -->
+                        <rect x="340" y="1650" width="400" height="100" fill="#FF7E00"/>
+                        <text x="540" y="1715" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle">
+                            AUDITORÍA GRATIS
+                        </text>
+                    </svg>
                 </div>
                 <div class="ad-label">Variante 3</div>
                 <div class="download-buttons">
-                    <button class="download-btn pdf" onclick="downloadAsPDF('story-3')">
-                        <i class="fas fa-file-pdf"></i> PDF
-                    </button>
-                    <button class="download-btn png" onclick="downloadAsPNG('story-3')">
+                    <button class="download-btn png" onclick="downloadSVGAsPNG('preview-story-3', 'Story-Optimiza-presupuesto')">
                         <i class="fas fa-file-image"></i> PNG
                     </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contenedor oculto para anuncios originales -->
-        <div class="original-ads">
-            <!-- Square 1 -->
-            <div class="ad-original square" id="square-1">
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="icon-circle">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <h3 class="ad-title">¿Ads sin resultados?</h3>
-                        <p class="ad-subtitle">Optimizamos en 48hs</p>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="cta-button">Auditoría Gratis</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Square 2 -->
-            <div class="ad-original square" id="square-2">
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="icon-circle">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="ad-title">+20% ventas</h3>
-                        <p class="ad-subtitle">Resultados garantizados</p>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="cta-button">Auditoría Gratis</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Square 3 -->
-            <div class="ad-original square" id="square-3">
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="icon-circle">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <h3 class="ad-title">Pará de perder dinero</h3>
-                        <p class="ad-subtitle">Optimizamos tu presupuesto</p>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="cta-button">Auditoría Gratis</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Story 1 -->
-            <div class="ad-original story" id="story-1">
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="icon-circle">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <h3 class="ad-title">¿Ads sin ROI?</h3>
-                        <ul class="benefits-list">
-                            <li><i class="fas fa-bolt"></i> Optimización en 48hs</li>
-                            <li><i class="fas fa-search-dollar"></i> Detectamos fugas</li>
-                            <li><i class="fas fa-chart-line"></i> +20% ventas</li>
-                        </ul>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="cta-button">Auditoría Gratis</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Story 2 -->
-            <div class="ad-original story" id="story-2">
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="icon-circle">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="ad-title">Aumentá tus ventas</h3>
-                        <ul class="benefits-list">
-                            <li><i class="fas fa-bolt"></i> En solo 48hs</li>
-                            <li><i class="fas fa-check"></i> Resultados reales</li>
-                            <li><i class="fas fa-shield-alt"></i> Garantizado</li>
-                        </ul>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="cta-button">Auditoría Gratis</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Story 3 -->
-            <div class="ad-original story" id="story-3">
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="icon-circle">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <h3 class="ad-title">Optimizá tu presupuesto</h3>
-                        <ul class="benefits-list">
-                            <li><i class="fas fa-search-dollar"></i> Auditoría gratis</li>
-                            <li><i class="fas fa-bolt"></i> Resultados rápidos</li>
-                            <li><i class="fas fa-check"></i> Sin riesgos</li>
-                        </ul>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="cta-button">Auditoría Gratis</div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <!-- Toast Notification -->
     <div id="toast" class="toast">
         <i class="fas fa-check-circle"></i>
         <span id="toast-message">Descarga completada</span>
     </div>
-
+    
     <script>
-        // Descargar anuncio como PDF
-        function downloadAsPDF(id) {
-            showToast('Preparando PDF...');
+        // Función para descargar SVG como PNG
+        function downloadSVGAsPNG(elementId, filename) {
+            const svgElement = document.getElementById(elementId).querySelector('svg');
+            const canvas = document.createElement('canvas');
             
-            // Usar html2canvas para capturar el anuncio original (oculto)
-            const element = document.getElementById(id);
+            // Obtener dimensiones del viewBox
+            const viewBox = svgElement.getAttribute('viewBox').split(' ');
+            const width = parseInt(viewBox[2]);
+            const height = parseInt(viewBox[3]);
             
-            html2canvas(element, {
-                scale: 2,
-                backgroundColor: '#dc3545',
-                logging: false,
-                useCORS: true,
-                allowTaint: true,
-                width: element.offsetWidth,
-                height: element.offsetHeight
-            }).then(canvas => {
-                // Convertir a imagen
-                const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                
-                // Crear PDF con jsPDF
-                const { jsPDF } = window.jspdf;
-                const isStory = element.classList.contains('story');
-                
-                const pdf = new jsPDF({
-                    orientation: isStory ? 'portrait' : 'portrait',
-                    unit: 'px',
-                    format: isStory ? [1080, 1920] : [1080, 1080],
-                    hotfixes: ["px_scaling"]
-                });
-                
-                // Agregar imagen al PDF
-                pdf.addImage(imgData, 'JPEG', 0, 0, element.offsetWidth, element.offsetHeight, '', 'FAST');
-                
-                // Guardar PDF
-                pdf.save(`Orange-Vapor-${id}.pdf`);
-                
-                showToast(`PDF "${id}" descargado correctamente`);
-            }).catch(error => {
-                console.error('Error al generar PDF:', error);
-                showToast('Error al generar PDF');
-            });
-        }
-
-        // Descargar anuncio como PNG
-        function downloadAsPNG(id) {
-            showToast('Preparando PNG...');
+            // Configurar canvas con dimensiones originales
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#dc3545';
+            ctx.fillRect(0, 0, width, height);
             
-            // Usar html2canvas para capturar el anuncio original (oculto)
-            const element = document.getElementById(id);
+            // Convertir SVG a imagen
+            const svgString = new XMLSerializer().serializeToString(svgElement);
+            const img = new Image();
             
-            html2canvas(element, {
-                scale: 2,
-                backgroundColor: '#dc3545',
-                logging: false,
-                useCORS: true,
-                allowTaint: true,
-                width: element.offsetWidth,
-                height: element.offsetHeight
-            }).then(canvas => {
-                // Convertir a imagen de alta calidad
-                const imgData = canvas.toDataURL('image/png', 1.0);
+            // Crear un Blob del SVG
+            const svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+            const URL = window.URL || window.webkitURL || window;
+            const svgUrl = URL.createObjectURL(svgBlob);
+            
+            img.onload = function() {
+                // Dibujar SVG en canvas
+                ctx.drawImage(img, 0, 0, width, height);
+                URL.revokeObjectURL(svgUrl);
                 
-                // Crear enlace de descarga
+                // Convertir a PNG y descargar
+                const imgURL = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
-                link.href = imgData;
-                link.download = `Orange-Vapor-${id}.png`;
+                link.download = filename + '.png';
+                link.href = imgURL;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
                 
-                showToast(`PNG "${id}" descargado correctamente`);
-            }).catch(error => {
-                console.error('Error al generar PNG:', error);
-                showToast('Error al generar PNG');
-            });
-        }
-
-        // Descargar todos como PDF
-        function downloadAllAsPDF() {
-            const ids = ['square-1', 'square-2', 'square-3', 'story-1', 'story-2', 'story-3'];
+                showToast(`PNG "${filename}" descargado correctamente`);
+            };
             
-            showToast('Preparando descarga de todos los anuncios como PDF...');
-            
-            ids.forEach((id, index) => {
-                setTimeout(() => {
-                    downloadAsPDF(id);
-                    
-                    if (index === ids.length - 1) {
-                        setTimeout(() => {
-                            showToast('Descarga de todos los PDF completada');
-                        }, 1000);
-                    }
-                }, index * 800);
-            });
+            img.src = svgUrl;
         }
-
-        // Descargar todos como PNG
+        
+        // Descargar todos los anuncios como PNG
         function downloadAllAsPNG() {
-            const ids = ['square-1', 'square-2', 'square-3', 'story-1', 'story-2', 'story-3'];
+            const items = [
+                {id: 'preview-square-1', name: 'Ads-sin-resultados'},
+                {id: 'preview-square-2', name: 'Mas-ventas'},
+                {id: 'preview-square-3', name: 'Para-de-perder-dinero'},
+                {id: 'preview-story-1', name: 'Story-Ads-sin-ROI'},
+                {id: 'preview-story-2', name: 'Story-Aumenta-ventas'},
+                {id: 'preview-story-3', name: 'Story-Optimiza-presupuesto'}
+            ];
             
-            showToast('Preparando descarga de todos los anuncios como PNG...');
+            showToast('Preparando descarga de todos los anuncios...');
             
-            ids.forEach((id, index) => {
+            items.forEach((item, index) => {
                 setTimeout(() => {
-                    downloadAsPNG(id);
+                    downloadSVGAsPNG(item.id, item.name);
                     
-                    if (index === ids.length - 1) {
+                    if (index === items.length - 1) {
                         setTimeout(() => {
-                            showToast('Descarga de todos los PNG completada');
+                            showToast('Descarga de todos los anuncios completada');
                         }, 1000);
                     }
                 }, index * 800);
             });
         }
-
+        
         // Mostrar notificación toast
         function showToast(message) {
             const toast = document.getElementById('toast');
