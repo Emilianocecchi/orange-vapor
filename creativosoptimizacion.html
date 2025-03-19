@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anuncios Meta Ads - Orange Vapor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -18,10 +18,10 @@
             --naranja-oscuro: #E56F00;
 
             /* Colores para Optimización Express */
-            --rojo-principal: #dc3545; /* Fondo plano */
+            --rojo-principal: #dc3545; 
             --rojo-claro: #ff6b6b;
             --rojo-oscuro: #c82333;
-            --rojo-transparente: rgba(220, 53, 69, 0.1);
+            --rojo-suave: #ffe0e3;
 
             /* Colores neutrales */
             --blanco: #FFFFFF;
@@ -29,24 +29,18 @@
             --gris-oscuro: #333333;
             --gris-medio: #666666;
             --gris-claro: #F5F5F5;
-            --gris-borde: #E0E0E0;
+            --gris-fondo: #f0f0f0;
 
             /* Sombras */
-            --sombra-suave: 0 5px 15px rgba(0, 0, 0, 0.05);
-            --sombra-media: 0 8px 30px rgba(0, 0, 0, 0.12);
-            --sombra-fuerte: 0 10px 40px rgba(0, 0, 0, 0.2);
+            --sombra-suave: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --sombra-media: 0 8px 15px rgba(0, 0, 0, 0.1);
+            --sombra-fuerte: 0 10px 25px rgba(0, 0, 0, 0.15);
 
             /* Bordes */
-            --borde-redondo-sm: 4px;
-            --borde-redondo-md: 8px;
-            --borde-redondo-lg: 16px;
+            --borde-redondo-sm: 6px;
+            --borde-redondo-md: 10px;
+            --borde-redondo-lg: 20px;
             --borde-redondo-full: 9999px;
-
-            /* Espaciado */
-            --espaciado-xs: 0.5rem;
-            --espaciado-sm: 0.5rem;
-            --espaciado-md: 2rem;
-            --espaciado-lg: 4rem;
 
             /* Tipografía */
             --fuente-principal: 'Montserrat', sans-serif;
@@ -78,45 +72,67 @@
             font-family: var(--fuente-secundaria);
             color: var(--gris-oscuro);
             line-height: 1.6;
-            background-color: var(--gris-claro);
+            background-color: var(--gris-fondo);
             padding: 40px;
         }
 
         h1 {
             font-family: var(--fuente-principal);
             text-align: center;
-            margin-bottom: var(--espaciado-lg);
+            margin-bottom: 30px;
             color: var(--rojo-principal);
+            font-weight: 800;
+            font-size: 2.5rem;
         }
 
         h2 {
             font-family: var(--fuente-principal);
-            margin-top: var(--espaciado-lg);
-            margin-bottom: var(--espaciado-md);
-            padding-bottom: 0.5rem;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
             border-bottom: 2px solid var(--rojo-principal);
+            color: var(--gris-oscuro);
+            font-weight: 700;
+            font-size: 1.75rem;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondo-md);
+            box-shadow: var(--sombra-media);
         }
 
         /* Contenedor de anuncios */
+        .ad-section {
+            margin-bottom: 50px;
+        }
+
         .ad-container {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--espaciado-md);
-            margin-bottom: var(--espaciado-lg);
+            gap: 30px;
+            justify-content: center;
         }
 
         .ad-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
+            position: relative;
         }
 
         .ad-label {
-            margin-top: var(--espaciado-sm);
+            margin-top: 12px;
             font-weight: 600;
-            color: var(--negro);
+            color: var(--gris-oscuro);
             margin-bottom: 10px;
+            font-family: var(--fuente-principal);
+            font-size: var(--texto-base);
         }
 
         /* Estilos de los anuncios */
@@ -124,52 +140,42 @@
             position: relative;
             overflow: hidden;
             background-color: var(--blanco);
-            border-radius: 0;
+            border-radius: var(--borde-redondo-md);
             box-shadow: var(--sombra-media);
+            display: flex;
+            flex-direction: column;
         }
 
+        .feed-square { 
+            width: 400px; 
+            height: 400px; 
+        }
+        
+        .story-reel { 
+            width: 225px; 
+            height: 400px; 
+        }
+
+        .ad-preview.feed-square .ad-content {
+            padding: 30px;
+        }
+
+        .ad-preview.story-reel .ad-content {
+            padding: 20px;
+        }
+
+        /* Fondo del anuncio */
         .ad-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: var(--rojo-principal); /* Fondo plano */
-            z-index: 1;
-        }
-
-        .ad-pattern {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><rect width="5" height="5" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.15;
-            z-index: 2;
+            background-color: var(--rojo-principal);
+            z-index: 1;
         }
 
-        .ad-vapor {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 70%);
-            z-index: 2;
-        }
-
-        .ad-vapor-1 {
-            width: 50%;
-            height: 50%;
-            bottom: -20%;
-            left: -20%;
-            opacity: 0.2;
-        }
-
-        .ad-vapor-2 {
-            width: 40%;
-            height: 40%;
-            top: -10%;
-            right: -10%;
-            opacity: 0.15;
-        }
-
+        /* Contenido del anuncio */
         .ad-content {
             position: relative;
             z-index: 5;
@@ -177,44 +183,22 @@
             display: flex;
             flex-direction: column;
             color: var(--blanco);
-            padding: var(--espaciado-sm);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        /* Ajustes específicos para Story/Reel */
-        .story-reel .ad-content {
-            padding: 0.5rem; /* Reducido para maximizar espacio */
-        }
-
-        .story-reel .ad-title {
-            font-size: var(--texto-lg); /* 1.25rem */
-        }
-
-        .story-reel .ad-subtitle {
-            font-size: var(--texto-sm); /* 0.875rem */
-        }
-
-        .story-reel .ad-benefits li {
-            font-size: var(--texto-sm); /* 0.875rem */
-        }
-
-        .story-reel .ad-cta {
-            padding: 0.5rem 1rem; /* Botón más compacto */
-            font-size: var(--texto-sm); /* 0.875rem */
-        }
-
+        /* Cabecera del anuncio */
         .ad-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--espaciado-xs);
+            margin-bottom: 20px;
         }
 
         .ad-logo {
             font-family: var(--fuente-principal);
-            font-weight: 700;
-            font-size: var(--texto-xl);
+            font-weight: 800;
+            font-size: 1.5rem;
             color: var(--blanco);
+            letter-spacing: -0.5px;
         }
 
         .ad-logo span {
@@ -224,7 +208,7 @@
         .ad-badge {
             display: inline-flex;
             align-items: center;
-            padding: 0.25rem 0.5rem;
+            padding: 5px 10px;
             background-color: rgba(255, 255, 255, 0.2);
             border-radius: var(--borde-redondo-full);
             font-size: var(--texto-xs);
@@ -233,9 +217,10 @@
         }
 
         .ad-badge i {
-            margin-right: 0.25rem;
+            margin-right: 6px;
         }
 
+        /* Cuerpo del anuncio */
         .ad-body {
             flex-grow: 1;
             display: flex;
@@ -243,94 +228,129 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 20px 0;
         }
 
         .ad-icon {
-            margin-bottom: var(--espaciado-xs);
-            font-size: var(--texto-2xl);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.15);
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        .story-reel .ad-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 22px;
+            margin-bottom: 15px;
         }
 
         .ad-title {
             font-family: var(--fuente-principal);
             font-weight: 800;
-            font-size: var(--texto-xl);
-            margin: var(--espaciado-xs) 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .story-reel .ad-title {
+            font-size: 1.5rem;
         }
 
         .ad-subtitle {
-            font-size: var(--texto-md);
-            margin-bottom: var(--espaciado-sm);
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 15px;
             opacity: 0.9;
         }
 
+        .story-reel .ad-subtitle {
+            font-size: 1rem;
+        }
+
+        /* Lista de beneficios */
         .ad-benefits {
             list-style: none;
             padding: 0;
-            margin: var(--espaciado-sm) 0;
+            margin: 15px 0;
             text-align: center;
+            width: 100%;
         }
 
         .ad-benefits li {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 8px;
             font-size: var(--texto-base);
-            margin-bottom: var(--espaciado-xs);
+            margin-bottom: 10px;
+            font-weight: 500;
         }
 
+        .story-reel .ad-benefits li {
+            font-size: var(--texto-sm);
+        }
+
+        /* Pie del anuncio */
         .ad-footer {
             margin-top: auto;
             text-align: center;
+            padding-top: 20px;
         }
 
         .ad-cta {
             background: var(--naranja-principal);
             color: var(--blanco);
             font-weight: 700;
-            padding: 0.8rem 1.5rem;
+            padding: 12px 25px;
             border-radius: var(--borde-redondo-md);
             font-size: var(--texto-base);
             text-transform: uppercase;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             display: inline-block;
+            letter-spacing: 0.5px;
+            font-family: var(--fuente-principal);
         }
 
-        /* Formatos específicos */
-        .feed-square { width: 350px; height: 350px; }
-        .story-reel { width: 200px; height: 356px; }
-        .carousel-slide { width: 350px; height: 350px; }
+        .story-reel .ad-cta {
+            padding: 10px 20px;
+            font-size: var(--texto-sm);
+        }
 
         /* Botones para descargar */
         .download-buttons {
             display: flex;
-            gap: 5px;
-            margin-top: 10px;
+            gap: 8px;
+            margin-top: 12px;
         }
 
         .download-btn {
             background-color: var(--naranja-principal);
             color: var(--blanco);
             border: none;
-            padding: 8px 12px;
+            padding: 8px 15px;
             border-radius: var(--borde-redondo-sm);
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             transition: all 0.3s ease;
-            text-decoration: none;
+            box-shadow: var(--sombra-suave);
+            font-family: var(--fuente-principal);
         }
 
         .download-btn:hover {
             background-color: var(--naranja-oscuro);
             transform: translateY(-2px);
+            box-shadow: var(--sombra-media);
         }
 
         .download-btn.png {
@@ -341,46 +361,21 @@
             background-color: var(--rojo-oscuro);
         }
 
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--naranja-principal);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 4px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-        }
-
-        .toast i {
-            margin-right: 10px;
-        }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* Controles de descarga */
+        /* Botones de acción globales */
         .action-buttons {
             text-align: center;
             margin-bottom: 40px;
         }
 
         .action-button {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background-color: var(--rojo-principal);
             color: white;
             border: none;
-            border-radius: 6px;
-            padding: 12px 24px;
+            border-radius: var(--borde-redondo-md);
+            padding: 12px 25px;
             font-family: var(--fuente-principal);
             font-weight: 600;
             font-size: 16px;
@@ -388,13 +383,43 @@
             margin: 0 10px;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(220, 53, 69, 0.2);
+            box-shadow: var(--sombra-suave);
         }
 
         .action-button:hover {
             background-color: var(--rojo-oscuro);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+            box-shadow: var(--sombra-media);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--rojo-principal);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--borde-redondo-sm);
+            box-shadow: var(--sombra-media);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            font-family: var(--fuente-principal);
+            font-weight: 500;
+        }
+
+        .toast i {
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
         }
 
         @media print {
@@ -404,465 +429,246 @@
                 background: none;
             }
             
-            .download-buttons, .action-buttons, .toast {
+            .download-buttons, .action-buttons, .toast, h1, h2, .ad-label {
                 display: none !important;
+            }
+
+            .ad-container {
+                display: block;
+            }
+
+            .ad-item {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .feed-square {
+                width: 320px;
+                height: 320px;
+            }
+
+            .story-reel {
+                width: 180px;
+                height: 320px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Anuncios Meta Ads - Orange Vapor</h1>
+    <div class="container">
+        <h1>Anuncios Meta Ads - Orange Vapor</h1>
 
-    <div class="action-buttons">
-        <button class="action-button" onclick="downloadAllAsPDF()">
-            <i class="fas fa-file-pdf"></i> Descargar Todos como PDF
-        </button>
-        <button class="action-button" onclick="downloadAllAsPNG()">
-            <i class="fas fa-file-image"></i> Descargar Todos como PNG
-        </button>
-    </div>
+        <div class="action-buttons">
+            <button class="action-button" onclick="downloadAllAsPDF()">
+                <i class="fas fa-file-pdf"></i> Descargar Todos como PDF
+            </button>
+            <button class="action-button" onclick="downloadAllAsPNG()">
+                <i class="fas fa-file-image"></i> Descargar Todos como PNG
+            </button>
+        </div>
 
-    <!-- Feed Square (1080x1080) -->
-    <h2>Feed Square (1080x1080)</h2>
-    <div class="ad-container">
-        <div class="ad-item">
-            <div class="ad-preview feed-square" id="feed-square-1">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
+        <!-- Feed Square (1080x1080) -->
+        <div class="ad-section">
+            <h2>Feed Square (1080x1080)</h2>
+            <div class="ad-container">
+                <div class="ad-item">
+                    <div class="ad-preview feed-square" id="feed-square-1">
+                        <div class="ad-bg"></div>
+                        <div class="ad-content">
+                            <div class="ad-header">
+                                <div class="ad-logo">Orange<span>Vapor</span></div>
+                                <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
+                            </div>
+                            <div class="ad-body">
+                                <div class="ad-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                                <h3 class="ad-title">¿Ads sin resultados?</h3>
+                                <p class="ad-subtitle">Optimizamos en 48hs</p>
+                            </div>
+                            <div class="ad-footer">
+                                <div class="ad-cta">Auditoría Gratis</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                        <h2 class="ad-title">¿Ads sin resultados?</h2>
-                        <p class="ad-subtitle">Optimizamos en 48hs</p>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="ad-cta">Auditoría Gratis</div>
+                    <div class="ad-label">Variante 1</div>
+                    <div class="download-buttons">
+                        <button class="download-btn pdf" onclick="downloadAsPDF('feed-square-1', 'Feed-Square-1')">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </button>
+                        <button class="download-btn png" onclick="downloadAsPNG('feed-square-1', 'Feed-Square-1')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="ad-label">Variante 1</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('feed-square-1', 'Feed-Square-1')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('feed-square-1', 'Feed-Square-1')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
+
+                <div class="ad-item">
+                    <div class="ad-preview feed-square" id="feed-square-2">
+                        <div class="ad-bg"></div>
+                        <div class="ad-content">
+                            <div class="ad-header">
+                                <div class="ad-logo">Orange<span>Vapor</span></div>
+                                <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
+                            </div>
+                            <div class="ad-body">
+                                <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
+                                <h3 class="ad-title">+20% ventas</h3>
+                                <p class="ad-subtitle">Resultados garantizados</p>
+                            </div>
+                            <div class="ad-footer">
+                                <div class="ad-cta">Auditoría Gratis</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ad-label">Variante 2</div>
+                    <div class="download-buttons">
+                        <button class="download-btn pdf" onclick="downloadAsPDF('feed-square-2', 'Feed-Square-2')">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </button>
+                        <button class="download-btn png" onclick="downloadAsPNG('feed-square-2', 'Feed-Square-2')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ad-item">
+                    <div class="ad-preview feed-square" id="feed-square-3">
+                        <div class="ad-bg"></div>
+                        <div class="ad-content">
+                            <div class="ad-header">
+                                <div class="ad-logo">Orange<span>Vapor</span></div>
+                                <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
+                            </div>
+                            <div class="ad-body">
+                                <div class="ad-icon"><i class="fas fa-money-bill-wave"></i></div>
+                                <h3 class="ad-title">Pará de perder dinero</h3>
+                                <p class="ad-subtitle">Optimizamos tu presupuesto</p>
+                            </div>
+                            <div class="ad-footer">
+                                <div class="ad-cta">Auditoría Gratis</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ad-label">Variante 3</div>
+                    <div class="download-buttons">
+                        <button class="download-btn pdf" onclick="downloadAsPDF('feed-square-3', 'Feed-Square-3')">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </button>
+                        <button class="download-btn png" onclick="downloadAsPNG('feed-square-3', 'Feed-Square-3')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="ad-item">
-            <div class="ad-preview feed-square" id="feed-square-2">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
+        <!-- Story/Reel (1080x1920) -->
+        <div class="ad-section">
+            <h2>Story/Reel (1080x1920)</h2>
+            <div class="ad-container">
+                <div class="ad-item">
+                    <div class="ad-preview story-reel" id="story-reel-1">
+                        <div class="ad-bg"></div>
+                        <div class="ad-content">
+                            <div class="ad-header">
+                                <div class="ad-logo">Orange<span>Vapor</span></div>
+                            </div>
+                            <div class="ad-body">
+                                <div class="ad-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                                <h3 class="ad-title">¿Ads sin ROI?</h3>
+                                <ul class="ad-benefits">
+                                    <li><i class="fas fa-bolt"></i> Optimización en 48hs</li>
+                                    <li><i class="fas fa-search-dollar"></i> Detectamos fugas</li>
+                                    <li><i class="fas fa-chart-line"></i> +20% ventas</li>
+                                </ul>
+                            </div>
+                            <div class="ad-footer">
+                                <div class="ad-cta">Auditoría Gratis</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
-                        <h2 class="ad-title">+20% ventas</h2>
-                        <p class="ad-subtitle">Resultados garantizados</p>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="ad-cta">Auditoría Gratis</div>
+                    <div class="ad-label">Variante 1</div>
+                    <div class="download-buttons">
+                        <button class="download-btn pdf" onclick="downloadAsPDF('story-reel-1', 'Story-Reel-1')">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </button>
+                        <button class="download-btn png" onclick="downloadAsPNG('story-reel-1', 'Story-Reel-1')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="ad-label">Variante 2</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('feed-square-2', 'Feed-Square-2')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('feed-square-2', 'Feed-Square-2')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
 
-        <div class="ad-item">
-            <div class="ad-preview feed-square" id="feed-square-3">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                        <div class="ad-badge"><i class="fas fa-bolt"></i> Express</div>
+                <div class="ad-item">
+                    <div class="ad-preview story-reel" id="story-reel-2">
+                        <div class="ad-bg"></div>
+                        <div class="ad-content">
+                            <div class="ad-header">
+                                <div class="ad-logo">Orange<span>Vapor</span></div>
+                            </div>
+                            <div class="ad-body">
+                                <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
+                                <h3 class="ad-title">Aumentá tus ventas</h3>
+                                <ul class="ad-benefits">
+                                    <li><i class="fas fa-bolt"></i> En solo 48hs</li>
+                                    <li><i class="fas fa-check"></i> Resultados reales</li>
+                                    <li><i class="fas fa-shield-alt"></i> Garantizado</li>
+                                </ul>
+                            </div>
+                            <div class="ad-footer">
+                                <div class="ad-cta">Auditoría Gratis</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-money-bill-wave"></i></div>
-                        <h2 class="ad-title">Pará de perder dinero</h2>
-                        <p class="ad-subtitle">Optimizamos tu presupuesto</p>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="ad-cta">Auditoría Gratis</div>
+                    <div class="ad-label">Variante 2</div>
+                    <div class="download-buttons">
+                        <button class="download-btn pdf" onclick="downloadAsPDF('story-reel-2', 'Story-Reel-2')">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </button>
+                        <button class="download-btn png" onclick="downloadAsPNG('story-reel-2', 'Story-Reel-2')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="ad-label">Variante 3</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('feed-square-3', 'Feed-Square-3')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('feed-square-3', 'Feed-Square-3')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Story/Reel (1080x1920) -->
-    <h2>Story/Reel (1080x1920)</h2>
-    <div class="ad-container">
-        <div class="ad-item">
-            <div class="ad-preview story-reel" id="story-reel-1">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
+                <div class="ad-item">
+                    <div class="ad-preview story-reel" id="story-reel-3">
+                        <div class="ad-bg"></div>
+                        <div class="ad-content">
+                            <div class="ad-header">
+                                <div class="ad-logo">Orange<span>Vapor</span></div>
+                            </div>
+                            <div class="ad-body">
+                                <div class="ad-icon"><i class="fas fa-money-bill-wave"></i></div>
+                                <h3 class="ad-title">Optimizá tu presupuesto</h3>
+                                <ul class="ad-benefits">
+                                    <li><i class="fas fa-search-dollar"></i> Auditoría gratis</li>
+                                    <li><i class="fas fa-bolt"></i> Resultados rápidos</li>
+                                    <li><i class="fas fa-check"></i> Sin riesgos</li>
+                                </ul>
+                            </div>
+                            <div class="ad-footer">
+                                <div class="ad-cta">Auditoría Gratis</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                        <h2 class="ad-title">¿Ads sin ROI?</h2>
-                        <ul class="ad-benefits">
-                            <li><i class="fas fa-bolt"></i> Optimización en 48hs</li>
-                            <li><i class="fas fa-search-dollar"></i> Detectamos fugas</li>
-                            <li><i class="fas fa-chart-line"></i> +20% ventas</li>
-                        </ul>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="ad-cta">Auditoría Gratis</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ad-label">Variante 1</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('story-reel-1', 'Story-Reel-1')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('story-reel-1', 'Story-Reel-1')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-
-        <div class="ad-item">
-            <div class="ad-preview story-reel" id="story-reel-2">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
-                        <h2 class="ad-title">Aumentá tus ventas</h2>
-                        <ul class="ad-benefits">
-                            <li><i class="fas fa-bolt"></i> En solo 48hs</li>
-                            <li><i class="fas fa-check"></i> Resultados reales</li>
-                            <li><i class="fas fa-shield-alt"></i> Garantizado</li>
-                        </ul>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="ad-cta">Auditoría Gratis</div>
+                    <div class="ad-label">Variante 3</div>
+                    <div class="download-buttons">
+                        <button class="download-btn pdf" onclick="downloadAsPDF('story-reel-3', 'Story-Reel-3')">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </button>
+                        <button class="download-btn png" onclick="downloadAsPNG('story-reel-3', 'Story-Reel-3')">
+                            <i class="fas fa-file-image"></i> PNG
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="ad-label">Variante 2</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('story-reel-2', 'Story-Reel-2')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('story-reel-2', 'Story-Reel-2')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-
-        <div class="ad-item">
-            <div class="ad-preview story-reel" id="story-reel-3">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-money-bill-wave"></i></div>
-                        <h2 class="ad-title">Optimizá tu presupuesto</h2>
-                        <ul class="ad-benefits">
-                            <li><i class="fas fa-search-dollar"></i> Auditoría gratis</li>
-                            <li><i class="fas fa-bolt"></i> Resultados rápidos</li>
-                            <li><i class="fas fa-check"></i> Sin riesgos</li>
-                        </ul>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="ad-cta">Auditoría Gratis</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ad-label">Variante 3</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('story-reel-3', 'Story-Reel-3')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('story-reel-3', 'Story-Reel-3')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Carrusel 1080x1080 -->
-    <h2>Carrusel 1080x1080</h2>
-    <div class="ad-container">
-        <div class="ad-item">
-            <div class="ad-preview carousel-slide" id="carousel-1-1">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                        <h2 class="ad-title">¿Ads sin resultados?</h2>
-                        <p class="ad-subtitle">Pará de perder dinero</p>
-                    </div>
-                </div>
-            </div>
-            <div class="ad-label">Slide 1</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('carousel-1-1', 'Carousel-1-Slide-1')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('carousel-1-1', 'Carousel-1-Slide-1')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-
-        <div class="ad-item">
-            <div class="ad-preview carousel-slide" id="carousel-1-2">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-bolt"></i></div>
-                        <h2 class="ad-title">Optimización Express</h2>
-                        <p class="ad-subtitle">En solo 48hs</p>
-                    </div>
-                </div>
-            </div>
-            <div class="ad-label">Slide 2</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('carousel-1-2', 'Carousel-1-Slide-2')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('carousel-1-2', 'Carousel-1-Slide-2')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-
-        <div class="ad-item">
-            <div class="ad-preview carousel-slide" id="carousel-1-3">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
-                        <h2 class="ad-title">+20% ventas</h2>
-                        <p class="ad-subtitle">Resultados garantizados</p>
-                    </div>
-                </div>
-            </div>
-            <div class="ad-label">Slide 3</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('carousel-1-3', 'Carousel-1-Slide-3')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('carousel-1-3', 'Carousel-1-Slide-3')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-
-        <div class="ad-item">
-            <div class="ad-preview carousel-slide" id="carousel-1-4">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-search-dollar"></i></div>
-                        <h2 class="ad-title">Auditoría Gratis</h2>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="ad-cta">Reservá Ahora</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ad-label">Slide 4</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('carousel-1-4', 'Carousel-1-Slide-4')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('carousel-1-4', 'Carousel-1-Slide-4')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Carrusel 1080x1920 -->
-    <h2>Carrusel 1080x1920</h2>
-    <div class="ad-container">
-        <div class="ad-item">
-            <div class="ad-preview story-reel" id="carousel-2-1">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                        <h2 class="ad-title">¿Ads sin ROI?</h2>
-                        <p class="ad-subtitle">Optimizamos tus campañas</p>
-                    </div>
-                </div>
-            </div>
-            <div class="ad-label">Slide 1</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('carousel-2-1', 'Carousel-2-Slide-1')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('carousel-2-1', 'Carousel-2-Slide-1')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-
-        <div class="ad-item">
-            <div class="ad-preview story-reel" id="carousel-2-2">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-bolt"></i></div>
-                        <h2 class="ad-title">Resultados en 48hs</h2>
-                        <p class="ad-subtitle">Optimización Express</p>
-                    </div>
-                </div>
-            </div>
-            <div class="ad-label">Slide 2</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('carousel-2-2', 'Carousel-2-Slide-2')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('carousel-2-2', 'Carousel-2-Slide-2')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-
-        <div class="ad-item">
-            <div class="ad-preview story-reel" id="carousel-2-3">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-chart-line"></i></div>
-                        <h2 class="ad-title">Aumentá tus ventas</h2>
-                        <p class="ad-subtitle">+20% garantizado</p>
-                    </div>
-                </div>
-            </div>
-            <div class="ad-label">Slide 3</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('carousel-2-3', 'Carousel-2-Slide-3')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('carousel-2-3', 'Carousel-2-Slide-3')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
-            </div>
-        </div>
-
-        <div class="ad-item">
-            <div class="ad-preview story-reel" id="carousel-2-4">
-                <div class="ad-bg"></div>
-                <div class="ad-pattern"></div>
-                <div class="ad-vapor ad-vapor-1"></div>
-                <div class="ad-vapor ad-vapor-2"></div>
-                <div class="ad-content">
-                    <div class="ad-header">
-                        <div class="ad-logo">Orange<span>Vapor</span></div>
-                    </div>
-                    <div class="ad-body">
-                        <div class="ad-icon"><i class="fas fa-search-dollar"></i></div>
-                        <h2 class="ad-title">Auditoría Gratis</h2>
-                    </div>
-                    <div class="ad-footer">
-                        <div class="ad-cta">Reservá Ahora</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ad-label">Slide 4</div>
-            <div class="download-buttons">
-                <button class="download-btn pdf" onclick="downloadAsPDF('carousel-2-4', 'Carousel-2-Slide-4')">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
-                <button class="download-btn png" onclick="downloadAsPNG('carousel-2-4', 'Carousel-2-Slide-4')">
-                    <i class="fas fa-file-image"></i> PNG
-                </button>
             </div>
         </div>
     </div>
@@ -877,51 +683,89 @@
         // Función para descargar un anuncio específico como PDF
         function downloadAsPDF(elementId, filename) {
             const element = document.getElementById(elementId);
+            
+            showToast('Preparando PDF...');
+            
+            // Obtener las dimensiones del elemento
+            const width = element.offsetWidth;
+            const height = element.offsetHeight;
+            
             const opt = {
                 margin: 0,
                 filename: filename + '.pdf',
                 image: { type: 'jpeg', quality: 1 },
                 html2canvas: { 
-                    scale: 2,
-                    backgroundColor: null,
+                    scale: 4, // Aumentado para mejor calidad
                     useCORS: true,
-                    logging: false
+                    logging: false,
+                    backgroundColor: null,
+                    width: width,
+                    height: height
                 },
                 jsPDF: { 
-                    unit: 'mm',
-                    format: [element.offsetWidth * 0.264583, element.offsetHeight * 0.264583],
-                    orientation: 'portrait' 
+                    unit: 'px',
+                    format: [width, height],
+                    orientation: width > height ? 'landscape' : 'portrait',
+                    hotfixes: ["px_scaling"]
                 }
             };
             
             // Generar PDF
-            html2pdf().set(opt).from(element).save().then(() => {
-                showToast('PDF descargado: ' + filename);
-            });
+            html2pdf()
+                .set(opt)
+                .from(element)
+                .save()
+                .then(() => {
+                    showToast('PDF descargado: ' + filename);
+                })
+                .catch(error => {
+                    console.error('Error al generar PDF:', error);
+                    showToast('Error al generar PDF');
+                });
         }
 
         // Función para descargar un anuncio específico como PNG
         function downloadAsPNG(elementId, filename) {
             const element = document.getElementById(elementId);
             
-            html2canvas(element, {
-                scale: 2,
-                backgroundColor: null,
+            showToast('Preparando PNG...');
+            
+            // Opciones para mejorar la calidad
+            const options = {
+                scale: 4, // Aumentado para mejor calidad
                 useCORS: true,
-                logging: false
-            }).then(canvas => {
-                // Crear un enlace temporal para la descarga
-                const link = document.createElement('a');
-                link.download = filename + '.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                showToast('PNG descargado: ' + filename);
-            });
+                allowTaint: true,
+                backgroundColor: null,
+                logging: false,
+                width: element.offsetWidth,
+                height: element.offsetHeight
+            };
+            
+            html2canvas(element, options)
+                .then(canvas => {
+                    // Crear un enlace temporal para la descarga
+                    const link = document.createElement('a');
+                    link.download = filename + '.png';
+                    
+                    // Convertir a formato PNG de alta calidad
+                    link.href = canvas.toDataURL('image/png', 1.0);
+                    
+                    // Simular clic para descargar
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    showToast('PNG descargado: ' + filename);
+                })
+                .catch(error => {
+                    console.error('Error al generar PNG:', error);
+                    showToast('Error al generar PNG');
+                });
         }
 
         // Función para descargar todos los anuncios como PDF
         function downloadAllAsPDF() {
-            const adElements = document.querySelectorAll('[id^="feed-square-"], [id^="story-reel-"], [id^="carousel-"]');
+            const adElements = document.querySelectorAll('[id^="feed-square-"], [id^="story-reel-"]');
             
             if (adElements.length === 0) {
                 showToast('No se encontraron anuncios para descargar');
@@ -945,13 +789,13 @@
                             showToast('Descarga de todos los PDF completada');
                         }, 1000);
                     }
-                }, index * 500); // Agregar un pequeño retraso entre descargas
+                }, index * 800); // Mayor retraso para evitar problemas
             });
         }
 
         // Función para descargar todos los anuncios como PNG
         function downloadAllAsPNG() {
-            const adElements = document.querySelectorAll('[id^="feed-square-"], [id^="story-reel-"], [id^="carousel-"]');
+            const adElements = document.querySelectorAll('[id^="feed-square-"], [id^="story-reel-"]');
             
             if (adElements.length === 0) {
                 showToast('No se encontraron anuncios para descargar');
@@ -975,7 +819,7 @@
                             showToast('Descarga de todos los PNG completada');
                         }, 1000);
                     }
-                }, index * 500); // Agregar un pequeño retraso entre descargas
+                }, index * 800); // Mayor retraso para evitar problemas
             });
         }
 
