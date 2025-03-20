@@ -734,7 +734,8 @@
                 const downloadEl = document.createElement('div');
                 downloadEl.className = 'creative-download';
                 downloadEl.innerHTML = '<i class="fas fa-download"></i>';
-                downloadEl.addEventListener('click', () => {
+                downloadEl.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Evitar que se propague el evento
                     if (activeFormat === 'square') {
                         downloadCreative(index);
                     } else {
@@ -743,8 +744,440 @@
                 });
                 creativeEl.appendChild(downloadEl);
                 
+                // Mostrar previsualización del creativo con los mismos bordes redondeados
+                creativeEl.addEventListener('click', () => {
+                    if (activeFormat === 'square') {
+                        previewCreative(index);
+                    } else {
+                        previewCreativeVertical(index);
+                    }
+                });
+                
                 creativesContainer.appendChild(creativeEl);
             });
+        }
+        
+        // Función para previsualizar un creativo antes de descargarlo
+        function previewCreative(index) {
+            // Crear un modal para mostrar la previsualización
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '9999';
+            
+            // Crear la previsualización
+            const preview = document.createElement('div');
+            preview.style.maxWidth = '90%';
+            preview.style.maxHeight = '90%';
+            preview.style.position = 'relative';
+            
+            // Crear el canvas dentro del modal
+            const canvas = document.createElement('canvas');
+            canvas.width = 1080;
+            canvas.height = 1080;
+            canvas.style.maxWidth = '100%';
+            canvas.style.maxHeight = '100%';
+            canvas.style.borderRadius = '8px'; // Bordes redondeados
+            
+            // Dibujar el creativo en el canvas
+            const ctx = canvas.getContext('2d');
+            drawCreative(ctx, index, activeService);
+            
+            // Botón de cierre
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = '×';
+            closeBtn.style.position = 'absolute';
+            closeBtn.style.top = '-40px';
+            closeBtn.style.right = '0';
+            closeBtn.style.backgroundColor = 'transparent';
+            closeBtn.style.border = 'none';
+            closeBtn.style.color = 'white';
+            closeBtn.style.fontSize = '30px';
+            closeBtn.style.cursor = 'pointer';
+            
+            // Botón de descarga
+            const downloadBtn = document.createElement('button');
+            downloadBtn.textContent = 'Descargar';
+            downloadBtn.style.position = 'absolute';
+            downloadBtn.style.bottom = '-50px';
+            downloadBtn.style.right = '0';
+            downloadBtn.style.backgroundColor = '#ff7e00';
+            downloadBtn.style.color = 'white';
+            downloadBtn.style.border = 'none';
+            downloadBtn.style.padding = '10px 20px';
+            downloadBtn.style.borderRadius = '4px';
+            downloadBtn.style.cursor = 'pointer';
+            
+            // Agregar eventos
+            closeBtn.addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+            
+            downloadBtn.addEventListener('click', () => {
+                if (activeFormat === 'square') {
+                    downloadCreative(index);
+                } else {
+                    downloadCreativeVertical(index);
+                }
+                document.body.removeChild(modal);
+            });
+            
+            // Cerrar el modal al hacer clic fuera de la previsualización
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+            
+            // Agregar elementos al DOM
+            preview.appendChild(canvas);
+            preview.appendChild(closeBtn);
+            preview.appendChild(downloadBtn);
+            modal.appendChild(preview);
+            document.body.appendChild(modal);
+        }
+        
+        // Función para previsualizar un creativo vertical
+        function previewCreativeVertical(index) {
+            // Crear un modal para mostrar la previsualización
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '9999';
+            
+            // Crear la previsualización
+            const preview = document.createElement('div');
+            preview.style.maxWidth = '90%';
+            preview.style.maxHeight = '90%';
+            preview.style.position = 'relative';
+            
+            // Crear el canvas dentro del modal
+            const canvas = document.createElement('canvas');
+            canvas.width = 1080;
+            canvas.height = 1920;
+            canvas.style.maxWidth = '100%';
+            canvas.style.maxHeight = '90vh';
+            canvas.style.borderRadius = '8px'; // Bordes redondeados
+            
+            // Dibujar el creativo en el canvas
+            const ctx = canvas.getContext('2d');
+            drawCreativeVertical(ctx, index, activeService);
+            
+            // Botón de cierre
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = '×';
+            closeBtn.style.position = 'absolute';
+            closeBtn.style.top = '-40px';
+            closeBtn.style.right = '0';
+            closeBtn.style.backgroundColor = 'transparent';
+            closeBtn.style.border = 'none';
+            closeBtn.style.color = 'white';
+            closeBtn.style.fontSize = '30px';
+            closeBtn.style.cursor = 'pointer';
+            
+            // Botón de descarga
+            const downloadBtn = document.createElement('button');
+            downloadBtn.textContent = 'Descargar';
+            downloadBtn.style.position = 'absolute';
+            downloadBtn.style.bottom = '-50px';
+            downloadBtn.style.right = '0';
+            downloadBtn.style.backgroundColor = '#ff7e00';
+            downloadBtn.style.color = 'white';
+            downloadBtn.style.border = 'none';
+            downloadBtn.style.padding = '10px 20px';
+            downloadBtn.style.borderRadius = '4px';
+            downloadBtn.style.cursor = 'pointer';
+            
+            // Agregar eventos
+            closeBtn.addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+            
+            downloadBtn.addEventListener('click', () => {
+                if (activeFormat === 'square') {
+                    downloadCreative(index);
+                } else {
+                    downloadCreativeVertical(index);
+                }
+                document.body.removeChild(modal);
+            });
+            
+            // Cerrar el modal al hacer clic fuera de la previsualización
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+            
+            // Agregar elementos al DOM
+            preview.appendChild(canvas);
+            preview.appendChild(closeBtn);
+            preview.appendChild(downloadBtn);
+            modal.appendChild(preview);
+            document.body.appendChild(modal);
+        }
+        
+        // Función para dibujar un creativo cuadrado en un contexto de canvas dado
+        function drawCreative(ctx, index, service) {
+            const creative = creativesData[service][index];
+            const isFirst = index === 0;
+            
+            // Configurar canvas
+            const canvas = ctx.canvas;
+            
+            // Dibujar fondo con bordes redondeados
+            ctx.fillStyle = creative.bgColor;
+            roundRect(ctx, 0, 0, canvas.width, canvas.height, 8); // Borde redondeado de 8px
+            ctx.fill();
+            
+            // Añadir patrón específico al fondo
+            drawBackgroundPattern(ctx, service, canvas.width, canvas.height);
+            
+            // Dibujar barra lateral con bordes redondeados en el extremo derecho
+            ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height * 0.3);
+            ctx.lineTo(0, canvas.height * 0.3 + canvas.height * 0.3);
+            ctx.lineTo(12, canvas.height * 0.3 + canvas.height * 0.3);
+            ctx.arcTo(15, canvas.height * 0.3 + canvas.height * 0.3, 15, canvas.height * 0.3 + canvas.height * 0.3 - 3, 3);
+            ctx.lineTo(15, canvas.height * 0.3 + 3);
+            ctx.arcTo(15, canvas.height * 0.3, 12, canvas.height * 0.3, 3);
+            ctx.lineTo(0, canvas.height * 0.3);
+            ctx.fill();
+            
+            // Añadir icono específico del servicio
+            if (creative.icon) {
+                // Dibujar círculo para el icono
+                ctx.fillStyle = 'rgba(255,255,255,0.1)';
+                ctx.beginPath();
+                ctx.arc(80, canvas.height - 80, 40, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = '30px "Font Awesome 5 Free"';
+                ctx.fillText('★', 70, canvas.height - 70);
+            }
+            
+            // Añadir contenedor de logo para mejor contraste con bordes redondeados
+            const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
+            ctx.fillStyle = logoBackgroundColor;
+            roundRect(ctx, 30, 20, 200, 50, 4); // Borde redondeado de 4px
+            ctx.fill();
+            
+            // Añadir logo Orange Vapor o OV - Esquina superior izquierda
+            ctx.font = 'bold 36px Montserrat, sans-serif';
+            
+            if (isFirst) {
+                // Logo Orange Vapor para el primer creativo
+                ctx.fillStyle = colors.light;
+                ctx.fillText('Orange', 40, 60);
+                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
+                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, 60);
+            } else {
+                // Logo OV con O en blanco y V en naranja
+                ctx.fillStyle = colors.light;
+                ctx.fillText('O', 40, 60);
+                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
+                let oWidth = ctx.measureText('O').width;
+                ctx.fillText('V', 40 + oWidth, 60);
+            }
+            
+            // CONTENIDO CENTRADO - Para mejor impacto visual
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            // Título (con tipografía más grande para mejor legibilidad)
+            ctx.font = 'bold 70px Montserrat, sans-serif';
+            ctx.textAlign = 'center';
+            
+            // Si no es el primer creativo y tiene un color de acento, usarlo para el título
+            if (!isFirst && creative.accentColor) {
+                ctx.fillStyle = creative.accentColor;
+            } else {
+                ctx.fillStyle = colors.light;
+            }
+            
+            // Colocar título centrado verticalmente, justo por encima del centro
+            const titleY = centerY - 80;
+            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 250, 80); // Reducido el ancho máximo
+            
+            // Subtítulo con fondo redondeado
+            ctx.fillStyle = 'rgba(0,0,0,0.25)';
+            ctx.font = 'bold 46px Montserrat, sans-serif';
+            
+            // Medir el texto para crear un fondo adecuado
+            const subtitleMetrics = ctx.measureText(creative.subtitle);
+            const subtitleWidth = Math.min(subtitleMetrics.width + 80, canvas.width - 200);
+            const subtitleY = centerY + 30;
+            
+            // Crear un rectángulo redondeado para el fondo del subtítulo, centrado
+            roundRect(ctx, centerX - subtitleWidth/2, subtitleY - 40, subtitleWidth, 80, 4);
+            ctx.fill();
+            
+            // Dibujar el texto del subtítulo
+            ctx.fillStyle = colors.light;
+            ctx.font = 'bold 46px Montserrat, sans-serif';
+            ctx.fillText(creative.subtitle, centerX, subtitleY + 20);
+            
+            // Descripción
+            ctx.fillStyle = 'rgba(255,255,255,0.95)'; // Mayor opacidad para mejor legibilidad
+            ctx.font = '36px Montserrat, sans-serif';
+            const descY = subtitleY + 120;
+            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 250, 50); // Reducido el ancho máximo
+            
+            // Número con borde redondeado (círculo)
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.beginPath();
+            ctx.arc(canvas.width - 70, canvas.height - 70, 30, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = colors.light;
+            ctx.font = 'bold 24px Montserrat, sans-serif';
+            ctx.fillText(`${index + 1}/4`, canvas.width - 70, canvas.height - 62);
+        }
+        
+        // Función para dibujar un creativo vertical en un contexto de canvas dado
+        function drawCreativeVertical(ctx, index, service) {
+            const creative = creativesData[service][index];
+            const isFirst = index === 0;
+            
+            // Configurar canvas
+            const canvas = ctx.canvas;
+            
+            // Dibujar fondo con bordes redondeados
+            ctx.fillStyle = creative.bgColor;
+            roundRect(ctx, 0, 0, canvas.width, canvas.height, 8); // Borde redondeado de 8px
+            ctx.fill();
+            
+            // Añadir patrón específico al fondo
+            drawBackgroundPattern(ctx, service, canvas.width, canvas.height);
+            
+            // Calcular zonas seguras (14% superior e inferior ~ 269px)
+            const safeZoneTop = Math.round(canvas.height * 0.14);
+            const safeZoneBottom = canvas.height - safeZoneTop;
+            
+            // Dibujar barra lateral con bordes redondeados - en área visible pero respetando zonas seguras
+            ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
+            const accentY = safeZoneTop + 100; // Un poco más abajo de la zona segura
+            const accentHeight = canvas.height - accentY - safeZoneTop - 100;
+            
+            // Barra con bordes redondeados a la derecha
+            ctx.beginPath();
+            ctx.moveTo(0, accentY);
+            ctx.lineTo(0, accentY + accentHeight);
+            ctx.lineTo(16, accentY + accentHeight);
+            ctx.arcTo(20, accentY + accentHeight, 20, accentY + accentHeight - 5, 5);
+            ctx.lineTo(20, accentY + 5);
+            ctx.arcTo(20, accentY, 16, accentY, 5);
+            ctx.lineTo(0, accentY);
+            ctx.fill();
+            
+            // Añadir contenedor de logo para mejor contraste con bordes redondeados
+            const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
+            ctx.fillStyle = logoBackgroundColor;
+            roundRect(ctx, 30, safeZoneTop + 10, 200, 50, 4); // Borde redondeado de 4px
+            ctx.fill();
+            
+            // Añadir logo Orange Vapor o OV - justo debajo de zona segura
+            ctx.font = 'bold 42px Montserrat, sans-serif'; // Tamaño aumentado para mejor legibilidad
+            const logoY = safeZoneTop + 50;
+            
+            if (isFirst) {
+                // Logo Orange Vapor para el primer creativo
+                ctx.fillStyle = colors.light;
+                ctx.fillText('Orange', 40, logoY);
+                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
+                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, logoY);
+            } else {
+                // Logo OV con O en blanco y V en naranja
+                ctx.fillStyle = colors.light;
+                ctx.fillText('O', 40, logoY);
+                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
+                let oWidth = ctx.measureText('O').width;
+                ctx.fillText('V', 40 + oWidth, logoY);
+            }
+            
+            // Añadir icono específico del servicio
+            if (creative.icon) {
+                // Dibujar círculo para el icono
+                ctx.fillStyle = 'rgba(255,255,255,0.1)';
+                ctx.beginPath();
+                ctx.arc(100, safeZoneBottom - 100, 50, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // El texto del icono se agregará como texto
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = '36px "Font Awesome 5 Free"';
+                ctx.fillText('★', 85, safeZoneBottom - 85); // Estrella como placeholder
+            }
+            
+            // CONTENIDO CENTRADO - Para mejor impacto visual
+            // Todo el contenido principal se ubica en el área central segura
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            // Título centrado en el área segura con tipografía grande
+            ctx.font = 'bold 80px Montserrat, sans-serif'; // Mayor tamaño para destacar en vertical
+            ctx.textAlign = 'center';
+            
+            // Si no es el primer creativo y tiene un color de acento, usarlo para el título
+            if (!isFirst && creative.accentColor) {
+                ctx.fillStyle = creative.accentColor;
+            } else {
+                ctx.fillStyle = colors.light;
+            }
+            
+            // Colocar título centrado en la parte superior del área segura
+            const titleY = centerY - 200;
+            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 300, 90); // Reducido el ancho máximo
+            
+            // Subtítulo con fondo redondeado
+            ctx.fillStyle = 'rgba(0,0,0,0.25)';
+            ctx.font = 'bold 56px Montserrat, sans-serif';
+            
+            // Medir el texto para crear un fondo adecuado
+            const subtitleMetrics = ctx.measureText(creative.subtitle);
+            const subtitleWidth = Math.min(subtitleMetrics.width + 100, canvas.width - 300); // Reducido el ancho máximo
+            const subtitleY = centerY;
+            
+            // Crear un rectángulo redondeado para el fondo del subtítulo, centrado
+            roundRect(ctx, centerX - subtitleWidth/2, subtitleY - 50, subtitleWidth, 100, 4);
+            ctx.fill();
+            
+            // Dibujar el texto del subtítulo
+            ctx.fillStyle = colors.light;
+            ctx.font = 'bold 56px Montserrat, sans-serif';
+            ctx.fillText(creative.subtitle, centerX, subtitleY + 20);
+            
+            // Descripción
+            ctx.fillStyle = 'rgba(255,255,255,0.95)'; // Mayor opacidad para mejor legibilidad
+            ctx.font = '42px Montserrat, sans-serif';
+            const descY = subtitleY + 150;
+            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 300, 60); // Reducido el ancho máximo
+            
+            // Número - dentro del área segura inferior con círculo
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.beginPath();
+            ctx.arc(canvas.width - 80, safeZoneBottom - 80, 40, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = colors.light;
+            ctx.font = 'bold 30px Montserrat, sans-serif';
+            ctx.fillText(`${index + 1}/4`, canvas.width - 80, safeZoneBottom - 70);
         }
         
         // Función para actualizar UI
@@ -873,6 +1306,20 @@
             ctx.restore();
         }
         
+        // Función para dibujar un rectángulo con esquinas redondeadas
+        function roundRect(ctx, x, y, width, height, radius) {
+            if (width < 2 * radius) radius = width / 2;
+            if (height < 2 * radius) radius = height / 2;
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.arcTo(x + width, y, x + width, y + height, radius);
+            ctx.arcTo(x + width, y + height, x, y + height, radius);
+            ctx.arcTo(x, y + height, x, y, radius);
+            ctx.arcTo(x, y, x + width, y, radius);
+            ctx.closePath();
+            return ctx;
+        }
+        
         // Función para generar y descargar un creativo cuadrado (optimizado)
         function downloadCreative(index) {
             const creative = creativesData[activeService][index];
@@ -884,24 +1331,28 @@
             canvas.width = 1080;
             canvas.height = 1080;
             
-            // Dibujar fondo
+            // Dibujar fondo con bordes redondeados
             ctx.fillStyle = creative.bgColor;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            roundRect(ctx, 0, 0, canvas.width, canvas.height, 8); // Borde redondeado de 8px
+            ctx.fill();
             
             // Añadir patrón específico al fondo
             drawBackgroundPattern(ctx, activeService, canvas.width, canvas.height);
             
-            // Dibujar barra lateral
+            // Dibujar barra lateral con bordes redondeados en el extremo derecho
             ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
-            ctx.fillRect(0, canvas.height * 0.3, 12, canvas.height * 0.3);
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height * 0.3);
+            ctx.lineTo(0, canvas.height * 0.3 + canvas.height * 0.3);
+            ctx.lineTo(12, canvas.height * 0.3 + canvas.height * 0.3);
+            ctx.arcTo(15, canvas.height * 0.3 + canvas.height * 0.3, 15, canvas.height * 0.3 + canvas.height * 0.3 - 3, 3);
+            ctx.lineTo(15, canvas.height * 0.3 + 3);
+            ctx.arcTo(15, canvas.height * 0.3, 12, canvas.height * 0.3, 3);
+            ctx.lineTo(0, canvas.height * 0.3);
+            ctx.fill();
             
             // Añadir icono específico del servicio
             if (creative.icon) {
-                // Cargar Font Awesome
-                const script = document.createElement('script');
-                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js';
-                document.head.appendChild(script);
-                
                 // Dibujar círculo para el icono
                 ctx.fillStyle = 'rgba(255,255,255,0.1)';
                 ctx.beginPath();
@@ -916,11 +1367,11 @@
                 ctx.fillText('★', 70, canvas.height - 70); // Estrella como placeholder
             }
             
-            // Añadir contenedor de logo para mejor contraste
+            // Añadir contenedor de logo para mejor contraste con bordes redondeados
             const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
             ctx.fillStyle = logoBackgroundColor;
-            ctx.fillRect(30, 20, 200, 50);
-            ctx.fillStyle = colors.light;
+            roundRect(ctx, 30, 20, 200, 50, 4); // Borde redondeado de 4px
+            ctx.fill();
             
             // Añadir logo Orange Vapor o OV - Esquina superior izquierda
             ctx.font = 'bold 36px Montserrat, sans-serif';
@@ -959,7 +1410,7 @@
             const titleY = centerY - 80;
             wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 250, 80); // Reducido el ancho máximo
             
-            // Subtítulo
+            // Subtítulo con fondo redondeado
             ctx.fillStyle = 'rgba(0,0,0,0.25)';
             ctx.font = 'bold 46px Montserrat, sans-serif';
             
@@ -968,8 +1419,9 @@
             const subtitleWidth = Math.min(subtitleMetrics.width + 80, canvas.width - 200);
             const subtitleY = centerY + 30;
             
-            // Crear un rectángulo para el fondo del subtítulo, centrado
-            ctx.fillRect(centerX - subtitleWidth/2, subtitleY - 40, subtitleWidth, 80);
+            // Crear un rectángulo redondeado para el fondo del subtítulo, centrado
+            roundRect(ctx, centerX - subtitleWidth/2, subtitleY - 40, subtitleWidth, 80, 4);
+            ctx.fill();
             
             // Dibujar el texto del subtítulo
             ctx.fillStyle = colors.light;
@@ -982,7 +1434,7 @@
             const descY = subtitleY + 120;
             wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 250, 50); // Reducido el ancho máximo
             
-            // Número
+            // Número con borde redondeado (círculo)
             ctx.fillStyle = 'rgba(255,255,255,0.2)';
             ctx.beginPath();
             ctx.arc(canvas.width - 70, canvas.height - 70, 30, 0, Math.PI * 2);
@@ -1010,9 +1462,10 @@
             canvas.width = 1080;
             canvas.height = 1920;
             
-            // Dibujar fondo
+            // Dibujar fondo con bordes redondeados
             ctx.fillStyle = creative.bgColor;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            roundRect(ctx, 0, 0, canvas.width, canvas.height, 8); // Borde redondeado de 8px
+            ctx.fill();
             
             // Añadir patrón específico al fondo
             drawBackgroundPattern(ctx, activeService, canvas.width, canvas.height);
@@ -1021,16 +1474,27 @@
             const safeZoneTop = Math.round(canvas.height * 0.14);
             const safeZoneBottom = canvas.height - safeZoneTop;
             
-            // Dibujar barra lateral - en área visible pero respetando zonas seguras
+            // Dibujar barra lateral con bordes redondeados - en área visible pero respetando zonas seguras
             ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
             const accentY = safeZoneTop + 100; // Un poco más abajo de la zona segura
             const accentHeight = canvas.height - accentY - safeZoneTop - 100;
-            ctx.fillRect(0, accentY, 16, accentHeight); // Barra más ancha para mejor visibilidad en vertical
             
-            // Añadir contenedor de logo para mejor contraste
+            // Barra con bordes redondeados a la derecha
+            ctx.beginPath();
+            ctx.moveTo(0, accentY);
+            ctx.lineTo(0, accentY + accentHeight);
+            ctx.lineTo(16, accentY + accentHeight);
+            ctx.arcTo(20, accentY + accentHeight, 20, accentY + accentHeight - 5, 5);
+            ctx.lineTo(20, accentY + 5);
+            ctx.arcTo(20, accentY, 16, accentY, 5);
+            ctx.lineTo(0, accentY);
+            ctx.fill();
+            
+            // Añadir contenedor de logo para mejor contraste con bordes redondeados
             const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
             ctx.fillStyle = logoBackgroundColor;
-            ctx.fillRect(30, safeZoneTop + 10, 200, 50);
+            roundRect(ctx, 30, safeZoneTop + 10, 200, 50, 4); // Borde redondeado de 4px
+            ctx.fill();
             
             // Añadir logo Orange Vapor o OV - justo debajo de zona segura
             ctx.font = 'bold 42px Montserrat, sans-serif'; // Tamaño aumentado para mejor legibilidad
@@ -1085,7 +1549,7 @@
             const titleY = centerY - 200;
             wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 300, 90); // Reducido el ancho máximo
             
-            // Subtítulo
+            // Subtítulo con fondo redondeado
             ctx.fillStyle = 'rgba(0,0,0,0.25)';
             ctx.font = 'bold 56px Montserrat, sans-serif';
             
@@ -1094,8 +1558,9 @@
             const subtitleWidth = Math.min(subtitleMetrics.width + 100, canvas.width - 300); // Reducido el ancho máximo
             const subtitleY = centerY;
             
-            // Crear un rectángulo para el fondo del subtítulo, centrado
-            ctx.fillRect(centerX - subtitleWidth/2, subtitleY - 50, subtitleWidth, 100);
+            // Crear un rectángulo redondeado para el fondo del subtítulo, centrado
+            roundRect(ctx, centerX - subtitleWidth/2, subtitleY - 50, subtitleWidth, 100, 4);
+            ctx.fill();
             
             // Dibujar el texto del subtítulo
             ctx.fillStyle = colors.light;
@@ -1108,7 +1573,7 @@
             const descY = subtitleY + 150;
             wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 300, 60); // Reducido el ancho máximo
             
-            // Número - dentro del área segura inferior
+            // Número - dentro del área segura inferior con círculo
             ctx.fillStyle = 'rgba(255,255,255,0.2)';
             ctx.beginPath();
             ctx.arc(canvas.width - 80, safeZoneBottom - 80, 40, 0, Math.PI * 2);
