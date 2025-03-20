@@ -71,36 +71,52 @@
         .tab-button.active {
             color: white;
         }
-        .format-tab-button.active {
+        .tab-button.optimizacion.active {
             background-color: #ff7e00;
             border-color: #ff7e00;
         }
-        .service-tab-button.optimizacion.active {
-            background-color: #ff7e00;
-            border-color: #ff7e00;
-        }
-        .service-tab-button.meta.active {
+        .tab-button.meta.active {
             background-color: #1877F2;
             border-color: #1877F2;
         }
-        .service-tab-button.google.active {
+        .tab-button.google.active {
             background-color: #4285F4;
             border-color: #4285F4;
         }
-        .service-tab-button.email.active {
+        .tab-button.email.active {
             background-color: #6b21a8;
             border-color: #6b21a8;
         }
-        .service-tab-button.chatbot.active {
+        .tab-button.chatbot.active {
             background-color: #10B981;
             border-color: #10B981;
         }
-        .service-tab-button.all.active {
+        .tab-button.all.active {
             background-color: #333333;
             border-color: #333333;
         }
-        .format-tabs {
-            margin-top: 15px;
+        .download-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .download-btn {
+            background: #ff7e00;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(255, 126, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            background: #e67300;
+            transform: translateY(-2px);
         }
         .creatives-container {
             display: flex;
@@ -109,66 +125,56 @@
             margin-top: 20px;
         }
         .creative {
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            height: 300px;
             margin: 10px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        .creative-vertical {
+            width: 200px;
+            height: 356px;
+        }
+        .creative-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
-        .square-creative {
-            width: 300px;
-            height: 300px;
+        .creative-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            line-height: 1.2;
         }
-        .vertical-creative {
-            width: 200px;
-            height: 356px;
+        .creative-subtitle {
+            font-size: 16px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.25);
+            padding: 8px 12px;
+            display: inline-block;
+            border-radius: 4px;
+            margin-bottom: 10px;
         }
-        .creative-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1;
-        }
-        .creative-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.6;
-            z-index: -1;
-        }
-        .creative-pattern {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 120px;
-            height: 120px;
-            opacity: 0.1;
-            z-index: -1;
-            background: repeating-linear-gradient(45deg, currentColor, currentColor 5px, transparent 5px, transparent 15px);
+        .creative-description {
+            font-size: 14px;
+            opacity: 0.9;
         }
         .creative-accent {
             position: absolute;
             left: 0;
+            top: 30%;
             width: 6px;
+            height: 100px;
+            background: white;
             border-radius: 0 3px 3px 0;
-        }
-        .square-accent {
-            height: 120px;
-        }
-        .vertical-accent {
-            height: 80px;
-        }
-        .creative-content {
-            position: relative;
-            z-index: 1;
-            padding: 20px;
+            z-index: 10;
         }
         .creative-number {
             position: absolute;
@@ -177,124 +183,64 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
+            background: rgba(255,255,255,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 12px;
             font-weight: bold;
+            z-index: 10;
         }
-        .creative-title {
-            font-weight: bold;
-            margin-bottom: 10px;
+        .creative-download {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
         }
-        .square-title {
-            font-size: 21px;
-            line-height: 1.2;
+        .creative:hover .creative-download {
+            opacity: 1;
         }
-        .vertical-title {
-            font-size: 16px;
-            line-height: 1.2;
-        }
-        .creative-subtitle {
-            font-weight: bold;
-            padding: 8px 12px;
-            display: inline-block;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            background: rgba(0,0,0,0.25);
-        }
-        .square-subtitle {
-            font-size: 18px;
-        }
-        .vertical-subtitle {
-            font-size: 14px;
-        }
-        .creative-description {
-            opacity: 0.9;
-        }
-        .square-description {
-            font-size: 14px;
-        }
-        .vertical-description {
-            font-size: 12px;
-            line-height: 1.3;
-        }
-        .creative-secondary-title {
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        .square-secondary-title {
-            font-size: 14px;
-        }
-        .vertical-secondary-title {
+        .note {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
             font-size: 12px;
         }
-        .creative-secondary-subtitle {
-            font-weight: bold;
-            margin-bottom: 12px;
-            line-height: 1.2;
-        }
-        .square-secondary-subtitle {
-            font-size: 20px;
-        }
-        .vertical-secondary-subtitle {
-            font-size: 16px;
-        }
-        .creative-points {
-            opacity: 0.9;
-            padding-left: 20px;
-            margin: 0;
-        }
-        .square-points li {
-            margin-bottom: 6px;
-            font-size: 13px;
-        }
-        .vertical-points li {
-            margin-bottom: 5px;
-            font-size: 12px;
-            line-height: 1.2;
-        }
-        .creative-cta {
-            font-weight: bold;
-            padding: 8px 12px;
-            display: inline-block;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-        .square-cta {
-            font-size: 14px;
-        }
-        .vertical-cta {
-            font-size: 12px;
+        canvas {
+            position: absolute;
+            left: -9999px;
         }
         .info-box {
             background-color: #e6f7ff;
             border-left: 4px solid #1890ff;
             padding: 15px;
             margin: 20px auto;
-            max-width: 600px;
+            max-width: 800px;
             border-radius: 4px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
         }
         .info-box i {
             color: #1890ff;
             font-size: 20px;
             margin-right: 10px;
+            margin-top: 2px;
         }
         .info-box p {
             color: #333;
             font-size: 14px;
             margin: 0;
-        }
-        .note {
-            text-align: center;
-            color: #666;
-            font-size: 12px;
-            margin-top: 30px;
-        }
-        .hidden {
-            display: none;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -308,27 +254,32 @@
         <!-- Tabs de servicios -->
         <div class="tabs">
             <div class="tab-group">
-                <button class="tab-button service-tab-button optimizacion active" data-service="optimizacion">Optimización Express</button>
-                <button class="tab-button service-tab-button meta" data-service="meta">Meta Ads</button>
-                <button class="tab-button service-tab-button google" data-service="google">Google Ads</button>
-                <button class="tab-button service-tab-button email" data-service="email">Email Marketing</button>
-                <button class="tab-button service-tab-button chatbot" data-service="chatbot">Chatbot</button>
-                <button class="tab-button service-tab-button all" data-service="all">Paquete Completo</button>
+                <button class="tab-button optimizacion active" data-service="optimizacion">Optimización Express</button>
+                <button class="tab-button meta" data-service="meta">Meta Ads</button>
+                <button class="tab-button google" data-service="google">Google Ads</button>
+                <button class="tab-button email" data-service="email">Email Marketing</button>
+                <button class="tab-button chatbot" data-service="chatbot">Chatbot</button>
+                <button class="tab-button all" data-service="all">Paquete Completo</button>
             </div>
         </div>
         
-        <!-- Tabs de formato (solo para Optimización Express) -->
-        <div id="formatTabs" class="tabs format-tabs">
-            <div class="tab-group">
-                <button class="tab-button format-tab-button active" data-format="square">Cuadrados (1080x1080)</button>
-                <button class="tab-button format-tab-button" data-format="vertical">Verticales (1080x1920)</button>
-            </div>
+        <!-- Sección de descarga -->
+        <div class="download-section">
+            <button id="downloadBtn" class="download-btn">
+                <i class="fas fa-download"></i>
+                Descargar Creativos
+            </button>
         </div>
         
         <!-- Mensaje informativo -->
         <div class="info-box">
-            <i class="fas fa-eye"></i>
-            <p>Estos creativos están listos para ser implementados en tu campaña. Reemplaza estos mockups con versiones de alta resolución (1080x1080 y 1080x1920) siguiendo exactamente este diseño y distribución de elementos.</p>
+            <i class="fas fa-info-circle"></i>
+            <div>
+                <p><strong>Instrucciones:</strong></p>
+                <p>1. Selecciona el tipo de servicio que deseas generar.</p>
+                <p>2. Haz clic en "Descargar Creativos" para obtener el conjunto completo en alta resolución.</p>
+                <p>3. También puedes descargar creativos individuales pasando el mouse sobre cada uno y haciendo clic en el icono de descarga.</p>
+            </div>
         </div>
         
         <!-- Contenedor de creativos -->
@@ -338,647 +289,406 @@
         
         <!-- Nota de especificaciones -->
         <div class="note">
-            <p id="dimensionsNote">Dimensiones: 1080x1080 píxeles</p>
-            <p style="margin-top: 5px;">Paleta de colores personalizada para cada servicio</p>
+            <p>Dimensiones: 1080x1080 píxeles (imágenes descargadas en alta resolución)</p>
         </div>
+        
+        <!-- Canvas para generación de imágenes (oculto) -->
+        <canvas id="exportCanvas"></canvas>
     </div>
     
     <script>
-        // Configuración de colores
+        // Colores
         const colors = {
             primary: '#ff7e00',
-            secondary: '#2c2c2c',
-            light: '#ffffff',
             dark: '#181818',
-            gradient: 'linear-gradient(135deg, #ff7e00 0%, #ff5500 100%)',
+            light: '#ffffff',
             meta: '#1877F2',
             google: '#4285F4',
             email: '#6b21a8',
-            chatbot: '#10B981',
-            gradientMeta: 'linear-gradient(135deg, #1877F2 0%, #0C63D4 100%)',
-            gradientGoogle: 'linear-gradient(135deg, #4285F4 0%, #0F9D58 100%)',
-            gradientEmail: 'linear-gradient(135deg, #6b21a8 0%, #4A0D80 100%)',
-            gradientChatbot: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-            gradientAll: 'linear-gradient(135deg, #333333 0%, #111111 100%)'
+            chatbot: '#10B981'
         };
         
-        // Datos para creativos cuadrados (Optimización Express)
-        const squareCreatives = [
-            {
-                id: 'square-1',
-                title: 'TRANSFORMAMOS TUS CAMPAÑAS QUE NO CONVIERTEN EN 48HS',
-                subtitle: '+20% EN VENTAS O PAGÁS SOLO LA MITAD',
-                description: 'Diagnóstico + Nueva estructura optimizada',
-                background: colors.gradient,
-                textColor: colors.light,
-            },
-            {
-                id: 'square-2',
-                title: 'EL PROBLEMA',
-                subtitle: 'CAMPAÑAS QUE NO GENERAN RESULTADOS',
-                description: 'Perdés ventas potenciales mientras tu competencia sigue avanzando',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.primary
-            },
-            {
-                id: 'square-3',
-                title: 'LA SOLUCIÓN',
-                subtitle: 'OPTIMIZACIÓN EXPRESS EN 48HS',
-                description: 'Estructura completamente renovada que genera ventas reales',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.primary
-            },
-            {
-                id: 'square-4',
-                title: 'INVERSIÓN ÚNICA',
-                subtitle: '$299 USD',
-                description: 'Solo pagás la mitad ($149) al inicio y el resto únicamente si aumentamos tus ventas un 20% en 14 días',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.primary
-            }
-        ];
-
-        // Datos para creativos verticales (Optimización Express)
-        const verticalCreatives = [
-            {
-                id: 'vertical-1',
-                title: 'OPTIMIZACIÓN EXPRESS DE ADS',
-                subtitle: 'TRANSFORMAMOS TUS CAMPAÑAS EN 48HS',
-                description: 'Aumentamos tus ventas en 20% o pagás solo la mitad',
-                background: colors.gradient,
-                textColor: colors.light,
-            },
-            {
-                id: 'vertical-2',
-                title: '¿QUÉ RECIBÍS POR $299 USD?',
-                subtitle: 'PAQUETE COMPLETO',
-                points: [
-                    'Análisis completo de tus campañas',
-                    'Estrategia personalizada para Meta y Google Ads',
-                    'Estructura optimizada de campañas',
-                    'Configuración técnica de píxeles',
-                    'Pack básico de anuncios listos para usar'
-                ],
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.primary
-            },
-            {
-                id: 'vertical-3',
-                title: 'RESULTADOS EN 14 DÍAS',
-                subtitle: 'MÉTRICAS QUE IMPORTAN',
-                points: [
-                    '+20% en ventas reales',
-                    'ROI positivo garantizado',
-                    'Reducción del costo por adquisición',
-                    'Segmentación precisa de audiencia',
-                    'Sin contratos a largo plazo'
-                ],
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.primary
-            },
-            {
-                id: 'vertical-4',
-                title: 'DIAGNÓSTICO GRATUITO',
-                subtitle: '¡CUPOS LIMITADOS!',
-                description: 'Solo aceptamos 3 clientes nuevos por semana',
-                callToAction: '¡RESERVÁ TU LUGAR AHORA!',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.primary
-            }
-        ];
-
-        // Datos para creativos Meta Ads
-        const metaAdsCreatives = [
-            {
-                id: 'meta-1',
-                title: 'META ADS',
-                subtitle: 'AUMENTÁ TUS CONVERSIONES CON FACEBOOK E INSTAGRAM',
-                description: 'Estrategias personalizadas que maximizan el retorno de tu inversión',
-                background: colors.gradientMeta,
-                textColor: colors.light,
-                icon: 'fab fa-facebook',
-            },
-            {
-                id: 'meta-2',
-                title: 'TARGETING PRECISO',
-                subtitle: 'LLEGÁ A TU AUDIENCIA IDEAL',
-                description: 'Segmentación avanzada por intereses, comportamientos y datos demográficos',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.meta,
-            },
-            {
-                id: 'meta-3',
-                title: 'ANUNCIOS CREATIVOS',
-                subtitle: 'FORMATOS QUE CONVIERTEN',
-                points: [
-                    'Anuncios dinámicos personalizados',
-                    'Contenido visual de alto impacto',
-                    'Carruseles y colecciones atractivas',
-                    'Videos optimizados para feed',
-                    'Stories que capturan la atención'
-                ],
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.meta,
-            },
-            {
-                id: 'meta-4',
-                title: 'RESULTADOS MEDIBLES',
-                subtitle: 'CAMPAÑAS DATA-DRIVEN',
-                description: 'Análisis detallado del rendimiento para optimizar constantemente tus anuncios',
-                callToAction: 'POTENCIÁ TU NEGOCIO AHORA',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.meta,
-            }
-        ];
-
-        // Datos para creativos Google Ads
-        const googleAdsCreatives = [
-            {
-                id: 'google-1',
-                title: 'GOOGLE ADS',
-                subtitle: 'LLEGA A CLIENTES CUANDO TE BUSCAN',
-                description: 'Campañas de búsqueda, display y YouTube optimizadas para convertir',
-                background: colors.gradientGoogle,
-                textColor: colors.light,
-                icon: 'fab fa-google',
-            },
-            {
-                id: 'google-2',
-                title: 'BÚSQUEDA AVANZADA',
-                subtitle: 'PRIMEROS EN LOS RESULTADOS',
-                description: 'Estrategia de palabras clave que captura clientes con intención de compra',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.google,
-            },
-            {
-                id: 'google-3',
-                title: 'RED DISPLAY & YOUTUBE',
-                subtitle: 'PRESENCIA VISUAL IMPACTANTE',
-                points: [
-                    'Anuncios gráficos atractivos',
-                    'Remarketing inteligente',
-                    'Campañas de video efectivas',
-                    'Audiencias similares',
-                    'Formatos adaptados a cada plataforma'
-                ],
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.google,
-            },
-            {
-                id: 'google-4',
-                title: 'ANÁLISIS Y OPTIMIZACIÓN',
-                subtitle: 'MEJORA CONSTANTE DEL ROI',
-                description: 'Tecnología de machine learning para ajustar pujas y maximizar conversiones',
-                callToAction: 'MEJORÁ TU VISIBILIDAD HOY',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.google,
-            }
-        ];
-
-        // Datos para creativos Email Marketing
-        const emailCreatives = [
-            {
-                id: 'email-1',
-                title: 'EMAIL MARKETING',
-                subtitle: 'CONECTÁ DIRECTAMENTE CON TUS CLIENTES',
-                description: 'Campañas personalizadas que generan confianza y aumentan ventas',
-                background: colors.gradientEmail,
-                textColor: colors.light,
-                icon: 'fas fa-envelope',
-            },
-            {
-                id: 'email-2',
-                title: 'AUTOMATIZACIÓN',
-                subtitle: 'SECUENCIAS QUE CONVIERTEN',
-                description: 'Flujos automatizados para cada etapa del embudo de ventas',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.email,
-            },
-            {
-                id: 'email-3',
-                title: 'SEGMENTACIÓN AVANZADA',
-                subtitle: 'MENSAJES RELEVANTES',
-                points: [
-                    'Segmentación por comportamiento',
-                    'Emails personalizados por intereses',
-                    'Recuperación de carritos abandonados',
-                    'Nutrición de leads estratégica',
-                    'Campañas de fidelización efectivas'
-                ],
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.email,
-            },
-            {
-                id: 'email-4',
-                title: 'ANÁLISIS COMPLETO',
-                subtitle: 'MÉTRICAS QUE IMPULSAN DECISIONES',
-                description: 'Reportes detallados de apertura, clics y conversiones para mejorar resultados',
-                callToAction: 'EMPEZÁ A CONECTAR AHORA',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.email,
-            }
-        ];
-
-        // Datos para creativos Chatbot
-        const chatbotCreatives = [
-            {
-                id: 'chatbot-1',
-                title: 'CHATBOT INTELIGENTE',
-                subtitle: 'ATIENDE A TUS CLIENTES 24/7',
-                description: 'Automatiza la atención al cliente y aumenta conversiones mientras dormís',
-                background: colors.gradientChatbot,
-                textColor: colors.light,
-                icon: 'fas fa-robot',
-            },
-            {
-                id: 'chatbot-2',
-                title: 'CONVERSACIONES FLUIDAS',
-                subtitle: 'RESPUESTAS INTELIGENTES',
-                description: 'IA que entiende preguntas complejas y responde de forma natural',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.chatbot,
-            },
-            {
-                id: 'chatbot-3',
-                title: 'INTEGRACIÓN COMPLETA',
-                subtitle: 'SE ADAPTA A TU NEGOCIO',
-                points: [
-                    'Conectado con WhatsApp y Messenger',
-                    'Integración con tu CRM',
-                    'Calificación automática de leads',
-                    'Transferencia a agentes humanos',
-                    'Respuestas personalizadas por segmento'
-                ],
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.chatbot,
-            },
-            {
-                id: 'chatbot-4',
-                title: 'RESULTADOS CONCRETOS',
-                subtitle: 'CHATBOT QUE GENERA VENTAS',
-                description: 'Aumenta en un 35% la conversión capturando leads cuando están más interesados',
-                callToAction: 'AUTOMATIZÁ TU ATENCIÓN',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.chatbot,
-            }
-        ];
-
-        // Datos para creativos Paquete Completo
-        const allServicesCreatives = [
-            {
-                id: 'all-1',
-                title: 'PAQUETE COMPLETO',
-                subtitle: '4 SERVICIOS INTEGRADOS PARA MÁXIMO IMPACTO',
-                description: 'Google Ads + Meta Ads + Email Marketing + Chatbot por solo US$1000/mes',
-                background: colors.gradientAll,
-                textColor: colors.light,
-                accent: colors.primary,
-            },
-            {
-                id: 'all-2',
-                title: 'ESTRATEGIA 360°',
-                subtitle: 'PRESENCIA TOTAL EN EL MUNDO DIGITAL',
-                description: 'Atraemos tráfico, convertimos visitantes y fidelizamos clientes en un solo lugar',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.primary,
-            },
-            {
-                id: 'all-3',
-                title: 'AHORRO SIGNIFICATIVO',
-                subtitle: 'PAQUETE CON DESCUENTO',
-                points: [
-                    'Ahorrás casi US$200 mensuales',
-                    'Un solo equipo coordinado',
-                    'Estrategia coherente entre canales',
-                    'Análisis cruzado de datos',
-                    'Optimizaciones basadas en resultados reales'
-                ],
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.primary,
-            },
-            {
-                id: 'all-4',
-                title: 'RESULTADOS AMPLIFICADOS',
-                subtitle: 'EL PODER DE LA SINERGIA',
-                description: 'Cada canal potencia a los demás, multiplicando el retorno de tu inversión total',
-                callToAction: 'ELEVÁ TU MARKETING DIGITAL',
-                background: colors.dark,
-                textColor: colors.light,
-                accent: colors.primary,
-            }
-        ];
-
-        // Estado de la aplicación
+        // Datos de creativos por servicio
+        const creativesData = {
+            optimizacion: [
+                {
+                    title: 'TRANSFORMAMOS TUS CAMPAÑAS QUE NO CONVIERTEN EN 48HS',
+                    subtitle: '+20% EN VENTAS O PAGÁS SOLO LA MITAD',
+                    description: 'Diagnóstico + Nueva estructura optimizada',
+                    bgColor: colors.primary
+                },
+                {
+                    title: 'EL PROBLEMA',
+                    subtitle: 'CAMPAÑAS QUE NO GENERAN RESULTADOS',
+                    description: 'Perdés ventas potenciales mientras tu competencia sigue avanzando',
+                    bgColor: colors.dark,
+                    accentColor: colors.primary
+                },
+                {
+                    title: 'LA SOLUCIÓN',
+                    subtitle: 'OPTIMIZACIÓN EXPRESS EN 48HS',
+                    description: 'Estructura completamente renovada que genera ventas reales',
+                    bgColor: colors.dark,
+                    accentColor: colors.primary
+                },
+                {
+                    title: 'INVERSIÓN ÚNICA',
+                    subtitle: '$299 USD',
+                    description: 'Solo pagás la mitad ($149) al inicio y el resto únicamente si aumentamos tus ventas un 20% en 14 días',
+                    bgColor: colors.dark,
+                    accentColor: colors.primary
+                }
+            ],
+            meta: [
+                {
+                    title: 'META ADS',
+                    subtitle: 'AUMENTÁ TUS CONVERSIONES CON FACEBOOK E INSTAGRAM',
+                    description: 'Estrategias personalizadas que maximizan el retorno de tu inversión',
+                    bgColor: colors.meta
+                },
+                {
+                    title: 'TARGETING PRECISO',
+                    subtitle: 'LLEGÁ A TU AUDIENCIA IDEAL',
+                    description: 'Segmentación avanzada por intereses, comportamientos y datos demográficos',
+                    bgColor: colors.dark,
+                    accentColor: colors.meta
+                },
+                {
+                    title: 'ANUNCIOS CREATIVOS',
+                    subtitle: 'FORMATOS QUE CONVIERTEN',
+                    description: 'Anuncios dinámicos personalizados para cada etapa del embudo',
+                    bgColor: colors.dark,
+                    accentColor: colors.meta
+                },
+                {
+                    title: 'RESULTADOS MEDIBLES',
+                    subtitle: 'CAMPAÑAS DATA-DRIVEN',
+                    description: 'Análisis detallado del rendimiento para optimizar constantemente tus anuncios',
+                    bgColor: colors.dark,
+                    accentColor: colors.meta
+                }
+            ],
+            google: [
+                {
+                    title: 'GOOGLE ADS',
+                    subtitle: 'LLEGÁ A CLIENTES CUANDO TE BUSCAN',
+                    description: 'Campañas de búsqueda, display y YouTube optimizadas para convertir',
+                    bgColor: colors.google
+                },
+                {
+                    title: 'BÚSQUEDA AVANZADA',
+                    subtitle: 'PRIMEROS EN LOS RESULTADOS',
+                    description: 'Estrategia de palabras clave que captura clientes con intención de compra',
+                    bgColor: colors.dark,
+                    accentColor: colors.google
+                },
+                {
+                    title: 'RED DISPLAY & YOUTUBE',
+                    subtitle: 'PRESENCIA VISUAL IMPACTANTE',
+                    description: 'Anuncios gráficos atractivos y campañas de video efectivas',
+                    bgColor: colors.dark,
+                    accentColor: colors.google
+                },
+                {
+                    title: 'ANÁLISIS Y OPTIMIZACIÓN',
+                    subtitle: 'MEJORA CONSTANTE DEL ROI',
+                    description: 'Tecnología de machine learning para ajustar pujas y maximizar conversiones',
+                    bgColor: colors.dark,
+                    accentColor: colors.google
+                }
+            ],
+            email: [
+                {
+                    title: 'EMAIL MARKETING',
+                    subtitle: 'CONECTÁ DIRECTAMENTE CON TUS CLIENTES',
+                    description: 'Campañas personalizadas que generan confianza y aumentan ventas',
+                    bgColor: colors.email
+                },
+                {
+                    title: 'AUTOMATIZACIÓN',
+                    subtitle: 'SECUENCIAS QUE CONVIERTEN',
+                    description: 'Flujos automatizados para cada etapa del embudo de ventas',
+                    bgColor: colors.dark,
+                    accentColor: colors.email
+                },
+                {
+                    title: 'SEGMENTACIÓN AVANZADA',
+                    subtitle: 'MENSAJES RELEVANTES',
+                    description: 'Emails personalizados por comportamiento e intereses de tus contactos',
+                    bgColor: colors.dark,
+                    accentColor: colors.email
+                },
+                {
+                    title: 'ANÁLISIS COMPLETO',
+                    subtitle: 'MÉTRICAS QUE IMPULSAN DECISIONES',
+                    description: 'Reportes detallados de apertura, clics y conversiones para mejorar resultados',
+                    bgColor: colors.dark,
+                    accentColor: colors.email
+                }
+            ],
+            chatbot: [
+                {
+                    title: 'CHATBOT INTELIGENTE',
+                    subtitle: 'ATIENDE A TUS CLIENTES 24/7',
+                    description: 'Automatiza la atención al cliente y aumenta conversiones mientras dormís',
+                    bgColor: colors.chatbot
+                },
+                {
+                    title: 'CONVERSACIONES FLUIDAS',
+                    subtitle: 'RESPUESTAS INTELIGENTES',
+                    description: 'IA que entiende preguntas complejas y responde de forma natural',
+                    bgColor: colors.dark,
+                    accentColor: colors.chatbot
+                },
+                {
+                    title: 'INTEGRACIÓN COMPLETA',
+                    subtitle: 'SE ADAPTA A TU NEGOCIO',
+                    description: 'Conectado con WhatsApp, Messenger y tu CRM para una experiencia unificada',
+                    bgColor: colors.dark,
+                    accentColor: colors.chatbot
+                },
+                {
+                    title: 'RESULTADOS CONCRETOS',
+                    subtitle: 'CHATBOT QUE GENERA VENTAS',
+                    description: 'Aumenta en un 35% la conversión capturando leads cuando están más interesados',
+                    bgColor: colors.dark,
+                    accentColor: colors.chatbot
+                }
+            ],
+            all: [
+                {
+                    title: 'PAQUETE COMPLETO',
+                    subtitle: '4 SERVICIOS INTEGRADOS PARA MÁXIMO IMPACTO',
+                    description: 'Google Ads + Meta Ads + Email Marketing + Chatbot por solo US$1000/mes',
+                    bgColor: '#333333'
+                },
+                {
+                    title: 'ESTRATEGIA 360°',
+                    subtitle: 'PRESENCIA TOTAL EN EL MUNDO DIGITAL',
+                    description: 'Atraemos tráfico, convertimos visitantes y fidelizamos clientes en un solo lugar',
+                    bgColor: colors.dark,
+                    accentColor: colors.primary
+                },
+                {
+                    title: 'AHORRO SIGNIFICATIVO',
+                    subtitle: 'PAQUETE CON DESCUENTO',
+                    description: 'Ahorrás casi US$200 mensuales y obtenés un equipo totalmente coordinado',
+                    bgColor: colors.dark,
+                    accentColor: colors.primary
+                },
+                {
+                    title: 'RESULTADOS AMPLIFICADOS',
+                    subtitle: 'EL PODER DE LA SINERGIA',
+                    description: 'Cada canal potencia a los demás, multiplicando el retorno de tu inversión total',
+                    bgColor: colors.dark,
+                    accentColor: colors.primary
+                }
+            ]
+        };
+        
+        // Estado actual
         let activeService = 'optimizacion';
-        let activeFormat = 'square';
-
+        
         // Elementos del DOM
         const serviceTitle = document.getElementById('serviceTitle');
-        const formatTabs = document.getElementById('formatTabs');
         const creativesContainer = document.getElementById('creativesContainer');
-        const dimensionsNote = document.getElementById('dimensionsNote');
-        const serviceTabButtons = document.querySelectorAll('.service-tab-button');
-        const formatTabButtons = document.querySelectorAll('.format-tab-button');
-
-        // Función para obtener creativos según el servicio activo
-        function getCreativesByService(service, format) {
-            switch (service) {
-                case 'optimizacion':
-                    return format === 'square' ? squareCreatives : verticalCreatives;
-                case 'meta':
-                    return metaAdsCreatives;
-                case 'google':
-                    return googleAdsCreatives;
-                case 'email':
-                    return emailCreatives;
-                case 'chatbot':
-                    return chatbotCreatives;
-                case 'all':
-                    return allServicesCreatives;
-                default:
-                    return squareCreatives;
-            }
-        }
-
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const exportCanvas = document.getElementById('exportCanvas');
+        
         // Función para obtener título según el servicio
         function getServiceTitle(service) {
             switch (service) {
-                case 'optimizacion':
-                    return 'Creativos para Optimización Express';
-                case 'meta':
-                    return 'Creativos para Meta Ads';
-                case 'google':
-                    return 'Creativos para Google Ads';
-                case 'email':
-                    return 'Creativos para Email Marketing';
-                case 'chatbot':
-                    return 'Creativos para Chatbot';
-                case 'all':
-                    return 'Creativos para Paquete Completo';
-                default:
-                    return 'Creativos para Optimización Express';
+                case 'optimizacion': return 'Creativos para Optimización Express';
+                case 'meta': return 'Creativos para Meta Ads';
+                case 'google': return 'Creativos para Google Ads';
+                case 'email': return 'Creativos para Email Marketing';
+                case 'chatbot': return 'Creativos para Chatbot';
+                case 'all': return 'Creativos para Paquete Completo';
+                default: return 'Creativos para Optimización Express';
             }
         }
-
-        // Función para obtener color de acento según el servicio
-        function getAccentColor(service, creative) {
-            if (creative.accent) return creative.accent;
-            
-            switch (service) {
-                case 'meta':
-                    return colors.meta;
-                case 'google':
-                    return colors.google;
-                case 'email':
-                    return colors.email;
-                case 'chatbot':
-                    return colors.chatbot;
-                default:
-                    return colors.primary;
-            }
-        }
-
-        // Función para obtener color de gradiente overlay según el servicio
-        function getOverlayGradient(service) {
-            switch (service) {
-                case 'meta':
-                    return 'radial-gradient(circle at top right, rgba(24,119,242,0.3) 0%, transparent 60%)';
-                case 'google':
-                    return 'radial-gradient(circle at top right, rgba(66,133,244,0.3) 0%, transparent 60%)';
-                case 'email':
-                    return 'radial-gradient(circle at top right, rgba(107,33,168,0.3) 0%, transparent 60%)';
-                case 'chatbot':
-                    return 'radial-gradient(circle at top right, rgba(16,185,129,0.3) 0%, transparent 60%)';
-                case 'all':
-                    return 'radial-gradient(circle at top right, rgba(75,75,75,0.3) 0%, transparent 60%)';
-                default:
-                    return 'radial-gradient(circle at top right, rgba(255,126,0,0.3) 0%, transparent 60%)';
-            }
-        }
-
-        // Función para obtener color de indicador según el servicio
-        function getIndicatorBg(service, isFirst) {
-            if (isFirst) return 'rgba(255,255,255,0.2)';
-            
-            switch (service) {
-                case 'meta':
-                    return 'rgba(24,119,242,0.2)';
-                case 'google':
-                    return 'rgba(66,133,244,0.2)';
-                case 'email':
-                    return 'rgba(107,33,168,0.2)';
-                case 'chatbot':
-                    return 'rgba(16,185,129,0.2)';
-                case 'all':
-                    return 'rgba(75,75,75,0.2)';
-                default:
-                    return 'rgba(255,126,0,0.2)';
-            }
-        }
-
+        
         // Función para renderizar creativos
         function renderCreatives() {
             creativesContainer.innerHTML = '';
-            const creatives = getCreativesByService(activeService, activeFormat);
-            const isVertical = activeService === 'optimizacion' && activeFormat === 'vertical';
+            const creatives = creativesData[activeService];
             
             creatives.forEach((creative, index) => {
                 const isFirst = index === 0;
-                const accentColor = getAccentColor(activeService, creative);
-                const overlayGradient = getOverlayGradient(activeService);
-                const indicatorBg = getIndicatorBg(activeService, isFirst);
                 
                 // Crear elemento creativo
                 const creativeEl = document.createElement('div');
-                creativeEl.className = `creative ${isVertical ? 'vertical-creative' : 'square-creative'}`;
-                creativeEl.style.color = creative.textColor;
+                creativeEl.className = 'creative';
+                creativeEl.dataset.index = index;
+                creativeEl.style.backgroundColor = creative.bgColor;
                 
-                // Fondo
-                const bgEl = document.createElement('div');
-                bgEl.className = 'creative-bg';
-                bgEl.style.background = creative.background;
-                creativeEl.appendChild(bgEl);
-                
-                // Overlay
-                const overlayEl = document.createElement('div');
-                overlayEl.className = 'creative-overlay';
-                overlayEl.style.background = overlayGradient;
-                creativeEl.appendChild(overlayEl);
-                
-                // Patrón
-                const patternEl = document.createElement('div');
-                patternEl.className = 'creative-pattern';
-                patternEl.style.height = isVertical ? '200px' : '120px';
-                creativeEl.appendChild(patternEl);
-                
-                // Icono (solo para el primer creativo si tiene)
-                if (isFirst && creative.icon) {
-                    const iconEl = document.createElement('div');
-                    iconEl.style.position = 'absolute';
-                    iconEl.style.top = '24px';
-                    iconEl.style.right = '24px';
-                    iconEl.style.fontSize = '24px';
-                    iconEl.style.opacity = '0.3';
-                    iconEl.innerHTML = `<i class="${creative.icon}"></i>`;
-                    creativeEl.appendChild(iconEl);
-                }
-                
-                // Barra lateral
+                // Barra lateral (acento)
                 const accentEl = document.createElement('div');
-                accentEl.className = `creative-accent ${isVertical ? 'vertical-accent' : 'square-accent'}`;
-                accentEl.style.top = isFirst ? '30%' : '20%';
-                accentEl.style.background = isFirst ? colors.light : accentColor;
+                accentEl.className = 'creative-accent';
+                accentEl.style.background = isFirst ? colors.light : (creative.accentColor || colors.primary);
                 creativeEl.appendChild(accentEl);
                 
                 // Contenido
                 const contentEl = document.createElement('div');
                 contentEl.className = 'creative-content';
                 
-                if (isFirst) {
-                    // Primer creativo
-                    const titleEl = document.createElement('h2');
-                    titleEl.className = `creative-title ${isVertical ? 'vertical-title' : 'square-title'}`;
-                    titleEl.innerText = creative.title;
-                    
-                    const subtitleEl = document.createElement('div');
-                    subtitleEl.className = `creative-subtitle ${isVertical ? 'vertical-subtitle' : 'square-subtitle'}`;
-                    subtitleEl.innerText = creative.subtitle;
-                    
-                    const descEl = document.createElement('p');
-                    descEl.className = `creative-description ${isVertical ? 'vertical-description' : 'square-description'}`;
-                    descEl.innerText = creative.description;
-                    
-                    contentEl.appendChild(titleEl);
-                    contentEl.appendChild(subtitleEl);
-                    contentEl.appendChild(descEl);
-                } else {
-                    // Creativos secundarios
-                    const titleEl = document.createElement('h3');
-                    titleEl.className = `creative-secondary-title ${isVertical ? 'vertical-secondary-title' : 'square-secondary-title'}`;
-                    titleEl.innerText = creative.title;
-                    titleEl.style.color = accentColor;
-                    
-                    const subtitleEl = document.createElement('h2');
-                    subtitleEl.className = `creative-secondary-subtitle ${isVertical ? 'vertical-secondary-subtitle' : 'square-secondary-subtitle'}`;
-                    subtitleEl.innerText = creative.subtitle;
-                    
-                    contentEl.appendChild(titleEl);
-                    contentEl.appendChild(subtitleEl);
-                    
-                    if (creative.points) {
-                        // Si tiene lista de puntos
-                        const listEl = document.createElement('ul');
-                        listEl.className = `creative-points ${isVertical ? 'vertical-points' : 'square-points'}`;
-                        
-                        creative.points.forEach(point => {
-                            const itemEl = document.createElement('li');
-                            itemEl.innerText = point;
-                            listEl.appendChild(itemEl);
-                        });
-                        
-                        contentEl.appendChild(listEl);
-                    } else {
-                        // Si tiene descripción normal
-                        const descEl = document.createElement('p');
-                        descEl.className = `creative-description ${isVertical ? 'vertical-description' : 'square-description'}`;
-                        descEl.innerText = creative.description;
-                        contentEl.appendChild(descEl);
-                        
-                        // Call to action si existe
-                        if (creative.callToAction) {
-                            const ctaEl = document.createElement('div');
-                            ctaEl.className = `creative-cta ${isVertical ? 'vertical-cta' : 'square-cta'}`;
-                            ctaEl.innerText = creative.callToAction;
-                            ctaEl.style.background = accentColor;
-                            ctaEl.style.color = colors.dark;
-                            contentEl.appendChild(ctaEl);
-                        }
-                    }
+                // Título
+                const titleEl = document.createElement('div');
+                titleEl.className = 'creative-title';
+                titleEl.textContent = creative.title;
+                if (!isFirst && creative.accentColor) {
+                    titleEl.style.color = creative.accentColor;
                 }
+                contentEl.appendChild(titleEl);
+                
+                // Subtítulo
+                const subtitleEl = document.createElement('div');
+                subtitleEl.className = 'creative-subtitle';
+                subtitleEl.textContent = creative.subtitle;
+                contentEl.appendChild(subtitleEl);
+                
+                // Descripción
+                const descEl = document.createElement('div');
+                descEl.className = 'creative-description';
+                descEl.textContent = creative.description;
+                contentEl.appendChild(descEl);
                 
                 creativeEl.appendChild(contentEl);
                 
-                // Indicador de número
+                // Número
                 const numberEl = document.createElement('div');
                 numberEl.className = 'creative-number';
-                numberEl.style.background = indicatorBg;
-                numberEl.innerText = `${index + 1}/4`;
+                numberEl.textContent = `${index + 1}/4`;
                 creativeEl.appendChild(numberEl);
                 
-                // Agregar al contenedor
+                // Botón de descarga
+                const downloadEl = document.createElement('div');
+                downloadEl.className = 'creative-download';
+                downloadEl.innerHTML = '<i class="fas fa-download"></i>';
+                downloadEl.addEventListener('click', () => downloadCreative(index));
+                creativeEl.appendChild(downloadEl);
+                
                 creativesContainer.appendChild(creativeEl);
             });
         }
-
-        // Función para actualizar la interfaz
+        
+        // Función para actualizar UI
         function updateUI() {
-            // Actualizar título
-            serviceTitle.innerText = getServiceTitle(activeService);
+            serviceTitle.textContent = getServiceTitle(activeService);
             
-            // Mostrar/ocultar tabs de formato
-            formatTabs.style.display = activeService === 'optimizacion' ? 'block' : 'none';
-            
-            // Actualizar nota de dimensiones
-            const isVertical = activeService === 'optimizacion' && activeFormat === 'vertical';
-            dimensionsNote.innerText = `Dimensiones: ${isVertical ? '1080x1920' : '1080x1080'} píxeles`;
-            
-            // Actualizar clases activas en botones de servicio
-            serviceTabButtons.forEach(btn => {
+            tabButtons.forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.dataset.service === activeService) {
                     btn.classList.add('active');
                 }
             });
             
-            // Actualizar clases activas en botones de formato
-            formatTabButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.format === activeFormat) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // Renderizar creativos
             renderCreatives();
         }
-
-        // Event listeners para botones de servicio
-        serviceTabButtons.forEach(btn => {
+        
+        // Función para generar y descargar un creativo
+        function downloadCreative(index) {
+            const creative = creativesData[activeService][index];
+            const isFirst = index === 0;
+            
+            // Configurar canvas
+            const canvas = exportCanvas;
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1080;
+            canvas.height = 1080;
+            
+            // Dibujar fondo
+            ctx.fillStyle = creative.bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Dibujar barra lateral
+            ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
+            ctx.fillRect(0, canvas.height * 0.3, 12, canvas.height * 0.3);
+            
+            // Dibujar contenido
+            ctx.fillStyle = colors.light;
+            
+            // Título
+            ctx.font = 'bold 54px Montserrat, sans-serif';
+            const titleY = canvas.height * 0.25;
+            wrapText(ctx, creative.title, 70, titleY, canvas.width - 140, 60);
+            
+            // Subtítulo
+            ctx.fillStyle = 'rgba(0,0,0,0.25)';
+            const subtitleWidth = ctx.measureText(creative.subtitle).width + 40;
+            const subtitleY = titleY + 140;
+            ctx.fillRect(70, subtitleY, subtitleWidth, 70);
+            
+            ctx.fillStyle = colors.light;
+            ctx.font = 'bold 42px Montserrat, sans-serif';
+            ctx.fillText(creative.subtitle, 90, subtitleY + 48);
+            
+            // Descripción
+            ctx.font = '36px Montserrat, sans-serif';
+            wrapText(ctx, creative.description, 70, subtitleY + 110, canvas.width - 140, 44);
+            
+            // Número
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.beginPath();
+            ctx.arc(canvas.width - 70, canvas.height - 70, 30, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = colors.light;
+            ctx.font = 'bold 24px Montserrat, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${index + 1}/4`, canvas.width - 70, canvas.height - 62);
+            ctx.textAlign = 'left';
+            
+            // Descargar imagen
+            const link = document.createElement('a');
+            link.download = `${activeService}-creativo-${index + 1}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Función para descargar todos los creativos
+        function downloadAllCreatives() {
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => downloadCreative(i), i * 500);
+            }
+        }
+        
+        // Función para envolver texto
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            let lineY = y;
+            
+            for (let i = 0; i < words.length; i++) {
+                const testLine = line + words[i] + ' ';
+                const metrics = ctx.measureText(testLine);
+                const testWidth = metrics.width;
+                
+                if (testWidth > maxWidth && i > 0) {
+                    ctx.fillText(line, x, lineY);
+                    line = words[i] + ' ';
+                    lineY += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            
+            ctx.fillText(line, x, lineY);
+            return lineY;
+        }
+        
+        // Eventos
+        tabButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 activeService = btn.dataset.service;
                 updateUI();
             });
         });
         
-        // Event listeners para botones de formato
-        formatTabButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                activeFormat = btn.dataset.format;
-                updateUI();
-            });
-        });
+        downloadBtn.addEventListener('click', downloadAllCreatives);
         
-        // Inicializar UI
+        // Inicializar
         updateUI();
     </script>
 </body>
