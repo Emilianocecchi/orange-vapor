@@ -6,6 +6,8 @@
     <title>Creativos Orange Vapor - Optimizados</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Añadimos html2canvas para capturar el diseño exacto -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -133,6 +135,7 @@
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             color: white;
+            cursor: pointer;
         }
         .creative-vertical {
             width: 200px;
@@ -216,10 +219,6 @@
             color: #666;
             font-size: 12px;
         }
-        canvas {
-            position: absolute;
-            left: -9999px;
-        }
         .info-box {
             background-color: #e6f7ff;
             border-left: 4px solid #1890ff;
@@ -291,7 +290,7 @@
             cursor: pointer;
             border-radius: 4px;
         }
-        /* Nuevo estilo para el fondo del logo */
+        /* Estilo para el fondo del logo */
         .logo-container {
             position: absolute;
             top: 10px;
@@ -300,6 +299,96 @@
             border-radius: 4px;
             background-color: rgba(0, 0, 0, 0.3);
             z-index: 20;
+        }
+        
+        /* Nuevos estilos para la previsualización y descarga exacta */
+        #renderArea {
+            position: fixed;
+            left: -9999px;
+            top: -9999px;
+        }
+        .render-creative {
+            position: relative;
+            background-color: white;
+            overflow: hidden;
+        }
+        .render-creative.square {
+            width: 1080px;
+            height: 1080px;
+        }
+        .render-creative.vertical {
+            width: 1080px;
+            height: 1920px;
+        }
+        
+        /* Estilos para el modal de previsualización */
+        .preview-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .preview-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+        }
+        .preview-image {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .preview-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .preview-download {
+            position: absolute;
+            bottom: -50px;
+            right: 0;
+            background: #ff7e00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Spinner de carga */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Estilos para el área de alta resolución */
+        .creative-render-area {
+            position: fixed;
+            left: -9999px;
+            top: -9999px;
+            visibility: hidden;
         }
     </style>
 </head>
@@ -373,1284 +462,909 @@
             <p>Dimensiones: 1080x1080 píxeles y 1080x1920 píxeles (imágenes descargadas en alta resolución)</p>
         </div>
         
-        <!-- Canvas para generación de imágenes (oculto) -->
-        <canvas id="exportCanvas"></canvas>
+        <!-- Área para renderizar creativos en alta resolución (invisible para el usuario) -->
+        <div id="creativeRenderArea" class="creative-render-area"></div>
     </div>
     
     <script>
-        // Colores actualizados para cada servicio
-        const colors = {
-            primary: '#ff7e00', // Naranja original
-            dark: '#181818',
-            light: '#ffffff',
-            // Nuevos colores
-            optimizacion: '#dc3545', // Rojo para Optimización Express
-            meta: '#1877F2',      // Azul para Meta Ads
-            google: '#4285F4',    // Azul de Google
-            googleRed: '#DB4437', // Rojo de Google 
-            googleYellow: '#F4B400', // Amarillo de Google
-            googleGreen: '#0F9D58', // Verde de Google
-            email: '#00829b',     // Verde azulado para Email Marketing
-            chatbot: '#6f42c1'    // Lila para Chatbot
-        };
-        
-        // Datos de creativos optimizados (textos acortados para formato vertical)
-        const creativesData = {
-            optimizacion: [
-                {
-                    title: 'TRANSFORMÁ TUS CAMPAÑAS', // Acortado de "Transformamos"
-                    subtitle: '+20% EN VENTAS',
-                    description: 'Diagnóstico + Nueva estructura optimizada',
-                    bgColor: colors.optimizacion,
-                    icon: 'fa-solid fa-rocket' // Icono de cohete para optimización
-                },
-                {
-                    title: 'EL PROBLEMA',
-                    subtitle: 'SIN RESULTADOS',  // Acortado de "CAMPAÑAS SIN RESULTADOS"
-                    description: 'Perdés ventas mientras la competencia avanza',
-                    bgColor: colors.dark,
-                    accentColor: colors.optimizacion,
-                    icon: 'fa-solid fa-triangle-exclamation' // Icono de advertencia
-                },
-                {
-                    title: 'LA SOLUCIÓN',
-                    subtitle: 'OPTIMIZACIÓN',  // Acortado de "OPTIMIZACIÓN EXPRESS"
-                    description: 'Estructura renovada que genera ventas reales',
-                    bgColor: colors.dark,
-                    accentColor: colors.optimizacion,
-                    icon: 'fa-solid fa-lightbulb' // Icono de idea
-                },
-                {
-                    title: 'INVERSIÓN ÚNICA',
-                    subtitle: '$299 USD',
-                    description: 'Pagá la mitad si no aumentamos tus ventas',
-                    bgColor: colors.dark,
-                    accentColor: colors.optimizacion,
-                    icon: 'fa-solid fa-sack-dollar' // Icono de dinero
-                }
-            ],
-            meta: [
-                {
-                    title: 'META ADS',
-                    subtitle: 'CONVERSIONES',  // Acortado de "CONVERSIONES MAXIMIZADAS"
-                    description: 'Estrategias personalizadas de alto retorno',
-                    bgColor: colors.meta,
-                    icon: 'fa-brands fa-facebook' // Icono de Facebook
-                },
-                {
-                    title: 'TARGETING PRECISO',
-                    subtitle: 'LLEGA A TU PÚBLICO',  // Cambiado de "AUDIENCIA" a "PÚBLICO"
-                    description: 'Segmentación avanzada por intereses',
-                    bgColor: colors.dark,
-                    accentColor: colors.meta,
-                    icon: 'fa-solid fa-bullseye' // Icono de diana
-                },
-                {
-                    title: 'ANUNCIOS CREATIVOS',
-                    subtitle: 'QUE CONVIERTEN',  // Acortado
-                    description: 'Anuncios dinámicos para cada etapa',
-                    bgColor: colors.dark,
-                    accentColor: colors.meta,
-                    icon: 'fa-solid fa-palette' // Icono de paleta
-                },
-                {
-                    title: 'RESULTADOS MEDIBLES',
-                    subtitle: 'DATA-DRIVEN',  // Acortado
-                    description: 'Optimización constante de anuncios',
-                    bgColor: colors.dark,
-                    accentColor: colors.meta,
-                    icon: 'fa-solid fa-chart-line' // Icono de gráfico
-                }
-            ],
-            google: [
-                {
-                    title: 'GOOGLE ADS',
-                    subtitle: 'CLIENTES ACTIVOS',  // Acortado de "CLIENTES QUE TE BUSCAN"
-                    description: 'Campañas optimizadas para convertir',
-                    bgColor: colors.google,
-                    icon: 'fa-brands fa-google' // Icono de Google
-                },
-                {
-                    title: 'BÚSQUEDA AVANZADA',
-                    subtitle: 'TOP RESULTADOS',  // Acortado de "PRIMEROS RESULTADOS"
-                    description: 'Palabras clave con intención de compra',
-                    bgColor: colors.dark,
-                    accentColor: colors.google,
-                    icon: 'fa-solid fa-magnifying-glass' // Icono de búsqueda
-                },
-                {
-                    title: 'DISPLAY & YOUTUBE',  // Acortado de "RED DISPLAY & YOUTUBE"
-                    subtitle: 'PRESENCIA',  // Acortado de "PRESENCIA IMPACTANTE"
-                    description: 'Anuncios gráficos y videos efectivos',
-                    bgColor: colors.dark,
-                    accentColor: colors.googleRed,
-                    icon: 'fa-brands fa-youtube' // Icono de YouTube
-                },
-                {
-                    title: 'ANÁLISIS',  // Acortado de "ANÁLISIS Y OPTIMIZACIÓN"
-                    subtitle: 'MEJORA CONSTANTE',
-                    description: 'Machine learning para maximizar conversiones',
-                    bgColor: colors.dark,
-                    accentColor: colors.googleYellow,
-                    icon: 'fa-solid fa-chart-pie' // Icono de gráfico circular
-                }
-            ],
-            email: [
-                {
-                    title: 'EMAIL MARKETING',
-                    subtitle: 'CONEXIÓN DIRECTA',
-                    description: 'Campañas que generan ventas',
-                    bgColor: colors.email,
-                    icon: 'fa-solid fa-envelope' // Icono de sobre
-                },
-                {
-                    title: 'AUTOMATIZACIÓN',
-                    subtitle: 'FLUJOS EFECTIVOS',  // Cambiado de "SECUENCIAS" a "FLUJOS"
-                    description: 'Flujos para cada etapa del embudo',
-                    bgColor: colors.dark,
-                    accentColor: colors.email,
-                    icon: 'fa-solid fa-robot' // Icono de robot
-                },
-                {
-                    title: 'SEGMENTACIÓN',
-                    subtitle: 'MENSAJES CLAVE',  // Acortado de "MENSAJES RELEVANTES"
-                    description: 'Emails personalizados por comportamiento',
-                    bgColor: colors.dark,
-                    accentColor: colors.email,
-                    icon: 'fa-solid fa-users-viewfinder' // Icono de segmentación
-                },
-                {
-                    title: 'ANÁLISIS COMPLETO',
-                    subtitle: 'MÉTRICAS CLAVE',  // Acortado de "MÉTRICAS QUE IMPULSAN"
-                    description: 'Reportes detallados de resultados',
-                    bgColor: colors.dark,
-                    accentColor: colors.email,
-                    icon: 'fa-solid fa-chart-column' // Icono de gráfico de columnas
-                }
-            ],
-            chatbot: [
-                {
-                    title: 'CHATBOT IA',  // Acortado de "CHATBOT INTELIGENTE"
-                    subtitle: 'SERVICIO 24/7',
-                    description: 'Atención automatizada que convierte',
-                    bgColor: colors.chatbot,
-                    icon: 'fa-solid fa-message' // Icono de mensaje
-                },
-                {
-                    title: 'DIÁLOGOS FLUIDOS',  // Cambiado de "CONVERSACIONES FLUIDAS"
-                    subtitle: 'IA AVANZADA',  // Acortado de "RESPUESTAS INTELIGENTES"
-                    description: 'IA que entiende preguntas complejas',
-                    bgColor: colors.dark,
-                    accentColor: colors.chatbot,
-                    icon: 'fa-solid fa-comments' // Icono de conversación
-                },
-                {
-                    title: 'INTEGRACIÓN TOTAL',  // Cambiado de "COMPLETA" a "TOTAL"
-                    subtitle: 'MULTICANAL',  // Acortado de "ADAPTADO A TU NEGOCIO"
-                    description: 'Conectado con todos tus canales',
-                    bgColor: colors.dark,
-                    accentColor: colors.chatbot,
-                    icon: 'fa-solid fa-code-branch' // Icono de integración
-                },
-                {
-                    title: 'RESULTADOS REALES',  // Cambiado de "CONCRETOS" a "REALES"
-                    subtitle: 'MÁS CONVERSIÓN',  // Acortado de "AUMENTO DE CONVERSIÓN"
-                    description: 'Captura leads cuando más interesa',
-                    bgColor: colors.dark,
-                    accentColor: colors.chatbot,
-                    icon: 'fa-solid fa-check-double' // Icono de doble check
-                }
-            ],
-            all: [
-                {
-                    title: 'PAQUETE COMPLETO',
-                    subtitle: '4 SERVICIOS',  // Acortado de "4 SERVICIOS INTEGRADOS"
-                    description: 'Solución integral por US$1000/mes',
-                    bgColor: '#333333',
-                    icon: 'fa-solid fa-crown' // Icono de corona
-                },
-                {
-                    title: 'ESTRATEGIA 360°',
-                    subtitle: 'DIGITAL TOTAL',  // Acortado de "PRESENCIA DIGITAL TOTAL"
-                    description: 'Tráfico, conversión y fidelización',
-                    bgColor: colors.dark,
-                    accentColor: colors.primary,
-                    icon: 'fa-solid fa-compass' // Icono de brújula
-                },
-                {
-                    title: 'AHORRO SUPERIOR',  // Cambiado de "SIGNIFICATIVO" a "SUPERIOR"
-                    subtitle: 'DESCUENTO',  // Acortado de "DESCUENTO ESPECIAL"
-                    description: 'Ahorrás US$200 mensuales',
-                    bgColor: colors.dark,
-                    accentColor: colors.primary,
-                    icon: 'fa-solid fa-piggy-bank' // Icono de ahorro
-                },
-                {
-                    title: 'SINERGIA',  // Acortado de "RESULTADOS AMPLIFICADOS"
-                    subtitle: 'MAYOR IMPACTO',  // Cambiado de "EL PODER DE LA SINERGIA"
-                    description: 'Cada canal potencia a los demás',
-                    bgColor: colors.dark,
-                    accentColor: colors.primary,
-                    icon: 'fa-solid fa-handshake' // Icono de sinergia
-                }
-            ]
-        };
-        
-        // Estado actual
-        let activeService = 'optimizacion';
-        let activeFormat = 'square'; // 'square' o 'vertical'
-        
-        // Elementos del DOM
-        const serviceTitle = document.getElementById('serviceTitle');
-        const creativesContainer = document.getElementById('creativesContainer');
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const formatButtons = document.querySelectorAll('.format-btn');
-        const squareBtn = document.getElementById('squareBtn');
-        const verticalBtn = document.getElementById('verticalBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const exportCanvas = document.getElementById('exportCanvas');
-        const togglePracticesBtn = document.getElementById('togglePractices');
-        const bestPracticesBox = document.querySelector('.best-practices');
-        
-        // Toggle para mejores prácticas
-        togglePracticesBtn.addEventListener('click', () => {
-            if (bestPracticesBox.style.display === 'none') {
-                bestPracticesBox.style.display = 'block';
-                togglePracticesBtn.textContent = 'Ocultar mejores prácticas';
-            } else {
-                bestPracticesBox.style.display = 'none';
-                togglePracticesBtn.textContent = 'Ver mejores prácticas aplicadas';
-            }
+        // Esperar a que se carguen las fuentes antes de comenzar
+        document.fonts.ready.then(() => {
+            console.log("Todas las fuentes están cargadas correctamente.");
+            init();
         });
         
-        // Función para obtener título según el servicio
-        function getServiceTitle(service) {
-            switch (service) {
-                case 'optimizacion': return 'Creativos para Optimización Express';
-                case 'meta': return 'Creativos para Meta Ads';
-                case 'google': return 'Creativos para Google Ads';
-                case 'email': return 'Creativos para Email Marketing';
-                case 'chatbot': return 'Creativos para Chatbot';
-                case 'all': return 'Creativos para Paquete Completo';
-                default: return 'Creativos para Optimización Express';
-            }
-        }
-        
-        // Función para obtener el color de contraste para el logo según el fondo
-        function getLogoBackgroundColor(bgColor) {
-            // Si el fondo es oscuro, usar un fondo claro y viceversa
-            if (bgColor === colors.dark || bgColor === '#333333') {
-                return 'rgba(255, 255, 255, 0.2)'; // Fondo claro semi-transparente
-            } else {
-                return 'rgba(0, 0, 0, 0.2)'; // Fondo oscuro semi-transparente
-            }
-        }
-        
-        // Función para renderizar creativos
-        function renderCreatives() {
-            creativesContainer.innerHTML = '';
-            const creatives = creativesData[activeService];
+        function init() {
+            // Colores actualizados para cada servicio
+            const colors = {
+                primary: '#ff7e00', // Naranja original
+                dark: '#181818',
+                light: '#ffffff',
+                // Nuevos colores
+                optimizacion: '#dc3545', // Rojo para Optimización Express
+                meta: '#1877F2',      // Azul para Meta Ads
+                google: '#4285F4',    // Azul de Google
+                googleRed: '#DB4437', // Rojo de Google 
+                googleYellow: '#F4B400', // Amarillo de Google
+                googleGreen: '#0F9D58', // Verde de Google
+                email: '#00829b',     // Verde azulado para Email Marketing
+                chatbot: '#6f42c1'    // Lila para Chatbot
+            };
             
-            creatives.forEach((creative, index) => {
-                const isFirst = index === 0;
+            // Datos de creativos optimizados (textos acortados para formato vertical)
+            const creativesData = {
+                optimizacion: [
+                    {
+                        title: 'TRANSFORMÁ TUS CAMPAÑAS', // Acortado de "Transformamos"
+                        subtitle: '+20% EN VENTAS',
+                        description: 'Diagnóstico + Nueva estructura optimizada',
+                        bgColor: colors.optimizacion,
+                        icon: 'fa-solid fa-rocket' // Icono de cohete para optimización
+                    },
+                    {
+                        title: 'EL PROBLEMA',
+                        subtitle: 'SIN RESULTADOS',  // Acortado de "CAMPAÑAS SIN RESULTADOS"
+                        description: 'Perdés ventas mientras la competencia avanza',
+                        bgColor: colors.dark,
+                        accentColor: colors.optimizacion,
+                        icon: 'fa-solid fa-triangle-exclamation' // Icono de advertencia
+                    },
+                    {
+                        title: 'LA SOLUCIÓN',
+                        subtitle: 'OPTIMIZACIÓN',  // Acortado de "OPTIMIZACIÓN EXPRESS"
+                        description: 'Estructura renovada que genera ventas reales',
+                        bgColor: colors.dark,
+                        accentColor: colors.optimizacion,
+                        icon: 'fa-solid fa-lightbulb' // Icono de idea
+                    },
+                    {
+                        title: 'INVERSIÓN ÚNICA',
+                        subtitle: '$299 USD',
+                        description: 'Pagá la mitad si no aumentamos tus ventas',
+                        bgColor: colors.dark,
+                        accentColor: colors.optimizacion,
+                        icon: 'fa-solid fa-sack-dollar' // Icono de dinero
+                    }
+                ],
+                meta: [
+                    {
+                        title: 'META ADS',
+                        subtitle: 'CONVERSIONES',  // Acortado de "CONVERSIONES MAXIMIZADAS"
+                        description: 'Estrategias personalizadas de alto retorno',
+                        bgColor: colors.meta,
+                        icon: 'fa-brands fa-facebook' // Icono de Facebook
+                    },
+                    {
+                        title: 'TARGETING PRECISO',
+                        subtitle: 'LLEGA A TU PÚBLICO',  // Cambiado de "AUDIENCIA" a "PÚBLICO"
+                        description: 'Segmentación avanzada por intereses',
+                        bgColor: colors.dark,
+                        accentColor: colors.meta,
+                        icon: 'fa-solid fa-bullseye' // Icono de diana
+                    },
+                    {
+                        title: 'ANUNCIOS CREATIVOS',
+                        subtitle: 'QUE CONVIERTEN',  // Acortado
+                        description: 'Anuncios dinámicos para cada etapa',
+                        bgColor: colors.dark,
+                        accentColor: colors.meta,
+                        icon: 'fa-solid fa-palette' // Icono de paleta
+                    },
+                    {
+                        title: 'RESULTADOS MEDIBLES',
+                        subtitle: 'DATA-DRIVEN',  // Acortado
+                        description: 'Optimización constante de anuncios',
+                        bgColor: colors.dark,
+                        accentColor: colors.meta,
+                        icon: 'fa-solid fa-chart-line' // Icono de gráfico
+                    }
+                ],
+                google: [
+                    {
+                        title: 'GOOGLE ADS',
+                        subtitle: 'CLIENTES ACTIVOS',  // Acortado de "CLIENTES QUE TE BUSCAN"
+                        description: 'Campañas optimizadas para convertir',
+                        bgColor: colors.google,
+                        icon: 'fa-brands fa-google' // Icono de Google
+                    },
+                    {
+                        title: 'BÚSQUEDA AVANZADA',
+                        subtitle: 'TOP RESULTADOS',  // Acortado de "PRIMEROS RESULTADOS"
+                        description: 'Palabras clave con intención de compra',
+                        bgColor: colors.dark,
+                        accentColor: colors.google,
+                        icon: 'fa-solid fa-magnifying-glass' // Icono de búsqueda
+                    },
+                    {
+                        title: 'DISPLAY & YOUTUBE',  // Acortado de "RED DISPLAY & YOUTUBE"
+                        subtitle: 'PRESENCIA',  // Acortado de "PRESENCIA IMPACTANTE"
+                        description: 'Anuncios gráficos y videos efectivos',
+                        bgColor: colors.dark,
+                        accentColor: colors.googleRed,
+                        icon: 'fa-brands fa-youtube' // Icono de YouTube
+                    },
+                    {
+                        title: 'ANÁLISIS',  // Acortado de "ANÁLISIS Y OPTIMIZACIÓN"
+                        subtitle: 'MEJORA CONSTANTE',
+                        description: 'Machine learning para maximizar conversiones',
+                        bgColor: colors.dark,
+                        accentColor: colors.googleYellow,
+                        icon: 'fa-solid fa-chart-pie' // Icono de gráfico circular
+                    }
+                ],
+                email: [
+                    {
+                        title: 'EMAIL MARKETING',
+                        subtitle: 'CONEXIÓN DIRECTA',
+                        description: 'Campañas que generan ventas',
+                        bgColor: colors.email,
+                        icon: 'fa-solid fa-envelope' // Icono de sobre
+                    },
+                    {
+                        title: 'AUTOMATIZACIÓN',
+                        subtitle: 'FLUJOS EFECTIVOS',  // Cambiado de "SECUENCIAS" a "FLUJOS"
+                        description: 'Flujos para cada etapa del embudo',
+                        bgColor: colors.dark,
+                        accentColor: colors.email,
+                        icon: 'fa-solid fa-robot' // Icono de robot
+                    },
+                    {
+                        title: 'SEGMENTACIÓN',
+                        subtitle: 'MENSAJES CLAVE',  // Acortado de "MENSAJES RELEVANTES"
+                        description: 'Emails personalizados por comportamiento',
+                        bgColor: colors.dark,
+                        accentColor: colors.email,
+                        icon: 'fa-solid fa-users-viewfinder' // Icono de segmentación
+                    },
+                    {
+                        title: 'ANÁLISIS COMPLETO',
+                        subtitle: 'MÉTRICAS CLAVE',  // Acortado de "MÉTRICAS QUE IMPULSAN"
+                        description: 'Reportes detallados de resultados',
+                        bgColor: colors.dark,
+                        accentColor: colors.email,
+                        icon: 'fa-solid fa-chart-column' // Icono de gráfico de columnas
+                    }
+                ],
+                chatbot: [
+                    {
+                        title: 'CHATBOT IA',  // Acortado de "CHATBOT INTELIGENTE"
+                        subtitle: 'SERVICIO 24/7',
+                        description: 'Atención automatizada que convierte',
+                        bgColor: colors.chatbot,
+                        icon: 'fa-solid fa-message' // Icono de mensaje
+                    },
+                    {
+                        title: 'DIÁLOGOS FLUIDOS',  // Cambiado de "CONVERSACIONES FLUIDAS"
+                        subtitle: 'IA AVANZADA',  // Acortado de "RESPUESTAS INTELIGENTES"
+                        description: 'IA que entiende preguntas complejas',
+                        bgColor: colors.dark,
+                        accentColor: colors.chatbot,
+                        icon: 'fa-solid fa-comments' // Icono de conversación
+                    },
+                    {
+                        title: 'INTEGRACIÓN TOTAL',  // Cambiado de "COMPLETA" a "TOTAL"
+                        subtitle: 'MULTICANAL',  // Acortado de "ADAPTADO A TU NEGOCIO"
+                        description: 'Conectado con todos tus canales',
+                        bgColor: colors.dark,
+                        accentColor: colors.chatbot,
+                        icon: 'fa-solid fa-code-branch' // Icono de integración
+                    },
+                    {
+                        title: 'RESULTADOS REALES',  // Cambiado de "CONCRETOS" a "REALES"
+                        subtitle: 'MÁS CONVERSIÓN',  // Acortado de "AUMENTO DE CONVERSIÓN"
+                        description: 'Captura leads cuando más interesa',
+                        bgColor: colors.dark,
+                        accentColor: colors.chatbot,
+                        icon: 'fa-solid fa-check-double' // Icono de doble check
+                    }
+                ],
+                all: [
+                    {
+                        title: 'PAQUETE COMPLETO',
+                        subtitle: '4 SERVICIOS',  // Acortado de "4 SERVICIOS INTEGRADOS"
+                        description: 'Solución integral por US$1000/mes',
+                        bgColor: '#333333',
+                        icon: 'fa-solid fa-crown' // Icono de corona
+                    },
+                    {
+                        title: 'ESTRATEGIA 360°',
+                        subtitle: 'DIGITAL TOTAL',  // Acortado de "PRESENCIA DIGITAL TOTAL"
+                        description: 'Tráfico, conversión y fidelización',
+                        bgColor: colors.dark,
+                        accentColor: colors.primary,
+                        icon: 'fa-solid fa-compass' // Icono de brújula
+                    },
+                    {
+                        title: 'AHORRO SUPERIOR',  // Cambiado de "SIGNIFICATIVO" a "SUPERIOR"
+                        subtitle: 'DESCUENTO',  // Acortado de "DESCUENTO ESPECIAL"
+                        description: 'Ahorrás US$200 mensuales',
+                        bgColor: colors.dark,
+                        accentColor: colors.primary,
+                        icon: 'fa-solid fa-piggy-bank' // Icono de ahorro
+                    },
+                    {
+                        title: 'SINERGIA',  // Acortado de "RESULTADOS AMPLIFICADOS"
+                        subtitle: 'MAYOR IMPACTO',  // Cambiado de "EL PODER DE LA SINERGIA"
+                        description: 'Cada canal potencia a los demás',
+                        bgColor: colors.dark,
+                        accentColor: colors.primary,
+                        icon: 'fa-solid fa-handshake' // Icono de sinergia
+                    }
+                ]
+            };
+            
+            // Estado actual
+            let activeService = 'optimizacion';
+            let activeFormat = 'square'; // 'square' o 'vertical'
+            let isProcessing = false; // Bandera para evitar múltiples descargas simultáneas
+            
+            // Elementos del DOM
+            const serviceTitle = document.getElementById('serviceTitle');
+            const creativesContainer = document.getElementById('creativesContainer');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const formatButtons = document.querySelectorAll('.format-btn');
+            const squareBtn = document.getElementById('squareBtn');
+            const verticalBtn = document.getElementById('verticalBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const togglePracticesBtn = document.getElementById('togglePractices');
+            const bestPracticesBox = document.querySelector('.best-practices');
+            const creativeRenderArea = document.getElementById('creativeRenderArea');
+            
+            // Toggle para mejores prácticas
+            togglePracticesBtn.addEventListener('click', () => {
+                if (bestPracticesBox.style.display === 'none') {
+                    bestPracticesBox.style.display = 'block';
+                    togglePracticesBtn.textContent = 'Ocultar mejores prácticas';
+                } else {
+                    bestPracticesBox.style.display = 'none';
+                    togglePracticesBtn.textContent = 'Ver mejores prácticas aplicadas';
+                }
+            });
+            
+            // Función para obtener título según el servicio
+            function getServiceTitle(service) {
+                switch (service) {
+                    case 'optimizacion': return 'Creativos para Optimización Express';
+                    case 'meta': return 'Creativos para Meta Ads';
+                    case 'google': return 'Creativos para Google Ads';
+                    case 'email': return 'Creativos para Email Marketing';
+                    case 'chatbot': return 'Creativos para Chatbot';
+                    case 'all': return 'Creativos para Paquete Completo';
+                    default: return 'Creativos para Optimización Express';
+                }
+            }
+            
+            // Función para obtener el color de contraste para el logo según el fondo
+            function getLogoBackgroundColor(bgColor) {
+                // Si el fondo es oscuro, usar un fondo claro y viceversa
+                if (bgColor === colors.dark || bgColor === '#333333') {
+                    return 'rgba(255, 255, 255, 0.2)'; // Fondo claro semi-transparente
+                } else {
+                    return 'rgba(0, 0, 0, 0.2)'; // Fondo oscuro semi-transparente
+                }
+            }
+            
+            // Función para renderizar creativos en la interfaz
+            function renderCreatives() {
+                creativesContainer.innerHTML = '';
+                const creatives = creativesData[activeService];
                 
-                // Crear elemento creativo
+                creatives.forEach((creative, index) => {
+                    const isFirst = index === 0;
+                    
+                    // Crear elemento creativo
+                    const creativeEl = document.createElement('div');
+                    creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
+                    creativeEl.dataset.index = index;
+                    creativeEl.style.backgroundColor = creative.bgColor;
+                    
+                    // Barra lateral (acento)
+                    const accentEl = document.createElement('div');
+                    accentEl.className = 'creative-accent';
+                    accentEl.style.background = isFirst ? colors.light : (creative.accentColor || colors.primary);
+                    creativeEl.appendChild(accentEl);
+                    
+                    // Contenido
+                    const contentEl = document.createElement('div');
+                    contentEl.className = 'creative-content';
+                    
+                    // Contenedor del logo con fondo para mejor contraste
+                    const logoContainerEl = document.createElement('div');
+                    logoContainerEl.className = 'logo-container';
+                    logoContainerEl.style.backgroundColor = getLogoBackgroundColor(creative.bgColor);
+                    
+                    // Logo
+                    const logoEl = document.createElement('div');
+                    logoEl.style.fontWeight = 'bold';
+                    logoEl.style.fontSize = '14px';
+                    
+                    if (isFirst) {
+                        logoEl.innerHTML = 'Orange <span style="color: #FF7E00;">Vapor</span>';
+                    } else {
+                        // OV con O en blanco y V en naranja
+                        logoEl.innerHTML = '<span style="color: white;">O</span><span style="color: #FF7E00;">V</span>';
+                    }
+                    logoContainerEl.appendChild(logoEl);
+                    contentEl.appendChild(logoContainerEl);
+                    
+                    // Título
+                    const titleEl = document.createElement('div');
+                    titleEl.className = 'creative-title';
+                    titleEl.textContent = creative.title;
+                    if (!isFirst && creative.accentColor) {
+                        titleEl.style.color = creative.accentColor;
+                    }
+                    contentEl.appendChild(titleEl);
+                    
+                    // Subtítulo
+                    const subtitleEl = document.createElement('div');
+                    subtitleEl.className = 'creative-subtitle';
+                    subtitleEl.textContent = creative.subtitle;
+                    contentEl.appendChild(subtitleEl);
+                    
+                    // Descripción
+                    const descEl = document.createElement('div');
+                    descEl.className = 'creative-description';
+                    descEl.textContent = creative.description;
+                    contentEl.appendChild(descEl);
+                    
+                    // Icono específico del servicio
+                    if (creative.icon) {
+                        const iconEl = document.createElement('div');
+                        iconEl.style.position = 'absolute';
+                        iconEl.style.bottom = '15px';
+                        iconEl.style.left = '15px';
+                        iconEl.style.fontSize = '18px';
+                        iconEl.style.opacity = '0.7';
+                        iconEl.innerHTML = `<i class="${creative.icon}"></i>`;
+                        contentEl.appendChild(iconEl);
+                    }
+                    
+                    creativeEl.appendChild(contentEl);
+                    
+                    // Número
+                    const numberEl = document.createElement('div');
+                    numberEl.className = 'creative-number';
+                    numberEl.textContent = `${index + 1}/4`;
+                    creativeEl.appendChild(numberEl);
+                    
+                    // Botón de descarga
+                    const downloadEl = document.createElement('div');
+                    downloadEl.className = 'creative-download';
+                    downloadEl.innerHTML = '<i class="fas fa-download"></i>';
+                    downloadEl.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Evitar que se propague el evento
+                        handleDownloadCreative(index);
+                    });
+                    creativeEl.appendChild(downloadEl);
+                    
+                    // Mostrar previsualización del creativo
+                    creativeEl.addEventListener('click', () => {
+                        showPreview(index);
+                    });
+                    
+                    creativesContainer.appendChild(creativeEl);
+                });
+            }
+            
+            // Nueva función para crear un creativo en HTML para renderizado de alta resolución
+            function createHiResCreative(index, format) {
+                const creative = creativesData[activeService][index];
+                const isFirst = index === 0;
+                const isVertical = format === 'vertical';
+                
+                // Crear el contenedor principal
                 const creativeEl = document.createElement('div');
-                creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
-                creativeEl.dataset.index = index;
+                creativeEl.className = `render-creative ${isVertical ? 'vertical' : 'square'}`;
                 creativeEl.style.backgroundColor = creative.bgColor;
+                creativeEl.style.position = 'relative';
+                creativeEl.style.overflow = 'hidden';
+                creativeEl.style.borderRadius = '8px';
+                
+                // Crear un patrón de fondo específico para cada servicio
+                creativeEl.style.position = 'relative';
+                const patternEl = document.createElement('div');
+                patternEl.style.position = 'absolute';
+                patternEl.style.top = '0';
+                patternEl.style.left = '0';
+                patternEl.style.width = '100%';
+                patternEl.style.height = '100%';
+                patternEl.style.opacity = '0.05';
+                
+                // Añadir patrón específico según el servicio
+                switch (activeService) {
+                    case 'optimizacion':
+                        patternEl.style.backgroundImage = 'linear-gradient(45deg, #FFFFFF 25%, transparent 25%, transparent 75%, #FFFFFF 75%, #FFFFFF), linear-gradient(45deg, #FFFFFF 25%, transparent 25%, transparent 75%, #FFFFFF 75%, #FFFFFF)';
+                        patternEl.style.backgroundSize = '60px 60px';
+                        patternEl.style.backgroundPosition = '0 0, 30px 30px';
+                        break;
+                    case 'meta':
+                        // Patrón de círculos
+                        for (let i = 0; i < 100; i++) {
+                            const circle = document.createElement('div');
+                            circle.style.position = 'absolute';
+                            circle.style.width = '30px';
+                            circle.style.height = '30px';
+                            circle.style.borderRadius = '50%';
+                            circle.style.border = '2px solid #FFFFFF';
+                            circle.style.left = `${Math.random() * 100}%`;
+                            circle.style.top = `${Math.random() * 100}%`;
+                            patternEl.appendChild(circle);
+                        }
+                        break;
+                    case 'google':
+                        patternEl.style.backgroundImage = 'radial-gradient(#FFFFFF 3px, transparent 3px)';
+                        patternEl.style.backgroundSize = '30px 30px';
+                        break;
+                    case 'email':
+                        patternEl.style.background = 'repeating-linear-gradient(0deg, transparent, transparent 20px, #FFFFFF 20px, #FFFFFF 21px)';
+                        break;
+                    case 'chatbot':
+                        // Puntos aleatorios
+                        for (let i = 0; i < 200; i++) {
+                            const dot = document.createElement('div');
+                            dot.style.position = 'absolute';
+                            dot.style.width = '3px';
+                            dot.style.height = '3px';
+                            dot.style.borderRadius = '50%';
+                            dot.style.backgroundColor = '#FFFFFF';
+                            dot.style.left = `${Math.random() * 100}%`;
+                            dot.style.top = `${Math.random() * 100}%`;
+                            patternEl.appendChild(dot);
+                        }
+                        break;
+                    case 'all':
+                        patternEl.style.backgroundImage = 'linear-gradient(#FFFFFF 1px, transparent 1px), linear-gradient(90deg, #FFFFFF 1px, transparent 1px)';
+                        patternEl.style.backgroundSize = '100px 100px';
+                        break;
+                }
+                
+                creativeEl.appendChild(patternEl);
                 
                 // Barra lateral (acento)
                 const accentEl = document.createElement('div');
-                accentEl.className = 'creative-accent';
+                accentEl.style.position = 'absolute';
+                accentEl.style.left = '0';
                 accentEl.style.background = isFirst ? colors.light : (creative.accentColor || colors.primary);
+                accentEl.style.zIndex = '10';
+                accentEl.style.borderRadius = '0 3px 3px 0';
+                
+                if (isVertical) {
+                    // Calcular zonas seguras (14% superior e inferior)
+                    const safeZoneTop = Math.round(1920 * 0.14);
+                    const accentY = safeZoneTop + 100;
+                    const accentHeight = 1920 - accentY - safeZoneTop - 100;
+                    
+                    accentEl.style.top = `${accentY}px`;
+                    accentEl.style.width = '20px';
+                    accentEl.style.height = `${accentHeight}px`;
+                } else {
+                    accentEl.style.top = '30%';
+                    accentEl.style.width = '15px';
+                    accentEl.style.height = '30%';
+                }
+                
                 creativeEl.appendChild(accentEl);
                 
-                // Contenido
-                const contentEl = document.createElement('div');
-                contentEl.className = 'creative-content';
-                
-                // Contenedor del logo con fondo para mejor contraste
+                // Añadir contenedor de logo para mejor contraste
                 const logoContainerEl = document.createElement('div');
-                logoContainerEl.className = 'logo-container';
+                logoContainerEl.style.position = 'absolute';
                 logoContainerEl.style.backgroundColor = getLogoBackgroundColor(creative.bgColor);
+                logoContainerEl.style.borderRadius = '4px';
+                logoContainerEl.style.padding = '5px 10px';
+                logoContainerEl.style.zIndex = '20';
+                
+                if (isVertical) {
+                    const safeZoneTop = Math.round(1920 * 0.14);
+                    logoContainerEl.style.top = `${safeZoneTop + 10}px`;
+                    logoContainerEl.style.left = '30px';
+                } else {
+                    logoContainerEl.style.top = '20px';
+                    logoContainerEl.style.left = '30px';
+                }
                 
                 // Logo
                 const logoEl = document.createElement('div');
                 logoEl.style.fontWeight = 'bold';
-                logoEl.style.fontSize = '14px';
+                logoEl.style.fontFamily = "'Montserrat', sans-serif";
+                
+                if (isVertical) {
+                    logoEl.style.fontSize = '42px';
+                } else {
+                    logoEl.style.fontSize = '36px';
+                }
                 
                 if (isFirst) {
-                    logoEl.innerHTML = 'Orange <span style="color: #FF7E00;">Vapor</span>';
+                    logoEl.innerHTML = '<span style="color: white;">Orange</span> <span style="color: #FF7E00;">Vapor</span>';
                 } else {
-                    // OV con O en blanco y V en naranja
                     logoEl.innerHTML = '<span style="color: white;">O</span><span style="color: #FF7E00;">V</span>';
                 }
+                
                 logoContainerEl.appendChild(logoEl);
-                contentEl.appendChild(logoContainerEl);
+                creativeEl.appendChild(logoContainerEl);
+                
+                // Contenido centrado
+                const contentEl = document.createElement('div');
+                contentEl.style.position = 'absolute';
+                contentEl.style.width = '100%';
+                contentEl.style.height = '100%';
+                contentEl.style.display = 'flex';
+                contentEl.style.flexDirection = 'column';
+                contentEl.style.justifyContent = 'center';
+                contentEl.style.alignItems = 'center';
+                contentEl.style.textAlign = 'center';
+                contentEl.style.padding = isVertical ? '0 40px' : '0 50px';
+                contentEl.style.zIndex = '5';
                 
                 // Título
                 const titleEl = document.createElement('div');
-                titleEl.className = 'creative-title';
-                titleEl.textContent = creative.title;
+                titleEl.style.fontFamily = "'Montserrat', sans-serif";
+                titleEl.style.fontWeight = 'bold';
+                titleEl.style.marginBottom = isVertical ? '50px' : '30px';
+                titleEl.style.width = '100%';
+                
+                if (isVertical) {
+                    titleEl.style.fontSize = '80px';
+                    titleEl.style.lineHeight = '90px';
+                } else {
+                    titleEl.style.fontSize = '70px';
+                    titleEl.style.lineHeight = '80px';
+                }
+                
                 if (!isFirst && creative.accentColor) {
                     titleEl.style.color = creative.accentColor;
+                } else {
+                    titleEl.style.color = colors.light;
                 }
+                
+                titleEl.textContent = creative.title;
                 contentEl.appendChild(titleEl);
                 
-                // Subtítulo
+                // Subtítulo con fondo
+                const subtitleContainerEl = document.createElement('div');
+                subtitleContainerEl.style.display = 'inline-block';
+                subtitleContainerEl.style.backgroundColor = 'rgba(0,0,0,0.25)';
+                subtitleContainerEl.style.borderRadius = '4px';
+                subtitleContainerEl.style.padding = isVertical ? '15px 30px' : '10px 20px';
+                subtitleContainerEl.style.marginBottom = isVertical ? '60px' : '40px';
+                
                 const subtitleEl = document.createElement('div');
-                subtitleEl.className = 'creative-subtitle';
+                subtitleEl.style.fontFamily = "'Montserrat', sans-serif";
+                subtitleEl.style.fontWeight = 'bold';
+                subtitleEl.style.color = colors.light;
+                
+                if (isVertical) {
+                    subtitleEl.style.fontSize = '56px';
+                } else {
+                    subtitleEl.style.fontSize = '46px';
+                }
+                
                 subtitleEl.textContent = creative.subtitle;
-                contentEl.appendChild(subtitleEl);
+                subtitleContainerEl.appendChild(subtitleEl);
+                contentEl.appendChild(subtitleContainerEl);
                 
                 // Descripción
                 const descEl = document.createElement('div');
-                descEl.className = 'creative-description';
+                descEl.style.fontFamily = "'Montserrat', sans-serif";
+                descEl.style.color = 'rgba(255,255,255,0.95)';
+                
+                if (isVertical) {
+                    descEl.style.fontSize = '42px';
+                    descEl.style.maxWidth = '800px';
+                } else {
+                    descEl.style.fontSize = '36px';
+                    descEl.style.maxWidth = '700px';
+                }
+                
                 descEl.textContent = creative.description;
                 contentEl.appendChild(descEl);
                 
-                // Icono específico del servicio (nuevo)
-                if (creative.icon) {
-                    const iconEl = document.createElement('div');
-                    iconEl.style.position = 'absolute';
-                    iconEl.style.bottom = '15px';
-                    iconEl.style.left = '15px';
-                    iconEl.style.fontSize = '18px';
-                    iconEl.style.opacity = '0.7';
-                    iconEl.innerHTML = `<i class="${creative.icon}"></i>`;
-                    contentEl.appendChild(iconEl);
-                }
-                
                 creativeEl.appendChild(contentEl);
                 
+                // Icono específico del servicio
+                if (creative.icon) {
+                    const iconContainerEl = document.createElement('div');
+                    iconContainerEl.style.position = 'absolute';
+                    iconContainerEl.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                    iconContainerEl.style.borderRadius = '50%';
+                    iconContainerEl.style.display = 'flex';
+                    iconContainerEl.style.alignItems = 'center';
+                    iconContainerEl.style.justifyContent = 'center';
+                    iconContainerEl.style.zIndex = '10';
+                    
+                    const iconEl = document.createElement('i');
+                    iconEl.className = creative.icon;
+                    iconEl.style.color = '#FFFFFF';
+                    
+                    if (isVertical) {
+                        const safeZoneBottom = 1920 - Math.round(1920 * 0.14);
+                        iconContainerEl.style.width = '100px';
+                        iconContainerEl.style.height = '100px';
+                        iconContainerEl.style.bottom = `${1920 - safeZoneBottom + 100}px`;
+                        iconContainerEl.style.left = '100px';
+                        iconEl.style.fontSize = '36px';
+                    } else {
+                        iconContainerEl.style.width = '80px';
+                        iconContainerEl.style.height = '80px';
+                        iconContainerEl.style.bottom = '80px';
+                        iconContainerEl.style.left = '80px';
+                        iconEl.style.fontSize = '30px';
+                    }
+                    
+                    iconContainerEl.appendChild(iconEl);
+                    creativeEl.appendChild(iconContainerEl);
+                }
+                
                 // Número
-                const numberEl = document.createElement('div');
-                numberEl.className = 'creative-number';
-                numberEl.textContent = `${index + 1}/4`;
-                creativeEl.appendChild(numberEl);
+                const numberContainerEl = document.createElement('div');
+                numberContainerEl.style.position = 'absolute';
+                numberContainerEl.style.backgroundColor = 'rgba(255,255,255,0.2)';
+                numberContainerEl.style.borderRadius = '50%';
+                numberContainerEl.style.display = 'flex';
+                numberContainerEl.style.alignItems = 'center';
+                numberContainerEl.style.justifyContent = 'center';
+                numberContainerEl.style.zIndex = '10';
+                numberContainerEl.style.color = colors.light;
+                numberContainerEl.style.fontFamily = "'Montserrat', sans-serif";
+                numberContainerEl.style.fontWeight = 'bold';
                 
-                // Botón de descarga
-                const downloadEl = document.createElement('div');
-                downloadEl.className = 'creative-download';
-                downloadEl.innerHTML = '<i class="fas fa-download"></i>';
-                downloadEl.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Evitar que se propague el evento
-                    if (activeFormat === 'square') {
-                        downloadCreative(index);
-                    } else {
-                        downloadCreativeVertical(index);
+                if (isVertical) {
+                    const safeZoneBottom = 1920 - Math.round(1920 * 0.14);
+                    numberContainerEl.style.width = '80px';
+                    numberContainerEl.style.height = '80px';
+                    numberContainerEl.style.fontSize = '30px';
+                    numberContainerEl.style.right = '80px';
+                    numberContainerEl.style.bottom = `${1920 - safeZoneBottom + 80}px`;
+                } else {
+                    numberContainerEl.style.width = '60px';
+                    numberContainerEl.style.height = '60px';
+                    numberContainerEl.style.fontSize = '24px';
+                    numberContainerEl.style.right = '70px';
+                    numberContainerEl.style.bottom = '70px';
+                }
+                
+                numberContainerEl.textContent = `${index + 1}/4`;
+                creativeEl.appendChild(numberContainerEl);
+                
+                return creativeEl;
+            }
+            
+            // Función para mostrar la previsualización
+            function showPreview(index) {
+                if (isProcessing) return;
+                isProcessing = true;
+                
+                // Crear modal
+                const modal = document.createElement('div');
+                modal.className = 'preview-modal';
+                
+                // Contenedor de previsualización
+                const previewContainer = document.createElement('div');
+                previewContainer.className = 'preview-container';
+                
+                // Indicador de carga
+                const loadingEl = document.createElement('div');
+                loadingEl.style.textAlign = 'center';
+                loadingEl.style.color = 'white';
+                loadingEl.style.padding = '20px';
+                loadingEl.innerHTML = '<div class="loading-spinner"></div> Generando imagen de alta resolución...';
+                previewContainer.appendChild(loadingEl);
+                
+                // Agregar al DOM
+                modal.appendChild(previewContainer);
+                document.body.appendChild(modal);
+                
+                // Generar y mostrar la imagen en alta resolución
+                setTimeout(() => {
+                    renderAndCaptureCreative(index, activeFormat).then(imageUrl => {
+                        // Eliminar indicador de carga
+                        previewContainer.removeChild(loadingEl);
+                        
+                        // Mostrar imagen
+                        const imgEl = document.createElement('img');
+                        imgEl.className = 'preview-image';
+                        imgEl.src = imageUrl;
+                        previewContainer.appendChild(imgEl);
+                        
+                        // Agregar botones
+                        const closeBtn = document.createElement('button');
+                        closeBtn.className = 'preview-close';
+                        closeBtn.innerHTML = '&times;';
+                        closeBtn.addEventListener('click', () => {
+                            document.body.removeChild(modal);
+                            isProcessing = false;
+                        });
+                        
+                        const downloadBtn = document.createElement('button');
+                        downloadBtn.className = 'preview-download';
+                        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Descargar';
+                        downloadBtn.addEventListener('click', () => {
+                            // Descargar la imagen
+                            const link = document.createElement('a');
+                            link.href = imageUrl;
+                            link.download = `${activeService}-${activeFormat === 'vertical' ? 'vertical' : 'cuadrado'}-${index + 1}.png`;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        });
+                        
+                        previewContainer.appendChild(closeBtn);
+                        previewContainer.appendChild(downloadBtn);
+                        
+                        // Cerrar modal al hacer clic fuera
+                        modal.addEventListener('click', (e) => {
+                            if (e.target === modal) {
+                                document.body.removeChild(modal);
+                                isProcessing = false;
+                            }
+                        });
+                    }).catch(error => {
+                        console.error('Error al capturar el creativo:', error);
+                        previewContainer.innerHTML = '<p style="color:white">Error al generar la imagen. Por favor intenta de nuevo.</p>';
+                        setTimeout(() => {
+                            document.body.removeChild(modal);
+                            isProcessing = false;
+                        }, 2000);
+                    });
+                }, 100);
+            }
+            
+            // Función para renderizar y capturar un creativo
+            async function renderAndCaptureCreative(index, format) {
+                return new Promise((resolve, reject) => {
+                    try {
+                        // Limpiar el área de renderizado
+                        creativeRenderArea.innerHTML = '';
+                        
+                        // Crear el creativo en alta resolución
+                        const creativeEl = createHiResCreative(index, format);
+                        creativeRenderArea.appendChild(creativeEl);
+                        
+                        // Asegurarse de que todos los recursos estén cargados
+                        setTimeout(async () => {
+                            try {
+                                // Capturar con html2canvas con alta escala
+                                const canvas = await html2canvas(creativeEl, {
+                                    scale: 1, // Ya está en tamaño real 
+                                    allowTaint: true,
+                                    useCORS: true,
+                                    logging: false,
+                                    backgroundColor: null,
+                                    imageTimeout: 0,
+                                    onclone: (document) => {
+                                        // Asegurarse de que los iconos de Font Awesome estén cargados correctamente
+                                        const clonedCreative = document.querySelector('.render-creative');
+                                        if (clonedCreative) {
+                                            const icons = clonedCreative.querySelectorAll('i');
+                                            icons.forEach(icon => {
+                                                // Copiar estilos computados
+                                                const originalIcon = creativeEl.querySelector(`i.${icon.className}`);
+                                                if (originalIcon) {
+                                                    const styles = window.getComputedStyle(originalIcon);
+                                                    for (let style of styles) {
+                                                        icon.style[style] = styles.getPropertyValue(style);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                                
+                                // Convertir a imagen
+                                const dataUrl = canvas.toDataURL('image/png');
+                                
+                                // Limpiar
+                                creativeRenderArea.innerHTML = '';
+                                
+                                resolve(dataUrl);
+                            } catch (error) {
+                                console.error('Error en html2canvas:', error);
+                                reject(error);
+                            }
+                        }, 500); // Dar tiempo para que se complete el renderizado
+                    } catch (error) {
+                        console.error('Error al preparar el renderizado:', error);
+                        reject(error);
                     }
                 });
-                creativeEl.appendChild(downloadEl);
+            }
+            
+            // Función para manejar la descarga de un creativo
+            function handleDownloadCreative(index) {
+                if (isProcessing) return;
                 
-                // Mostrar previsualización del creativo con los mismos bordes redondeados
-                creativeEl.addEventListener('click', () => {
-                    if (activeFormat === 'square') {
-                        previewCreative(index);
-                    } else {
-                        previewCreativeVertical(index);
+                // Mostrar la previsualización, que incluye la opción de descarga
+                showPreview(index);
+            }
+            
+            // Función para descargar todos los creativos
+            async function downloadAllCreatives() {
+                if (isProcessing) return;
+                isProcessing = true;
+                
+                // Cambiar el texto del botón a "Descargando..."
+                const originalButtonText = downloadBtn.innerHTML;
+                downloadBtn.innerHTML = '<div class="loading-spinner"></div> Descargando...';
+                
+                try {
+                    // Crear un zip para todos los creativos
+                    for (let i = 0; i < 4; i++) {
+                        try {
+                            // Mostrar progreso
+                            downloadBtn.innerHTML = `<div class="loading-spinner"></div> Descargando ${i+1}/4...`;
+                            
+                            // Renderizar y capturar el creativo
+                            const imageUrl = await renderAndCaptureCreative(i, activeFormat);
+                            
+                            // Descargar la imagen
+                            const link = document.createElement('a');
+                            link.href = imageUrl;
+                            link.download = `${activeService}-${activeFormat === 'vertical' ? 'vertical' : 'cuadrado'}-${i + 1}.png`;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            
+                            // Esperar un momento entre descargas
+                            await new Promise(resolve => setTimeout(resolve, 500));
+                        } catch (error) {
+                            console.error(`Error al procesar el creativo ${i+1}:`, error);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error al descargar todos los creativos:', error);
+                } finally {
+                    // Restaurar el texto original del botón
+                    downloadBtn.innerHTML = originalButtonText;
+                    isProcessing = false;
+                }
+            }
+            
+            // Función para actualizar UI
+            function updateUI() {
+                serviceTitle.textContent = getServiceTitle(activeService);
+                
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.service === activeService) {
+                        btn.classList.add('active');
                     }
                 });
                 
-                creativesContainer.appendChild(creativeEl);
-            });
-        }
-        
-        // Función para previsualizar un creativo antes de descargarlo
-        function previewCreative(index) {
-            // Crear un modal para mostrar la previsualización
-            const modal = document.createElement('div');
-            modal.style.position = 'fixed';
-            modal.style.top = '0';
-            modal.style.left = '0';
-            modal.style.width = '100%';
-            modal.style.height = '100%';
-            modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
-            modal.style.display = 'flex';
-            modal.style.justifyContent = 'center';
-            modal.style.alignItems = 'center';
-            modal.style.zIndex = '9999';
-            
-            // Crear la previsualización
-            const preview = document.createElement('div');
-            preview.style.maxWidth = '90%';
-            preview.style.maxHeight = '90%';
-            preview.style.position = 'relative';
-            
-            // Crear el canvas dentro del modal
-            const canvas = document.createElement('canvas');
-            canvas.width = 1080;
-            canvas.height = 1080;
-            canvas.style.maxWidth = '100%';
-            canvas.style.maxHeight = '100%';
-            canvas.style.borderRadius = '8px'; // Bordes redondeados
-            
-            // Dibujar el creativo en el canvas
-            const ctx = canvas.getContext('2d');
-            drawCreative(ctx, index, activeService);
-            
-            // Botón de cierre
-            const closeBtn = document.createElement('button');
-            closeBtn.textContent = '×';
-            closeBtn.style.position = 'absolute';
-            closeBtn.style.top = '-40px';
-            closeBtn.style.right = '0';
-            closeBtn.style.backgroundColor = 'transparent';
-            closeBtn.style.border = 'none';
-            closeBtn.style.color = 'white';
-            closeBtn.style.fontSize = '30px';
-            closeBtn.style.cursor = 'pointer';
-            
-            // Botón de descarga
-            const downloadBtn = document.createElement('button');
-            downloadBtn.textContent = 'Descargar';
-            downloadBtn.style.position = 'absolute';
-            downloadBtn.style.bottom = '-50px';
-            downloadBtn.style.right = '0';
-            downloadBtn.style.backgroundColor = '#ff7e00';
-            downloadBtn.style.color = 'white';
-            downloadBtn.style.border = 'none';
-            downloadBtn.style.padding = '10px 20px';
-            downloadBtn.style.borderRadius = '4px';
-            downloadBtn.style.cursor = 'pointer';
-            
-            // Agregar eventos
-            closeBtn.addEventListener('click', () => {
-                document.body.removeChild(modal);
-            });
-            
-            downloadBtn.addEventListener('click', () => {
-                if (activeFormat === 'square') {
-                    downloadCreative(index);
-                } else {
-                    downloadCreativeVertical(index);
-                }
-                document.body.removeChild(modal);
-            });
-            
-            // Cerrar el modal al hacer clic fuera de la previsualización
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    document.body.removeChild(modal);
-                }
-            });
-            
-            // Agregar elementos al DOM
-            preview.appendChild(canvas);
-            preview.appendChild(closeBtn);
-            preview.appendChild(downloadBtn);
-            modal.appendChild(preview);
-            document.body.appendChild(modal);
-        }
-        
-        // Función para previsualizar un creativo vertical
-        function previewCreativeVertical(index) {
-            // Crear un modal para mostrar la previsualización
-            const modal = document.createElement('div');
-            modal.style.position = 'fixed';
-            modal.style.top = '0';
-            modal.style.left = '0';
-            modal.style.width = '100%';
-            modal.style.height = '100%';
-            modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
-            modal.style.display = 'flex';
-            modal.style.justifyContent = 'center';
-            modal.style.alignItems = 'center';
-            modal.style.zIndex = '9999';
-            
-            // Crear la previsualización
-            const preview = document.createElement('div');
-            preview.style.maxWidth = '90%';
-            preview.style.maxHeight = '90%';
-            preview.style.position = 'relative';
-            
-            // Crear el canvas dentro del modal
-            const canvas = document.createElement('canvas');
-            canvas.width = 1080;
-            canvas.height = 1920;
-            canvas.style.maxWidth = '100%';
-            canvas.style.maxHeight = '90vh';
-            canvas.style.borderRadius = '8px'; // Bordes redondeados
-            
-            // Dibujar el creativo en el canvas
-            const ctx = canvas.getContext('2d');
-            drawCreativeVertical(ctx, index, activeService);
-            
-            // Botón de cierre
-            const closeBtn = document.createElement('button');
-            closeBtn.textContent = '×';
-            closeBtn.style.position = 'absolute';
-            closeBtn.style.top = '-40px';
-            closeBtn.style.right = '0';
-            closeBtn.style.backgroundColor = 'transparent';
-            closeBtn.style.border = 'none';
-            closeBtn.style.color = 'white';
-            closeBtn.style.fontSize = '30px';
-            closeBtn.style.cursor = 'pointer';
-            
-            // Botón de descarga
-            const downloadBtn = document.createElement('button');
-            downloadBtn.textContent = 'Descargar';
-            downloadBtn.style.position = 'absolute';
-            downloadBtn.style.bottom = '-50px';
-            downloadBtn.style.right = '0';
-            downloadBtn.style.backgroundColor = '#ff7e00';
-            downloadBtn.style.color = 'white';
-            downloadBtn.style.border = 'none';
-            downloadBtn.style.padding = '10px 20px';
-            downloadBtn.style.borderRadius = '4px';
-            downloadBtn.style.cursor = 'pointer';
-            
-            // Agregar eventos
-            closeBtn.addEventListener('click', () => {
-                document.body.removeChild(modal);
-            });
-            
-            downloadBtn.addEventListener('click', () => {
-                if (activeFormat === 'square') {
-                    downloadCreative(index);
-                } else {
-                    downloadCreativeVertical(index);
-                }
-                document.body.removeChild(modal);
-            });
-            
-            // Cerrar el modal al hacer clic fuera de la previsualización
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    document.body.removeChild(modal);
-                }
-            });
-            
-            // Agregar elementos al DOM
-            preview.appendChild(canvas);
-            preview.appendChild(closeBtn);
-            preview.appendChild(downloadBtn);
-            modal.appendChild(preview);
-            document.body.appendChild(modal);
-        }
-        
-        // Función para dibujar un creativo cuadrado en un contexto de canvas dado
-        function drawCreative(ctx, index, service) {
-            const creative = creativesData[service][index];
-            const isFirst = index === 0;
-            
-            // Configurar canvas
-            const canvas = ctx.canvas;
-            
-            // Dibujar fondo con bordes redondeados
-            ctx.fillStyle = creative.bgColor;
-            roundRect(ctx, 0, 0, canvas.width, canvas.height, 8); // Borde redondeado de 8px
-            ctx.fill();
-            
-            // Añadir patrón específico al fondo
-            drawBackgroundPattern(ctx, service, canvas.width, canvas.height);
-            
-            // Dibujar barra lateral con bordes redondeados en el extremo derecho
-            ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
-            ctx.beginPath();
-            ctx.moveTo(0, canvas.height * 0.3);
-            ctx.lineTo(0, canvas.height * 0.3 + canvas.height * 0.3);
-            ctx.lineTo(12, canvas.height * 0.3 + canvas.height * 0.3);
-            ctx.arcTo(15, canvas.height * 0.3 + canvas.height * 0.3, 15, canvas.height * 0.3 + canvas.height * 0.3 - 3, 3);
-            ctx.lineTo(15, canvas.height * 0.3 + 3);
-            ctx.arcTo(15, canvas.height * 0.3, 12, canvas.height * 0.3, 3);
-            ctx.lineTo(0, canvas.height * 0.3);
-            ctx.fill();
-            
-            // Añadir icono específico del servicio
-            if (creative.icon) {
-                // Dibujar círculo para el icono
-                ctx.fillStyle = 'rgba(255,255,255,0.1)';
-                ctx.beginPath();
-                ctx.arc(80, canvas.height - 80, 40, 0, Math.PI * 2);
-                ctx.fill();
+                formatButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
                 
-                ctx.fillStyle = '#FFFFFF';
-                ctx.font = '30px "Font Awesome 5 Free"';
-                ctx.fillText('★', 70, canvas.height - 70);
-            }
-            
-            // Añadir contenedor de logo para mejor contraste con bordes redondeados
-            const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
-            ctx.fillStyle = logoBackgroundColor;
-            roundRect(ctx, 30, 20, 200, 50, 4); // Borde redondeado de 4px
-            ctx.fill();
-            
-            // Añadir logo Orange Vapor o OV - Esquina superior izquierda
-            ctx.font = 'bold 36px Montserrat, sans-serif';
-            
-            if (isFirst) {
-                // Logo Orange Vapor para el primer creativo
-                ctx.fillStyle = colors.light;
-                ctx.fillText('Orange', 40, 60);
-                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, 60);
-            } else {
-                // Logo OV con O en blanco y V en naranja
-                ctx.fillStyle = colors.light;
-                ctx.fillText('O', 40, 60);
-                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                let oWidth = ctx.measureText('O').width;
-                ctx.fillText('V', 40 + oWidth, 60);
-            }
-            
-            // CONTENIDO CENTRADO - Para mejor impacto visual
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            
-            // Título (con tipografía más grande para mejor legibilidad)
-            ctx.font = 'bold 70px Montserrat, sans-serif';
-            ctx.textAlign = 'center';
-            
-            // Si no es el primer creativo y tiene un color de acento, usarlo para el título
-            if (!isFirst && creative.accentColor) {
-                ctx.fillStyle = creative.accentColor;
-            } else {
-                ctx.fillStyle = colors.light;
-            }
-            
-            // Colocar título centrado verticalmente, justo por encima del centro
-            const titleY = centerY - 80;
-            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 250, 80); // Reducido el ancho máximo
-            
-            // Subtítulo con fondo redondeado
-            ctx.fillStyle = 'rgba(0,0,0,0.25)';
-            ctx.font = 'bold 46px Montserrat, sans-serif';
-            
-            // Medir el texto para crear un fondo adecuado
-            const subtitleMetrics = ctx.measureText(creative.subtitle);
-            const subtitleWidth = Math.min(subtitleMetrics.width + 80, canvas.width - 200);
-            const subtitleY = centerY + 30;
-            
-            // Crear un rectángulo redondeado para el fondo del subtítulo, centrado
-            roundRect(ctx, centerX - subtitleWidth/2, subtitleY - 40, subtitleWidth, 80, 4);
-            ctx.fill();
-            
-            // Dibujar el texto del subtítulo
-            ctx.fillStyle = colors.light;
-            ctx.font = 'bold 46px Montserrat, sans-serif';
-            ctx.fillText(creative.subtitle, centerX, subtitleY + 20);
-            
-            // Descripción
-            ctx.fillStyle = 'rgba(255,255,255,0.95)'; // Mayor opacidad para mejor legibilidad
-            ctx.font = '36px Montserrat, sans-serif';
-            const descY = subtitleY + 120;
-            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 250, 50); // Reducido el ancho máximo
-            
-            // Número con borde redondeado (círculo)
-            ctx.fillStyle = 'rgba(255,255,255,0.2)';
-            ctx.beginPath();
-            ctx.arc(canvas.width - 70, canvas.height - 70, 30, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = colors.light;
-            ctx.font = 'bold 24px Montserrat, sans-serif';
-            ctx.fillText(`${index + 1}/4`, canvas.width - 70, canvas.height - 62);
-        }
-        
-        // Función para dibujar un creativo vertical en un contexto de canvas dado
-        function drawCreativeVertical(ctx, index, service) {
-            const creative = creativesData[service][index];
-            const isFirst = index === 0;
-            
-            // Configurar canvas
-            const canvas = ctx.canvas;
-            
-            // Dibujar fondo con bordes redondeados
-            ctx.fillStyle = creative.bgColor;
-            roundRect(ctx, 0, 0, canvas.width, canvas.height, 8); // Borde redondeado de 8px
-            ctx.fill();
-            
-            // Añadir patrón específico al fondo
-            drawBackgroundPattern(ctx, service, canvas.width, canvas.height);
-            
-            // Calcular zonas seguras (14% superior e inferior ~ 269px)
-            const safeZoneTop = Math.round(canvas.height * 0.14);
-            const safeZoneBottom = canvas.height - safeZoneTop;
-            
-            // Dibujar barra lateral con bordes redondeados - en área visible pero respetando zonas seguras
-            ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
-            const accentY = safeZoneTop + 100; // Un poco más abajo de la zona segura
-            const accentHeight = canvas.height - accentY - safeZoneTop - 100;
-            
-            // Barra con bordes redondeados a la derecha
-            ctx.beginPath();
-            ctx.moveTo(0, accentY);
-            ctx.lineTo(0, accentY + accentHeight);
-            ctx.lineTo(16, accentY + accentHeight);
-            ctx.arcTo(20, accentY + accentHeight, 20, accentY + accentHeight - 5, 5);
-            ctx.lineTo(20, accentY + 5);
-            ctx.arcTo(20, accentY, 16, accentY, 5);
-            ctx.lineTo(0, accentY);
-            ctx.fill();
-            
-            // Añadir contenedor de logo para mejor contraste con bordes redondeados
-            const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
-            ctx.fillStyle = logoBackgroundColor;
-            roundRect(ctx, 30, safeZoneTop + 10, 200, 50, 4); // Borde redondeado de 4px
-            ctx.fill();
-            
-            // Añadir logo Orange Vapor o OV - justo debajo de zona segura
-            ctx.font = 'bold 42px Montserrat, sans-serif'; // Tamaño aumentado para mejor legibilidad
-            const logoY = safeZoneTop + 50;
-            
-            if (isFirst) {
-                // Logo Orange Vapor para el primer creativo
-                ctx.fillStyle = colors.light;
-                ctx.fillText('Orange', 40, logoY);
-                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, logoY);
-            } else {
-                // Logo OV con O en blanco y V en naranja
-                ctx.fillStyle = colors.light;
-                ctx.fillText('O', 40, logoY);
-                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                let oWidth = ctx.measureText('O').width;
-                ctx.fillText('V', 40 + oWidth, logoY);
-            }
-            
-            // Añadir icono específico del servicio
-            if (creative.icon) {
-                // Dibujar círculo para el icono
-                ctx.fillStyle = 'rgba(255,255,255,0.1)';
-                ctx.beginPath();
-                ctx.arc(100, safeZoneBottom - 100, 50, 0, Math.PI * 2);
-                ctx.fill();
+                if (activeFormat === 'square') {
+                    squareBtn.classList.add('active');
+                } else {
+                    verticalBtn.classList.add('active');
+                }
                 
-                // El texto del icono se agregará como texto
-                ctx.fillStyle = '#FFFFFF';
-                ctx.font = '36px "Font Awesome 5 Free"';
-                ctx.fillText('★', 85, safeZoneBottom - 85); // Estrella como placeholder
+                renderCreatives();
             }
             
-            // CONTENIDO CENTRADO - Para mejor impacto visual
-            // Todo el contenido principal se ubica en el área central segura
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            
-            // Título centrado en el área segura con tipografía grande
-            ctx.font = 'bold 80px Montserrat, sans-serif'; // Mayor tamaño para destacar en vertical
-            ctx.textAlign = 'center';
-            
-            // Si no es el primer creativo y tiene un color de acento, usarlo para el título
-            if (!isFirst && creative.accentColor) {
-                ctx.fillStyle = creative.accentColor;
-            } else {
-                ctx.fillStyle = colors.light;
-            }
-            
-            // Colocar título centrado en la parte superior del área segura
-            const titleY = centerY - 200;
-            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 300, 90); // Reducido el ancho máximo
-            
-            // Subtítulo con fondo redondeado
-            ctx.fillStyle = 'rgba(0,0,0,0.25)';
-            ctx.font = 'bold 56px Montserrat, sans-serif';
-            
-            // Medir el texto para crear un fondo adecuado
-            const subtitleMetrics = ctx.measureText(creative.subtitle);
-            const subtitleWidth = Math.min(subtitleMetrics.width + 100, canvas.width - 300); // Reducido el ancho máximo
-            const subtitleY = centerY;
-            
-            // Crear un rectángulo redondeado para el fondo del subtítulo, centrado
-            roundRect(ctx, centerX - subtitleWidth/2, subtitleY - 50, subtitleWidth, 100, 4);
-            ctx.fill();
-            
-            // Dibujar el texto del subtítulo
-            ctx.fillStyle = colors.light;
-            ctx.font = 'bold 56px Montserrat, sans-serif';
-            ctx.fillText(creative.subtitle, centerX, subtitleY + 20);
-            
-            // Descripción
-            ctx.fillStyle = 'rgba(255,255,255,0.95)'; // Mayor opacidad para mejor legibilidad
-            ctx.font = '42px Montserrat, sans-serif';
-            const descY = subtitleY + 150;
-            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 300, 60); // Reducido el ancho máximo
-            
-            // Número - dentro del área segura inferior con círculo
-            ctx.fillStyle = 'rgba(255,255,255,0.2)';
-            ctx.beginPath();
-            ctx.arc(canvas.width - 80, safeZoneBottom - 80, 40, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = colors.light;
-            ctx.font = 'bold 30px Montserrat, sans-serif';
-            ctx.fillText(`${index + 1}/4`, canvas.width - 80, safeZoneBottom - 70);
-        }
-        
-        // Función para actualizar UI
-        function updateUI() {
-            serviceTitle.textContent = getServiceTitle(activeService);
-            
+            // Eventos
             tabButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.service === activeService) {
-                    btn.classList.add('active');
-                }
+                btn.addEventListener('click', () => {
+                    activeService = btn.dataset.service;
+                    updateUI();
+                });
             });
             
-            formatButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            if (activeFormat === 'square') {
-                squareBtn.classList.add('active');
-            } else {
-                verticalBtn.classList.add('active');
-            }
-            
-            renderCreatives();
-        }
-        
-        // Obtener icono para el servicio (nuevo)
-        function getServiceIcon(service, index) {
-            const creative = creativesData[service][index];
-            return creative.icon || 'fa-solid fa-star'; // Icono por defecto
-        }
-        
-        // Función para generar un patrón de fondo específico para cada servicio (nuevo)
-        function drawBackgroundPattern(ctx, service, width, height) {
-            ctx.save();
-            ctx.globalAlpha = 0.05;
-            
-            switch (service) {
-                case 'optimizacion':
-                    // Patrón de líneas diagonales
-                    for (let i = -height; i < width + height; i += 40) {
-                        ctx.beginPath();
-                        ctx.moveTo(i, 0);
-                        ctx.lineTo(i + height, height);
-                        ctx.strokeStyle = '#FFFFFF';
-                        ctx.lineWidth = 2;
-                        ctx.stroke();
-                    }
-                    break;
-                    
-                case 'meta':
-                    // Patrón de círculos
-                    for (let i = 0; i < width; i += 80) {
-                        for (let j = 0; j < height; j += 80) {
-                            ctx.beginPath();
-                            ctx.arc(i, j, 15, 0, Math.PI * 2);
-                            ctx.strokeStyle = '#FFFFFF';
-                            ctx.stroke();
-                        }
-                    }
-                    break;
-                    
-                case 'google':
-                    // Patrón de cuadrados
-                    for (let i = 0; i < width; i += 70) {
-                        for (let j = 0; j < height; j += 70) {
-                            ctx.fillStyle = '#FFFFFF';
-                            ctx.fillRect(i, j, 10, 10);
-                        }
-                    }
-                    break;
-                    
-                case 'email':
-                    // Patrón de ondas
-                    for (let j = 0; j < height; j += 60) {
-                        ctx.beginPath();
-                        for (let i = 0; i < width; i += 5) {
-                            ctx.lineTo(i, j + Math.sin(i * 0.05) * 10);
-                        }
-                        ctx.strokeStyle = '#FFFFFF';
-                        ctx.lineWidth = 1;
-                        ctx.stroke();
-                    }
-                    break;
-                    
-                case 'chatbot':
-                    // Patrón de puntos más densos
-                    for (let i = 0; i < width; i += 20) {
-                        for (let j = 0; j < height; j += 20) {
-                            if (Math.random() > 0.7) {
-                                ctx.fillStyle = '#FFFFFF';
-                                ctx.fillRect(i, j, 3, 3);
-                            }
-                        }
-                    }
-                    break;
-                    
-                case 'all':
-                    // Patrón de red
-                    for (let i = 0; i < width; i += 100) {
-                        for (let j = 0; j < height; j += 100) {
-                            ctx.beginPath();
-                            ctx.moveTo(i, 0);
-                            ctx.lineTo(i, height);
-                            ctx.moveTo(0, j);
-                            ctx.lineTo(width, j);
-                            ctx.strokeStyle = '#FFFFFF';
-                            ctx.lineWidth = 1;
-                            ctx.stroke();
-                        }
-                    }
-                    break;
-                    
-                default:
-                    // Puntos aleatorios para textura por defecto
-                    for (let i = 0; i < width; i += 20) {
-                        for (let j = 0; j < height; j += 20) {
-                            if (Math.random() > 0.85) {
-                                ctx.fillStyle = '#FFFFFF';
-                                ctx.fillRect(i, j, 2, 2);
-                            }
-                        }
-                    }
-            }
-            
-            ctx.restore();
-        }
-        
-        // Función para dibujar un rectángulo con esquinas redondeadas
-        function roundRect(ctx, x, y, width, height, radius) {
-            if (width < 2 * radius) radius = width / 2;
-            if (height < 2 * radius) radius = height / 2;
-            ctx.beginPath();
-            ctx.moveTo(x + radius, y);
-            ctx.arcTo(x + width, y, x + width, y + height, radius);
-            ctx.arcTo(x + width, y + height, x, y + height, radius);
-            ctx.arcTo(x, y + height, x, y, radius);
-            ctx.arcTo(x, y, x + width, y, radius);
-            ctx.closePath();
-            return ctx;
-        }
-        
-        // Función para generar y descargar un creativo cuadrado (optimizado)
-        function downloadCreative(index) {
-            const creative = creativesData[activeService][index];
-            const isFirst = index === 0;
-            
-            // Configurar canvas
-            const canvas = exportCanvas;
-            const ctx = canvas.getContext('2d');
-            canvas.width = 1080;
-            canvas.height = 1080;
-            
-            // Dibujar fondo con bordes redondeados
-            ctx.fillStyle = creative.bgColor;
-            roundRect(ctx, 0, 0, canvas.width, canvas.height, 8); // Borde redondeado de 8px
-            ctx.fill();
-            
-            // Añadir patrón específico al fondo
-            drawBackgroundPattern(ctx, activeService, canvas.width, canvas.height);
-            
-            // Dibujar barra lateral con bordes redondeados en el extremo derecho
-            ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
-            ctx.beginPath();
-            ctx.moveTo(0, canvas.height * 0.3);
-            ctx.lineTo(0, canvas.height * 0.3 + canvas.height * 0.3);
-            ctx.lineTo(12, canvas.height * 0.3 + canvas.height * 0.3);
-            ctx.arcTo(15, canvas.height * 0.3 + canvas.height * 0.3, 15, canvas.height * 0.3 + canvas.height * 0.3 - 3, 3);
-            ctx.lineTo(15, canvas.height * 0.3 + 3);
-            ctx.arcTo(15, canvas.height * 0.3, 12, canvas.height * 0.3, 3);
-            ctx.lineTo(0, canvas.height * 0.3);
-            ctx.fill();
-            
-            // Añadir icono específico del servicio
-            if (creative.icon) {
-                // Dibujar círculo para el icono
-                ctx.fillStyle = 'rgba(255,255,255,0.1)';
-                ctx.beginPath();
-                ctx.arc(80, canvas.height - 80, 40, 0, Math.PI * 2);
-                ctx.fill();
-                
-                // El texto del icono se agregará como texto
-                ctx.fillStyle = '#FFFFFF';
-                ctx.font = '30px "Font Awesome 5 Free"';
-                // Nota: No podemos usar directamente los iconos de FA en canvas, 
-                // pero en la visualización web sí aparecerán
-                ctx.fillText('★', 70, canvas.height - 70); // Estrella como placeholder
-            }
-            
-            // Añadir contenedor de logo para mejor contraste con bordes redondeados
-            const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
-            ctx.fillStyle = logoBackgroundColor;
-            roundRect(ctx, 30, 20, 200, 50, 4); // Borde redondeado de 4px
-            ctx.fill();
-            
-            // Añadir logo Orange Vapor o OV - Esquina superior izquierda
-            ctx.font = 'bold 36px Montserrat, sans-serif';
-            
-            if (isFirst) {
-                // Logo Orange Vapor para el primer creativo
-                ctx.fillStyle = colors.light;
-                ctx.fillText('Orange', 40, 60);
-                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, 60);
-            } else {
-                // Logo OV con O en blanco y V en naranja
-                ctx.fillStyle = colors.light;
-                ctx.fillText('O', 40, 60);
-                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                let oWidth = ctx.measureText('O').width;
-                ctx.fillText('V', 40 + oWidth, 60);
-            }
-            
-            // CONTENIDO CENTRADO - Para mejor impacto visual
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            
-            // Título (con tipografía más grande para mejor legibilidad)
-            ctx.font = 'bold 70px Montserrat, sans-serif';
-            ctx.textAlign = 'center';
-            
-            // Si no es el primer creativo y tiene un color de acento, usarlo para el título
-            if (!isFirst && creative.accentColor) {
-                ctx.fillStyle = creative.accentColor;
-            } else {
-                ctx.fillStyle = colors.light;
-            }
-            
-            // Colocar título centrado verticalmente, justo por encima del centro
-            const titleY = centerY - 80;
-            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 250, 80); // Reducido el ancho máximo
-            
-            // Subtítulo con fondo redondeado
-            ctx.fillStyle = 'rgba(0,0,0,0.25)';
-            ctx.font = 'bold 46px Montserrat, sans-serif';
-            
-            // Medir el texto para crear un fondo adecuado
-            const subtitleMetrics = ctx.measureText(creative.subtitle);
-            const subtitleWidth = Math.min(subtitleMetrics.width + 80, canvas.width - 200);
-            const subtitleY = centerY + 30;
-            
-            // Crear un rectángulo redondeado para el fondo del subtítulo, centrado
-            roundRect(ctx, centerX - subtitleWidth/2, subtitleY - 40, subtitleWidth, 80, 4);
-            ctx.fill();
-            
-            // Dibujar el texto del subtítulo
-            ctx.fillStyle = colors.light;
-            ctx.font = 'bold 46px Montserrat, sans-serif';
-            ctx.fillText(creative.subtitle, centerX, subtitleY + 20);
-            
-            // Descripción
-            ctx.fillStyle = 'rgba(255,255,255,0.95)'; // Mayor opacidad para mejor legibilidad
-            ctx.font = '36px Montserrat, sans-serif';
-            const descY = subtitleY + 120;
-            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 250, 50); // Reducido el ancho máximo
-            
-            // Número con borde redondeado (círculo)
-            ctx.fillStyle = 'rgba(255,255,255,0.2)';
-            ctx.beginPath();
-            ctx.arc(canvas.width - 70, canvas.height - 70, 30, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = colors.light;
-            ctx.font = 'bold 24px Montserrat, sans-serif';
-            ctx.fillText(`${index + 1}/4`, canvas.width - 70, canvas.height - 62);
-            
-            // Descargar imagen
-            const link = document.createElement('a');
-            link.download = `${activeService}-creativo-${index + 1}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        }
-        
-        // Función para generar y descargar un creativo vertical (optimizado)
-        function downloadCreativeVertical(index) {
-            const creative = creativesData[activeService][index];
-            const isFirst = index === 0;
-            
-            // Configurar canvas
-            const canvas = exportCanvas;
-            const ctx = canvas.getContext('2d');
-            canvas.width = 1080;
-            canvas.height = 1920;
-            
-            // Dibujar fondo con bordes redondeados
-            ctx.fillStyle = creative.bgColor;
-            roundRect(ctx, 0, 0, canvas.width, canvas.height, 8); // Borde redondeado de 8px
-            ctx.fill();
-            
-            // Añadir patrón específico al fondo
-            drawBackgroundPattern(ctx, activeService, canvas.width, canvas.height);
-            
-            // Calcular zonas seguras (14% superior e inferior ~ 269px)
-            const safeZoneTop = Math.round(canvas.height * 0.14);
-            const safeZoneBottom = canvas.height - safeZoneTop;
-            
-            // Dibujar barra lateral con bordes redondeados - en área visible pero respetando zonas seguras
-            ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
-            const accentY = safeZoneTop + 100; // Un poco más abajo de la zona segura
-            const accentHeight = canvas.height - accentY - safeZoneTop - 100;
-            
-            // Barra con bordes redondeados a la derecha
-            ctx.beginPath();
-            ctx.moveTo(0, accentY);
-            ctx.lineTo(0, accentY + accentHeight);
-            ctx.lineTo(16, accentY + accentHeight);
-            ctx.arcTo(20, accentY + accentHeight, 20, accentY + accentHeight - 5, 5);
-            ctx.lineTo(20, accentY + 5);
-            ctx.arcTo(20, accentY, 16, accentY, 5);
-            ctx.lineTo(0, accentY);
-            ctx.fill();
-            
-            // Añadir contenedor de logo para mejor contraste con bordes redondeados
-            const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
-            ctx.fillStyle = logoBackgroundColor;
-            roundRect(ctx, 30, safeZoneTop + 10, 200, 50, 4); // Borde redondeado de 4px
-            ctx.fill();
-            
-            // Añadir logo Orange Vapor o OV - justo debajo de zona segura
-            ctx.font = 'bold 42px Montserrat, sans-serif'; // Tamaño aumentado para mejor legibilidad
-            const logoY = safeZoneTop + 50;
-            
-            if (isFirst) {
-                // Logo Orange Vapor para el primer creativo
-                ctx.fillStyle = colors.light;
-                ctx.fillText('Orange', 40, logoY);
-                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, logoY);
-            } else {
-                // Logo OV con O en blanco y V en naranja
-                ctx.fillStyle = colors.light;
-                ctx.fillText('O', 40, logoY);
-                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                let oWidth = ctx.measureText('O').width;
-                ctx.fillText('V', 40 + oWidth, logoY);
-            }
-            
-            // Añadir icono específico del servicio
-            if (creative.icon) {
-                // Dibujar círculo para el icono
-                ctx.fillStyle = 'rgba(255,255,255,0.1)';
-                ctx.beginPath();
-                ctx.arc(100, safeZoneBottom - 100, 50, 0, Math.PI * 2);
-                ctx.fill();
-                
-                // El texto del icono se agregará como texto
-                ctx.fillStyle = '#FFFFFF';
-                ctx.font = '36px "Font Awesome 5 Free"';
-                ctx.fillText('★', 85, safeZoneBottom - 85); // Estrella como placeholder
-            }
-            
-            // CONTENIDO CENTRADO - Para mejor impacto visual
-            // Todo el contenido principal se ubica en el área central segura
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            
-            // Título centrado en el área segura con tipografía grande
-            ctx.font = 'bold 80px Montserrat, sans-serif'; // Mayor tamaño para destacar en vertical
-            ctx.textAlign = 'center';
-            
-            // Si no es el primer creativo y tiene un color de acento, usarlo para el título
-            if (!isFirst && creative.accentColor) {
-                ctx.fillStyle = creative.accentColor;
-            } else {
-                ctx.fillStyle = colors.light;
-            }
-            
-            // Colocar título centrado en la parte superior del área segura
-            const titleY = centerY - 200;
-            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 300, 90); // Reducido el ancho máximo
-            
-            // Subtítulo con fondo redondeado
-            ctx.fillStyle = 'rgba(0,0,0,0.25)';
-            ctx.font = 'bold 56px Montserrat, sans-serif';
-            
-            // Medir el texto para crear un fondo adecuado
-            const subtitleMetrics = ctx.measureText(creative.subtitle);
-            const subtitleWidth = Math.min(subtitleMetrics.width + 100, canvas.width - 300); // Reducido el ancho máximo
-            const subtitleY = centerY;
-            
-            // Crear un rectángulo redondeado para el fondo del subtítulo, centrado
-            roundRect(ctx, centerX - subtitleWidth/2, subtitleY - 50, subtitleWidth, 100, 4);
-            ctx.fill();
-            
-            // Dibujar el texto del subtítulo
-            ctx.fillStyle = colors.light;
-            ctx.font = 'bold 56px Montserrat, sans-serif';
-            ctx.fillText(creative.subtitle, centerX, subtitleY + 20);
-            
-            // Descripción
-            ctx.fillStyle = 'rgba(255,255,255,0.95)'; // Mayor opacidad para mejor legibilidad
-            ctx.font = '42px Montserrat, sans-serif';
-            const descY = subtitleY + 150;
-            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 300, 60); // Reducido el ancho máximo
-            
-            // Número - dentro del área segura inferior con círculo
-            ctx.fillStyle = 'rgba(255,255,255,0.2)';
-            ctx.beginPath();
-            ctx.arc(canvas.width - 80, safeZoneBottom - 80, 40, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = colors.light;
-            ctx.font = 'bold 30px Montserrat, sans-serif';
-            ctx.fillText(`${index + 1}/4`, canvas.width - 80, safeZoneBottom - 70);
-            
-            // Descargar imagen
-            const link = document.createElement('a');
-            link.download = `${activeService}-vertical-${index + 1}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        }
-        
-        // Función para descargar todos los creativos
-        function downloadAllCreatives() {
-            if (activeFormat === 'square') {
-                // Descargar cuadrados
-                for (let i = 0; i < 4; i++) {
-                    setTimeout(() => downloadCreative(i), i * 500);
-                }
-            } else {
-                // Descargar verticales
-                for (let i = 0; i < 4; i++) {
-                    setTimeout(() => downloadCreativeVertical(i), i * 500);
-                }
-            }
-        }
-        
-        // Función para envolver texto centrado (para mejor composición)
-        function wrapTextCentered(ctx, text, x, y, maxWidth, lineHeight) {
-            const words = text.split(' ');
-            let line = '';
-            let lineY = y;
-            
-            for (let i = 0; i < words.length; i++) {
-                const testLine = line + words[i] + ' ';
-                const metrics = ctx.measureText(testLine);
-                const testWidth = metrics.width;
-                
-                if (testWidth > maxWidth && i > 0) {
-                    ctx.fillText(line, x, lineY);
-                    line = words[i] + ' ';
-                    lineY += lineHeight;
-                } else {
-                    line = testLine;
-                }
-            }
-            
-            ctx.fillText(line, x, lineY);
-            return lineY;
-        }
-        
-        // Eventos
-        tabButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                activeService = btn.dataset.service;
+            squareBtn.addEventListener('click', () => {
+                activeFormat = 'square';
                 updateUI();
             });
-        });
-        
-        squareBtn.addEventListener('click', () => {
-            activeFormat = 'square';
+            
+            verticalBtn.addEventListener('click', () => {
+                activeFormat = 'vertical';
+                updateUI();
+            });
+            
+            downloadBtn.addEventListener('click', downloadAllCreatives);
+            
+            // Inicializar
             updateUI();
-        });
-        
-        verticalBtn.addEventListener('click', () => {
-            activeFormat = 'vertical';
-            updateUI();
-        });
-        
-        downloadBtn.addEventListener('click', downloadAllCreatives);
-        
-        // Inicializar
-        updateUI();
+        }
     </script>
 </body>
 </html>
