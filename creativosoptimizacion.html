@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creativos Orange Vapor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Creativos Orange Vapor - Optimizados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -260,6 +260,37 @@
             color: white;
             border-color: #ff7e00;
         }
+        .best-practices {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .best-practices h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .best-practices ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .best-practices li {
+            font-size: 13px;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .toggle-practices {
+            display: block;
+            margin: 10px auto;
+            background: none;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -307,6 +338,20 @@
             </div>
         </div>
         
+        <!-- Mejores prácticas (colapsable) -->
+        <div class="best-practices" style="display: none;">
+            <h3>Mejores Prácticas Aplicadas:</h3>
+            <ul>
+                <li><strong>Menos del 20% de texto</strong> - Facebook penaliza anuncios con exceso de texto</li>
+                <li><strong>Zonas seguras</strong> - 14% superior e inferior en formato vertical libres de elementos clave</li>
+                <li><strong>Tipografía ampliada</strong> - Mayor legibilidad en dispositivos móviles</li>
+                <li><strong>Colores contrastantes</strong> - Mejor visualización y reconocimiento de marca</li>
+                <li><strong>Composición centrada</strong> - Elementos principales visibles a primera vista</li>
+                <li><strong>Logo consistente</strong> - Siempre en esquina superior izquierda</li>
+            </ul>
+        </div>
+        <button class="toggle-practices" id="togglePractices">Ver mejores prácticas aplicadas</button>
+        
         <!-- Contenedor de creativos -->
         <div id="creativesContainer" class="creatives-container">
             <!-- Los creativos se insertan dinámicamente aquí -->
@@ -338,33 +383,33 @@
             chatbot: '#6f42c1'    // Lila para Chatbot
         };
         
-        // Datos de creativos por servicio
+        // Datos de creativos optimizados (reducción de texto para mantener <20%)
         const creativesData = {
             optimizacion: [
                 {
-                    title: 'TRANSFORMAMOS TUS CAMPAÑAS QUE NO CONVIERTEN EN 48HS',
-                    subtitle: '+20% EN VENTAS O PAGÁS SOLO LA MITAD',
+                    title: 'TRANSFORMAMOS TUS CAMPAÑAS', // Reducido para <20% de texto
+                    subtitle: '+20% EN VENTAS',
                     description: 'Diagnóstico + Nueva estructura optimizada',
                     bgColor: colors.optimizacion // Cambiado a colors.optimizacion
                 },
                 {
                     title: 'EL PROBLEMA',
-                    subtitle: 'CAMPAÑAS QUE NO GENERAN RESULTADOS',
-                    description: 'Perdés ventas potenciales mientras tu competencia sigue avanzando',
+                    subtitle: 'CAMPAÑAS SIN RESULTADOS',
+                    description: 'Perdés ventas mientras la competencia avanza',
                     bgColor: colors.dark,
                     accentColor: colors.optimizacion // Cambiado a colors.optimizacion
                 },
                 {
                     title: 'LA SOLUCIÓN',
-                    subtitle: 'OPTIMIZACIÓN EXPRESS EN 48HS',
-                    description: 'Estructura completamente renovada que genera ventas reales',
+                    subtitle: 'OPTIMIZACIÓN EXPRESS',
+                    description: 'Estructura renovada que genera ventas reales',
                     bgColor: colors.dark,
                     accentColor: colors.optimizacion // Cambiado a colors.optimizacion
                 },
                 {
                     title: 'INVERSIÓN ÚNICA',
                     subtitle: '$299 USD',
-                    description: 'Solo pagás la mitad ($149) al inicio y el resto únicamente si aumentamos tus ventas un 20% en 14 días',
+                    description: 'Pagá la mitad si no aumentamos tus ventas',
                     bgColor: colors.dark,
                     accentColor: colors.optimizacion // Cambiado a colors.optimizacion
                 }
@@ -372,28 +417,28 @@
             meta: [
                 {
                     title: 'META ADS',
-                    subtitle: 'AUMENTÁ TUS CONVERSIONES CON FACEBOOK E INSTAGRAM',
-                    description: 'Estrategias personalizadas que maximizan el retorno de tu inversión',
+                    subtitle: 'CONVERSIONES MAXIMIZADAS',
+                    description: 'Estrategias personalizadas de alto retorno',
                     bgColor: colors.meta // Cambiado a colors.meta
                 },
                 {
                     title: 'TARGETING PRECISO',
-                    subtitle: 'LLEGÁ A TU AUDIENCIA IDEAL',
-                    description: 'Segmentación avanzada por intereses, comportamientos y datos demográficos',
+                    subtitle: 'LLEGA A TU AUDIENCIA',
+                    description: 'Segmentación avanzada por intereses',
                     bgColor: colors.dark,
                     accentColor: colors.meta // Cambiado a colors.meta
                 },
                 {
                     title: 'ANUNCIOS CREATIVOS',
                     subtitle: 'FORMATOS QUE CONVIERTEN',
-                    description: 'Anuncios dinámicos personalizados para cada etapa del embudo',
+                    description: 'Anuncios dinámicos para cada etapa',
                     bgColor: colors.dark,
                     accentColor: colors.meta // Cambiado a colors.meta
                 },
                 {
                     title: 'RESULTADOS MEDIBLES',
                     subtitle: 'CAMPAÑAS DATA-DRIVEN',
-                    description: 'Análisis detallado del rendimiento para optimizar constantemente tus anuncios',
+                    description: 'Optimización constante de anuncios',
                     bgColor: colors.dark,
                     accentColor: colors.meta // Cambiado a colors.meta
                 }
@@ -401,28 +446,28 @@
             google: [
                 {
                     title: 'GOOGLE ADS',
-                    subtitle: 'LLEGÁ A CLIENTES CUANDO TE BUSCAN',
-                    description: 'Campañas de búsqueda, display y YouTube optimizadas para convertir',
+                    subtitle: 'CLIENTES QUE TE BUSCAN',
+                    description: 'Campañas optimizadas para convertir',
                     bgColor: colors.google // Cambiado a colors.google
                 },
                 {
                     title: 'BÚSQUEDA AVANZADA',
-                    subtitle: 'PRIMEROS EN LOS RESULTADOS',
-                    description: 'Estrategia de palabras clave que captura clientes con intención de compra',
+                    subtitle: 'PRIMEROS RESULTADOS',
+                    description: 'Palabras clave con intención de compra',
                     bgColor: colors.dark,
                     accentColor: colors.google // Cambiado a colors.google
                 },
                 {
                     title: 'RED DISPLAY & YOUTUBE',
-                    subtitle: 'PRESENCIA VISUAL IMPACTANTE',
-                    description: 'Anuncios gráficos atractivos y campañas de video efectivas',
+                    subtitle: 'PRESENCIA IMPACTANTE',
+                    description: 'Anuncios gráficos y videos efectivos',
                     bgColor: colors.dark,
                     accentColor: colors.googleRed // Usando el rojo de Google
                 },
                 {
                     title: 'ANÁLISIS Y OPTIMIZACIÓN',
-                    subtitle: 'MEJORA CONSTANTE DEL ROI',
-                    description: 'Tecnología de machine learning para ajustar pujas y maximizar conversiones',
+                    subtitle: 'MEJORA CONSTANTE',
+                    description: 'Machine learning para maximizar conversiones',
                     bgColor: colors.dark,
                     accentColor: colors.googleYellow // Usando el amarillo de Google
                 }
@@ -430,28 +475,28 @@
             email: [
                 {
                     title: 'EMAIL MARKETING',
-                    subtitle: 'CONECTÁ DIRECTAMENTE CON TUS CLIENTES',
-                    description: 'Campañas personalizadas que generan confianza y aumentan ventas',
+                    subtitle: 'CONEXIÓN DIRECTA',
+                    description: 'Campañas que generan ventas',
                     bgColor: colors.email // Cambiado a colors.email
                 },
                 {
                     title: 'AUTOMATIZACIÓN',
-                    subtitle: 'SECUENCIAS QUE CONVIERTEN',
-                    description: 'Flujos automatizados para cada etapa del embudo de ventas',
+                    subtitle: 'SECUENCIAS EFECTIVAS',
+                    description: 'Flujos para cada etapa del embudo',
                     bgColor: colors.dark,
                     accentColor: colors.email // Cambiado a colors.email
                 },
                 {
-                    title: 'SEGMENTACIÓN AVANZADA',
+                    title: 'SEGMENTACIÓN',
                     subtitle: 'MENSAJES RELEVANTES',
-                    description: 'Emails personalizados por comportamiento e intereses de tus contactos',
+                    description: 'Emails personalizados por comportamiento',
                     bgColor: colors.dark,
                     accentColor: colors.email // Cambiado a colors.email
                 },
                 {
                     title: 'ANÁLISIS COMPLETO',
-                    subtitle: 'MÉTRICAS QUE IMPULSAN DECISIONES',
-                    description: 'Reportes detallados de apertura, clics y conversiones para mejorar resultados',
+                    subtitle: 'MÉTRICAS QUE IMPULSAN',
+                    description: 'Reportes detallados de resultados',
                     bgColor: colors.dark,
                     accentColor: colors.email // Cambiado a colors.email
                 }
@@ -459,28 +504,28 @@
             chatbot: [
                 {
                     title: 'CHATBOT INTELIGENTE',
-                    subtitle: 'ATIENDE A TUS CLIENTES 24/7',
-                    description: 'Automatiza la atención al cliente y aumenta conversiones mientras dormís',
+                    subtitle: 'SERVICIO 24/7',
+                    description: 'Atención automatizada que convierte',
                     bgColor: colors.chatbot // Cambiado a colors.chatbot
                 },
                 {
                     title: 'CONVERSACIONES FLUIDAS',
                     subtitle: 'RESPUESTAS INTELIGENTES',
-                    description: 'IA que entiende preguntas complejas y responde de forma natural',
+                    description: 'IA que entiende preguntas complejas',
                     bgColor: colors.dark,
                     accentColor: colors.chatbot // Cambiado a colors.chatbot
                 },
                 {
                     title: 'INTEGRACIÓN COMPLETA',
-                    subtitle: 'SE ADAPTA A TU NEGOCIO',
-                    description: 'Conectado con WhatsApp, Messenger y tu CRM para una experiencia unificada',
+                    subtitle: 'ADAPTADO A TU NEGOCIO',
+                    description: 'Conectado con todos tus canales',
                     bgColor: colors.dark,
                     accentColor: colors.chatbot // Cambiado a colors.chatbot
                 },
                 {
                     title: 'RESULTADOS CONCRETOS',
-                    subtitle: 'CHATBOT QUE GENERA VENTAS',
-                    description: 'Aumenta en un 35% la conversión capturando leads cuando están más interesados',
+                    subtitle: 'AUMENTO DE CONVERSIÓN',
+                    description: 'Captura leads cuando más interesa',
                     bgColor: colors.dark,
                     accentColor: colors.chatbot // Cambiado a colors.chatbot
                 }
@@ -488,28 +533,28 @@
             all: [
                 {
                     title: 'PAQUETE COMPLETO',
-                    subtitle: '4 SERVICIOS INTEGRADOS PARA MÁXIMO IMPACTO',
-                    description: 'Google Ads + Meta Ads + Email Marketing + Chatbot por solo US$1000/mes',
+                    subtitle: '4 SERVICIOS INTEGRADOS',
+                    description: 'Solución integral por US$1000/mes',
                     bgColor: '#333333'
                 },
                 {
                     title: 'ESTRATEGIA 360°',
-                    subtitle: 'PRESENCIA TOTAL EN EL MUNDO DIGITAL',
-                    description: 'Atraemos tráfico, convertimos visitantes y fidelizamos clientes en un solo lugar',
+                    subtitle: 'PRESENCIA DIGITAL TOTAL',
+                    description: 'Tráfico, conversión y fidelización',
                     bgColor: colors.dark,
                     accentColor: colors.primary
                 },
                 {
                     title: 'AHORRO SIGNIFICATIVO',
-                    subtitle: 'PAQUETE CON DESCUENTO',
-                    description: 'Ahorrás casi US$200 mensuales y obtenés un equipo totalmente coordinado',
+                    subtitle: 'DESCUENTO ESPECIAL',
+                    description: 'Ahorrás US$200 mensuales',
                     bgColor: colors.dark,
                     accentColor: colors.primary
                 },
                 {
                     title: 'RESULTADOS AMPLIFICADOS',
                     subtitle: 'EL PODER DE LA SINERGIA',
-                    description: 'Cada canal potencia a los demás, multiplicando el retorno de tu inversión total',
+                    description: 'Cada canal potencia a los demás',
                     bgColor: colors.dark,
                     accentColor: colors.primary
                 }
@@ -529,6 +574,19 @@
         const verticalBtn = document.getElementById('verticalBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const exportCanvas = document.getElementById('exportCanvas');
+        const togglePracticesBtn = document.getElementById('togglePractices');
+        const bestPracticesBox = document.querySelector('.best-practices');
+        
+        // Toggle para mejores prácticas
+        togglePracticesBtn.addEventListener('click', () => {
+            if (bestPracticesBox.style.display === 'none') {
+                bestPracticesBox.style.display = 'block';
+                togglePracticesBtn.textContent = 'Ocultar mejores prácticas';
+            } else {
+                bestPracticesBox.style.display = 'none';
+                togglePracticesBtn.textContent = 'Ver mejores prácticas aplicadas';
+            }
+        });
         
         // Función para obtener título según el servicio
         function getServiceTitle(service) {
@@ -653,7 +711,7 @@
             renderCreatives();
         }
         
-        // Función para generar y descargar un creativo cuadrado
+        // Función para generar y descargar un creativo cuadrado (optimizado)
         function downloadCreative(index) {
             const creative = creativesData[activeService][index];
             const isFirst = index === 0;
@@ -668,61 +726,72 @@
             ctx.fillStyle = creative.bgColor;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
+            // Añadir patrón sutil al fondo
+            addBackgroundTexture(ctx, canvas.width, canvas.height);
+            
             // Dibujar barra lateral
             ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
             ctx.fillRect(0, canvas.height * 0.3, 12, canvas.height * 0.3);
             
-            // Añadir logo Orange Vapor o OV
-            ctx.font = 'bold 30px Montserrat, sans-serif';
+            // Añadir logo Orange Vapor o OV - Esquina superior izquierda
+            ctx.font = 'bold 36px Montserrat, sans-serif'; // Fuente más grande para mejor visualización
             
             if (isFirst) {
                 // Logo Orange Vapor para el primer creativo
                 ctx.fillStyle = colors.light;
-                ctx.fillText('Orange', 40, 50);
+                ctx.fillText('Orange', 40, 60);
                 ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, 50);
+                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, 60);
             } else {
                 // Logo OV con O en blanco y V en naranja
                 ctx.fillStyle = colors.light;
-                ctx.fillText('O', 40, 50);
+                ctx.fillText('O', 40, 60);
                 ctx.fillStyle = '#FF7E00'; // Color naranja del logo
                 let oWidth = ctx.measureText('O').width;
-                ctx.fillText('V', 40 + oWidth, 50);
+                ctx.fillText('V', 40 + oWidth, 60);
             }
             
-            ctx.fillStyle = colors.light; // Restaurar color de texto para el resto del contenido
+            // CONTENIDO CENTRADO - Para mejor impacto visual
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
             
-            // Dibujar contenido
-            // Título
-            ctx.font = 'bold 54px Montserrat, sans-serif';
-            const titleY = canvas.height * 0.25;
+            // Título (con tipografía más grande para mejor legibilidad)
+            ctx.font = 'bold 70px Montserrat, sans-serif'; // Aumentado para mejor visualización en móvil
+            ctx.textAlign = 'center';
             
             // Si no es el primer creativo y tiene un color de acento, usarlo para el título
             if (!isFirst && creative.accentColor) {
                 ctx.fillStyle = creative.accentColor;
+            } else {
+                ctx.fillStyle = colors.light;
             }
             
-            wrapText(ctx, creative.title, 70, titleY, canvas.width - 140, 60);
-            
-            // Restaurar color para el resto del texto
-            ctx.fillStyle = colors.light;
+            // Colocar título centrado verticalmente, justo por encima del centro
+            const titleY = centerY - 80;
+            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 200, 80);
             
             // Subtítulo
             ctx.fillStyle = 'rgba(0,0,0,0.25)';
-            ctx.font = 'bold 42px Montserrat, sans-serif';
-            // Medir el texto para ajustar el ancho del fondo
-            const subtitleMetrics = ctx.measureText(creative.subtitle);
-            const subtitleWidth = Math.min(subtitleMetrics.width + 40, canvas.width - 140);
-            const subtitleY = titleY + 140;
-            ctx.fillRect(70, subtitleY, subtitleWidth, 70);
+            ctx.font = 'bold 46px Montserrat, sans-serif';
             
+            // Medir el texto para crear un fondo adecuado
+            const subtitleMetrics = ctx.measureText(creative.subtitle);
+            const subtitleWidth = Math.min(subtitleMetrics.width + 80, canvas.width - 200);
+            const subtitleY = centerY + 30;
+            
+            // Crear un rectángulo para el fondo del subtítulo, centrado
+            ctx.fillRect(centerX - subtitleWidth/2, subtitleY - 40, subtitleWidth, 80);
+            
+            // Dibujar el texto del subtítulo
             ctx.fillStyle = colors.light;
-            ctx.font = 'bold 42px Montserrat, sans-serif';
-            ctx.fillText(creative.subtitle, 90, subtitleY + 48);
+            ctx.font = 'bold 46px Montserrat, sans-serif';
+            ctx.fillText(creative.subtitle, centerX, subtitleY + 20);
             
             // Descripción
+            ctx.fillStyle = 'rgba(255,255,255,0.95)'; // Mayor opacidad para mejor legibilidad
             ctx.font = '36px Montserrat, sans-serif';
-            wrapText(ctx, creative.description, 70, subtitleY + 110, canvas.width - 140, 44);
+            const descY = subtitleY + 120;
+            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 200, 50);
             
             // Número
             ctx.fillStyle = 'rgba(255,255,255,0.2)';
@@ -732,9 +801,7 @@
             
             ctx.fillStyle = colors.light;
             ctx.font = 'bold 24px Montserrat, sans-serif';
-            ctx.textAlign = 'center';
             ctx.fillText(`${index + 1}/4`, canvas.width - 70, canvas.height - 62);
-            ctx.textAlign = 'left';
             
             // Descargar imagen
             const link = document.createElement('a');
@@ -743,7 +810,7 @@
             link.click();
         }
         
-        // Función para generar y descargar un creativo vertical
+        // Función para generar y descargar un creativo vertical (optimizado)
         function downloadCreativeVertical(index) {
             const creative = creativesData[activeService][index];
             const isFirst = index === 0;
@@ -758,83 +825,121 @@
             ctx.fillStyle = creative.bgColor;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Dibujar barra lateral - ajustada para formato vertical
-            ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
-            ctx.fillRect(0, canvas.height * 0.4, 12, canvas.height * 0.2);
+            // Añadir patrón sutil al fondo
+            addBackgroundTexture(ctx, canvas.width, canvas.height);
             
-            // Añadir logo Orange Vapor o OV - tamaño más grande para vertical
-            ctx.font = 'bold 36px Montserrat, sans-serif';
+            // Calcular zonas seguras (14% superior e inferior ~ 269px)
+            const safeZoneTop = Math.round(canvas.height * 0.14);
+            const safeZoneBottom = canvas.height - safeZoneTop;
+            
+            // Visualizar áreas seguras (opcional - comentar en producción)
+            /*
+            ctx.fillStyle = 'rgba(255,0,0,0.1)';
+            ctx.fillRect(0, 0, canvas.width, safeZoneTop);
+            ctx.fillRect(0, safeZoneBottom, canvas.width, safeZoneTop);
+            */
+            
+            // Dibujar barra lateral - en área visible pero respetando zonas seguras
+            ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
+            const accentY = safeZoneTop + 100; // Un poco más abajo de la zona segura
+            const accentHeight = canvas.height - accentY - safeZoneTop - 100;
+            ctx.fillRect(0, accentY, 16, accentHeight); // Barra más ancha para mejor visibilidad en vertical
+            
+            // Añadir logo Orange Vapor o OV - justo debajo de zona segura
+            ctx.font = 'bold 42px Montserrat, sans-serif'; // Tamaño aumentado para mejor legibilidad
+            const logoY = safeZoneTop + 40;
             
             if (isFirst) {
                 // Logo Orange Vapor para el primer creativo
                 ctx.fillStyle = colors.light;
-                ctx.fillText('Orange', 40, 80);
+                ctx.fillText('Orange', 50, logoY);
                 ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, 80);
+                ctx.fillText('Vapor', 50 + ctx.measureText('Orange ').width, logoY);
             } else {
                 // Logo OV con O en blanco y V en naranja
                 ctx.fillStyle = colors.light;
-                ctx.fillText('O', 40, 80);
+                ctx.fillText('O', 50, logoY);
                 ctx.fillStyle = '#FF7E00'; // Color naranja del logo
                 let oWidth = ctx.measureText('O').width;
-                ctx.fillText('V', 40 + oWidth, 80);
+                ctx.fillText('V', 50 + oWidth, logoY);
             }
             
-            ctx.fillStyle = colors.light; // Restaurar color de texto para el resto del contenido
+            // CONTENIDO CENTRADO - Para mejor impacto visual
+            // Todo el contenido principal se ubica en el área central segura
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
             
-            // Dibujar contenido - ajustado para formato vertical
-            // Título
-            ctx.font = 'bold 60px Montserrat, sans-serif';
-            const titleY = canvas.height * 0.42; // Posición más abajo para formato vertical
+            // Título centrado en el área segura con tipografía grande
+            ctx.font = 'bold 80px Montserrat, sans-serif'; // Mayor tamaño para destacar en vertical
+            ctx.textAlign = 'center';
             
             // Si no es el primer creativo y tiene un color de acento, usarlo para el título
             if (!isFirst && creative.accentColor) {
                 ctx.fillStyle = creative.accentColor;
+            } else {
+                ctx.fillStyle = colors.light;
             }
             
-            // Ajuste: Reducir el ancho máximo para mantener márgenes adecuados
-            const maxWidth = canvas.width - 160; // Márgenes más amplios
-            wrapText(ctx, creative.title, 80, titleY, maxWidth, 70);
+            // Colocar título centrado en la parte superior del área segura
+            const titleY = centerY - 200;
+            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 200, 90);
             
-            // Restaurar color para el resto del texto
-            ctx.fillStyle = colors.light;
-            
-            // Subtítulo con margen mejorado
+            // Subtítulo
             ctx.fillStyle = 'rgba(0,0,0,0.25)';
-            ctx.font = 'bold 50px Montserrat, sans-serif';
+            ctx.font = 'bold 56px Montserrat, sans-serif';
             
-            // Medir el texto para ajustar el ancho del fondo
+            // Medir el texto para crear un fondo adecuado
             const subtitleMetrics = ctx.measureText(creative.subtitle);
-            const subtitleWidth = Math.min(subtitleMetrics.width + 60, maxWidth);
-            const subtitleY = titleY + 160; // Ajuste para dar más espacio entre título y subtítulo
+            const subtitleWidth = Math.min(subtitleMetrics.width + 100, canvas.width - 200);
+            const subtitleY = centerY;
             
-            ctx.fillRect(80, subtitleY, subtitleWidth, 80);
+            // Crear un rectángulo para el fondo del subtítulo, centrado
+            ctx.fillRect(centerX - subtitleWidth/2, subtitleY - 50, subtitleWidth, 100);
             
+            // Dibujar el texto del subtítulo
             ctx.fillStyle = colors.light;
-            ctx.font = 'bold 46px Montserrat, sans-serif';
-            ctx.fillText(creative.subtitle, 100, subtitleY + 55);
+            ctx.font = 'bold 56px Montserrat, sans-serif';
+            ctx.fillText(creative.subtitle, centerX, subtitleY + 20);
             
-            // Descripción con margen mejorado
-            ctx.font = '40px Montserrat, sans-serif';
-            wrapText(ctx, creative.description, 80, subtitleY + 150, maxWidth, 50);
+            // Descripción
+            ctx.fillStyle = 'rgba(255,255,255,0.95)'; // Mayor opacidad para mejor legibilidad
+            ctx.font = '42px Montserrat, sans-serif';
+            const descY = subtitleY + 150;
+            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 240, 60);
             
-            // Número
+            // Número - dentro del área segura inferior
             ctx.fillStyle = 'rgba(255,255,255,0.2)';
             ctx.beginPath();
-            ctx.arc(canvas.width - 80, canvas.height - 80, 35, 0, Math.PI * 2);
+            ctx.arc(canvas.width - 80, safeZoneBottom - 80, 40, 0, Math.PI * 2);
             ctx.fill();
             
             ctx.fillStyle = colors.light;
-            ctx.font = 'bold 28px Montserrat, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(`${index + 1}/4`, canvas.width - 80, canvas.height - 70);
-            ctx.textAlign = 'left';
+            ctx.font = 'bold 30px Montserrat, sans-serif';
+            ctx.fillText(`${index + 1}/4`, canvas.width - 80, safeZoneBottom - 70);
             
             // Descargar imagen
             const link = document.createElement('a');
             link.download = `${activeService}-vertical-${index + 1}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
+        }
+        
+        // Función para añadir textura de fondo sutil
+        function addBackgroundTexture(ctx, width, height) {
+            ctx.save();
+            ctx.globalAlpha = 0.05;
+            
+            // Puntos aleatorios para textura
+            for (let i = 0; i < width; i += 20) {
+                for (let j = 0; j < height; j += 20) {
+                    if (Math.random() > 0.85) {
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.fillRect(i, j, 2, 2);
+                    }
+                }
+            }
+            
+            ctx.restore();
         }
         
         // Función para descargar todos los creativos
@@ -852,8 +957,8 @@
             }
         }
         
-        // Función para envolver texto mejorada para respetar márgenes
-        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+        // Función para envolver texto centrado (para mejor composición)
+        function wrapTextCentered(ctx, text, x, y, maxWidth, lineHeight) {
             const words = text.split(' ');
             let line = '';
             let lineY = y;
