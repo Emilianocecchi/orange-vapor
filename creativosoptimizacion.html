@@ -291,6 +291,16 @@
             cursor: pointer;
             border-radius: 4px;
         }
+        /* Nuevo estilo para el fondo del logo */
+        .logo-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 20;
+        }
     </style>
 </head>
 <body>
@@ -347,7 +357,8 @@
                 <li><strong>Tipografía ampliada</strong> - Mayor legibilidad en dispositivos móviles</li>
                 <li><strong>Colores contrastantes</strong> - Mejor visualización y reconocimiento de marca</li>
                 <li><strong>Composición centrada</strong> - Elementos principales visibles a primera vista</li>
-                <li><strong>Logo consistente</strong> - Siempre en esquina superior izquierda</li>
+                <li><strong>Logo consistente</strong> - Siempre en esquina superior izquierda con fondo para mejor contraste</li>
+                <li><strong>Elementos visuales</strong> - Iconos y patrones específicos por servicio</li>
             </ul>
         </div>
         <button class="toggle-practices" id="togglePractices">Ver mejores prácticas aplicadas</button>
@@ -383,93 +394,105 @@
             chatbot: '#6f42c1'    // Lila para Chatbot
         };
         
-        // Datos de creativos optimizados (reducción de texto para mantener <20%)
+        // Datos de creativos optimizados (textos acortados para formato vertical)
         const creativesData = {
             optimizacion: [
                 {
-                    title: 'TRANSFORMAMOS TUS CAMPAÑAS', // Reducido para <20% de texto
+                    title: 'TRANSFORMÁ TUS CAMPAÑAS', // Acortado de "Transformamos"
                     subtitle: '+20% EN VENTAS',
                     description: 'Diagnóstico + Nueva estructura optimizada',
-                    bgColor: colors.optimizacion // Cambiado a colors.optimizacion
+                    bgColor: colors.optimizacion,
+                    icon: 'fa-solid fa-rocket' // Icono de cohete para optimización
                 },
                 {
                     title: 'EL PROBLEMA',
-                    subtitle: 'CAMPAÑAS SIN RESULTADOS',
+                    subtitle: 'SIN RESULTADOS',  // Acortado de "CAMPAÑAS SIN RESULTADOS"
                     description: 'Perdés ventas mientras la competencia avanza',
                     bgColor: colors.dark,
-                    accentColor: colors.optimizacion // Cambiado a colors.optimizacion
+                    accentColor: colors.optimizacion,
+                    icon: 'fa-solid fa-triangle-exclamation' // Icono de advertencia
                 },
                 {
                     title: 'LA SOLUCIÓN',
-                    subtitle: 'OPTIMIZACIÓN EXPRESS',
+                    subtitle: 'OPTIMIZACIÓN',  // Acortado de "OPTIMIZACIÓN EXPRESS"
                     description: 'Estructura renovada que genera ventas reales',
                     bgColor: colors.dark,
-                    accentColor: colors.optimizacion // Cambiado a colors.optimizacion
+                    accentColor: colors.optimizacion,
+                    icon: 'fa-solid fa-lightbulb' // Icono de idea
                 },
                 {
                     title: 'INVERSIÓN ÚNICA',
                     subtitle: '$299 USD',
                     description: 'Pagá la mitad si no aumentamos tus ventas',
                     bgColor: colors.dark,
-                    accentColor: colors.optimizacion // Cambiado a colors.optimizacion
+                    accentColor: colors.optimizacion,
+                    icon: 'fa-solid fa-sack-dollar' // Icono de dinero
                 }
             ],
             meta: [
                 {
                     title: 'META ADS',
-                    subtitle: 'CONVERSIONES MAXIMIZADAS',
+                    subtitle: 'CONVERSIONES',  // Acortado de "CONVERSIONES MAXIMIZADAS"
                     description: 'Estrategias personalizadas de alto retorno',
-                    bgColor: colors.meta // Cambiado a colors.meta
+                    bgColor: colors.meta,
+                    icon: 'fa-brands fa-facebook' // Icono de Facebook
                 },
                 {
                     title: 'TARGETING PRECISO',
-                    subtitle: 'LLEGA A TU AUDIENCIA',
+                    subtitle: 'LLEGA A TU PÚBLICO',  // Cambiado de "AUDIENCIA" a "PÚBLICO"
                     description: 'Segmentación avanzada por intereses',
                     bgColor: colors.dark,
-                    accentColor: colors.meta // Cambiado a colors.meta
+                    accentColor: colors.meta,
+                    icon: 'fa-solid fa-bullseye' // Icono de diana
                 },
                 {
                     title: 'ANUNCIOS CREATIVOS',
-                    subtitle: 'FORMATOS QUE CONVIERTEN',
+                    subtitle: 'QUE CONVIERTEN',  // Acortado
                     description: 'Anuncios dinámicos para cada etapa',
                     bgColor: colors.dark,
-                    accentColor: colors.meta // Cambiado a colors.meta
+                    accentColor: colors.meta,
+                    icon: 'fa-solid fa-palette' // Icono de paleta
                 },
                 {
                     title: 'RESULTADOS MEDIBLES',
-                    subtitle: 'CAMPAÑAS DATA-DRIVEN',
+                    subtitle: 'DATA-DRIVEN',  // Acortado
                     description: 'Optimización constante de anuncios',
                     bgColor: colors.dark,
-                    accentColor: colors.meta // Cambiado a colors.meta
+                    accentColor: colors.meta,
+                    icon: 'fa-solid fa-chart-line' // Icono de gráfico
                 }
             ],
             google: [
                 {
                     title: 'GOOGLE ADS',
-                    subtitle: 'CLIENTES QUE TE BUSCAN',
+                    subtitle: 'CLIENTES ACTIVOS',  // Acortado de "CLIENTES QUE TE BUSCAN"
                     description: 'Campañas optimizadas para convertir',
-                    bgColor: colors.google // Cambiado a colors.google
+                    bgColor: colors.google,
+                    icon: 'fa-brands fa-google' // Icono de Google
                 },
                 {
                     title: 'BÚSQUEDA AVANZADA',
-                    subtitle: 'PRIMEROS RESULTADOS',
+                    subtitle: 'TOP RESULTADOS',  // Acortado de "PRIMEROS RESULTADOS"
                     description: 'Palabras clave con intención de compra',
                     bgColor: colors.dark,
-                    accentColor: colors.google // Cambiado a colors.google
+                    accentColor: colors.google,
+                    icon: 'fa-solid fa-magnifying-glass' // Icono de búsqueda
                 },
                 {
-                    title: 'RED DISPLAY & YOUTUBE',
-                    subtitle: 'PRESENCIA IMPACTANTE',
+                    title: 'DISPLAY & YOUTUBE',  // Acortado de "RED DISPLAY & YOUTUBE"
+                    subtitle: 'PRESENCIA',  // Acortado de "PRESENCIA IMPACTANTE"
                     description: 'Anuncios gráficos y videos efectivos',
                     bgColor: colors.dark,
-                    accentColor: colors.googleRed // Usando el rojo de Google
+                    accentColor: colors.googleRed,
+                    icon: 'fa-brands fa-youtube' // Icono de YouTube
                 },
                 {
-                    title: 'ANÁLISIS Y OPTIMIZACIÓN',
+                    title: 'ANÁLISIS',  // Acortado de "ANÁLISIS Y OPTIMIZACIÓN"
                     subtitle: 'MEJORA CONSTANTE',
                     description: 'Machine learning para maximizar conversiones',
                     bgColor: colors.dark,
-                    accentColor: colors.googleYellow // Usando el amarillo de Google
+                    accentColor: colors.googleYellow,
+                    icon: 'fa-solid fa-chart-pie' // Icono de gráfico circular
                 }
             ],
             email: [
@@ -477,86 +500,98 @@
                     title: 'EMAIL MARKETING',
                     subtitle: 'CONEXIÓN DIRECTA',
                     description: 'Campañas que generan ventas',
-                    bgColor: colors.email // Cambiado a colors.email
+                    bgColor: colors.email,
+                    icon: 'fa-solid fa-envelope' // Icono de sobre
                 },
                 {
                     title: 'AUTOMATIZACIÓN',
-                    subtitle: 'SECUENCIAS EFECTIVAS',
+                    subtitle: 'FLUJOS EFECTIVOS',  // Cambiado de "SECUENCIAS" a "FLUJOS"
                     description: 'Flujos para cada etapa del embudo',
                     bgColor: colors.dark,
-                    accentColor: colors.email // Cambiado a colors.email
+                    accentColor: colors.email,
+                    icon: 'fa-solid fa-robot' // Icono de robot
                 },
                 {
                     title: 'SEGMENTACIÓN',
-                    subtitle: 'MENSAJES RELEVANTES',
+                    subtitle: 'MENSAJES CLAVE',  // Acortado de "MENSAJES RELEVANTES"
                     description: 'Emails personalizados por comportamiento',
                     bgColor: colors.dark,
-                    accentColor: colors.email // Cambiado a colors.email
+                    accentColor: colors.email,
+                    icon: 'fa-solid fa-users-viewfinder' // Icono de segmentación
                 },
                 {
                     title: 'ANÁLISIS COMPLETO',
-                    subtitle: 'MÉTRICAS QUE IMPULSAN',
+                    subtitle: 'MÉTRICAS CLAVE',  // Acortado de "MÉTRICAS QUE IMPULSAN"
                     description: 'Reportes detallados de resultados',
                     bgColor: colors.dark,
-                    accentColor: colors.email // Cambiado a colors.email
+                    accentColor: colors.email,
+                    icon: 'fa-solid fa-chart-column' // Icono de gráfico de columnas
                 }
             ],
             chatbot: [
                 {
-                    title: 'CHATBOT INTELIGENTE',
+                    title: 'CHATBOT IA',  // Acortado de "CHATBOT INTELIGENTE"
                     subtitle: 'SERVICIO 24/7',
                     description: 'Atención automatizada que convierte',
-                    bgColor: colors.chatbot // Cambiado a colors.chatbot
+                    bgColor: colors.chatbot,
+                    icon: 'fa-solid fa-message' // Icono de mensaje
                 },
                 {
-                    title: 'CONVERSACIONES FLUIDAS',
-                    subtitle: 'RESPUESTAS INTELIGENTES',
+                    title: 'DIÁLOGOS FLUIDOS',  // Cambiado de "CONVERSACIONES FLUIDAS"
+                    subtitle: 'IA AVANZADA',  // Acortado de "RESPUESTAS INTELIGENTES"
                     description: 'IA que entiende preguntas complejas',
                     bgColor: colors.dark,
-                    accentColor: colors.chatbot // Cambiado a colors.chatbot
+                    accentColor: colors.chatbot,
+                    icon: 'fa-solid fa-comments' // Icono de conversación
                 },
                 {
-                    title: 'INTEGRACIÓN COMPLETA',
-                    subtitle: 'ADAPTADO A TU NEGOCIO',
+                    title: 'INTEGRACIÓN TOTAL',  // Cambiado de "COMPLETA" a "TOTAL"
+                    subtitle: 'MULTICANAL',  // Acortado de "ADAPTADO A TU NEGOCIO"
                     description: 'Conectado con todos tus canales',
                     bgColor: colors.dark,
-                    accentColor: colors.chatbot // Cambiado a colors.chatbot
+                    accentColor: colors.chatbot,
+                    icon: 'fa-solid fa-code-branch' // Icono de integración
                 },
                 {
-                    title: 'RESULTADOS CONCRETOS',
-                    subtitle: 'AUMENTO DE CONVERSIÓN',
+                    title: 'RESULTADOS REALES',  // Cambiado de "CONCRETOS" a "REALES"
+                    subtitle: 'MÁS CONVERSIÓN',  // Acortado de "AUMENTO DE CONVERSIÓN"
                     description: 'Captura leads cuando más interesa',
                     bgColor: colors.dark,
-                    accentColor: colors.chatbot // Cambiado a colors.chatbot
+                    accentColor: colors.chatbot,
+                    icon: 'fa-solid fa-check-double' // Icono de doble check
                 }
             ],
             all: [
                 {
                     title: 'PAQUETE COMPLETO',
-                    subtitle: '4 SERVICIOS INTEGRADOS',
+                    subtitle: '4 SERVICIOS',  // Acortado de "4 SERVICIOS INTEGRADOS"
                     description: 'Solución integral por US$1000/mes',
-                    bgColor: '#333333'
+                    bgColor: '#333333',
+                    icon: 'fa-solid fa-crown' // Icono de corona
                 },
                 {
                     title: 'ESTRATEGIA 360°',
-                    subtitle: 'PRESENCIA DIGITAL TOTAL',
+                    subtitle: 'DIGITAL TOTAL',  // Acortado de "PRESENCIA DIGITAL TOTAL"
                     description: 'Tráfico, conversión y fidelización',
                     bgColor: colors.dark,
-                    accentColor: colors.primary
+                    accentColor: colors.primary,
+                    icon: 'fa-solid fa-compass' // Icono de brújula
                 },
                 {
-                    title: 'AHORRO SIGNIFICATIVO',
-                    subtitle: 'DESCUENTO ESPECIAL',
+                    title: 'AHORRO SUPERIOR',  // Cambiado de "SIGNIFICATIVO" a "SUPERIOR"
+                    subtitle: 'DESCUENTO',  // Acortado de "DESCUENTO ESPECIAL"
                     description: 'Ahorrás US$200 mensuales',
                     bgColor: colors.dark,
-                    accentColor: colors.primary
+                    accentColor: colors.primary,
+                    icon: 'fa-solid fa-piggy-bank' // Icono de ahorro
                 },
                 {
-                    title: 'RESULTADOS AMPLIFICADOS',
-                    subtitle: 'EL PODER DE LA SINERGIA',
+                    title: 'SINERGIA',  // Acortado de "RESULTADOS AMPLIFICADOS"
+                    subtitle: 'MAYOR IMPACTO',  // Cambiado de "EL PODER DE LA SINERGIA"
                     description: 'Cada canal potencia a los demás',
                     bgColor: colors.dark,
-                    accentColor: colors.primary
+                    accentColor: colors.primary,
+                    icon: 'fa-solid fa-handshake' // Icono de sinergia
                 }
             ]
         };
@@ -601,6 +636,16 @@
             }
         }
         
+        // Función para obtener el color de contraste para el logo según el fondo
+        function getLogoBackgroundColor(bgColor) {
+            // Si el fondo es oscuro, usar un fondo claro y viceversa
+            if (bgColor === colors.dark || bgColor === '#333333') {
+                return 'rgba(255, 255, 255, 0.2)'; // Fondo claro semi-transparente
+            } else {
+                return 'rgba(0, 0, 0, 0.2)'; // Fondo oscuro semi-transparente
+            }
+        }
+        
         // Función para renderizar creativos
         function renderCreatives() {
             creativesContainer.innerHTML = '';
@@ -625,11 +670,13 @@
                 const contentEl = document.createElement('div');
                 contentEl.className = 'creative-content';
                 
-                // Título - con logo
+                // Contenedor del logo con fondo para mejor contraste
+                const logoContainerEl = document.createElement('div');
+                logoContainerEl.className = 'logo-container';
+                logoContainerEl.style.backgroundColor = getLogoBackgroundColor(creative.bgColor);
+                
+                // Logo
                 const logoEl = document.createElement('div');
-                logoEl.style.position = 'absolute';
-                logoEl.style.top = '10px';
-                logoEl.style.left = '20px';
                 logoEl.style.fontWeight = 'bold';
                 logoEl.style.fontSize = '14px';
                 
@@ -639,7 +686,8 @@
                     // OV con O en blanco y V en naranja
                     logoEl.innerHTML = '<span style="color: white;">O</span><span style="color: #FF7E00;">V</span>';
                 }
-                contentEl.appendChild(logoEl);
+                logoContainerEl.appendChild(logoEl);
+                contentEl.appendChild(logoContainerEl);
                 
                 // Título
                 const titleEl = document.createElement('div');
@@ -661,6 +709,18 @@
                 descEl.className = 'creative-description';
                 descEl.textContent = creative.description;
                 contentEl.appendChild(descEl);
+                
+                // Icono específico del servicio (nuevo)
+                if (creative.icon) {
+                    const iconEl = document.createElement('div');
+                    iconEl.style.position = 'absolute';
+                    iconEl.style.bottom = '15px';
+                    iconEl.style.left = '15px';
+                    iconEl.style.fontSize = '18px';
+                    iconEl.style.opacity = '0.7';
+                    iconEl.innerHTML = `<i class="${creative.icon}"></i>`;
+                    contentEl.appendChild(iconEl);
+                }
                 
                 creativeEl.appendChild(contentEl);
                 
@@ -711,6 +771,108 @@
             renderCreatives();
         }
         
+        // Obtener icono para el servicio (nuevo)
+        function getServiceIcon(service, index) {
+            const creative = creativesData[service][index];
+            return creative.icon || 'fa-solid fa-star'; // Icono por defecto
+        }
+        
+        // Función para generar un patrón de fondo específico para cada servicio (nuevo)
+        function drawBackgroundPattern(ctx, service, width, height) {
+            ctx.save();
+            ctx.globalAlpha = 0.05;
+            
+            switch (service) {
+                case 'optimizacion':
+                    // Patrón de líneas diagonales
+                    for (let i = -height; i < width + height; i += 40) {
+                        ctx.beginPath();
+                        ctx.moveTo(i, 0);
+                        ctx.lineTo(i + height, height);
+                        ctx.strokeStyle = '#FFFFFF';
+                        ctx.lineWidth = 2;
+                        ctx.stroke();
+                    }
+                    break;
+                    
+                case 'meta':
+                    // Patrón de círculos
+                    for (let i = 0; i < width; i += 80) {
+                        for (let j = 0; j < height; j += 80) {
+                            ctx.beginPath();
+                            ctx.arc(i, j, 15, 0, Math.PI * 2);
+                            ctx.strokeStyle = '#FFFFFF';
+                            ctx.stroke();
+                        }
+                    }
+                    break;
+                    
+                case 'google':
+                    // Patrón de cuadrados
+                    for (let i = 0; i < width; i += 70) {
+                        for (let j = 0; j < height; j += 70) {
+                            ctx.fillStyle = '#FFFFFF';
+                            ctx.fillRect(i, j, 10, 10);
+                        }
+                    }
+                    break;
+                    
+                case 'email':
+                    // Patrón de ondas
+                    for (let j = 0; j < height; j += 60) {
+                        ctx.beginPath();
+                        for (let i = 0; i < width; i += 5) {
+                            ctx.lineTo(i, j + Math.sin(i * 0.05) * 10);
+                        }
+                        ctx.strokeStyle = '#FFFFFF';
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                    break;
+                    
+                case 'chatbot':
+                    // Patrón de puntos más densos
+                    for (let i = 0; i < width; i += 20) {
+                        for (let j = 0; j < height; j += 20) {
+                            if (Math.random() > 0.7) {
+                                ctx.fillStyle = '#FFFFFF';
+                                ctx.fillRect(i, j, 3, 3);
+                            }
+                        }
+                    }
+                    break;
+                    
+                case 'all':
+                    // Patrón de red
+                    for (let i = 0; i < width; i += 100) {
+                        for (let j = 0; j < height; j += 100) {
+                            ctx.beginPath();
+                            ctx.moveTo(i, 0);
+                            ctx.lineTo(i, height);
+                            ctx.moveTo(0, j);
+                            ctx.lineTo(width, j);
+                            ctx.strokeStyle = '#FFFFFF';
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                    break;
+                    
+                default:
+                    // Puntos aleatorios para textura por defecto
+                    for (let i = 0; i < width; i += 20) {
+                        for (let j = 0; j < height; j += 20) {
+                            if (Math.random() > 0.85) {
+                                ctx.fillStyle = '#FFFFFF';
+                                ctx.fillRect(i, j, 2, 2);
+                            }
+                        }
+                    }
+            }
+            
+            ctx.restore();
+        }
+        
         // Función para generar y descargar un creativo cuadrado (optimizado)
         function downloadCreative(index) {
             const creative = creativesData[activeService][index];
@@ -726,15 +888,42 @@
             ctx.fillStyle = creative.bgColor;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Añadir patrón sutil al fondo
-            addBackgroundTexture(ctx, canvas.width, canvas.height);
+            // Añadir patrón específico al fondo
+            drawBackgroundPattern(ctx, activeService, canvas.width, canvas.height);
             
             // Dibujar barra lateral
             ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
             ctx.fillRect(0, canvas.height * 0.3, 12, canvas.height * 0.3);
             
+            // Añadir icono específico del servicio
+            if (creative.icon) {
+                // Cargar Font Awesome
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js';
+                document.head.appendChild(script);
+                
+                // Dibujar círculo para el icono
+                ctx.fillStyle = 'rgba(255,255,255,0.1)';
+                ctx.beginPath();
+                ctx.arc(80, canvas.height - 80, 40, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // El texto del icono se agregará como texto
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = '30px "Font Awesome 5 Free"';
+                // Nota: No podemos usar directamente los iconos de FA en canvas, 
+                // pero en la visualización web sí aparecerán
+                ctx.fillText('★', 70, canvas.height - 70); // Estrella como placeholder
+            }
+            
+            // Añadir contenedor de logo para mejor contraste
+            const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
+            ctx.fillStyle = logoBackgroundColor;
+            ctx.fillRect(30, 20, 200, 50);
+            ctx.fillStyle = colors.light;
+            
             // Añadir logo Orange Vapor o OV - Esquina superior izquierda
-            ctx.font = 'bold 36px Montserrat, sans-serif'; // Fuente más grande para mejor visualización
+            ctx.font = 'bold 36px Montserrat, sans-serif';
             
             if (isFirst) {
                 // Logo Orange Vapor para el primer creativo
@@ -756,7 +945,7 @@
             const centerY = canvas.height / 2;
             
             // Título (con tipografía más grande para mejor legibilidad)
-            ctx.font = 'bold 70px Montserrat, sans-serif'; // Aumentado para mejor visualización en móvil
+            ctx.font = 'bold 70px Montserrat, sans-serif';
             ctx.textAlign = 'center';
             
             // Si no es el primer creativo y tiene un color de acento, usarlo para el título
@@ -768,7 +957,7 @@
             
             // Colocar título centrado verticalmente, justo por encima del centro
             const titleY = centerY - 80;
-            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 200, 80);
+            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 250, 80); // Reducido el ancho máximo
             
             // Subtítulo
             ctx.fillStyle = 'rgba(0,0,0,0.25)';
@@ -791,7 +980,7 @@
             ctx.fillStyle = 'rgba(255,255,255,0.95)'; // Mayor opacidad para mejor legibilidad
             ctx.font = '36px Montserrat, sans-serif';
             const descY = subtitleY + 120;
-            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 200, 50);
+            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 250, 50); // Reducido el ancho máximo
             
             // Número
             ctx.fillStyle = 'rgba(255,255,255,0.2)';
@@ -825,19 +1014,12 @@
             ctx.fillStyle = creative.bgColor;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Añadir patrón sutil al fondo
-            addBackgroundTexture(ctx, canvas.width, canvas.height);
+            // Añadir patrón específico al fondo
+            drawBackgroundPattern(ctx, activeService, canvas.width, canvas.height);
             
             // Calcular zonas seguras (14% superior e inferior ~ 269px)
             const safeZoneTop = Math.round(canvas.height * 0.14);
             const safeZoneBottom = canvas.height - safeZoneTop;
-            
-            // Visualizar áreas seguras (opcional - comentar en producción)
-            /*
-            ctx.fillStyle = 'rgba(255,0,0,0.1)';
-            ctx.fillRect(0, 0, canvas.width, safeZoneTop);
-            ctx.fillRect(0, safeZoneBottom, canvas.width, safeZoneTop);
-            */
             
             // Dibujar barra lateral - en área visible pero respetando zonas seguras
             ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
@@ -845,23 +1027,42 @@
             const accentHeight = canvas.height - accentY - safeZoneTop - 100;
             ctx.fillRect(0, accentY, 16, accentHeight); // Barra más ancha para mejor visibilidad en vertical
             
+            // Añadir contenedor de logo para mejor contraste
+            const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
+            ctx.fillStyle = logoBackgroundColor;
+            ctx.fillRect(30, safeZoneTop + 10, 200, 50);
+            
             // Añadir logo Orange Vapor o OV - justo debajo de zona segura
             ctx.font = 'bold 42px Montserrat, sans-serif'; // Tamaño aumentado para mejor legibilidad
-            const logoY = safeZoneTop + 40;
+            const logoY = safeZoneTop + 50;
             
             if (isFirst) {
                 // Logo Orange Vapor para el primer creativo
                 ctx.fillStyle = colors.light;
-                ctx.fillText('Orange', 50, logoY);
+                ctx.fillText('Orange', 40, logoY);
                 ctx.fillStyle = '#FF7E00'; // Color naranja del logo
-                ctx.fillText('Vapor', 50 + ctx.measureText('Orange ').width, logoY);
+                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, logoY);
             } else {
                 // Logo OV con O en blanco y V en naranja
                 ctx.fillStyle = colors.light;
-                ctx.fillText('O', 50, logoY);
+                ctx.fillText('O', 40, logoY);
                 ctx.fillStyle = '#FF7E00'; // Color naranja del logo
                 let oWidth = ctx.measureText('O').width;
-                ctx.fillText('V', 50 + oWidth, logoY);
+                ctx.fillText('V', 40 + oWidth, logoY);
+            }
+            
+            // Añadir icono específico del servicio
+            if (creative.icon) {
+                // Dibujar círculo para el icono
+                ctx.fillStyle = 'rgba(255,255,255,0.1)';
+                ctx.beginPath();
+                ctx.arc(100, safeZoneBottom - 100, 50, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // El texto del icono se agregará como texto
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = '36px "Font Awesome 5 Free"';
+                ctx.fillText('★', 85, safeZoneBottom - 85); // Estrella como placeholder
             }
             
             // CONTENIDO CENTRADO - Para mejor impacto visual
@@ -882,7 +1083,7 @@
             
             // Colocar título centrado en la parte superior del área segura
             const titleY = centerY - 200;
-            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 200, 90);
+            wrapTextCentered(ctx, creative.title, centerX, titleY, canvas.width - 300, 90); // Reducido el ancho máximo
             
             // Subtítulo
             ctx.fillStyle = 'rgba(0,0,0,0.25)';
@@ -890,7 +1091,7 @@
             
             // Medir el texto para crear un fondo adecuado
             const subtitleMetrics = ctx.measureText(creative.subtitle);
-            const subtitleWidth = Math.min(subtitleMetrics.width + 100, canvas.width - 200);
+            const subtitleWidth = Math.min(subtitleMetrics.width + 100, canvas.width - 300); // Reducido el ancho máximo
             const subtitleY = centerY;
             
             // Crear un rectángulo para el fondo del subtítulo, centrado
@@ -905,7 +1106,7 @@
             ctx.fillStyle = 'rgba(255,255,255,0.95)'; // Mayor opacidad para mejor legibilidad
             ctx.font = '42px Montserrat, sans-serif';
             const descY = subtitleY + 150;
-            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 240, 60);
+            wrapTextCentered(ctx, creative.description, centerX, descY, canvas.width - 300, 60); // Reducido el ancho máximo
             
             // Número - dentro del área segura inferior
             ctx.fillStyle = 'rgba(255,255,255,0.2)';
@@ -922,24 +1123,6 @@
             link.download = `${activeService}-vertical-${index + 1}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
-        }
-        
-        // Función para añadir textura de fondo sutil
-        function addBackgroundTexture(ctx, width, height) {
-            ctx.save();
-            ctx.globalAlpha = 0.05;
-            
-            // Puntos aleatorios para textura
-            for (let i = 0; i < width; i += 20) {
-                for (let j = 0; j < height; j += 20) {
-                    if (Math.random() > 0.85) {
-                        ctx.fillStyle = '#FFFFFF';
-                        ctx.fillRect(i, j, 2, 2);
-                    }
-                }
-            }
-            
-            ctx.restore();
         }
         
         // Función para descargar todos los creativos
