@@ -72,8 +72,8 @@
             color: white;
         }
         .tab-button.optimizacion.active {
-            background-color: #ff7e00;
-            border-color: #ff7e00;
+            background-color: #dc3545;
+            border-color: #dc3545;
         }
         .tab-button.meta.active {
             background-color: #1877F2;
@@ -84,12 +84,12 @@
             border-color: #4285F4;
         }
         .tab-button.email.active {
-            background-color: #6b21a8;
-            border-color: #6b21a8;
+            background-color: #00829b;
+            border-color: #00829b;
         }
         .tab-button.chatbot.active {
-            background-color: #10B981;
-            border-color: #10B981;
+            background-color: #6f42c1;
+            border-color: #6f42c1;
         }
         .tab-button.all.active {
             background-color: #333333;
@@ -242,6 +242,24 @@
             margin: 0;
             line-height: 1.5;
         }
+        .format-toggle {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .format-btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .format-btn.active {
+            background-color: #ff7e00;
+            color: white;
+            border-color: #ff7e00;
+        }
     </style>
 </head>
 <body>
@@ -263,6 +281,12 @@
             </div>
         </div>
         
+        <!-- Selector de formato -->
+        <div class="format-toggle">
+            <button id="squareBtn" class="format-btn active">Cuadrado (1080x1080)</button>
+            <button id="verticalBtn" class="format-btn">Vertical (1080x1920)</button>
+        </div>
+        
         <!-- Sección de descarga -->
         <div class="download-section">
             <button id="downloadBtn" class="download-btn">
@@ -277,8 +301,9 @@
             <div>
                 <p><strong>Instrucciones:</strong></p>
                 <p>1. Selecciona el tipo de servicio que deseas generar.</p>
-                <p>2. Haz clic en "Descargar Creativos" para obtener el conjunto completo en alta resolución.</p>
-                <p>3. También puedes descargar creativos individuales pasando el mouse sobre cada uno y haciendo clic en el icono de descarga.</p>
+                <p>2. Elige el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
+                <p>3. Haz clic en "Descargar Creativos" para obtener el conjunto completo en alta resolución.</p>
+                <p>4. También puedes descargar creativos individuales pasando el mouse sobre cada uno y haciendo clic en el icono de descarga.</p>
             </div>
         </div>
         
@@ -289,7 +314,7 @@
         
         <!-- Nota de especificaciones -->
         <div class="note">
-            <p>Dimensiones: 1080x1080 píxeles (imágenes descargadas en alta resolución)</p>
+            <p>Dimensiones: 1080x1080 píxeles y 1080x1920 píxeles (imágenes descargadas en alta resolución)</p>
         </div>
         
         <!-- Canvas para generación de imágenes (oculto) -->
@@ -297,15 +322,20 @@
     </div>
     
     <script>
-        // Colores
+        // Colores actualizados para cada servicio
         const colors = {
-            primary: '#ff7e00',
+            primary: '#ff7e00', // Naranja original
             dark: '#181818',
             light: '#ffffff',
-            meta: '#1877F2',
-            google: '#4285F4',
-            email: '#6b21a8',
-            chatbot: '#10B981'
+            // Nuevos colores
+            optimizacion: '#dc3545', // Rojo para Optimización Express
+            meta: '#1877F2',      // Azul para Meta Ads
+            google: '#4285F4',    // Azul de Google
+            googleRed: '#DB4437', // Rojo de Google 
+            googleYellow: '#F4B400', // Amarillo de Google
+            googleGreen: '#0F9D58', // Verde de Google
+            email: '#00829b',     // Verde azulado para Email Marketing
+            chatbot: '#6f42c1'    // Lila para Chatbot
         };
         
         // Datos de creativos por servicio
@@ -315,28 +345,28 @@
                     title: 'TRANSFORMAMOS TUS CAMPAÑAS QUE NO CONVIERTEN EN 48HS',
                     subtitle: '+20% EN VENTAS O PAGÁS SOLO LA MITAD',
                     description: 'Diagnóstico + Nueva estructura optimizada',
-                    bgColor: colors.primary
+                    bgColor: colors.optimizacion // Cambiado a colors.optimizacion
                 },
                 {
                     title: 'EL PROBLEMA',
                     subtitle: 'CAMPAÑAS QUE NO GENERAN RESULTADOS',
                     description: 'Perdés ventas potenciales mientras tu competencia sigue avanzando',
                     bgColor: colors.dark,
-                    accentColor: colors.primary
+                    accentColor: colors.optimizacion // Cambiado a colors.optimizacion
                 },
                 {
                     title: 'LA SOLUCIÓN',
                     subtitle: 'OPTIMIZACIÓN EXPRESS EN 48HS',
                     description: 'Estructura completamente renovada que genera ventas reales',
                     bgColor: colors.dark,
-                    accentColor: colors.primary
+                    accentColor: colors.optimizacion // Cambiado a colors.optimizacion
                 },
                 {
                     title: 'INVERSIÓN ÚNICA',
                     subtitle: '$299 USD',
                     description: 'Solo pagás la mitad ($149) al inicio y el resto únicamente si aumentamos tus ventas un 20% en 14 días',
                     bgColor: colors.dark,
-                    accentColor: colors.primary
+                    accentColor: colors.optimizacion // Cambiado a colors.optimizacion
                 }
             ],
             meta: [
@@ -344,28 +374,28 @@
                     title: 'META ADS',
                     subtitle: 'AUMENTÁ TUS CONVERSIONES CON FACEBOOK E INSTAGRAM',
                     description: 'Estrategias personalizadas que maximizan el retorno de tu inversión',
-                    bgColor: colors.meta
+                    bgColor: colors.meta // Cambiado a colors.meta
                 },
                 {
                     title: 'TARGETING PRECISO',
                     subtitle: 'LLEGÁ A TU AUDIENCIA IDEAL',
                     description: 'Segmentación avanzada por intereses, comportamientos y datos demográficos',
                     bgColor: colors.dark,
-                    accentColor: colors.meta
+                    accentColor: colors.meta // Cambiado a colors.meta
                 },
                 {
                     title: 'ANUNCIOS CREATIVOS',
                     subtitle: 'FORMATOS QUE CONVIERTEN',
                     description: 'Anuncios dinámicos personalizados para cada etapa del embudo',
                     bgColor: colors.dark,
-                    accentColor: colors.meta
+                    accentColor: colors.meta // Cambiado a colors.meta
                 },
                 {
                     title: 'RESULTADOS MEDIBLES',
                     subtitle: 'CAMPAÑAS DATA-DRIVEN',
                     description: 'Análisis detallado del rendimiento para optimizar constantemente tus anuncios',
                     bgColor: colors.dark,
-                    accentColor: colors.meta
+                    accentColor: colors.meta // Cambiado a colors.meta
                 }
             ],
             google: [
@@ -373,28 +403,28 @@
                     title: 'GOOGLE ADS',
                     subtitle: 'LLEGÁ A CLIENTES CUANDO TE BUSCAN',
                     description: 'Campañas de búsqueda, display y YouTube optimizadas para convertir',
-                    bgColor: colors.google
+                    bgColor: colors.google // Cambiado a colors.google
                 },
                 {
                     title: 'BÚSQUEDA AVANZADA',
                     subtitle: 'PRIMEROS EN LOS RESULTADOS',
                     description: 'Estrategia de palabras clave que captura clientes con intención de compra',
                     bgColor: colors.dark,
-                    accentColor: colors.google
+                    accentColor: colors.google // Cambiado a colors.google
                 },
                 {
                     title: 'RED DISPLAY & YOUTUBE',
                     subtitle: 'PRESENCIA VISUAL IMPACTANTE',
                     description: 'Anuncios gráficos atractivos y campañas de video efectivas',
                     bgColor: colors.dark,
-                    accentColor: colors.google
+                    accentColor: colors.googleRed // Usando el rojo de Google
                 },
                 {
                     title: 'ANÁLISIS Y OPTIMIZACIÓN',
                     subtitle: 'MEJORA CONSTANTE DEL ROI',
                     description: 'Tecnología de machine learning para ajustar pujas y maximizar conversiones',
                     bgColor: colors.dark,
-                    accentColor: colors.google
+                    accentColor: colors.googleYellow // Usando el amarillo de Google
                 }
             ],
             email: [
@@ -402,28 +432,28 @@
                     title: 'EMAIL MARKETING',
                     subtitle: 'CONECTÁ DIRECTAMENTE CON TUS CLIENTES',
                     description: 'Campañas personalizadas que generan confianza y aumentan ventas',
-                    bgColor: colors.email
+                    bgColor: colors.email // Cambiado a colors.email
                 },
                 {
                     title: 'AUTOMATIZACIÓN',
                     subtitle: 'SECUENCIAS QUE CONVIERTEN',
                     description: 'Flujos automatizados para cada etapa del embudo de ventas',
                     bgColor: colors.dark,
-                    accentColor: colors.email
+                    accentColor: colors.email // Cambiado a colors.email
                 },
                 {
                     title: 'SEGMENTACIÓN AVANZADA',
                     subtitle: 'MENSAJES RELEVANTES',
                     description: 'Emails personalizados por comportamiento e intereses de tus contactos',
                     bgColor: colors.dark,
-                    accentColor: colors.email
+                    accentColor: colors.email // Cambiado a colors.email
                 },
                 {
                     title: 'ANÁLISIS COMPLETO',
                     subtitle: 'MÉTRICAS QUE IMPULSAN DECISIONES',
                     description: 'Reportes detallados de apertura, clics y conversiones para mejorar resultados',
                     bgColor: colors.dark,
-                    accentColor: colors.email
+                    accentColor: colors.email // Cambiado a colors.email
                 }
             ],
             chatbot: [
@@ -431,28 +461,28 @@
                     title: 'CHATBOT INTELIGENTE',
                     subtitle: 'ATIENDE A TUS CLIENTES 24/7',
                     description: 'Automatiza la atención al cliente y aumenta conversiones mientras dormís',
-                    bgColor: colors.chatbot
+                    bgColor: colors.chatbot // Cambiado a colors.chatbot
                 },
                 {
                     title: 'CONVERSACIONES FLUIDAS',
                     subtitle: 'RESPUESTAS INTELIGENTES',
                     description: 'IA que entiende preguntas complejas y responde de forma natural',
                     bgColor: colors.dark,
-                    accentColor: colors.chatbot
+                    accentColor: colors.chatbot // Cambiado a colors.chatbot
                 },
                 {
                     title: 'INTEGRACIÓN COMPLETA',
                     subtitle: 'SE ADAPTA A TU NEGOCIO',
                     description: 'Conectado con WhatsApp, Messenger y tu CRM para una experiencia unificada',
                     bgColor: colors.dark,
-                    accentColor: colors.chatbot
+                    accentColor: colors.chatbot // Cambiado a colors.chatbot
                 },
                 {
                     title: 'RESULTADOS CONCRETOS',
                     subtitle: 'CHATBOT QUE GENERA VENTAS',
                     description: 'Aumenta en un 35% la conversión capturando leads cuando están más interesados',
                     bgColor: colors.dark,
-                    accentColor: colors.chatbot
+                    accentColor: colors.chatbot // Cambiado a colors.chatbot
                 }
             ],
             all: [
@@ -488,11 +518,15 @@
         
         // Estado actual
         let activeService = 'optimizacion';
+        let activeFormat = 'square'; // 'square' o 'vertical'
         
         // Elementos del DOM
         const serviceTitle = document.getElementById('serviceTitle');
         const creativesContainer = document.getElementById('creativesContainer');
         const tabButtons = document.querySelectorAll('.tab-button');
+        const formatButtons = document.querySelectorAll('.format-btn');
+        const squareBtn = document.getElementById('squareBtn');
+        const verticalBtn = document.getElementById('verticalBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const exportCanvas = document.getElementById('exportCanvas');
         
@@ -519,7 +553,7 @@
                 
                 // Crear elemento creativo
                 const creativeEl = document.createElement('div');
-                creativeEl.className = 'creative';
+                creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
                 creativeEl.dataset.index = index;
                 creativeEl.style.backgroundColor = creative.bgColor;
                 
@@ -532,6 +566,21 @@
                 // Contenido
                 const contentEl = document.createElement('div');
                 contentEl.className = 'creative-content';
+                
+                // Título - con logo
+                const logoEl = document.createElement('div');
+                logoEl.style.position = 'absolute';
+                logoEl.style.top = '10px';
+                logoEl.style.left = '20px';
+                logoEl.style.fontWeight = 'bold';
+                logoEl.style.fontSize = '14px';
+                
+                if (isFirst) {
+                    logoEl.innerHTML = 'Orange <span style="color: #FF7E00;">Vapor</span>';
+                } else {
+                    logoEl.textContent = 'OV';
+                }
+                contentEl.appendChild(logoEl);
                 
                 // Título
                 const titleEl = document.createElement('div');
@@ -566,7 +615,13 @@
                 const downloadEl = document.createElement('div');
                 downloadEl.className = 'creative-download';
                 downloadEl.innerHTML = '<i class="fas fa-download"></i>';
-                downloadEl.addEventListener('click', () => downloadCreative(index));
+                downloadEl.addEventListener('click', () => {
+                    if (activeFormat === 'square') {
+                        downloadCreative(index);
+                    } else {
+                        downloadCreativeVertical(index);
+                    }
+                });
                 creativeEl.appendChild(downloadEl);
                 
                 creativesContainer.appendChild(creativeEl);
@@ -584,10 +639,20 @@
                 }
             });
             
+            formatButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            if (activeFormat === 'square') {
+                squareBtn.classList.add('active');
+            } else {
+                verticalBtn.classList.add('active');
+            }
+            
             renderCreatives();
         }
         
-        // Función para generar y descargar un creativo
+        // Función para generar y descargar un creativo cuadrado
         function downloadCreative(index) {
             const creative = creativesData[activeService][index];
             const isFirst = index === 0;
@@ -606,13 +671,36 @@
             ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
             ctx.fillRect(0, canvas.height * 0.3, 12, canvas.height * 0.3);
             
-            // Dibujar contenido
+            // Añadir logo Orange Vapor o OV
+            ctx.font = 'bold 30px Montserrat, sans-serif';
             ctx.fillStyle = colors.light;
             
+            if (isFirst) {
+                // Logo Orange Vapor para el primer creativo
+                ctx.fillText('Orange', 40, 50);
+                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
+                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, 50);
+            } else {
+                // Logo OV para los demás creativos
+                ctx.fillText('OV', 40, 50);
+            }
+            
+            ctx.fillStyle = colors.light; // Restaurar color de texto para el resto del contenido
+            
+            // Dibujar contenido
             // Título
             ctx.font = 'bold 54px Montserrat, sans-serif';
             const titleY = canvas.height * 0.25;
+            
+            // Si no es el primer creativo y tiene un color de acento, usarlo para el título
+            if (!isFirst && creative.accentColor) {
+                ctx.fillStyle = creative.accentColor;
+            }
+            
             wrapText(ctx, creative.title, 70, titleY, canvas.width - 140, 60);
+            
+            // Restaurar color para el resto del texto
+            ctx.fillStyle = colors.light;
             
             // Subtítulo
             ctx.fillStyle = 'rgba(0,0,0,0.25)';
@@ -647,10 +735,101 @@
             link.click();
         }
         
+        // Función para generar y descargar un creativo vertical
+        function downloadCreativeVertical(index) {
+            const creative = creativesData[activeService][index];
+            const isFirst = index === 0;
+            
+            // Configurar canvas
+            const canvas = exportCanvas;
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1080;
+            canvas.height = 1920;
+            
+            // Dibujar fondo
+            ctx.fillStyle = creative.bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Dibujar barra lateral - ajustada para formato vertical
+            ctx.fillStyle = isFirst ? colors.light : (creative.accentColor || colors.primary);
+            ctx.fillRect(0, canvas.height * 0.4, 12, canvas.height * 0.2);
+            
+            // Añadir logo Orange Vapor o OV - tamaño más grande para vertical
+            ctx.font = 'bold 36px Montserrat, sans-serif';
+            ctx.fillStyle = colors.light;
+            
+            if (isFirst) {
+                // Logo Orange Vapor para el primer creativo
+                ctx.fillText('Orange', 40, 80);
+                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
+                ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, 80);
+            } else {
+                // Logo OV para los demás creativos
+                ctx.fillText('OV', 40, 80);
+            }
+            
+            ctx.fillStyle = colors.light; // Restaurar color de texto para el resto del contenido
+            
+            // Dibujar contenido - ajustado para formato vertical
+            // Título
+            ctx.font = 'bold 60px Montserrat, sans-serif';
+            const titleY = canvas.height * 0.42; // Posición más abajo para formato vertical
+            
+            // Si no es el primer creativo y tiene un color de acento, usarlo para el título
+            if (!isFirst && creative.accentColor) {
+                ctx.fillStyle = creative.accentColor;
+            }
+            
+            wrapText(ctx, creative.title, 70, titleY, canvas.width - 140, 70);
+            
+            // Restaurar color para el resto del texto
+            ctx.fillStyle = colors.light;
+            
+            // Subtítulo
+            ctx.fillStyle = 'rgba(0,0,0,0.25)';
+            const subtitleWidth = ctx.measureText(creative.subtitle).width + 60;
+            const subtitleY = titleY + 200; // Más espacio para formato vertical
+            ctx.fillRect(70, subtitleY, subtitleWidth, 80);
+            
+            ctx.fillStyle = colors.light;
+            ctx.font = 'bold 50px Montserrat, sans-serif';
+            ctx.fillText(creative.subtitle, 100, subtitleY + 55);
+            
+            // Descripción
+            ctx.font = '42px Montserrat, sans-serif';
+            wrapText(ctx, creative.description, 70, subtitleY + 150, canvas.width - 140, 55);
+            
+            // Número
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.beginPath();
+            ctx.arc(canvas.width - 80, canvas.height - 80, 35, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = colors.light;
+            ctx.font = 'bold 28px Montserrat, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${index + 1}/4`, canvas.width - 80, canvas.height - 70);
+            ctx.textAlign = 'left';
+            
+            // Descargar imagen
+            const link = document.createElement('a');
+            link.download = `${activeService}-vertical-${index + 1}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
         // Función para descargar todos los creativos
         function downloadAllCreatives() {
-            for (let i = 0; i < 4; i++) {
-                setTimeout(() => downloadCreative(i), i * 500);
+            if (activeFormat === 'square') {
+                // Descargar cuadrados
+                for (let i = 0; i < 4; i++) {
+                    setTimeout(() => downloadCreative(i), i * 500);
+                }
+            } else {
+                // Descargar verticales
+                for (let i = 0; i < 4; i++) {
+                    setTimeout(() => downloadCreativeVertical(i), i * 500);
+                }
             }
         }
         
@@ -684,6 +863,16 @@
                 activeService = btn.dataset.service;
                 updateUI();
             });
+        });
+        
+        squareBtn.addEventListener('click', () => {
+            activeFormat = 'square';
+            updateUI();
+        });
+        
+        verticalBtn.addEventListener('click', () => {
+            activeFormat = 'vertical';
+            updateUI();
         });
         
         downloadBtn.addEventListener('click', downloadAllCreatives);
