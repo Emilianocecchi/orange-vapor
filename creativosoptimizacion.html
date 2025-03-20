@@ -3,25 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creativos para Landing Pages - Orange Vapor</title>
+    <title>Creativos para Landing Pages</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Colores base */
-            --naranja-principal: #FF7E00;
-            --blanco: #FFFFFF;
-            --gris-oscuro: #333333;
-            --gris-claro: #F5F5F5;
+            /* Colors for each landing */
+            /* Meta Ads */
+            --meta-primario: #1877f2;
+            --meta-secundario: #4267B2;
+            --meta-claro: #f0f6ff;
+            --meta-oscuro: #166fe5;
+            --meta-gradient: linear-gradient(135deg, #1877f2, #4267B2);
             
-            /* Colores específicos */
-            --meta-ads-principal: #dc3545;
+            /* Google Ads */
             --google-blue: #4285F4;
             --google-red: #DB4437;
             --google-yellow: #F4B400;
             --google-green: #0F9D58;
-            --chatbot-principal: #6f42c1;
+            --google-gradient: linear-gradient(135deg, #4285F4, #0F9D58, #F4B400, #DB4437);
+            
+            /* Chatbot */
+            --chatbot-primary: #6f42c1;
+            --chatbot-secondary: #512da8;
+            --chatbot-light: #f8f5ff;
+            --chatbot-gradient: linear-gradient(135deg, #6f42c1, #512da8);
+            
+            /* Email Marketing */
             --email-principal: #00829b;
+            --email-secundario: #00a3c4;
+            --email-claro: #e0f7fa;
+            --email-oscuro: #005f73;
+            --email-gradient: linear-gradient(135deg, #00829b, #00a3c4);
+            
+            /* Optimización Express */
+            --express-color: #dc3545;
+            --express-hover: #c82333;
+            --express-light: rgba(220, 53, 69, 0.1);
+            --express-gradient: linear-gradient(135deg, #dc3545, #ff6b6b);
+            
+            /* Common colors */
+            --white: #FFFFFF;
+            --black: #000000;
+            --gray-light: #F5F5F5;
+            --gray-medium: #DDDDDD;
+            --gray-dark: #333333;
+            
+            /* Orange Vapor */
+            --orange-primary: #FF7E00;
+            --orange-secondary: #FF9F45;
         }
         
         * {
@@ -32,16 +62,16 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--gris-claro);
+            background-color: var(--gray-light);
             padding: 30px;
-            color: var(--gris-oscuro);
+            color: var(--gray-dark);
             overflow-x: hidden;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: var(--blanco);
+            background-color: var(--white);
             padding: 30px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             border-radius: 15px;
@@ -50,7 +80,7 @@
         h1 {
             text-align: center;
             margin-bottom: 30px;
-            color: var(--naranja-principal);
+            color: var(--orange-primary);
             font-weight: 800;
             position: relative;
             padding-bottom: 15px;
@@ -64,7 +94,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: linear-gradient(to right, var(--naranja-principal), var(--meta-ads-principal));
+            background: linear-gradient(to right, var(--orange-primary), #ff5722);
             border-radius: 2px;
         }
         
@@ -72,54 +102,10 @@
             margin-top: 40px;
             margin-bottom: 20px;
             font-weight: 700;
-            color: var(--gris-oscuro);
+            color: var(--gray-dark);
             padding-bottom: 10px;
             position: relative;
             display: inline-block;
-        }
-        
-        .meta-heading::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--meta-ads-principal);
-            border-radius: 1.5px;
-        }
-        
-        .google-heading::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
-            border-radius: 1.5px;
-        }
-        
-        .chatbot-heading::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--chatbot-principal);
-            border-radius: 1.5px;
-        }
-        
-        .email-heading::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--email-principal);
-            border-radius: 1.5px;
         }
         
         .tabs {
@@ -131,7 +117,7 @@
             padding-bottom: 10px;
             position: sticky;
             top: 0;
-            background-color: var(--blanco);
+            background-color: var(--white);
             z-index: 100;
             border-radius: 10px;
             padding-top: 10px;
@@ -141,7 +127,7 @@
         .tab {
             padding: 15px 30px;
             cursor: pointer;
-            background-color: var(--gris-claro);
+            background-color: var(--gray-light);
             border: none;
             border-radius: 30px;
             font-weight: 600;
@@ -175,25 +161,29 @@
         }
         
         .tab.active {
-            color: var(--blanco);
+            color: var(--white);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .tab-meta.active {
-            background-color: var(--meta-ads-principal);
+            background-color: var(--meta-primario);
         }
         
         .tab-google.active {
-            background: linear-gradient(135deg, #4285F4, #DB4437, #F4B400, #0F9D58);
+            background: var(--google-gradient);
         }
         
         .tab-chatbot.active {
-            background-color: var(--chatbot-principal);
+            background-color: var(--chatbot-primary);
         }
         
         .tab-email.active {
             background-color: var(--email-principal);
+        }
+        
+        .tab-express.active {
+            background-color: var(--express-color);
         }
         
         .tab-content {
@@ -210,157 +200,6 @@
             display: block;
         }
         
-        .ad-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .ad-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: var(--blanco);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .ad-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-        }
-        
-        .ad-container.meta::before {
-            background-color: var(--meta-ads-principal);
-        }
-        
-        .ad-container.google::before {
-            background: linear-gradient(to right, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
-        }
-        
-        .ad-container.chatbot::before {
-            background-color: var(--chatbot-principal);
-        }
-        
-        .ad-container.email::before {
-            background-color: var(--email-principal);
-        }
-        
-        .ad-container:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        
-        .ad-preview {
-            width: 300px;
-            margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .ad-preview::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
-            pointer-events: none;
-            border-radius: 10px;
-        }
-        
-        .ad-preview:hover {
-            transform: scale(1.03);
-        }
-        
-        .ad-preview svg {
-            display: block;
-            border-radius: 10px;
-        }
-        
-        .ad-label {
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--gris-oscuro);
-            background-color: var(--gris-claro);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-        
-        .download-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 5px;
-        }
-        
-        .download-btn {
-            padding: 10px 20px;
-            font-size: 14px;
-            border: none;
-            border-radius: 30px;
-            color: var(--blanco);
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        
-        .download-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: all 0.5s;
-        }
-        
-        .download-btn:hover::before {
-            left: 100%;
-        }
-        
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .download-btn.png {
-            background-color: var(--meta-ads-principal);
-        }
-        
-        .download-btn.png.google {
-            background-color: var(--google-blue);
-        }
-        
-        .download-btn.png.chatbot {
-            background-color: var(--chatbot-principal);
-        }
-        
-        .download-btn.png.email {
-            background-color: var(--email-principal);
-        }
-        
         .action-buttons {
             display: flex;
             justify-content: center;
@@ -374,7 +213,7 @@
             font-size: 16px;
             border: none;
             border-radius: 30px;
-            color: var(--blanco);
+            color: var(--white);
             cursor: pointer;
             font-weight: 600;
             display: flex;
@@ -408,21 +247,193 @@
         }
         
         .action-button.meta {
-            background-color: var(--meta-ads-principal);
+            background-color: var(--meta-primario);
         }
         
         .action-button.google {
-            background: linear-gradient(135deg, #4285F4, #DB4437, #F4B400, #0F9D58);
+            background: var(--google-gradient);
         }
         
         .action-button.chatbot {
-            background-color: var(--chatbot-principal);
+            background-color: var(--chatbot-primary);
         }
         
         .action-button.email {
             background-color: var(--email-principal);
         }
         
+        .action-button.express {
+            background-color: var(--express-color);
+        }
+        
+        h2.meta-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--meta-primario);
+            border-radius: 1.5px;
+        }
+        
+        h2.google-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--google-gradient);
+            border-radius: 1.5px;
+        }
+        
+        h2.chatbot-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--chatbot-primary);
+            border-radius: 1.5px;
+        }
+        
+        h2.email-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--email-principal);
+            border-radius: 1.5px;
+        }
+        
+        h2.express-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--express-color);
+            border-radius: 1.5px;
+        }
+        
+        .creatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .creative-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .creative-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+        
+        .creative-container.meta::before {
+            background-color: var(--meta-primario);
+        }
+        
+        .creative-container.google::before {
+            background: var(--google-gradient);
+        }
+        
+        .creative-container.chatbot::before {
+            background-color: var(--chatbot-primary);
+        }
+        
+        .creative-container.email::before {
+            background-color: var(--email-principal);
+        }
+        
+        .creative-container.express::before {
+            background-color: var(--express-color);
+        }
+        
+        .creative-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .creative-preview {
+            width: 300px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .creative-preview.vertical {
+            width: 270px;
+            height: 480px;
+        }
+        
+        .creative-preview::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+            pointer-events: none;
+            border-radius: 10px;
+        }
+        
+        .creative-preview:hover {
+            transform: scale(1.03);
+        }
+        
+        .creative-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            z-index: 10;
+        }
+        
+        .creative-label {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--gray-dark);
+            background-color: var(--gray-light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* Toast notification */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -437,24 +448,28 @@
             opacity: 0;
             transition: all 0.3s;
             z-index: 100;
-            background-color: var(--naranja-principal);
-            color: var(--blanco);
+            background-color: var(--orange-primary);
+            color: var(--white);
         }
         
         .toast.meta {
-            background-color: var(--meta-ads-principal);
+            background-color: var(--meta-primario);
         }
         
         .toast.google {
-            background: linear-gradient(135deg, #4285F4, #DB4437, #F4B400, #0F9D58);
+            background: var(--google-gradient);
         }
         
         .toast.chatbot {
-            background-color: var(--chatbot-principal);
+            background-color: var(--chatbot-primary);
         }
         
         .toast.email {
             background-color: var(--email-principal);
+        }
+        
+        .toast.express {
+            background-color: var(--express-color);
         }
         
         .toast.show {
@@ -467,188 +482,21 @@
             font-size: 20px;
         }
         
-        /* Estilos para carrusel real */
-        .carousel-container {
-            width: 300px;
-            height: 300px;
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-        }
-        
-        .true-carousel {
-            width: 100%;
-            height: 100%;
-            background-color: var(--meta-ads-principal);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .true-carousel.google {
-            background: linear-gradient(135deg, #4285F4, #DB4437, #F4B400, #0F9D58);
-        }
-        
-        .true-carousel.chatbot {
-            background-color: var(--chatbot-principal);
-        }
-        
-        .true-carousel.email {
-            background-color: var(--email-principal);
-        }
-        
-        .carousel-slides {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 300%;
-            height: 100%;
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-        
-        .carousel-slide {
-            width: 33.33%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .slide-number {
-            font-size: 80px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            text-shadow: 0 5px 10px rgba(0,0,0,0.3);
-        }
-        
-        .slide-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        
-        .slide-subtitle {
-            font-size: 16px;
-            opacity: 0.9;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        
-        .carousel-logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 18px;
-            font-weight: 800;
-            color: white;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        
-        .carousel-indicators {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .carousel-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .carousel-indicator.active {
-            background-color: white;
-            transform: scale(1.3);
-        }
-        
-        .carousel-arrows {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 10px;
-            transform: translateY(-50%);
-        }
-        
-        .carousel-arrow {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: white;
-            font-size: 18px;
-        }
-        
-        .carousel-arrow:hover {
-            background-color: rgba(255,255,255,0.5);
-            transform: scale(1.1);
-        }
-        
-        /* Elementos visuales decorativos */
-        .decorative-shape {
-            position: absolute;
-            pointer-events: none;
-            opacity: 0.4;
-        }
-        
-        .shape-circle {
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.2);
-        }
-        
-        .shape-square {
-            background-color: rgba(255,255,255,0.15);
-            transform: rotate(45deg);
-        }
-        
-        .shape-triangle {
-            width: 0;
-            height: 0;
-            border-left: 25px solid transparent;
-            border-right: 25px solid transparent;
-            border-bottom: 50px solid rgba(255,255,255,0.15);
-        }
-        
-        .shape-dots {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-        }
-        
-        .dot {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.3);
-        }
-        
-        .shape-wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'><path d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23fff'/></svg>") no-repeat;
-            background-size: cover;
+        @media (max-width: 768px) {
+            .creatives-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-button {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -656,316 +504,826 @@
     <div class="container">
         <h1>Creativos para Landing Pages - Orange Vapor</h1>
         
-        <!-- Tabs para cambiar entre tipos de creativos -->
+        <!-- Tabs to switch between landing page types -->
         <div class="tabs">
             <button class="tab tab-meta active" data-tab="meta-tab">Meta Ads</button>
             <button class="tab tab-google" data-tab="google-tab">Google Ads</button>
             <button class="tab tab-chatbot" data-tab="chatbot-tab">Chatbot</button>
             <button class="tab tab-email" data-tab="email-tab">Email Marketing</button>
+            <button class="tab tab-express" data-tab="express-tab">Optimización Express</button>
         </div>
         
         <!-- META ADS CONTENT -->
         <div id="meta-tab" class="tab-content active">
             <div class="action-buttons">
-                <button class="action-button meta" onclick="downloadAllAsPNG('meta')">
-                    <i class="fas fa-file-image"></i> Descargar Todos como PNG
-                </button>
-                <button class="action-button meta" onclick="downloadCarouselAsPNG('meta-carousel', 'Meta-Carrusel')">
-                    <i class="fas fa-images"></i> Descargar Carrusel Completo
+                <button class="action-button meta" onclick="downloadAllCreatives('meta')">
+                    <i class="fas fa-download"></i> Descargar Todos los Creativos
                 </button>
             </div>
             
-            <!-- Feed Square (1080x1080) -->
             <h2 class="meta-heading">Feed Square (1080x1080)</h2>
-            <div class="ad-grid">
-                <!-- Variante 1 -->
-                <div class="ad-container meta">
-                    <div class="ad-preview" id="preview-meta-square-1">
+            <div class="creatives-grid">
+                <!-- Square Creative 1 -->
+                <div class="creative-container meta">
+                    <div class="creative-preview" id="meta-square-1">
+                        <div class="creative-number">1</div>
                         <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo con degradado y patrón -->
+                            <!-- Background with gradient and pattern -->
                             <defs>
                                 <linearGradient id="metaGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#dc3545"/>
-                                    <stop offset="100%" stop-color="#b52b38"/>
+                                    <stop offset="0%" stop-color="#1877f2"/>
+                                    <stop offset="100%" stop-color="#4267B2"/>
                                 </linearGradient>
                                 <pattern id="metaPattern1" patternUnits="userSpaceOnUse" width="50" height="50" patternTransform="rotate(45)">
                                     <rect width="50" height="50" fill="none"/>
                                     <circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.3)"/>
                                 </pattern>
+                                <filter id="metaShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+                                    <feOffset dx="0" dy="10" result="offsetblur"/>
+                                    <feComponentTransfer>
+                                        <feFuncA type="linear" slope="0.3"/>
+                                    </feComponentTransfer>
+                                    <feMerge>
+                                        <feMergeNode/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
                             </defs>
+                            
+                            <!-- Main background -->
                             <rect width="1080" height="1080" fill="url(#metaGradient1)"/>
                             <rect width="1080" height="1080" fill="url(#metaPattern1)"/>
                             
-                            <!-- Elementos decorativos -->
-                            <circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.1)"/>
-                            <circle cx="900" cy="900" r="150" fill="rgba(255,255,255,0.05)"/>
-                            <rect x="800" y="200" width="80" height="80" fill="rgba(255,255,255,0.1)" transform="rotate(45 840 240)"/>
+                            <!-- Decorative elements -->
+                            <circle cx="200" cy="200" r="150" fill="rgba(255,255,255,0.1)" filter="url(#metaShadow)"/>
+                            <circle cx="900" cy="900" r="180" fill="rgba(255,255,255,0.07)" filter="url(#metaShadow)"/>
+                            <rect x="800" y="200" width="100" height="100" fill="rgba(255,255,255,0.08)" transform="rotate(45 850 250)" filter="url(#metaShadow)"/>
                             
-                            <!-- Wave en parte inferior -->
+                            <!-- Wave effect at bottom -->
                             <path d="M0,1080 L0,900 C150,950 300,980 450,950 C600,920 750,830 900,850 C1050,870 1080,930 1080,960 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
                             
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                            <!-- Logo & badge -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
                                 Orange<tspan fill="#FF7E00">Vapor</tspan>
                             </text>
                             
-                            <!-- Badge -->
                             <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
                             <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>⚡ Express</tspan>
+                                <tspan>Meta Ads</tspan>
                             </text>
                             
-                            <!-- Icono circular con efecto -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
-                            <circle cx="540" cy="380" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
-                                <tspan>⚠</tspan>
+                            <!-- Central icon with effect -->
+                            <circle cx="540" cy="350" r="90" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="3" filter="url(#metaShadow)"/>
+                            <circle cx="540" cy="350" r="100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                            <text x="540" y="380" font-family="sans-serif" font-size="80" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
+                                <tspan>📈</tspan>
                             </text>
                             
-                            <!-- Título con efecto -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
-                                ¿Ads sin resultados?
+                            <!-- Main headline -->
+                            <text x="540" y="580" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
+                                <tspan x="540" dy="0">MULTIPLICA</tspan>
+                                <tspan x="540" dy="90">TUS VENTAS</tspan>
                             </text>
                             
-                            <!-- Subtítulo con sombra -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
-                                Optimizamos en 48hs
+                            <!-- Subheadline -->
+                            <text x="540" y="730" font-family="Montserrat, sans-serif" font-size="45" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
+                                2.8x ROAS garantizado
                             </text>
                             
-                            <!-- Texto Auditoría Gratis con efecto -->
-                            <rect x="340" y="800" width="400" height="90" rx="45" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="860" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Auditoría Gratis
+                            <!-- Key selling point box -->
+                            <rect x="290" y="830" width="500" height="100" rx="50" fill="rgba(255,255,255,0.2)" filter="url(#metaShadow)"/>
+                            <text x="540" y="895" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Meta Ads que convierten
                             </text>
                         </svg>
                     </div>
-                    <div class="ad-label">Variante 1</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png" onclick="downloadSVGAsPNG('preview-meta-square-1', 'Meta-Ads-sin-resultados')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
+                    <div class="creative-label">Principal</div>
                 </div>
                 
-                <!-- Variante 2 -->
-                <div class="ad-container meta">
-                    <div class="ad-preview" id="preview-meta-square-2">
+                <!-- Square Creative 2 -->
+                <div class="creative-container meta">
+                    <div class="creative-preview" id="meta-square-2">
+                        <div class="creative-number">2</div>
                         <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo con degradado y patrón -->
+                            <!-- Background with gradient and pattern -->
                             <defs>
                                 <linearGradient id="metaGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#dc3545"/>
-                                    <stop offset="100%" stop-color="#b52b38"/>
+                                    <stop offset="0%" stop-color="#166fe5"/>
+                                    <stop offset="100%" stop-color="#1877f2"/>
                                 </linearGradient>
                                 <pattern id="metaPattern2" patternUnits="userSpaceOnUse" width="60" height="60">
                                     <rect width="60" height="60" fill="none"/>
                                     <path d="M0,30 L60,30" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
                                     <path d="M30,0 L30,60" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
                                 </pattern>
+                                <filter id="metaShadow2" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+                                    <feOffset dx="0" dy="10" result="offsetblur"/>
+                                    <feComponentTransfer>
+                                        <feFuncA type="linear" slope="0.3"/>
+                                    </feComponentTransfer>
+                                    <feMerge>
+                                        <feMergeNode/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
                             </defs>
+                            
+                            <!-- Main background -->
                             <rect width="1080" height="1080" fill="url(#metaGradient2)"/>
                             <rect width="1080" height="1080" fill="url(#metaPattern2)"/>
                             
-                            <!-- Elementos decorativos -->
-                            <circle cx="100" cy="950" r="200" fill="rgba(255,255,255,0.05)"/>
-                            <circle cx="900" cy="200" r="150" fill="rgba(255,255,255,0.05)"/>
-                            <rect x="100" y="100" width="100" height="100" fill="rgba(255,255,255,0.08)" transform="rotate(30 150 150)"/>
+                            <!-- Decorative elements -->
+                            <circle cx="100" cy="950" r="200" fill="rgba(255,255,255,0.05)" filter="url(#metaShadow2)"/>
+                            <circle cx="900" cy="200" r="150" fill="rgba(255,255,255,0.05)" filter="url(#metaShadow2)"/>
                             
-                            <!-- Wave en parte inferior -->
+                            <!-- Wave effect at bottom -->
                             <path d="M0,1080 L0,930 C200,960 400,900 600,930 C800,960 1000,930 1080,915 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
                             
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                            <!-- Logo & badge -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
                                 Orange<tspan fill="#FF7E00">Vapor</tspan>
                             </text>
                             
-                            <!-- Badge -->
                             <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
                             <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>⚡ Express</tspan>
+                                <tspan>Carrusel #2</tspan>
                             </text>
                             
-                            <!-- Icono circular con efecto -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
-                            <circle cx="540" cy="380" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
+                            <!-- Main feature boxes with shadows -->
+                            <g filter="url(#metaShadow2)">
+                                <rect x="165" y="300" width="750" height="130" rx="65" fill="rgba(255,255,255,0.15)"/>
+                                <text x="220" y="380" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>👉 -35% Costo por Adquisición</tspan>
+                                </text>
+                            </g>
+                            
+                            <g filter="url(#metaShadow2)">
+                                <rect x="165" y="470" width="750" height="130" rx="65" fill="rgba(255,255,255,0.15)"/>
+                                <text x="220" y="550" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>👉 +45% Más Conversiones</tspan>
+                                </text>
+                            </g>
+                            
+                            <g filter="url(#metaShadow2)">
+                                <rect x="165" y="640" width="750" height="130" rx="65" fill="rgba(255,255,255,0.15)"/>
+                                <text x="220" y="720" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>👉 Resultados en 30 días</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Footer badge -->
+                            <rect x="290" y="850" width="500" height="100" rx="50" fill="rgba(255,255,255,0.2)" filter="url(#metaShadow2)"/>
+                            <text x="540" y="915" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Gestión profesional
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="creative-label">Carrusel #2</div>
+                </div>
+                
+                <!-- Square Creative 3 -->
+                <div class="creative-container meta">
+                    <div class="creative-preview" id="meta-square-3">
+                        <div class="creative-number">3</div>
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background with gradient and pattern -->
+                            <defs>
+                                <linearGradient id="metaGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4267B2"/>
+                                    <stop offset="100%" stop-color="#1877f2"/>
+                                </linearGradient>
+                                <pattern id="metaPattern3" patternUnits="userSpaceOnUse" width="70" height="70" patternTransform="rotate(30)">
+                                    <rect width="70" height="70" fill="none"/>
+                                    <circle cx="35" cy="35" r="2" fill="rgba(255,255,255,0.2)"/>
+                                </pattern>
+                                <filter id="metaShadow3" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+                                    <feOffset dx="0" dy="10" result="offsetblur"/>
+                                    <feComponentTransfer>
+                                        <feFuncA type="linear" slope="0.3"/>
+                                    </feComponentTransfer>
+                                    <feMerge>
+                                        <feMergeNode/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Main background -->
+                            <rect width="1080" height="1080" fill="url(#metaGradient3)"/>
+                            <rect width="1080" height="1080" fill="url(#metaPattern3)"/>
+                            
+                            <!-- Decorative shapes with 3D effect -->
+                            <circle cx="150" cy="150" r="100" fill="rgba(255,255,255,0.1)" filter="url(#metaShadow3)"/>
+                            <rect x="850" y="150" width="120" height="120" rx="20" fill="rgba(255,255,255,0.08)" transform="rotate(15 910 210)" filter="url(#metaShadow3)"/>
+                            <circle cx="900" cy="900" r="150" fill="rgba(255,255,255,0.05)" filter="url(#metaShadow3)"/>
+                            
+                            <!-- Wave at bottom -->
+                            <path d="M0,1080 L0,880 C200,950 400,880 600,920 C800,960 1000,900 1080,880 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
+                            
+                            <!-- Logo & badge -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>Carrusel #3</tspan>
+                            </text>
+                            
+                            <!-- Process Steps with 3D cards -->
+                            <g filter="url(#metaShadow3)">
+                                <rect x="200" y="250" width="680" height="140" rx="20" fill="rgba(255,255,255,0.15)"/>
+                                <circle cx="270" cy="320" r="40" fill="#1877f2" stroke="white" stroke-width="2"/>
+                                <text x="270" y="335" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle">1</text>
+                                <text x="350" y="325" font-family="Montserrat, sans-serif" font-size="42" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Diagnóstico</tspan>
+                                </text>
+                            </g>
+                            
+                            <g filter="url(#metaShadow3)">
+                                <rect x="200" y="430" width="680" height="140" rx="20" fill="rgba(255,255,255,0.15)"/>
+                                <circle cx="270" cy="500" r="40" fill="#1877f2" stroke="white" stroke-width="2"/>
+                                <text x="270" y="515" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle">2</text>
+                                <text x="350" y="505" font-family="Montserrat, sans-serif" font-size="42" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Estrategia</tspan>
+                                </text>
+                            </g>
+                            
+                            <g filter="url(#metaShadow3)">
+                                <rect x="200" y="610" width="680" height="140" rx="20" fill="rgba(255,255,255,0.15)"/>
+                                <circle cx="270" cy="680" r="40" fill="#1877f2" stroke="white" stroke-width="2"/>
+                                <text x="270" y="695" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle">3</text>
+                                <text x="350" y="685" font-family="Montserrat, sans-serif" font-size="42" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Implementación</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Footer element -->
+                            <rect x="290" y="850" width="500" height="100" rx="50" fill="rgba(255,255,255,0.2)" filter="url(#metaShadow3)"/>
+                            <text x="540" y="915" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Proceso optimizado
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="creative-label">Carrusel #3</div>
+                </div>
+                
+                <!-- Square Creative 4 -->
+                <div class="creative-container meta">
+                    <div class="creative-preview" id="meta-square-4">
+                        <div class="creative-number">4</div>
+                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background with gradient and pattern -->
+                            <defs>
+                                <linearGradient id="metaGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4267B2"/>
+                                    <stop offset="100%" stop-color="#5B7BD5"/>
+                                </linearGradient>
+                                <pattern id="metaPattern4" patternUnits="userSpaceOnUse" width="80" height="80" patternTransform="rotate(60)">
+                                    <rect width="80" height="80" fill="none"/>
+                                    <path d="M0,40 L80,40" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+                                </pattern>
+                                <filter id="metaShadow4" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+                                    <feOffset dx="0" dy="10" result="offsetblur"/>
+                                    <feComponentTransfer>
+                                        <feFuncA type="linear" slope="0.3"/>
+                                    </feComponentTransfer>
+                                    <feMerge>
+                                        <feMergeNode/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Main background -->
+                            <rect width="1080" height="1080" fill="url(#metaGradient4)"/>
+                            <rect width="1080" height="1080" fill="url(#metaPattern4)"/>
+                            
+                            <!-- Decorative elements -->
+                            <circle cx="200" cy="200" r="120" fill="rgba(255,255,255,0.06)" filter="url(#metaShadow4)"/>
+                            <rect x="800" y="200" width="100" height="100" fill="rgba(255,255,255,0.05)" transform="rotate(30 850 250)" filter="url(#metaShadow4)"/>
+                            <path d="M0,1080 L0,930 C150,960 300,930 450,960 C600,990 750,930 900,940 C1000,950 1080,970 1080,990 L1080,1080 Z" fill="rgba(255,255,255,0.08)"/>
+                            
+                            <!-- Logo & badge -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>Carrusel #4</tspan>
+                            </text>
+                            
+                            <!-- Main offer -->
+                            <g filter="url(#metaShadow4)">
+                                <rect x="200" y="250" width="680" height="200" rx="30" fill="rgba(255,255,255,0.15)"/>
+                                <text x="540" y="345" font-family="Montserrat, sans-serif" font-size="70" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 3px rgba(0,0,0,0.4));">
+                                    <tspan>US$ 299</tspan>
+                                </text>
+                                <text x="540" y="400" font-family="Montserrat, sans-serif" font-size="35" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Mensual | Sin contratos largos</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Guarantee badge -->
+                            <g filter="url(#metaShadow4)">
+                                <circle cx="540" cy="530" r="100" fill="#ff7e00"/>
+                                <text x="540" y="515" font-family="Montserrat, sans-serif" font-size="50" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>2.8x</tspan>
+                                </text>
+                                <text x="540" y="555" font-family="Montserrat, sans-serif" font-size="26" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));">
+                                    <tspan>ROAS GARANTIZADO</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Footer call to action -->
+                            <text x="540" y="710" font-family="Montserrat, sans-serif" font-size="48" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
+                                <tspan>¡Solicita tu</tspan>
+                            </text>
+                            <text x="540" y="780" font-family="Montserrat, sans-serif" font-size="48" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
+                                <tspan>diagnóstico gratis!</tspan>
+                            </text>
+                            
+                            <!-- Spots available -->
+                            <g filter="url(#metaShadow4)">
+                                <rect x="290" y="900" width="500" height="80" rx="40" fill="rgba(255,255,255,0.2)"/>
+                                <text x="540" y="955" font-family="Montserrat, sans-serif" font-size="30" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>🔥 SOLO 3 CUPOS DISPONIBLES</tspan>
+                                </text>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="creative-label">Carrusel #4</div>
+                </div>
+            </div>
+            
+            <h2 class="meta-heading">Story/Reel (1080x1920)</h2>
+            <div class="creatives-grid">
+                <!-- Vertical Creative 1 -->
+                <div class="creative-container meta">
+                    <div class="creative-preview vertical" id="meta-vertical-1">
+                        <div class="creative-number">1</div>
+                        <svg width="270" height="480" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background with gradient and pattern -->
+                            <defs>
+                                <linearGradient id="metaVerticalGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1877f2"/>
+                                    <stop offset="100%" stop-color="#4267B2"/>
+                                </linearGradient>
+                                <pattern id="metaVerticalPattern1" patternUnits="userSpaceOnUse" width="60" height="60" patternTransform="rotate(45)">
+                                    <rect width="60" height="60" fill="none"/>
+                                    <circle cx="30" cy="30" r="1.5" fill="rgba(255,255,255,0.2)"/>
+                                </pattern>
+                                <filter id="metaVerticalShadow1" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+                                    <feOffset dx="0" dy="10" result="offsetblur"/>
+                                    <feComponentTransfer>
+                                        <feFuncA type="linear" slope="0.3"/>
+                                    </feComponentTransfer>
+                                    <feMerge>
+                                        <feMergeNode/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Main background -->
+                            <rect width="1080" height="1920" fill="url(#metaVerticalGradient1)"/>
+                            <rect width="1080" height="1920" fill="url(#metaVerticalPattern1)"/>
+                            
+                            <!-- Decorative elements -->
+                            <circle cx="250" cy="300" r="180" fill="rgba(255,255,255,0.05)" filter="url(#metaVerticalShadow1)"/>
+                            <circle cx="900" cy="1600" r="250" fill="rgba(255,255,255,0.05)" filter="url(#metaVerticalShadow1)"/>
+                            <rect x="800" y="400" width="150" height="150" rx="30" fill="rgba(255,255,255,0.08)" transform="rotate(30 875 475)" filter="url(#metaVerticalShadow1)"/>
+                            
+                            <!-- Wave at bottom -->
+                            <path d="M0,1920 L0,1750 C200,1800 400,1730 600,1770 C800,1810 1000,1770 1080,1750 L1080,1920 Z" fill="rgba(255,255,255,0.1)"/>
+                            
+                            <!-- Logo & badge -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>Meta Ads</tspan>
+                            </text>
+                            
+                            <!-- Central icon with effect -->
+                            <circle cx="540" cy="350" r="100" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="3" filter="url(#metaVerticalShadow1)"/>
+                            <circle cx="540" cy="350" r="110" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                            <text x="540" y="385" font-family="sans-serif" font-size="90" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
                                 <tspan>📈</tspan>
                             </text>
                             
-                            <!-- Título con efecto -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
-                                +20% ventas
+                            <!-- Main headline -->
+                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="90" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.5));">
+                                <tspan x="540" dy="0">MULTIPLICA</tspan>
+                                <tspan x="540" dy="100">TUS VENTAS</tspan>
                             </text>
                             
-                            <!-- Subtítulo con sombra -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
-                                Resultados garantizados
+                            <!-- Subheadline -->
+                            <text x="540" y="750" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
+                                2.8x ROAS garantizado
                             </text>
                             
-                            <!-- Texto Auditoría Gratis con efecto -->
-                            <rect x="340" y="800" width="400" height="90" rx="45" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="860" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Auditoría Gratis
+                            <!-- Feature bullets with icons -->
+                            <g filter="url(#metaVerticalShadow1)">
+                                <rect x="140" y="850" width="800" height="100" rx="50" fill="rgba(255,255,255,0.15)"/>
+                                <text x="200" y="915" font-family="Montserrat, sans-serif" font-size="40" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>✓ -35% Costo por Adquisición</tspan>
+                                </text>
+                            </g>
+                            
+                            <g filter="url(#metaVerticalShadow1)">
+                                <rect x="140" y="980" width="800" height="100" rx="50" fill="rgba(255,255,255,0.15)"/>
+                                <text x="200" y="1045" font-family="Montserrat, sans-serif" font-size="40" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>✓ +45% Más Conversiones</tspan>
+                                </text>
+                            </g>
+                            
+                            <g filter="url(#metaVerticalShadow1)">
+                                <rect x="140" y="1110" width="800" height="100" rx="50" fill="rgba(255,255,255,0.15)"/>
+                                <text x="200" y="1175" font-family="Montserrat, sans-serif" font-size="40" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>✓ Resultados en 30 días</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Price and guarantee -->
+                            <g filter="url(#metaVerticalShadow1)">
+                                <rect x="290" y="1350" width="500" height="200" rx="30" fill="rgba(255,255,255,0.15)"/>
+                                <text x="540" y="1420" font-family="Montserrat, sans-serif" font-size="70" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 3px rgba(0,0,0,0.4));">
+                                    <tspan>US$ 299</tspan>
+                                </text>
+                                <text x="540" y="1480" font-family="Montserrat, sans-serif" font-size="35" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Mensual | Sin contratos largos</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Footer call to action -->
+                            <rect x="290" y="1650" width="500" height="100" rx="50" fill="rgba(255,255,255,0.2)" filter="url(#metaVerticalShadow1)"/>
+                            <text x="540" y="1715" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Diagnóstico Gratuito
                             </text>
                         </svg>
                     </div>
-                    <div class="ad-label">Variante 2</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png" onclick="downloadSVGAsPNG('preview-meta-square-2', 'Meta-Mas-ventas')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
+                    <div class="creative-label">Principal</div>
                 </div>
-            </div>
-            
-            <!-- Story/Reel (1080x1920) -->
-            <h2 class="meta-heading">Story/Reel (1080x1920)</h2>
-            <div class="ad-grid">
-                <!-- Variante 1 -->
-                <div class="ad-container meta">
-                    <div class="ad-preview" id="preview-meta-story-1">
-                        <svg width="300" height="533" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo con degradado y patrón -->
+                
+                <!-- Vertical Creative 2 -->
+                <div class="creative-container meta">
+                    <div class="creative-preview vertical" id="meta-vertical-2">
+                        <div class="creative-number">2</div>
+                        <svg width="270" height="480" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background with gradient and pattern -->
                             <defs>
-                                <linearGradient id="metaGradientStory" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#dc3545"/>
-                                    <stop offset="100%" stop-color="#b52b38"/>
+                                <linearGradient id="metaVerticalGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#166fe5"/>
+                                    <stop offset="100%" stop-color="#1877f2"/>
                                 </linearGradient>
-                                <pattern id="metaPatternStory" patternUnits="userSpaceOnUse" width="50" height="50" patternTransform="rotate(45)">
-                                    <rect width="50" height="50" fill="none"/>
-                                    <circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.2)"/>
+                                <pattern id="metaVerticalPattern2" patternUnits="userSpaceOnUse" width="80" height="80">
+                                    <rect width="80" height="80" fill="none"/>
+                                    <path d="M0,40 L80,40" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                                    <path d="M40,0 L40,80" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
                                 </pattern>
+                                <filter id="metaVerticalShadow2" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+                                    <feOffset dx="0" dy="10" result="offsetblur"/>
+                                    <feComponentTransfer>
+                                        <feFuncA type="linear" slope="0.3"/>
+                                    </feComponentTransfer>
+                                    <feMerge>
+                                        <feMergeNode/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
                             </defs>
-                            <rect width="1080" height="1920" fill="url(#metaGradientStory)"/>
-                            <rect width="1080" height="1920" fill="url(#metaPatternStory)"/>
                             
-                            <!-- Elementos decorativos -->
-                            <circle cx="200" cy="300" r="200" fill="rgba(255,255,255,0.05)"/>
-                            <circle cx="900" cy="1600" r="300" fill="rgba(255,255,255,0.05)"/>
-                            <rect x="800" y="400" width="150" height="150" fill="rgba(255,255,255,0.08)" transform="rotate(30 875 475)"/>
+                            <!-- Main background -->
+                            <rect width="1080" height="1920" fill="url(#metaVerticalGradient2)"/>
+                            <rect width="1080" height="1920" fill="url(#metaVerticalPattern2)"/>
                             
-                            <!-- Wave en parte inferior -->
-                            <path d="M0,1920 L0,1720 C200,1750 400,1680 600,1720 C800,1760 1000,1720 1080,1700 L1080,1920 Z" fill="rgba(255,255,255,0.1)"/>
+                            <!-- Decorative elements -->
+                            <circle cx="150" cy="250" r="200" fill="rgba(255,255,255,0.05)" filter="url(#metaVerticalShadow2)"/>
+                            <circle cx="950" cy="1700" r="180" fill="rgba(255,255,255,0.05)" filter="url(#metaVerticalShadow2)"/>
+                            <rect x="850" y="350" width="120" height="120" rx="20" fill="rgba(255,255,255,0.07)" transform="rotate(25 910 410)" filter="url(#metaVerticalShadow2)"/>
                             
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                            <!-- Wave at bottom -->
+                            <path d="M0,1920 L0,1780 C150,1830 300,1800 450,1830 C600,1860 750,1820 900,1840 C1000,1860 1080,1880 1080,1900 L1080,1920 Z" fill="rgba(255,255,255,0.08)"/>
+                            
+                            <!-- Logo & badge -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
                                 Orange<tspan fill="#FF7E00">Vapor</tspan>
                             </text>
                             
-                            <!-- Badge -->
                             <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
                             <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>⚡ Express</tspan>
+                                <tspan>Carrusel #2</tspan>
                             </text>
                             
-                            <!-- Icono circular con efecto -->
-                            <circle cx="540" cy="450" r="80" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
-                            <circle cx="540" cy="450" r="90" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
-                            <text x="540" y="470" font-family="sans-serif" font-size="70" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
-                                <tspan>⚠</tspan>
+                            <!-- Main headline -->
+                            <text x="540" y="300" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.5));">
+                                <tspan x="540" dy="0">¿SABÍAS QUE...?</tspan>
                             </text>
                             
-                            <!-- Título con efecto -->
-                            <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
-                                ¿Ads sin ROI?
-                            </text>
+                            <!-- Main facts in cards -->
+                            <g filter="url(#metaVerticalShadow2)">
+                                <rect x="140" y="400" width="800" height="350" rx="30" fill="rgba(255,255,255,0.15)"/>
+                                <text x="540" y="500" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.4));">
+                                    <tspan>76%</tspan>
+                                </text>
+                                <text x="540" y="590" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>de las campañas de Meta</tspan>
+                                </text>
+                                <text x="540" y="650" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Ads no son rentables</tspan>
+                                </text>
+                            </g>
                             
-                            <!-- Lista de beneficios con iconos y efectos -->
-                            <rect x="200" y="770" width="680" height="80" rx="40" fill="rgba(255,255,255,0.1)"/>
-                            <text x="540" y="825" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.3));">
-                                <tspan>⚡ Optimización en 48hs</tspan>
-                            </text>
+                            <g filter="url(#metaVerticalShadow2)">
+                                <rect x="140" y="800" width="800" height="350" rx="30" fill="rgba(255,255,255,0.15)"/>
+                                <text x="230" y="900" font-family="sans-serif" font-size="100" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
+                                    <tspan>⚠️</tspan>
+                                </text>
+                                <text x="540" y="890" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan x="540" dy="0">El principal problema es</tspan>
+                                    <tspan x="540" dy="60">la configuración incorrecta</tspan>
+                                    <tspan x="540" dy="60">y la falta de optimización</tspan>
+                                </text>
+                            </g>
                             
-                            <rect x="200" y="870" width="680" height="80" rx="40" fill="rgba(255,255,255,0.1)"/>
-                            <text x="540" y="925" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.3));">
-                                <tspan>🔍 Detectamos fugas</tspan>
-                            </text>
+                            <g filter="url(#metaVerticalShadow2)">
+                                <rect x="140" y="1200" width="800" height="350" rx="30" fill="rgba(255,255,255,0.15)"/>
+                                <text x="230" y="1300" font-family="sans-serif" font-size="100" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
+                                    <tspan>🎯</tspan>
+                                </text>
+                                <text x="540" y="1290" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan x="540" dy="0">Nosotros garantizamos</tspan>
+                                    <tspan x="540" dy="60">un ROAS mínimo de 2.8x</tspan>
+                                    <tspan x="540" dy="60">o el servicio es gratis</tspan>
+                                </text>
+                            </g>
                             
-                            <rect x="200" y="970" width="680" height="80" rx="40" fill="rgba(255,255,255,0.1)"/>
-                            <text x="540" y="1025" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.3));">
-                                <tspan>📈 +20% ventas</tspan>
-                            </text>
-                            
-                            <!-- Texto Auditoría Gratis con efecto -->
-                            <rect x="290" y="1620" width="500" height="100" rx="50" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="1685" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Auditoría Gratis
+                            <!-- Footer call to action -->
+                            <rect x="290" y="1650" width="500" height="100" rx="50" fill="rgba(255,255,255,0.2)" filter="url(#metaVerticalShadow2)"/>
+                            <text x="540" y="1715" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Diagnóstico Gratuito
                             </text>
                         </svg>
                     </div>
-                    <div class="ad-label">Variante 1</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png" onclick="downloadSVGAsPNG('preview-meta-story-1', 'Meta-Story-Ads-sin-ROI')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
+                    <div class="creative-label">Carrusel #2</div>
                 </div>
-            </div>
-            
-            <!-- Carrusel Meta Ads -->
-            <h2 class="meta-heading">Carrusel (1080x1080)</h2>
-            <div class="ad-grid">
-                <div class="ad-container meta">
-                    <div class="carousel-container" id="meta-carousel">
-                        <div class="true-carousel">
-                            <div class="carousel-logo">Orange<span style="color:#FF7E00">Vapor</span></div>
-                            <div class="carousel-slides" style="transform: translateX(0%);">
-                                <div class="carousel-slide">
-                                    <div class="slide-number">1</div>
-                                    <div class="slide-title">¿Ads sin resultados?</div>
-                                    <div class="slide-subtitle">Optimización express en 48hs</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:80px;height:80px;top:20px;right:20px;"></div>
-                                    <div class="decorative-shape shape-square" style="width:40px;height:40px;bottom:40px;left:60px;"></div>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="slide-number">2</div>
-                                    <div class="slide-title">+20% de ventas</div>
-                                    <div class="slide-subtitle">Resultados garantizados</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:60px;height:60px;bottom:30px;right:40px;"></div>
-                                    <div class="decorative-shape shape-triangle" style="top:30px;left:40px;"></div>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="slide-number">3</div>
-                                    <div class="slide-title">Auditoría Gratis</div>
-                                    <div class="slide-subtitle">Detectamos oportunidades de mejora</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:50px;height:50px;top:50px;left:30px;"></div>
-                                    <div class="decorative-shape shape-square" style="width:30px;height:30px;bottom:50px;right:50px;"></div>
-                                </div>
-                            </div>
+                
+                <!-- Vertical Creative 3 -->
+                <div class="creative-container meta">
+                    <div class="creative-preview vertical" id="meta-vertical-3">
+                        <div class="creative-number">3</div>
+                        <svg width="270" height="480" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background with gradient and pattern -->
+                            <defs>
+                                <linearGradient id="metaVerticalGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4267B2"/>
+                                    <stop offset="100%" stop-color="#1877f2"/>
+                                </linearGradient>
+                                <pattern id="metaVerticalPattern3" patternUnits="userSpaceOnUse" width="70" height="70" patternTransform="rotate(30)">
+                                    <rect width="70" height="70" fill="none"/>
+                                    <circle cx="35" cy="35" r="2" fill="rgba(255,255,255,0.2)"/>
+                                </pattern>
+                                <filter id="metaVerticalShadow3" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+                                    <feOffset dx="0" dy="10" result="offsetblur"/>
+                                    <feComponentTransfer>
+                                        <feFuncA type="linear" slope="0.3"/>
+                                    </feComponentTransfer>
+                                    <feMerge>
+                                        <feMergeNode/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
                             
-                            <!-- Indicadores de carrusel -->
-                            <div class="carousel-indicators">
-                                <div class="carousel-indicator active" onclick="moveCarousel('meta', 0)"></div>
-                                <div class="carousel-indicator" onclick="moveCarousel('meta', 1)"></div>
-                                <div class="carousel-indicator" onclick="moveCarousel('meta', 2)"></div>
-                            </div>
+                            <!-- Main background -->
+                            <rect width="1080" height="1920" fill="url(#metaVerticalGradient3)"/>
+                            <rect width="1080" height="1920" fill="url(#metaVerticalPattern3)"/>
                             
-                            <!-- Flechas de navegación -->
-                            <div class="carousel-arrows">
-                                <div class="carousel-arrow" onclick="prevSlide('meta')">
-                                    <i class="fas fa-chevron-left"></i>
-                                </div>
-                                <div class="carousel-arrow" onclick="nextSlide('meta')">
-                                    <i class="fas fa-chevron-right"></i>
-                                </div>
-                            </div>
+                            <!-- Decorative elements -->
+                            <circle cx="250" cy="250" r="150" fill="rgba(255,255,255,0.05)" filter="url(#metaVerticalShadow3)"/>
+                            <circle cx="850" cy="1600" r="200" fill="rgba(255,255,255,0.05)" filter="url(#metaVerticalShadow3)"/>
+                            <rect x="750" y="350" width="150" height="150" rx="30" fill="rgba(255,255,255,0.07)" transform="rotate(15 825 425)" filter="url(#metaVerticalShadow3)"/>
                             
-                            <!-- Wave en parte inferior -->
-                            <div class="shape-wave"></div>
-                        </div>
+                            <!-- Wave at bottom -->
+                            <path d="M0,1920 L0,1750 C150,1800 300,1750 450,1780 C600,1810 750,1770 900,1790 C1000,1810 1080,1850 1080,1880 L1080,1920 Z" fill="rgba(255,255,255,0.1)"/>
+                            
+                            <!-- Logo & badge -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>Carrusel #3</tspan>
+                            </text>
+                            
+                            <!-- Main headline -->
+                            <text x="540" y="280" font-family="Montserrat, sans-serif" font-size="70" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.5));">
+                                <tspan>NUESTRO PROCESO</tspan>
+                            </text>
+                            
+                            <!-- Process steps with icons and numbers -->
+                            <g filter="url(#metaVerticalShadow3)">
+                                <rect x="140" y="350" width="800" height="180" rx="25" fill="rgba(255,255,255,0.15)"/>
+                                <circle cx="230" cy="440" r="60" fill="#1877f2" stroke="white" stroke-width="3"/>
+                                <text x="230" y="460" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle">1</text>
+                                <text x="350" y="430" font-family="Montserrat, sans-serif" font-size="46" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Auditoría y</tspan>
+                                </text>
+                                <text x="350" y="490" font-family="Montserrat, sans-serif" font-size="46" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Diagnóstico</tspan>
+                                </text>
+                            </g>
+                            
+                            <g filter="url(#metaVerticalShadow3)">
+                                <rect x="140" y="580" width="800" height="180" rx="25" fill="rgba(255,255,255,0.15)"/>
+                                <circle cx="230" cy="670" r="60" fill="#1877f2" stroke="white" stroke-width="3"/>
+                                <text x="230" y="690" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle">2</text>
+                                <text x="350" y="660" font-family="Montserrat, sans-serif" font-size="46" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Estrategia y</tspan>
+                                </text>
+                                <text x="350" y="720" font-family="Montserrat, sans-serif" font-size="46" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Planificación</tspan>
+                                </text>
+                            </g>
+                            
+                            <g filter="url(#metaVerticalShadow3)">
+                                <rect x="140" y="810" width="800" height="180" rx="25" fill="rgba(255,255,255,0.15)"/>
+                                <circle cx="230" cy="900" r="60" fill="#1877f2" stroke="white" stroke-width="3"/>
+                                <text x="230" y="920" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle">3</text>
+                                <text x="350" y="890" font-family="Montserrat, sans-serif" font-size="46" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Implementación</tspan>
+                                </text>
+                                <text x="350" y="950" font-family="Montserrat, sans-serif" font-size="46" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Creativa</tspan>
+                                </text>
+                            </g>
+                            
+                            <g filter="url(#metaVerticalShadow3)">
+                                <rect x="140" y="1040" width="800" height="180" rx="25" fill="rgba(255,255,255,0.15)"/>
+                                <circle cx="230" cy="1130" r="60" fill="#1877f2" stroke="white" stroke-width="3"/>
+                                <text x="230" y="1150" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle">4</text>
+                                <text x="350" y="1120" font-family="Montserrat, sans-serif" font-size="46" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Optimización y</tspan>
+                                </text>
+                                <text x="350" y="1180" font-family="Montserrat, sans-serif" font-size="46" font-weight="700" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Escalado</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Results box -->
+                            <g filter="url(#metaVerticalShadow3)">
+                                <rect x="140" y="1300" width="800" height="230" rx="30" fill="rgba(255,255,255,0.15)"/>
+                                <text x="540" y="1360" font-family="Montserrat, sans-serif" font-size="50" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
+                                    <tspan>RESULTADOS</tspan>
+                                </text>
+                                <text x="540" y="1430" font-family="Montserrat, sans-serif" font-size="45" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>2.8x ROAS Mínimo</tspan>
+                                </text>
+                                <text x="540" y="1490" font-family="Montserrat, sans-serif" font-size="45" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Garantizado</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Footer call to action -->
+                            <rect x="290" y="1650" width="500" height="100" rx="50" fill="rgba(255,255,255,0.2)" filter="url(#metaVerticalShadow3)"/>
+                            <text x="540" y="1715" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Diagnóstico Gratuito
+                            </text>
+                        </svg>
                     </div>
-                    <div class="ad-label">Carrusel Completo</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png" onclick="downloadCarouselAsPNG('meta-carousel', 'Meta-Carrusel')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
+                    <div class="creative-label">Carrusel #3</div>
+                </div>
+                
+                <!-- Vertical Creative 4 -->
+                <div class="creative-container meta">
+                    <div class="creative-preview vertical" id="meta-vertical-4">
+                        <div class="creative-number">4</div>
+                        <svg width="270" height="480" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background with gradient and pattern -->
+                            <defs>
+                                <linearGradient id="metaVerticalGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4267B2"/>
+                                    <stop offset="100%" stop-color="#5B7BD5"/>
+                                </linearGradient>
+                                <pattern id="metaVerticalPattern4" patternUnits="userSpaceOnUse" width="80" height="80" patternTransform="rotate(60)">
+                                    <rect width="80" height="80" fill="none"/>
+                                    <path d="M0,40 L80,40" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+                                </pattern>
+                                <filter id="metaVerticalShadow4" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+                                    <feOffset dx="0" dy="10" result="offsetblur"/>
+                                    <feComponentTransfer>
+                                        <feFuncA type="linear" slope="0.3"/>
+                                    </feComponentTransfer>
+                                    <feMerge>
+                                        <feMergeNode/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Main background -->
+                            <rect width="1080" height="1920" fill="url(#metaVerticalGradient4)"/>
+                            <rect width="1080" height="1920" fill="url(#metaVerticalPattern4)"/>
+                            
+                            <!-- Decorative elements -->
+                            <circle cx="200" cy="200" r="120" fill="rgba(255,255,255,0.06)" filter="url(#metaVerticalShadow4)"/>
+                            <circle cx="900" cy="1700" r="180" fill="rgba(255,255,255,0.05)" filter="url(#metaVerticalShadow4)"/>
+                            <rect x="850" y="300" width="120" height="120" rx="20" fill="rgba(255,255,255,0.07)" transform="rotate(20 910 360)" filter="url(#metaVerticalShadow4)"/>
+                            <path d="M0,1920 L0,1800 C150,1850 300,1800 450,1830 C600,1860 750,1820 900,1840 C1000,1860 1080,1890 1080,1920 L1080,1920 Z" fill="rgba(255,255,255,0.08)"/>
+                            
+                            <!-- Logo & badge -->
+                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                                Orange<tspan fill="#FF7E00">Vapor</tspan>
+                            </text>
+                            
+                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
+                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
+                                <tspan>Carrusel #4</tspan>
+                            </text>
+                            
+                            <!-- Main headline -->
+                            <text x="540" y="250" font-family="Montserrat, sans-serif" font-size="70" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.5));">
+                                <tspan>¡RESERVÁ TU LUGAR!</tspan>
+                            </text>
+                            
+                            <!-- Price box -->
+                            <g filter="url(#metaVerticalShadow4)">
+                                <rect x="140" y="320" width="800" height="200" rx="30" fill="rgba(255,255,255,0.15)"/>
+                                <text x="540" y="420" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 3px rgba(0,0,0,0.4));">
+                                    <tspan>US$ 299</tspan>
+                                </text>
+                                <text x="540" y="480" font-family="Montserrat, sans-serif" font-size="36" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Mensual | Sin contratos largos</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Large guarantee badge -->
+                            <g filter="url(#metaVerticalShadow4)">
+                                <circle cx="540" cy="650" r="160" fill="#ff7e00"/>
+                                <text x="540" y="625" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>2.8x</tspan>
+                                </text>
+                                <text x="540" y="690" font-family="Montserrat, sans-serif" font-size="36" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));">
+                                    <tspan>ROAS GARANTIZADO</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Add testimonial box -->
+                            <g filter="url(#metaVerticalShadow4)">
+                                <rect x="140" y="900" width="800" height="250" rx="30" fill="rgba(255,255,255,0.15)"/>
+                                <text x="540" y="950" font-family="Montserrat, sans-serif" font-size="40" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Nuestros clientes dicen:</tspan>
+                                </text>
+                                <text x="540" y="1020" font-family="Montserrat, sans-serif" font-size="32" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));" font-style="italic">
+                                    <tspan x="540" dy="0">"Aumentamos un 62% nuestro ROAS</tspan>
+                                    <tspan x="540" dy="50">y un 136% las conversiones en</tspan>
+                                    <tspan x="540" dy="50">solo 3 meses de gestión."</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Limited spots -->
+                            <g filter="url(#metaVerticalShadow4)">
+                                <rect x="140" y="1250" width="800" height="180" rx="30" fill="rgba(255,255,255,0.15)"/>
+                                <text x="540" y="1335" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>🔥 SOLO 3 CUPOS</tspan>
+                                </text>
+                                <text x="540" y="1395" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>DISPONIBLES 🔥</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Pitch final section -->
+                            <g filter="url(#metaVerticalShadow4)">
+                                <rect x="140" y="1500" width="800" height="150" rx="30" fill="rgba(255,255,255,0.15)"/>
+                                <text x="540" y="1560" font-family="Montserrat, sans-serif" font-size="36" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>Cada día con campañas sin</tspan>
+                                </text>
+                                <text x="540" y="1610" font-family="Montserrat, sans-serif" font-size="36" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                    <tspan>optimizar es dinero perdido</tspan>
+                                </text>
+                            </g>
+                            
+                            <!-- Footer call to action -->
+                            <rect x="290" y="1730" width="500" height="100" rx="50" fill="rgba(255,255,255,0.2)" filter="url(#metaVerticalShadow4)"/>
+                            <text x="540" y="1795" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
+                                Diagnóstico Gratuito
+                            </text>
+                        </svg>
                     </div>
+                    <div class="creative-label">Carrusel #4</div>
                 </div>
             </div>
         </div>
@@ -973,22 +1331,19 @@
         <!-- GOOGLE ADS CONTENT -->
         <div id="google-tab" class="tab-content">
             <div class="action-buttons">
-                <button class="action-button google" onclick="downloadAllAsPNG('google')">
-                    <i class="fas fa-file-image"></i> Descargar Todos como PNG
-                </button>
-                <button class="action-button google" onclick="downloadCarouselAsPNG('google-carousel', 'Google-Carrusel')">
-                    <i class="fas fa-images"></i> Descargar Carrusel Completo
+                <button class="action-button google" onclick="downloadAllCreatives('google')">
+                    <i class="fas fa-download"></i> Descargar Todos los Creativos
                 </button>
             </div>
             
-            <!-- Feed Square (1080x1080) -->
             <h2 class="google-heading">Feed Square (1080x1080)</h2>
-            <div class="ad-grid">
-                <!-- Variante 1 -->
-                <div class="ad-container google">
-                    <div class="ad-preview" id="preview-google-square-1">
+            <div class="creatives-grid">
+                <!-- Square Creative 1 -->
+                <div class="creative-container google">
+                    <div class="creative-preview" id="google-square-1">
+                        <div class="creative-number">1</div>
                         <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo con degradado y patrón -->
+                            <!-- Background with gradient and pattern -->
                             <defs>
                                 <linearGradient id="googleGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stop-color="#4285F4"/>
@@ -996,696 +1351,4 @@
                                     <stop offset="66%" stop-color="#F4B400"/>
                                     <stop offset="100%" stop-color="#DB4437"/>
                                 </linearGradient>
-                                <pattern id="googlePattern1" patternUnits="userSpaceOnUse" width="50" height="50" patternTransform="rotate(45)">
-                                    <rect width="50" height="50" fill="none"/>
-                                    <circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.3)"/>
-                                </pattern>
-                            </defs>
-                            <rect width="1080" height="1080" fill="url(#googleGradient1)"/>
-                            <rect width="1080" height="1080" fill="url(#googlePattern1)"/>
-                            
-                            <!-- Elementos decorativos -->
-                            <circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.1)"/>
-                            <circle cx="900" cy="900" r="150" fill="rgba(255,255,255,0.05)"/>
-                            <rect x="800" y="200" width="80" height="80" fill="rgba(255,255,255,0.1)" transform="rotate(45 840 240)"/>
-                            
-                            <!-- Wave en parte inferior -->
-                            <path d="M0,1080 L0,900 C150,950 300,980 450,950 C600,920 750,830 900,850 C1050,870 1080,930 1080,960 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>🔍 Google Ads</tspan>
-                            </text>
-                            
-                            <!-- Icono circular con efecto -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
-                            <circle cx="540" cy="380" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
-                                <tspan>🎯</tspan>
-                            </text>
-                            
-                            <!-- Título con efecto -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
-                                Multiplica tus Ventas
-                            </text>
-                            
-                            <!-- Subtítulo con sombra -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
-                                2.8x ROAS garantizado
-                            </text>
-                            
-                            <!-- Texto Auditoría Gratis con efecto -->
-                            <rect x="340" y="800" width="400" height="90" rx="45" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="860" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Auditoría Gratis
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="ad-label">Variante 1</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png google" onclick="downloadSVGAsPNG('preview-google-square-1', 'Google-Multiplica-Ventas')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Carrusel Google Ads -->
-            <h2 class="google-heading">Carrusel (1080x1080)</h2>
-            <div class="ad-grid">
-                <div class="ad-container google">
-                    <div class="carousel-container" id="google-carousel">
-                        <div class="true-carousel google">
-                            <div class="carousel-logo">Orange<span style="color:#FF7E00">Vapor</span></div>
-                            <div class="carousel-slides" style="transform: translateX(0%);">
-                                <div class="carousel-slide">
-                                    <div class="slide-number">1</div>
-                                    <div class="slide-title">Multiplica tus Ventas</div>
-                                    <div class="slide-subtitle">Optimiza tus campañas de Google Ads</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:80px;height:80px;top:20px;right:20px;"></div>
-                                    <div class="decorative-shape shape-square" style="width:40px;height:40px;bottom:40px;left:60px;"></div>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="slide-number">2</div>
-                                    <div class="slide-title">2.8x ROAS garantizado</div>
-                                    <div class="slide-subtitle">Resultados medibles y asegurados</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:60px;height:60px;bottom:30px;right:40px;"></div>
-                                    <div class="decorative-shape shape-triangle" style="top:30px;left:40px;"></div>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="slide-number">3</div>
-                                    <div class="slide-title">Auditoría Gratis</div>
-                                    <div class="slide-subtitle">Analizamos tus oportunidades</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:50px;height:50px;top:50px;left:30px;"></div>
-                                    <div class="decorative-shape shape-square" style="width:30px;height:30px;bottom:50px;right:50px;"></div>
-                                </div>
-                            </div>
-                            
-                            <!-- Indicadores de carrusel -->
-                            <div class="carousel-indicators">
-                                <div class="carousel-indicator active" onclick="moveCarousel('google', 0)"></div>
-                                <div class="carousel-indicator" onclick="moveCarousel('google', 1)"></div>
-                                <div class="carousel-indicator" onclick="moveCarousel('google', 2)"></div>
-                            </div>
-                            
-                            <!-- Flechas de navegación -->
-                            <div class="carousel-arrows">
-                                <div class="carousel-arrow" onclick="prevSlide('google')">
-                                    <i class="fas fa-chevron-left"></i>
-                                </div>
-                                <div class="carousel-arrow" onclick="nextSlide('google')">
-                                    <i class="fas fa-chevron-right"></i>
-                                </div>
-                            </div>
-                            
-                            <!-- Wave en parte inferior -->
-                            <div class="shape-wave"></div>
-                        </div>
-                    </div>
-                    <div class="ad-label">Carrusel Completo</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png google" onclick="downloadCarouselAsPNG('google-carousel', 'Google-Carrusel')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- CHATBOT CONTENT -->
-        <div id="chatbot-tab" class="tab-content">
-            <div class="action-buttons">
-                <button class="action-button chatbot" onclick="downloadAllAsPNG('chatbot')">
-                    <i class="fas fa-file-image"></i> Descargar Todos como PNG
-                </button>
-                <button class="action-button chatbot" onclick="downloadCarouselAsPNG('chatbot-carousel', 'Chatbot-Carrusel')">
-                    <i class="fas fa-images"></i> Descargar Carrusel Completo
-                </button>
-            </div>
-            
-            <!-- Feed Square (1080x1080) -->
-            <h2 class="chatbot-heading">Feed Square (1080x1080)</h2>
-            <div class="ad-grid">
-                <!-- Variante 1 -->
-                <div class="ad-container chatbot">
-                    <div class="ad-preview" id="preview-chatbot-square-1">
-                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo con degradado y patrón -->
-                            <defs>
-                                <linearGradient id="chatbotGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#6f42c1"/>
-                                    <stop offset="100%" stop-color="#563098"/>
-                                </linearGradient>
-                                <pattern id="chatbotPattern1" patternUnits="userSpaceOnUse" width="50" height="50" patternTransform="rotate(45)">
-                                    <rect width="50" height="50" fill="none"/>
-                                    <circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.3)"/>
-                                </pattern>
-                            </defs>
-                            <rect width="1080" height="1080" fill="url(#chatbotGradient1)"/>
-                            <rect width="1080" height="1080" fill="url(#chatbotPattern1)"/>
-                            
-                            <!-- Elementos decorativos -->
-                            <circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.1)"/>
-                            <circle cx="900" cy="900" r="150" fill="rgba(255,255,255,0.05)"/>
-                            <rect x="800" y="200" width="80" height="80" fill="rgba(255,255,255,0.1)" transform="rotate(45 840 240)"/>
-                            
-                            <!-- Wave en parte inferior -->
-                            <path d="M0,1080 L0,900 C150,950 300,980 450,950 C600,920 750,830 900,850 C1050,870 1080,930 1080,960 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>🤖 Chatbot</tspan>
-                            </text>
-                            
-                            <!-- Icono circular con efecto -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
-                            <circle cx="540" cy="380" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
-                                <tspan>💬</tspan>
-                            </text>
-                            
-                            <!-- Título con efecto -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
-                                Atención 24/7
-                            </text>
-                            
-                            <!-- Subtítulo con sombra -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
-                                Automatiza tus ventas
-                            </text>
-                            
-                            <!-- Texto Demo Gratis con efecto -->
-                            <rect x="340" y="800" width="400" height="90" rx="45" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="860" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Demo Gratuita
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="ad-label">Variante 1</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png chatbot" onclick="downloadSVGAsPNG('preview-chatbot-square-1', 'Chatbot-Atencion-24-7')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Carrusel Chatbot -->
-            <h2 class="chatbot-heading">Carrusel (1080x1080)</h2>
-            <div class="ad-grid">
-                <div class="ad-container chatbot">
-                    <div class="carousel-container" id="chatbot-carousel">
-                        <div class="true-carousel chatbot">
-                            <div class="carousel-logo">Orange<span style="color:#FF7E00">Vapor</span></div>
-                            <div class="carousel-slides" style="transform: translateX(0%);">
-                                <div class="carousel-slide">
-                                    <div class="slide-number">1</div>
-                                    <div class="slide-title">Chatbot 24/7</div>
-                                    <div class="slide-subtitle">Atención automática constante</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:80px;height:80px;top:20px;right:20px;"></div>
-                                    <div class="decorative-shape shape-square" style="width:40px;height:40px;bottom:40px;left:60px;"></div>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="slide-number">2</div>
-                                    <div class="slide-title">-70% en Costos</div>
-                                    <div class="slide-subtitle">Reduce gastos de atención</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:60px;height:60px;bottom:30px;right:40px;"></div>
-                                    <div class="decorative-shape shape-triangle" style="top:30px;left:40px;"></div>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="slide-number">3</div>
-                                    <div class="slide-title">Demo Gratuita</div>
-                                    <div class="slide-subtitle">Prueba sin compromiso</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:50px;height:50px;top:50px;left:30px;"></div>
-                                    <div class="decorative-shape shape-square" style="width:30px;height:30px;bottom:50px;right:50px;"></div>
-                                </div>
-                            </div>
-                            
-                            <!-- Indicadores de carrusel -->
-                            <div class="carousel-indicators">
-                                <div class="carousel-indicator active" onclick="moveCarousel('chatbot', 0)"></div>
-                                <div class="carousel-indicator" onclick="moveCarousel('chatbot', 1)"></div>
-                                <div class="carousel-indicator" onclick="moveCarousel('chatbot', 2)"></div>
-                            </div>
-                            
-                            <!-- Flechas de navegación -->
-                            <div class="carousel-arrows">
-                                <div class="carousel-arrow" onclick="prevSlide('chatbot')">
-                                    <i class="fas fa-chevron-left"></i>
-                                </div>
-                                <div class="carousel-arrow" onclick="nextSlide('chatbot')">
-                                    <i class="fas fa-chevron-right"></i>
-                                </div>
-                            </div>
-                            
-                            <!-- Wave en parte inferior -->
-                            <div class="shape-wave"></div>
-                        </div>
-                    </div>
-                    <div class="ad-label">Carrusel Completo</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png chatbot" onclick="downloadCarouselAsPNG('chatbot-carousel', 'Chatbot-Carrusel')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- EMAIL MARKETING CONTENT -->
-        <div id="email-tab" class="tab-content">
-            <div class="action-buttons">
-                <button class="action-button email" onclick="downloadAllAsPNG('email')">
-                    <i class="fas fa-file-image"></i> Descargar Todos como PNG
-                </button>
-                <button class="action-button email" onclick="downloadCarouselAsPNG('email-carousel', 'Email-Carrusel')">
-                    <i class="fas fa-images"></i> Descargar Carrusel Completo
-                </button>
-            </div>
-            
-            <!-- Feed Square (1080x1080) -->
-            <h2 class="email-heading">Feed Square (1080x1080)</h2>
-            <div class="ad-grid">
-                <!-- Variante 1 -->
-                <div class="ad-container email">
-                    <div class="ad-preview" id="preview-email-square-1">
-                        <svg width="300" height="300" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Fondo con degradado y patrón -->
-                            <defs>
-                                <linearGradient id="emailGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#00829b"/>
-                                    <stop offset="100%" stop-color="#00677c"/>
-                                </linearGradient>
-                                <pattern id="emailPattern1" patternUnits="userSpaceOnUse" width="50" height="50" patternTransform="rotate(45)">
-                                    <rect width="50" height="50" fill="none"/>
-                                    <circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.3)"/>
-                                </pattern>
-                            </defs>
-                            <rect width="1080" height="1080" fill="url(#emailGradient1)"/>
-                            <rect width="1080" height="1080" fill="url(#emailPattern1)"/>
-                            
-                            <!-- Elementos decorativos -->
-                            <circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.1)"/>
-                            <circle cx="900" cy="900" r="150" fill="rgba(255,255,255,0.05)"/>
-                            <rect x="800" y="200" width="80" height="80" fill="rgba(255,255,255,0.1)" transform="rotate(45 840 240)"/>
-                            
-                            <!-- Wave en parte inferior -->
-                            <path d="M0,1080 L0,900 C150,950 300,980 450,950 C600,920 750,830 900,850 C1050,870 1080,930 1080,960 L1080,1080 Z" fill="rgba(255,255,255,0.1)"/>
-                            
-                            <!-- Logo -->
-                            <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="60" font-weight="800" fill="white" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Orange<tspan fill="#FF7E00">Vapor</tspan>
-                            </text>
-                            
-                            <!-- Badge -->
-                            <rect x="780" y="60" width="240" height="60" rx="30" fill="rgba(255,255,255,0.2)"/>
-                            <text x="810" y="100" font-family="Montserrat, sans-serif" font-size="30" font-weight="600" fill="white">
-                                <tspan>✉️ Email</tspan>
-                            </text>
-                            
-                            <!-- Icono circular con efecto -->
-                            <circle cx="540" cy="380" r="70" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
-                            <circle cx="540" cy="380" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
-                            <text x="540" y="400" font-family="sans-serif" font-size="60" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.4));">
-                                <tspan>📧</tspan>
-                            </text>
-                            
-                            <!-- Título con efecto -->
-                            <text x="540" y="600" font-family="Montserrat, sans-serif" font-size="80" font-weight="800" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
-                                Secuencias Automáticas
-                            </text>
-                            
-                            <!-- Subtítulo con sombra -->
-                            <text x="540" y="700" font-family="Montserrat, sans-serif" font-size="50" font-weight="600" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.4));">
-                                Ventas 24/7
-                            </text>
-                            
-                            <!-- Texto Auditoría Gratis con efecto -->
-                            <rect x="340" y="800" width="400" height="90" rx="45" fill="rgba(255,255,255,0.2)"/>
-                            <text x="540" y="860" font-family="Montserrat, sans-serif" font-size="45" font-weight="700" fill="white" text-anchor="middle" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));">
-                                Auditoría Gratis
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="ad-label">Variante 1</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png email" onclick="downloadSVGAsPNG('preview-email-square-1', 'Email-Secuencias-Automaticas')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Carrusel Email Marketing -->
-            <h2 class="email-heading">Carrusel (1080x1080)</h2>
-            <div class="ad-grid">
-                <div class="ad-container email">
-                    <div class="carousel-container" id="email-carousel">
-                        <div class="true-carousel email">
-                            <div class="carousel-logo">Orange<span style="color:#FF7E00">Vapor</span></div>
-                            <div class="carousel-slides" style="transform: translateX(0%);">
-                                <div class="carousel-slide">
-                                    <div class="slide-number">1</div>
-                                    <div class="slide-title">Email Marketing</div>
-                                    <div class="slide-subtitle">Secuencias que venden</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:80px;height:80px;top:20px;right:20px;"></div>
-                                    <div class="decorative-shape shape-square" style="width:40px;height:40px;bottom:40px;left:60px;"></div>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="slide-number">2</div>
-                                    <div class="slide-title">38% Tasa de Apertura</div>
-                                    <div class="slide-subtitle">vs. 15% promedio del mercado</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:60px;height:60px;bottom:30px;right:40px;"></div>
-                                    <div class="decorative-shape shape-triangle" style="top:30px;left:40px;"></div>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="slide-number">3</div>
-                                    <div class="slide-title">Auditoría Gratis</div>
-                                    <div class="slide-subtitle">Optimiza tu estrategia de email</div>
-                                    
-                                    <!-- Elementos decorativos -->
-                                    <div class="decorative-shape shape-circle" style="width:50px;height:50px;top:50px;left:30px;"></div>
-                                    <div class="decorative-shape shape-square" style="width:30px;height:30px;bottom:50px;right:50px;"></div>
-                                </div>
-                            </div>
-                            
-                            <!-- Indicadores de carrusel -->
-                            <div class="carousel-indicators">
-                                <div class="carousel-indicator active" onclick="moveCarousel('email', 0)"></div>
-                                <div class="carousel-indicator" onclick="moveCarousel('email', 1)"></div>
-                                <div class="carousel-indicator" onclick="moveCarousel('email', 2)"></div>
-                            </div>
-                            
-                            <!-- Flechas de navegación -->
-                            <div class="carousel-arrows">
-                                <div class="carousel-arrow" onclick="prevSlide('email')">
-                                    <i class="fas fa-chevron-left"></i>
-                                </div>
-                                <div class="carousel-arrow" onclick="nextSlide('email')">
-                                    <i class="fas fa-chevron-right"></i>
-                                </div>
-                            </div>
-                            
-                            <!-- Wave en parte inferior -->
-                            <div class="shape-wave"></div>
-                        </div>
-                    </div>
-                    <div class="ad-label">Carrusel Completo</div>
-                    <div class="download-buttons">
-                        <button class="download-btn png email" onclick="downloadCarouselAsPNG('email-carousel', 'Email-Carrusel')">
-                            <i class="fas fa-file-image"></i> PNG
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Toast Notifications -->
-    <div id="toast-meta" class="toast meta">
-        <i class="fas fa-check-circle"></i>
-        <span id="toast-message-meta">Descarga completada</span>
-    </div>
-    
-    <div id="toast-google" class="toast google">
-        <i class="fas fa-check-circle"></i>
-        <span id="toast-message-google">Descarga completada</span>
-    </div>
-    
-    <div id="toast-chatbot" class="toast chatbot">
-        <i class="fas fa-check-circle"></i>
-        <span id="toast-message-chatbot">Descarga completada</span>
-    </div>
-    
-    <div id="toast-email" class="toast email">
-        <i class="fas fa-check-circle"></i>
-        <span id="toast-message-email">Descarga completada</span>
-    </div>
-    
-    <script>
-        // Cambio de tabs
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Remover clase active de todos los tabs
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    // Añadir clase active al tab clickeado
-                    this.classList.add('active');
-                    
-                    // Remover clase active de todos los contenidos
-                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                    // Mostrar el contenido correspondiente
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
-                });
-            });
-        });
-        
-        // Funciones para controlar el carrusel
-        const carousels = {
-            'meta': { currentSlide: 0 },
-            'google': { currentSlide: 0 },
-            'chatbot': { currentSlide: 0 },
-            'email': { currentSlide: 0 }
-        };
-        
-        function moveCarousel(type, slideIndex) {
-            carousels[type].currentSlide = slideIndex;
-            updateCarouselPosition(type);
-        }
-        
-        function nextSlide(type) {
-            const totalSlides = 3; // Asumimos que todos tienen 3 slides
-            carousels[type].currentSlide = (carousels[type].currentSlide + 1) % totalSlides;
-            updateCarouselPosition(type);
-        }
-        
-        function prevSlide(type) {
-            const totalSlides = 3; // Asumimos que todos tienen 3 slides
-            carousels[type].currentSlide = (carousels[type].currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarouselPosition(type);
-        }
-        
-        function updateCarouselPosition(type) {
-            const container = document.querySelector(`#${type}-carousel .carousel-slides`);
-            const indicators = document.querySelectorAll(`#${type}-carousel .carousel-indicator`);
-            
-            // Actualizar la posición del carrusel
-            container.style.transform = `translateX(-${carousels[type].currentSlide * 33.33}%)`;
-            
-            // Actualizar los indicadores
-            indicators.forEach((indicator, index) => {
-                indicator.classList.toggle('active', index === carousels[type].currentSlide);
-            });
-        }
-        
-        // Función para descargar SVG como PNG
-        function downloadSVGAsPNG(elementId, filename) {
-            const svgElement = document.getElementById(elementId).querySelector('svg');
-            const canvas = document.createElement('canvas');
-            
-            // Obtener dimensiones del viewBox
-            const viewBox = svgElement.getAttribute('viewBox').split(' ');
-            const width = parseInt(viewBox[2]);
-            const height = parseInt(viewBox[3]);
-            
-            // Configurar canvas con dimensiones originales
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            
-            // Convertir SVG a imagen
-            const svgString = new XMLSerializer().serializeToString(svgElement);
-            const img = new Image();
-            
-            // Crear un Blob del SVG
-            const svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
-            const URL = window.URL || window.webkitURL || window;
-            const svgUrl = URL.createObjectURL(svgBlob);
-            
-            img.onload = function() {
-                // Dibujar SVG en canvas
-                ctx.drawImage(img, 0, 0, width, height);
-                URL.revokeObjectURL(svgUrl);
-                
-                // Convertir a PNG y descargar
-                const imgURL = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = filename + '.png';
-                link.href = imgURL;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                // Determinar tipo para el toast
-                let type = 'meta';
-                if (elementId.includes('google')) type = 'google';
-                if (elementId.includes('chatbot')) type = 'chatbot';
-                if (elementId.includes('email')) type = 'email';
-                
-                showToast(`PNG "${filename}" descargado correctamente`, type);
-            };
-            
-            img.src = svgUrl;
-        }
-        
-        // Función para descargar carrusel como PNG
-        function downloadCarouselAsPNG(carouselId, filename) {
-            const carouselElement = document.getElementById(carouselId);
-            const canvas = document.createElement('canvas');
-            
-            // Configurar tamaño del canvas para carrusel completo
-            canvas.width = 1080;
-            canvas.height = 1080;
-            const ctx = canvas.getContext('2d');
-            
-            // Obtener tipo de carrusel para toast
-            const type = carouselId.split('-')[0];
-            
-            html2canvas(carouselElement, {
-                scale: 3.6, // Escala para mejor calidad
-                allowTaint: true,
-                useCORS: true
-            }).then(carouselCanvas => {
-                // Dibujar el carrusel en el canvas
-                ctx.drawImage(carouselCanvas, 0, 0, 1080, 1080);
-                
-                // Convertir a PNG y descargar
-                const imgURL = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = filename + '.png';
-                link.href = imgURL;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                showToast(`Carrusel "${filename}" descargado correctamente`, type);
-            });
-        }
-        
-        // Descargar todos los anuncios como PNG
-        function downloadAllAsPNG(type) {
-            const selectors = {
-                meta: ['preview-meta-square-1', 'preview-meta-square-2', 'preview-meta-story-1', 'meta-carousel'],
-                google: ['preview-google-square-1', 'google-carousel'],
-                chatbot: ['preview-chatbot-square-1', 'chatbot-carousel'],
-                email: ['preview-email-square-1', 'email-carousel']
-            };
-            
-            const filenames = {
-                meta: ['Meta-Ads-sin-resultados', 'Meta-Mas-ventas', 'Meta-Story-Ads-sin-ROI', 'Meta-Carrusel'],
-                google: ['Google-Multiplica-Ventas', 'Google-Carrusel'],
-                chatbot: ['Chatbot-Atencion-24-7', 'Chatbot-Carrusel'],
-                email: ['Email-Secuencias-Automaticas', 'Email-Carrusel']
-            };
-            
-            showToast(`Preparando descarga de todos los anuncios de ${type}...`, type);
-            
-            const items = selectors[type].map((id, index) => ({
-                id: id,
-                name: filenames[type][index],
-                isCarousel: id.includes('carousel')
-            }));
-            
-            items.forEach((item, index) => {
-                setTimeout(() => {
-                    if (item.isCarousel) {
-                        downloadCarouselAsPNG(item.id, item.name);
-                    } else {
-                        downloadSVGAsPNG(item.id, item.name);
-                    }
-                    
-                    if (index === items.length - 1) {
-                        setTimeout(() => {
-                            showToast(`Descarga de todos los anuncios de ${type} completada`, type);
-                        }, 1000);
-                    }
-                }, index * 1000);
-            });
-        }
-        
-        // Mostrar notificación toast
-        function showToast(message, type) {
-            const toast = document.getElementById(`toast-${type}`);
-            const toastMessage = document.getElementById(`toast-message-${type}`);
-            
-            toastMessage.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Biblioteca html2canvas para capturar carruseles (simulada)
-        // En producción se debe incluir la librería real
-        const html2canvas = (function() {
-            function createCanvasMock(element) {
-                const canvas = document.createElement('canvas');
-                canvas.width = element.clientWidth * 3.6;
-                canvas.height = element.clientHeight * 3.6;
-                
-                // Dibujar un rectángulo del color del tipo de carrusel
-                const ctx = canvas.getContext('2d');
-                
-                if (element.id.includes('meta')) {
-                    ctx.fillStyle = '#dc3545';
-                } else if (element.id.includes('google')) {
-                    ctx.fillStyle = '#4285F4';
-                } else if (element.id.includes('chatbot')) {
-                    ctx.fillStyle = '#6f42c1';
-                } else if (element.id.includes('email')) {
-                    ctx.fillStyle = '#00829b';
-                }
-                
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                // Añadir texto "CARRUSEL"
-                ctx.fillStyle = '#FFFFFF';
-                ctx.font = 'bold 100px Montserrat';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText('CARRUSEL', canvas.width/2, canvas.height/2);
-                
-                return canvas;
-            }
-            
-            return function(element, options) {
-                return new Promise(resolve => {
-                    setTimeout(() => {
-                        resolve(createCanvasMock(element));
-                    }, 500);
-                });
-            };
-        })();
-    </script>
-</body>
-</html>
+                                <pattern id="googlePattern1" patternUnits="userSpaceOnUse" width="60" height="60" patternTransform="rotate(45)">
