@@ -578,7 +578,8 @@
                 if (isFirst) {
                     logoEl.innerHTML = 'Orange <span style="color: #FF7E00;">Vapor</span>';
                 } else {
-                    logoEl.textContent = 'OV';
+                    // OV con O en blanco y V en naranja
+                    logoEl.innerHTML = '<span style="color: white;">O</span><span style="color: #FF7E00;">V</span>';
                 }
                 contentEl.appendChild(logoEl);
                 
@@ -673,16 +674,20 @@
             
             // Añadir logo Orange Vapor o OV
             ctx.font = 'bold 30px Montserrat, sans-serif';
-            ctx.fillStyle = colors.light;
             
             if (isFirst) {
                 // Logo Orange Vapor para el primer creativo
+                ctx.fillStyle = colors.light;
                 ctx.fillText('Orange', 40, 50);
                 ctx.fillStyle = '#FF7E00'; // Color naranja del logo
                 ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, 50);
             } else {
-                // Logo OV para los demás creativos
-                ctx.fillText('OV', 40, 50);
+                // Logo OV con O en blanco y V en naranja
+                ctx.fillStyle = colors.light;
+                ctx.fillText('O', 40, 50);
+                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
+                let oWidth = ctx.measureText('O').width;
+                ctx.fillText('V', 40 + oWidth, 50);
             }
             
             ctx.fillStyle = colors.light; // Restaurar color de texto para el resto del contenido
@@ -704,7 +709,10 @@
             
             // Subtítulo
             ctx.fillStyle = 'rgba(0,0,0,0.25)';
-            const subtitleWidth = ctx.measureText(creative.subtitle).width + 40;
+            ctx.font = 'bold 42px Montserrat, sans-serif';
+            // Medir el texto para ajustar el ancho del fondo
+            const subtitleMetrics = ctx.measureText(creative.subtitle);
+            const subtitleWidth = Math.min(subtitleMetrics.width + 40, canvas.width - 140);
             const subtitleY = titleY + 140;
             ctx.fillRect(70, subtitleY, subtitleWidth, 70);
             
@@ -756,16 +764,20 @@
             
             // Añadir logo Orange Vapor o OV - tamaño más grande para vertical
             ctx.font = 'bold 36px Montserrat, sans-serif';
-            ctx.fillStyle = colors.light;
             
             if (isFirst) {
                 // Logo Orange Vapor para el primer creativo
+                ctx.fillStyle = colors.light;
                 ctx.fillText('Orange', 40, 80);
                 ctx.fillStyle = '#FF7E00'; // Color naranja del logo
                 ctx.fillText('Vapor', 40 + ctx.measureText('Orange ').width, 80);
             } else {
-                // Logo OV para los demás creativos
-                ctx.fillText('OV', 40, 80);
+                // Logo OV con O en blanco y V en naranja
+                ctx.fillStyle = colors.light;
+                ctx.fillText('O', 40, 80);
+                ctx.fillStyle = '#FF7E00'; // Color naranja del logo
+                let oWidth = ctx.measureText('O').width;
+                ctx.fillText('V', 40 + oWidth, 80);
             }
             
             ctx.fillStyle = colors.light; // Restaurar color de texto para el resto del contenido
@@ -780,24 +792,31 @@
                 ctx.fillStyle = creative.accentColor;
             }
             
-            wrapText(ctx, creative.title, 70, titleY, canvas.width - 140, 70);
+            // Ajuste: Reducir el ancho máximo para mantener márgenes adecuados
+            const maxWidth = canvas.width - 160; // Márgenes más amplios
+            wrapText(ctx, creative.title, 80, titleY, maxWidth, 70);
             
             // Restaurar color para el resto del texto
             ctx.fillStyle = colors.light;
             
-            // Subtítulo
+            // Subtítulo con margen mejorado
             ctx.fillStyle = 'rgba(0,0,0,0.25)';
-            const subtitleWidth = ctx.measureText(creative.subtitle).width + 60;
-            const subtitleY = titleY + 200; // Más espacio para formato vertical
-            ctx.fillRect(70, subtitleY, subtitleWidth, 80);
+            ctx.font = 'bold 50px Montserrat, sans-serif';
+            
+            // Medir el texto para ajustar el ancho del fondo
+            const subtitleMetrics = ctx.measureText(creative.subtitle);
+            const subtitleWidth = Math.min(subtitleMetrics.width + 60, maxWidth);
+            const subtitleY = titleY + 160; // Ajuste para dar más espacio entre título y subtítulo
+            
+            ctx.fillRect(80, subtitleY, subtitleWidth, 80);
             
             ctx.fillStyle = colors.light;
-            ctx.font = 'bold 50px Montserrat, sans-serif';
+            ctx.font = 'bold 46px Montserrat, sans-serif';
             ctx.fillText(creative.subtitle, 100, subtitleY + 55);
             
-            // Descripción
-            ctx.font = '42px Montserrat, sans-serif';
-            wrapText(ctx, creative.description, 70, subtitleY + 150, canvas.width - 140, 55);
+            // Descripción con margen mejorado
+            ctx.font = '40px Montserrat, sans-serif';
+            wrapText(ctx, creative.description, 80, subtitleY + 150, maxWidth, 50);
             
             // Número
             ctx.fillStyle = 'rgba(255,255,255,0.2)';
@@ -833,7 +852,7 @@
             }
         }
         
-        // Función para envolver texto
+        // Función para envolver texto mejorada para respetar márgenes
         function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
             const words = text.split(' ');
             let line = '';
