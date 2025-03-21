@@ -157,7 +157,6 @@
         .creative-subtitle {
             font-size: 16px;
             font-weight: bold;
-            background: #222222;
             padding: 8px 12px;
             display: inline-block;
             border-radius: 4px;
@@ -287,14 +286,13 @@
             cursor: pointer;
             border-radius: 4px;
         }
-        /* Estilo para el fondo del logo */
+        /* Estilo para el logo, sin fondo */
         .logo-container {
             position: absolute;
             top: 10px;
             left: 10px;
             padding: 5px 10px;
             border-radius: 4px;
-            background-color: #222222;
             z-index: 20;
         }
 
@@ -650,16 +648,6 @@
             }
         }
         
-        // Función para obtener el color de contraste para el logo según el fondo
-        function getLogoBackgroundColor(bgColor) {
-            // Si el fondo es oscuro, usar un fondo claro y viceversa
-            if (bgColor === colors.dark || bgColor === '#333333') {
-                return '#444444'; // Fondo claro sólido
-            } else {
-                return '#222222'; // Fondo oscuro sólido
-            }
-        }
-        
         // Función para renderizar creativos en la interfaz
         function renderCreatives() {
             creativesContainer.innerHTML = '';
@@ -684,10 +672,9 @@
                 const contentEl = document.createElement('div');
                 contentEl.className = 'creative-content';
                 
-                // Contenedor del logo con fondo para mejor contraste
+                // Contenedor del logo sin fondo
                 const logoContainerEl = document.createElement('div');
                 logoContainerEl.className = 'logo-container';
-                logoContainerEl.style.backgroundColor = getLogoBackgroundColor(creative.bgColor);
                 
                 // Logo
                 const logoEl = document.createElement('div');
@@ -823,20 +810,7 @@
                     ctx.fillRect(0, height * 0.3, 15, height * 0.3);
                 }
                 
-                // PASO 3: Dibujar el contenedor del logo
-                const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
-                ctx.fillStyle = logoBackgroundColor;
-                
-                if (isVertical) {
-                    const safeZoneTop = Math.round(height * 0.14);
-                    // Dibujar un rectángulo simple
-                    ctx.fillRect(30, safeZoneTop + 10, 200, 50);
-                } else {
-                    // Formato cuadrado
-                    ctx.fillRect(30, 20, 200, 50);
-                }
-                
-                // PASO 4: Dibujar el logo
+                // PASO 4: Dibujar el logo directamente sin fondo
                 ctx.font = isVertical ? 'bold 42px Montserrat, sans-serif' : 'bold 36px Montserrat, sans-serif';
                 
                 if (isVertical) {
@@ -908,26 +882,7 @@
                     wrapText(ctx, creative.title, width / 2, height / 2 - 80, width - 100, 80);
                 }
                 
-                // PASO 6: Dibujar el fondo del subtítulo
-                ctx.fillStyle = '#222222'; // Fondo sólido para el subtítulo
-                
-                if (isVertical) {
-                    // Calcular ancho aproximado del subtítulo
-                    ctx.font = 'bold 56px Montserrat, sans-serif';
-                    const subtitleWidth = Math.min(ctx.measureText(creative.subtitle).width + 80, width - 200);
-                    
-                    // Dibujar un simple rectángulo centrado
-                    ctx.fillRect(width / 2 - subtitleWidth / 2, height / 2 - 30, subtitleWidth, 80);
-                } else {
-                    // Calcular ancho aproximado del subtítulo
-                    ctx.font = 'bold 46px Montserrat, sans-serif';
-                    const subtitleWidth = Math.min(ctx.measureText(creative.subtitle).width + 80, width - 200);
-                    
-                    // Dibujar un simple rectángulo centrado
-                    ctx.fillRect(width / 2 - subtitleWidth / 2, height / 2 + 10, subtitleWidth, 60);
-                }
-                
-                // PASO 7: Dibujar el subtítulo
+                // PASO 7: Dibujar el subtítulo (sin fondo)
                 ctx.fillStyle = colors.light;
                 
                 if (isVertical) {
@@ -1094,20 +1049,7 @@
                         ctx.fillRect(0, height * 0.3, 15, height * 0.3);
                     }
                     
-                    // PASO 3: Dibujar el contenedor del logo
-                    const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
-                    ctx.fillStyle = logoBackgroundColor;
-                    
-                    if (isVertical) {
-                        const safeZoneTop = Math.round(height * 0.14);
-                        // Dibujar un rectángulo simple
-                        ctx.fillRect(30, safeZoneTop + 10, 200, 50);
-                    } else {
-                        // Formato cuadrado
-                        ctx.fillRect(30, 20, 200, 50);
-                    }
-                    
-                    // PASO 4: Dibujar el logo
+                    // PASO 4: Dibujar el logo directamente sin fondo
                     ctx.font = isVertical ? 'bold 42px Montserrat, sans-serif' : 'bold 36px Montserrat, sans-serif';
                     
                     if (isVertical) {
@@ -1179,26 +1121,7 @@
                         wrapText(ctx, creative.title, width / 2, height / 2 - 80, width - 100, 80);
                     }
                     
-                    // PASO 6: Dibujar el fondo del subtítulo
-                    ctx.fillStyle = '#222222'; // Fondo sólido para el subtítulo
-                    
-                    if (isVertical) {
-                        // Calcular ancho aproximado del subtítulo
-                        ctx.font = 'bold 56px Montserrat, sans-serif';
-                        const subtitleWidth = Math.min(ctx.measureText(creative.subtitle).width + 80, width - 200);
-                        
-                        // Dibujar un simple rectángulo centrado
-                        ctx.fillRect(width / 2 - subtitleWidth / 2, height / 2 - 30, subtitleWidth, 80);
-                    } else {
-                        // Calcular ancho aproximado del subtítulo
-                        ctx.font = 'bold 46px Montserrat, sans-serif';
-                        const subtitleWidth = Math.min(ctx.measureText(creative.subtitle).width + 80, width - 200);
-                        
-                        // Dibujar un simple rectángulo centrado
-                        ctx.fillRect(width / 2 - subtitleWidth / 2, height / 2 + 10, subtitleWidth, 60);
-                    }
-                    
-                    // PASO 7: Dibujar el subtítulo
+                    // PASO 7: Dibujar el subtítulo (sin fondo)
                     ctx.fillStyle = colors.light;
                     
                     if (isVertical) {
