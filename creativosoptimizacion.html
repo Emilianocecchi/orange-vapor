@@ -6,6 +6,7 @@
     <title>Creativos Orange Vapor - Optimizados</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -133,6 +134,7 @@
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             color: white;
+            cursor: pointer;
         }
         .creative-vertical {
             width: 200px;
@@ -156,7 +158,7 @@
         .creative-subtitle {
             font-size: 16px;
             font-weight: bold;
-            background: rgba(0,0,0,0.25);
+            background: #222222; /* Cambiado de rgba a color sólido */
             padding: 8px 12px;
             display: inline-block;
             border-radius: 4px;
@@ -164,7 +166,7 @@
         }
         .creative-description {
             font-size: 14px;
-            opacity: 0.9;
+            /* Eliminado opacity */
         }
         .creative-accent {
             position: absolute;
@@ -183,7 +185,7 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.2);
+            background: #444444; /* Cambiado de rgba a color sólido */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -198,7 +200,7 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.2);
+            background: #444444; /* Cambiado de rgba a color sólido */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -287,30 +289,100 @@
             cursor: pointer;
             border-radius: 4px;
         }
-        /* Nuevo estilo para el fondo del logo */
+        /* Estilo para el fondo del logo */
         .logo-container {
             position: absolute;
             top: 10px;
             left: 10px;
             padding: 5px 10px;
             border-radius: 4px;
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: #222222; /* Cambiado de rgba a color sólido */
             z-index: 20;
         }
-        #status {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 10px;
-            margin: 10px auto;
-            border-radius: 4px;
-            max-width: 800px;
-            text-align: center;
-            display: none;
-        }
-        .svg-container {
-            display: none;
-            position: absolute;
+        
+        /* Área para renderizar creativos en alta resolución (invisible para el usuario) */
+        .creative-render-area {
+            position: fixed;
             left: -9999px;
+            top: -9999px;
+            visibility: hidden;
+        }
+
+        /* Estilos para el modal de previsualización */
+        .preview-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .preview-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+        }
+        .preview-image {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .preview-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .preview-download {
+            position: absolute;
+            bottom: -50px;
+            right: 0;
+            background: #ff7e00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Spinner de carga */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Estilos para el área de alta resolución */
+        .render-creative {
+            position: relative;
+            background-color: white;
+            overflow: hidden;
+        }
+        .render-creative.square {
+            width: 1080px;
+            height: 1080px;
+        }
+        .render-creative.vertical {
+            width: 1080px;
+            height: 1920px;
         }
     </style>
 </head>
@@ -320,9 +392,6 @@
             <h1 id="serviceTitle">Creativos para Optimización Express</h1>
             <p>Creativos para campañas de Orange Vapor</p>
         </div>
-        
-        <!-- Status para mensajes -->
-        <div id="status"></div>
         
         <!-- Tabs de servicios -->
         <div class="tabs">
@@ -386,15 +455,15 @@
         <div class="note">
             <p>Dimensiones: 1080x1080 píxeles y 1080x1920 píxeles (imágenes descargadas en alta resolución)</p>
         </div>
-
-        <!-- Contenedor SVG para generación de imágenes -->
-        <div id="svgContainer" class="svg-container"></div>
+        
+        <!-- Área para renderizar creativos en alta resolución (invisible para el usuario) -->
+        <div id="creativeRenderArea" class="creative-render-area"></div>
     </div>
     
     <script>
-        // Esperar a que se carguen las fuentes
+        // Esperar a que se carguen las fuentes antes de comenzar
         document.fonts.ready.then(() => {
-            console.log("Fuentes cargadas correctamente. Iniciando...");
+            console.log("Todas las fuentes están cargadas correctamente.");
             init();
         });
         
@@ -419,101 +488,89 @@
             const creativesData = {
                 optimizacion: [
                     {
-                        title: 'TRANSFORMÁ TUS CAMPAÑAS', // Acortado de "Transformamos"
+                        title: 'TRANSFORMÁ TUS CAMPAÑAS',
                         subtitle: '+20% EN VENTAS',
                         description: 'Diagnóstico + Nueva estructura optimizada',
-                        bgColor: colors.optimizacion,
-                        icon: 'fa-solid fa-rocket' // Icono de cohete para optimización
+                        bgColor: colors.optimizacion
                     },
                     {
                         title: 'EL PROBLEMA',
-                        subtitle: 'SIN RESULTADOS',  // Acortado de "CAMPAÑAS SIN RESULTADOS"
+                        subtitle: 'SIN RESULTADOS',
                         description: 'Perdés ventas mientras la competencia avanza',
                         bgColor: colors.dark,
-                        accentColor: colors.optimizacion,
-                        icon: 'fa-solid fa-triangle-exclamation' // Icono de advertencia
+                        accentColor: colors.optimizacion
                     },
                     {
                         title: 'LA SOLUCIÓN',
-                        subtitle: 'OPTIMIZACIÓN',  // Acortado de "OPTIMIZACIÓN EXPRESS"
+                        subtitle: 'OPTIMIZACIÓN',
                         description: 'Estructura renovada que genera ventas reales',
                         bgColor: colors.dark,
-                        accentColor: colors.optimizacion,
-                        icon: 'fa-solid fa-lightbulb' // Icono de idea
+                        accentColor: colors.optimizacion
                     },
                     {
                         title: 'INVERSIÓN ÚNICA',
                         subtitle: '$299 USD',
                         description: 'Pagá la mitad si no aumentamos tus ventas',
                         bgColor: colors.dark,
-                        accentColor: colors.optimizacion,
-                        icon: 'fa-solid fa-sack-dollar' // Icono de dinero
+                        accentColor: colors.optimizacion
                     }
                 ],
                 meta: [
                     {
                         title: 'META ADS',
-                        subtitle: 'CONVERSIONES',  // Acortado de "CONVERSIONES MAXIMIZADAS"
+                        subtitle: 'CONVERSIONES',
                         description: 'Estrategias personalizadas de alto retorno',
-                        bgColor: colors.meta,
-                        icon: 'fa-brands fa-facebook' // Icono de Facebook
+                        bgColor: colors.meta
                     },
                     {
                         title: 'TARGETING PRECISO',
-                        subtitle: 'LLEGA A TU PÚBLICO',  // Cambiado de "AUDIENCIA" a "PÚBLICO"
+                        subtitle: 'LLEGA A TU PÚBLICO',
                         description: 'Segmentación avanzada por intereses',
                         bgColor: colors.dark,
-                        accentColor: colors.meta,
-                        icon: 'fa-solid fa-bullseye' // Icono de diana
+                        accentColor: colors.meta
                     },
                     {
                         title: 'ANUNCIOS CREATIVOS',
-                        subtitle: 'QUE CONVIERTEN',  // Acortado
+                        subtitle: 'QUE CONVIERTEN',
                         description: 'Anuncios dinámicos para cada etapa',
                         bgColor: colors.dark,
-                        accentColor: colors.meta,
-                        icon: 'fa-solid fa-palette' // Icono de paleta
+                        accentColor: colors.meta
                     },
                     {
                         title: 'RESULTADOS MEDIBLES',
-                        subtitle: 'DATA-DRIVEN',  // Acortado
+                        subtitle: 'DATA-DRIVEN',
                         description: 'Optimización constante de anuncios',
                         bgColor: colors.dark,
-                        accentColor: colors.meta,
-                        icon: 'fa-solid fa-chart-line' // Icono de gráfico
+                        accentColor: colors.meta
                     }
                 ],
                 google: [
                     {
                         title: 'GOOGLE ADS',
-                        subtitle: 'CLIENTES ACTIVOS',  // Acortado de "CLIENTES QUE TE BUSCAN"
+                        subtitle: 'CLIENTES ACTIVOS',
                         description: 'Campañas optimizadas para convertir',
-                        bgColor: colors.google,
-                        icon: 'fa-brands fa-google' // Icono de Google
+                        bgColor: colors.google
                     },
                     {
                         title: 'BÚSQUEDA AVANZADA',
-                        subtitle: 'TOP RESULTADOS',  // Acortado de "PRIMEROS RESULTADOS"
+                        subtitle: 'TOP RESULTADOS',
                         description: 'Palabras clave con intención de compra',
                         bgColor: colors.dark,
-                        accentColor: colors.google,
-                        icon: 'fa-solid fa-magnifying-glass' // Icono de búsqueda
+                        accentColor: colors.google
                     },
                     {
-                        title: 'DISPLAY & YOUTUBE',  // Acortado de "RED DISPLAY & YOUTUBE"
-                        subtitle: 'PRESENCIA',  // Acortado de "PRESENCIA IMPACTANTE"
+                        title: 'DISPLAY & YOUTUBE',
+                        subtitle: 'PRESENCIA',
                         description: 'Anuncios gráficos y videos efectivos',
                         bgColor: colors.dark,
-                        accentColor: colors.googleRed,
-                        icon: 'fa-brands fa-youtube' // Icono de YouTube
+                        accentColor: colors.googleRed
                     },
                     {
-                        title: 'ANÁLISIS',  // Acortado de "ANÁLISIS Y OPTIMIZACIÓN"
+                        title: 'ANÁLISIS',
                         subtitle: 'MEJORA CONSTANTE',
                         description: 'Machine learning para maximizar conversiones',
                         bgColor: colors.dark,
-                        accentColor: colors.googleYellow,
-                        icon: 'fa-solid fa-chart-pie' // Icono de gráfico circular
+                        accentColor: colors.googleYellow
                     }
                 ],
                 email: [
@@ -521,106 +578,96 @@
                         title: 'EMAIL MARKETING',
                         subtitle: 'CONEXIÓN DIRECTA',
                         description: 'Campañas que generan ventas',
-                        bgColor: colors.email,
-                        icon: 'fa-solid fa-envelope' // Icono de sobre
+                        bgColor: colors.email
                     },
                     {
                         title: 'AUTOMATIZACIÓN',
-                        subtitle: 'FLUJOS EFECTIVOS',  // Cambiado de "SECUENCIAS" a "FLUJOS"
+                        subtitle: 'FLUJOS EFECTIVOS',
                         description: 'Flujos para cada etapa del embudo',
                         bgColor: colors.dark,
-                        accentColor: colors.email,
-                        icon: 'fa-solid fa-robot' // Icono de robot
+                        accentColor: colors.email
                     },
                     {
                         title: 'SEGMENTACIÓN',
-                        subtitle: 'MENSAJES CLAVE',  // Acortado de "MENSAJES RELEVANTES"
+                        subtitle: 'MENSAJES CLAVE',
                         description: 'Emails personalizados por comportamiento',
                         bgColor: colors.dark,
-                        accentColor: colors.email,
-                        icon: 'fa-solid fa-users-viewfinder' // Icono de segmentación
+                        accentColor: colors.email
                     },
                     {
                         title: 'ANÁLISIS COMPLETO',
-                        subtitle: 'MÉTRICAS CLAVE',  // Acortado de "MÉTRICAS QUE IMPULSAN"
+                        subtitle: 'MÉTRICAS CLAVE',
                         description: 'Reportes detallados de resultados',
                         bgColor: colors.dark,
-                        accentColor: colors.email,
-                        icon: 'fa-solid fa-chart-column' // Icono de gráfico de columnas
+                        accentColor: colors.email
                     }
                 ],
                 chatbot: [
                     {
-                        title: 'CHATBOT IA',  // Acortado de "CHATBOT INTELIGENTE"
+                        title: 'CHATBOT IA',
                         subtitle: 'SERVICIO 24/7',
                         description: 'Atención automatizada que convierte',
-                        bgColor: colors.chatbot,
-                        icon: 'fa-solid fa-message' // Icono de mensaje
+                        bgColor: colors.chatbot
                     },
                     {
-                        title: 'DIÁLOGOS FLUIDOS',  // Cambiado de "CONVERSACIONES FLUIDAS"
-                        subtitle: 'IA AVANZADA',  // Acortado de "RESPUESTAS INTELIGENTES"
+                        title: 'DIÁLOGOS FLUIDOS',
+                        subtitle: 'IA AVANZADA',
                         description: 'IA que entiende preguntas complejas',
                         bgColor: colors.dark,
-                        accentColor: colors.chatbot,
-                        icon: 'fa-solid fa-comments' // Icono de conversación
+                        accentColor: colors.chatbot
                     },
                     {
-                        title: 'INTEGRACIÓN TOTAL',  // Cambiado de "COMPLETA" a "TOTAL"
-                        subtitle: 'MULTICANAL',  // Acortado de "ADAPTADO A TU NEGOCIO"
+                        title: 'INTEGRACIÓN TOTAL',
+                        subtitle: 'MULTICANAL',
                         description: 'Conectado con todos tus canales',
                         bgColor: colors.dark,
-                        accentColor: colors.chatbot,
-                        icon: 'fa-solid fa-code-branch' // Icono de integración
+                        accentColor: colors.chatbot
                     },
                     {
-                        title: 'RESULTADOS REALES',  // Cambiado de "CONCRETOS" a "REALES"
-                        subtitle: 'MÁS CONVERSIÓN',  // Acortado de "AUMENTO DE CONVERSIÓN"
+                        title: 'RESULTADOS REALES',
+                        subtitle: 'MÁS CONVERSIÓN',
                         description: 'Captura leads cuando más interesa',
                         bgColor: colors.dark,
-                        accentColor: colors.chatbot,
-                        icon: 'fa-solid fa-check-double' // Icono de doble check
+                        accentColor: colors.chatbot
                     }
                 ],
                 all: [
                     {
                         title: 'PAQUETE COMPLETO',
-                        subtitle: '4 SERVICIOS',  // Acortado de "4 SERVICIOS INTEGRADOS"
+                        subtitle: '4 SERVICIOS',
                         description: 'Solución integral por US$1000/mes',
-                        bgColor: '#333333',
-                        icon: 'fa-solid fa-crown' // Icono de corona
+                        bgColor: '#333333'
                     },
                     {
                         title: 'ESTRATEGIA 360°',
-                        subtitle: 'DIGITAL TOTAL',  // Acortado de "PRESENCIA DIGITAL TOTAL"
+                        subtitle: 'DIGITAL TOTAL',
                         description: 'Tráfico, conversión y fidelización',
                         bgColor: colors.dark,
-                        accentColor: colors.primary,
-                        icon: 'fa-solid fa-compass' // Icono de brújula
+                        accentColor: colors.primary
                     },
                     {
-                        title: 'AHORRO SUPERIOR',  // Cambiado de "SIGNIFICATIVO" a "SUPERIOR"
-                        subtitle: 'DESCUENTO',  // Acortado de "DESCUENTO ESPECIAL"
+                        title: 'AHORRO SUPERIOR',
+                        subtitle: 'DESCUENTO',
                         description: 'Ahorrás US$200 mensuales',
                         bgColor: colors.dark,
-                        accentColor: colors.primary,
-                        icon: 'fa-solid fa-piggy-bank' // Icono de ahorro
+                        accentColor: colors.primary
                     },
                     {
-                        title: 'SINERGIA',  // Acortado de "RESULTADOS AMPLIFICADOS"
-                        subtitle: 'MAYOR IMPACTO',  // Cambiado de "EL PODER DE LA SINERGIA"
+                        title: 'SINERGIA',
+                        subtitle: 'MAYOR IMPACTO',
                         description: 'Cada canal potencia a los demás',
                         bgColor: colors.dark,
-                        accentColor: colors.primary,
-                        icon: 'fa-solid fa-handshake' // Icono de sinergia
+                        accentColor: colors.primary
                     }
                 ]
             };
-
-            let activeService = 'optimizacion';
-            let activeFormat = 'square';
             
-            // Elementos DOM
+            // Estado actual
+            let activeService = 'optimizacion';
+            let activeFormat = 'square'; // 'square' o 'vertical'
+            let isProcessing = false; // Bandera para evitar múltiples descargas simultáneas
+            
+            // Elementos del DOM
             const serviceTitle = document.getElementById('serviceTitle');
             const creativesContainer = document.getElementById('creativesContainer');
             const tabButtons = document.querySelectorAll('.tab-button');
@@ -630,26 +677,7 @@
             const downloadBtn = document.getElementById('downloadBtn');
             const togglePracticesBtn = document.getElementById('togglePractices');
             const bestPracticesBox = document.querySelector('.best-practices');
-            const svgContainer = document.getElementById('svgContainer');
-            const statusDiv = document.getElementById('status');
-
-            // Mostrar mensajes de estado
-            function showStatus(message, isError = false) {
-                statusDiv.textContent = message;
-                statusDiv.style.display = 'block';
-                
-                if (isError) {
-                    statusDiv.style.backgroundColor = '#f8d7da';
-                    statusDiv.style.color = '#721c24';
-                } else {
-                    statusDiv.style.backgroundColor = '#d4edda';
-                    statusDiv.style.color = '#155724';
-                }
-                
-                setTimeout(() => {
-                    statusDiv.style.display = 'none';
-                }, 3000);
-            }
+            const creativeRenderArea = document.getElementById('creativeRenderArea');
             
             // Toggle para mejores prácticas
             togglePracticesBtn.addEventListener('click', () => {
@@ -679,13 +707,13 @@
             function getLogoBackgroundColor(bgColor) {
                 // Si el fondo es oscuro, usar un fondo claro y viceversa
                 if (bgColor === colors.dark || bgColor === '#333333') {
-                    return 'rgba(255, 255, 255, 0.2)'; // Fondo claro semi-transparente
+                    return '#444444'; // Fondo claro sólido
                 } else {
-                    return 'rgba(0, 0, 0, 0.2)'; // Fondo oscuro semi-transparente
+                    return '#222222'; // Fondo oscuro sólido
                 }
             }
             
-            // Función para renderizar creativos
+            // Función para renderizar creativos en la interfaz
             function renderCreatives() {
                 creativesContainer.innerHTML = '';
                 const creatives = creativesData[activeService];
@@ -749,18 +777,6 @@
                     descEl.textContent = creative.description;
                     contentEl.appendChild(descEl);
                     
-                    // Icono específico del servicio (nuevo)
-                    if (creative.icon) {
-                        const iconEl = document.createElement('div');
-                        iconEl.style.position = 'absolute';
-                        iconEl.style.bottom = '15px';
-                        iconEl.style.left = '15px';
-                        iconEl.style.fontSize = '18px';
-                        iconEl.style.opacity = '0.7';
-                        iconEl.innerHTML = `<i class="${creative.icon}"></i>`;
-                        contentEl.appendChild(iconEl);
-                    }
-                    
                     creativeEl.appendChild(contentEl);
                     
                     // Número
@@ -775,490 +791,327 @@
                     downloadEl.innerHTML = '<i class="fas fa-download"></i>';
                     downloadEl.addEventListener('click', (e) => {
                         e.stopPropagation(); // Evitar que se propague el evento
-                        downloadSVG(index);
+                        handleDownloadCreative(index);
                     });
                     creativeEl.appendChild(downloadEl);
                     
-                    // Mostrar previsualización del creativo con los mismos bordes redondeados
+                    // Mostrar previsualización del creativo
                     creativeEl.addEventListener('click', () => {
-                        downloadSVG(index);
+                        handleDownloadCreative(index);
                     });
                     
                     creativesContainer.appendChild(creativeEl);
                 });
             }
-
-            // Función para crear un SVG del creativo
-            function createSVG(index) {
+            
+            // Nueva función para crear un creativo sin iconos ni semi-transparencias
+            function createHiResCreative(index, format) {
                 const creative = creativesData[activeService][index];
                 const isFirst = index === 0;
-                const isVertical = activeFormat === 'vertical';
+                const isVertical = format === 'vertical';
                 
-                // Configurar dimensiones
-                const width = isVertical ? 1080 : 1080;
-                const height = isVertical ? 1920 : 1080;
+                // Crear el contenedor principal
+                const creativeEl = document.createElement('div');
+                creativeEl.className = `render-creative ${isVertical ? 'vertical' : 'square'}`;
+                creativeEl.style.backgroundColor = creative.bgColor;
+                creativeEl.style.position = 'relative';
+                creativeEl.style.overflow = 'hidden';
+                creativeEl.style.borderRadius = '8px';
                 
-                // Crear SVG
-                const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                svg.setAttribute("width", width);
-                svg.setAttribute("height", height);
-                svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                // Barra lateral (acento)
+                const accentEl = document.createElement('div');
+                accentEl.style.position = 'absolute';
+                accentEl.style.left = '0';
+                accentEl.style.background = isFirst ? colors.light : (creative.accentColor || colors.primary);
+                accentEl.style.zIndex = '10';
+                accentEl.style.borderRadius = '0 3px 3px 0';
                 
-                // Añadir fondo
-                const background = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                background.setAttribute("width", width);
-                background.setAttribute("height", height);
-                background.setAttribute("fill", creative.bgColor);
-                background.setAttribute("rx", "8");
-                background.setAttribute("ry", "8");
-                svg.appendChild(background);
-                
-                // Añadir patrón de fondo según el servicio
-                addBackgroundPattern(svg, activeService, width, height);
-                
-                // Añadir barra lateral (acento)
-                let accentPath;
                 if (isVertical) {
-                    // Para formato vertical
-                    const safeZoneTop = Math.round(height * 0.14);
+                    const safeZoneTop = Math.round(1920 * 0.14);
                     const accentY = safeZoneTop + 100;
-                    const accentHeight = height - accentY - safeZoneTop - 100;
+                    const accentHeight = 1920 - accentY - safeZoneTop - 100;
                     
-                    accentPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                    accentPath.setAttribute("d", `M0,${accentY} L0,${accentY + accentHeight} L16,${accentY + accentHeight} Q20,${accentY + accentHeight} 20,${accentY + accentHeight - 5} L20,${accentY + 5} Q20,${accentY} 16,${accentY} L0,${accentY}`);
-                    accentPath.setAttribute("fill", isFirst ? colors.light : (creative.accentColor || colors.primary));
+                    accentEl.style.top = `${accentY}px`;
+                    accentEl.style.width = '20px';
+                    accentEl.style.height = `${accentHeight}px`;
                 } else {
-                    // Para formato cuadrado
-                    accentPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                    accentPath.setAttribute("d", `M0,${height * 0.3} L0,${height * 0.6} L12,${height * 0.6} Q15,${height * 0.6} 15,${height * 0.6 - 3} L15,${height * 0.3 + 3} Q15,${height * 0.3} 12,${height * 0.3} L0,${height * 0.3}`);
-                    accentPath.setAttribute("fill", isFirst ? colors.light : (creative.accentColor || colors.primary));
-                }
-                svg.appendChild(accentPath);
-                
-                // Añadir contenedor del logo
-                const logoContainer = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                const logoBackgroundColor = getLogoBackgroundColor(creative.bgColor);
-                
-                if (isVertical) {
-                    const safeZoneTop = Math.round(height * 0.14);
-                    logoContainer.setAttribute("x", "30");
-                    logoContainer.setAttribute("y", `${safeZoneTop + 10}`);
-                    logoContainer.setAttribute("width", "200");
-                    logoContainer.setAttribute("height", "50");
-                } else {
-                    logoContainer.setAttribute("x", "30");
-                    logoContainer.setAttribute("y", "20");
-                    logoContainer.setAttribute("width", "200");
-                    logoContainer.setAttribute("height", "50");
+                    accentEl.style.top = '30%';
+                    accentEl.style.width = '15px';
+                    accentEl.style.height = '30%';
                 }
                 
-                logoContainer.setAttribute("rx", "4");
-                logoContainer.setAttribute("ry", "4");
-                logoContainer.setAttribute("fill", logoBackgroundColor);
-                svg.appendChild(logoContainer);
+                creativeEl.appendChild(accentEl);
                 
-                // Añadir logo
-                const logoText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                logoText.setAttribute("font-family", "Montserrat, sans-serif");
-                logoText.setAttribute("font-weight", "bold");
+                // Añadir contenedor de logo con fondo sólido
+                const logoContainerEl = document.createElement('div');
+                logoContainerEl.style.position = 'absolute';
+                logoContainerEl.style.backgroundColor = getLogoBackgroundColor(creative.bgColor);
+                logoContainerEl.style.borderRadius = '4px';
+                logoContainerEl.style.padding = '5px 10px';
+                logoContainerEl.style.zIndex = '20';
                 
                 if (isVertical) {
-                    const safeZoneTop = Math.round(height * 0.14);
-                    logoText.setAttribute("x", "40");
-                    logoText.setAttribute("y", `${safeZoneTop + 45}`);
-                    logoText.setAttribute("font-size", "36");
+                    const safeZoneTop = Math.round(1920 * 0.14);
+                    logoContainerEl.style.top = `${safeZoneTop + 10}px`;
+                    logoContainerEl.style.left = '30px';
                 } else {
-                    logoText.setAttribute("x", "40");
-                    logoText.setAttribute("y", "55");
-                    logoText.setAttribute("font-size", "30");
+                    logoContainerEl.style.top = '20px';
+                    logoContainerEl.style.left = '30px';
+                }
+                
+                // Logo
+                const logoEl = document.createElement('div');
+                logoEl.style.fontWeight = 'bold';
+                logoEl.style.fontFamily = "'Montserrat', sans-serif";
+                
+                if (isVertical) {
+                    logoEl.style.fontSize = '42px';
+                } else {
+                    logoEl.style.fontSize = '36px';
                 }
                 
                 if (isFirst) {
-                    // Logo Orange Vapor
-                    const orangeText = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
-                    orangeText.setAttribute("fill", colors.light);
-                    orangeText.textContent = "Orange ";
-                    
-                    const vaporText = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
-                    vaporText.setAttribute("fill", "#FF7E00");
-                    vaporText.textContent = "Vapor";
-                    
-                    logoText.appendChild(orangeText);
-                    logoText.appendChild(vaporText);
+                    logoEl.innerHTML = '<span style="color: white;">Orange</span> <span style="color: #FF7E00;">Vapor</span>';
                 } else {
-                    // Logo OV
-                    const oText = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
-                    oText.setAttribute("fill", colors.light);
-                    oText.textContent = "O";
-                    
-                    const vText = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
-                    vText.setAttribute("fill", "#FF7E00");
-                    vText.textContent = "V";
-                    
-                    logoText.appendChild(oText);
-                    logoText.appendChild(vText);
+                    logoEl.innerHTML = '<span style="color: white;">O</span><span style="color: #FF7E00;">V</span>';
                 }
                 
-                svg.appendChild(logoText);
+                logoContainerEl.appendChild(logoEl);
+                creativeEl.appendChild(logoContainerEl);
                 
-                // Añadir título
-                const titleText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                titleText.setAttribute("font-family", "Montserrat, sans-serif");
-                titleText.setAttribute("font-weight", "bold");
-                titleText.setAttribute("text-anchor", "middle");
+                // Contenido centrado
+                const contentEl = document.createElement('div');
+                contentEl.style.position = 'absolute';
+                contentEl.style.width = '100%';
+                contentEl.style.height = '100%';
+                contentEl.style.display = 'flex';
+                contentEl.style.flexDirection = 'column';
+                contentEl.style.justifyContent = 'center';
+                contentEl.style.alignItems = 'center';
+                contentEl.style.textAlign = 'center';
+                contentEl.style.padding = isVertical ? '0 40px' : '0 50px';
+                contentEl.style.zIndex = '5';
+                
+                // Título
+                const titleEl = document.createElement('div');
+                titleEl.style.fontFamily = "'Montserrat', sans-serif";
+                titleEl.style.fontWeight = 'bold';
+                titleEl.style.marginBottom = isVertical ? '50px' : '30px';
+                titleEl.style.width = '100%';
                 
                 if (isVertical) {
-                    titleText.setAttribute("x", `${width / 2}`);
-                    titleText.setAttribute("y", `${height / 2 - 200}`);
-                    titleText.setAttribute("font-size", "80");
+                    titleEl.style.fontSize = '80px';
+                    titleEl.style.lineHeight = '90px';
                 } else {
-                    titleText.setAttribute("x", `${width / 2}`);
-                    titleText.setAttribute("y", `${height / 2 - 80}`);
-                    titleText.setAttribute("font-size", "70");
+                    titleEl.style.fontSize = '70px';
+                    titleEl.style.lineHeight = '80px';
                 }
                 
-                titleText.setAttribute("fill", !isFirst && creative.accentColor ? creative.accentColor : colors.light);
-                titleText.textContent = creative.title;
-                svg.appendChild(titleText);
+                if (!isFirst && creative.accentColor) {
+                    titleEl.style.color = creative.accentColor;
+                } else {
+                    titleEl.style.color = colors.light;
+                }
                 
-                // Añadir fondo del subtítulo
-                const subtitleBg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                titleEl.textContent = creative.title;
+                contentEl.appendChild(titleEl);
+                
+                // Subtítulo con fondo sólido
+                const subtitleContainerEl = document.createElement('div');
+                subtitleContainerEl.style.display = 'inline-block';
+                subtitleContainerEl.style.backgroundColor = '#222222'; // Fondo sólido
+                subtitleContainerEl.style.borderRadius = '4px';
+                subtitleContainerEl.style.padding = isVertical ? '15px 30px' : '10px 20px';
+                subtitleContainerEl.style.marginBottom = isVertical ? '60px' : '40px';
+                
+                const subtitleEl = document.createElement('div');
+                subtitleEl.style.fontFamily = "'Montserrat', sans-serif";
+                subtitleEl.style.fontWeight = 'bold';
+                subtitleEl.style.color = colors.light;
                 
                 if (isVertical) {
-                    subtitleBg.setAttribute("x", `${width / 2 - 250}`);
-                    subtitleBg.setAttribute("y", `${height / 2 - 50}`);
-                    subtitleBg.setAttribute("width", "500");
-                    subtitleBg.setAttribute("height", "100");
+                    subtitleEl.style.fontSize = '56px';
                 } else {
-                    subtitleBg.setAttribute("x", `${width / 2 - 200}`);
-                    subtitleBg.setAttribute("y", `${height / 2 - 10}`);
-                    subtitleBg.setAttribute("width", "400");
-                    subtitleBg.setAttribute("height", "80");
+                    subtitleEl.style.fontSize = '46px';
                 }
                 
-                subtitleBg.setAttribute("rx", "4");
-                subtitleBg.setAttribute("ry", "4");
-                subtitleBg.setAttribute("fill", "rgba(0,0,0,0.25)");
-                svg.appendChild(subtitleBg);
+                subtitleEl.textContent = creative.subtitle;
+                subtitleContainerEl.appendChild(subtitleEl);
+                contentEl.appendChild(subtitleContainerEl);
                 
-                // Añadir subtítulo
-                const subtitleText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                subtitleText.setAttribute("font-family", "Montserrat, sans-serif");
-                subtitleText.setAttribute("font-weight", "bold");
-                subtitleText.setAttribute("text-anchor", "middle");
+                // Descripción
+                const descEl = document.createElement('div');
+                descEl.style.fontFamily = "'Montserrat', sans-serif";
+                descEl.style.color = '#FFFFFF'; // Color sólido blanco sin transparencia
                 
                 if (isVertical) {
-                    subtitleText.setAttribute("x", `${width / 2}`);
-                    subtitleText.setAttribute("y", `${height / 2 + 20}`);
-                    subtitleText.setAttribute("font-size", "56");
+                    descEl.style.fontSize = '42px';
+                    descEl.style.maxWidth = '800px';
                 } else {
-                    subtitleText.setAttribute("x", `${width / 2}`);
-                    subtitleText.setAttribute("y", `${height / 2 + 40}`);
-                    subtitleText.setAttribute("font-size", "46");
+                    descEl.style.fontSize = '36px';
+                    descEl.style.maxWidth = '700px';
                 }
                 
-                subtitleText.setAttribute("fill", colors.light);
-                subtitleText.textContent = creative.subtitle;
-                svg.appendChild(subtitleText);
+                descEl.textContent = creative.description;
+                contentEl.appendChild(descEl);
                 
-                // Añadir descripción
-                const descText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                descText.setAttribute("font-family", "Montserrat, sans-serif");
-                descText.setAttribute("text-anchor", "middle");
+                creativeEl.appendChild(contentEl);
+                
+                // Número (con fondo sólido)
+                const numberContainerEl = document.createElement('div');
+                numberContainerEl.style.position = 'absolute';
+                numberContainerEl.style.backgroundColor = '#444444'; // Fondo sólido
+                numberContainerEl.style.borderRadius = '50%';
+                numberContainerEl.style.display = 'flex';
+                numberContainerEl.style.alignItems = 'center';
+                numberContainerEl.style.justifyContent = 'center';
+                numberContainerEl.style.zIndex = '10';
+                numberContainerEl.style.color = colors.light;
+                numberContainerEl.style.fontFamily = "'Montserrat', sans-serif";
+                numberContainerEl.style.fontWeight = 'bold';
                 
                 if (isVertical) {
-                    descText.setAttribute("x", `${width / 2}`);
-                    descText.setAttribute("y", `${height / 2 + 150}`);
-                    descText.setAttribute("font-size", "42");
+                    const safeZoneBottom = 1920 - Math.round(1920 * 0.14);
+                    numberContainerEl.style.width = '80px';
+                    numberContainerEl.style.height = '80px';
+                    numberContainerEl.style.fontSize = '30px';
+                    numberContainerEl.style.right = '80px';
+                    numberContainerEl.style.bottom = `${1920 - safeZoneBottom + 80}px`;
                 } else {
-                    descText.setAttribute("x", `${width / 2}`);
-                    descText.setAttribute("y", `${height / 2 + 150}`);
-                    descText.setAttribute("font-size", "36");
+                    numberContainerEl.style.width = '60px';
+                    numberContainerEl.style.height = '60px';
+                    numberContainerEl.style.fontSize = '24px';
+                    numberContainerEl.style.right = '70px';
+                    numberContainerEl.style.bottom = '70px';
                 }
                 
-                descText.setAttribute("fill", "rgba(255,255,255,0.95)");
-                descText.textContent = creative.description;
-                svg.appendChild(descText);
+                numberContainerEl.textContent = `${index + 1}/4`;
+                creativeEl.appendChild(numberContainerEl);
                 
-                // Añadir icono
-                if (creative.icon) {
-                    // Usar un texto o círculo como placeholder para el icono
-                    const iconCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                    
-                    if (isVertical) {
-                        const safeZoneBottom = height - Math.round(height * 0.14);
-                        iconCircle.setAttribute("cx", "100");
-                        iconCircle.setAttribute("cy", `${safeZoneBottom - 100}`);
-                        iconCircle.setAttribute("r", "50");
-                    } else {
-                        iconCircle.setAttribute("cx", "80");
-                        iconCircle.setAttribute("cy", `${height - 80}`);
-                        iconCircle.setAttribute("r", "40");
-                    }
-                    
-                    iconCircle.setAttribute("fill", "rgba(255,255,255,0.1)");
-                    svg.appendChild(iconCircle);
-                    
-                    // Añadir un símbolo genérico para el icono
-                    const iconStar = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                    
-                    if (isVertical) {
-                        iconStar.setAttribute("x", "85");
-                        iconStar.setAttribute("y", `${height - Math.round(height * 0.14) - 85}`);
-                        iconStar.setAttribute("font-size", "36");
-                    } else {
-                        iconStar.setAttribute("x", "70");
-                        iconStar.setAttribute("y", `${height - 70}`);
-                        iconStar.setAttribute("font-size", "30");
-                    }
-                    
-                    iconStar.setAttribute("fill", "#FFFFFF");
-                    iconStar.setAttribute("font-family", "Arial");
-                    iconStar.textContent = "★";
-                    svg.appendChild(iconStar);
-                }
-                
-                // Añadir círculo para el número
-                const numberCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                
-                if (isVertical) {
-                    const safeZoneBottom = height - Math.round(height * 0.14);
-                    numberCircle.setAttribute("cx", `${width - 80}`);
-                    numberCircle.setAttribute("cy", `${safeZoneBottom - 80}`);
-                    numberCircle.setAttribute("r", "40");
-                } else {
-                    numberCircle.setAttribute("cx", `${width - 70}`);
-                    numberCircle.setAttribute("cy", `${height - 70}`);
-                    numberCircle.setAttribute("r", "30");
-                }
-                
-                numberCircle.setAttribute("fill", "rgba(255,255,255,0.2)");
-                svg.appendChild(numberCircle);
-                
-                // Añadir número
-                const numberText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                numberText.setAttribute("font-family", "Montserrat, sans-serif");
-                numberText.setAttribute("font-weight", "bold");
-                numberText.setAttribute("text-anchor", "middle");
-                
-                if (isVertical) {
-                    numberText.setAttribute("x", `${width - 80}`);
-                    numberText.setAttribute("y", `${height - Math.round(height * 0.14) - 70}`);
-                    numberText.setAttribute("font-size", "30");
-                } else {
-                    numberText.setAttribute("x", `${width - 70}`);
-                    numberText.setAttribute("y", `${height - 62}`);
-                    numberText.setAttribute("font-size", "24");
-                }
-                
-                numberText.setAttribute("fill", colors.light);
-                numberText.textContent = `${index + 1}/4`;
-                svg.appendChild(numberText);
-                
-                return svg;
+                return creativeEl;
             }
-
-            // Función para añadir patrón de fondo
-            function addBackgroundPattern(svg, service, width, height) {
-                const pattern = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                pattern.setAttribute("opacity", "0.05");
-                
-                switch (service) {
-                    case 'optimizacion':
-                        // Líneas diagonales
-                        for (let i = -height; i < width + height; i += 40) {
-                            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                            line.setAttribute("x1", `${i}`);
-                            line.setAttribute("y1", "0");
-                            line.setAttribute("x2", `${i + height}`);
-                            line.setAttribute("y2", `${height}`);
-                            line.setAttribute("stroke", "#FFFFFF");
-                            line.setAttribute("stroke-width", "2");
-                            pattern.appendChild(line);
-                        }
-                        break;
+            
+            // Función para renderizar y capturar un creativo
+            async function renderAndCaptureCreative(index, format) {
+                return new Promise((resolve, reject) => {
+                    try {
+                        // Limpiar el área de renderizado
+                        creativeRenderArea.innerHTML = '';
                         
-                    case 'meta':
-                        // Patrón de círculos
-                        for (let i = 0; i < width; i += 80) {
-                            for (let j = 0; j < height; j += 80) {
-                                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                                circle.setAttribute("cx", `${i}`);
-                                circle.setAttribute("cy", `${j}`);
-                                circle.setAttribute("r", "15");
-                                circle.setAttribute("stroke", "#FFFFFF");
-                                circle.setAttribute("fill", "none");
-                                pattern.appendChild(circle);
+                        // Crear el creativo en alta resolución (sin iconos ni semi-transparencias)
+                        const creativeEl = createHiResCreative(index, format);
+                        creativeRenderArea.appendChild(creativeEl);
+                        
+                        // Asegurarse de que todos los recursos estén cargados
+                        setTimeout(async () => {
+                            try {
+                                // Capturar con html2canvas con configuración optimizada
+                                const canvas = await html2canvas(creativeEl, {
+                                    scale: 1, // Ya está en tamaño real
+                                    allowTaint: true,
+                                    useCORS: true,
+                                    logging: false,
+                                    backgroundColor: null,
+                                    imageTimeout: 0
+                                });
+                                
+                                // Convertir a imagen
+                                const dataUrl = canvas.toDataURL('image/png');
+                                
+                                // Limpiar
+                                creativeRenderArea.innerHTML = '';
+                                
+                                resolve(dataUrl);
+                            } catch (error) {
+                                console.error('Error en html2canvas:', error);
+                                reject(error);
                             }
-                        }
-                        break;
-                        
-                    case 'google':
-                        // Patrón de cuadrados
-                        for (let i = 0; i < width; i += 70) {
-                            for (let j = 0; j < height; j += 70) {
-                                const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                                rect.setAttribute("x", `${i}`);
-                                rect.setAttribute("y", `${j}`);
-                                rect.setAttribute("width", "10");
-                                rect.setAttribute("height", "10");
-                                rect.setAttribute("fill", "#FFFFFF");
-                                pattern.appendChild(rect);
-                            }
-                        }
-                        break;
-                        
-                    case 'email':
-                        // Patrón de ondas
-                        for (let j = 0; j < height; j += 60) {
-                            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                            let d = `M0,${j}`;
-                            
-                            for (let i = 0; i < width; i += 5) {
-                                d += ` L${i},${j + Math.sin(i * 0.05) * 10}`;
-                            }
-                            
-                            path.setAttribute("d", d);
-                            path.setAttribute("stroke", "#FFFFFF");
-                            path.setAttribute("fill", "none");
-                            pattern.appendChild(path);
-                        }
-                        break;
-                        
-                    case 'chatbot':
-                        // Patrón de puntos
-                        for (let i = 0; i < width; i += 20) {
-                            for (let j = 0; j < height; j += 20) {
-                                if (Math.random() > 0.7) {
-                                    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                                    rect.setAttribute("x", `${i}`);
-                                    rect.setAttribute("y", `${j}`);
-                                    rect.setAttribute("width", "3");
-                                    rect.setAttribute("height", "3");
-                                    rect.setAttribute("fill", "#FFFFFF");
-                                    pattern.appendChild(rect);
-                                }
-                            }
-                        }
-                        break;
-                        
-                    case 'all':
-                        // Patrón de cuadrícula
-                        for (let i = 0; i < width; i += 100) {
-                            const vLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                            vLine.setAttribute("x1", `${i}`);
-                            vLine.setAttribute("y1", "0");
-                            vLine.setAttribute("x2", `${i}`);
-                            vLine.setAttribute("y2", `${height}`);
-                            vLine.setAttribute("stroke", "#FFFFFF");
-                            vLine.setAttribute("stroke-width", "1");
-                            pattern.appendChild(vLine);
-                        }
-                        
-                        for (let j = 0; j < height; j += 100) {
-                            const hLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                            hLine.setAttribute("x1", "0");
-                            hLine.setAttribute("y1", `${j}`);
-                            hLine.setAttribute("x2", `${width}`);
-                            hLine.setAttribute("y2", `${j}`);
-                            hLine.setAttribute("stroke", "#FFFFFF");
-                            hLine.setAttribute("stroke-width", "1");
-                            pattern.appendChild(hLine);
-                        }
-                        break;
-                }
-                
-                svg.appendChild(pattern);
+                        }, 500); // Dar tiempo para que se complete el renderizado
+                    } catch (error) {
+                        console.error('Error al preparar el renderizado:', error);
+                        reject(error);
+                    }
+                });
             }
-
-            // Función para descargar SVG como imagen PNG
-            function downloadSVG(index) {
-                showStatus("Generando imagen...");
+            
+            // Función para manejar la descarga de un creativo
+            function handleDownloadCreative(index) {
+                if (isProcessing) return;
+                isProcessing = true;
+                
+                // Mostrar un mensaje o indicador de carga
+                const loadingMsg = document.createElement('div');
+                loadingMsg.innerHTML = '<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#222;color:#fff;padding:20px;border-radius:10px;z-index:1000;"><div class="loading-spinner"></div> Generando imagen...</div>';
+                document.body.appendChild(loadingMsg);
+                
+                // Renderizar y capturar el creativo
+                renderAndCaptureCreative(index, activeFormat).then(imageUrl => {
+                    // Eliminar mensaje de carga
+                    document.body.removeChild(loadingMsg);
+                    
+                    // Descargar directamente
+                    const link = document.createElement('a');
+                    link.href = imageUrl;
+                    link.download = `${activeService}-${activeFormat === 'vertical' ? 'vertical' : 'cuadrado'}-${index + 1}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Finalizar procesamiento
+                    isProcessing = false;
+                }).catch(error => {
+                    console.error('Error al capturar el creativo:', error);
+                    
+                    // Eliminar mensaje de carga
+                    document.body.removeChild(loadingMsg);
+                    
+                    // Mostrar mensaje de error
+                    alert('Error al generar la imagen. Por favor intenta de nuevo.');
+                    
+                    // Finalizar procesamiento
+                    isProcessing = false;
+                });
+            }
+            
+            // Función para descargar todos los creativos
+            async function downloadAllCreatives() {
+                if (isProcessing) return;
+                isProcessing = true;
+                
+                // Cambiar el texto del botón a "Descargando..."
+                const originalButtonText = downloadBtn.innerHTML;
+                downloadBtn.innerHTML = '<div class="loading-spinner"></div> Descargando...';
                 
                 try {
-                    // Crear SVG
-                    const svg = createSVG(index);
-                    
-                    // Convertir SVG a cadena
-                    const serializer = new XMLSerializer();
-                    const svgStr = serializer.serializeToString(svg);
-                    
-                    // Codificar SVG para URL
-                    const svgBlob = new Blob([svgStr], {type: "image/svg+xml;charset=utf-8"});
-                    const url = URL.createObjectURL(svgBlob);
-                    
-                    // Crear imagen para convertir SVG a PNG
-                    const img = new Image();
-                    img.onload = function() {
+                    // Crear un zip para todos los creativos
+                    for (let i = 0; i < 4; i++) {
                         try {
-                            // Crear canvas para dibujar la imagen
-                            const canvas = document.createElement("canvas");
-                            canvas.width = activeFormat === 'vertical' ? 1080 : 1080;
-                            canvas.height = activeFormat === 'vertical' ? 1920 : 1080;
+                            // Mostrar progreso
+                            downloadBtn.innerHTML = `<div class="loading-spinner"></div> Descargando ${i+1}/4...`;
                             
-                            const ctx = canvas.getContext("2d");
-                            ctx.drawImage(img, 0, 0);
+                            // Renderizar y capturar el creativo
+                            const imageUrl = await renderAndCaptureCreative(i, activeFormat);
                             
-                            // Convertir a PNG y descargar
-                            const imgURL = canvas.toDataURL("image/png");
+                            // Descargar la imagen
+                            const link = document.createElement('a');
+                            link.href = imageUrl;
+                            link.download = `${activeService}-${activeFormat === 'vertical' ? 'vertical' : 'cuadrado'}-${i + 1}.png`;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
                             
-                            const downloadLink = document.createElement("a");
-                            downloadLink.download = `${activeService}-${activeFormat === 'vertical' ? 'vertical' : 'cuadrado'}-${index + 1}.png`;
-                            downloadLink.href = imgURL;
-                            downloadLink.click();
-                            
-                            // Liberar URL
-                            URL.revokeObjectURL(url);
-                            
-                            showStatus("¡Imagen descargada con éxito!");
+                            // Esperar un momento entre descargas
+                            await new Promise(resolve => setTimeout(resolve, 1000));
                         } catch (error) {
-                            console.error("Error al convertir SVG a PNG:", error);
-                            showStatus("Error al generar la imagen. Intentando método alternativo...", true);
-                            
-                            // Método alternativo: descargar directamente el SVG
-                            try {
-                                const downloadLink = document.createElement("a");
-                                downloadLink.download = `${activeService}-${activeFormat === 'vertical' ? 'vertical' : 'cuadrado'}-${index + 1}.svg`;
-                                downloadLink.href = url;
-                                downloadLink.click();
-                                
-                                showStatus("Se descargó como SVG. Puedes convertirlo a PNG con una herramienta externa.");
-                            } catch (fallbackError) {
-                                console.error("Error en método alternativo:", fallbackError);
-                                showStatus("No se pudo descargar la imagen. Por favor intenta de nuevo.", true);
-                            }
+                            console.error(`Error al procesar el creativo ${i+1}:`, error);
                         }
-                    };
-                    
-                    img.onerror = function() {
-                        console.error("Error al cargar SVG como imagen");
-                        showStatus("Error al cargar la imagen. Intentando método alternativo...", true);
-                        
-                        // Método alternativo directo
-                        const downloadLink = document.createElement("a");
-                        downloadLink.download = `${activeService}-${activeFormat === 'vertical' ? 'vertical' : 'cuadrado'}-${index + 1}.svg`;
-                        downloadLink.href = url;
-                        downloadLink.click();
-                        
-                        showStatus("Se descargó como SVG. Puedes convertirlo a PNG con una herramienta externa.");
-                    };
-                    
-                    img.src = url;
+                    }
                 } catch (error) {
-                    console.error("Error al generar SVG:", error);
-                    showStatus("Error al generar la imagen: " + error.message, true);
-                }
-            }
-
-            // Función para descargar todos los creativos
-            function downloadAllCreatives() {
-                showStatus("Preparando descarga de todos los creativos...");
-                
-                // Descargar creativos secuencialmente
-                for (let i = 0; i < 4; i++) {
-                    setTimeout(() => {
-                        downloadSVG(i);
-                    }, i * 1500); // 1.5 segundos entre descargas
+                    console.error('Error al descargar todos los creativos:', error);
+                } finally {
+                    // Restaurar el texto original del botón
+                    downloadBtn.innerHTML = originalButtonText;
+                    isProcessing = false;
                 }
             }
             
@@ -1306,24 +1159,8 @@
             
             downloadBtn.addEventListener('click', downloadAllCreatives);
             
-            // Toggle para mejores prácticas
-            togglePracticesBtn.addEventListener('click', () => {
-                if (bestPracticesBox.style.display === 'none') {
-                    bestPracticesBox.style.display = 'block';
-                    togglePracticesBtn.textContent = 'Ocultar mejores prácticas';
-                } else {
-                    bestPracticesBox.style.display = 'none';
-                    togglePracticesBtn.textContent = 'Ver mejores prácticas aplicadas';
-                }
-            });
-            
             // Inicializar
             updateUI();
-            
-            // Mostrar mensaje inicial
-            setTimeout(() => {
-                showStatus("Sistema de exportación SVG listo. Haz clic en cualquier creativo para descargarlo.");
-            }, 1000);
         }
     </script>
 </body>
