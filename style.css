@@ -1633,135 +1633,145 @@ p {
 /* ==========================================================================
    SECCIÓN PROCESO
    ========================================================================== */
+/* Estilos para la sección del plan mejorada */
 .plan-section {
-    padding: var(--espaciado-xl) 0;
-    background-color: var(--fondo-claro);
+    padding: 80px 0;
+    background-color: #f9f9f9;
     position: relative;
-    overflow: hidden;
-    background-image: 
-        radial-gradient(circle at 10% 10%, rgba(255, 126, 0, 0.03) 0%, transparent 60%),
-        radial-gradient(circle at 90% 90%, rgba(255, 159, 69, 0.05) 0%, transparent 70%);
 }
 
 .proceso-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 50px 0;
     position: relative;
-    max-width: 900px;
-    margin: 60px auto 0;
-    padding: 0 20px;
-}
-
-.proceso-timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 3px;
-    background-color: var(--naranja-claro);
-    transform: translateX(-50%);
-    z-index: 0;
 }
 
 .proceso-paso {
     display: flex;
-    align-items: flex-start;
+    gap: 20px;
     position: relative;
-    margin-bottom: 70px;
-    counter-increment: step-counter;
-    transition: transform 0.3s ease;
-    padding: 25px 30px;
-    border-radius: 16px;
-    background-color: var(--blanco);
-    box-shadow: var(--sombra-suave);
-    width: calc(50% - 40px);
-    z-index: 1;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .proceso-paso:hover {
     transform: translateY(-5px);
-    box-shadow: var(--sombra-media);
-}
-
-.proceso-paso:last-child {
-    margin-bottom: 0;
-}
-
-.proceso-paso:nth-child(odd) {
-    margin-right: auto;
-}
-
-.proceso-paso:nth-child(even) {
-    margin-left: auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .paso-numero {
-    width: 60px;
-    height: 60px;
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-    border-radius: 50%;
-    font-size: 28px;
-    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 0 6px white, 0 8px 20px rgba(255, 126, 0, 0.25);
-    position: absolute;
-    top: 0;
-    z-index: 5;
-    transition: all 0.3s ease;
-}
-
-.proceso-paso:nth-child(odd) .paso-numero {
-    right: -30px;
-}
-
-.proceso-paso:nth-child(even) .paso-numero {
-    left: -30px;
-}
-
-.proceso-paso:hover .paso-numero {
-    transform: scale(1.1);
-    background-color: var(--naranja-oscuro);
+    width: 50px;
+    height: 50px;
+    background-color: #ff7e00;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .paso-contenido {
-    width: 100%;
+    flex: 1;
 }
 
 .paso-icono {
-    width: 70px;
-    height: 70px;
-    background-color: rgba(255, 126, 0, 0.1);
-    color: var(--naranja-principal);
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
-    border: 2px dashed rgba(255, 126, 0, 0.2);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(255, 126, 0, 0.1);
+    margin-bottom: 15px;
 }
 
-.proceso-paso:hover .paso-icono {
-    background-color: rgba(255, 126, 0, 0.2);
-    transform: rotate(10deg);
+.paso-icono i {
+    font-size: 24px;
+    color: #ff7e00;
 }
 
 .paso-contenido h3 {
-    font-size: var(--texto-xl);
-    color: var(--naranja-oscuro);
-    margin-bottom: 12px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    margin: 0 0 10px;
+    color: #333;
+    font-size: 22px;
 }
 
 .paso-contenido p {
-    color: var(--texto-claro);
     margin: 0;
-    line-height: 1.7;
-    font-size: var(--texto-md);
+    line-height: 1.6;
+    color: #666;
+}
+
+.plan-options {
+    margin: 15px 0 0;
+    padding-left: 20px;
+}
+
+.plan-options li {
+    margin-bottom: 10px;
+    position: relative;
+    list-style-type: none;
+}
+
+.plan-options li:before {
+    content: "•";
+    color: #ff7e00;
+    font-weight: bold;
+    position: absolute;
+    left: -20px;
+}
+
+.destacado {
+    color: #ff7e00;
+    font-weight: 600;
+}
+
+.cta-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Si ya tienes estilos para .btn-lg, puedes omitir esta parte */
+.btn-lg {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #ff7e00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 126, 0, 0.3);
+}
+
+.btn-lg:hover {
+    background-color: #e67100;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 126, 0, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .proceso-paso {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+    
+    .paso-numero {
+        margin-bottom: 15px;
+    }
 }
 
 /* ==========================================================================
