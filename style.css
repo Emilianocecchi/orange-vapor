@@ -604,13 +604,70 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN SERVICIOS
+   SECCIÓN SERVICIOS FUSIONADA
    ========================================================================== */
-.servicios {
+.servicios-fusionados {
     background-color: var(--gris-claro);
     padding: var(--espaciado-xl) 0;
 }
 
+.servicios-fusionados .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Espacio entre las dos subsecciones */
+.servicios-mensuales-contenido {
+    margin-top: var(--espaciado-xl);
+    padding-top: var(--espaciado-lg);
+    position: relative;
+}
+
+.servicios-mensuales-contenido::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 5%;
+    right: 5%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--naranja-principal), transparent);
+    opacity: 0.3;
+}
+
+/* Estilos para el título de planes mensuales */
+.planes-titulo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: var(--espaciado-lg);
+}
+
+.planes-titulo h3 {
+    font-size: var(--texto-2xl);
+    margin-bottom: var(--espaciado-sm);
+    color: var(--texto-oscuro);
+    position: relative;
+}
+
+.planes-titulo h3::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: var(--naranja-principal);
+}
+
+.planes-titulo p {
+    color: var(--texto-claro);
+    max-width: 700px;
+    margin: var(--espaciado-sm) auto 0;
+}
+
+/* Servicios Grid */
 .servicios-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -817,33 +874,7 @@ p {
     color: white;
 }
 
-/* ==========================================================================
-   SECCIÓN SERVICIOS MENSUALES
-   ========================================================================== */
-.servicios-mensuales {
-    background-color: var(--fondo-claro);
-    padding: var(--espaciado-xl) 0;
-    position: relative;
-}
-
-.servicios-mensuales::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 80% 10%, rgba(255, 126, 0, 0.05), transparent 70%),
-        radial-gradient(circle at 20% 90%, rgba(255, 126, 0, 0.05), transparent 70%);
-    z-index: 0;
-}
-
-.servicios-mensuales .container {
-    position: relative;
-    z-index: 1;
-}
-
+/* Servicios Mensuales Grid */
 .servicios-mensuales-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1431,209 +1462,157 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN DESAFÍOS
+   SECCIÓN DESAFÍOS COMPACTO
    ========================================================================== */
-.desafios {
+.desafios-compacto {
     background-color: var(--blanco);
-    padding: var(--espaciado-xl) 0;
+    padding: var(--espaciado-lg) 0;
     position: relative;
 }
 
-.desafios::before {
+.desafios-compacto::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to bottom, rgba(245, 245, 245, 0.5), var(--blanco));
+    background-image: linear-gradient(to bottom, rgba(245, 245, 245, 0.3), transparent);
     z-index: 0;
 }
 
-.desafios .container {
+.desafios-compacto .container {
     position: relative;
     z-index: 1;
 }
 
-.desafios-intro {
+.desafios-compacto .desafios-intro {
     text-align: center;
-    margin-bottom: var(--espaciado-lg);
-}
-
-.desafios-intro h2 {
-    text-align: center;
-    position: relative;
-    padding-bottom: var(--espaciado-sm);
     margin-bottom: var(--espaciado-md);
-    color: var(--texto-oscuro);
-    font-size: var(--texto-3xl);
 }
 
-.desafios-intro h2::after {
+.desafios-compacto .desafios-intro h3 {
+    font-size: var(--texto-2xl);
+    color: var(--texto-oscuro);
+    margin-bottom: var(--espaciado-sm);
+    position: relative;
+    display: inline-block;
+}
+
+.desafios-compacto .desafios-intro h3::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
+    width: 60px;
+    height: 2px;
     background-color: var(--naranja-principal);
 }
 
-.desafios-grid {
+/* Grid compacto para los desafíos */
+.desafios-grid-compacto {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--espaciado-lg);
-    margin-top: var(--espaciado-lg);
+    gap: var(--espaciado-md);
+    margin: 0 auto;
     max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-.desafio-item {
-    position: relative;
-    background-color: var(--blanco);
-    padding: var(--espaciado-md) var(--espaciado-lg);
-    border-radius: var(--borde-redondo-lg);
-    box-shadow: var(--sombra-media);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Rediseño de los items de desafío */
+.desafios-compacto .desafio-item {
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
+    padding: var(--espaciado-md);
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-md);
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     gap: var(--espaciado-sm);
 }
 
-.desafio-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-fuerte);
+.desafios-compacto .desafio-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-media);
 }
 
-.desafio-icon {
-    font-size: var(--texto-xl);
-    width: 60px;
-    height: 60px;
+.desafios-compacto .desafio-icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--blanco);
-    background: var(--naranja-gradiente);
     border-radius: 50%;
-    box-shadow: var(--sombra-media);
-    margin-bottom: var(--espaciado-sm);
+    background: linear-gradient(135deg, var(--naranja-principal), var(--naranja-secundario));
+    color: var(--blanco);
+    font-size: 18px;
+    box-shadow: var(--sombra-suave);
 }
 
-/* Nuevo elemento para el título del desafío */
-.desafio-titulo {
+.desafios-compacto .desafio-contenido {
+    flex: 1;
+}
+
+.desafios-compacto .desafio-titulo {
+    display: block;
     font-family: var(--fuente-principal);
     font-weight: 700;
-    font-size: var(--texto-lg);
+    font-size: var(--texto-md);
     color: var(--naranja-principal);
     margin-bottom: 5px;
-    display: block;
 }
 
-.desafio-item p {
-    color: var(--texto-oscuro);
-    font-size: var(--texto-md);
-    line-height: 1.6;
-    font-weight: 400;
+.desafios-compacto .desafio-item p {
+    color: var(--texto-claro);
+    font-size: var(--texto-base);
+    line-height: 1.5;
     margin: 0;
 }
 
-/* Destacar estadísticas */
-.desafio-stat {
+.desafios-compacto .desafio-stat {
     font-weight: 700;
     color: var(--naranja-oscuro);
 }
 
-.desafios-mensaje-container {
-    margin-top: var(--espaciado-xl);
-    position: relative;
-    background: transparent;
+/* Contenedor del mensaje */
+.desafios-mensaje-container-compacto {
+    margin-top: var(--espaciado-md);
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.desafios-frustracion {
+.desafios-compacto .desafios-mensaje-content {
+    padding: var(--espaciado-md);
+    background-color: rgba(255, 126, 0, 0.03);
+    border-radius: var(--borde-redondo-md);
+    border: 1px solid rgba(255, 126, 0, 0.1);
     text-align: center;
-    margin-bottom: var(--espaciado-md);
 }
 
-.desafios-frustracion-badge {
+.desafios-compacto .experiencia-badge {
     display: inline-block;
-    font-weight: 700;
-    font-size: var(--texto-xl);
-    color: var(--naranja-principal);
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.desafios-frustracion-badge::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50%;
-    height: 2px;
-    background-color: var(--naranja-principal);
-}
-
-.desafios-mensaje-content {
-    background-color: var(--blanco);
-    padding: var(--espaciado-lg);
-    border-radius: var(--borde-redondo-lg);
-    box-shadow: var(--sombra-media);
-    text-align: center;
-    position: relative;
-}
-
-.desafios-mensaje-content::before {
-    content: '\f4ad'; /* Código de FontAwesome para un icono de comentario */
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 60px;
-    background-color: var(--blanco);
-    border-radius: 50%;
-    box-shadow: var(--sombra-suave);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    font-size: 24px;
-    color: var(--naranja-principal);
-}
-
-.experiencia-badge {
-    display: inline-block;
-    font-size: var(--texto-md);
+    font-size: var(--texto-sm);
     font-weight: 700;
     color: var(--naranja-principal);
-    margin-bottom: var(--espaciado-md);
-    padding: 8px 20px;
+    padding: 5px 15px;
     background-color: var(--naranja-claro);
     border-radius: var(--borde-redondo-full);
-    box-shadow: var(--sombra-suave);
+    margin-bottom: var(--espaciado-sm);
 }
 
-.desafios-mensaje-texto {
+.desafios-compacto .desafios-mensaje-texto {
     font-size: var(--texto-md);
-    line-height: 1.8;
-    max-width: 800px;
-    margin: 0 auto;
-    font-weight: 400;
+    line-height: 1.6;
+    color: var(--texto-claro);
+    margin: 0;
 }
 
 /* ==========================================================================
-   SECCIÓN PROCESO
+   SECCIÓN PLAN MEJORADO
    ========================================================================== */
-.plan-section {
+.plan-mejorado {
     padding: var(--espaciado-xl) 0;
     background-color: var(--fondo-claro);
     position: relative;
@@ -1643,6 +1622,155 @@ p {
         radial-gradient(circle at 90% 90%, rgba(255, 159, 69, 0.05) 0%, transparent 70%);
 }
 
+.plan-mejorado .proceso-paso {
+    padding: 25px 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Contenedor para las opciones del paso 2 */
+.opciones-container-rediseno {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+    max-width: 900px;
+    margin: -20px auto 60px;
+    z-index: 5;
+    position: relative;
+}
+
+/* Elemento conector entre las opciones */
+.conectador-opciones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.conectador-opciones span {
+    background-color: var(--blanco);
+    color: var(--texto-claro);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--sombra-suave);
+    font-weight: 700;
+    font-style: italic;
+    position: relative;
+    border: 2px solid var(--gris-borde);
+    z-index: 3;
+}
+
+.conectador-opciones::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    right: -20px;
+    height: 2px;
+    background-color: var(--gris-borde);
+    z-index: 1;
+}
+
+/* Tarjetas de opción */
+.opcion-card {
+    flex: 1;
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: var(--sombra-media);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 450px;
+}
+
+.opcion-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-fuerte);
+}
+
+/* Cabecera de la tarjeta */
+.opcion-header {
+    padding: var(--espaciado-sm) var(--espaciado-md);
+    display: flex;
+    align-items: center;
+    gap: var(--espaciado-sm);
+    background-color: rgba(245, 245, 245, 0.5);
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+.opcion-icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: var(--texto-md);
+}
+
+.opcion-card h4 {
+    margin: 0;
+    font-weight: 700;
+    font-size: var(--texto-lg);
+    color: var(--texto-oscuro);
+}
+
+/* Cuerpo de la tarjeta */
+.opcion-body {
+    padding: var(--espaciado-md);
+}
+
+.opcion-precio {
+    display: inline-flex;
+    align-items: baseline;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: var(--borde-redondo-md);
+    padding: 8px 15px;
+    margin-bottom: var(--espaciado-sm);
+    box-shadow: var(--sombra-suave);
+    border: 1px solid var(--gris-borde);
+}
+
+.opcion-body p {
+    margin: 0;
+    font-size: var(--texto-md);
+    color: var(--texto-claro);
+    line-height: 1.6;
+}
+
+/* Estilos específicos para cada opción */
+.express-opcion {
+    border-top: 4px solid #dc3545;
+}
+
+.express-opcion .opcion-icon {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.express-highlight {
+    color: #dc3545;
+}
+
+.mensual-opcion {
+    border-top: 4px solid var(--naranja-principal);
+}
+
+.mensual-opcion .opcion-icon {
+    background-color: rgba(255, 126, 0, 0.1);
+    color: var(--naranja-principal);
+}
+
+.precio-destacado {
+    color: var(--naranja-principal);
+    font-weight: 700;
+}
+
+/* Estilos de la línea de tiempo del proceso */
 .proceso-timeline {
     position: relative;
     max-width: 900px;
@@ -1675,10 +1803,6 @@ p {
     box-shadow: var(--sombra-suave);
     width: calc(50% - 40px);
     z-index: 1;
-}
-
-.proceso-paso-expandido {
-    padding-bottom: 40px;
 }
 
 .proceso-paso:hover {
@@ -1768,136 +1892,6 @@ p {
     font-size: var(--texto-md);
 }
 
-/* Nuevos estilos para las opciones ramificadas */
-.opciones-container {
-    display: flex;
-    flex-direction: column;
-    gap: 35px;
-    margin-top: 30px;
-    position: relative;
-}
-
-.opciones-container::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 30px;
-    width: 2px;
-    height: calc(100% + 10px);
-    background-color: var(--naranja-claro);
-    z-index: 0;
-}
-
-.opcion {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--fondo-claro);
-    border-radius: var(--borde-redondo-md);
-    padding: 25px;
-    box-shadow: var(--sombra-suave);
-    position: relative;
-    z-index: 1;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-left: 50px;
-}
-
-.opcion::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -30px;
-    width: 30px;
-    height: 2px;
-    background-color: var(--naranja-claro);
-    transform: translateY(-50%);
-}
-
-.opcion:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-media);
-}
-
-.opcion-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 15px;
-    font-size: 24px;
-}
-
-.opcion-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.opcion-precio {
-    display: inline-flex;
-    align-items: baseline;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: var(--borde-redondo-md);
-    padding: 5px 12px;
-    box-shadow: var(--sombra-suave);
-}
-
-.precio-valor {
-    font-size: var(--texto-md);
-    font-weight: 700;
-    color: var(--texto-oscuro);
-}
-
-.precio-periodo {
-    font-size: var(--texto-xs);
-    color: var(--texto-claro);
-    margin-left: 2px;
-}
-
-.precio-destacado {
-    color: var(--naranja-principal);
-    font-weight: 700;
-}
-
-.express-opcion {
-    border-left: 4px solid #dc3545;
-}
-
-.express-opcion .opcion-icon {
-    background-color: rgba(220, 53, 69, 0.1);
-    color: #dc3545;
-}
-
-.express-highlight {
-    color: #dc3545;
-    font-weight: 700;
-}
-
-.mensual-opcion {
-    border-left: 4px solid var(--naranja-principal);
-}
-
-.mensual-opcion .opcion-icon {
-    background-color: var(--naranja-claro);
-    color: var(--naranja-principal);
-}
-
-.opcion h4 {
-    margin-bottom: 0;
-    font-weight: 700;
-    font-size: var(--texto-md);
-}
-
-.opcion p {
-    margin: 0;
-    color: var(--texto-claro);
-    font-size: var(--texto-base);
-}
-
 /* Estilo para la palabra Gratuita */
 .gratuito-highlight {
     color: #28a745;
@@ -1914,32 +1908,6 @@ p {
     height: 2px;
     background-color: #28a745;
     opacity: 0.3;
-}
-
-/* Media queries existentes */
-@media (max-width: 1024px) {
-    .proceso-timeline::before {
-        left: 20px;
-    }
-    
-    .proceso-paso {
-        width: 100%;
-        padding-left: 70px;
-    }
-    
-    .proceso-paso:nth-child(odd),
-    .proceso-paso:nth-child(even) {
-        margin-left: 30px;
-    }
-    
-    .proceso-paso:nth-child(odd) .paso-numero,
-    .proceso-paso:nth-child(even) .paso-numero {
-        left: -30px;
-    }
-
-    .opciones-container::before {
-        left: 25px;
-    }
 }
 
 /* Estilos para el CTA del proceso */
@@ -1984,52 +1952,6 @@ p {
     }
 }
 
-/* Media queries adicionales para las nuevas opciones */
-@media (max-width: 768px) {
-    .proceso-paso {
-        padding: 25px 20px 25px 60px;
-        margin-bottom: 60px;
-    }
-
-    .opcion-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-    
-    .opciones-container {
-        margin-left: 0;
-        gap: 30px;
-    }
-    
-    .opcion {
-        margin-left: 35px;
-        padding: 20px;
-    }
-    
-    .opciones-container::before {
-        left: 15px;
-    }
-
-    .opcion::before {
-        width: 20px;
-        left: -20px;
-    }
-}
-
-@media (max-width: 576px) {
-    .proceso-paso {
-        padding: 20px 15px 20px 55px;
-    }
-    
-    .opcion {
-        margin-left: 25px;
-    }
-    
-    .opcion-precio {
-        padding: 3px 8px;
-    }
-}
 /* ==========================================================================
    SECCIÓN RESULTADOS
    ========================================================================== */
@@ -2248,86 +2170,6 @@ p {
 
 .cta-box .btn {
     margin-top: 0;
-}
-
-/* ==========================================================================
-   SECCIÓN POR QUÉ ELEGIRNOS
-   ========================================================================== */
-.por-que {
-    background-color: var(--gris-claro);
-    position: relative;
-    overflow: hidden;
-}
-
-.valores-combinados {
-    background-color: var(--fondo-claro);
-    padding: var(--espaciado-xl) 0;
-}
-
-.beneficios-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--espaciado-md);
-    margin-top: var(--espaciado-lg);
-}
-
-.beneficio-card {
-    background-color: var(--blanco);
-    padding: var(--espaciado-md);
-    border-radius: var(--borde-redondo-md);
-    text-align: center;
-    transition: transform var(--transicion-media), box-shadow var(--transicion-media);
-    height: 100%;
-}
-
-.beneficio-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-media);
-}
-
-.beneficio-icon {
-    width: 70px;
-    height: 70px;
-    background-color: var(--naranja-claro);
-    color: var(--naranja-principal);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin: 0 auto var(--espaciado-md);
-    font-size: var(--texto-xl);
-}
-
-.beneficio-card h4 {
-    color: var(--texto-oscuro);
-    margin-bottom: var(--espaciado-sm);
-    font-weight: 700;
-}
-
-.beneficio-card p {
-    color: var(--texto-claro);
-    margin-bottom: 0;
-}
-
-.beneficio-card.destacado {
-    border-left: 4px solid var(--naranja-principal);
-    box-shadow: var(--sombra-media);
-}
-
-.beneficio-card.destacado .beneficio-icon {
-    color: var(--naranja-principal);
-    background-color: var(--naranja-claro);
-}
-
-.beneficio-card.destacado h4 {
-    color: var(--naranja-principal);
-}
-
-.valores-grid-reducida {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 /* ==========================================================================
@@ -2679,10 +2521,6 @@ body .calendly-inline-widget iframe {
         min-height: auto;
     }
     
-    .valores-grid-reducida {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
     .contacto-content {
         flex-direction: column;
     }
@@ -2713,6 +2551,37 @@ body .calendly-inline-widget iframe {
     .proceso-paso:nth-child(odd) .paso-numero,
     .proceso-paso:nth-child(even) .paso-numero {
         left: -30px;
+    }
+    
+    .opciones-container-rediseno {
+        flex-direction: column;
+        align-items: center;
+        max-width: 500px;
+        margin-bottom: 40px;
+    }
+    
+    .opcion-card {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .conectador-opciones {
+        margin: 10px 0;
+    }
+    
+    .conectador-opciones::before {
+        left: 50%;
+        right: auto;
+        top: -20px;
+        bottom: -20px;
+        width: 2px;
+        height: auto;
+        transform: translateX(-50%);
+    }
+    
+    .desafios-grid-compacto {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--espaciado-sm);
     }
 }
 
@@ -2752,13 +2621,12 @@ body .calendly-inline-widget iframe {
         padding: 20px;
     }
     
-    .beneficios-grid,
     .servicios-grid,
     .team-grid {
         grid-template-columns: 1fr;
     }
     
-    .desafios-grid {
+    .desafios-grid-compacto {
         grid-template-columns: 1fr;
     }
     
@@ -2798,6 +2666,30 @@ body .calendly-inline-widget iframe {
     .express-box-garantia {
         max-width: none;
     }
+    
+    .plan-mejorado .proceso-paso {
+        padding: 20px 15px 20px 60px;
+    }
+    
+    .opcion-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--espaciado-sm);
+    }
+    
+    .opcion-body {
+        padding: var(--espaciado-sm);
+    }
+    
+    .desafios-compacto .desafio-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .desafios-compacto .desafio-icon {
+        margin-bottom: var(--espaciado-xs);
+    }
 }
 
 @media (max-width: 576px) {
@@ -2832,15 +2724,6 @@ body .calendly-inline-widget iframe {
         text-align: center;
     }
     
-    .desafio-item {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .desafio-icon {
-        margin-bottom: var(--espaciado-sm);
-    }
-    
     .btn-flotante {
         padding: 10px 15px;
         font-size: var(--texto-sm);
@@ -2850,5 +2733,19 @@ body .calendly-inline-widget iframe {
     
     .calendly-inline-widget {
         height: 800px !important;
+    }
+    
+    .plan-mejorado .proceso-paso {
+        padding: 15px 10px 15px 55px;
+    }
+    
+    .opcion-precio {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .servicios-mensuales-contenido::before {
+        left: 0;
+        right: 0;
     }
 }
