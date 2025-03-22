@@ -95,6 +95,10 @@
             background-color: #333333;
             border-color: #333333;
         }
+        .tab-button.auditoria.active {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
         
         /* Selector de color */
         .color-toggle {
@@ -367,6 +371,60 @@
             border-radius: 4px;
             text-align: center;
         }
+
+        /* Ad Copy Section Styles */
+        .ad-copy-section {
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .ad-copy-section h3 {
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .ad-copy-container {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .ad-copy-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #444;
+            white-space: pre-line;
+        }
+        
+        .copy-btn {
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto 0;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #e9e9e9;
+        }
+        
+        .copy-btn i {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
@@ -379,6 +437,7 @@
         <!-- Tabs de servicios -->
         <div class="tabs">
             <div class="tab-group">
+                <button class="tab-button auditoria" data-service="auditoria">Auditoría Gratis</button>
                 <button class="tab-button optimizacion active" data-service="optimizacion">Optimización Express</button>
                 <button class="tab-button meta" data-service="meta">Meta Ads</button>
                 <button class="tab-button google" data-service="google">Google Ads</button>
@@ -454,6 +513,19 @@
             <p>Dimensiones: 1080x1080 píxeles y 1080x1920 píxeles (imágenes descargadas en alta resolución)</p>
         </div>
         
+        <!-- Ad Copy Section -->
+        <div class="ad-copy-section">
+            <h3>Copy para Anuncio con Emojis</h3>
+            <div class="ad-copy-container">
+                <p id="adCopyText" class="ad-copy-text">
+                    <!-- El copy se inserta dinámicamente aquí -->
+                </p>
+                <button id="copyBtn" class="copy-btn">
+                    <i class="fas fa-copy"></i> Copiar
+                </button>
+            </div>
+        </div>
+        
         <!-- Canvas para descargar (oculto) -->
         <canvas id="downloadCanvas"></canvas>
     </div>
@@ -465,6 +537,7 @@
             dark: '#181818',
             light: '#ffffff',
             // Nuevos colores
+            auditoria: '#28a745',  // Verde para Auditoría Gratis
             optimizacion: '#dc3545', // Rojo para Optimización Express
             meta: '#1877F2',      // Azul para Meta Ads
             google: '#4285F4',    // Azul de Google
@@ -477,6 +550,12 @@
         
         // Datos de creativos single image (consolidados)
         const creativesData = {
+            auditoria: {
+                title: 'AUDITORÍA GRATIS',
+                subtitle: 'DIAGNÓSTICO COMPLETO',
+                description: 'Sin costo • Sin compromiso\nResultados en 48hs • Servicio profesional',
+                bgColor: colors.auditoria
+            },
             optimizacion: {
                 title: 'OPTIMIZACIÓN EXPRESS',
                 subtitle: '+20% EN VENTAS',
@@ -515,6 +594,132 @@
             }
         };
         
+        // Datos de copy para anuncios
+        const adCopyData = {
+            auditoria: `🔍 ¡AUDITORÍA GRATUITA DE TUS ADS! 🔍
+
+¿Tus campañas de publicidad están desperdiciando presupuesto? 💸 
+
+En Orange Vapor te ofrecemos un diagnóstico profesional COMPLETAMENTE GRATIS de tus campañas de Meta y Google Ads.
+
+✅ Descubrí dónde estás perdiendo dinero
+✅ Conocé lo que tus competidores hacen mejor
+✅ Recibí un plan concreto para mejorar resultados
+✅ Sin compromiso ni letra pequeña
+
+👉 Luego podés elegir: optimizamos tus campañas en 48hs o gestionamos tus ads mensualmente.
+
+¡No sigas perdiendo clientes! Agendá ahora tu auditoría gratuita en 👇
+www.orangevapor.com`,
+            
+            optimizacion: `⚡ OPTIMIZACIÓN EXPRESS EN 48HS ⚡
+
+¿Sabías que el 67% de las empresas desperdician su presupuesto de publicidad? 😱
+
+Aplicamos nuestro sistema de Detección de Fugas™ para arreglar tus campañas de ads en solo 48 horas.
+
+✅ +20% en ventas con el mismo presupuesto
+✅ Diagnóstico completo de problemas actuales
+✅ Estructura optimizada de campañas
+✅ Solo US$299 (pago único)
+✅ Garantía de resultado o pagás la mitad
+
+👉 La semana pasada ahorramos $4,300 a un cliente que desperdiciaba presupuesto.
+
+¡No pierdas más tiempo y dinero! 💰 Contactanos ahora 👇
+www.orangevapor.com`,
+            
+            meta: `📱 MULTIPLICA TUS VENTAS CON META ADS 📱
+
+Si tu ROI en Facebook e Instagram no supera el 200%, estás dejando dinero sobre la mesa... 💰
+
+Nuestro método ROI First™ encuentra exactamente a los clientes que SÍ COMPRAN (no solo los que hacen clic).
+
+✅ +45% en ventas comprobables
+✅ ROAS 2.8x garantizado 
+✅ -35% en costo por adquisición
+✅ Audiencias de alta conversión
+
+👉 Solo US$299/mes con compromiso de resultados.
+
+Tu competencia ya está aprovechando esto. ¿Y vos? 🤔
+
+Hablemos hoy 👇
+www.orangevapor.com`,
+            
+            google: `🔎 DOMINÁ GOOGLE ADS Y ESCALA TU NEGOCIO 🔎
+
+¿Te costó encontrarnos? A tus clientes también les cuesta encontrarte a vos. 😯
+
+Posicionamos tu negocio en búsquedas con alto potencial de conversión a través de estrategias avanzadas de Google Ads.
+
+✅ ROAS 2.8x promedio en nuestros clientes
+✅ Combinación de Búsqueda + Display + YouTube
+✅ Keywords ultra-rentables que tu competencia ignora
+✅ Optimización continua del Quality Score
+
+👉 Solo US$299/mes con compromiso de resultados.
+
+¡Dejá de ser invisible para tus clientes ideales! 💼
+
+Contactanos hoy 👇
+www.orangevapor.com`,
+            
+            email: `📧 EMAIL MARKETING QUE VENDE MIENTRAS DORMÍS 📧
+
+El 82% de los leads se pierden por falta de seguimiento automático... 😴
+
+Nuestras secuencias de nurturing convierten prospectos en clientes recurrentes sin que tengas que hacer nada.
+
+✅ +38% tasa de apertura (vs. 18% promedio)
+✅ Segmentación por comportamiento
+✅ Automatización de seguimiento y ventas
+✅ Contenido personalizado que convierte
+
+👉 Solo US$299/mes con compromiso de resultados.
+
+Tu lista de emails es una mina de oro sin explotar. ¡Aprovechala ahora! 💎
+
+Contactanos hoy 👇
+www.orangevapor.com`,
+            
+            chatbot: `🤖 CHATBOT IA: TU VENDEDOR 24/7 QUE NUNCA DUERME 🤖
+
+Mientras tu competencia deja escapar leads fuera del horario laboral, vos podés capturarlos todos. ⏰
+
+Nuestros chatbots con IA están diseñados para convertir visitantes en clientes en cualquier momento.
+
+✅ -70% en costos de atención
+✅ +35% en tasa de conversión
+✅ Integración con WhatsApp, web, y redes sociales
+✅ Captura proactiva de leads 24/7
+
+👉 Solo US$299/mes con compromiso de resultados.
+
+¡Nunca más pierdas un cliente potencial por no estar disponible! 💬
+
+Hablemos hoy 👇
+www.orangevapor.com`,
+            
+            all: `🚀 PAQUETE COMPLETO: ESTRATEGIA DIGITAL 360° 🚀
+
+¿Por qué elegir solo un canal cuando podés dominarlos todos? 🔄
+
+Combinamos Meta Ads + Google Ads + Email Marketing + Chatbot IA para una estrategia integral que maximiza cada punto de contacto con tus clientes.
+
+✅ Mayor ROI garantizado
+✅ Gestión completa de canales digitales
+✅ Coherencia en mensajes y experiencia
+✅ US$1000/mes (¡ahorrás US$200!)
+
+👉 Una estrategia 360° por menos que contratar una persona.
+
+La diferencia entre crecer o estancarse está en la estrategia integral. 📈
+
+Contactanos hoy 👇
+www.orangevapor.com`
+        };
+        
         // Estado actual
         let activeService = 'optimizacion';
         let activeFormat = 'square'; // 'square' o 'vertical'
@@ -533,6 +738,27 @@
         const togglePracticesBtn = document.getElementById('togglePractices');
         const bestPracticesBox = document.querySelector('.best-practices');
         const downloadCanvas = document.getElementById('downloadCanvas');
+        const adCopyText = document.getElementById('adCopyText');
+        const copyBtn = document.getElementById('copyBtn');
+        
+        // Función para copiar texto al portapapeles
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = adCopyText.textContent;
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Error al copiar: ', err);
+                    copyBtn.innerHTML = '<i class="fas fa-times"></i> Error';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+                    }, 2000);
+                });
+        });
         
         // Toggle para mejores prácticas
         togglePracticesBtn.addEventListener('click', () => {
@@ -548,6 +774,7 @@
         // Función para obtener título según el servicio
         function getServiceTitle(service) {
             switch (service) {
+                case 'auditoria': return 'Creativos Single Image para Auditoría Gratuita';
                 case 'optimizacion': return 'Creativos Single Image para Optimización Express';
                 case 'meta': return 'Creativos Single Image para Meta Ads';
                 case 'google': return 'Creativos Single Image para Google Ads';
@@ -703,6 +930,14 @@
             });
             
             creativesContainer.appendChild(creativeEl);
+            
+            // Actualizar el copy para anuncios
+            updateAdCopy();
+        }
+        
+        // Función para actualizar el copy del anuncio
+        function updateAdCopy() {
+            adCopyText.textContent = adCopyData[activeService] || "Copy de anuncio no disponible para este servicio.";
         }
 
         // Función para mostrar el modal de carga
