@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creativos Orange Vapor - Campañas de Tráfico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #2c2c2c;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .tab-group {
+            display: inline-flex;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+        .tab-button {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: white;
+            color: #333;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tab-button:first-child {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
+        .tab-button:last-child {
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+        .tab-button.active {
+            color: white;
+        }
+        .tab-button.optimizacion.active {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .tab-button.meta.active {
+            background-color: #1877F2;
+            border-color: #1877F2;
+        }
+        .tab-button.google.active {
+            background-color: #4285F4;
+            border-color: #4285F4;
+        }
+        .tab-button.email.active {
+            background-color: #00829b;
+            border-color: #00829b;
+        }
+        .tab-button.chatbot.active {
+            background-color: #6f42c1;
+            border-color: #6f42c1;
+        }
+        .tab-button.all.active {
+            background-color: #333333;
+            border-color: #333333;
+        }
+        .tab-button.auditoria.active {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        
+        /* Selector de color */
+        .color-toggle {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .color-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            display: inline-block;
+            border: 2px solid #ddd;
+            transition: all 0.2s ease;
+            overflow: hidden;
+        }
+        .color-btn.active {
+            border-color: #ff7e00;
+            transform: scale(1.1);
+        }
+        .color-btn-original {
+            background: linear-gradient(135deg, #dc3545 25%, #1877F2 25%, #1877F2 50%, #4285F4 50%, #4285F4 75%, #6f42c1 75%);
+        }
+        .color-btn-orange {
+            background-color: #ff7e00;
+        }
+        .color-btn-white {
+            background-color: #ffffff;
+            border: 2px solid #ccc;
+        }
+        .color-btn-black {
+            background-color: #181818;
+        }
+        
+        .download-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .download-btn {
+            background: #ff7e00;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(255, 126, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            background: #e67300;
+            transform: translateY(-2px);
+        }
+        .creatives-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .creative {
+            width: 360px;
+            height: 360px;
+            margin: 10px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: white;
+            cursor: pointer;
+        }
+        .creative-vertical {
+            width: 240px;
+            height: 427px;
+        }
+        .creative-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .creative-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        .creative-subtitle {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        .creative-description {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .creative-accent {
+            position: absolute;
+            left: 0;
+            top: 30%;
+            width: 6px;
+            height: 100px;
+            background: white;
+            border-radius: 0 3px 3px 0;
+            z-index: 10;
+        }
+        .creative-download {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(68, 68, 68, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+        .creative:hover .creative-download {
+            opacity: 1;
+        }
+        .note {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 12px;
+        }
+        .info-box {
+            background-color: #e6f7ff;
+            border-left: 4px solid #1890ff;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 4px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .info-box i {
+            color: #1890ff;
+            font-size: 20px;
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+        .info-box p {
+            color: #333;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.5;
+        }
+        .format-toggle {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .format-btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .format-btn.active {
+            background-color: #ff7e00;
+            color: white;
+            border-color: #ff7e00;
+        }
+        .best-practices {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .best-practices h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .best-practices ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .best-practices li {
+            font-size: 13px;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .toggle-practices {
+            display: block;
+            margin: 10px auto;
+            background: none;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        /* Estilo para el logo, sin fondo */
+        .logo-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            z-index: 20;
+        }
+
+        /* Estilos para el modal de carga */
+        .loading-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loading-container {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 4px solid rgba(0,0,0,.1);
+            border-radius: 50%;
+            border-top-color: #ff7e00;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Canvas oculto */
+        #downloadCanvas {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+        }
+        
+        /* Text area style */
+        .text-20-indicator {
+            padding: 8px 12px;
+            font-size: 13px;
+            background-color: rgba(255, 126, 0, 0.1);
+            border: 1px solid #ff7e00;
+            color: #666;
+            margin: 10px 0;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /* Ad Copy Section Styles */
+        .ad-copy-section {
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .ad-copy-section h3 {
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .ad-copy-container {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .ad-copy-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #444;
+            white-space: pre-line;
+        }
+        
+        .copy-btn {
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto 0;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #e9e9e9;
+        }
+        
+        .copy-btn i {
+            margin-right: 8px;
+        }
+
+        /* Campaña tipo indicador */
+        .campaign-type-indicator {
+            background-color: #f8fafa;
+            border: 1px dashed #1890ff;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 15px 0;
+            text-align: center;
+            color: #1890ff;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="serviceTitle">Creativos de Tráfico para Optimización Express</h1>
+            <p>Anuncios diseñados para maximizar tráfico hacia Orange Vapor (Single Image)</p>
+        </div>
+        
+        <!-- Indicador de campaña -->
+        <div class="campaign-type-indicator">
+            <i class="fas fa-globe"></i>
+            <span>Campañas Optimizadas para Tráfico al Sitio Web</span>
+        </div>
+        
+        <!-- Tabs de servicios -->
+        <div class="tabs">
+            <div class="tab-group">
+                <button class="tab-button auditoria" data-service="auditoria">Auditoría Gratis</button>
+                <button class="tab-button optimizacion active" data-service="optimizacion">Optimización Express</button>
+                <button class="tab-button meta" data-service="meta">Meta Ads</button>
+                <button class="tab-button google" data-service="google">Google Ads</button>
+                <button class="tab-button email" data-service="email">Email Marketing</button>
+                <button class="tab-button chatbot" data-service="chatbot">Chatbot</button>
+                <button class="tab-button all" data-service="all">Paquete Completo</button>
+            </div>
+        </div>
+        
+        <!-- Selector de formato -->
+        <div class="format-toggle">
+            <button id="squareBtn" class="format-btn active">Cuadrado (1080x1080)</button>
+            <button id="verticalBtn" class="format-btn">Vertical (1080x1920)</button>
+        </div>
+        
+        <!-- Selector de color de fondo -->
+        <div class="color-toggle">
+            <div class="color-btn color-btn-original active" data-color="original" title="Color original del servicio"></div>
+            <div class="color-btn color-btn-orange" data-color="orange" title="Fondo naranja"></div>
+            <div class="color-btn color-btn-white" data-color="white" title="Fondo blanco"></div>
+            <div class="color-btn color-btn-black" data-color="black" title="Fondo negro"></div>
+        </div>
+        
+        <!-- Sección de descarga -->
+        <div class="download-section">
+            <button id="downloadBtn" class="download-btn">
+                <i class="fas fa-download"></i>
+                Descargar Creativo
+            </button>
+        </div>
+        
+        <!-- Mensaje informativo -->
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i>
+            <div>
+                <p><strong>Instrucciones:</strong></p>
+                <p>1. Selecciona el tipo de servicio que deseas generar.</p>
+                <p>2. Elige el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
+                <p>3. Selecciona el color de fondo (original, naranja, blanco o negro).</p>
+                <p>4. Haz clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
+                <p>5. También puedes descargar el creativo pasando el mouse sobre la imagen y haciendo clic en el icono de descarga.</p>
+            </div>
+        </div>
+        
+        <!-- Indicador de texto 20% -->
+        <div class="text-20-indicator">
+            <i class="fas fa-check-circle" style="color: #00b300;"></i>
+            Texto optimizado (menos del 20% del espacio) - Aprobado para Meta Ads
+        </div>
+        
+        <!-- Mejores prácticas (colapsable) -->
+        <div class="best-practices" style="display: none;">
+            <h3>Mejores Prácticas para Anuncios de Tráfico:</h3>
+            <ul>
+                <li><strong>Mensajes intrigantes</strong> - Copy que genera curiosidad y fomenta el clic</li>
+                <li><strong>Imágenes de alto impacto</strong> - Elementos visuales llamativos que captan atención</li>
+                <li><strong>Menos del 20% de texto</strong> - Facebook penaliza anuncios con exceso de texto</li>
+                <li><strong>Colores contrastantes</strong> - Ajuste automático del contraste según el fondo seleccionado</li>
+                <li><strong>Mensajes de valor</strong> - Propuesta de valor clara sobre lo que encontrarán en el sitio</li>
+                <li><strong>Llamada a la acción clara</strong> - CTA enfocado en visitar, descubrir, explorar</li>
+                <li><strong>Composición centrada</strong> - Elementos principales visibles a primera vista</li>
+            </ul>
+        </div>
+        <button class="toggle-practices" id="togglePractices">Ver mejores prácticas para tráfico</button>
+        
+        <!-- Contenedor de creativos -->
+        <div id="creativesContainer" class="creatives-container">
+            <!-- El creativo se inserta dinámicamente aquí -->
+        </div>
+        
+        <!-- Nota de especificaciones -->
+        <div class="note">
+            <p>Dimensiones: 1080x1080 píxeles y 1080x1920 píxeles (imágenes descargadas en alta resolución)</p>
+        </div>
+        
+        <!-- Ad Copy Section -->
+        <div class="ad-copy-section">
+            <h3>Copy para Anuncio de Tráfico con Emojis</h3>
+            <div class="ad-copy-container">
+                <p id="adCopyText" class="ad-copy-text">
+                    <!-- El copy se inserta dinámicamente aquí -->
+                </p>
+                <button id="copyBtn" class="copy-btn">
+                    <i class="fas fa-copy"></i> Copiar
+                </button>
+            </div>
+        </div>
+        
+        <!-- Canvas para descargar (oculto) -->
+        <canvas id="downloadCanvas"></canvas>
+    </div>
+    
+    <script>
+        // Colores actualizados para cada servicio
+        const colors = {
+            primary: '#ff7e00', // Naranja original
+            dark: '#181818',
+            light: '#ffffff',
+            // Nuevos colores
+            auditoria: '#28a745',  // Verde para Auditoría Gratis
+            optimizacion: '#dc3545', // Rojo para Optimización Express
+            meta: '#1877F2',      // Azul para Meta Ads
+            google: '#4285F4',    // Azul de Google
+            googleRed: '#DB4437', // Rojo de Google 
+            googleYellow: '#F4B400', // Amarillo de Google
+            googleGreen: '#0F9D58', // Verde de Google
+            email: '#00829b',     // Verde azulado para Email Marketing
+            chatbot: '#6f42c1'    // Lila para Chatbot
+        };
+        
+        // Datos de creativos single image para campañas de TRÁFICO
+        const creativesData = {
+            auditoria: {
+                title: '¿SABES SI TUS ADS FUNCIONAN?',
+                subtitle: 'DESCUBRE LA VERDAD',
+                description: 'Revelaremos los secretos de tu rendimiento\nY te diremos qué hacen tus competidores',
+                bgColor: colors.auditoria
+            },
+            optimizacion: {
+                title: '¿DESPERDICIANDO PRESUPUESTO?',
+                subtitle: 'AVERIGUA CÓMO SOLUCIONARLO',
+                description: 'Diagnóstico completo • Sistema anti-fugas\nResultados en 48hs • Estrategias probadas',
+                bgColor: colors.optimizacion
+            },
+            meta: {
+                title: 'EL SECRETO DE FACEBOOK ADS',
+                subtitle: '¿POR QUÉ NO FUNCIONAN TUS ANUNCIOS?',
+                description: 'Descubre cómo encontrar a tus clientes ideales\nMétodo exclusivo • Historias de éxito',
+                bgColor: colors.meta
+            },
+            google: {
+                title: 'DOMINA GOOGLE ADS',
+                subtitle: '5 ESTRATEGIAS DESCONOCIDAS',
+                description: 'Aprende técnicas que tu competencia ignora\nMétodos respaldados por expertos de Google',
+                bgColor: colors.google
+            },
+            email: {
+                title: 'TU EMAIL MARKETING FALLA',
+                subtitle: '3 RAZONES SORPRENDENTES',
+                description: 'La #2 es la que más impacta en tus resultados\nSoluciones que puedes implementar hoy mismo',
+                bgColor: colors.email
+            },
+            chatbot: {
+                title: 'CHATBOTS REVOLUCIONARIOS',
+                subtitle: 'EL FUTURO DE LA ATENCIÓN',
+                description: 'Atrae y convierte clientes mientras duermes\nDescubre por qué los líderes ya los utilizan',
+                bgColor: colors.chatbot
+            },
+            all: {
+                title: 'MARKETING DIGITAL 360°',
+                subtitle: '¿CUÁL ES TU PUNTO DÉBIL?',
+                description: 'Estrategia integral • Método comprobado\nCasos de éxito • Guía exclusiva gratis',
+                bgColor: '#333333'
+            }
+        };
+        
+        // Datos de copy para anuncios ENFOCADOS EN TRÁFICO
+        const adCopyData = {
+            auditoria: `🔍 ¿Y SI SUPIERAS EXACTAMENTE DÓNDE ESTÁ FALLANDO TU MARKETING DIGITAL? 🔍
+
+¿Alguna vez te has preguntado por qué tus competidores parecen tener mejores resultados con sus anuncios? 💡
+
+Lo que estás a punto de descubrir podría cambiar por completo tu estrategia de marketing...
+
+✅ Revelamos los errores ocultos en tus campañas
+✅ Analizamos qué está funcionando para tu competencia
+✅ Compartimos estrategias que nadie te ha contado antes
+✅ 100% gratuito y sin compromiso
+
+👉 Visita nuestra web y descubre por qué el 67% de las empresas desperdician su presupuesto publicitario sin saberlo.
+
+¿Te atreves a conocer la verdad sobre tus anuncios? 🤔
+
+➡️ www.orangevapor.com`,
+            
+            optimizacion: `⚡ 3 SEÑALES DE QUE ESTÁS DESPERDICIANDO TU PRESUPUESTO DE ADS ⚡
+
+Si tu negocio sufre de alguno de estos síntomas, estás dejando escapar miles de dólares cada mes... 💸
+
+¿Cómo saber si eres parte del 73% de empresas que tiran su dinero en publicidad digital?
+
+✅ Clics altos pero pocas conversiones
+✅ Costo por adquisición en constante aumento
+✅ Competidores que aparecen en todas partes
+
+👉 En nuestro blog revelamos el método de "Detección de Fugas™" que está revolucionando los resultados de empresas como la tuya.
+
+Descubre la solución que la semana pasada ahorró $4,300 a un cliente que desperdiciaba presupuesto.
+
+¿Quieres saber más? Visita ahora 👇
+www.orangevapor.com`,
+            
+            meta: `📱 DESCUBRE EL ALGORITMO SECRETO DE FACEBOOK 📱
+
+¿Por qué algunos anuncios en Facebook reciben miles de clics mientras otros pasan desapercibidos? 🤔
+
+Lo que estamos a punto de revelarte ha estado oculto a plena vista...
+
+✅ El patrón matemático detrás de los anuncios más exitosos
+✅ Por qué la segmentación tradicional está obsoleta
+✅ Cómo encontrar a tu audiencia perfecta sin gastar fortunas
+✅ El método ROI First™ que está revolucionando el marketing
+
+👉 Nuestro último análisis ha destapado algo que las grandes agencias no quieren que sepas.
+
+Accede a nuestra guía exclusiva y descubre las estrategias que tus competidores usan para dominar Meta Ads.
+
+¿Estás listo para la verdad? Haz clic ahora 👇
+www.orangevapor.com`,
+            
+            google: `🔎 EL SECRETO DE GOOGLE QUE NADIE TE HA CONTADO 🔎
+
+Lo que estás a punto de descubrir sobre Google Ads ha estado escondido a simple vista... 👀
+
+¿Alguna vez te has preguntado por qué algunos negocios aparecen siempre en los primeros resultados pagando menos que tú?
+
+✅ El factor oculto del Quality Score que Google no revela
+✅ Las 3 métricas que realmente importan (no son las que crees)
+✅ Por qué las keywords de "alta búsqueda" te están costando fortunas
+✅ El método secreto de pujas que utilizan los profesionales
+
+👉 Nuestro último artículo revela las estrategias que solo conocen el 5% de los anunciantes de Google.
+
+¿Quieres formar parte del selecto grupo que domina realmente Google Ads?
+
+Descubre todos los secretos aquí 👇
+www.orangevapor.com`,
+            
+            email: `📧 ¿POR QUÉ TUS EMAILS ACABAN EN "SPAM" O "PROMOCIONES"? 📧
+
+El 82% de los emails de marketing nunca llegan realmente a la bandeja principal... 😮
+
+Pero hay un grupo selecto de empresas que logran tasas de apertura 3 veces superiores a la media. ¿Cómo lo hacen?
+
+✅ El punto exacto donde falla tu estrategia actual
+✅ Los 5 errores que disparan las alarmas de spam
+✅ La fórmula secreta para asuntos irresistibles
+✅ El patrón que distingue a los emails exitosos
+
+👉 Nuestra última investigación revela técnicas que hacen que tus emails sean leídos, no solo entregados.
+
+¿Quieres descubrir por qué tus competidores están obteniendo más ventas con menos envíos?
+
+Accede ahora a nuestro estudio exclusivo 👇
+www.orangevapor.com`,
+            
+            chatbot: `🤖 LA REVOLUCIÓN SILENCIOSA QUE ESTÁ TRANSFORMANDO EL SERVICIO AL CLIENTE 🤖
+
+Mientras la mayoría de empresas duermen, una tecnología está cambiando las reglas del juego... ⏰
+
+¿Sabías que el 40% de los clientes prefieren interactuar con un chatbot antes que esperar a un humano?
+
+✅ La nueva generación de IA que está redefiniendo la atención al cliente
+✅ Por qué los chatbots actuales son solo la punta del iceberg
+✅ Casos reales: empresas que redujeron costos en un 70%
+✅ El método para implementar IA sin conocimientos técnicos
+
+👉 Nuestro último informe explora cómo esta tecnología está creando una ventaja competitiva para quienes la adoptan primero.
+
+¿Estás preparado para la próxima ola de innovación o te quedarás rezagado?
+
+Descubre el futuro antes que tu competencia 👇
+www.orangevapor.com`,
+            
+            all: `🚀 EL MAPA SECRETO DEL MARKETING DIGITAL EXITOSO 🚀
+
+¿Qué tienen en común las empresas que dominan el mundo digital? 🔄
+
+Hemos analizado más de 100 casos de éxito y descubrimos un patrón sorprendente que pocos conocen...
+
+✅ La fórmula exacta del marketing digital que genera resultados
+✅ Por qué los enfoques aislados están destinados al fracaso
+✅ El ciclo virtuoso que multiplica cada resultado
+✅ La estrategia 360° que minimiza costos y maximiza conversiones
+
+👉 Nuestro último estudio revela la estructura oculta detrás de las campañas más exitosas del mercado.
+
+¿Por qué conformarte con resultados mediocres cuando puedes acceder a la estrategia completa?
+
+Descarga gratis nuestro mapa estratégico 👇
+www.orangevapor.com`
+        };
+        
+        // Estado actual
+        let activeService = 'optimizacion';
+        let activeFormat = 'square'; // 'square' o 'vertical'
+        let activeColor = 'original'; // 'original', 'orange', 'white', 'black'
+        let isProcessing = false; // Bandera para evitar múltiples descargas simultáneas
+        
+        // Elementos del DOM
+        const serviceTitle = document.getElementById('serviceTitle');
+        const creativesContainer = document.getElementById('creativesContainer');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const formatButtons = document.querySelectorAll('.format-btn');
+        const colorButtons = document.querySelectorAll('.color-btn');
+        const squareBtn = document.getElementById('squareBtn');
+        const verticalBtn = document.getElementById('verticalBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const togglePracticesBtn = document.getElementById('togglePractices');
+        const bestPracticesBox = document.querySelector('.best-practices');
+        const downloadCanvas = document.getElementById('downloadCanvas');
+        const adCopyText = document.getElementById('adCopyText');
+        const copyBtn = document.getElementById('copyBtn');
+        
+        // Función para copiar texto al portapapeles
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = adCopyText.textContent;
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Error al copiar: ', err);
+                    copyBtn.innerHTML = '<i class="fas fa-times"></i> Error';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+                    }, 2000);
+                });
+        });
+        
+        // Toggle para mejores prácticas
+        togglePracticesBtn.addEventListener('click', () => {
+            if (bestPracticesBox.style.display === 'none') {
+                bestPracticesBox.style.display = 'block';
+                togglePracticesBtn.textContent = 'Ocultar mejores prácticas';
+            } else {
+                bestPracticesBox.style.display = 'none';
+                togglePracticesBtn.textContent = 'Ver mejores prácticas para tráfico';
+            }
+        });
+        
+        // Función para obtener título según el servicio
+        function getServiceTitle(service) {
+            switch (service) {
+                case 'auditoria': return 'Creativos de Tráfico para Auditoría Gratuita';
+                case 'optimizacion': return 'Creativos de Tráfico para Optimización Express';
+                case 'meta': return 'Creativos de Tráfico para Meta Ads';
+                case 'google': return 'Creativos de Tráfico para Google Ads';
+                case 'email': return 'Creativos de Tráfico para Email Marketing';
+                case 'chatbot': return 'Creativos de Tráfico para Chatbot';
+                case 'all': return 'Creativos de Tráfico para Paquete Completo';
+                default: return 'Creativos de Tráfico para Optimización Express';
+            }
+        }
+        
+        // Función para obtener color de fondo según la selección
+        function getBgColor() {
+            if (activeColor === 'original') {
+                return creativesData[activeService].bgColor;
+            } else if (activeColor === 'orange') {
+                return colors.primary; // Naranja
+            } else if (activeColor === 'white') {
+                return colors.light; // Blanco
+            } else if (activeColor === 'black') {
+                return colors.dark; // Negro
+            }
+        }
+        
+        // Función para obtener color de texto según el fondo
+        function getTextColor(bgColor) {
+            // Convertir color a RGB si es hex
+            let rgb;
+            if (bgColor.startsWith('#')) {
+                const r = parseInt(bgColor.slice(1, 3), 16);
+                const g = parseInt(bgColor.slice(3, 5), 16);
+                const b = parseInt(bgColor.slice(5, 7), 16);
+                rgb = {r, g, b};
+            } else if (bgColor.startsWith('rgb')) {
+                const matches = bgColor.match(/\d+/g);
+                rgb = {
+                    r: parseInt(matches[0]),
+                    g: parseInt(matches[1]),
+                    b: parseInt(matches[2])
+                };
+            }
+            
+            // Calcular luminosidad (fórmula simplificada)
+            const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+            
+            // Retornar blanco para fondos oscuros, negro para fondos claros
+            return luminance > 0.5 ? colors.dark : colors.light;
+        }
+        
+        // Función para obtener color de acento según el fondo
+        function getAccentColor(bgColor) {
+            const textColor = getTextColor(bgColor);
+            
+            // Si el fondo es naranja, usar el color oscuro o claro como acento
+            if (activeColor === 'orange') {
+                return textColor;
+            }
+            
+            // Si el fondo es blanco o negro, usar naranja como acento
+            if (activeColor === 'white' || activeColor === 'black') {
+                return colors.primary;
+            }
+            
+            // Para el color original del servicio, mantener el texto en blanco
+            return textColor;
+        }
+        
+        // Función para renderizar creativo en la interfaz
+        function renderCreative() {
+            creativesContainer.innerHTML = '';
+            const creative = creativesData[activeService];
+            
+            // Obtener colores según el fondo seleccionado
+            const bgColor = getBgColor();
+            const textColor = getTextColor(bgColor);
+            const accentColor = getAccentColor(bgColor);
+            
+            // Crear elemento creativo
+            const creativeEl = document.createElement('div');
+            creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
+            creativeEl.style.backgroundColor = bgColor;
+            
+            // Barra lateral (acento)
+            const accentEl = document.createElement('div');
+            accentEl.className = 'creative-accent';
+            accentEl.style.background = accentColor;
+            creativeEl.appendChild(accentEl);
+            
+            // Contenido
+            const contentEl = document.createElement('div');
+            contentEl.className = 'creative-content';
+            
+            // Contenedor del logo sin fondo
+            const logoContainerEl = document.createElement('div');
+            logoContainerEl.className = 'logo-container';
+            
+            // Logo
+            const logoEl = document.createElement('div');
+            logoEl.style.fontWeight = 'bold';
+            logoEl.style.fontSize = '14px';
+            
+            // Color del logo según fondo
+            if (activeColor === 'white') {
+                // Fondo blanco: texto "Orange" negro y "Vapor" naranja
+                logoEl.innerHTML = '<span style="color: #181818;">Orange</span> <span style="color: #FF7E00;">Vapor</span>';
+            } else if (activeColor === 'orange') {
+                // Fondo naranja: todo el logo en blanco para mejor contraste
+                logoEl.innerHTML = '<span style="color: white;">Orange Vapor</span>';
+            } else {
+                // Otros fondos: texto "Orange" claro y "Vapor" naranja
+                logoEl.innerHTML = '<span style="color: ' + textColor + ';">Orange</span> <span style="color: #FF7E00;">Vapor</span>';
+            }
+            
+            logoContainerEl.appendChild(logoEl);
+            contentEl.appendChild(logoContainerEl);
+            
+            // Título
+            const titleEl = document.createElement('div');
+            titleEl.className = 'creative-title';
+            titleEl.textContent = creative.title;
+            titleEl.style.color = textColor;
+            contentEl.appendChild(titleEl);
+            
+            // Subtítulo
+            const subtitleEl = document.createElement('div');
+            subtitleEl.className = 'creative-subtitle';
+            subtitleEl.textContent = creative.subtitle;
+            subtitleEl.style.color = textColor;
+            contentEl.appendChild(subtitleEl);
+            
+            // Descripción
+            const descEl = document.createElement('div');
+            descEl.className = 'creative-description';
+            descEl.style.whiteSpace = 'pre-line'; // Para respetar los saltos de línea
+            descEl.textContent = creative.description;
+            descEl.style.color = textColor;
+            contentEl.appendChild(descEl);
+            
+            creativeEl.appendChild(contentEl);
+            
+            // Botón de descarga
+            const downloadEl = document.createElement('div');
+            downloadEl.className = 'creative-download';
+            downloadEl.innerHTML = '<i class="fas fa-download" style="color: white;"></i>';
+            downloadEl.addEventListener('click', (e) => {
+                e.stopPropagation(); // Evitar que se propague el evento
+                generateAndDownloadImage();
+            });
+            creativeEl.appendChild(downloadEl);
+            
+            // Mostrar previsualización del creativo
+            creativeEl.addEventListener('click', () => {
+                generateAndDownloadImage();
+            });
+            
+            creativesContainer.appendChild(creativeEl);
+            
+            // Actualizar el copy para anuncios
+            updateAdCopy();
+        }
+        
+        // Función para actualizar el copy del anuncio
+        function updateAdCopy() {
+            adCopyText.textContent = adCopyData[activeService] || "Copy de anuncio no disponible para este servicio.";
+        }
+
+        // Función para mostrar el modal de carga
+        function showLoadingModal(message = "Generando imagen...") {
+            const modalEl = document.createElement('div');
+            modalEl.className = 'loading-modal';
+            modalEl.id = 'loadingModal';
+            
+            const containerEl = document.createElement('div');
+            containerEl.className = 'loading-container';
+            
+            const spinnerEl = document.createElement('div');
+            spinnerEl.className = 'loading-spinner';
+            
+            const messageEl = document.createElement('div');
+            messageEl.textContent = message;
+            
+            containerEl.appendChild(spinnerEl);
+            containerEl.appendChild(messageEl);
+            modalEl.appendChild(containerEl);
+            
+            document.body.appendChild(modalEl);
+        }
+        
+        // Función para ocultar el modal de carga
+        function hideLoadingModal() {
+            const modal = document.getElementById('loadingModal');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+        }
+        
+        // Función para dibujar y descargar la imagen
+        function generateAndDownloadImage() {
+            if (isProcessing) return;
+            isProcessing = true;
+            
+            showLoadingModal();
+            
+            try {
+                const creative = creativesData[activeService];
+                const isVertical = activeFormat === 'vertical';
+                
+                // Configurar canvas
+                const width = isVertical ? 1080 : 1080;
+                const height = isVertical ? 1920 : 1080;
+                
+                downloadCanvas.width = width;
+                downloadCanvas.height = height;
+                
+                const ctx = downloadCanvas.getContext('2d');
+                ctx.clearRect(0, 0, width, height);
+                
+                // Obtener colores según el fondo seleccionado
+                const bgColor = getBgColor();
+                const textColor = getTextColor(bgColor);
+                const accentColor = getAccentColor(bgColor);
+                
+                // PASO 1: Dibujar el fondo
+                ctx.fillStyle = bgColor;
+                ctx.fillRect(0, 0, width, height);
+                
+                // PASO 2: Dibujar barra lateral (acento)
+                ctx.fillStyle = accentColor;
+                
+                if (isVertical) {
+                    // Calcular posición para formato vertical
+                    const safeZoneTop = Math.round(height * 0.14);
+                    const accentY = safeZoneTop + 100;
+                    const accentHeight = height - accentY - safeZoneTop - 100;
+                    
+                    // Dibujar un simple rectángulo
+                    ctx.fillRect(0, accentY, 20, accentHeight);
+                } else {
+                    // Formato cuadrado
+                    ctx.fillRect(0, height * 0.3, 15, height * 0.3);
+                }
+                
+                // PASO 3: Dibujar el logo directamente sin fondo
+                ctx.font = isVertical ? 'bold 42px Montserrat, sans-serif' : 'bold 36px Montserrat, sans-serif';
+                
+                const logoX = 40;
+                const logoY = isVertical ? (Math.round(height * 0.14) + 50) : 55;
+                
+                // Ajustar color del logo según el fondo
+                if (activeColor === 'white') {
+                    // Fondo blanco: "Orange" negro y "Vapor" naranja
+                    ctx.fillStyle = '#181818';
+                    ctx.fillText('Orange', logoX, logoY);
+                    
+                    const orangeWidth = ctx.measureText('Orange ').width;
+                    ctx.fillStyle = '#FF7E00';
+                    ctx.fillText('Vapor', logoX + orangeWidth, logoY);
+                } else if (activeColor === 'orange') {
+                    // Fondo naranja: todo el logo en blanco
+                    ctx.fillStyle = 'white';
+                    ctx.fillText('Orange Vapor', logoX, logoY);
+                } else {
+                    // Otros fondos: "Orange" en color de texto y "Vapor" naranja
+                    ctx.fillStyle = textColor;
+                    ctx.fillText('Orange', logoX, logoY);
+                    
+                    const orangeWidth = ctx.measureText('Orange ').width;
+                    ctx.fillStyle = '#FF7E00';
+                    ctx.fillText('Vapor', logoX + orangeWidth, logoY);
+                }
+                
+                // PASO 4: Dibujar el título
+                ctx.textAlign = 'center';
+                ctx.fillStyle = textColor;
+                
+                if (isVertical) {
+                    ctx.font = 'bold 80px Montserrat, sans-serif';
+                    // Dibujar el título centrado en el eje X, un poco por encima del centro
+                    wrapText(ctx, creative.title, width / 2, height / 2 - 200, width - 100, 90);
+                } else {
+                    ctx.font = 'bold 70px Montserrat, sans-serif';
+                    // Dibujar el título centrado en el eje X, un poco por encima del centro
+                    wrapText(ctx, creative.title, width / 2, height / 2 - 80, width - 100, 80);
+                }
+                
+                // PASO 5: Dibujar el subtítulo
+                ctx.fillStyle = textColor;
+                
+                if (isVertical) {
+                    ctx.font = 'bold 56px Montserrat, sans-serif';
+                    ctx.fillText(creative.subtitle, width / 2, height / 2 + 30);
+                } else {
+                    ctx.font = 'bold 46px Montserrat, sans-serif';
+                    ctx.fillText(creative.subtitle, width / 2, height / 2 + 50);
+                }
+                
+                // PASO 6: Dibujar la descripción
+                ctx.fillStyle = textColor;
+                
+                if (isVertical) {
+                    ctx.font = '42px Montserrat, sans-serif';
+                    // Para multi-línea, dividimos por el salto de línea explícito
+                    const descLines = creative.description.split('\n');
+                    let yPos = height / 2 + 150;
+                    
+                    descLines.forEach(line => {
+                        ctx.fillText(line, width / 2, yPos);
+                        yPos += 60; // Espaciado entre líneas
+                    });
+                } else {
+                    ctx.font = '36px Montserrat, sans-serif';
+                    // Para multi-línea, dividimos por el salto de línea explícito
+                    const descLines = creative.description.split('\n');
+                    let yPos = height / 2 + 150;
+                    
+                    descLines.forEach(line => {
+                        ctx.fillText(line, width / 2, yPos);
+                        yPos += 50; // Espaciado entre líneas
+                    });
+                }
+                
+                // PASO 7: Descargar la imagen
+                setTimeout(() => {
+                    try {
+                        // Convertir a URL de datos
+                        const dataUrl = downloadCanvas.toDataURL('image/png');
+                        
+                        // Crear enlace de descarga
+                        const link = document.createElement('a');
+                        link.href = dataUrl;
+                        link.download = `trafico-${activeService}-${activeColor}-${activeFormat === 'vertical' ? 'vertical' : 'cuadrado'}.png`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        // Ocultar modal y restablecer estado
+                        hideLoadingModal();
+                        isProcessing = false;
+                    } catch (error) {
+                        console.error('Error al descargar la imagen:', error);
+                        hideLoadingModal();
+                        alert('Hubo un error al generar la imagen. Por favor intenta de nuevo.');
+                        isProcessing = false;
+                    }
+                }, 1000);
+            } catch (error) {
+                console.error('Error al generar la imagen:', error);
+                hideLoadingModal();
+                alert('Hubo un error al generar la imagen. Por favor intenta de nuevo.');
+                isProcessing = false;
+            }
+        }
+        
+        // Función para el dibujado de texto multilínea
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            let yPos = y;
+            
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = ctx.measureText(testLine);
+                const testWidth = metrics.width;
+                
+                if (testWidth > maxWidth && n > 0) {
+                    ctx.fillText(line, x, yPos);
+                    line = words[n] + ' ';
+                    yPos += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            
+            ctx.fillText(line, x, yPos);
+        }
+        
+        // Función para actualizar UI
+        function updateUI() {
+            serviceTitle.textContent = getServiceTitle(activeService);
+            
+            // Actualizar tab de servicio
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.service === activeService) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Actualizar botones de formato
+            formatButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            if (activeFormat === 'square') {
+                squareBtn.classList.add('active');
+            } else {
+                verticalBtn.classList.add('active');
+            }
+            
+            // Actualizar botones de color
+            colorButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.color === activeColor) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            renderCreative();
+        }
+        
+        // Eventos para tabs de servicio
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeService = btn.dataset.service;
+                updateUI();
+            });
+        });
+        
+        // Eventos para botones de formato
+        squareBtn.addEventListener('click', () => {
+            activeFormat = 'square';
+            updateUI();
+        });
+        
+        verticalBtn.addEventListener('click', () => {
+            activeFormat = 'vertical';
+            updateUI();
+        });
+        
+        // Eventos para botones de color
+        colorButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeColor = btn.dataset.color;
+                updateUI();
+            });
+        });
+        
+        // Evento para botón de descarga
+        downloadBtn.addEventListener('click', generateAndDownloadImage);
+        
+        // Inicializar
+        updateUI();
+    </script>
+</body>
+</html>
