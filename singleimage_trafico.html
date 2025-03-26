@@ -3,176 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creativos Orange Vapor - Campañas de Tráfico Ads</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Generador Creativos Orange Vapor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- Estilos de la versión funcional anterior (con banner y zona segura básica) --- */
+        /* --- Estilos Restaurados y Optimizados --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background-color: #f5f5f5; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h1 { font-size: 26px; color: #2c2c2c; margin-bottom: 8px; }
-        .header p { color: #666; font-size: 15px; }
-        .tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-        .tab-group { display: inline-flex; border-radius: 6px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); margin-bottom: 10px; }
-        .tab-button { padding: 8px 14px; font-size: 13px; font-weight: 500; background-color: white; color: #333; border: 1px solid #ddd; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
-        .tab-button:first-child { border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
-        .tab-button:last-child { border-top-right-radius: 6px; border-bottom-right-radius: 6px; }
-        .tab-button.active { color: white; }
-        .tab-button.optimizacion.active { background-color: #dc3545; border-color: #dc3545; }
-        .tab-button.meta.active { background-color: #1877F2; border-color: #1877F2; }
-        .tab-button.google.active { background-color: #4285F4; border-color: #4285F4; }
-        .tab-button.email.active { background-color: #00829b; border-color: #00829b; }
-        .tab-button.chatbot.active { background-color: #6f42c1; border-color: #6f42c1; }
-        .tab-button.all.active { background-color: #333333; border-color: #333333; }
-        .tab-button.auditoria.active { background-color: #28a745; border-color: #28a745; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #f0f2f5; padding: 20px; color: #333; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 25px; background-color: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); }
 
-        .color-toggle { text-align: center; margin: 15px 0; }
-        .color-btn { width: 32px; height: 32px; border-radius: 50%; margin: 0 4px; cursor: pointer; display: inline-block; border: 2px solid #ddd; transition: all 0.2s ease; overflow: hidden; vertical-align: middle;}
-        .color-btn.active { border-color: #ff7e00; transform: scale(1.15); }
-        .color-btn-original { background: linear-gradient(135deg, #28a745 14%, #dc3545 14% 28%, #1877F2 28% 42%, #4285F4 42% 56%, #00829b 56% 70%, #6f42c1 70% 84%, #333 84%); }
-        .color-btn-orange { background-color: #ff7e00; }
-        .color-btn-white { background-color: #ffffff; border: 2px solid #ccc; }
-        .color-btn-black { background-color: #181818; }
+        /* Header */
+        .header { text-align: center; margin-bottom: 25px; border-bottom: 1px solid #e0e0e0; padding-bottom: 20px; }
+        .header h1 { font-size: 24px; font-weight: 700; color: #2c3e50; margin-bottom: 5px; }
+        .header p { color: #555; font-size: 15px; }
 
-        .download-section { text-align: center; margin: 20px 0; }
-        .download-btn { background: #ff7e00; color: white; border: none; padding: 10px 20px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 3px 6px rgba(255, 126, 0, 0.3); transition: all 0.3s ease; }
-        .download-btn:hover { background: #e67300; transform: translateY(-1px); }
+        /* Tabs - Servicios Originales + Nuevos Ads */
+        .tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 25px; gap: 8px; border-bottom: 1px solid #eee; padding-bottom: 15px;}
+        .tab-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; width: 100%;}
+        .tab-group-label { width: 100%; text-align: center; font-size: 11px; font-weight: 600; color: #888; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Creatives Area */
-        .creatives-container { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 10px; gap: 15px;}
-        .creative {
-            width: 360px; height: 360px; position: relative;
-            border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            color: white; cursor: pointer; background-color: #eee; /* Placeholder bg */
+        .tab-button {
+            padding: 8px 12px; font-size: 11px; font-weight: 600; background-color: #fff; color: #444;
+            border: 1px solid #ccc; cursor: pointer; transition: all 0.25s ease; border-radius: 6px;
+            display: flex; align-items: center; gap: 5px; white-space: nowrap;
         }
+        .tab-button i { font-size: 0.9em; margin-right: 2px; }
+        .tab-button:hover { background-color: #f8f9fa; border-color: #aaa; }
+        .tab-button.active { color: white; border-color: transparent; }
+
+        /* Colores específicos por servicio/ad */
+        .tab-button.auditoria.active, .tab-button.ad_auditoria_gratis.active { background-color: #28a745; } /* Verde */
+        .tab-button.optimizacion.active, .tab-button.ad_optimizacion_express.active { background-color: #dc3545; } /* Rojo */
+        .tab-button.meta.active, .tab-button.ad_meta_ads.active { background-color: #1877F2; } /* Azul Meta */
+        .tab-button.google.active, .tab-button.ad_google_ads.active { background-color: #4285F4; } /* Azul Google */
+        .tab-button.email.active, .tab-button.ad_email_marketing.active { background-color: #00829b; } /* Teal Email */
+        .tab-button.chatbot.active, .tab-button.ad_chatbot.active { background-color: #6f42c1; } /* Violeta Chatbot */
+        .tab-button.all.active, .tab-button.ad_paquete_completo.active { background-color: #343a40; } /* Gris oscuro */
+
+        /* Controles (Formato, Color Fondo) */
+        .controls-grid { display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 25px; flex-wrap: wrap;}
+        .control-group { text-align: center; }
+        .control-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #555; }
+        .format-toggle, .color-toggle { display: inline-flex; gap: 8px; }
+
+        .format-btn { padding: 7px 14px; font-size: 13px; border: 1px solid #ccc; border-radius: 4px; background-color: white; cursor: pointer; transition: all 0.2s ease; }
+        .format-btn.active { background-color: #ff7e00; color: white; border-color: #ff7e00; }
+
+        .color-btn { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid #ddd; transition: all 0.2s ease; display: inline-block; vertical-align: middle; }
+        .color-btn.active { border-color: #ff7e00; transform: scale(1.15); box-shadow: 0 0 5px rgba(255,126,0,0.5); }
+        .color-btn-orange { background-color: #ff7e00; }
+        .color-btn-white { background-color: #ffffff; border-color: #ccc; }
+        .color-btn-black { background-color: #181818; }
+        .color-btn-service { background: linear-gradient(45deg, #28a745, #1877F2, #6f42c1); }
+
+        /* Download Button */
+        .download-section { text-align: center; margin-bottom: 25px; }
+        .download-btn { background: #ff7e00; color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: 700; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 8px rgba(255, 126, 0, 0.3); transition: all 0.3s ease; }
+        .download-btn:hover { background: #e67300; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(255, 126, 0, 0.35); }
+        .download-btn i { font-size: 1.1em; }
+
+        /* Info Box & Tips */
+        .info-box { background-color: #e9ecef; border-left: 5px solid #007bff; padding: 15px 20px; margin: 25px auto; max-width: 850px; border-radius: 5px; display: flex; align-items: flex-start; gap: 15px; font-size: 13px; line-height: 1.6; }
+        .info-box i { color: #007bff; font-size: 20px; margin-top: 2px; flex-shrink: 0; }
+        .info-box strong { font-weight: 600; }
+
+        .toggle-practices { display: block; margin: 15px auto; background: #6c757d; color: white; border: none; padding: 6px 12px; font-size: 12px; font-weight: 500; cursor: pointer; border-radius: 4px; transition: background-color 0.2s; }
+        .toggle-practices:hover { background: #5a6268; }
+        .best-practices { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 15px 20px; margin: 15px 0; display: none; }
+        .best-practices h3 { font-size: 14px; color: #343a40; margin-bottom: 12px; }
+        .best-practices ul { list-style-type: disc; margin-left: 20px; padding-left: 5px; }
+        .best-practices li { font-size: 12px; margin-bottom: 5px; color: #495057; }
+
+        /* Creative Preview Area */
+        .creatives-container { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px; gap: 20px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; }
+        .creative { width: 360px; height: 360px; position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); color: white; cursor: pointer; background-color: #e0e0e0; }
         .creative-vertical { width: 240px; height: 427px; }
 
-        /* Banner Superior */
-        .creative-service-banner {
-            position: absolute; top: 0; left: 0; width: 100%; height: 35px;
-            background-color: #333; color: white; display: flex;
-            align-items: center; justify-content: center; font-size: 13px;
-            font-weight: 700; z-index: 5; text-transform: uppercase; letter-spacing: 0.5px;
+        /* Banner Superior (Solo para Ads nuevos) */
+        .creative-service-banner { display: none; /* Oculto por defecto */ }
+        .creative.is-ad-concept .creative-service-banner { /* Mostrar solo si es Ad Concept */
+            display: flex; position: absolute; top: 0; left: 0; width: 100%; height: 35px;
+            background-color: var(--service-color, #333); color: var(--banner-text-color, white);
+            align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+            z-index: 5; text-transform: uppercase; letter-spacing: 0.5px;
         }
 
-        /* Contenido Principal */
-        .creative-content {
-            position: relative; z-index: 2; padding: 15px;
-            padding-top: 55px; /* Espacio banner(35) + logo(11) + margen(9) */
-            height: 100%; display: flex; flex-direction: column;
-            justify-content: center; text-align: center;
-        }
-        /* Zona Segura Preview Vertical (BÁSICA) */
-        .creative-vertical .creative-content {
-            padding-top: 70px; /* Un poco más de espacio arriba */
-            padding-bottom: 30px;
-            justify-content: center;
-        }
+        /* Content & Text Elements */
+        .creative-content { position: relative; z-index: 2; padding: 20px; /* Padding base */ height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; }
 
-        /* Textos (Ajustados para nueva data) */
-        .creative-hook { font-size: 24px; font-weight: 800; margin-bottom: 15px; line-height: 1.25; color: inherit; /* Hereda color principal */ }
-        .creative-offer { font-size: 18px; font-weight: 700; margin-bottom: 10px; line-height: 1.2; padding: 5px 10px; background-color: rgba(0, 0, 0, 0.1); border-radius: 4px; display: inline-block; } /* Recuadro semi-transparente */
-        .creative-benefit { font-size: 14px; line-height: 1.4; margin-bottom: 15px;}
-        .creative-cta-visual { font-size: 15px; font-weight: bold; padding: 8px 15px; background-color: var(--service-color, #ff7e00); color: var(--banner-text-color, white); border-radius: 5px; display: inline-block; text-decoration: none; margin-top: 10px; } /* Botón simulado */
-        .creative-credibility { font-size: 11px; margin-top: 8px; opacity: 0.9; font-weight: 500; }
+        /* Ajustes para Ad Concepts (con banner) */
+        .creative.is-ad-concept .creative-content { padding-top: 55px; /* Más espacio para banner+logo */ }
+        .creative.is-ad-concept.creative-vertical .creative-content { padding-top: 15%; padding-bottom: 10%; /* Zona segura */ }
+
+        /* Estilos para elementos AD CONCEPT */
+        .creative-hook { font-size: 22px; font-weight: 800; margin-bottom: 12px; line-height: 1.25; }
+        .creative-offer { font-size: 17px; font-weight: 700; margin-bottom: 10px; line-height: 1.2; padding: 4px 8px; background-color: rgba(0, 0, 0, 0.15); border-radius: 4px; display: inline-block; }
+        .creative-benefit { font-size: 13px; line-height: 1.4; margin-bottom: 12px; }
+        .creative-cta-visual { font-size: 14px; font-weight: bold; padding: 8px 15px; background-color: var(--service-color, #ff7e00); color: var(--banner-text-color, white); border-radius: 5px; display: inline-block; text-decoration: none; margin-top: 8px; }
+        .creative-credibility { font-size: 10px; margin-top: 8px; opacity: 0.85; font-weight: 500; }
+
+        /* Estilos para elementos ORIGINALES */
+        .creative-title { font-size: 22px; font-weight: 800; margin-bottom: 10px; line-height: 1.2; }
+        .creative-subtitle { font-size: 18px; font-weight: 600; margin-bottom: 10px; line-height: 1.2; }
+        .creative-description { font-size: 14px; line-height: 1.4; }
 
         /* Logo */
-        .logo-container {
-            position: absolute;
-            top: 43px; /* Debajo del banner */
-            left: 15px;
-            z-index: 20; text-align: left;
-        }
-        .logo-container div { font-size: 11px !important; font-weight: bold; }
-        .creative-vertical .logo-container {
-            top: 50px; /* Posición fija simple en vertical preview */
-        }
+        .logo-container { position: absolute; top: 15px; left: 15px; z-index: 20; text-align: left; }
+        /* Ajuste logo cuando hay banner */
+        .creative.is-ad-concept .logo-container { top: 43px; }
+        .creative.is-ad-concept.creative-vertical .logo-container { top: calc(14% + 5px); } /* Zona segura */
+        .logo-container div { font-size: 10px !important; font-weight: bold; }
 
-        /* Acento lateral */
+
+        /* Accent */
         .creative-accent { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 5px; height: 60px; background: white; border-radius: 0 2px 2px 0; z-index: 10; }
         .creative-vertical .creative-accent { height: 80px; }
 
-        /* Botón descarga overlay */
+        /* Download Overlay */
         .creative-download { position: absolute; top: 5px; right: 5px; width: 28px; height: 28px; border-radius: 50%; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transition: opacity 0.3s; z-index: 30; }
         .creative-download i { font-size: 12px; color: white;}
         .creative:hover .creative-download { opacity: 1; }
 
-        /* Info box, Note, etc. */
-        .info-box { background-color: #e6f7ff; border-left: 4px solid #1890ff; padding: 12px 15px; margin: 20px auto; max-width: 800px; border-radius: 4px; display: flex; align-items: flex-start; gap: 10px;}
-        .info-box i { color: #1890ff; font-size: 18px; margin-top: 1px; flex-shrink: 0;}
-        .info-box p { color: #333; font-size: 13px; margin: 0; line-height: 1.5; }
-        .info-box strong { font-weight: 600; }
-        .info-box .fas.fa-download { font-size: 1em; vertical-align: middle; }
-
-        .format-toggle { text-align: center; margin: 15px 0; }
-        .format-btn { padding: 7px 14px; font-size: 13px; border: 1px solid #ddd; border-radius: 4px; background-color: white; margin: 0 4px; cursor: pointer; transition: all 0.2s ease; vertical-align: middle;}
-        .format-btn.active { background-color: #ff7e00; color: white; border-color: #ff7e00; }
-
-        .text-20-indicator { padding: 7px 12px; font-size: 12px; background-color: rgba(255, 126, 0, 0.1); border: 1px solid #ff7e00; color: #555; margin: 15px 0; border-radius: 4px; text-align: center; }
-        .text-20-indicator i { color: #00b300; margin-right: 5px;}
-
-        .best-practices { background-color: #f8f8f8; border-radius: 8px; padding: 15px; margin: 15px 0; display: none; }
-        .best-practices h3 { font-size: 15px; color: #333; margin-bottom: 10px; }
-        .best-practices ul { list-style-type: disc; margin-left: 20px; }
-        .best-practices li { font-size: 12px; margin-bottom: 4px; color: #666; }
-        .toggle-practices { display: block; margin: 10px auto; background: none; border: 1px solid #ddd; padding: 5px 10px; font-size: 12px; color: #666; cursor: pointer; border-radius: 4px; }
-
-        .note { text-align: center; margin-top: 25px; color: #666; font-size: 11px; }
-
-        /* Ad Copy Section */
-        .ad-copy-section { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
-        .ad-copy-section h3 { font-size: 16px; color: #333; text-align: center; margin-bottom: 12px; }
-        .ad-copy-container { background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); max-width: 750px; margin: 0 auto; }
-        .ad-copy-text { font-size: 14px; line-height: 1.6; color: #444; white-space: pre-line; }
-        .copy-btn { background: #f1f1f1; border: 1px solid #ddd; border-radius: 4px; padding: 7px 14px; font-size: 13px; color: #555; cursor: pointer; display: flex; align-items: center; justify-content: center; margin: 12px auto 0; transition: all 0.3s ease; }
-        .copy-btn:hover { background: #e9e9e9; }
+        /* Ad Copy Section ... (sin cambios) */
+        /* Note & Loading Modal ... (sin cambios) */
+         .ad-copy-section { margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 25px; }
+        .ad-copy-section h3 { font-size: 16px; color: #343a40; text-align: center; margin-bottom: 15px; font-weight: 600; }
+        .ad-copy-container { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); max-width: 750px; margin: 0 auto; }
+        .ad-copy-text { font-size: 14px; line-height: 1.65; color: #333; white-space: pre-line; }
+        .copy-btn { background: #e9ecef; border: 1px solid #ced4da; border-radius: 4px; padding: 8px 15px; font-size: 13px; color: #495057; cursor: pointer; display: flex; align-items: center; justify-content: center; margin: 15px auto 0; transition: all 0.2s ease; }
+        .copy-btn:hover { background-color: #dee2e6; }
         .copy-btn i { margin-right: 6px; }
-
-        /* Loading Modal */
+        .note { text-align: center; margin-top: 20px; color: #6c757d; font-size: 11px; }
         .loading-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.65); display: none; justify-content: center; align-items: center; z-index: 9999; }
         .loading-container { background-color: #fff; padding: 25px 35px; border-radius: 8px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); text-align: center; }
         .loading-spinner { display: inline-block; width: 28px; height: 28px; border: 3px solid rgba(0,0,0,.1); border-radius: 50%; border-top-color: #ff7e00; animation: spin 0.8s ease-in-out infinite; margin-bottom: 12px; }
         #loadingMessage { font-size: 14px; color: #555;}
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Canvas */
         #downloadCanvas { position: absolute; left: -9999px; top: -9999px; }
-
-        /* Campaign Type Indicator */
-        .campaign-type-indicator { background-color: #f8fafa; border: 1px dashed #1890ff; border-radius: 4px; padding: 8px 12px; margin: 15px 0; text-align: center; color: #1890ff; font-weight: 600; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .campaign-type-indicator i { font-size: 1.1em;}
-
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header, Tabs, Toggles, etc. (sin cambios) -->
-        <div class="header"> <h1 id="serviceTitle">Creativos Ads para Instagram</h1> <p>Generador de anuncios visuales basados en tu propuesta.</p> </div>
-        <div class="campaign-type-indicator"> <i class="fab fa-instagram"></i> <span>Anuncios Optimizados para Instagram Feed & Stories</span> </div>
+        <!-- Header -->
+        <div class="header">
+             <h1 id="serviceTitle">Generador Creativos Orange Vapor</h1>
+             <p>Creá visuales para Tráfico o Anuncios específicos de Instagram.</p>
+         </div>
+
+        <!-- Tabs Separados -->
         <div class="tabs">
              <div class="tab-group">
-                 <!-- Cambiando tabs a los conceptos de anuncio -->
-                 <button class="tab-button auditoria active" data-service="auditoria_ad">Auditoría Gratis AD</button>
-                 <button class="tab-button optimizacion" data-service="express_ad">Optimización Express AD</button>
-                 <button class="tab-button meta" data-service="roi_ad">Resultados Garantizados AD</button>
-                 <!-- Opcional: Podrías añadir más conceptos aquí -->
+                 <span class="tab-group-label">Creativos Originales (Tráfico)</span>
+                 <button class="tab-button auditoria active" data-service="auditoria"><i class="fas fa-search"></i>Auditoría</button>
+                 <button class="tab-button optimizacion" data-service="optimizacion"><i class="fas fa-tachometer-alt"></i>Optimización</button>
+                 <button class="tab-button meta" data-service="meta"><i class="fab fa-facebook"></i>Meta</button>
+                 <button class="tab-button google" data-service="google"><i class="fab fa-google"></i>Google</button>
+                 <button class="tab-button email" data-service="email"><i class="fas fa-envelope"></i>Email</button>
+                 <button class="tab-button chatbot" data-service="chatbot"><i class="fas fa-robot"></i>Chatbot</button>
+                 <button class="tab-button all" data-service="all"><i class="fas fa-archive"></i>Pack</button>
+             </div>
+             <div class="tab-group">
+                 <span class="tab-group-label">Nuevos Anuncios (Instagram)</span>
+                 <button class="tab-button ad_auditoria_gratis" data-service="ad_auditoria_gratis"><i class="fas fa-search-dollar"></i>AD: Auditoría</button>
+                 <button class="tab-button ad_optimizacion_express" data-service="ad_optimizacion_express"><i class="fas fa-bolt"></i>AD: Express</button>
+                 <button class="tab-button ad_meta_ads" data-service="ad_meta_ads"><i class="fab fa-facebook-square"></i>AD: Meta</button>
+                 <button class="tab-button ad_google_ads" data-service="ad_google_ads"><i class="fab fa-google"></i>AD: Google</button>
+                 <button class="tab-button ad_email_marketing" data-service="ad_email_marketing"><i class="fas fa-envelope-open-text"></i>AD: Email</button>
+                 <button class="tab-button ad_chatbot" data-service="ad_chatbot"><i class="fas fa-comment-dots"></i>AD: Chatbot</button>
+                 <button class="tab-button ad_paquete_completo" data-service="ad_paquete_completo"><i class="fas fa-boxes"></i>AD: Pack</button>
              </div>
          </div>
-         <div class="format-toggle"> <button id="squareBtn" class="format-btn active">Cuadrado (1080x1080)</button> <button id="verticalBtn" class="format-btn">Vertical (1080x1920)</button> </div>
-         <div class="color-toggle">
-            <!-- Colores ahora aplican al fondo principal, banner usa color fijo -->
-            <div class="color-btn color-btn-orange active" data-color="orange" title="Fondo Naranja (Recomendado)"></div>
-            <div class="color-btn color-btn-white" data-color="white" title="Fondo Blanco"></div>
-            <div class="color-btn color-btn-black" data-color="black" title="Fondo Negro"></div>
-            <div class="color-btn color-btn-original" data-color="original_service" title="Fondo Color Servicio"></div>
-         </div>
-         <div class="download-section"> <button id="downloadBtn" class="download-btn"> <i class="fas fa-download"></i> Descargar Anuncio </button> </div>
-         <div class="info-box"> <i class="fas fa-lightbulb"></i> <div> <p><strong>Idea:</strong> Seleccioná un concepto de anuncio (Auditoría, Express, ROI). Elegí formato y color de fondo. El texto y diseño se adaptarán.</p> <p>El banner superior siempre usará el color del concepto.</p> </div> </div>
-         <div class="text-20-indicator"> <i class="fas fa-check-circle"></i> Texto optimizado (< 20%) - Aprobado para Meta </div>
-         <button class="toggle-practices" id="togglePractices">Ver Tips Anuncios Instagram</button>
-         <div class="best-practices">
+
+         <!-- Controles -->
+         <div class="controls-grid">
+            <div class="control-group">
+               <label for="format-toggle">Formato</label>
+               <div class="format-toggle" id="format-toggle">
+                   <button id="squareBtn" class="format-btn active">Cuadrado</button>
+                   <button id="verticalBtn" class="format-btn">Vertical</button>
+               </div>
+            </div>
+            <div class="control-group">
+               <label for="color-toggle">Color de Fondo Principal</label>
+               <div class="color-toggle" id="color-toggle">
+                   <div class="color-btn color-btn-orange active" data-color="orange" title="Fondo Naranja"></div>
+                   <div class="color-btn color-btn-white" data-color="white" title="Fondo Blanco"></div>
+                   <div class="color-btn color-btn-black" data-color="black" title="Fondo Negro"></div>
+                   <div class="color-btn color-btn-service" data-color="original_service" title="Fondo Color Servicio"></div>
+               </div>
+            </div>
+        </div>
+
+
+        <!-- Botón Descarga -->
+        <div class="download-section">
+            <button id="downloadBtn" class="download-btn">
+                <i class="fas fa-download"></i> Descargar Creativo
+            </button>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i>
+            <div>
+                <p>Elegí un tipo de creativo (Original o Anuncio IG), formato y color de fondo. Los anuncios IG tienen un diseño diferente con banner y CTA visual.</p>
+                <p><strong>Vertical + Anuncio IG:</strong> respeta zona segura de Stories.</p>
+            </div>
+        </div>
+
+        <!-- Toggle Tips -->
+        <button class="toggle-practices" id="togglePractices">Ver Tips</button>
+        <div class="best-practices">
              <h3>Tips Anuncios Instagram:</h3>
              <ul>
                  <li>Hook visual/texto potente y claro.</li>
@@ -181,26 +222,29 @@
                  <li>CTA (llamada a la acción) visible.</li>
                  <li>Branding (logo) presente.</li>
                  <li>Respetar zona segura en vertical (Stories).</li>
-                 <li>Probar distintos conceptos (A/B testing).</li>
              </ul>
-         </div>
+              <h3>Tips Creativos Originales (Tráfico):</h3>
+             <ul>
+                <li>Mensajes intrigantes que fomenten el clic.</li>
+                <li>Imágenes de alto impacto visual.</li>
+                <li>Menos del 20% de texto (Meta Ads).</li>
+                <li>Propuesta de valor clara del destino.</li>
+                <li>CTA enfocado en visitar/descubrir.</li>
+            </ul>
+        </div>
 
-        <!-- Contenedor Creativos -->
+
+        <!-- Previsualización -->
         <div id="creativesContainer" class="creatives-container">
-            <!-- Creativo dinámico -->
+            <!-- Creativo dinámico aquí -->
         </div>
 
-        <div class="note">
-            <p>Dimensiones: 1080x1080px (Feed), 1080x1920px (Stories/Reels).</p>
-        </div>
+        <div class="note">Dimensiones: 1080x1080px (Cuadrado/Feed), 1080x1920px (Vertical/Stories).</div>
 
         <!-- Ad Copy -->
         <div class="ad-copy-section">
-            <h3>Copy Sugerido para Post (Voseo)</h3>
-            <div class="ad-copy-container">
-                <p id="adCopyText" class="ad-copy-text"></p>
-                <button id="copyBtn" class="copy-btn"><i class="fas fa-copy"></i> Copiar</button>
-            </div>
+            <h3 id="adCopyTitle">Copy Sugerido para Post (Voseo)</h3>
+            <div class="ad-copy-container"><p id="adCopyText" class="ad-copy-text"></p><button id="copyBtn" class="copy-btn"><i class="fas fa-copy"></i> Copiar</button></div>
         </div>
 
         <!-- Canvas y Modal -->
@@ -209,169 +253,165 @@
     </div>
 
     <script>
-        const colors = { // Colores base
+        const colors = { // Colores base y de servicios
             primary: '#ff7e00', dark: '#181818', light: '#ffffff',
-            // Colores asociados a conceptos/servicios para banners
-            auditoria_ad_color: '#28a745', // Verde para Auditoría
-            express_ad_color: '#dc3545', // Rojo para Express
-            roi_ad_color: '#1877F2',      // Azul para ROI/Confianza
+            // Colores específicos por servicio (para banner y CTA de Ads)
+            auditoria_color: '#28a745', express_color: '#dc3545', meta_color: '#1877F2',
+            google_color: '#4285F4', email_color: '#00829b', chatbot_color: '#6f42c1', all_color: '#343a40',
         };
 
-        // --- DATOS PARA CONCEPTOS DE ANUNCIOS ---
-        // Usamos nombres de servicio tipo 'concepto_ad'
-        const creativesData = {
-            auditoria_ad: {
-                hook: '¿Tus Ads Pierden Plata? 💸', // Texto principal grande
-                offer: 'AUDITORÍA DE ADS GRATIS',    // Oferta clara
-                benefit: 'Descubrí dónde se va tu presupuesto.', // Beneficio
-                cta: 'Agendá Tu Auditoría',         // Texto del botón visual
-                credibility: 'Diagnóstico en 48hs',     // Pequeño badge/texto
-                serviceColor: colors.auditoria_ad_color // Color para banner/CTA
-            },
-            express_ad: {
-                hook: '¿ADS ESTANCADOS? 🛑',
-                offer: 'OPTIMIZACIÓN EXPRESS 48HS ⚡',
-                benefit: 'Transformá Gasto en Ganancia.',
-                cta: 'Optimizá Ya',
-                credibility: 'Método Detección de Fugas™',
-                serviceColor: colors.express_ad_color
-            },
-            roi_ad: {
-                hook: 'MARKETING QUE SÍ RINDE ✅',
-                offer: 'Resultados GARANTIZADOS*',
-                benefit: 'Convertimos Clics en Ventas Reales.',
-                cta: 'Descubrí Cómo',
-                credibility: '*Si no cumplimos KPIs, pagás la mitad.', // Credibilidad incluye la condición
-                serviceColor: colors.roi_ad_color
-            }
+        // --- DATOS PARA CREATIVOS ORIGINALES (Tráfico) ---
+        const originalCreativesData = {
+             auditoria: { title: '¿TUS ADS GENERAN ROI REAL?', subtitle: 'DESCUBRÍ LA VERDAD AHORA', description: 'Auditoría gratuita de tus campañas.\nAnálisis experto sin compromiso.', bgColor: colors.auditoria_color },
+             optimizacion: { title: 'EVITÁ PERDER PRESUPUESTO', subtitle: 'OPTIMIZÁ TUS ADS EN 48HS', description: 'Sistema anti-fugas de presupuesto.\nAumentá conversiones.', bgColor: colors.express_color }, // NOTA: BG Color express aquí
+             meta: { title: 'MULTIPLICÁ TUS VENTAS', subtitle: 'ROAS 2.8X GARANTIZADO', description: 'Campañas de Meta Ads que convierten.\nEstrategia personalizada.', bgColor: colors.meta_color },
+             google: { title: 'CONVERTÍ BÚSQUEDAS EN VENTAS', subtitle: 'DOMINÁ GOOGLE ADS AHORA', description: 'Palabras clave rentables • ROAS 2.8X.\nReducción del CPA.', bgColor: colors.google_color },
+             email: { title: 'EMAIL MKT AUTOMATIZADO', subtitle: '38% TASA DE APERTURA', description: 'Convertí suscriptores en clientes.\nIngresos recurrentes.', bgColor: colors.email_color },
+             chatbot: { title: 'ATENCIÓN AL CLIENTE 24/7', subtitle: 'AUTOMATIZACIÓN INTELIGENTE', description: 'Reducí costos operativos.\nCapturá leads automáticamente.', bgColor: colors.chatbot_color },
+             all: { title: 'ESTRATEGIA DIGITAL COMPLETA', subtitle: 'AHORRÁ US$200/MES', description: 'Meta Ads • Google Ads • Email • Chatbot.\nTodo por US$1000/mes.', bgColor: colors.all_color }
         };
 
-        // Textos para el banner superior (más cortos)
+        // --- DATOS PARA NUEVOS ANUNCIOS (Instagram) ---
+        const adConceptData = {
+             ad_auditoria_gratis: { hook: '¿Tus Ads No Rinden? 📉', offer: 'AUDITORÍA DE ADS GRATIS', benefit: 'Descubrí por qué y cómo solucionarlo.', cta: 'Agendá Tu Auditoría', credibility: 'Sin costo, sin compromiso.', serviceColor: colors.auditoria_color },
+             ad_optimizacion_express: { hook: '¡SALVÁ TUS CAMPAÑAS! ⚡', offer: 'OPTIMIZACIÓN EXPRESS 48HS', benefit: 'Resultados rápidos por US$299.', cta: '¡Optimizá Ya!', credibility: '*Garantía ROI: Si no cumplimos KPIs, pagás la mitad.', serviceColor: colors.express_color },
+             ad_meta_ads: { hook: '¿FACEBOOK & INSTA NO VENDEN?', offer: 'GESTIÓN META ADS', benefit: 'Maximizá tu ROI con expertos.', cta: 'Contratá por US$299/mes', credibility: 'Incluye optimización + 4 creativos/mes.', serviceColor: colors.meta_color },
+             ad_google_ads: { hook: '¿NO APARECÉS EN GOOGLE?', offer: 'GESTIÓN GOOGLE ADS', benefit: 'Atraé clientes que buscan comprar.', cta: 'Contratá por US$299/mes', credibility: 'Palabras clave rentables + Optimización semanal.', serviceColor: colors.google_color },
+             ad_email_marketing: { hook: "¿TU LISTA NO CONVIERTE?", offer: "EMAIL MARKETING QUE VENDE", benefit: "Convertí suscriptores en clientes.", cta: "Contratá por US$299/mes", credibility: "Secuencias + Campañas + Segmentación.", serviceColor: colors.email_color },
+             ad_chatbot: { hook: "¿PERDÉS LEADS POR NO RESPONDER?", offer: "CHATBOT INTELIGENTE 24/7", benefit: "Capturá más clientes, automáticamente.", cta: "Contratá por US$299/mes", credibility: "Atención inmediata + Flujos optimizados.", serviceColor: colors.chatbot_color },
+             ad_paquete_completo: { hook: "¡MARKETING DIGITAL INTEGRAL!", offer: "PAQUETE COMPLETO: AHORRÁ US$200", benefit: "Meta + Google + Email + Chatbot = Máximo ROI.", cta: "¡Quiero el Pack por US$1000/mes!", credibility: "Todos tus canales optimizados.", serviceColor: colors.all_color }
+        };
+
+        // Nombres para Banner (solo Ads)
         const serviceBannerNames = {
-             auditoria_ad: 'Auditoría Gratis',
-             express_ad: 'Optimización 48hs',
-             roi_ad: 'Resultados Garantizados'
+             ad_auditoria_gratis: 'Auditoría Gratis', ad_optimizacion_express: 'Optimización 48hs', ad_meta_ads: 'Meta Ads Mensual', ad_google_ads: 'Google Ads Mensual', ad_email_marketing: 'Email Marketing Mensual', ad_chatbot: 'Chatbot Mensual', ad_paquete_completo: 'Paquete Completo'
         };
 
-        // --- AD COPY PARA POSTS (ajustado a conceptos) ---
+        // --- COPIES PARA CADA SERVICIO/AD ---
         const adCopyData = {
-             auditoria_ad: `¿Sentís que invertís en Meta y Google Ads pero no ves el retorno? 📉 El 67% de las empresas no sabe dónde se va realmente su presupuesto.\n\nTe ofrecemos una **Auditoría GRATUITA** para mostrarte:\n✅ Qué funciona y qué no en tus campañas.\n✅ Dónde estás perdiendo plata HOY.\n✅ Pasos claros para optimizar.\n\n¡Sin costo y sin compromiso! Agendá tu auditoría en 48hs tocando el enlace en nuestra bio.\n👉 [Tu Link a Calendly/Contacto]\n\n#MarketingDigital #PublicidadOnline #MetaAds #GoogleAds #AuditoriaGratis #ROI #OrangeVapor #ResultadosReales`,
-             express_ad: `¿Tus campañas de Ads parecen un pozo sin fondo? 😩 ¡Basta de tirar plata!\n\nCon nuestra **Optimización Express en 48hs**:\n⚡ Detectamos fugas de presupuesto (¡El 63% se puede desperdiciar!).\n⚡ Aplicamos correcciones rápidas y efectivas.\n⚡ Recibís un plan claro y anuncios listos para usar.\n\n¡Por solo US$299 y resultados que impactan tu ROI! (Garantía: Si no cumplimos KPIs, pagás la mitad).\n\nConocé más sobre la Optimización Express en el link de la bio.\n👉 [Tu Link a Optimizacion Express]\n\n#OptimizacionAds #MarketingResultados #ROI #CampañasAds #SolucionMarketing #OrangeVapor #48hs`,
-             roi_ad: `¿Cansado de agencias que prometen y no cumplen? 😠 En Orange Vapor, hablamos con números.\n\nNuestro **Método ROI First™** se enfoca 100% en resultados medibles para tus Ads, Email Marketing y Chatbots.\n\n✨ **¡Con Resultados Garantizados!*** ✨\n*Si no alcanzamos los KPIs acordados, solo pagás la mitad. Así de simple.\n\nDejá de gastar, empezá a invertir con inteligencia. Descubrí cómo lo hacemos en el link de nuestra bio.\n👉 [Tu Link a la Home o Servicios]\n\n#ROI #MarketingGarantizado #ResultadosMedibles #AgenciaMarketing #OrangeVapor #Conversion #VentasOnline`
+             // Copies para originales (Voseo)
+             auditoria: `🔍 ¿QUÉ ESTÁ FALLANDO EN TUS CAMPAÑAS? 🔍\n\n¿Sabías que el 67% de las empresas invierten sin saber qué métricas impactan sus ventas? 💡\n\nDescubrí por qué tu competencia consigue mejores resultados...\n\n✅ Análisis completo\n✅ Identificación de fugas de dinero\n✅ Comparativa con competidores\n✅ 100% gratis y sin compromiso\n\n👉 Visitá nuestra web (link en bio) y descubrí oportunidades de crecimiento.\n\n¡Cupos limitados! ¿Por qué esperar?\n\n➡️ www.orangevapor.com`,
+             optimizacion: `⚡ TRANSFORMÁ TUS CAMPAÑAS EN 48 HORAS ⚡\n\nCada día con campañas mal optimizadas = plata perdida 💸\n\nNuestro sistema "Detección de Fugas™" revela:\n✅ 63% del presupuesto se desperdicia.\n✅ Segmentación imprecisa = CPA elevados.\n✅ ¡Solo 3 ajustes clave pueden aumentar ventas!\n\nDiagnóstico + Estructura optimizada con garantía.\n\n¿Querés detener el sangrado presupuestario AHORA? Visitá (link en bio) 👇\nwww.orangevapor.com`,
+             meta: `📱 MULTIPLICÁ TUS VENTAS CON META ADS 📱\n\n¿Cuánto recuperás en ventas reales por cada $1 invertido en FB/IG? 🤔\n\nNuestros clientes: MÍNIMO 2.8x ROAS garantizado.\n\n✅ 35% reducción promedio CPA.\n✅ 45% más conversiones (misma inversión).\n✅ Gestión pro que maximiza cada peso.\n\n¿Querés aprovechar el verdadero potencial de Meta Ads? Hacé clic (link en bio) 👇\nwww.orangevapor.com`,
+             google: `🔎 CONVERTÍ BÚSQUEDAS EN VENTAS CON GOOGLE ADS 🔎\n\nMientras tu competencia lidera Google, ¿dónde estás vos? 👀\n\nPosicionate con:\n✅ 2.8x ROAS mínimo garantizado.\n✅ Palabras clave RENTABLES.\n✅ Optimización semanal de pujas.\n✅ Análisis de competencia.\n\n¡Aparecé donde te buscan tus clientes! (Link en bio) 👇\nwww.orangevapor.com`,
+             email: `📧 EMAIL MARKETING QUE GENERA INGRESOS 24/7 📧\n\n¡El Email Marketing tiene el ROI más alto (3600% promedio)! 📈\n\n¿Estás aprovechando tu base de datos?\n\n✅ 38% tasa de apertura promedio.\n✅ Secuencias automáticas que convierten.\n✅ Segmentación estratégica.\n✅ Ingresos recurrentes (¡mientras dormís!).\n\n¡Transformá tu email marketing! (Link en bio) 👇\nwww.orangevapor.com`,
+             chatbot: `🤖 ATENCIÓN AUTOMATIZADA QUE VENDE 24/7 🤖\n\n¿Cuántos leads y ventas perdés por no responder YA? ⏰\n\nChatbots inteligentes:\n✅ Atención instantánea 24/7.\n✅ Reducción costos hasta 70%.\n✅ Captura leads mientras dormís.\n✅ Respuestas en minutos vs. horas.\n\n¡No pierdas ni una oportunidad más! (Link en bio) 👇\nwww.orangevapor.com`,
+             all: `🚀 MARKETING DIGITAL INTEGRADO: ¡RESULTADOS GLOBALES! 🚀\n\n¿Por qué conformarte con poco? Tené una estrategia COMPLETA:\n\n✅ Meta Ads (2.8x ROAS min.)\n✅ Google Ads (Posicionamiento)\n✅ Email Marketing (38% apertura)\n✅ Chatbot (Atención 24/7)\n\n¡Ahorrá casi US$200/mes con el paquete! Solo US$1000/mes.\n\nPotenciá todos tus canales (Link en bio) 👇\nwww.orangevapor.com`,
+
+             // Copies para Ads (ya estaban en Voseo)
+             ad_auditoria_gratis: adCopyData.auditoria, // Reutilizar o ajustar si es necesario
+             ad_optimizacion_express: adCopyData.optimizacion,
+             ad_meta_ads: adCopyData.meta,
+             ad_google_ads: adCopyData.google,
+             ad_email_marketing: adCopyData.email,
+             ad_chatbot: adCopyData.chatbot,
+             ad_paquete_completo: adCopyData.all
         };
 
 
-        let activeService = 'auditoria_ad'; // Default al primer concepto
+        // Estado inicial
+        let activeService = 'auditoria'; // Empezar con el original
         let activeFormat = 'square';
-        let activeColor = 'orange'; // Default al naranja recomendado
+        let activeColor = 'orange'; // Fondo naranja por defecto
         let isProcessing = false;
 
         // DOM Elements (sin cambios)
-        const serviceTitle = document.getElementById('serviceTitle');
-        const creativesContainer = document.getElementById('creativesContainer');
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const formatButtons = document.querySelectorAll('.format-btn');
-        const colorButtons = document.querySelectorAll('.color-btn');
-        const squareBtn = document.getElementById('squareBtn');
-        const verticalBtn = document.getElementById('verticalBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const togglePracticesBtn = document.getElementById('togglePractices');
-        const bestPracticesBox = document.querySelector('.best-practices');
-        const downloadCanvas = document.getElementById('downloadCanvas');
-        const adCopyText = document.getElementById('adCopyText');
-        const copyBtn = document.getElementById('copyBtn');
-        const loadingModal = document.getElementById('loadingModal');
-        const loadingMessage = document.getElementById('loadingMessage');
+        const serviceTitle = document.getElementById('serviceTitle'); const creativesContainer = document.getElementById('creativesContainer'); const tabButtons = document.querySelectorAll('.tab-button'); const formatButtons = document.querySelectorAll('.format-btn'); const colorButtons = document.querySelectorAll('.color-btn'); const squareBtn = document.getElementById('squareBtn'); const verticalBtn = document.getElementById('verticalBtn'); const downloadBtn = document.getElementById('downloadBtn'); const togglePracticesBtn = document.getElementById('togglePractices'); const bestPracticesBox = document.querySelector('.best-practices'); const downloadCanvas = document.getElementById('downloadCanvas'); const adCopyText = document.getElementById('adCopyText'); const copyBtn = document.getElementById('copyBtn'); const loadingModal = document.getElementById('loadingModal'); const loadingMessage = document.getElementById('loadingMessage'); const adCopyTitle = document.getElementById('adCopyTitle');
 
 
-        // --- Helper Functions (Ajustadas levemente) ---
+        // --- Helper Functions ---
         function getServiceFriendlyName(service) {
-             const nameMap = { auditoria_ad: 'Anuncio Auditoría', express_ad: 'Anuncio Express', roi_ad: 'Anuncio ROI' };
-             return nameMap[service] || 'Anuncio Genérico';
-        }
-
-        function getMainBgColor() { // Ahora usa los colores básicos
-            if (activeColor === 'orange') return colors.primary;
-            else if (activeColor === 'white') return colors.light;
-            else if (activeColor === 'black') return colors.dark;
-            // Nuevo 'original_service': usa el color del servicio como fondo
-            else if (activeColor === 'original_service') return getServiceColor(activeService);
-            return colors.primary; // Default naranja
-        }
-        function getServiceColor(service) { // Obtiene color del CONCEPTO
-            return creativesData[service]?.serviceColor || colors.dark; // Usa el color definido en creativesData
-        }
-        function getTextColor(bgColor) { /* ... (sin cambios, robusta) ... */
-            if(!bgColor)return colors.dark;let r,g,b;if(bgColor.startsWith('#')){if(bgColor.length===4){r=parseInt(bgColor[1]+bgColor[1],16);g=parseInt(bgColor[2]+bgColor[2],16);b=parseInt(bgColor[3]+bgColor[3],16)}else if(bgColor.length===7){const bigint=parseInt(bgColor.slice(1),16);r=(bigint>>16)&255;g=(bigint>>8)&255;b=bigint&255}else{return colors.dark}}else if(bgColor.startsWith('rgb')){const matches=bgColor.match(/\d+/g);if(!matches||matches.length<3)return colors.dark;[r,g,b]=matches.map(Number)}else{return colors.dark}if(isNaN(r)||isNaN(g)||isNaN(b))return colors.dark;const lum=(0.2126*r+0.7152*g+0.0722*b)/255;return lum>0.55?colors.dark:colors.light
-        }
-        function getAccentColor(mainBgColor, serviceColor) { // Acento usa color del servicio si fondo es básico
-             const mainTextColor = getTextColor(mainBgColor);
-             // Si el fondo es naranja, blanco o negro, el acento es el color del servicio.
-             if (activeColor === 'orange' || activeColor === 'white' || activeColor === 'black') {
-                 return serviceColor;
+             // Devuelve un nombre legible para el H1
+             if (service.startsWith('ad_')) {
+                 const base = service.substring(3).replace(/_/g, ' ');
+                 return `Anuncio Instagram: ${base.charAt(0).toUpperCase() + base.slice(1)}`;
+             } else {
+                  const base = service.replace(/_/g, ' ');
+                 return `Creativo Tráfico: ${base.charAt(0).toUpperCase() + base.slice(1)}`;
              }
-             // Si el fondo es el color del servicio ('original_service'), el acento es el color del texto.
-             return mainTextColor;
         }
-
+        function isAdConcept(service) { // Verifica si es un nuevo Ad Concept
+            return service.startsWith('ad_');
+        }
+        function getMainBgColor() { /* ... (igual) ... */
+            if(activeColor==='orange')return colors.primary;else if(activeColor==='white')return colors.light;else if(activeColor==='black')return colors.dark;else if(activeColor==='original_service')return getServiceColor(activeService);return colors.primary
+        }
+        function getServiceColor(service) { // Obtiene color específico del servicio/concepto
+             // Para Ads, usa el color definido en adConceptData
+             if (isAdConcept(service)) {
+                 return adConceptData[service]?.serviceColor || colors.dark;
+             }
+             // Para originales, usa el color definido en originalCreativesData
+             else {
+                 // Extraer el nombre base del color (ej: 'auditoria_color')
+                 const baseServiceName = service.split('_')[0]; // 'auditoria', 'optimizacion', etc.
+                 const colorKey = `${baseServiceName}_color`;
+                 return colors[colorKey] || originalCreativesData[service]?.bgColor || colors.dark;
+             }
+        }
+        function getTextColor(bgColor) { /* ... (igual, robusta) ... */
+             if(!bgColor)return colors.dark;let r,g,b;if(bgColor.startsWith('#')){if(bgColor.length===4){r=parseInt(bgColor[1]+bgColor[1],16);g=parseInt(bgColor[2]+bgColor[2],16);b=parseInt(bgColor[3]+bgColor[3],16)}else if(bgColor.length===7){const bint=parseInt(bgColor.slice(1),16);r=(bint>>16)&255;g=(bint>>8)&255;b=bint&255}else{return colors.dark}}else if(bgColor.startsWith('rgb')){const m=bgColor.match(/\d+/g);if(!m||m.length<3)return colors.dark;[r,g,b]=m.map(Number)}else{return colors.dark}if(isNaN(r)||isNaN(g)||isNaN(b))return colors.dark;const l=(0.2126*r+0.7152*g+0.0722*b)/255;return l>0.55?colors.dark:colors.light
+        }
+        function getAccentColor(mainBgColor, serviceColor) { /* ... (igual) ... */
+             const t=getTextColor(mainBgColor);if(activeColor==='orange'||activeColor==='white'||activeColor==='black'){return serviceColor}return t
+        }
 
         // --- Core Functions ---
-        function renderCreative() { // Actualizado para mostrar nuevos elementos
+        function renderCreative() { // MODIFICADO para manejar AMBOS tipos
              creativesContainer.innerHTML = '';
-             const adData = creativesData[activeService];
-             if (!adData) { console.error("Datos de anuncio no encontrados:", activeService); return; }
+             const isAd = isAdConcept(activeService);
+             const data = isAd ? adConceptData[activeService] : originalCreativesData[activeService];
+
+             if (!data) { console.error("Datos no encontrados:", activeService); return; }
 
              const mainBgColor = getMainBgColor();
-             const serviceColor = getServiceColor(activeService); // Color para banner y CTA visual
+             const serviceColor = getServiceColor(activeService);
              const mainTextColor = getTextColor(mainBgColor);
              const bannerTextColor = getTextColor(serviceColor);
              const accentColor = getAccentColor(mainBgColor, serviceColor);
 
+             // Elemento principal y clases condicionales
              const creativeEl = document.createElement('div');
-             creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
+             creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''} ${isAd ? 'is-ad-concept' : 'is-original-concept'}`;
              creativeEl.style.backgroundColor = mainBgColor;
-             // Variables CSS para colores dinámicos (usado en CTA visual)
              creativeEl.style.setProperty('--service-color', serviceColor);
              creativeEl.style.setProperty('--banner-text-color', bannerTextColor);
 
+             // Banner (Solo si es Ad Concept)
+             if (isAd) {
+                 const bannerEl = document.createElement('div');
+                 bannerEl.className = 'creative-service-banner';
+                 // Estilos ya aplicados por CSS + :root variables
+                 bannerEl.textContent = serviceBannerNames[activeService] || 'Orange Vapor';
+                 creativeEl.appendChild(bannerEl);
+             }
 
-             // Banner Superior
-             const bannerEl = document.createElement('div');
-             bannerEl.className = 'creative-service-banner';
-             bannerEl.style.backgroundColor = serviceColor;
-             bannerEl.style.color = bannerTextColor;
-             bannerEl.textContent = serviceBannerNames[activeService] || 'Orange Vapor'; // Nombre corto en banner
-             creativeEl.appendChild(bannerEl);
-
-             // Logo
+             // Logo (Posición depende si es Ad o no - manejado por CSS)
              const logoContainerEl = document.createElement('div');
              logoContainerEl.className = 'logo-container';
              const logoEl = document.createElement('div');
+             // Color Logo
              if (activeColor === 'white') { logoEl.innerHTML = `<span style="color: ${colors.dark};">Orange</span> <span style="color: ${colors.primary};">Vapor</span>`; }
              else if (mainBgColor === colors.primary && activeColor !== 'original_service') { logoEl.innerHTML = `<span style="color: ${colors.light};">Orange Vapor</span>`; }
              else { logoEl.innerHTML = `<span style="color: ${mainTextColor};">Orange</span> <span style="color: ${colors.primary};">Vapor</span>`; }
              logoContainerEl.appendChild(logoEl);
              creativeEl.appendChild(logoContainerEl);
 
-             // Contenido de Texto (Adaptado a nuevos campos)
+             // Contenido de Texto (Condicional)
              const contentEl = document.createElement('div');
              contentEl.className = 'creative-content';
-             contentEl.style.color = mainTextColor; // Color principal para textos
+             contentEl.style.color = mainTextColor;
 
-             const hookEl = document.createElement('div'); hookEl.className = 'creative-hook'; hookEl.textContent = adData.hook; contentEl.appendChild(hookEl);
-             const offerEl = document.createElement('div'); offerEl.className = 'creative-offer'; offerEl.textContent = adData.offer; contentEl.appendChild(offerEl);
-             const benefitEl = document.createElement('div'); benefitEl.className = 'creative-benefit'; benefitEl.textContent = adData.benefit; contentEl.appendChild(benefitEl);
-
-             // CTA Visual (Botón simulado)
-             const ctaEl = document.createElement('a'); // Usar 'a' aunque no tenga link real en preview
-             ctaEl.className = 'creative-cta-visual';
-             ctaEl.textContent = adData.cta;
-             // El color de fondo y texto se definen con variables CSS arriba
-             contentEl.appendChild(ctaEl);
-
-             // Credibilidad (si existe)
-             if (adData.credibility) {
-                 const credibilityEl = document.createElement('div'); credibilityEl.className = 'creative-credibility'; credibilityEl.textContent = adData.credibility; contentEl.appendChild(credibilityEl);
+             if (isAd) { // Renderizar Hook, Offer, Benefit, etc.
+                 const hookEl = document.createElement('div'); hookEl.className = 'creative-hook'; hookEl.textContent = data.hook; contentEl.appendChild(hookEl);
+                 const offerEl = document.createElement('div'); offerEl.className = 'creative-offer'; offerEl.textContent = data.offer; contentEl.appendChild(offerEl);
+                 const benefitEl = document.createElement('div'); benefitEl.className = 'creative-benefit'; benefitEl.textContent = data.benefit; contentEl.appendChild(benefitEl);
+                 const ctaEl = document.createElement('a'); ctaEl.className = 'creative-cta-visual'; ctaEl.textContent = data.cta; contentEl.appendChild(ctaEl);
+                 if (data.credibility) { const credibilityEl = document.createElement('div'); credibilityEl.className = 'creative-credibility'; credibilityEl.textContent = data.credibility; contentEl.appendChild(credibilityEl); }
+             } else { // Renderizar Title, Subtitle, Description
+                 const titleEl = document.createElement('div'); titleEl.className = 'creative-title'; titleEl.textContent = data.title; contentEl.appendChild(titleEl);
+                 const subtitleEl = document.createElement('div'); subtitleEl.className = 'creative-subtitle'; subtitleEl.textContent = data.subtitle; contentEl.appendChild(subtitleEl);
+                 const descEl = document.createElement('div'); descEl.className = 'creative-description'; descEl.style.whiteSpace = 'pre-line'; descEl.textContent = data.description; contentEl.appendChild(descEl);
              }
 
              creativeEl.appendChild(contentEl);
@@ -384,28 +424,31 @@
 
              creativeEl.addEventListener('click', generateAndDownloadImage);
              creativesContainer.appendChild(creativeEl);
-             updateAdCopy();
+             updateAdCopy(); // Actualizar texto del copy asociado
         }
 
-        function updateAdCopy() { // Actualiza copy del post
-             adCopyText.textContent = adCopyData[activeService] || "Seleccioná un concepto de anuncio.";
-             copyBtn.innerHTML='<i class="fas fa-copy"></i> Copiar';
+        function updateAdCopy() {
+            adCopyText.textContent = adCopyData[activeService] || "Seleccioná un servicio o anuncio.";
+            copyBtn.innerHTML='<i class="fas fa-copy"></i> Copiar';
+            // Cambiar título de la sección de copy
+            adCopyTitle.textContent = isAdConcept(activeService) ? "Copy Sugerido para Anuncio IG (Voseo)" : "Copy Sugerido para Tráfico (Voseo)";
         }
-        function showLoadingModal(message="Generando...") { loadingMessage.textContent=message;loadingModal.style.display='flex'; }
-        function hideLoadingModal() { loadingModal.style.display='none'; }
+        function showLoadingModal(message="Generando...") { /* ... */ loadingMessage.textContent=message;loadingModal.style.display='flex'; }
+        function hideLoadingModal() { /* ... */ loadingModal.style.display='none'; }
 
-        // --- CANVAS DRAWING (Versión FUNCIONAL Anterior + Contenido Nuevo) ---
+        // --- CANVAS DRAWING (MODIFICADO para manejar AMBOS tipos) ---
         function generateAndDownloadImage() {
             if (isProcessing) return;
             isProcessing = true;
             showLoadingModal();
-            console.log(`[Start] Generating Ad: ${activeService}, Format: ${activeFormat}, BG Color Key: ${activeColor}`);
+            const isAd = isAdConcept(activeService);
+            const data = isAd ? adConceptData[activeService] : originalCreativesData[activeService];
+            console.log(`[Start] Generating ${isAd ? 'Ad' : 'Original'}: ${activeService}, Format: ${activeFormat}, BG Color Key: ${activeColor}`);
 
             requestAnimationFrame(() => {
-                setTimeout(() => { // Delay
+                setTimeout(() => {
                     try {
-                        const adData = creativesData[activeService];
-                        if (!adData) throw new Error(`Datos de anuncio no encontrados: ${activeService}`);
+                        if (!data) throw new Error(`Datos no encontrados: ${activeService}`);
 
                         const isVertical = activeFormat === 'vertical';
                         const width = 1080;
@@ -417,182 +460,121 @@
 
                         // Colores
                         const mainBgColor = getMainBgColor();
-                        const serviceColor = getServiceColor(activeService); // Color del CONCEPTO
+                        const serviceColor = getServiceColor(activeService);
                         const mainTextColor = getTextColor(mainBgColor);
                         const bannerTextColor = getTextColor(serviceColor);
                         const accentColor = getAccentColor(mainBgColor, serviceColor);
-                        console.log(`[Canvas] Concept: ${activeService}, Banner Color: ${serviceColor}, Banner Text: ${bannerTextColor}, Main BG: ${mainBgColor}, Main Text: ${mainTextColor}`);
+                        console.log(`[Canvas] Service: ${activeService}, ServiceColor: ${serviceColor}, BannerTxt: ${bannerTextColor}, MainBG: ${mainBgColor}, MainTxt: ${mainTextColor}`);
 
+                        // --- DIBUJAR ---
+                        ctx.fillStyle = mainBgColor; ctx.fillRect(0, 0, width, height); // 1. Fondo
 
-                        // --- DIBUJAR (Lógica FUNCIONAL anterior adaptada a nuevos datos) ---
+                        // 2. Banner Superior (Solo si es Ad Concept)
+                        const bannerHeight = isAd ? (isVertical ? 100 : 80) : 0; // Altura 0 si no es Ad
+                        if (isAd) {
+                            ctx.fillStyle = serviceColor; ctx.fillRect(0, 0, width, bannerHeight);
+                            const bannerText = serviceBannerNames[activeService] || 'ORANGE VAPOR';
+                            const bannerFontSize = isVertical ? 45 : 40;
+                            ctx.font = `bold ${bannerFontSize}px Montserrat, sans-serif`; ctx.fillStyle = bannerTextColor;
+                            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                            ctx.fillText(bannerText, width / 2, bannerHeight / 2);
+                        }
 
-                        // 1. Fondo
-                        ctx.fillStyle = mainBgColor;
-                        ctx.fillRect(0, 0, width, height);
-
-                        // 2. Banner Superior
-                        const bannerHeight = isVertical ? 100 : 80; // Altura banner
-                        ctx.fillStyle = serviceColor; // Color del CONCEPTO
-                        ctx.fillRect(0, 0, width, bannerHeight);
-                        const bannerText = serviceBannerNames[activeService] || 'ORANGE VAPOR';
-                        const bannerFontSize = isVertical ? 45 : 40;
-                        ctx.font = `bold ${bannerFontSize}px Montserrat, sans-serif`;
-                        ctx.fillStyle = bannerTextColor; // Texto contrastante
-                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-                        ctx.fillText(bannerText, width / 2, bannerHeight / 2);
-
-                         // --- ZONA SEGURA (Básica - margen superior simple) ---
-                         // Dejamos espacio arriba en vertical, pero menos estricto que antes para simplicidad
-                        const safeTopMargin = isVertical ? 150 : bannerHeight + 20; // Espacio arriba
-                        const safeBottomMargin = isVertical ? 100 : 40;
+                        // --- ZONA SEGURA (Condicional: Más estricta para Ads Verticales) ---
+                        const safeTopMargin = isVertical ? (isAd ? Math.round(height * 0.14) : 150) : (isAd ? bannerHeight + 20 : 40);
+                        const safeBottomMargin = isVertical ? (isAd ? Math.round(height * 0.14) : 100) : 40;
                         const safeZoneY = safeTopMargin;
                         const safeZoneHeight = height - safeTopMargin - safeBottomMargin;
-                        const textMaxWidth = width - 140; // Margen lateral texto
+                        const textMaxWidth = width - (isAd ? 140 : 100); // Margen texto
 
-
-                        // 3. Logo (Debajo del banner, respetando margen superior simple)
+                        // 3. Logo (Posición depende de si hay banner y zona segura)
                         const logoFontSize = isVertical ? 36 : 32;
                         ctx.font = `bold ${logoFontSize}px Montserrat, sans-serif`;
                         ctx.textAlign = 'left'; ctx.textBaseline = 'top';
                         const logoX = 70;
-                        const logoY = isVertical ? safeZoneY : bannerHeight + 30; // Empieza en margen o bajo banner
+                        const logoY = isAd ? (isVertical ? safeZoneY + 10 : bannerHeight + 30) : (isVertical ? 80 : 50); // Posición distinta si es Ad o Original
                         // Color Logo
                         if (activeColor === 'white') { ctx.fillStyle = colors.dark; ctx.fillText('Orange', logoX, logoY); ctx.fillStyle = colors.primary; ctx.fillText('Vapor', logoX + ctx.measureText('Orange ').width, logoY); }
                         else if (mainBgColor === colors.primary && activeColor !== 'original_service') { ctx.fillStyle = colors.light; ctx.fillText('Orange Vapor', logoX, logoY); }
                         else { ctx.fillStyle = mainTextColor; ctx.fillText('Orange', logoX, logoY); ctx.fillStyle = colors.primary; ctx.fillText('Vapor', logoX + ctx.measureText('Orange ').width, logoY); }
 
 
-                        // 4. Bloque de Texto Principal (Hook, Offer, Benefit, CTA, Credibility)
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'top'; // Alinear desde arriba
-                        ctx.fillStyle = mainTextColor;
+                        // 4. Bloque de Texto Principal (Condicional)
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillStyle = mainTextColor;
 
-                        // Tamaños y Espacios
-                        const hookFontSize = isVertical ? 75 : 65;
-                        const hookLineHeight = hookFontSize * 1.15;
-                        const offerFontSize = isVertical ? 48 : 42;
-                        const offerLineHeight = offerFontSize * 1.2;
-                        const benefitFontSize = isVertical ? 38 : 34;
-                        const benefitLineHeight = benefitFontSize * 1.3;
-                        const ctaFontSize = isVertical ? 42 : 38;
-                        const credibilityFontSize = isVertical ? 26 : 22;
+                        if (isAd) {
+                            // --- Dibujar AD CONCEPT (Hook, Offer, Benefit, CTA, Credibility) ---
+                            const hookFontSize = isVertical ? 70 : 60; const hookLineHeight = hookFontSize * 1.15;
+                            const offerFontSize = isVertical ? 46 : 40; const offerLineHeight = offerFontSize * 1.2;
+                            const benefitFontSize = isVertical ? 36 : 32; const benefitLineHeight = benefitFontSize * 1.3;
+                            const ctaFontSize = isVertical ? 40 : 36; const credibilityFontSize = isVertical ? 24 : 20;
+                            const spaceOffer = 25; const spaceBenefit = 20; const spaceCta = 35; const spaceCred = 15;
 
-                        const spaceOffer = 30;
-                        const spaceBenefit = 25;
-                        const spaceCta = 40;
-                        const spaceCred = 15;
+                            // Medir altura total (aproximada)
+                            const measureCtx = downloadCanvas.getContext('2d');
+                            measureCtx.font = `800 ${hookFontSize}px Montserrat, sans-serif`; const hookInfo = wrapTextAndMeasure(measureCtx, data.hook, textMaxWidth, hookLineHeight);
+                            measureCtx.font = `700 ${offerFontSize}px Montserrat, sans-serif`; const offerInfo = wrapTextAndMeasure(measureCtx, data.offer, textMaxWidth * 0.9, offerLineHeight);
+                            measureCtx.font = `${benefitFontSize}px Montserrat, sans-serif`; const benefitInfo = wrapTextAndMeasure(measureCtx, data.benefit, textMaxWidth, benefitLineHeight);
+                            measureCtx.font = `bold ${ctaFontSize}px Montserrat, sans-serif`; const ctaInfo = wrapTextAndMeasure(measureCtx, data.cta, textMaxWidth * 0.8, ctaFontSize * 1.2);
+                            measureCtx.font = `500 ${credibilityFontSize}px Montserrat, sans-serif`; const credInfo = wrapTextAndMeasure(measureCtx, data.credibility || '', textMaxWidth, credibilityFontSize * 1.2);
+                            const totalTextBlockHeight = hookInfo.height + (offerInfo.lines > 0 ? spaceOffer + offerInfo.height : 0) + (benefitInfo.lines > 0 ? spaceBenefit + benefitInfo.height : 0) + (ctaInfo.lines > 0 ? spaceCta + ctaInfo.height : 0) + (credInfo.lines > 0 ? spaceCred + credInfo.height : 0);
 
-                        // Calcular Altura Total (aproximada para centrar)
-                        const measureCtx = downloadCanvas.getContext('2d'); // Contexto para medir
-                        measureCtx.font = `800 ${hookFontSize}px Montserrat, sans-serif`; // Usar 800 bold para hook
-                        const hookInfo = wrapTextAndMeasure(measureCtx, adData.hook, textMaxWidth, hookLineHeight);
-                        measureCtx.font = `700 ${offerFontSize}px Montserrat, sans-serif`; // Bold para offer
-                        const offerInfo = wrapTextAndMeasure(measureCtx, adData.offer, textMaxWidth * 0.9, offerLineHeight); // MaxWidth menor para recuadro
-                        measureCtx.font = `${benefitFontSize}px Montserrat, sans-serif`;
-                        const benefitInfo = wrapTextAndMeasure(measureCtx, adData.benefit, textMaxWidth, benefitLineHeight);
-                        measureCtx.font = `bold ${ctaFontSize}px Montserrat, sans-serif`; // Bold para CTA
-                        const ctaInfo = wrapTextAndMeasure(measureCtx, adData.cta, textMaxWidth * 0.8, ctaFontSize * 1.2); // MaxWidth menor
-                        measureCtx.font = `500 ${credibilityFontSize}px Montserrat, sans-serif`; // Medium para cred
-                        const credInfo = wrapTextAndMeasure(measureCtx, adData.credibility || '', textMaxWidth, credibilityFontSize * 1.2);
+                            // Calcular Y inicial (centrado en zona segura bajo logo)
+                            const availableTextHeight = height - logoY - logoFontSize - safeBottomMargin - 20;
+                            const textBlockStartY = logoY + logoFontSize + Math.max(30, (availableTextHeight - totalTextBlockHeight) / 2);
 
-                        const totalTextBlockHeight = hookInfo.height + spaceOffer + offerInfo.height + spaceBenefit + benefitInfo.height + spaceCta + ctaInfo.height + (credInfo.lines > 0 ? spaceCred + credInfo.height : 0);
+                            // Dibujar
+                            let currentY = textBlockStartY;
+                            ctx.font = `800 ${hookFontSize}px Montserrat, sans-serif`; const hookDrawInfo = wrapTextAndDraw(ctx, data.hook, width / 2, currentY, textMaxWidth, hookLineHeight); currentY = hookDrawInfo.endY + spaceOffer;
+                            if (offerInfo.lines > 0) { ctx.font = `700 ${offerFontSize}px Montserrat, sans-serif`; const offerTextWidth = measureCtx.measureText(data.offer.length > 25 ? data.offer.substring(0,22)+'...' : data.offer).width * 1.05; const offerRectWidth = Math.min(textMaxWidth * 0.9, offerTextWidth); const offerRectHeight = offerInfo.height + 15; ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; ctx.fillRect(width/2 - offerRectWidth/2, currentY - 7, offerRectWidth, offerRectHeight); ctx.fillStyle = mainTextColor; const offerDrawInfo = wrapTextAndDraw(ctx, data.offer, width / 2, currentY, textMaxWidth * 0.9, offerLineHeight); currentY = offerDrawInfo.endY + spaceBenefit; } else { currentY -= spaceOffer; currentY += spaceBenefit;}
+                            if (benefitInfo.lines > 0) { ctx.font = `${benefitFontSize}px Montserrat, sans-serif`; const benefitDrawInfo = wrapTextAndDraw(ctx, data.benefit, width / 2, currentY, textMaxWidth, benefitLineHeight); currentY = benefitDrawInfo.endY + spaceCta; } else { currentY -= spaceBenefit; currentY += spaceCta;}
+                            if (ctaInfo.lines > 0) { ctx.font = `bold ${ctaFontSize}px Montserrat, sans-serif`; const ctaTextWidth = measureCtx.measureText(data.cta).width * 1.1; const ctaRectWidth = Math.min(textMaxWidth * 0.8, ctaTextWidth); const ctaRectHeight = ctaInfo.height + 20; const ctaRectY = currentY - 10; ctx.fillStyle = serviceColor; ctx.fillRect(width/2 - ctaRectWidth/2, ctaRectY, ctaRectWidth, ctaRectHeight); ctx.fillStyle = bannerTextColor; wrapTextAndDraw(ctx, data.cta, width / 2, currentY, textMaxWidth * 0.8, ctaFontSize * 1.2); currentY += ctaInfo.height + spaceCred; } else { currentY -= spaceCta; currentY += spaceCred;}
+                            if (credInfo.lines > 0) { ctx.font = `500 ${credibilityFontSize}px Montserrat, sans-serif`; ctx.fillStyle = mainTextColor; ctx.globalAlpha = 0.9; wrapTextAndDraw(ctx, data.credibility, width / 2, currentY, textMaxWidth, credibilityFontSize * 1.2); ctx.globalAlpha = 1.0; }
 
-                        // Calcular Y inicial para centrar bloque en zona segura (bajo logo)
-                        const availableTextHeight = height - logoY - logoFontSize - safeBottomMargin - 20;
-                        const textBlockStartY = logoY + logoFontSize + Math.max(30, (availableTextHeight - totalTextBlockHeight) / 2); // Mínimo 30px bajo logo
+                        } else {
+                             // --- Dibujar ORIGINAL (Title, Subtitle, Description) ---
+                            const titleFontSize = isVertical ? 70 : 65; const titleLineHeight = titleFontSize * 1.1;
+                            const subtitleFontSize = isVertical ? 50 : 45; const subtitleLineHeight = subtitleFontSize * 1.2;
+                            const descFontSize = isVertical ? 38 : 34; const descLineHeight = descFontSize * 1.3;
+                            const spaceSub = 20; const spaceDesc = 30;
 
-                        // -- Dibujar Textos --
-                        let currentY = textBlockStartY;
+                            // Medir altura
+                            const measureCtx = downloadCanvas.getContext('2d');
+                            measureCtx.font = `800 ${titleFontSize}px Montserrat, sans-serif`; const titleInfo = wrapTextAndMeasure(measureCtx, data.title, textMaxWidth, titleLineHeight);
+                            measureCtx.font = `600 ${subtitleFontSize}px Montserrat, sans-serif`; const subtitleInfo = wrapTextAndMeasure(measureCtx, data.subtitle, textMaxWidth, subtitleLineHeight);
+                            measureCtx.font = `${descFontSize}px Montserrat, sans-serif`; const descInfo = wrapTextAndMeasure(measureCtx, data.description, textMaxWidth, descLineHeight);
+                            const totalTextBlockHeight = titleInfo.height + (subtitleInfo.lines > 0 ? spaceSub + subtitleInfo.height : 0) + (descInfo.lines > 0 ? spaceDesc + descInfo.height : 0);
 
-                        // Hook
-                        ctx.font = `800 ${hookFontSize}px Montserrat, sans-serif`;
-                        const hookDrawInfo = wrapTextAndDraw(ctx, adData.hook, width / 2, currentY, textMaxWidth, hookLineHeight);
-                        currentY = hookDrawInfo.endY + spaceOffer;
+                            // Calcular Y inicial (centrado bajo logo)
+                            const availableTextHeight = height - logoY - logoFontSize - safeBottomMargin - 20;
+                            const textBlockStartY = logoY + logoFontSize + Math.max(30, (availableTextHeight - totalTextBlockHeight) / 2);
 
-                        // Offer (con recuadro simulado)
-                        ctx.font = `700 ${offerFontSize}px Montserrat, sans-serif`;
-                        // Dibujar recuadro primero (si hay texto)
-                        if (offerInfo.lines > 0) {
-                            const offerTextWidth = measureCtx.measureText(adData.offer.length > 25 ? adData.offer.substring(0,22)+'...' : adData.offer).width * 1.05; // Ancho aprox
-                            const offerRectWidth = Math.min(textMaxWidth * 0.9, offerTextWidth);
-                            const offerRectHeight = offerInfo.height + 15; // Padding vertical recuadro
-                            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Color recuadro
-                            // Centrar recuadro
-                            ctx.fillRect(width/2 - offerRectWidth/2, currentY - 7, offerRectWidth, offerRectHeight);
-                        }
-                        // Dibujar texto encima
-                        ctx.fillStyle = mainTextColor; // Restaurar color texto
-                        const offerDrawInfo = wrapTextAndDraw(ctx, adData.offer, width / 2, currentY, textMaxWidth * 0.9, offerLineHeight);
-                        currentY = offerDrawInfo.endY + spaceBenefit;
-
-
-                        // Benefit
-                        ctx.font = `${benefitFontSize}px Montserrat, sans-serif`;
-                        const benefitDrawInfo = wrapTextAndDraw(ctx, adData.benefit, width / 2, currentY, textMaxWidth, benefitLineHeight);
-                        currentY = benefitDrawInfo.endY + spaceCta;
-
-                        // CTA (Botón simulado)
-                        ctx.font = `bold ${ctaFontSize}px Montserrat, sans-serif`;
-                         if (ctaInfo.lines > 0) {
-                            const ctaTextWidth = measureCtx.measureText(adData.cta).width * 1.1; // Ancho aprox
-                            const ctaRectWidth = Math.min(textMaxWidth * 0.8, ctaTextWidth);
-                            const ctaRectHeight = ctaInfo.height + 20; // Padding vertical
-                            const ctaRectY = currentY - 10;
-                            // Dibujar botón
-                            ctx.fillStyle = serviceColor; // Usar color del servicio para el botón
-                            ctx.fillRect(width/2 - ctaRectWidth/2, ctaRectY, ctaRectWidth, ctaRectHeight);
-                            // Dibujar texto del botón
-                            ctx.fillStyle = bannerTextColor; // Texto contrastante
-                            wrapTextAndDraw(ctx, adData.cta, width / 2, currentY, textMaxWidth * 0.8, ctaFontSize * 1.2);
-                            currentY += ctaInfo.height + spaceCred;
-                         }
-
-
-                        // Credibility
-                        if (credInfo.lines > 0) {
-                            ctx.font = `500 ${credibilityFontSize}px Montserrat, sans-serif`;
-                            ctx.fillStyle = mainTextColor; // Color normal
-                            ctx.globalAlpha = 0.9; // Un poco transparente
-                            wrapTextAndDraw(ctx, adData.credibility, width / 2, currentY, textMaxWidth, credibilityFontSize * 1.2);
-                            ctx.globalAlpha = 1.0; // Restaurar opacidad
+                            // Dibujar
+                            let currentY = textBlockStartY;
+                            ctx.font = `800 ${titleFontSize}px Montserrat, sans-serif`; const titleDrawInfo = wrapTextAndDraw(ctx, data.title, width / 2, currentY, textMaxWidth, titleLineHeight); currentY = titleDrawInfo.endY + spaceSub;
+                            if (subtitleInfo.lines > 0) { ctx.font = `600 ${subtitleFontSize}px Montserrat, sans-serif`; const subtitleDrawInfo = wrapTextAndDraw(ctx, data.subtitle, width / 2, currentY, textMaxWidth, subtitleLineHeight); currentY = subtitleDrawInfo.endY + spaceDesc; } else { currentY -= spaceSub; currentY += spaceDesc; }
+                            if (descInfo.lines > 0) { ctx.font = `${descFontSize}px Montserrat, sans-serif`; wrapTextAndDraw(ctx, data.description, width / 2, currentY, textMaxWidth, descLineHeight); }
                         }
 
 
-                        // 5. Acento Lateral (posición simple)
-                         ctx.fillStyle = accentColor;
-                         const accentWidth = isVertical ? 18 : 12;
-                         const accentHeight = isVertical ? 120 : 80;
-                         let accentY = textBlockStartY + (totalTextBlockHeight / 2) - (accentHeight / 2); // Centro del bloque
-                         accentY = Math.max(bannerHeight + 10, Math.min(accentY, height - accentHeight - 10));
-                         ctx.fillRect(0, accentY, accentWidth, accentHeight);
-
+                        // 5. Acento Lateral (Posición simple)
+                        ctx.fillStyle = accentColor; const accentWidth = isVertical ? 15 : 10; const accentHeight = isVertical ? 100 : 70;
+                        let accentY = logoY + 50; // Posición fija simple relativa al logo
+                        accentY = Math.max(bannerHeight + 10, Math.min(accentY, height - accentHeight - 10));
+                        ctx.fillRect(0, accentY, accentWidth, accentHeight);
 
                         // 6. Descargar
-                        const dataUrl = downloadCanvas.toDataURL('image/png');
-                        const link = document.createElement('a');
-                        link.href = dataUrl;
-                        link.download = `instagram-ad-${activeService}-${activeColor}-${activeFormat}.png`;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        console.log(`[Success] Image downloaded: ${link.download}`);
+                        const filename = `${isAd ? 'AD' : 'OG'}_${activeService}_${activeColor}_${activeFormat}.png`;
+                        const dataUrl = downloadCanvas.toDataURL('image/png'); const link = document.createElement('a'); link.href = dataUrl; link.download = filename; document.body.appendChild(link); link.click(); document.body.removeChild(link); console.log(`[Success] Image downloaded: ${filename}`);
+                        hideLoadingModal(); isProcessing = false;
 
-                        hideLoadingModal();
-                        isProcessing = false;
-
-                    } catch (error) {
-                        console.error('Error al generar/descargar Ad:', error);
-                        hideLoadingModal();
-                        alert(`Hubo un error: ${error.message}. Intentá de nuevo.`);
-                        isProcessing = false;
-                    }
-                }, 100);
-            });
-        }
+                    } catch (error) { console.error('Error al generar/descargar Ad:', error); hideLoadingModal(); alert(`Hubo un error: ${error.message}. Intentá de nuevo.`); isProcessing = false; }
+                }, 100); }); // End setTimeout & requestAnimationFrame
+        } // End generateAndDownloadImage
 
         // --- Wrap Text Helpers (sin cambios) ---
-        function wrapTextAndMeasure(ctx,text,maxWidth,lineHeight){const words=text.split(/[\s\n]+/);let line='';let lines=0;let currentY=0;if(!text||text.trim()==='')return{lines:0,height:0,endY:0};for(let n=0;n<words.length;n++){const testLine=line+words[n]+' ';const metrics=ctx.measureText(testLine);if(metrics.width>maxWidth&&n>0){lines++;currentY+=lineHeight;line=words[n]+' '}else{line=testLine}}lines++;const totalHeight=lines*lineHeight;return{lines:lines,height:totalHeight,endY:currentY+lineHeight}}
-        function wrapTextAndDraw(ctx,text,x,y,maxWidth,lineHeight){const words=text.split(/[\s\n]+/);let line='';let currentY=y;let lines=0;if(!text||text.trim()==='')return{lines:0,endY:y};for(let n=0;n<words.length;n++){const testLine=line+words[n]+' ';const metrics=ctx.measureText(testLine);if(metrics.width>maxWidth&&n>0){ctx.fillText(line.trim(),x,currentY);currentY+=lineHeight;lines++;line=words[n]+' '}else{line=testLine}}ctx.fillText(line.trim(),x,currentY);lines++;return{lines:lines,endY:currentY+lineHeight}}
+        function wrapTextAndMeasure(ctx,text,maxWidth,lineHeight){const w=text.split(/[\s\n]+/);let l='';let nL=0;let cY=0;if(!text||text.trim()==='')return{lines:0,height:0,endY:0};for(let i=0;i<w.length;i++){const tL=l+w[i]+' ';const m=ctx.measureText(tL);if(m.width>maxWidth&&i>0){nL++;cY+=lineHeight;l=w[i]+' '}else{l=tL}}nL++;const tH=nL*lineHeight;return{lines:nL,height:tH,endY:cY+lineHeight}}
+        function wrapTextAndDraw(ctx,text,x,y,maxWidth,lineHeight){const w=text.split(/[\s\n]+/);let l='';let cY=y;let nL=0;if(!text||text.trim()==='')return{lines:0,endY:y};for(let i=0;i<w.length;i++){const tL=l+w[i]+' ';const m=ctx.measureText(tL);if(m.width>maxWidth&&i>0){ctx.fillText(l.trim(),x,cY);cY+=lineHeight;nL++;l=w[i]+' '}else{l=tL}}ctx.fillText(l.trim(),x,cY);nL++;return{lines:nL,endY:cY+lineHeight}}
 
         // --- UI Update & Event Listeners ---
         function updateUI() {
@@ -600,21 +582,18 @@
              tabButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.service === activeService));
              formatButtons.forEach(btn => btn.classList.remove('active'));
              document.getElementById(activeFormat === 'square' ? 'squareBtn' : 'verticalBtn').classList.add('active');
-             // Ajustar botón de color activo
              colorButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.color === activeColor));
-             renderCreative();
+             renderCreative(); // Renderiza preview
         }
 
-        // Event Listeners (Ajustar para nuevos data-service)
+        // Event Listeners
         tabButtons.forEach(btn => btn.addEventListener('click', () => { if(isProcessing) return; activeService = btn.dataset.service; updateUI(); }));
         squareBtn.addEventListener('click', () => { if(isProcessing) return; activeFormat = 'square'; updateUI(); });
         verticalBtn.addEventListener('click', () => { if(isProcessing) return; activeFormat = 'vertical'; updateUI(); });
-        colorButtons.forEach(btn => btn.addEventListener('click', () => { if(isProcessing) return; activeColor = btn.dataset.color; updateUI(); })); // Incluir 'original_service'
+        colorButtons.forEach(btn => btn.addEventListener('click', () => { if(isProcessing) return; activeColor = btn.dataset.color; updateUI(); }));
         downloadBtn.addEventListener('click', generateAndDownloadImage);
-        copyBtn.addEventListener('click', () => { /* ... (copy logic) ... */
-            const textToCopy=adCopyText.textContent||adCopyText.innerText;navigator.clipboard.writeText(textToCopy).then(()=>{copyBtn.innerHTML='<i class="fas fa-check"></i> Copiado!';setTimeout(()=>{copyBtn.innerHTML='<i class="fas fa-copy"></i> Copiar'},2000)}).catch(err=>{console.error('Error al copiar: ',err);copyBtn.innerHTML='<i class="fas fa-times"></i> Error';setTimeout(()=>{copyBtn.innerHTML='<i class="fas fa-copy"></i> Copiar'},2000)})
-        });
-        togglePracticesBtn.addEventListener('click', () => { const isHidden=bestPracticesBox.style.display==='none'||bestPracticesBox.style.display==='';bestPracticesBox.style.display=isHidden?'block':'none';togglePracticesBtn.textContent=isHidden?'Ocultar Tips':'Ver Tips Anuncios Instagram' });
+        copyBtn.addEventListener('click', () => { const t=adCopyText.textContent||adCopyText.innerText;navigator.clipboard.writeText(t).then(()=>{copyBtn.innerHTML='<i class="fas fa-check"></i> Copiado!';setTimeout(()=>{copyBtn.innerHTML='<i class="fas fa-copy"></i> Copiar'},1500)}).catch(e=>{console.error('Copy err:',e);copyBtn.innerHTML='<i class="fas fa-times"></i> Error'})});
+        togglePracticesBtn.addEventListener('click', () => { const i=bestPracticesBox.style.display==='none'||bestPracticesBox.style.display==='';bestPracticesBox.style.display=i?'block':'none';togglePracticesBtn.textContent=i?'Ocultar Tips':'Ver Tips' });
 
         // Initial Load
         updateUI();
