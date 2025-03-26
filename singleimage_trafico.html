@@ -92,15 +92,6 @@
         .color-btn-orange { background-color: #ff7e00; }
         .color-btn-white { background-color: #ffffff; border: 2px solid #ccc; }
 
-        /* Selector de calidad */
-        .quality-toggle { text-align: center; margin: 15px 0; }
-        .quality-btn {
-            padding: 8px 16px; border: 1px solid #ddd; border-radius: 4px;
-            background-color: white; margin: 0 5px; cursor: pointer; transition: all 0.2s ease;
-            font-size: 14px;
-        }
-        .quality-btn.active { background: linear-gradient(135deg, #ff7e00 0%, #e67300 100%); color: white; border-color: #e67300; }
-
         /* Sección de descarga */
         .download-section { text-align: center; margin: 20px 0; }
         .download-btn {
@@ -143,7 +134,7 @@
             margin-bottom: 15px;
         }
         .creative-description .highlight {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
             padding: 0 5px;
             border-radius: 3px;
             font-weight: bold;
@@ -194,7 +185,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -202,30 +193,16 @@
             font-size: 22px;
         }
         
-        /* Proof Badge */
-        .proof-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 5px;
-            padding: 5px 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 3;
+        /* Estilo para el Ribbon */
+        .creative-ribbon {
+            position: absolute; background: linear-gradient(135deg, #FFD700, #FFC107);
+            color: #333; padding: 5px 8px; font-size: 12px; font-weight: bold; z-index: 3;
+            top: 15px; right: -35px; width: 130px; text-align: center;
+            transform: rotate(45deg); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
         }
-        .proof-number {
-            font-weight: bold;
-            font-size: 14px;
-            color: #ff7e00;
-        }
-        .proof-text {
-            font-size: 10px;
-            color: #333;
-        }
-        
+        .creative-vertical .creative-ribbon { font-size: 13px; top: 20px; right: -40px; width: 150px; }
+
         /* Guarantee Badge */
         .guarantee-badge {
             display: flex;
@@ -233,7 +210,7 @@
             justify-content: center;
             gap: 5px;
             margin-top: 10px;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 15px;
             padding: 5px 10px;
             font-size: 12px;
@@ -244,7 +221,7 @@
         
         /* Limited Spots */
         .limited-spots {
-            background: rgba(255, 0, 0, 0.1);
+            background: rgba(255, 0, 0, 0.15);
             border-left: 3px solid rgba(255, 0, 0, 0.5);
             padding: 5px 10px;
             margin-top: 10px;
@@ -259,7 +236,7 @@
         
         /* Mini Testimonial */
         .mini-testimonial {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             padding: 8px;
             border-radius: 8px;
             margin-top: 10px;
@@ -285,16 +262,6 @@
             opacity: 0; transition: opacity 0.3s; z-index: 10;
         }
         .creative:hover .creative-download { opacity: 1; }
-
-        /* Estilo para el Ribbon */
-        .creative-ribbon {
-            position: absolute; background: linear-gradient(135deg, #FFD700, #FFC107);
-            color: #333; padding: 5px 8px; font-size: 12px; font-weight: bold; z-index: 3;
-            top: 15px; right: -35px; width: 130px; text-align: center;
-            transform: rotate(45deg); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            text-transform: uppercase;
-        }
-        .creative-vertical .creative-ribbon { font-size: 13px; top: 20px; right: -40px; width: 150px; }
 
         /* Notas y cajas informativas */
         .note { text-align: center; margin-top: 30px; color: #666; font-size: 12px; }
@@ -470,11 +437,6 @@
             <div class="color-btn color-btn-white" data-color="white" title="Fondo blanco"></div>
         </div>
 
-        <div class="quality-toggle">
-            <button id="normalQualityBtn" class="quality-btn active" data-quality="normal">Calidad Normal</button>
-            <button id="highQualityBtn" class="quality-btn" data-quality="high">Alta Calidad</button>
-        </div>
-
         <div class="download-section">
             <button id="downloadBtn" class="download-btn">
                 <i class="fas fa-download"></i>
@@ -489,8 +451,7 @@
                 <p>1. Seleccioná el tipo de servicio de Ads que deseás generar.</p>
                 <p>2. Seleccioná el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
                 <p>3. Elegí el color de fondo (naranja o blanco).</p>
-                <p>4. Elegí la calidad de exportación (normal o alta).</p>
-                <p>5. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
+                <p>4. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
             </div>
         </div>
 
@@ -562,9 +523,7 @@
                 bgColor: colors.auditoria,
                 icon: 'fa-search-dollar',
                 cta: 'Agendar Auditoría',
-                guaranteeText: 'Análisis en 24 horas',
-                proofstat: '100%',
-                prooftext: 'Gratis'
+                guaranteeText: 'Análisis en 24 horas'
             },
             optimizacion: { 
                 title: 'OPTIMIZACIÓN EXPRESS DE ADS', 
@@ -574,8 +533,6 @@
                 icon: 'fa-bolt',
                 cta: 'Ver Detalles',
                 guaranteeText: 'Sin riesgo: 50% si no funciona',
-                proofstat: '48hs',
-                prooftext: 'resultados rápidos',
                 testimonio: '"Pasamos de 350% a 820% de ROAS"'
             },
             meta: { 
@@ -586,8 +543,6 @@
                 icon: 'fa-facebook',
                 cta: 'Potenciar Campañas',
                 guaranteeText: 'ROAS mínimo garantizado',
-                proofstat: '2.8X',
-                prooftext: 'ROAS garantizado',
                 testimonio: '"Aumentamos ventas un 127%"'
             },
             google: { 
@@ -598,8 +553,6 @@
                 icon: 'fa-google',
                 cta: 'Aparecer en Google',
                 guaranteeText: 'Mayor visibilidad garantizada',
-                proofstat: '32%',
-                prooftext: 'menos CPA',
                 testimonio: '"Tráfico cualificado de inmediato"'
             },
             email: { 
@@ -610,8 +563,6 @@
                 icon: 'fa-envelope-open-text',
                 cta: 'Revitalizar Emails',
                 guaranteeText: '+38% tasa de apertura',
-                proofstat: '12x',
-                prooftext: 'más ingresos',
                 testimonio: '"De $400 a $4,800 mensuales"'
             },
             chatbot: { 
@@ -622,8 +573,6 @@
                 icon: 'fa-robot',
                 cta: 'Implementar Chatbot',
                 guaranteeText: 'Respuestas 24/7 garantizadas',
-                proofstat: '68%',
-                prooftext: 'tasa conversión',
                 testimonio: '"Triplicamos leads cualificados"'
             },
             all: { 
@@ -634,8 +583,6 @@
                 icon: 'fa-rocket',
                 cta: 'Obtener Pack Completo',
                 guaranteeText: 'Resultados o pagás la mitad',
-                proofstat: '$200',
-                prooftext: 'ahorro mensual',
                 testimonio: '"Solución integral que funciona"'
             }
         };
@@ -659,7 +606,7 @@
         let activeService = 'optimizacion';
         let activeFormat = 'square';
         let activeColor = 'orange';
-        let exportQuality = 'normal'; // Calidad de exportación: 'normal' o 'high'
+        let exportQuality = 'high'; // Siempre alta calidad
         let isProcessing = false;
 
         const serviceTitle = document.getElementById('serviceTitle');
@@ -667,11 +614,8 @@
         const tabButtons = document.querySelectorAll('.tab-button');
         const formatButtons = document.querySelectorAll('.format-btn');
         const colorButtons = document.querySelectorAll('.color-btn');
-        const qualityButtons = document.querySelectorAll('.quality-btn');
         const squareBtn = document.getElementById('squareBtn');
         const verticalBtn = document.getElementById('verticalBtn');
-        const normalQualityBtn = document.getElementById('normalQualityBtn');
-        const highQualityBtn = document.getElementById('highQualityBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const togglePracticesBtn = document.getElementById('togglePractices');
         const bestPracticesBox = document.querySelector('.best-practices');
@@ -724,8 +668,15 @@
 
         // Determinar color de texto según color de fondo
         function getTextColor(bgColor) {
+            // Si el fondo es naranja, siempre devolver blanco
+            if (activeColor === 'orange') return colors.light;
+            
+            // Para fondo blanco u otros colores
+            if (activeColor === 'white') return colors.dark;
+            
+            // Cálculo de luminancia para otros casos
             if (!bgColor) return colors.dark;
-            // Si es un gradiente, tomar el primer color
+            
             if (bgColor.includes('gradient')) {
                 const startColor = bgColor.match(/#[0-9a-f]{6}/i)[0];
                 bgColor = startColor;
@@ -740,6 +691,7 @@
                 if (!matches || matches.length < 3) return colors.dark;
                 rgb = { r: parseInt(matches[0]), g: parseInt(matches[1]), b: parseInt(matches[2]) };
             } else { return colors.dark; }
+            
             const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
             return luminance > 0.5 ? colors.dark : colors.light;
         }
@@ -754,6 +706,21 @@
         
         // Obtener color del CTA según el servicio
         function getCTAColor(service) {
+            // Para fondo naranja, ajustar el contraste
+            if (activeColor === 'orange') {
+                switch(service) {
+                    case 'auditoria': return '#1c9d38'; // Verde más oscuro
+                    case 'optimizacion': return '#c41c2c'; // Rojo más oscuro
+                    case 'meta': return '#0d5bdb'; // Azul de Facebook más oscuro
+                    case 'google': return '#2a61c5'; // Azul de Google más oscuro
+                    case 'email': return '#006680'; // Azul email más oscuro
+                    case 'chatbot': return '#5e35b1'; // Púrpura más oscuro
+                    case 'all': return '#262626'; // Negro más intenso
+                    default: return '#e67300'; // Naranja más oscuro
+                }
+            }
+            
+            // Para fondo blanco, colores originales
             switch(service) {
                 case 'auditoria': return '#28a745';
                 case 'optimizacion': return '#dc3545';
@@ -791,17 +758,6 @@
                 ribbonEl.className = 'creative-ribbon';
                 ribbonEl.textContent = ribbonText;
                 creativeEl.appendChild(ribbonEl);
-            }
-
-            // Agregamos prueba social si corresponde
-            if (creative.proofstat && creative.prooftext) {
-                const proofBadgeEl = document.createElement('div');
-                proofBadgeEl.className = 'proof-badge';
-                proofBadgeEl.innerHTML = `
-                    <span class="proof-number">${creative.proofstat}</span>
-                    <span class="proof-text">${creative.prooftext}</span>
-                `;
-                creativeEl.appendChild(proofBadgeEl);
             }
 
             const contentEl = document.createElement('div');
@@ -1166,7 +1122,8 @@
                 
                 // 7. Configurar opciones de html2canvas
                 showLoadingModal("Configurando parámetros de renderizado...", 40);
-                const scale = exportQuality === 'high' ? 3 : 2; // Mayor escala para mayor calidad
+                // Siempre usar escala 3 para alta calidad
+                const scale = 3;
                 
                 const options = {
                     scale: scale,
@@ -1314,19 +1271,6 @@
             activeColor = btn.dataset.color; 
             updateUI(); 
         }));
-        
-        // Event listeners para los botones de calidad
-        normalQualityBtn.addEventListener('click', () => {
-            exportQuality = 'normal';
-            qualityButtons.forEach(btn => btn.classList.remove('active'));
-            normalQualityBtn.classList.add('active');
-        });
-
-        highQualityBtn.addEventListener('click', () => {
-            exportQuality = 'high';
-            qualityButtons.forEach(btn => btn.classList.remove('active'));
-            highQualityBtn.classList.add('active');
-        });
         
         // Event listener para el botón de descarga
         downloadBtn.addEventListener('click', generateAndDownloadImage);
