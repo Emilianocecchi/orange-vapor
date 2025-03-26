@@ -99,7 +99,7 @@
             background-color: #28a745;
             border-color: #28a745;
         }
-        
+
         /* Selector de color */
         .color-toggle {
             text-align: center;
@@ -133,7 +133,7 @@
         .color-btn-black {
             background-color: #181818;
         }
-        
+
         .download-section {
             text-align: center;
             margin: 20px 0;
@@ -174,9 +174,10 @@
             color: white;
             cursor: pointer;
         }
+        /* Ajuste para mantener proporción en previsualización */
         .creative-vertical {
-            width: 240px;
-            height: 427px;
+           width: 216px; /* 1080 / 5 */
+           height: 384px; /* 1920 / 5 */
         }
         .creative-content {
             position: relative;
@@ -185,18 +186,31 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: center; /* Ajustaremos esto dinámicamente si es necesario */
+            align-items: center; /* Centrar contenido horizontalmente */
+            text-align: center; /* Centrar texto */
         }
         .creative-title {
             font-size: 22px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px; /* Reducido */
             line-height: 1.2;
+        }
+        /* Nuevo estilo para el tipo de servicio */
+        .creative-service-type {
+            font-size: 16px;
+            font-weight: 600; /* Semibold */
+            text-transform: uppercase;
+            margin-bottom: 12px; /* Espacio antes del subtítulo */
+            line-height: 1.3;
+            letter-spacing: 0.5px;
+            /* Puedes agregar un color diferente si el contraste lo permite */
+            /* color: rgba(255, 255, 255, 0.9); */
         }
         .creative-subtitle {
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 15px; /* Aumentado */
             line-height: 1.2;
         }
         .creative-description {
@@ -206,13 +220,27 @@
         .creative-accent {
             position: absolute;
             left: 0;
-            top: 30%;
-            width: 6px;
-            height: 100px;
+            /* Ajustado para vertical */
+            /* top: 30%; */
+            width: 6px; /* Más delgado */
+            /* height: 100px; */
             background: white;
             border-radius: 0 3px 3px 0;
             z-index: 10;
         }
+        /* Ajuste posición y tamaño de acento para vertical */
+        .creative-vertical .creative-accent {
+            top: 15%; /* Más arriba */
+            height: 20%; /* Más largo */
+            width: 8px;
+        }
+        /* Ajuste posición y tamaño de acento para cuadrado */
+        .creative:not(.creative-vertical) .creative-accent {
+            top: 35%;
+            height: 30%;
+            width: 10px;
+        }
+
         .creative-download {
             position: absolute;
             top: 10px;
@@ -312,12 +340,18 @@
         /* Estilo para el logo, sin fondo */
         .logo-container {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 15px; /* Ajustado */
+            left: 15px; /* Ajustado */
             padding: 5px 10px;
             border-radius: 4px;
             z-index: 20;
         }
+         /* Ajuste logo para vertical (más arriba) */
+        .creative-vertical .logo-container {
+             top: 40px; /* Mayor margen superior para stories */
+             left: 40px;
+        }
+
 
         /* Estilos para el modal de carga */
         .loading-modal {
@@ -359,7 +393,7 @@
             left: -9999px;
             top: -9999px;
         }
-        
+
         /* Text area style */
         .text-20-indicator {
             padding: 8px 12px;
@@ -378,14 +412,14 @@
             border-top: 1px solid #eee;
             padding-top: 20px;
         }
-        
+
         .ad-copy-section h3 {
             font-size: 18px;
             color: #333;
             text-align: center;
             margin-bottom: 15px;
         }
-        
+
         .ad-copy-container {
             background-color: #f9f9f9;
             border: 1px solid #e0e0e0;
@@ -395,14 +429,14 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        
+
         .ad-copy-text {
             font-size: 16px;
             line-height: 1.6;
             color: #444;
             white-space: pre-line;
         }
-        
+
         .copy-btn {
             background: #f1f1f1;
             border: 1px solid #ddd;
@@ -417,11 +451,11 @@
             margin: 15px auto 0;
             transition: all 0.3s ease;
         }
-        
+
         .copy-btn:hover {
             background: #e9e9e9;
         }
-        
+
         .copy-btn i {
             margin-right: 8px;
         }
@@ -442,36 +476,6 @@
             justify-content: center;
             gap: 8px;
         }
-
-        /* NUEVO: Etiqueta de tipo de servicio */
-        .service-type-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 6px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            z-index: 15;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-        }
-
-        /* NUEVO: Etiqueta de tipo de servicio en el creativo */
-        .creative-service-type {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
     </style>
 </head>
 <body>
@@ -480,13 +484,13 @@
             <h1 id="serviceTitle">Creativos de Tráfico para Optimización Express</h1>
             <p>Anuncios diseñados para maximizar tráfico hacia Orange Vapor (Single Image)</p>
         </div>
-        
+
         <!-- Indicador de campaña -->
         <div class="campaign-type-indicator">
             <i class="fas fa-globe"></i>
             <span>Campañas Optimizadas para Tráfico al Sitio Web</span>
         </div>
-        
+
         <!-- Tabs de servicios -->
         <div class="tabs">
             <div class="tab-group">
@@ -499,13 +503,13 @@
                 <button class="tab-button all" data-service="all">Paquete Completo</button>
             </div>
         </div>
-        
+
         <!-- Selector de formato -->
         <div class="format-toggle">
             <button id="squareBtn" class="format-btn active">Cuadrado (1080x1080)</button>
             <button id="verticalBtn" class="format-btn">Vertical (1080x1920)</button>
         </div>
-        
+
         <!-- Selector de color de fondo -->
         <div class="color-toggle">
             <div class="color-btn color-btn-original active" data-color="original" title="Color original del servicio"></div>
@@ -513,7 +517,7 @@
             <div class="color-btn color-btn-white" data-color="white" title="Fondo blanco"></div>
             <div class="color-btn color-btn-black" data-color="black" title="Fondo negro"></div>
         </div>
-        
+
         <!-- Sección de descarga -->
         <div class="download-section">
             <button id="downloadBtn" class="download-btn">
@@ -521,8 +525,8 @@
                 Descargar Creativo
             </button>
         </div>
-        
-        <!-- Mensaje informativo -->
+
+        <!-- Mensaje informativo (voseo) -->
         <div class="info-box">
             <i class="fas fa-info-circle"></i>
             <div>
@@ -534,14 +538,14 @@
                 <p>5. También podés descargar el creativo pasando el mouse sobre la imagen y haciendo clic en el icono de descarga.</p>
             </div>
         </div>
-        
+
         <!-- Indicador de texto 20% -->
         <div class="text-20-indicator">
             <i class="fas fa-check-circle" style="color: #00b300;"></i>
             Texto optimizado (menos del 20% del espacio) - Aprobado para Meta Ads
         </div>
-        
-        <!-- Mejores prácticas (colapsable) -->
+
+        <!-- Mejores prácticas (colapsable) (voseo) -->
         <div class="best-practices" style="display: none;">
             <h3>Mejores Prácticas para Anuncios de Tráfico:</h3>
             <ul>
@@ -555,20 +559,21 @@
             </ul>
         </div>
         <button class="toggle-practices" id="togglePractices">Ver mejores prácticas para tráfico</button>
-        
+
         <!-- Contenedor de creativos -->
         <div id="creativesContainer" class="creatives-container">
             <!-- El creativo se inserta dinámicamente aquí -->
         </div>
-        
+
         <!-- Nota de especificaciones -->
         <div class="note">
             <p>Dimensiones: 1080x1080 píxeles y 1080x1920 píxeles (imágenes descargadas en alta resolución)</p>
+            <p>El formato vertical respeta márgenes seguros para Instagram Stories.</p>
         </div>
-        
-        <!-- Ad Copy Section -->
+
+        <!-- Ad Copy Section (voseo) -->
         <div class="ad-copy-section">
-            <h3>Copy para Anuncio de Tráfico con Emojis</h3>
+            <h3>Copy para Anuncio de Tráfico con Emojis (Voseo)</h3>
             <div class="ad-copy-container">
                 <p id="adCopyText" class="ad-copy-text">
                     <!-- El copy se inserta dinámicamente aquí -->
@@ -578,11 +583,11 @@
                 </button>
             </div>
         </div>
-        
+
         <!-- Canvas para descargar (oculto) -->
         <canvas id="downloadCanvas"></canvas>
     </div>
-    
+
     <script>
         // Colores actualizados para cada servicio
         const colors = {
@@ -594,67 +599,67 @@
             optimizacion: '#dc3545', // Rojo para Optimización Express
             meta: '#1877F2',      // Azul para Meta Ads
             google: '#4285F4',    // Azul de Google
-            googleRed: '#DB4437', // Rojo de Google 
+            googleRed: '#DB4437', // Rojo de Google
             googleYellow: '#F4B400', // Amarillo de Google
             googleGreen: '#0F9D58', // Verde de Google
             email: '#00829b',     // Verde azulado para Email Marketing
             chatbot: '#6f42c1'    // Lila para Chatbot
         };
-        
-        // MODIFICADO: Datos de creativos actualizados con tipo de servicio destacado
+
+        // Datos de creativos single image para campañas de TRÁFICO (VOSEO y con Highlight de Servicio)
         const creativesData = {
             auditoria: {
                 title: '¿TUS ADS GENERAN ROI REAL?',
-                subtitle: 'DESCUBRE LA VERDAD AHORA',
+                serviceHighlight: 'AUDITORÍA CAMPAÑAS DE ADS', // NUEVO
+                subtitle: 'DESCUBRÍ LA VERDAD AHORA',
                 description: 'Auditoría gratuita de tus campañas\nResultados en 48 horas sin compromiso',
-                bgColor: colors.auditoria,
-                serviceType: 'CAMPAÑAS DE ADS'
+                bgColor: colors.auditoria
             },
             optimizacion: {
-                title: 'EVITA PERDER PRESUPUESTO',
-                subtitle: 'OPTIMIZA TUS ADS EN 48HS',
-                description: 'Sistema anti-fugas de presupuesto\nAumenta tus conversiones hasta un 20%',
-                bgColor: colors.optimizacion,
-                serviceType: 'OPTIMIZACIÓN DE CAMPAÑAS'
+                title: 'EVITÁ PERDER PRESUPUESTO',
+                serviceHighlight: 'OPTIMIZACIÓN CAMPAÑAS DE ADS', // NUEVO
+                subtitle: 'OPTIMIZÁ TUS ADS EN 48HS',
+                description: 'Sistema anti-fugas de presupuesto\nAumentá tus conversiones hasta un 20%',
+                bgColor: colors.optimizacion
             },
             meta: {
-                title: 'MULTIPLICA TUS VENTAS',
-                subtitle: '2.8X ROAS GARANTIZADO',
+                title: 'MULTIPLICÁ TUS VENTAS',
+                serviceHighlight: 'ANUNCIOS DE META', // NUEVO (como solicitado)
+                subtitle: '2.8X ROAS MÍNIMO GARANTIZADO',
                 description: 'Campañas de Meta Ads que convierten\nOptimización continua • Estrategia personalizada',
-                bgColor: colors.meta,
-                serviceType: 'ANUNCIOS DE META'
+                bgColor: colors.meta
             },
             google: {
-                title: 'CONVIERTE BÚSQUEDAS EN VENTAS',
-                subtitle: 'DOMINA GOOGLE ADS AHORA',
+                title: 'CONVERTÍ BÚSQUEDAS EN VENTAS',
+                serviceHighlight: 'ANUNCIOS DE GOOGLE', // NUEVO
+                subtitle: 'DOMINÁ GOOGLE ADS AHORA',
                 description: 'Palabras clave rentables • 2.8X ROAS\nReducción del CPA hasta 35%',
-                bgColor: colors.google,
-                serviceType: 'ANUNCIOS DE GOOGLE'
+                bgColor: colors.google
             },
             email: {
                 title: 'EMAIL MARKETING AUTOMATIZADO',
-                subtitle: '38% TASA DE APERTURA',
-                description: 'Convierte suscriptores en clientes\nIngresos recurrentes mientras duermes',
-                bgColor: colors.email,
-                serviceType: 'EMAIL MARKETING'
+                serviceHighlight: 'SERVICIOS DE EMAIL MARKETING', // NUEVO
+                subtitle: '38% TASA DE APERTURA PROMEDIO',
+                description: 'Convertí suscriptores en clientes\nIngresos recurrentes mientras dormís',
+                bgColor: colors.email
             },
             chatbot: {
                 title: 'ATENCIÓN AL CLIENTE 24/7',
+                serviceHighlight: 'SERVICIO DE CHATBOT', // NUEVO
                 subtitle: 'AUTOMATIZACIÓN INTELIGENTE',
-                description: 'Reduce costos operativos hasta 70%\nMejora conversiones • Captura leads automáticamente',
-                bgColor: colors.chatbot,
-                serviceType: 'CHATBOT AUTOMATIZADO'
+                description: 'Reducí costos operativos hasta 70%\nMejorá conversiones • Capturá leads automáticamente',
+                bgColor: colors.chatbot
             },
             all: {
                 title: 'ESTRATEGIA DIGITAL COMPLETA',
-                subtitle: 'AHORRA $200/MES',
+                serviceHighlight: 'PAQUETE COMPLETO MARKETING DIGITAL', // NUEVO
+                subtitle: 'AHORRÁ $200/MES',
                 description: 'Meta Ads • Google Ads • Email • Chatbot\nTodo por $1000/mes en lugar de $1200',
-                bgColor: '#333333',
-                serviceType: 'MARKETING DIGITAL COMPLETO'
+                bgColor: '#333333'
             }
         };
-        
-        // Datos de copy para anuncios ENFOCADOS EN TRÁFICO
+
+        // Datos de copy para anuncios ENFOCADOS EN TRÁFICO (VOSEO)
         const adCopyData = {
             auditoria: `🔍 ¿QUÉ ESTÁ FALLANDO EN TUS CAMPAÑAS DE MARKETING DIGITAL? 🔍
 
@@ -672,8 +677,8 @@ Estás a punto de descubrir por qué tu competencia consigue mejores resultados 
 La auditoría gratuita tiene cupos limitados cada semana. ¿Por qué esperar?
 
 ➡️ www.orangevapor.com`,
-            
-            optimizacion: `⚡ TRANSFORMA TUS CAMPAÑAS QUE NO CONVIERTEN EN SOLO 48 HORAS ⚡
+
+            optimizacion: `⚡ TRANSFORMÁ TUS CAMPAÑAS QUE NO CONVIERTEN EN SOLO 48 HORAS ⚡
 
 Cada día con campañas mal optimizadas significa dinero perdido y oportunidades desaprovechadas... 💸
 
@@ -689,8 +694,8 @@ Diagnóstico + Estructura optimizada con garantía de resultados o solo pagás l
 
 ¿Querés detener el sangrado presupuestario ahora? Visitá 👇
 www.orangevapor.com`,
-            
-            meta: `📱 MULTIPLICA TUS VENTAS CON META ADS QUE CONVIERTEN 📱
+
+            meta: `📱 MULTIPLICÁ TUS VENTAS CON META ADS QUE CONVIERTEN 📱
 
 ¿De cada $1 invertido en tus Facebook & Instagram Ads, cuánto recuperás en ventas reales? 🤔
 
@@ -707,8 +712,8 @@ Campañas estructuradas y optimizadas específicamente para tu negocio.
 
 ¿Querés aprovechar el verdadero potencial de Meta Ads? Hacé clic ahora 👇
 www.orangevapor.com`,
-            
-            google: `🔎 CONVIERTE BÚSQUEDAS EN VENTAS REALES CON GOOGLE ADS 🔎
+
+            google: `🔎 CONVERTÍ BÚSQUEDAS EN VENTAS REALES CON GOOGLE ADS 🔎
 
 Mientras tus competidores aparecen en los primeros resultados de Google, ¿dónde está tu negocio? 👀
 
@@ -725,7 +730,7 @@ Google Ads gestionado por expertos con resultados medibles.
 
 Posicioná tu negocio donde tus clientes están buscando 👇
 www.orangevapor.com`,
-            
+
             email: `📧 EMAIL MARKETING QUE GENERA INGRESOS AUTOMÁTICOS 24/7 📧
 
 ¿Sabías que el email marketing ofrece el mayor ROI de todos los canales digitales (3600% en promedio)? 📈
@@ -743,7 +748,7 @@ Nurturing automatizado que monetiza cada contacto en tu base de datos.
 
 Descubrí cómo transformar tu email marketing hoy mismo 👇
 www.orangevapor.com`,
-            
+
             chatbot: `🤖 ATENCIÓN AL CLIENTE AUTOMATIZADA QUE GENERA VENTAS 24/7 🤖
 
 ¿Cuántos leads y ventas perdés cuando tu equipo no puede responder inmediatamente? ⏰
@@ -761,8 +766,8 @@ Chatbots inteligentes que maximizan tus resultados mientras liberan a tu equipo.
 
 ¿Listo para nunca más perder una oportunidad de venta? 👇
 www.orangevapor.com`,
-            
-            all: `🚀 MULTIPLICA TUS RESULTADOS CON MARKETING DIGITAL INTEGRADO 🚀
+
+            all: `🚀 MULTIPLICÁ TUS RESULTADOS CON MARKETING DIGITAL INTEGRADO 🚀
 
 ¿Por qué conformarte con resultados mediocres cuando podés tener una estrategia digital completa? 🔄
 
@@ -780,13 +785,13 @@ Estrategias digitales diseñadas con un único objetivo: maximizar tu ROI.
 Potenciá todos los canales de tu negocio con un solo clic 👇
 www.orangevapor.com`
         };
-        
+
         // Estado actual
         let activeService = 'optimizacion';
         let activeFormat = 'square'; // 'square' o 'vertical'
         let activeColor = 'original'; // 'original', 'orange', 'white', 'black'
         let isProcessing = false; // Bandera para evitar múltiples descargas simultáneas
-        
+
         // Elementos del DOM
         const serviceTitle = document.getElementById('serviceTitle');
         const creativesContainer = document.getElementById('creativesContainer');
@@ -801,10 +806,10 @@ www.orangevapor.com`
         const downloadCanvas = document.getElementById('downloadCanvas');
         const adCopyText = document.getElementById('adCopyText');
         const copyBtn = document.getElementById('copyBtn');
-        
+
         // Función para copiar texto al portapapeles
         copyBtn.addEventListener('click', () => {
-            const textToCopy = adCopyText.textContent;
+            const textToCopy = adCopyText.innerText; // Usar innerText para respetar saltos de línea
             navigator.clipboard.writeText(textToCopy)
                 .then(() => {
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
@@ -820,8 +825,8 @@ www.orangevapor.com`
                     }, 2000);
                 });
         });
-        
-        // Toggle para mejores prácticas
+
+        // Toggle para mejores prácticas (voseo)
         togglePracticesBtn.addEventListener('click', () => {
             if (bestPracticesBox.style.display === 'none') {
                 bestPracticesBox.style.display = 'block';
@@ -831,21 +836,21 @@ www.orangevapor.com`
                 togglePracticesBtn.textContent = 'Ver mejores prácticas para tráfico';
             }
         });
-        
-        // Función para obtener título según el servicio
+
+        // Función para obtener título según el servicio (voseo implícito en nombres)
         function getServiceTitle(service) {
             switch (service) {
                 case 'auditoria': return 'Creativos de Tráfico para Auditoría Gratuita';
                 case 'optimizacion': return 'Creativos de Tráfico para Optimización Express';
-                case 'meta': return 'Creativos de Tráfico para Meta Ads';
-                case 'google': return 'Creativos de Tráfico para Google Ads';
+                case 'meta': return 'Creativos de Tráfico para Anuncios de Meta';
+                case 'google': return 'Creativos de Tráfico para Anuncios de Google';
                 case 'email': return 'Creativos de Tráfico para Email Marketing';
-                case 'chatbot': return 'Creativos de Tráfico para Chatbot';
+                case 'chatbot': return 'Creativos de Tráfico para Servicio de Chatbot';
                 case 'all': return 'Creativos de Tráfico para Paquete Completo';
                 default: return 'Creativos de Tráfico para Optimización Express';
             }
         }
-        
+
         // Función para obtener color de fondo según la selección
         function getBgColor() {
             if (activeColor === 'original') {
@@ -858,7 +863,7 @@ www.orangevapor.com`
                 return colors.dark; // Negro
             }
         }
-        
+
         // Función para obtener color de texto según el fondo
         function getTextColor(bgColor) {
             // Convertir color a RGB si es hex
@@ -875,114 +880,135 @@ www.orangevapor.com`
                     g: parseInt(matches[1]),
                     b: parseInt(matches[2])
                 };
+            } else { // Default case if color format is unexpected
+                 return colors.dark; // Default to dark text
             }
-            
+
             // Calcular luminosidad (fórmula simplificada)
             const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
-            
+
             // Retornar blanco para fondos oscuros, negro para fondos claros
             return luminance > 0.5 ? colors.dark : colors.light;
         }
-        
+
         // Función para obtener color de acento según el fondo
         function getAccentColor(bgColor) {
             const textColor = getTextColor(bgColor);
-            
-            // Si el fondo es naranja, usar el color oscuro o claro como acento
+
+            // Si el fondo es naranja, usar blanco como acento para mejor contraste
             if (activeColor === 'orange') {
-                return textColor;
+                return colors.light; // Blanco
             }
-            
+
             // Si el fondo es blanco o negro, usar naranja como acento
             if (activeColor === 'white' || activeColor === 'black') {
-                return colors.primary;
+                return colors.primary; // Naranja
             }
-            
-            // Para el color original del servicio, mantener el texto en blanco
-            return textColor;
+
+            // Para el color original del servicio, usar blanco como acento
+            return colors.light; // Blanco por defecto para acentos sobre colores de servicio
         }
-        
-        // MODIFICADO: Función para renderizar creativo en la interfaz con etiqueta de tipo de servicio
+
+        // Función para renderizar creativo en la interfaz
         function renderCreative() {
             creativesContainer.innerHTML = '';
             const creative = creativesData[activeService];
-            
+
             // Obtener colores según el fondo seleccionado
             const bgColor = getBgColor();
             const textColor = getTextColor(bgColor);
-            const accentColor = getAccentColor(bgColor);
-            
+            const accentColor = getAccentColor(bgColor); // Usar blanco para acentos sobre colores de servicio
+
             // Crear elemento creativo
             const creativeEl = document.createElement('div');
             creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
             creativeEl.style.backgroundColor = bgColor;
-            
+
+            // Contenido
+            const contentEl = document.createElement('div');
+            contentEl.className = 'creative-content';
+            // Ajustar justificación para vertical (margen superior/inferior)
+             if (activeFormat === 'vertical') {
+                 contentEl.style.justifyContent = 'flex-start'; // Alinear arriba
+                 contentEl.style.paddingTop = '15%'; // Margen superior ~15%
+                 contentEl.style.paddingBottom = '15%'; // Margen inferior ~15%
+             } else {
+                 contentEl.style.justifyContent = 'center'; // Centrar verticalmente en cuadrado
+             }
+
             // Barra lateral (acento)
             const accentEl = document.createElement('div');
             accentEl.className = 'creative-accent';
             accentEl.style.background = accentColor;
-            creativeEl.appendChild(accentEl);
-            
-            // Contenido
-            const contentEl = document.createElement('div');
-            contentEl.className = 'creative-content';
-            
+             // Posición específica basada en formato (hecho en CSS)
+            creativeEl.appendChild(accentEl); // Añadir acento primero para que esté detrás del contenido
+
             // Contenedor del logo sin fondo
             const logoContainerEl = document.createElement('div');
             logoContainerEl.className = 'logo-container';
-            
+
             // Logo
             const logoEl = document.createElement('div');
             logoEl.style.fontWeight = 'bold';
-            logoEl.style.fontSize = '14px';
-            
+            // Ajustar tamaño de fuente del logo según formato
+            logoEl.style.fontSize = activeFormat === 'vertical' ? '18px' : '14px';
+
+
             // Color del logo según fondo
             if (activeColor === 'white') {
-                // Fondo blanco: texto "Orange" negro y "Vapor" naranja
                 logoEl.innerHTML = '<span style="color: #181818;">Orange</span> <span style="color: #FF7E00;">Vapor</span>';
             } else if (activeColor === 'orange') {
-                // Fondo naranja: todo el logo en blanco para mejor contraste
                 logoEl.innerHTML = '<span style="color: white;">Orange Vapor</span>';
             } else {
-                // Otros fondos: texto "Orange" claro y "Vapor" naranja
                 logoEl.innerHTML = '<span style="color: ' + textColor + ';">Orange</span> <span style="color: #FF7E00;">Vapor</span>';
             }
-            
+
             logoContainerEl.appendChild(logoEl);
-            contentEl.appendChild(logoContainerEl);
-            
-            // NUEVO: Etiqueta de tipo de servicio
-            const serviceTypeEl = document.createElement('div');
-            serviceTypeEl.className = 'creative-service-type';
-            serviceTypeEl.textContent = creative.serviceType;
-            serviceTypeEl.style.color = textColor;
-            serviceTypeEl.style.borderColor = textColor === colors.light ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.2)';
-            contentEl.appendChild(serviceTypeEl);
-            
+            // Mover el logo fuera del contentEl para posicionamiento absoluto correcto
+            creativeEl.appendChild(logoContainerEl);
+
             // Título
             const titleEl = document.createElement('div');
             titleEl.className = 'creative-title';
+            // Ajustar tamaño de fuente del título según formato
+            titleEl.style.fontSize = activeFormat === 'vertical' ? '28px' : '22px';
             titleEl.textContent = creative.title;
             titleEl.style.color = textColor;
             contentEl.appendChild(titleEl);
-            
+
+            // Service Highlight (NUEVO)
+            const serviceHighlightEl = document.createElement('div');
+            serviceHighlightEl.className = 'creative-service-type';
+            // Ajustar tamaño de fuente del highlight según formato
+            serviceHighlightEl.style.fontSize = activeFormat === 'vertical' ? '20px' : '16px';
+            serviceHighlightEl.textContent = creative.serviceHighlight;
+            // Usar el color de texto principal, o un color ligeramente diferente si se desea más énfasis
+            serviceHighlightEl.style.color = textColor;
+            // Opcional: usar el color de acento si el contraste es bueno
+            // serviceHighlightEl.style.color = accentColor;
+            contentEl.appendChild(serviceHighlightEl);
+
             // Subtítulo
             const subtitleEl = document.createElement('div');
             subtitleEl.className = 'creative-subtitle';
+            // Ajustar tamaño de fuente del subtítulo según formato
+            subtitleEl.style.fontSize = activeFormat === 'vertical' ? '24px' : '18px';
             subtitleEl.textContent = creative.subtitle;
             subtitleEl.style.color = textColor;
             contentEl.appendChild(subtitleEl);
-            
+
             // Descripción
             const descEl = document.createElement('div');
             descEl.className = 'creative-description';
+             // Ajustar tamaño de fuente de la descripción según formato
+            descEl.style.fontSize = activeFormat === 'vertical' ? '16px' : '14px';
             descEl.style.whiteSpace = 'pre-line'; // Para respetar los saltos de línea
             descEl.textContent = creative.description;
             descEl.style.color = textColor;
             contentEl.appendChild(descEl);
-            
-            creativeEl.appendChild(contentEl);
-            
+
+            creativeEl.appendChild(contentEl); // Añadir el contenido al creativo principal
+
             // Botón de descarga
             const downloadEl = document.createElement('div');
             downloadEl.className = 'creative-download';
@@ -991,22 +1017,25 @@ www.orangevapor.com`
                 e.stopPropagation(); // Evitar que se propague el evento
                 generateAndDownloadImage();
             });
-            creativeEl.appendChild(downloadEl);
-            
+            creativeEl.appendChild(downloadEl); // Añadir botón de descarga al final
+
             // Mostrar previsualización del creativo
             creativeEl.addEventListener('click', () => {
                 generateAndDownloadImage();
             });
-            
+
             creativesContainer.appendChild(creativeEl);
-            
+
             // Actualizar el copy para anuncios
             updateAdCopy();
         }
-        
+
+
         // Función para actualizar el copy del anuncio
         function updateAdCopy() {
             adCopyText.textContent = adCopyData[activeService] || "Copy de anuncio no disponible para este servicio.";
+             // Reset copy button text
+             copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
         }
 
         // Función para mostrar el modal de carga
@@ -1014,23 +1043,23 @@ www.orangevapor.com`
             const modalEl = document.createElement('div');
             modalEl.className = 'loading-modal';
             modalEl.id = 'loadingModal';
-            
+
             const containerEl = document.createElement('div');
             containerEl.className = 'loading-container';
-            
+
             const spinnerEl = document.createElement('div');
             spinnerEl.className = 'loading-spinner';
-            
+
             const messageEl = document.createElement('div');
             messageEl.textContent = message;
-            
+
             containerEl.appendChild(spinnerEl);
             containerEl.appendChild(messageEl);
             modalEl.appendChild(containerEl);
-            
+
             document.body.appendChild(modalEl);
         }
-        
+
         // Función para ocultar el modal de carga
         function hideLoadingModal() {
             const modal = document.getElementById('loadingModal');
@@ -1038,235 +1067,187 @@ www.orangevapor.com`
                 document.body.removeChild(modal);
             }
         }
-        
-        // MODIFICADO: Función para dibujar y descargar la imagen con tipo de servicio destacado
+
+        // Función para dibujar y descargar la imagen
         function generateAndDownloadImage() {
             if (isProcessing) return;
             isProcessing = true;
-            
+
             showLoadingModal();
-            
-            try {
-                const creative = creativesData[activeService];
-                const isVertical = activeFormat === 'vertical';
-                
-                // Configurar canvas
-                const width = isVertical ? 1080 : 1080;
-                const height = isVertical ? 1920 : 1080;
-                
-                downloadCanvas.width = width;
-                downloadCanvas.height = height;
-                
-                const ctx = downloadCanvas.getContext('2d');
-                ctx.clearRect(0, 0, width, height);
-                
-                // Obtener colores según el fondo seleccionado
-                const bgColor = getBgColor();
-                const textColor = getTextColor(bgColor);
-                const accentColor = getAccentColor(bgColor);
-                
-                // PASO 1: Dibujar el fondo
-                ctx.fillStyle = bgColor;
-                ctx.fillRect(0, 0, width, height);
-                
-                // PASO 2: Dibujar barra lateral (acento)
-                ctx.fillStyle = accentColor;
-                
-                if (isVertical) {
-                    // Calcular posición para formato vertical
-                    const safeZoneTop = Math.round(height * 0.14);
-                    const accentY = safeZoneTop + 100;
-                    const accentHeight = height - accentY - safeZoneTop - 100;
-                    
-                    // Dibujar un simple rectángulo
-                    ctx.fillRect(0, accentY, 20, accentHeight);
-                } else {
-                    // Formato cuadrado
-                    ctx.fillRect(0, height * 0.3, 15, height * 0.3);
-                }
-                
-                // PASO 3: Dibujar el logo directamente sin fondo
-                ctx.font = isVertical ? 'bold 42px Montserrat, sans-serif' : 'bold 36px Montserrat, sans-serif';
-                
-                const logoX = 40;
-                const logoY = isVertical ? (Math.round(height * 0.14) + 50) : 55;
-                
-                // Ajustar color del logo según el fondo
-                if (activeColor === 'white') {
-                    // Fondo blanco: "Orange" negro y "Vapor" naranja
-                    ctx.fillStyle = '#181818';
-                    ctx.fillText('Orange', logoX, logoY);
-                    
-                    const orangeWidth = ctx.measureText('Orange ').width;
-                    ctx.fillStyle = '#FF7E00';
-                    ctx.fillText('Vapor', logoX + orangeWidth, logoY);
-                } else if (activeColor === 'orange') {
-                    // Fondo naranja: todo el logo en blanco
-                    ctx.fillStyle = 'white';
-                    ctx.fillText('Orange Vapor', logoX, logoY);
-                } else {
-                    // Otros fondos: "Orange" en color de texto y "Vapor" naranja
-                    ctx.fillStyle = textColor;
-                    ctx.fillText('Orange', logoX, logoY);
-                    
-                    const orangeWidth = ctx.measureText('Orange ').width;
-                    ctx.fillStyle = '#FF7E00';
-                    ctx.fillText('Vapor', logoX + orangeWidth, logoY);
-                }
-                
-                // NUEVO: Dibujar el tipo de servicio destacado
-                ctx.textAlign = 'center';
-                ctx.fillStyle = textColor;
-                
-                if (isVertical) {
-                    // Crear fondo semi-transparente para el tipo de servicio
-                    const serviceTypeText = creative.serviceType;
-                    ctx.font = 'bold 38px Montserrat, sans-serif';
-                    const serviceTypeWidth = ctx.measureText(serviceTypeText).width + 60;
-                    const serviceTypeHeight = 60;
-                    const serviceTypeX = width / 2 - serviceTypeWidth / 2;
-                    const serviceTypeY = height * 0.3 - 75;
-                    
-                    // Fondo semi-transparente
-                    ctx.globalAlpha = 0.2;
-                    ctx.fillStyle = textColor;
-                    ctx.fillRect(serviceTypeX, serviceTypeY, serviceTypeWidth, serviceTypeHeight);
-                    ctx.globalAlpha = 1;
-                    
-                    // Texto del tipo de servicio
-                    ctx.fillStyle = textColor;
-                    ctx.font = 'bold 38px Montserrat, sans-serif';
-                    ctx.fillText(serviceTypeText, width / 2, serviceTypeY + 40);
-                } else {
-                    // Crear fondo semi-transparente para el tipo de servicio
-                    const serviceTypeText = creative.serviceType;
-                    ctx.font = 'bold 28px Montserrat, sans-serif';
-                    const serviceTypeWidth = ctx.measureText(serviceTypeText).width + 40;
-                    const serviceTypeHeight = 45;
-                    const serviceTypeX = width / 2 - serviceTypeWidth / 2;
-                    const serviceTypeY = height * 0.3 - 60;
-                    
-                    // Fondo semi-transparente
-                    ctx.globalAlpha = 0.2;
-                    ctx.fillStyle = textColor;
-                    ctx.fillRect(serviceTypeX, serviceTypeY, serviceTypeWidth, serviceTypeHeight);
-                    ctx.globalAlpha = 1;
-                    
-                    // Texto del tipo de servicio
-                    ctx.fillStyle = textColor;
-                    ctx.font = 'bold 28px Montserrat, sans-serif';
-                    ctx.fillText(serviceTypeText, width / 2, serviceTypeY + 30);
-                }
-                
-                // PASO 4: Dibujar el título
-                ctx.textAlign = 'center';
-                ctx.fillStyle = textColor;
-                
-                if (isVertical) {
-                    ctx.font = 'bold 80px Montserrat, sans-serif';
-                    // Dibujar el título centrado en el eje X, un poco por encima del centro
-                    wrapText(ctx, creative.title, width / 2, height / 2 - 160, width - 100, 90);
-                } else {
-                    ctx.font = 'bold 70px Montserrat, sans-serif';
-                    // Dibujar el título centrado en el eje X, un poco por encima del centro
-                    wrapText(ctx, creative.title, width / 2, height / 2 - 65, width - 100, 80);
-                }
-                
-                // PASO 5: Dibujar el subtítulo
-                ctx.fillStyle = textColor;
-                
-                if (isVertical) {
-                    ctx.font = 'bold 56px Montserrat, sans-serif';
-                    ctx.fillText(creative.subtitle, width / 2, height / 2 + 50);
-                } else {
-                    ctx.font = 'bold 46px Montserrat, sans-serif';
-                    ctx.fillText(creative.subtitle, width / 2, height / 2 + 50);
-                }
-                
-                // PASO 6: Dibujar la descripción
-                ctx.fillStyle = textColor;
-                
-                if (isVertical) {
-                    ctx.font = '42px Montserrat, sans-serif';
-                    // Para multi-línea, dividimos por el salto de línea explícito
-                    const descLines = creative.description.split('\n');
-                    let yPos = height / 2 + 150;
-                    
-                    descLines.forEach(line => {
-                        ctx.fillText(line, width / 2, yPos);
-                        yPos += 60; // Espaciado entre líneas
-                    });
-                } else {
-                    ctx.font = '36px Montserrat, sans-serif';
-                    // Para multi-línea, dividimos por el salto de línea explícito
-                    const descLines = creative.description.split('\n');
-                    let yPos = height / 2 + 150;
-                    
-                    descLines.forEach(line => {
-                        ctx.fillText(line, width / 2, yPos);
-                        yPos += 50; // Espaciado entre líneas
-                    });
-                }
-                
-                // PASO 7: Descargar la imagen
-                setTimeout(() => {
-                    try {
-                        // Convertir a URL de datos
-                        const dataUrl = downloadCanvas.toDataURL('image/png');
-                        
-                        // Crear enlace de descarga
-                        const link = document.createElement('a');
-                        link.href = dataUrl;
-                        link.download = `trafico-${activeService}-${activeColor}-${activeFormat === 'vertical' ? 'vertical' : 'cuadrado'}.png`;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        
-                        // Ocultar modal y restablecer estado
-                        hideLoadingModal();
-                        isProcessing = false;
-                    } catch (error) {
-                        console.error('Error al descargar la imagen:', error);
-                        hideLoadingModal();
-                        alert('Hubo un error al generar la imagen. Por favor intentá de nuevo.');
-                        isProcessing = false;
+
+            // Usar setTimeout para permitir que el modal se renderice antes de bloquear el hilo
+            setTimeout(() => {
+                try {
+                    const creative = creativesData[activeService];
+                    const isVertical = activeFormat === 'vertical';
+
+                    // Configurar canvas
+                    const width = 1080; // Ancho fijo
+                    const height = isVertical ? 1920 : 1080; // Alto según formato
+
+                    downloadCanvas.width = width;
+                    downloadCanvas.height = height;
+
+                    const ctx = downloadCanvas.getContext('2d');
+                    ctx.clearRect(0, 0, width, height);
+
+                    // Obtener colores según el fondo seleccionado
+                    const bgColor = getBgColor();
+                    const textColor = getTextColor(bgColor);
+                    const accentColor = getAccentColor(bgColor);
+
+                    // PASO 1: Dibujar el fondo
+                    ctx.fillStyle = bgColor;
+                    ctx.fillRect(0, 0, width, height);
+
+                    // PASO 2: Dibujar barra lateral (acento)
+                    ctx.fillStyle = accentColor;
+                    const accentWidth = isVertical ? 20 : 15;
+                    const accentHeightRatio = isVertical ? 0.25 : 0.30; // % de la altura
+                    const accentTopRatio = isVertical ? 0.15 : 0.35; // % desde arriba
+                    ctx.fillRect(0, height * accentTopRatio, accentWidth, height * accentHeightRatio);
+
+
+                    // PASO 3: Dibujar el logo directamente sin fondo
+                    const logoFontSize = isVertical ? 48 : 36; // Tamaño de fuente mayor para vertical
+                    ctx.font = `bold ${logoFontSize}px Montserrat, sans-serif`;
+                    const logoMargin = isVertical ? 80 : 40; // Mayor margen para vertical
+                    const logoX = logoMargin;
+                     // Margen superior seguro para Stories (~14% es el límite inferior usual)
+                    const logoY = isVertical ? Math.max(logoMargin, Math.round(height * 0.08)) : logoMargin;
+
+
+                    // Ajustar color del logo según el fondo
+                    ctx.textAlign = 'left'; // Alinear logo a la izquierda
+                    if (activeColor === 'white') {
+                        ctx.fillStyle = '#181818';
+                        ctx.fillText('Orange', logoX, logoY);
+                        const orangeWidth = ctx.measureText('Orange ').width;
+                        ctx.fillStyle = '#FF7E00';
+                        ctx.fillText('Vapor', logoX + orangeWidth, logoY);
+                    } else if (activeColor === 'orange') {
+                        ctx.fillStyle = 'white';
+                        ctx.fillText('Orange Vapor', logoX, logoY);
+                    } else {
+                        ctx.fillStyle = textColor;
+                        ctx.fillText('Orange', logoX, logoY);
+                        const orangeWidth = ctx.measureText('Orange ').width;
+                        ctx.fillStyle = '#FF7E00';
+                        ctx.fillText('Vapor', logoX + orangeWidth, logoY);
                     }
-                }, 1000);
-            } catch (error) {
-                console.error('Error al generar la imagen:', error);
-                hideLoadingModal();
-                alert('Hubo un error al generar la imagen. Por favor intentá de nuevo.');
-                isProcessing = false;
-            }
+
+                    // PASO 4: Dibujar el Texto Principal (centrado)
+                    ctx.textAlign = 'center';
+                    const contentPaddingX = 100; // Margen lateral para texto
+                    const textMaxWidth = width - (contentPaddingX * 2);
+
+                    // Calcular posiciones Y para vertical (con márgenes safe zone)
+                    const safeZoneTop = height * 0.15; // ~15% margen superior
+                    const safeZoneBottom = height * 0.15; // ~15% margen inferior
+                    const contentHeight = height - safeZoneTop - safeZoneBottom;
+                    const contentCenterY = safeZoneTop + (contentHeight / 2);
+
+                    // Posiciones Y relativas al centro del área de contenido
+                    const titleYOffset = isVertical ? -180 : -80;
+                    const highlightYOffset = isVertical ? -100 : -10;
+                    const subtitleYOffset = isVertical ? -30 : 50;
+                    const descYOffset = isVertical ? 80 : 120;
+                    const lineSpacingMultiplier = isVertical ? 1.5 : 1.4; // Mayor espaciado vertical
+
+                    let currentY;
+
+                    // 4.1 Título
+                    ctx.fillStyle = textColor;
+                    const titleFontSize = isVertical ? 80 : 70;
+                    const titleLineHeight = titleFontSize * 1.1;
+                    ctx.font = `800 ${titleFontSize}px Montserrat, sans-serif`; // Extra Bold
+                    currentY = contentCenterY + titleYOffset;
+                    currentY = wrapText(ctx, creative.title, width / 2, currentY, textMaxWidth, titleLineHeight);
+
+                    // 4.2 Service Highlight
+                    const highlightFontSize = isVertical ? 45 : 38;
+                    const highlightLineHeight = highlightFontSize * 1.2;
+                    ctx.font = `600 ${highlightFontSize}px Montserrat, sans-serif`; // Semibold
+                    ctx.textTransform = 'uppercase'; // No funciona en canvas, hacer en JS
+                    currentY = contentCenterY + highlightYOffset; // Usar offset fijo o relativo a title
+                    // currentY += (isVertical ? 50 : 30); // Espacio después del título
+                    currentY = wrapText(ctx, creative.serviceHighlight.toUpperCase(), width / 2, currentY, textMaxWidth * 0.9, highlightLineHeight); // Un poco más estrecho
+                    ctx.textTransform = 'none';
+
+                    // 4.3 Subtítulo
+                    const subtitleFontSize = isVertical ? 56 : 46;
+                    ctx.font = `bold ${subtitleFontSize}px Montserrat, sans-serif`;
+                    currentY = contentCenterY + subtitleYOffset; // Usar offset fijo
+                    // currentY += (isVertical ? 60 : 40); // Espacio después del highlight
+                    currentY = wrapText(ctx, creative.subtitle, width / 2, currentY, textMaxWidth, subtitleFontSize * 1.1);
+
+                     // 4.4 Descripción
+                    const descFontSize = isVertical ? 42 : 36;
+                    const descLineHeight = descFontSize * lineSpacingMultiplier;
+                    ctx.font = `400 ${descFontSize}px Montserrat, sans-serif`; // Regular
+                    currentY = contentCenterY + descYOffset; // Usar offset fijo
+                    // currentY += (isVertical ? 80 : 60); // Espacio después del subtítulo
+                    wrapText(ctx, creative.description, width / 2, currentY, textMaxWidth, descLineHeight);
+
+
+                    // PASO 5: Descargar la imagen (dentro del setTimeout anidado)
+                    setTimeout(() => {
+                        try {
+                            const dataUrl = downloadCanvas.toDataURL('image/png');
+                            const link = document.createElement('a');
+                            link.href = dataUrl;
+                            link.download = `orangevapor-trafico-${activeService}-${activeColor}-${activeFormat}.png`;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+
+                            hideLoadingModal();
+                            isProcessing = false;
+                        } catch (downloadError) {
+                            console.error('Error al descargar la imagen:', downloadError);
+                            hideLoadingModal();
+                            alert('Hubo un error al descargar la imagen. Por favor intentá de nuevo.');
+                            isProcessing = false;
+                        }
+                    }, 500); // Pequeña pausa para asegurar que el canvas se dibujó
+
+                } catch (generationError) {
+                    console.error('Error al generar la imagen:', generationError);
+                    hideLoadingModal();
+                    alert('Hubo un error al generar la imagen. Por favor intentá de nuevo.');
+                    isProcessing = false;
+                }
+            }, 100); // Pequeña pausa inicial para mostrar modal
         }
-        
-        // Función para el dibujado de texto multilínea
+
+
+        // Función para el dibujado de texto multilínea (modificada para devolver la Y final)
         function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
             const words = text.split(' ');
             let line = '';
-            let yPos = y;
-            
+            let currentY = y;
+
             for (let n = 0; n < words.length; n++) {
                 const testLine = line + words[n] + ' ';
                 const metrics = ctx.measureText(testLine);
                 const testWidth = metrics.width;
-                
+
                 if (testWidth > maxWidth && n > 0) {
-                    ctx.fillText(line, x, yPos);
+                    ctx.fillText(line.trim(), x, currentY); // trim() para quitar espacio final
                     line = words[n] + ' ';
-                    yPos += lineHeight;
+                    currentY += lineHeight;
                 } else {
                     line = testLine;
                 }
             }
-            
-            ctx.fillText(line, x, yPos);
+            ctx.fillText(line.trim(), x, currentY); // Dibuja la última línea
+            return currentY + lineHeight; // Devuelve la posición Y para la siguiente línea
         }
-        
+
         // Función para actualizar UI
         function updateUI() {
             serviceTitle.textContent = getServiceTitle(activeService);
-            
+
             // Actualizar tab de servicio
             tabButtons.forEach(btn => {
                 btn.classList.remove('active');
@@ -1274,18 +1255,18 @@ www.orangevapor.com`
                     btn.classList.add('active');
                 }
             });
-            
+
             // Actualizar botones de formato
             formatButtons.forEach(btn => {
                 btn.classList.remove('active');
             });
-            
+
             if (activeFormat === 'square') {
                 squareBtn.classList.add('active');
             } else {
                 verticalBtn.classList.add('active');
             }
-            
+
             // Actualizar botones de color
             colorButtons.forEach(btn => {
                 btn.classList.remove('active');
@@ -1293,10 +1274,10 @@ www.orangevapor.com`
                     btn.classList.add('active');
                 }
             });
-            
+
             renderCreative();
         }
-        
+
         // Eventos para tabs de servicio
         tabButtons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1304,18 +1285,18 @@ www.orangevapor.com`
                 updateUI();
             });
         });
-        
+
         // Eventos para botones de formato
         squareBtn.addEventListener('click', () => {
             activeFormat = 'square';
             updateUI();
         });
-        
+
         verticalBtn.addEventListener('click', () => {
             activeFormat = 'vertical';
             updateUI();
         });
-        
+
         // Eventos para botones de color
         colorButtons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1323,10 +1304,10 @@ www.orangevapor.com`
                 updateUI();
             });
         });
-        
-        // Evento para botón de descarga
+
+        // Evento para botón de descarga principal
         downloadBtn.addEventListener('click', generateAndDownloadImage);
-        
+
         // Inicializar
         updateUI();
     </script>
