@@ -6,6 +6,8 @@
     <title>Creativos Orange Vapor - Campañas de Ads Optimizadas</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Librería html2canvas para exportación de alta fidelidad -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -89,6 +91,15 @@
         .color-btn.active { border-color: #ff7e00; transform: scale(1.1); }
         .color-btn-orange { background-color: #ff7e00; }
         .color-btn-white { background-color: #ffffff; border: 2px solid #ccc; }
+
+        /* Selector de calidad */
+        .quality-toggle { text-align: center; margin: 15px 0; }
+        .quality-btn {
+            padding: 8px 16px; border: 1px solid #ddd; border-radius: 4px;
+            background-color: white; margin: 0 5px; cursor: pointer; transition: all 0.2s ease;
+            font-size: 14px;
+        }
+        .quality-btn.active { background: linear-gradient(135deg, #ff7e00 0%, #e67300 100%); color: white; border-color: #e67300; }
 
         /* Sección de descarga */
         .download-section { text-align: center; margin: 20px 0; }
@@ -396,6 +407,33 @@
                 margin-bottom: 20px;
             }
         }
+
+        /* Optimizaciones para html2canvas */
+        @media print {
+            .creative {
+                page-break-inside: avoid;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+        .creative * {
+            transform-origin: center center;
+        }
+
+        /* Contador de progreso */
+        .progress-container {
+            width: 100%;
+            margin-top: 10px;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 6px;
+            background: linear-gradient(to right, #ff7e00, #e67300);
+            width: 0%;
+            transition: width 0.2s ease;
+        }
     </style>
 </head>
 <body>
@@ -432,6 +470,11 @@
             <div class="color-btn color-btn-white" data-color="white" title="Fondo blanco"></div>
         </div>
 
+        <div class="quality-toggle">
+            <button id="normalQualityBtn" class="quality-btn active" data-quality="normal">Calidad Normal</button>
+            <button id="highQualityBtn" class="quality-btn" data-quality="high">Alta Calidad</button>
+        </div>
+
         <div class="download-section">
             <button id="downloadBtn" class="download-btn">
                 <i class="fas fa-download"></i>
@@ -446,7 +489,8 @@
                 <p>1. Seleccioná el tipo de servicio de Ads que deseás generar.</p>
                 <p>2. Seleccioná el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
                 <p>3. Elegí el color de fondo (naranja o blanco).</p>
-                <p>4. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
+                <p>4. Elegí la calidad de exportación (normal o alta).</p>
+                <p>5. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
             </div>
         </div>
 
@@ -615,6 +659,7 @@
         let activeService = 'optimizacion';
         let activeFormat = 'square';
         let activeColor = 'orange';
+        let exportQuality = 'normal'; // Calidad de exportación: 'normal' o 'high'
         let isProcessing = false;
 
         const serviceTitle = document.getElementById('serviceTitle');
@@ -622,8 +667,11 @@
         const tabButtons = document.querySelectorAll('.tab-button');
         const formatButtons = document.querySelectorAll('.format-btn');
         const colorButtons = document.querySelectorAll('.color-btn');
+        const qualityButtons = document.querySelectorAll('.quality-btn');
         const squareBtn = document.getElementById('squareBtn');
         const verticalBtn = document.getElementById('verticalBtn');
+        const normalQualityBtn = document.getElementById('normalQualityBtn');
+        const highQualityBtn = document.getElementById('highQualityBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const togglePracticesBtn = document.getElementById('togglePractices');
         const bestPracticesBox = document.querySelector('.best-practices');
@@ -631,6 +679,7 @@
         const adCopyText = document.getElementById('adCopyText');
         const copyBtn = document.getElementById('copyBtn');
 
+        // Función para copiar el ad copy
         copyBtn.addEventListener('click', () => {
             const textToCopy = adCopyText.textContent || adCopyText.innerText;
             navigator.clipboard.writeText(textToCopy)
@@ -645,12 +694,14 @@
                 });
         });
 
+        // Mostrar/ocultar mejores prácticas
         togglePracticesBtn.addEventListener('click', () => {
             const isHidden = bestPracticesBox.style.display === 'none' || bestPracticesBox.style.display === '';
             bestPracticesBox.style.display = isHidden ? 'block' : 'none';
             togglePracticesBtn.textContent = isHidden ? 'Ocultar mejores prácticas' : 'Ver mejores prácticas para Ads';
         });
 
+        // Obtener título del servicio activo
         function getServiceTitle(service) {
             const titleMap = {
                 auditoria: 'Creativos para Auditoría Gratis de Ads', 
@@ -664,12 +715,14 @@
             return titleMap[service] ? `Alta Conversión: ${titleMap[service]}` : 'Creativos de Alta Conversión para Ads';
         }
 
+        // Obtener estilo de fondo según color activo
         function getBackgroundStyle() {
             if (activeColor === 'orange') return gradients.orange;
             if (activeColor === 'white') return colors.light;
             return gradients.orange;
         }
 
+        // Determinar color de texto según color de fondo
         function getTextColor(bgColor) {
             if (!bgColor) return colors.dark;
             // Si es un gradiente, tomar el primer color
@@ -691,6 +744,7 @@
             return luminance > 0.5 ? colors.dark : colors.light;
         }
 
+        // Obtener color de acento para detalles
         function getAccentColor(bgColor) {
             const textColor = getTextColor(bgColor);
             if (activeColor === 'orange') return textColor;
@@ -698,6 +752,7 @@
             return textColor;
         }
         
+        // Obtener color del CTA según el servicio
         function getCTAColor(service) {
             switch(service) {
                 case 'auditoria': return '#28a745';
@@ -711,6 +766,7 @@
             }
         }
 
+        // Renderizar el creativo según selecciones actuales
         function renderCreative() {
             creativesContainer.innerHTML = '';
             const creative = creativesData[activeService];
@@ -895,462 +951,316 @@
             updateAdCopy();
         }
 
+        // Actualizar el ad copy según el servicio seleccionado
         function updateAdCopy() {
             adCopyText.textContent = adCopyData[activeService] || "Copy de anuncio no disponible para este servicio.";
             copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
         }
 
-        function showLoadingModal(message = "Generando imagen...") {
-            if (document.getElementById('loadingModal')) return;
+        // Mostrar modal de carga durante procesos
+        function showLoadingModal(message = "Generando imagen...", progress = null) {
+            const existingModal = document.getElementById('loadingModal');
+            
+            if (existingModal) {
+                const messageEl = existingModal.querySelector('.loading-container div:nth-child(2)');
+                if (messageEl) messageEl.textContent = message;
+                
+                // Actualizar barra de progreso si se proporciona
+                if (progress !== null) {
+                    let progressBar = existingModal.querySelector('.progress-bar');
+                    if (progressBar) {
+                        progressBar.style.width = `${progress}%`;
+                    }
+                }
+                return;
+            }
+            
+            // Si no existe, crear uno nuevo
             const modalEl = document.createElement('div');
             modalEl.className = 'loading-modal';
             modalEl.id = 'loadingModal';
+            
+            let progressHTML = '';
+            if (progress !== null) {
+                progressHTML = `
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: ${progress}%;"></div>
+                    </div>
+                `;
+            }
+            
             modalEl.innerHTML = `
                 <div class="loading-container">
                     <div class="loading-spinner"></div>
                     <div>${message}</div>
+                    ${progressHTML}
                 </div>`;
             document.body.appendChild(modalEl);
         }
         
+        // Ocultar modal de carga
         function hideLoadingModal() {
             const modal = document.getElementById('loadingModal');
             if (modal) { document.body.removeChild(modal); }
         }
 
+        // Función para precargar iconos Font Awesome
+        async function precacheFontAwesomeIcons() {
+            // Lista de iconos Font Awesome que se utilizan en los creativos
+            const faIcons = [
+                'fa-search-dollar', 'fa-bolt', 'fa-facebook', 
+                'fa-google', 'fa-envelope-open-text', 'fa-robot',
+                'fa-rocket', 'fa-shield-alt', 'fa-user-clock',
+                'fa-arrow-right', 'fa-download', 'fa-copy',
+                'fa-check', 'fa-info-circle', 'fa-check-circle',
+                'fa-bullhorn'
+            ];
+            
+            // Crear elementos temporales con cada icono para forzar la carga
+            const container = document.createElement('div');
+            container.style.opacity = '0';
+            container.style.position = 'absolute';
+            container.style.left = '-9999px';
+            container.style.top = '-9999px';
+            
+            faIcons.forEach(iconClass => {
+                const iconEl = document.createElement('i');
+                iconEl.className = `fas ${iconClass}`;
+                container.appendChild(iconEl);
+            });
+            
+            // Añadir al DOM temporalmente
+            document.body.appendChild(container);
+            
+            // Esperar un poco para permitir la carga
+            await new Promise(resolve => setTimeout(resolve, 200));
+            
+            // Limpiar
+            document.body.removeChild(container);
+            console.log("Iconos de Font Awesome precargados");
+        }
+
+        // Verificar carga de fuentes de Google
+        async function verifyGoogleFontsLoaded() {
+            // Montserrat es la fuente principal usada en los creativos
+            const fontFamily = 'Montserrat';
+            const testString = 'ABCDEFGabcdefg123456789';
+            const testSizes = [16, 36, 60]; // Verificar algunos tamaños clave
+            const variants = ['normal', 'bold'];
+            
+            // Crear un canvas temporal para pruebas
+            const canvas = document.createElement('canvas');
+            canvas.width = 650;
+            canvas.height = 50;
+            const ctx = canvas.getContext('2d');
+            
+            let attempts = 0;
+            const maxAttempts = 10;
+            
+            while (attempts < maxAttempts) {
+                let allFontsLoaded = true;
+                
+                // Verificar cada combinación de tamaño y variante
+                for (const size of testSizes) {
+                    for (const weight of variants) {
+                        // Primero medir con una fuente fallback
+                        ctx.font = `${weight} ${size}px Arial`;
+                        const fallbackWidth = ctx.measureText(testString).width;
+                        
+                        // Luego medir con Montserrat
+                        ctx.font = `${weight} ${size}px ${fontFamily}, Arial`;
+                        const actualWidth = ctx.measureText(testString).width;
+                        
+                        // Si las medidas son idénticas, la fuente personalizada no se cargó
+                        if (Math.abs(fallbackWidth - actualWidth) < 1) {
+                            console.log(`Fuente ${weight} ${size}px ${fontFamily} no cargada correctamente`);
+                            allFontsLoaded = false;
+                            break;
+                        }
+                    }
+                    if (!allFontsLoaded) break;
+                }
+                
+                if (allFontsLoaded) {
+                    console.log(`Todas las fuentes verificadas y cargadas correctamente`);
+                    return true;
+                }
+                
+                attempts++;
+                console.log(`Intento ${attempts}/${maxAttempts}: esperando fuentes...`);
+                
+                // Esperar antes del siguiente intento
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+            
+            console.warn('Advertencia: No se pudieron verificar todas las fuentes después de varios intentos');
+            return false;
+        }
+
+        // Función para cargar fuentes explícitamente
+        async function ensureFontsLoaded() {
+            // Esperar a que las fuentes web se carguen
+            await document.fonts.ready;
+            
+            // Cargar explícitamente las fuentes Montserrat usadas en los creativos
+            const fontSizes = [14, 18, 22, 24, 28, 30, 36, 42, 46, 56, 70, 80];
+            const fontPromises = [];
+            
+            // Cargar variantes normal y bold para cada tamaño
+            fontSizes.forEach(size => {
+                fontPromises.push(document.fonts.load(`${size}px Montserrat`));
+                fontPromises.push(document.fonts.load(`bold ${size}px Montserrat`));
+            });
+            
+            // Font Awesome también necesita cargarse correctamente
+            fontPromises.push(document.fonts.load('normal 16px "Font Awesome 5 Free"'));
+            fontPromises.push(document.fonts.load('normal 16px "Font Awesome 5 Brands"'));
+            
+            // Esperar a que todas las promesas se resuelvan
+            await Promise.all(fontPromises);
+            console.log("Todas las fuentes cargadas explícitamente");
+            
+            // Dar un poco más de tiempo para que el navegador renderice las fuentes
+            return new Promise(resolve => setTimeout(resolve, 100));
+        }
+
+        // Función principal para exportar a PNG
         async function generateAndDownloadImage() {
             if (isProcessing) return;
             isProcessing = true;
-            showLoadingModal("Preparando fuentes y generando imagen...");
+            showLoadingModal("Preparando la exportación del creativo...", 10);
 
             try {
-                console.log("Esperando fuentes...");
-                await Promise.all([
-                    document.fonts.load('bold 70px Montserrat'),
-                    document.fonts.load('bold 80px Montserrat'),
-                    document.fonts.load('bold 46px Montserrat'),
-                    document.fonts.load('bold 56px Montserrat'),
-                    document.fonts.load('normal 36px Montserrat'),
-                    document.fonts.load('normal 42px Montserrat'),
-                    document.fonts.load('bold 36px Montserrat'),
-                    document.fonts.load('bold 42px Montserrat'),
-                    document.fonts.load('bold 18px Montserrat'),
-                    document.fonts.load('bold 22px Montserrat')
-                ]);
-                console.log("Fuentes cargadas.");
-
-                const creative = creativesData[activeService];
-                if (!creative) throw new Error(`Datos no encontrados para ${activeService}`);
-
-                const isVertical = activeFormat === 'vertical';
-                const width = 1080;
-                const height = isVertical ? 1920 : 1080;
-
-                downloadCanvas.width = width;
-                downloadCanvas.height = height;
-                const ctx = downloadCanvas.getContext('2d');
-                ctx.clearRect(0, 0, width, height);
-
-                // Crear gradiente para el fondo
-                let bgStyle = getBackgroundStyle();
-                if (bgStyle.includes('gradient')) {
-                    // Extraer colores del gradiente
-                    const startColor = bgStyle.match(/#[0-9a-f]{6}/ig)[0];
-                    const endColor = bgStyle.match(/#[0-9a-f]{6}/ig)[1];
-                    
-                    const gradient = ctx.createLinearGradient(0, 0, width, height);
-                    gradient.addColorStop(0, startColor);
-                    gradient.addColorStop(1, endColor);
-                    ctx.fillStyle = gradient;
-                } else {
-                    ctx.fillStyle = bgStyle;
-                }
-                ctx.fillRect(0, 0, width, height);
-
-                const textColor = getTextColor(bgStyle);
-                const ctaColor = getCTAColor(activeService);
-
-                // Dibujar logo
-                const logoFontSize = isVertical ? 42 : 36;
-                ctx.font = `bold ${logoFontSize}px Montserrat, sans-serif`;
-                ctx.textAlign = 'left';
-                const logoX = 40;
-                const logoY = 60;
-                if (activeColor === 'white') {
-                    ctx.fillStyle = colors.dark;
-                    ctx.fillText('Orange', logoX, logoY);
-                    const orangeWidth = ctx.measureText('Orange ').width;
-                    ctx.fillStyle = colors.primary;
-                    ctx.fillText('Vapor', logoX + orangeWidth, logoY);
-                } else if (activeColor === 'orange') {
-                    ctx.fillStyle = colors.light;
-                    ctx.fillText('Orange Vapor', logoX, logoY);
-                }
-
-                // Dibujar icono de servicio
-                if (creative.icon) {
-                    // Aquí usaríamos canvas-icons o tendríamos que dibujar formas básicas para el icono
-                    // Como alternativa, dibujamos un círculo con el color del servicio
-                    const iconSize = isVertical ? 60 : 50;
-                    const iconX = width / 2;
-                    const iconY = logoY + 80;
-                    
-                    // Círculo de fondo
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                    ctx.beginPath();
-                    ctx.arc(iconX, iconY, iconSize / 2, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Simplificar con texto de icono (en producción deberías usar una librería como FontAwesome para canvas)
-                    ctx.fillStyle = textColor;
-                    ctx.font = `bold ${isVertical ? 24 : 20}px Montserrat, sans-serif`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    
-                    // Mapeamos los iconos a simbolos simples para el canvas
-                    const iconText = {
-                        'fa-search-dollar': '$',
-                        'fa-bolt': '⚡',
-                        'fa-facebook': 'f',
-                        'fa-google': 'G',
-                        'fa-envelope-open-text': '✉',
-                        'fa-robot': '🤖',
-                        'fa-rocket': '🚀'
-                    };
-                    
-                    ctx.fillText(iconText[creative.icon] || '•', iconX, iconY);
-                }
-
-                // Configurar para el contenido central
-                ctx.textAlign = 'center';
-                const contentStartY = logoY + 140;
-                const availableHeightForText = height - contentStartY - 40;
-                const contentCenterY = contentStartY + availableHeightForText / 2;
-                const textMaxWidth = width - 100;
-
-                // Título
-                const titleFontSize = isVertical ? 80 : 70;
-                ctx.font = `bold ${titleFontSize}px Montserrat, sans-serif`;
-                ctx.fillStyle = textColor;
-                const titleLineHeight = titleFontSize * 1.1;
+                // 1. Esperar a que todas las fuentes estén cargadas
+                showLoadingModal("Cargando fuentes...", 20);
+                await ensureFontsLoaded();
                 
-                // Calculamos líneas para centrar verticalmente
-                const titleLines = calculateWrappedLines(ctx, creative.title, textMaxWidth);
-                const subtitleFontSize = isVertical ? 56 : 46;
-                const descFontSize = isVertical ? 42 : 36;
-                const descLineHeight = descFontSize * 1.2;
-                const descLines = calculateWrappedLines(ctx, creative.description, textMaxWidth);
+                // 2. Obtener el elemento creativo
+                const creativeEl = document.querySelector('.creative');
+                if (!creativeEl) throw new Error("No se encontró el elemento creativo para exportar");
                 
-                // Altura total estimada del bloque de texto + elementos
-                const totalTextHeight = 
-                    (titleLines * titleLineHeight) + 
-                    subtitleFontSize + 
-                    (isVertical ? 80 : 70) + 
-                    (descLines * descLineHeight) +
-                    (isVertical ? 120 : 100); // Espacio para CTA y otros elementos
+                // 3. Crear un clon para preservar el original y evitar modificaciones
+                showLoadingModal("Preparando el elemento para exportación...", 30);
+                const clonedEl = creativeEl.cloneNode(true);
                 
-                const titleStartY = contentCenterY - (totalTextHeight / 2);
-
-                // Dibujar título
-                wrapText(ctx, creative.title, width / 2, titleStartY, textMaxWidth, titleLineHeight);
-
-                // Dibujar subtítulo
-                const subtitleY = titleStartY + (titleLines * titleLineHeight) + (isVertical ? 20 : 30);
-                ctx.font = `bold ${subtitleFontSize}px Montserrat, sans-serif`;
-                ctx.fillStyle = textColor;
-                ctx.fillText(creative.subtitle, width / 2, subtitleY);
-
-                // Dibujar descripción 
-                const descY = subtitleY + subtitleFontSize + (isVertical ? 60 : 50);
-                ctx.font = `${descFontSize}px Montserrat, sans-serif`;
-                ctx.fillStyle = textColor;
+                // 4. Configurar estilos para el clon para asegurar dimensiones correctas
+                Object.assign(clonedEl.style, {
+                    width: creativeEl.offsetWidth + 'px',
+                    height: creativeEl.offsetHeight + 'px',
+                    position: 'fixed',
+                    top: '-9999px',
+                    left: '-9999px',
+                    transform: 'none',
+                    boxShadow: 'none',
+                    margin: '0',
+                    padding: '0',
+                    borderRadius: creativeEl.style.borderRadius
+                });
                 
-                // Procesamiento especial para destacar palabras clave
-                // Como no podemos usar HTML en canvas, simplificamos y usamos texto normal
-                wrapText(ctx, creative.description, width / 2, descY, textMaxWidth, descLineHeight);
+                // 5. Ocultar los botones de descarga en el clon
+                const downloadBtn = clonedEl.querySelector('.creative-download');
+                if (downloadBtn) downloadBtn.style.display = 'none';
                 
-                // Calcular posición Y final después de la descripción
-                let currentY = descY + (descLines * descLineHeight) + 30;
+                // 6. Agregar temporalmente al DOM
+                document.body.appendChild(clonedEl);
                 
-                // Dibujar CTA
-                if (creative.cta) {
-                    const ctaFontSize = isVertical ? 36 : 30;
-                    const ctaY = currentY + 20;
-                    const ctaWidth = 240;
-                    const ctaHeight = 50;
-                    const ctaX = width / 2 - ctaWidth / 2;
-                    
-                    // Fondo del CTA
-                    ctx.fillStyle = ctaColor;
-                    ctx.beginPath();
-                    ctx.roundRect(ctaX, ctaY, ctaWidth, ctaHeight, 25);
-                    ctx.fill();
-                    
-                    // Texto del CTA
-                    ctx.fillStyle = '#FFFFFF';
-                    ctx.font = `bold ${ctaFontSize}px Montserrat, sans-serif`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(creative.cta, width / 2, ctaY + ctaHeight / 2);
-                    
-                    currentY = ctaY + ctaHeight + 15;
-                    
-                    // Texto de reducción de fricción
-                    if (activeService === 'auditoria' || activeService === 'optimizacion') {
-                        const frictionText = activeService === 'auditoria' ? 
-                            'Sin compromiso • 100% gratis' : 
-                            'Sin riesgo • Resultados o 50% off';
+                // 7. Configurar opciones de html2canvas
+                showLoadingModal("Configurando parámetros de renderizado...", 40);
+                const scale = exportQuality === 'high' ? 3 : 2; // Mayor escala para mayor calidad
+                
+                const options = {
+                    scale: scale,
+                    useCORS: true, // Permitir recursos externos (importante para fuentes web)
+                    allowTaint: true, // Permitir imágenes de otros dominios
+                    backgroundColor: null, // Fondo transparente si corresponde
+                    logging: false, // Desactivar logs en producción
+                    onclone: (docClone) => {
+                        // Asegurar que todos los elementos estén correctamente clonados y estilizados
+                        console.log("Documento clonado correctamente");
                         
-                        ctx.font = `${isVertical ? 28 : 24}px Montserrat, sans-serif`;
-                        ctx.fillStyle = textColor;
-                        ctx.fillText(frictionText, width / 2, currentY + 20);
-                        
-                        currentY += 40;
+                        // Dar tiempo para que se carguen recursos externos y fuentes
+                        return new Promise(resolve => setTimeout(resolve, 500));
                     }
-                }
+                };
                 
-                // Dibujar sello de garantía si existe
-                if (creative.guaranteeText) {
-                    currentY += 15;
-                    const guaranteeText = creative.guaranteeText;
-                    
-                    // Fondo semi-transparente
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-                    const guaranteeWidth = ctx.measureText(guaranteeText).width + 60;
-                    const guaranteeHeight = 36;
-                    const guaranteeX = width / 2 - guaranteeWidth / 2;
-                    
-                    ctx.beginPath();
-                    ctx.roundRect(guaranteeX, currentY, guaranteeWidth, guaranteeHeight, 18);
-                    ctx.fill();
-                    
-                    // Icono y texto
-                    ctx.fillStyle = textColor;
-                    ctx.font = `${isVertical ? 28 : 24}px Montserrat, sans-serif`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    // Aquí simplificamos el icono con un texto
-                    ctx.fillText(`🛡️ ${guaranteeText}`, width / 2, currentY + guaranteeHeight / 2);
-                    
-                    currentY += guaranteeHeight + 20;
-                }
+                // 8. Renderizar a canvas usando html2canvas
+                showLoadingModal("Renderizando creativo (esto puede tomar unos segundos)...", 50);
+                console.log("Iniciando renderizado con html2canvas...");
+                const canvas = await html2canvas(clonedEl, options);
+                console.log("Renderizado completado");
                 
-                // Dibujar indicador de urgencia para auditoría
-                if (activeService === 'auditoria') {
-                    const urgencyText = 'Solo 3 cupos disponibles esta semana';
-                    
-                    // Fondo rojo semi-transparente
-                    ctx.fillStyle = 'rgba(255, 0, 0, 0.1)';
-                    const urgencyWidth = width * 0.7;
-                    const urgencyHeight = 40;
-                    const urgencyX = width / 2 - urgencyWidth / 2;
-                    
-                    ctx.beginPath();
-                    ctx.roundRect(urgencyX, currentY, urgencyWidth, urgencyHeight, 5);
-                    ctx.fill();
-                    
-                    // Borde lateral
-                    ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
-                    ctx.fillRect(urgencyX, currentY, 4, urgencyHeight);
-                    
-                    // Texto
-                    ctx.fillStyle = textColor;
-                    ctx.font = `${isVertical ? 26 : 22}px Montserrat, sans-serif`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(`⏱️ ${urgencyText}`, width / 2, currentY + urgencyHeight / 2);
-                    
-                    currentY += urgencyHeight + 20;
-                }
+                // 9. Eliminar el clon
+                document.body.removeChild(clonedEl);
                 
-                // Dibujar mini testimonial si existe
-                if (creative.testimonio) {
-                    // Fondo semi-transparente
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-                    const testimonialWidth = width * 0.6;
-                    const testimonialHeight = 70;
-                    const testimonialX = width / 2 - testimonialWidth / 2;
-                    
-                    ctx.beginPath();
-                    ctx.roundRect(testimonialX, currentY, testimonialWidth, testimonialHeight, 8);
-                    ctx.fill();
-                    
-                    // Estrellas
-                    ctx.fillStyle = '#FFD700'; // Color dorado
-                    ctx.font = `${isVertical ? 28 : 24}px Montserrat, sans-serif`;
-                    ctx.textAlign = 'center';
-                    ctx.fillText('★★★★★', width / 2, currentY + 25);
-                    
-                    // Texto testimonial
-                    ctx.fillStyle = textColor;
-                    ctx.font = `italic ${isVertical ? 26 : 22}px Montserrat, sans-serif`;
-                    ctx.fillText(creative.testimonio, width / 2, currentY + 55);
-                }
-
-                // Dibujar ribbon
-                const ribbonText = ribbonData[activeService];
-                if (ribbonText) {
-                    ctx.save();
-                    ctx.translate(width, 0);
-                    ctx.rotate(45 * Math.PI / 180);
-
-                    const ribbonBgColor = '#FFD700';
-                    const ribbonTextColor = '#333';
-                    const ribbonHeight = isVertical ? 55 : 45;
-                    const ribbonWidth = isVertical ? 300 : 250;
-                    const ribbonFontSize = isVertical ? 22 : 18;
-
-                    const diagonalShift = 30;
-                    const verticalCenter = 0;
-
-                    // Crear gradiente para el ribbon
-                    const ribbonGradient = ctx.createLinearGradient(
-                        diagonalShift, verticalCenter,
-                        diagonalShift + ribbonWidth, verticalCenter
-                    );
-                    ribbonGradient.addColorStop(0, '#FFD700');
-                    ribbonGradient.addColorStop(1, '#FFC107');
-                    
-                    ctx.fillStyle = ribbonGradient;
-                    ctx.fillRect(
-                        diagonalShift,
-                        verticalCenter - ribbonHeight / 2,
-                        ribbonWidth,
-                        ribbonHeight
-                    );
-
-                    // Sombra suave
-                    ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-                    ctx.shadowBlur = 5;
-                    ctx.shadowOffsetX = 2;
-                    ctx.shadowOffsetY = 2;
-
-                    ctx.fillStyle = ribbonTextColor;
-                    ctx.font = `bold ${ribbonFontSize}px Montserrat, sans-serif`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-
-                    ctx.fillText(
-                        ribbonText,
-                        diagonalShift + ribbonWidth / 2,
-                        verticalCenter
-                    );
-
-                    // Restablecer sombra
-                    ctx.shadowColor = 'transparent';
-                    ctx.shadowBlur = 0;
-                    ctx.shadowOffsetX = 0;
-                    ctx.shadowOffsetY = 0;
-
-                    ctx.restore();
-                }
+                // 10. Obtener dimensiones esperadas según el formato
+                showLoadingModal("Ajustando dimensiones...", 70);
+                const isVertical = activeFormat === 'vertical';
+                const expectedWidth = 1080;
+                const expectedHeight = isVertical ? 1920 : 1080;
                 
-                // Badge de prueba social si existe
-                if (creative.proofstat && creative.prooftext) {
-                    const badgeX = width - 70;
-                    const badgeY = 80;
-                    const badgeRadius = 40;
-                    
-                    // Fondo del badge
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.beginPath();
-                    ctx.arc(badgeX, badgeY, badgeRadius, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Texto del stat
-                    ctx.fillStyle = colors.primary;
-                    ctx.font = `bold ${isVertical ? 24 : 20}px Montserrat, sans-serif`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(creative.proofstat, badgeX, badgeY - 8);
-                    
-                    // Texto descriptivo
-                    ctx.fillStyle = '#333';
-                    ctx.font = `${isVertical ? 14 : 12}px Montserrat, sans-serif`;
-                    ctx.fillText(creative.prooftext, badgeX, badgeY + 14);
-                }
-
-                // Descargar la imagen
-                const dataUrl = downloadCanvas.toDataURL('image/png');
+                // 11. Crear un canvas con las dimensiones exactas requeridas
+                const finalCanvas = document.createElement('canvas');
+                finalCanvas.width = expectedWidth;
+                finalCanvas.height = expectedHeight;
+                const ctx = finalCanvas.getContext('2d');
+                
+                // 12. Establecer fondo del color correcto
+                ctx.fillStyle = activeColor === 'orange' ? 
+                    '#ff7e00' : // Naranja
+                    '#ffffff';  // Blanco
+                ctx.fillRect(0, 0, expectedWidth, expectedHeight);
+                
+                // 13. Dibujar el contenido renderizado manteniendo la proporción
+                const scaleFactor = Math.min(
+                    expectedWidth / canvas.width,
+                    expectedHeight / canvas.height
+                );
+                
+                // 14. Centrar el contenido
+                const offsetX = (expectedWidth - canvas.width * scaleFactor) / 2;
+                const offsetY = (expectedHeight - canvas.height * scaleFactor) / 2;
+                
+                // 15. Dibujar el contenido renderizado en el canvas final
+                ctx.drawImage(
+                    canvas, 
+                    0, 0, canvas.width, canvas.height,
+                    offsetX, offsetY, canvas.width * scaleFactor, canvas.height * scaleFactor
+                );
+                
+                // 16. Convertir a PNG y descargar
+                showLoadingModal("Preparando descarga...", 90);
+                
+                // 17. Obtener el data URL
+                const dataURL = finalCanvas.toDataURL('image/png');
+                
+                // 18. Crear enlace de descarga
                 const link = document.createElement('a');
-                link.href = dataUrl;
+                link.href = dataURL;
                 link.download = `orange-vapor-${activeService}-${activeColor}-${activeFormat}.png`;
                 document.body.appendChild(link);
+                
+                // 19. Descargar
+                showLoadingModal("¡Descargando imagen!", 100);
                 link.click();
                 document.body.removeChild(link);
-
+                
+                console.log("Imagen descargada correctamente");
+                
+                // Mostrar confirmación breve antes de cerrar el modal
+                setTimeout(() => {
+                    hideLoadingModal();
+                }, 500);
+                
             } catch (error) {
-                console.error('Error al generar/descargar la imagen:', error);
-                alert(`Hubo un error al generar la imagen: ${error.message}. Por favor, intentá de nuevo.`);
-            } finally {
+                console.error('Error al exportar creativo:', error);
+                alert(`Hubo un problema al generar la imagen: ${error.message}. Por favor intenta nuevamente.`);
                 hideLoadingModal();
+            } finally {
                 isProcessing = false;
             }
         }
 
-        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-            const words = text.split(/[\s\n]+/);
-            let line = '';
-            let currentY = y;
-            for (let n = 0; n < words.length; n++) {
-                if (words[n].includes('\n')) {
-                     const parts = words[n].split('\n');
-                     let testLineBeforeBreak = line + parts[0] + ' ';
-                     if (ctx.measureText(testLineBeforeBreak).width <= maxWidth || line === '') {
-                         line = testLineBeforeBreak;
-                     } else {
-                         ctx.fillText(line.trim(), x, currentY);
-                         line = parts[0] + ' ';
-                     }
-                     ctx.fillText(line.trim(), x, currentY);
-                     currentY += lineHeight;
-                     line = parts[1] ? parts[1] + ' ' : '';
-                     if (!parts[1] && n === words.length -1) return;
-                     if (!parts[1]) continue;
-                }
-
-                const testLine = line + words[n] + ' ';
-                const metrics = ctx.measureText(testLine);
-                const testWidth = metrics.width;
-                if (testWidth > maxWidth && n > 0 && line !== '') {
-                    ctx.fillText(line.trim(), x, currentY);
-                    line = words[n] + ' ';
-                    currentY += lineHeight;
-                } else {
-                    line = testLine;
-                }
-            }
-             if (line.trim() !== '') {
-                 ctx.fillText(line.trim(), x, currentY);
-             }
-        }
-
-        function calculateWrappedLines(ctx, text, maxWidth) {
-            const words = text.split(/[\s\n]+/);
-            let line = '';
-            let lines = 0;
-            let firstWord = true;
-
-            for (let n = 0; n < words.length; n++) {
-               if (firstWord) {
-                   lines++;
-                   firstWord = false;
-               }
-                const testLine = line + words[n] + ' ';
-                const metrics = ctx.measureText(testLine);
-                const testWidth = metrics.width;
-                if (testWidth > maxWidth && n > 0 && line !== '') {
-                    lines++;
-                    line = words[n] + ' ';
-                } else {
-                    line = testLine;
-                }
-            }
-            
-            lines += (text.match(/\n/g) || []).length;
-            return lines || 1;
-        }
-
+        // Actualizar la interfaz de usuario
         function updateUI() {
             serviceTitle.textContent = getServiceTitle(activeService);
             
@@ -1378,15 +1288,17 @@
                 }
             });
             
+            // Renderizar el creativo con las selecciones actuales
             renderCreative();
         }
 
-        // Event listeners para todos los botones
+        // Event listeners para los botones de servicio
         tabButtons.forEach(btn => btn.addEventListener('click', () => { 
             activeService = btn.dataset.service; 
             updateUI(); 
         }));
         
+        // Event listeners para los botones de formato
         squareBtn.addEventListener('click', () => { 
             activeFormat = 'square'; 
             updateUI(); 
@@ -1397,15 +1309,61 @@
             updateUI(); 
         });
         
+        // Event listeners para los botones de color
         colorButtons.forEach(btn => btn.addEventListener('click', () => { 
             activeColor = btn.dataset.color; 
             updateUI(); 
         }));
         
+        // Event listeners para los botones de calidad
+        normalQualityBtn.addEventListener('click', () => {
+            exportQuality = 'normal';
+            qualityButtons.forEach(btn => btn.classList.remove('active'));
+            normalQualityBtn.classList.add('active');
+        });
+
+        highQualityBtn.addEventListener('click', () => {
+            exportQuality = 'high';
+            qualityButtons.forEach(btn => btn.classList.remove('active'));
+            highQualityBtn.classList.add('active');
+        });
+        
+        // Event listener para el botón de descarga
         downloadBtn.addEventListener('click', generateAndDownloadImage);
 
-        // Inicializar la interfaz
-        updateUI();
+        // Precarga de recursos al inicio
+        async function initializeResources() {
+            try {
+                // Mostrar mensaje de carga inicial
+                showLoadingModal("Inicializando recursos...", 0);
+                
+                // Esperar a que las fuentes se carguen
+                showLoadingModal("Cargando fuentes...", 30);
+                await document.fonts.ready;
+                
+                // Precarga de iconos Font Awesome
+                showLoadingModal("Preparando iconos...", 60);
+                await precacheFontAwesomeIcons();
+                
+                // Verificar carga de Google Fonts
+                showLoadingModal("Verificando fuentes web...", 90);
+                await verifyGoogleFontsLoaded();
+                
+                // Ocultar modal de carga
+                hideLoadingModal();
+                
+                console.log("Recursos inicializados correctamente");
+            } catch (error) {
+                console.error("Error al inicializar recursos:", error);
+                hideLoadingModal();
+            }
+        }
+
+        // Inicializar recursos y UI
+        initializeResources().then(() => {
+            // Inicializar la interfaz
+            updateUI();
+        });
     </script>
 </body>
 </html>
