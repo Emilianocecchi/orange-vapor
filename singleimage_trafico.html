@@ -60,7 +60,6 @@
             color: #333;
             border: 1px solid #ddd;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
         .tab-button:first-child {
             border-top-left-radius: 6px;
@@ -86,9 +85,9 @@
         .color-btn {
             width: 36px; height: 36px; border-radius: 50%; margin: 0 5px;
             cursor: pointer; display: inline-block; border: 2px solid #ddd;
-            transition: all 0.2s ease; overflow: hidden;
+            overflow: hidden;
         }
-        .color-btn.active { border-color: #ff7e00; transform: scale(1.1); }
+        .color-btn.active { border-color: #ff7e00; }
         .color-btn-orange { background-color: #ff7e00; }
         .color-btn-white { background-color: #ffffff; border: 2px solid #ccc; }
 
@@ -99,9 +98,8 @@
             color: white; border: none; padding: 12px 24px;
             font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer;
             display: inline-flex; align-items: center; gap: 10px;
-            box-shadow: 0 4px 8px rgba(255, 126, 0, 0.3); transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(255, 126, 0, 0.3);
         }
-        .download-btn:hover { background: linear-gradient(135deg, #e67300 0%, #cc6600 100%); transform: translateY(-2px); }
 
         /* Contenedor de creativos */
         .creatives-container { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
@@ -110,11 +108,6 @@
             border-radius: 8px; overflow: hidden; 
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
             color: white; cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .creative:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
         .creative-vertical { width: 240px; height: 427px; }
         .creative-content {
@@ -159,18 +152,10 @@
             margin: 10px auto;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            transition: all 0.2s ease;
             color: #333;
         }
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
         .cta-button .arrow-icon {
-            transition: transform 0.2s ease;
-        }
-        .cta-button:hover .arrow-icon {
-            transform: translateX(3px);
+            /* Sin animación */
         }
         
         /* Friction reducer text */
@@ -259,9 +244,8 @@
             position: absolute; top: 10px; right: 10px; width: 30px; height: 30px;
             border-radius: 50%; background: rgba(68, 68, 68, 0.8); display: flex;
             align-items: center; justify-content: center; cursor: pointer;
-            opacity: 0; transition: opacity 0.3s; z-index: 10;
+            z-index: 10;
         }
-        .creative:hover .creative-download { opacity: 1; }
 
         /* Notas y cajas informativas */
         .note { text-align: center; margin-top: 30px; color: #666; font-size: 12px; }
@@ -277,19 +261,9 @@
         .format-toggle { text-align: center; margin: 20px 0; }
         .format-btn {
             padding: 8px 16px; border: 1px solid #ddd; border-radius: 4px;
-            background-color: white; margin: 0 5px; cursor: pointer; transition: all 0.2s ease;
+            background-color: white; margin: 0 5px; cursor: pointer;
         }
         .format-btn.active { background: linear-gradient(135deg, #ff7e00 0%, #e67300 100%); color: white; border-color: #e67300; }
-
-        /* Mejores prácticas */
-        .best-practices { background-color: #f8f8f8; border-radius: 8px; padding: 15px; margin: 20px 0; }
-        .best-practices h3 { font-size: 16px; color: #333; margin-bottom: 10px; }
-        .best-practices ul { list-style-type: disc; margin-left: 20px; }
-        .best-practices li { font-size: 13px; margin-bottom: 5px; color: #666; }
-        .toggle-practices {
-            display: block; margin: 10px auto; background: none; border: 1px solid #ddd;
-            padding: 5px 10px; font-size: 12px; color: #666; cursor: pointer; border-radius: 4px;
-        }
 
         /* Logo */
         .logo-container {
@@ -338,9 +312,8 @@
             background: #f1f1f1; border: 1px solid #ddd; border-radius: 4px;
             padding: 8px 16px; font-size: 14px; color: #555; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            margin: 15px auto 0; transition: all 0.3s ease;
+            margin: 15px auto 0;
         }
-        .copy-btn:hover { background: #e9e9e9; }
         .copy-btn i { margin-right: 8px; }
 
         /* Indicador tipo campaña */
@@ -399,7 +372,6 @@
             height: 6px;
             background: linear-gradient(to right, #ff7e00, #e67300);
             width: 0%;
-            transition: width 0.2s ease;
         }
     </style>
 </head>
@@ -460,20 +432,6 @@
             Texto optimizado (menos del 20% del espacio) - Aprobado para Meta Ads
         </div>
 
-        <div class="best-practices" style="display: none;">
-            <h3>Mejores Prácticas para Anuncios de Alta Conversión:</h3>
-            <ul>
-                <li><strong>Elementos de prueba social</strong> - Incluir testimonios, resultados numéricos y garantías</li>
-                <li><strong>Contraste de colores</strong> - Destacar visualmente los elementos más importantes</li>
-                <li><strong>CTA claro y llamativo</strong> - El botón de llamada a la acción debe ser inmediatamente visible</li>
-                <li><strong>Uso de urgencia</strong> - Elementos como "cupos limitados" o "48hs" crean impulso para actuar</li>
-                <li><strong>Iconografía relevante</strong> - Usar iconos que refuercen el mensaje principal</li>
-                <li><strong>Reducir la fricción</strong> - Incluir microcopy que elimine objeciones ("Sin compromiso", "Cancelá cuando quieras")</li>
-                <li><strong>Menos del 20% de texto</strong> - Meta penaliza anuncios con exceso de texto</li>
-            </ul>
-        </div>
-        <button class="toggle-practices" id="togglePractices">Ver mejores prácticas para Ads</button>
-
         <div id="creativesContainer" class="creatives-container">
             <!-- El creativo se inserta dinámicamente aquí -->
         </div>
@@ -533,7 +491,7 @@
                 icon: 'fa-bolt',
                 cta: 'Ver Detalles',
                 guaranteeText: 'Sin riesgo: 50% si no funciona',
-                testimonio: '"Pasamos de 350% a 820% de ROAS"'
+                testimonio: '"Nuestras ventas aumentaron más del doble"'
             },
             meta: { 
                 title: 'META ADS: VENTAS ASEGURADAS', 
@@ -543,7 +501,7 @@
                 icon: 'fa-facebook',
                 cta: 'Potenciar Campañas',
                 guaranteeText: 'ROAS mínimo garantizado',
-                testimonio: '"Aumentamos ventas un 127%"'
+                testimonio: '"Logramos duplicar nuestros clientes"'
             },
             google: { 
                 title: 'GOOGLE ADS: MÁS CLIENTES', 
@@ -553,7 +511,7 @@
                 icon: 'fa-google',
                 cta: 'Aparecer en Google',
                 guaranteeText: 'Mayor visibilidad garantizada',
-                testimonio: '"Tráfico cualificado de inmediato"'
+                testimonio: '"Conseguimos clientes de calidad rápidamente"'
             },
             email: { 
                 title: 'CAMPAÑAS DE EMAIL MARKETING', 
@@ -563,7 +521,7 @@
                 icon: 'fa-envelope-open-text',
                 cta: 'Revitalizar Emails',
                 guaranteeText: '+38% tasa de apertura',
-                testimonio: '"De $400 a $4,800 mensuales"'
+                testimonio: '"Multiplicamos nuestros ingresos por 10"'
             },
             chatbot: { 
                 title: 'CAMPAÑAS CON CHATBOTS', 
@@ -573,7 +531,7 @@
                 icon: 'fa-robot',
                 cta: 'Implementar Chatbot',
                 guaranteeText: 'Respuestas 24/7 garantizadas',
-                testimonio: '"Triplicamos leads cualificados"'
+                testimonio: '"Triplicamos nuestros contactos de ventas"'
             },
             all: { 
                 title: 'PAQUETE ADS COMPLETO', 
@@ -583,7 +541,7 @@
                 icon: 'fa-rocket',
                 cta: 'Obtener Pack Completo',
                 guaranteeText: 'Resultados o pagás la mitad',
-                testimonio: '"Solución integral que funciona"'
+                testimonio: '"Un sistema completo que realmente funciona"'
             }
         };
 
@@ -595,11 +553,11 @@
 
         const adCopyData = {
             auditoria: `🔍 ¿Tus campañas de Meta Ads y Google Ads no rinden como esperabas? 🔍\n\nDescubrí EXACTAMENTE dónde estás perdiendo dinero y qué corregir.\n\n¡Solicitá tu Auditoría de Ads GRATUITA! ⏱️\n\n✅ Análisis detallado de estructura y configuración.\n✅ Identificación de fugas de presupuesto.\n✅ Recomendaciones claras para optimizar YA.\n✅ 100% Gratis, sin compromiso.\n\n👉 SOLO 3 CUPOS ESTA SEMANA - Visitá nuestra web y pedí tu auditoría antes de que se acaben. ¡Dejá de tirar dinero!\n\n➡️ www.orangevapor.com`,
-            optimizacion: `⚡ ¿Campañas de Ads activas pero SIN resultados? ¡Optimización Express en 48hs! ⚡\n\nDetené el gasto innecesario y empezá a ver conversiones REALES.\n\n✅ Diagnóstico inmediato de puntos débiles\n✅ Reestructuración para máximo rendimiento\n✅ Ajuste de segmentaciones y creativos\n✅ Resultados visibles en SOLO 48 HORAS\n\n🔥 CASO REAL: Un cliente reciente pasó de 350% a 820% de ROAS en menos de 72 horas.\n\n⚠️ OFERTA POR TIEMPO LIMITADO: Nuestro fee se reduce a la mitad si no mejoramos tus métricas.\n\n¿Listo/a para transformar tus Ads? Visitá 👇\nwww.orangevapor.com`,
-            meta: `📱 ¿Invertís en Meta Ads (Facebook/Instagram) pero las ventas no llegan? 📱\n\n¡Dejá de adivinar y tirá dinero! Nuestras campañas tienen un ROAS mínimo GARANTIZADO de 2.8x.\n\n✅ Estrategia personalizada para TU negocio\n✅ Optimización continua basada en datos\n✅ Reducción del costo por adquisición (CPA)\n✅ Reportes claros enfocados en ROI\n\n🔥 NUESTROS CLIENTES HABLAN: "Aumentamos ventas un 127% en 30 días con Orange Vapor"\n\n⚠️ GARANTÍA DE RESULTADOS: Si no alcanzamos los KPIs acordados, solo pagás la mitad del fee.\n\n¡Es hora de que tus Ads trabajen para vos! Hacé clic 👇\nwww.orangevapor.com`,
-            google: `🔎 ¿Tu competencia aparece en Google Ads y vos no? ¡Perdés clientes TODOS LOS DÍAS! 🔎\n\nConvertí búsquedas activas en ventas con campañas de Google Ads OPTIMIZADAS.\n\n✅ ROAS mínimo 2.8x GARANTIZADO\n✅ Palabras clave que SÍ convierten\n✅ Reducción del CPA hasta un 32%\n✅ Anuncios que destacan en la competencia\n\n🔥 CUPOS LIMITADOS: Solo trabajamos con un negocio por nicho para garantizar resultados exclusivos.\n\n⚠️ Cada día que pasa sin aparecer en Google, tu competencia se lleva TUS CLIENTES.\n\n¡Aparecé donde te buscan tus clientes! 👇\nwww.orangevapor.com`,
-            email: `📧 ¿Tenés una lista de emails pero no genera ventas? ¡Optimizá tus Campañas de Email Marketing! 📧\n\nConvertí suscriptores inactivos en clientes recurrentes.\n\n✅ Secuencias automatizadas que nutren y venden\n✅ Segmentación avanzada para mensajes relevantes\n✅ Aumento GARANTIZADO de tasa de apertura (+38%)\n✅ Generá ingresos pasivos con tu base de datos\n\n🔥 CASO DE ÉXITO: Una cliente pasó de generar $400 a $4,800 mensuales SOLO con email marketing.\n\n⚠️ Tu lista pierde valor cada día que no la monetizás adecuadamente.\n\n¡Monetizá tu lista AHORA! 👇\nwww.orangevapor.com`,
-            chatbot: `🤖 ¿Perdés leads y ventas por no responder al instante? ¡Potenciá tus Campañas con Chatbots! 🤖\n\nIntegrá chatbots inteligentes para MAXIMIZAR la conversión de tus Ads.\n\n✅ Capturá y cualificá leads 24/7/365\n✅ Respondé preguntas frecuentes al instante\n✅ Tasa de conversión hasta 68% (vs 22% manual)\n✅ Liberá a tu equipo para tareas complejas\n\n🔥 DATO IMPACTANTE: El 60% de los leads se pierden por no responder en los primeros 5 minutos.\n\n⚠️ OFERTA ESPECIAL: Implementación gratuita si contratás este mes.\n\n¡No pierdas ni un lead más! 👇\nwww.orangevapor.com`,
+            optimizacion: `⚡ ¿Campañas de Ads activas pero SIN resultados? ¡Optimización Express en 48hs! ⚡\n\nDetené el gasto innecesario y empezá a ver conversiones REALES.\n\n✅ Diagnóstico inmediato de puntos débiles\n✅ Reestructuración para máximo rendimiento\n✅ Ajuste de segmentaciones y creativos\n✅ Resultados visibles en SOLO 48 HORAS\n\n🔥 CASO REAL: Un cliente reciente duplicó sus ventas en menos de 72 horas.\n\n⚠️ OFERTA POR TIEMPO LIMITADO: Nuestro fee se reduce a la mitad si no mejoramos tus métricas.\n\n¿Listo/a para transformar tus Ads? Visitá 👇\nwww.orangevapor.com`,
+            meta: `📱 ¿Invertís en Meta Ads (Facebook/Instagram) pero las ventas no llegan? 📱\n\n¡Dejá de adivinar y tirá dinero! Nuestras campañas tienen resultados GARANTIZADOS.\n\n✅ Estrategia personalizada para TU negocio\n✅ Optimización continua basada en datos\n✅ Reducción del costo por adquisición\n✅ Reportes claros enfocados en resultados\n\n🔥 NUESTROS CLIENTES HABLAN: "Logramos duplicar nuestros clientes en 30 días con Orange Vapor"\n\n⚠️ GARANTÍA DE RESULTADOS: Si no alcanzamos los KPIs acordados, solo pagás la mitad del fee.\n\n¡Es hora de que tus Ads trabajen para vos! Hacé clic 👇\nwww.orangevapor.com`,
+            google: `🔎 ¿Tu competencia aparece en Google Ads y vos no? ¡Perdés clientes TODOS LOS DÍAS! 🔎\n\nConvertí búsquedas activas en ventas con campañas de Google Ads OPTIMIZADAS.\n\n✅ Resultados comprobables y garantizados\n✅ Palabras clave que SÍ convierten\n✅ Reducción del costo por cliente\n✅ Anuncios que destacan en la competencia\n\n🔥 CUPOS LIMITADOS: Solo trabajamos con un negocio por nicho para garantizar resultados exclusivos.\n\n⚠️ Cada día que pasa sin aparecer en Google, tu competencia se lleva TUS CLIENTES.\n\n¡Aparecé donde te buscan tus clientes! 👇\nwww.orangevapor.com`,
+            email: `📧 ¿Tenés una lista de emails pero no genera ventas? ¡Optimizá tus Campañas de Email Marketing! 📧\n\nConvertí suscriptores inactivos en clientes recurrentes.\n\n✅ Secuencias automatizadas que nutren y venden\n✅ Segmentación avanzada para mensajes relevantes\n✅ Aumento GARANTIZADO de tasa de apertura (+38%)\n✅ Generá ingresos pasivos con tu base de datos\n\n🔥 CASO DE ÉXITO: Una cliente multiplicó sus ingresos por 10 SOLO con email marketing.\n\n⚠️ Tu lista pierde valor cada día que no la monetizás adecuadamente.\n\n¡Monetizá tu lista AHORA! 👇\nwww.orangevapor.com`,
+            chatbot: `🤖 ¿Perdés leads y ventas por no responder al instante? ¡Potenciá tus Campañas con Chatbots! 🤖\n\nIntegrá chatbots inteligentes para MAXIMIZAR la conversión de tus Ads.\n\n✅ Capturá y cualificá contactos 24/7/365\n✅ Respondé preguntas frecuentes al instante\n✅ Tasa de conversión hasta 68% (vs 22% manual)\n✅ Liberá a tu equipo para tareas complejas\n\n🔥 DATO IMPACTANTE: El 60% de los contactos se pierden por no responder en los primeros 5 minutos.\n\n⚠️ OFERTA ESPECIAL: Implementación gratuita si contratás este mes.\n\n¡No pierdas ni un cliente potencial más! 👇\nwww.orangevapor.com`,
             all: `🚀 ¡La Estrategia de Ads COMPLETA que tu negocio necesita! 🚀\n\n¿Por qué elegir un solo canal cuando podés dominar TODOS?\n\nNuestro Paquete Integral incluye:\n✅ Meta Ads optimizados (Facebook e Instagram)\n✅ Google Ads estratégico con keywords premium\n✅ Email Marketing automatizado con alta apertura\n✅ Chatbots de conversión 24/7\n\n💰 AHORRÁ $200/MES: Normalmente $1,200/mes por separado\nAHORA: $1,000/mes - ¡AHORRO REAL DE $2,400 AL AÑO!\n\n🔥 BONO EXCLUSIVO: Si contratás ahora, incluimos la Optimización Express ($299) ¡GRATIS!\n\n⚠️ GARANTÍA ÚNICA: Si no mejoramos tus métricas, solo pagás la mitad. Sin contratos largos.\n\nMaximizá tu presencia y ROI en todos los canales 👇\nwww.orangevapor.com`
         };
 
@@ -617,8 +575,6 @@
         const squareBtn = document.getElementById('squareBtn');
         const verticalBtn = document.getElementById('verticalBtn');
         const downloadBtn = document.getElementById('downloadBtn');
-        const togglePracticesBtn = document.getElementById('togglePractices');
-        const bestPracticesBox = document.querySelector('.best-practices');
         const downloadCanvas = document.getElementById('downloadCanvas');
         const adCopyText = document.getElementById('adCopyText');
         const copyBtn = document.getElementById('copyBtn');
@@ -636,13 +592,6 @@
                     copyBtn.innerHTML = '<i class="fas fa-times"></i> Error';
                     setTimeout(() => { copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar'; }, 2000);
                 });
-        });
-
-        // Mostrar/ocultar mejores prácticas
-        togglePracticesBtn.addEventListener('click', () => {
-            const isHidden = bestPracticesBox.style.display === 'none' || bestPracticesBox.style.display === '';
-            bestPracticesBox.style.display = isHidden ? 'block' : 'none';
-            togglePracticesBtn.textContent = isHidden ? 'Ocultar mejores prácticas' : 'Ver mejores prácticas para Ads';
         });
 
         // Obtener título del servicio activo
@@ -841,13 +790,11 @@
                 ctaEl.style.backgroundColor = ctaColor;
                 contentEl.appendChild(ctaEl);
                 
-                // Texto de reducción de fricción para auditoría y optimización
-                if (activeService === 'auditoria' || activeService === 'optimizacion') {
+                // Texto de reducción de fricción para auditoría
+                if (activeService === 'auditoria') {
                     const frictionReducerEl = document.createElement('div');
                     frictionReducerEl.className = 'friction-reducer';
-                    frictionReducerEl.textContent = activeService === 'auditoria' ? 
-                        'Sin compromiso • 100% gratis' : 
-                        'Sin riesgo • Resultados o 50% off';
+                    frictionReducerEl.textContent = 'Sin compromiso • 100% gratis';
                     frictionReducerEl.style.color = textColor;
                     contentEl.appendChild(frictionReducerEl);
                 }
