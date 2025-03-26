@@ -169,7 +169,7 @@
             margin: 10px;
             position: relative;
             border-radius: 8px;
-            overflow: hidden;
+            overflow: hidden; /* --- MODIFICADO: Necesario para el ribbon diagonal --- */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             color: white;
             cursor: pointer;
@@ -212,7 +212,7 @@
             height: 100px;
             background: white;
             border-radius: 0 3px 3px 0;
-            z-index: 10;
+            z-index: 1; /* Debajo del ribbon */
         }
         .creative-download {
             position: absolute;
@@ -233,6 +233,32 @@
         .creative:hover .creative-download {
             opacity: 1;
         }
+
+        /* --- NUEVO: Estilo para el Ribbon --- */
+        .creative-ribbon {
+            position: absolute;
+            background-color: #FFD700; /* Dorado */
+            color: #333; /* Texto oscuro para contraste */
+            padding: 5px 8px; /* Aumentar padding vertical */
+            font-size: 12px; /* Más pequeño para encajar */
+            font-weight: bold;
+            z-index: 3; /* Por encima del contenido y acento */
+            top: 15px; /* Ajustar posición vertical */
+            right: -35px; /* Empujar fuera y rotar */
+            width: 130px; /* Ancho fijo para rotación */
+            text-align: center;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+        }
+        .creative-vertical .creative-ribbon {
+            font-size: 13px;
+            top: 20px; /* Ajustar para vertical */
+            right: -40px;
+            width: 150px; /* Un poco más ancho para vertical */
+        }
+        /* --- FIN NUEVO ESTILO RIBBON --- */
+
         .note {
             text-align: center;
             margin-top: 30px;
@@ -317,7 +343,7 @@
             left: 10px;
             padding: 5px 10px;
             border-radius: 4px;
-            z-index: 20;
+            z-index: 2; /* Por debajo del ribbon pero encima del acento */
             text-align: left; /* Asegurar alineación izquierda del logo */
         }
 
@@ -501,11 +527,11 @@
             <i class="fas fa-info-circle"></i>
             <div>
                 <p><strong>Instrucciones:</strong></p>
-                <p>1. Selecciona el tipo de servicio de Ads que deseas generar.</p> <!-- Texto ajustado -->
-                <p>2. Elige el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
-                <p>3. Selecciona el color de fondo (original, naranja, blanco o negro).</p>
-                <p>4. Haz clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
-                <p>5. También puedes descargar el creativo pasando el mouse sobre la imagen y haciendo clic en el icono de descarga.</p>
+                <p>1. Seleccioná el tipo de servicio de Ads que deseás generar.</p> <!-- MODIFICADO: Voseo -->
+                <p>2. Elegí el formato (cuadrado 1080x1080 o vertical 1080x1920).</p> <!-- MODIFICADO: Voseo -->
+                <p>3. Seleccioná el color de fondo (original, naranja, blanco o negro).</p> <!-- MODIFICADO: Voseo -->
+                <p>4. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p> <!-- MODIFICADO: Voseo -->
+                <p>5. También podés descargar el creativo pasando el mouse sobre la imagen y haciendo clic en el icono de descarga.</p> <!-- MODIFICADO: Voseo -->
             </div>
         </div>
 
@@ -524,8 +550,8 @@
                 <li><strong>Imágenes de alto impacto</strong> - Elementos visuales llamativos que captan atención</li>
                 <li><strong>Menos del 20% de texto</strong> - Facebook penaliza anuncios con exceso de texto</li>
                 <li><strong>Colores contrastantes</strong> - Ajuste automático del contraste según el fondo seleccionado</li>
-                <li><strong>Propuesta de valor clara</strong> - Qué beneficio obtienen al hacer clic</li> <!-- Texto ajustado -->
-                <li><strong>Llamada a la acción (CTA) clara</strong> - Enfocado en visitar, descubrir, explorar</li> <!-- Texto ajustado -->
+                <li><strong>Propuesta de valor clara</strong> - Qué beneficio obtienen al hacer clic</li>
+                <li><strong>Llamada a la acción (CTA) clara</strong> - Enfocado en visitar, descubrir, explorar</li>
                 <li><strong>Composición centrada</strong> - Elementos principales visibles a primera vista</li>
             </ul>
         </div>
@@ -577,18 +603,18 @@
             chatbot: '#6f42c1'
         };
 
-        // --- DATOS DE CREATIVOS ACTUALIZADOS ---
+        // --- DATOS DE CREATIVOS ACTUALIZADOS (CON VOSEO) ---
         const creativesData = {
             auditoria: {
                 title: 'AUDITORÍA GRATIS DE ADS',
-                subtitle: 'DESCUBRE QUÉ FALLA',
+                subtitle: 'DESCUBRÍ QUÉ FALLA', // Voseo
                 description: 'Análisis experto de tus campañas\nMeta Ads y Google Ads. Sin compromiso.',
                 bgColor: colors.auditoria
             },
             optimizacion: {
                 title: 'OPTIMIZACIÓN EXPRESS DE ADS',
-                subtitle: 'MEJORA TU ROAS EN 48HS',
-                description: 'Ajuste rápido de campañas de Ads\nReduce costes, aumenta conversiones.',
+                subtitle: 'MEJORÁ TU ROAS EN 48HS', // Voseo
+                description: 'Ajuste rápido de campañas de Ads\nReducí costes, aumentá conversiones.', // Voseo x2
                 bgColor: colors.optimizacion
             },
             meta: {
@@ -599,50 +625,62 @@
             },
             google: {
                 title: 'GOOGLE ADS: MÁS CLIENTES',
-                subtitle: 'DOMINA LAS BÚSQUEDAS YA',
+                subtitle: 'DOMINÁ LAS BÚSQUEDAS YA', // Voseo
                 description: 'Campañas rentables en Google Ads\nAtrae clientes listos para comprar.',
                 bgColor: colors.google
             },
             email: {
                 title: 'CAMPAÑAS DE EMAIL MARKETING',
-                subtitle: 'CONVIERTE SUSCRIPTORES',
+                subtitle: 'CONVERTÍ SUSCRIPTORES', // Voseo
                 description: 'Optimización Express de campañas\nde Email Marketing. Más aperturas y ventas.',
                 bgColor: colors.email
             },
             chatbot: {
                 title: 'CAMPAÑAS CON CHATBOTS',
-                subtitle: 'AUTOMATIZA Y VENDE MÁS',
-                description: 'Optimización Express de Chatbots\npara tus campañas. Captura leads 24/7.',
+                subtitle: 'AUTOMATIZÁ Y VENDÉ MÁS', // Voseo x2
+                description: 'Optimización Express de Chatbots\npara tus campañas. Capturá leads 24/7.', // Voseo
                 bgColor: colors.chatbot
             },
             all: {
                 title: 'PAQUETE ADS COMPLETO',
-                subtitle: 'MAXIMIZA TU ROI GLOBAL',
+                subtitle: 'MAXIMIZÁ TU ROI GLOBAL', // Voseo
                 description: 'Meta Ads + Google Ads + Email + Chatbot\nOptimización integral por $1000/mes.',
                 bgColor: '#333333'
             }
         };
 
-        // --- DATOS DE COPY ACTUALIZADOS ---
+        // --- NUEVO: Datos para el Ribbon ---
+        const ribbonData = {
+            auditoria: 'GRATUITA',
+            optimizacion: 'EN 48HS',
+            meta: 'ROAS 2.8X GARANT.',
+            google: 'ROAS 2.8X GARANT.',
+            email: '+ VENTAS',
+            chatbot: 'LEADS 24/7',
+            all: 'AHORRÁ $200' // Voseo
+        };
+
+
+        // --- DATOS DE COPY ACTUALIZADOS (CON VOSEO) ---
         const adCopyData = {
             auditoria: `🔍 ¿Tus campañas de Meta Ads y Google Ads no rinden como esperabas? 🔍
 
-Descubre EXACTAMENTE dónde estás perdiendo dinero y qué corregir.
+Descubrí EXACTAMENTE dónde estás perdiendo dinero y qué corregir.
 
-¡Solicita tu Auditoría de Ads GRATUITA! ⏱️
+¡Solicitá tu Auditoría de Ads GRATUITA! ⏱️
 
 ✅ Análisis detallado de estructura y configuración.
 ✅ Identificación de fugas de presupuesto.
 ✅ Recomendaciones claras para optimizar YA.
 ✅ 100% Gratis, sin compromiso.
 
-👉 Visita nuestra web y pide tu auditoría antes de que se acaben los cupos semanales. ¡Deja de tirar dinero!
+👉 Visitá nuestra web y pedí tu auditoría antes de que se acaben los cupos semanales. ¡Dejá de tirar dinero!
 
-➡️ www.orangevapor.com`,
+➡️ www.orangevapor.com`, // Voseo x5
 
             optimizacion: `⚡ ¿Campañas de Ads activas pero SIN resultados? ¡Optimización Express en 48hs! ⚡
 
-Detén el gasto innecesario y empieza a ver conversiones REALES.
+Detené el gasto innecesario y empezá a ver conversiones REALES.
 
 Nuestro servicio rápido incluye:
 ✅ Diagnóstico de puntos débiles.
@@ -650,70 +688,70 @@ Nuestro servicio rápido incluye:
 ✅ Ajuste de segmentaciones y creativos.
 ✅ ¡Resultados visibles en días!
 
-👉 Descubre en nuestra web cómo recuperamos campañas "perdidas" y multiplicamos su ROAS.
+👉 Descubrí en nuestra web cómo recuperamos campañas "perdidas" y multiplicamos su ROAS.
 
-¿Listo para transformar tus Ads? Visita 👇
-www.orangevapor.com`,
+¿Listo/a para transformar tus Ads? Visitá 👇
+www.orangevapor.com`, // Voseo x4
 
-            meta: `📱 ¿Inviertes en Meta Ads (Facebook/Instagram) pero las ventas no llegan? 📱
+            meta: `📱 ¿Invertís en Meta Ads (Facebook/Instagram) pero las ventas no llegan? 📱
 
-¡Deja de adivinar! Nuestras campañas tienen un ROAS mínimo GARANTIZADO de 2.8x.
+¡Dejá de adivinar! Nuestras campañas tienen un ROAS mínimo GARANTIZADO de 2.8x.
 
 ✅ Estrategia personalizada para TU negocio.
 ✅ Optimización continua basada en datos.
 ✅ Reducción del costo por adquisición (CPA).
 ✅ Reportes claros y enfocados en ROI.
 
-👉 Mira casos de éxito en nuestra web y comprueba cómo escalamos ventas con Meta Ads.
+👉 Mirá casos de éxito en nuestra web y comprobá cómo escalamos ventas con Meta Ads.
 
-¡Es hora de que tus Ads trabajen para ti! Haz clic 👇
-www.orangevapor.com`,
+¡Es hora de que tus Ads trabajen para vos! Hacé clic 👇
+www.orangevapor.com`, // Voseo x5 (invertís, dejá, mirá, comprobá, para vos, hacé)
 
-            google: `🔎 ¿Tu competencia aparece en Google Ads y tú no? ¡Pierdes clientes! 🔎
+            google: `🔎 ¿Tu competencia aparece en Google Ads y vos no? ¡Perdés clientes! 🔎
 
-Convierte búsquedas activas en ventas con campañas de Google Ads OPTIMIZADAS.
+Convertí búsquedas activas en ventas con campañas de Google Ads OPTIMIZADAS.
 
 ✅ ROAS mínimo 2.8x GARANTIZADO.
 ✅ Palabras clave que SÍ convierten.
 ✅ Optimización de concordancias y negativas.
 ✅ Anuncios atractivos que destacan.
 
-👉 Visita nuestra web y descubre cómo llevamos negocios a la cima de Google, reduciendo su CPA.
+👉 Visitá nuestra web y descubrí cómo llevamos negocios a la cima de Google, reduciendo su CPA.
 
-¡Aparece donde te buscan tus clientes! 👇
-www.orangevapor.com`,
+¡Aparecé donde te buscan tus clientes! 👇
+www.orangevapor.com`, // Voseo x5 (vos, perdés, convertí, visitá, descubrí, aparecé)
 
-            email: `📧 ¿Tienes una lista de emails pero no genera ventas? ¡Optimiza tus Campañas de Email Marketing! 📧
+            email: `📧 ¿Tenés una lista de emails pero no genera ventas? ¡Optimizá tus Campañas de Email Marketing! 📧
 
-Transforma suscriptores inactivos en clientes recurrentes.
+Convertí suscriptores inactivos en clientes recurrentes.
 
 ✅ Secuencias automatizadas que nutren y venden.
 ✅ Segmentación avanzada para mensajes relevantes.
 ✅ Aumento de tasa de apertura y clics (CTR).
-✅ Genera ingresos pasivos con tu base de datos.
+✅ Generá ingresos pasivos con tu base de datos.
 
-👉 Descubre en nuestra web cómo revitalizamos campañas de email marketing olvidadas.
+👉 Descubrí en nuestra web cómo revitalizamos campañas de email marketing olvidadas.
 
-¡Monetiza tu lista AHORA! 👇
-www.orangevapor.com`,
+¡Monetizá tu lista AHORA! 👇
+www.orangevapor.com`, // Voseo x5 (Tenés, Optimizá, Convertí, Descubrí, Monetizá)
 
-            chatbot: `🤖 ¿Pierdes leads y ventas por no responder al instante? ¡Potencia tus Campañas con Chatbots! 🤖
+            chatbot: `🤖 ¿Perdés leads y ventas por no responder al instante? ¡Potenciá tus Campañas con Chatbots! 🤖
 
-Integra chatbots inteligentes para MAXIMIZAR la conversión de tus Ads.
+Integrá chatbots inteligentes para MAXIMIZAR la conversión de tus Ads.
 
-✅ Captura y cualifica leads 24/7.
-✅ Responde preguntas frecuentes al instante.
-✅ Guía a los usuarios hacia la compra.
-✅ Libera a tu equipo para tareas complejas.
+✅ Capturá y cualificá leads 24/7.
+✅ Respondé preguntas frecuentes al instante.
+✅ Guiá a los usuarios hacia la compra.
+✅ Liberá a tu equipo para tareas complejas.
 
-👉 Visita nuestra web y ve cómo los chatbots mejoran el ROI de las campañas de marketing.
+👉 Visitá nuestra web y mirá cómo los chatbots mejoran el ROI de las campañas de marketing.
 
 ¡No pierdas ni un lead más! 👇
-www.orangevapor.com`,
+www.orangevapor.com`, // Voseo x8 (Perdés, Potenciá, Integrá, Capturá, Cualificá, Respondé, Guiá, Liberá, Visitá, Mirá, pierdas*) *negativo/subjuntivo se mantiene
 
             all: `🚀 ¡La Estrategia de Ads COMPLETA que tu negocio necesita! 🚀
 
-¿Por qué optimizar un solo canal cuando puedes dominar TODOS?
+¿Por qué optimizar un solo canal cuando podés dominar TODOS?
 
 Nuestro Paquete Integral incluye Optimización Express para:
 ✅ Meta Ads (Facebook & Instagram)
@@ -721,10 +759,10 @@ Nuestro Paquete Integral incluye Optimización Express para:
 ✅ Campañas de Email Marketing
 ✅ Campañas con Chatbots
 
-👉 Ahorra $200/mes con el paquete completo ($1000 vs $1200 por separado) y obtén resultados sinérgicos. ¡Visita nuestra web!
+👉 Ahorrá $200/mes con el paquete completo ($1000 vs $1200 por separado) y obtené resultados sinérgicos. ¡Visitá nuestra web!
 
-Maximiza tu presencia y ROI en todos los frentes 👇
-www.orangevapor.com`
+Maximizá tu presencia y ROI en todos los frentes 👇
+www.orangevapor.com` // Voseo x4 (podés, Ahorrá, obtené, Visitá, Maximizá)
         };
 
         // Estado actual
@@ -753,7 +791,7 @@ www.orangevapor.com`
             const textToCopy = adCopyText.textContent || adCopyText.innerText; //innerText for safety
             navigator.clipboard.writeText(textToCopy)
                 .then(() => {
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!'; // Voseo implícito
                     setTimeout(() => {
                         copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
                     }, 2000);
@@ -774,14 +812,12 @@ www.orangevapor.com`
                 togglePracticesBtn.textContent = 'Ocultar mejores prácticas';
             } else {
                 bestPracticesBox.style.display = 'none';
-                 // Texto botón actualizado
                 togglePracticesBtn.textContent = 'Ver mejores prácticas para Ads';
             }
         });
 
         // Función para obtener título según el servicio
         function getServiceTitle(service) {
-            // Usamos los títulos definidos en creativesData para coherencia
             const titleMap = {
                 auditoria: 'Creativos para Auditoría Gratis de Ads',
                 optimizacion: 'Creativos para Optimización Express de Ads',
@@ -791,14 +827,12 @@ www.orangevapor.com`
                 chatbot: 'Creativos para Campañas con Chatbots',
                 all: 'Creativos para Paquete de Ads Completo'
             };
-            // Añadir 'Tráfico' al título dinámico
             return titleMap[service] ? `Tráfico: ${titleMap[service]}` : 'Creativos de Tráfico para Ads';
         }
 
         // Función para obtener color de fondo según la selección
         function getBgColor() {
             if (activeColor === 'original') {
-                // Asegurarse de que el servicio exista en creativesData
                 return creativesData[activeService]?.bgColor || colors.primary;
             } else if (activeColor === 'orange') {
                 return colors.primary;
@@ -813,7 +847,6 @@ www.orangevapor.com`
         // Función para obtener color de texto según el fondo
         function getTextColor(bgColor) {
             if (!bgColor) return colors.dark; // Fallback
-
             let rgb;
             if (bgColor.startsWith('#')) {
                 const bigint = parseInt(bgColor.slice(1), 16);
@@ -822,10 +855,7 @@ www.orangevapor.com`
                 const matches = bgColor.match(/\d+/g);
                 if (!matches || matches.length < 3) return colors.dark; // Fallback
                 rgb = { r: parseInt(matches[0]), g: parseInt(matches[1]), b: parseInt(matches[2]) };
-            } else {
-                return colors.dark; // Fallback for unknown format
-            }
-
+            } else { return colors.dark; } // Fallback for unknown format
             const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
             return luminance > 0.5 ? colors.dark : colors.light;
         }
@@ -839,7 +869,7 @@ www.orangevapor.com`
         }
 
 
-        // Función para renderizar creativo en la interfaz
+        // --- MODIFICADO: Función para renderizar creativo en la interfaz (incluye ribbon) ---
         function renderCreative() {
             creativesContainer.innerHTML = '';
             const creative = creativesData[activeService];
@@ -856,10 +886,22 @@ www.orangevapor.com`
             creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
             creativeEl.style.backgroundColor = bgColor;
 
+            // --- Añadir Ribbon ---
+            const ribbonText = ribbonData[activeService];
+            if (ribbonText) {
+                const ribbonEl = document.createElement('div');
+                ribbonEl.className = 'creative-ribbon';
+                ribbonEl.textContent = ribbonText;
+                // Los colores del ribbon están fijos en CSS (Dorado/Negro) por ahora
+                creativeEl.appendChild(ribbonEl);
+            }
+            // --- Fin Añadir Ribbon ---
+
+
             const accentEl = document.createElement('div');
             accentEl.className = 'creative-accent';
             accentEl.style.background = accentColor;
-            creativeEl.appendChild(accentEl);
+            creativeEl.appendChild(accentEl); // Va debajo del ribbon por z-index
 
             const contentEl = document.createElement('div');
             contentEl.className = 'creative-content';
@@ -870,7 +912,6 @@ www.orangevapor.com`
             logoEl.style.fontWeight = 'bold';
             logoEl.style.fontSize = '14px'; // Tamaño consistente
 
-            // Lógica de color del logo
             if (activeColor === 'white') {
                 logoEl.innerHTML = `<span style="color: ${colors.dark};">Orange</span> <span style="color: ${colors.primary};">Vapor</span>`;
             } else if (activeColor === 'orange') {
@@ -880,14 +921,12 @@ www.orangevapor.com`
             }
 
             logoContainerEl.appendChild(logoEl);
-            contentEl.appendChild(logoContainerEl); // Añadir logo al principio del contenido
+            contentEl.appendChild(logoContainerEl);
 
-            // --- Añadir Textos ---
              const titleEl = document.createElement('div');
              titleEl.className = 'creative-title';
              titleEl.textContent = creative.title;
              titleEl.style.color = textColor;
-             // Ajustar posición Y si es necesario para no solapar logo (ej. con padding-top)
              titleEl.style.paddingTop = '50px'; // Espacio para el logo
              contentEl.appendChild(titleEl);
 
@@ -906,7 +945,6 @@ www.orangevapor.com`
 
             creativeEl.appendChild(contentEl);
 
-            // Botón de descarga overlay
             const downloadEl = document.createElement('div');
             downloadEl.className = 'creative-download';
             downloadEl.innerHTML = `<i class="fas fa-download" style="color: ${colors.light};"></i>`;
@@ -916,18 +954,18 @@ www.orangevapor.com`
             });
             creativeEl.appendChild(downloadEl);
 
-            creativeEl.addEventListener('click', generateAndDownloadImage); // Clic en toda la imagen también descarga
+            creativeEl.addEventListener('click', generateAndDownloadImage);
 
             creativesContainer.appendChild(creativeEl);
 
             updateAdCopy(); // Actualizar el copy asociado
         }
+        // --- FIN FUNCIÓN RENDER MODIFICADA ---
 
 
         // Función para actualizar el copy del anuncio
         function updateAdCopy() {
             adCopyText.textContent = adCopyData[activeService] || "Copy de anuncio no disponible para este servicio.";
-             // Resetear botón de copiar
              copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
         }
 
@@ -952,20 +990,19 @@ www.orangevapor.com`
         }
 
 
-       // Función para dibujar y descargar la imagen
+       // --- MODIFICADO: Función para dibujar y descargar la imagen (incluye ribbon) ---
         function generateAndDownloadImage() {
             if (isProcessing) return;
             isProcessing = true;
             showLoadingModal();
 
-            // Usar setTimeout para permitir que el modal se renderice antes del procesamiento pesado
             setTimeout(() => {
                 try {
                     const creative = creativesData[activeService];
                      if (!creative) throw new Error(`Datos no encontrados para ${activeService}`);
 
                     const isVertical = activeFormat === 'vertical';
-                    const width = isVertical ? 1080 : 1080;
+                    const width = 1080; // Siempre 1080 base
                     const height = isVertical ? 1920 : 1080;
 
                     downloadCanvas.width = width;
@@ -984,69 +1021,94 @@ www.orangevapor.com`
                     // 2. Acento lateral
                     ctx.fillStyle = accentColor;
                     const accentWidth = isVertical ? 20 : 15;
-                    const accentHeightRatio = isVertical ? 0.4 : 0.3; // Ajustar altura relativa
-                    const accentYRatio = isVertical ? 0.3 : 0.35; // Ajustar posición Y relativa
+                    const accentHeightRatio = isVertical ? 0.4 : 0.3;
+                    const accentYRatio = isVertical ? 0.3 : 0.35;
                     ctx.fillRect(0, height * accentYRatio, accentWidth, height * accentHeightRatio);
 
 
                     // 3. Logo (posición fija superior izquierda)
                     const logoFontSize = isVertical ? 42 : 36;
                     ctx.font = `bold ${logoFontSize}px Montserrat, sans-serif`;
-                    ctx.textAlign = 'left'; // Alinear logo a la izquierda
+                    ctx.textAlign = 'left';
                     const logoX = 40;
-                    const logoY = 60; // Posición Y fija
+                    const logoY = 60;
 
-                     // Lógica de color del logo para canvas
                     if (activeColor === 'white') {
-                        ctx.fillStyle = colors.dark; // Negro
+                        ctx.fillStyle = colors.dark;
                         ctx.fillText('Orange', logoX, logoY);
                         const orangeWidth = ctx.measureText('Orange ').width;
-                        ctx.fillStyle = colors.primary; // Naranja
+                        ctx.fillStyle = colors.primary;
                         ctx.fillText('Vapor', logoX + orangeWidth, logoY);
                     } else if (activeColor === 'orange') {
-                         ctx.fillStyle = colors.light; // Blanco
+                         ctx.fillStyle = colors.light;
                          ctx.fillText('Orange Vapor', logoX, logoY);
                     } else {
-                         ctx.fillStyle = textColor; // Color del texto principal
+                         ctx.fillStyle = textColor;
                          ctx.fillText('Orange', logoX, logoY);
                          const orangeWidth = ctx.measureText('Orange ').width;
-                         ctx.fillStyle = colors.primary; // Naranja
+                         ctx.fillStyle = colors.primary;
                          ctx.fillText('Vapor', logoX + orangeWidth, logoY);
                     }
 
 
-                    // 4. Textos (Centrados, ajustando Y para no solapar logo)
+                    // 4. Textos (Centrados, ajustando Y)
                     ctx.textAlign = 'center';
-                    const contentStartY = logoY + 80; // Empezar contenido debajo del logo
-                    const contentCenterY = contentStartY + (height - contentStartY) / 2; // Centro del área restante
-                    const textMaxWidth = width - 100; // Margen lateral
+                    const contentStartY = logoY + 80;
+                    const contentCenterY = contentStartY + (height - contentStartY) / 2;
+                    const textMaxWidth = width - 100;
 
-                    // Título
                     const titleFontSize = isVertical ? 80 : 70;
                     ctx.font = `bold ${titleFontSize}px Montserrat, sans-serif`;
                     ctx.fillStyle = textColor;
                     const titleLineHeight = titleFontSize * 1.1;
-                    const titleY = isVertical ? contentCenterY - 150 : contentCenterY - 80;
+                    const titleY = isVertical ? contentCenterY - (height * 0.15) : contentCenterY - (height * 0.1); // Ajuste Y dinámico
                     wrapText(ctx, creative.title, width / 2, titleY, textMaxWidth, titleLineHeight);
 
-                    // Subtítulo (Obtener la Y final del título para posicionar debajo)
                     const titleLines = calculateWrappedLines(ctx, creative.title, textMaxWidth);
-                    const subtitleY = titleY + (titleLines * titleLineHeight) + (isVertical ? 20 : 30); // Espacio después del título
+                    const subtitleY = titleY + (titleLines * titleLineHeight) + (isVertical ? 20 : 30);
                     const subtitleFontSize = isVertical ? 56 : 46;
                     ctx.font = `bold ${subtitleFontSize}px Montserrat, sans-serif`;
                     ctx.fillStyle = textColor;
                     ctx.fillText(creative.subtitle, width / 2, subtitleY);
 
-                    // Descripción
-                    const descY = subtitleY + subtitleFontSize + (isVertical ? 60 : 50); // Espacio después del subtítulo
+                    const descY = subtitleY + subtitleFontSize + (isVertical ? 60 : 50);
                     const descFontSize = isVertical ? 42 : 36;
                     const descLineHeight = descFontSize * 1.2;
                     ctx.font = `${descFontSize}px Montserrat, sans-serif`;
                     ctx.fillStyle = textColor;
                     wrapText(ctx, creative.description, width / 2, descY, textMaxWidth, descLineHeight);
 
+                    // --- 5. DIBUJAR RIBBON (después de todo lo demás) ---
+                    const ribbonText = ribbonData[activeService];
+                    if (ribbonText) {
+                        ctx.save(); // Guardar estado del contexto (importante antes de transformar)
+                        ctx.translate(width, 0); // Mover origen a la esquina superior derecha
+                        ctx.rotate(45 * Math.PI / 180); // Rotar 45 grados
 
-                    // 5. Descargar
+                        // Definir estilo y posición RELATIVA al nuevo origen rotado
+                        const ribbonBgColor = '#FFD700'; // Dorado
+                        const ribbonTextColor = '#333'; // Negro
+                        const ribbonHeight = isVertical ? 45 : 40; // Altura de la banda del ribbon
+                        const ribbonWidth = isVertical ? 250 : 200; // Ancho suficientemente largo
+
+                        ctx.fillStyle = ribbonBgColor;
+                        // Dibujar el rectángulo del ribbon rotado. Ajustar X/Y para que aparezca en la esquina.
+                        // Empezar un poco 'antes' del origen y un poco 'abajo' para que cruce la esquina
+                        ctx.fillRect(15, -ribbonHeight / 2 + 45, ribbonWidth, ribbonHeight); // Ajustar Y(45) X(15)
+
+                        ctx.fillStyle = ribbonTextColor;
+                        const ribbonFontSize = isVertical ? 22 : 18;
+                        ctx.font = `bold ${ribbonFontSize}px Montserrat, sans-serif`;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        // Posicionar el texto en el centro del ribbon rotado. Ajustar coordenadas.
+                        ctx.fillText(ribbonText, 15 + ribbonWidth / 2, -ribbonHeight / 2 + 45 + ribbonHeight / 2); // Ajustar Y(45) X(15)
+
+                        ctx.restore(); // Restaurar estado del contexto
+                    }
+                     // --- FIN DIBUJAR RIBBON ---
+
+                    // 6. Descargar
                     const dataUrl = downloadCanvas.toDataURL('image/png');
                     const link = document.createElement('a');
                     link.href = dataUrl;
@@ -1061,36 +1123,32 @@ www.orangevapor.com`
                 } catch (error) {
                     console.error('Error al generar/descargar la imagen:', error);
                     hideLoadingModal();
-                    alert(`Hubo un error al generar la imagen: ${error.message}. Por favor intenta de nuevo.`);
+                    alert(`Hubo un error al generar la imagen: ${error.message}. Por favor, intentá de nuevo.`); // Voseo
                     isProcessing = false;
                 }
-            }, 100); // Pequeño delay para renderizar modal
+            }, 100);
         }
-
+        // --- FIN FUNCIÓN GENERATE AND DOWNLOAD MODIFICADA ---
 
         // Función auxiliar para wrapText (sin cambios)
         function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-            const words = text.split(/[\s\n]+/); // Dividir por espacio o salto de línea manual
+            const words = text.split(/[\s\n]+/);
             let line = '';
             let currentY = y;
-
             for (let n = 0; n < words.length; n++) {
                 const testLine = line + words[n] + ' ';
                 const metrics = ctx.measureText(testLine);
                 const testWidth = metrics.width;
-
                 if (testWidth > maxWidth && n > 0) {
                     ctx.fillText(line.trim(), x, currentY);
                     line = words[n] + ' ';
                     currentY += lineHeight;
-                } else {
-                    line = testLine;
-                }
+                } else { line = testLine; }
             }
             ctx.fillText(line.trim(), x, currentY);
         }
 
-        // Función auxiliar para calcular líneas envueltas (necesaria para posicionar elementos)
+        // Función auxiliar para calcular líneas envueltas (sin cambios)
          function calculateWrappedLines(ctx, text, maxWidth) {
              const words = text.split(/[\s\n]+/);
              let line = '';
@@ -1102,62 +1160,41 @@ www.orangevapor.com`
                  if (testWidth > maxWidth && n > 0) {
                      lines++;
                      line = words[n] + ' ';
-                 } else {
-                     line = testLine;
-                 }
+                 } else { line = testLine; }
              }
              return lines;
          }
 
 
-        // Función para actualizar UI
+        // Función para actualizar UI (sin cambios funcionales, solo llama a renderCreative modificado)
         function updateUI() {
             serviceTitle.textContent = getServiceTitle(activeService);
 
             tabButtons.forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.dataset.service === activeService) {
-                    btn.classList.add('active');
-                }
+                if (btn.dataset.service === activeService) { btn.classList.add('active'); }
             });
 
             formatButtons.forEach(btn => btn.classList.remove('active'));
-            if (activeFormat === 'square') {
-                squareBtn.classList.add('active');
-            } else {
-                verticalBtn.classList.add('active');
-            }
+            if (activeFormat === 'square') { squareBtn.classList.add('active'); }
+            else { verticalBtn.classList.add('active'); }
 
             colorButtons.forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.dataset.color === activeColor) {
-                    btn.classList.add('active');
-                }
+                if (btn.dataset.color === activeColor) { btn.classList.add('active'); }
             });
 
-            renderCreative(); // Esto también llamará a updateAdCopy
+            renderCreative(); // Renderiza con la nueva lógica de ribbon
         }
 
         // Eventos (sin cambios en la lógica)
         tabButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                activeService = btn.dataset.service;
-                updateUI();
-            });
+            btn.addEventListener('click', () => { activeService = btn.dataset.service; updateUI(); });
         });
-        squareBtn.addEventListener('click', () => {
-            activeFormat = 'square';
-            updateUI();
-        });
-        verticalBtn.addEventListener('click', () => {
-            activeFormat = 'vertical';
-            updateUI();
-        });
+        squareBtn.addEventListener('click', () => { activeFormat = 'square'; updateUI(); });
+        verticalBtn.addEventListener('click', () => { activeFormat = 'vertical'; updateUI(); });
         colorButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                activeColor = btn.dataset.color;
-                updateUI();
-            });
+            btn.addEventListener('click', () => { activeColor = btn.dataset.color; updateUI(); });
         });
         downloadBtn.addEventListener('click', generateAndDownloadImage);
 
