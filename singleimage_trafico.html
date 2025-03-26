@@ -87,41 +87,8 @@
             transition: all 0.2s ease; overflow: hidden;
         }
         .color-btn.active { border-color: #ff7e00; transform: scale(1.1); }
-        .color-btn-original { background: linear-gradient(135deg, #28a745 14%, #dc3545 14% 28%, #1877F2 28% 42%, #4285F4 42% 56%, #00829b 56% 70%, #6f42c1 70% 84%, #333 84%); }
         .color-btn-orange { background-color: #ff7e00; }
         .color-btn-white { background-color: #ffffff; border: 2px solid #ccc; }
-        .color-btn-black { background-color: #181818; }
-        
-        /* Selector de plataforma */
-        .platform-toggle {
-            text-align: center;
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        .platform-btn {
-            padding: 8px 16px;
-            font-size: 14px;
-            font-weight: 500;
-            background-color: white;
-            color: #333;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .platform-btn.active {
-            background-color: #ff7e00;
-            color: white;
-            border-color: #ff7e00;
-        }
-        .platform-btn i {
-            font-size: 16px;
-        }
 
         /* Sección de descarga */
         .download-section { text-align: center; margin: 20px 0; }
@@ -455,27 +422,14 @@
             </div>
         </div>
 
-        <div class="platform-toggle">
-            <button id="facebookBtn" class="platform-btn active" data-platform="facebook">
-                <i class="fab fa-facebook"></i>
-                <span>Facebook</span>
-            </button>
-            <button id="instagramBtn" class="platform-btn" data-platform="instagram">
-                <i class="fab fa-instagram"></i>
-                <span>Instagram</span>
-            </button>
-        </div>
-
         <div class="format-toggle">
             <button id="squareBtn" class="format-btn active">Cuadrado (1080x1080)</button>
             <button id="verticalBtn" class="format-btn">Vertical (1080x1920)</button>
         </div>
 
         <div class="color-toggle">
-            <div class="color-btn color-btn-original active" data-color="original" title="Color original del servicio"></div>
-            <div class="color-btn color-btn-orange" data-color="orange" title="Fondo naranja"></div>
+            <div class="color-btn color-btn-orange active" data-color="orange" title="Fondo naranja"></div>
             <div class="color-btn color-btn-white" data-color="white" title="Fondo blanco"></div>
-            <div class="color-btn color-btn-black" data-color="black" title="Fondo negro"></div>
         </div>
 
         <div class="download-section">
@@ -490,10 +444,9 @@
             <div>
                 <p><strong>Instrucciones:</strong></p>
                 <p>1. Seleccioná el tipo de servicio de Ads que deseás generar.</p>
-                <p>2. Elegí la plataforma (Facebook o Instagram) para optimizar el diseño.</p>
-                <p>3. Seleccioná el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
-                <p>4. Elegí el color de fondo (original, naranja, blanco o negro).</p>
-                <p>5. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
+                <p>2. Seleccioná el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
+                <p>3. Elegí el color de fondo (naranja o blanco).</p>
+                <p>4. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
             </div>
         </div>
 
@@ -512,7 +465,6 @@
                 <li><strong>Iconografía relevante</strong> - Usar iconos que refuercen el mensaje principal</li>
                 <li><strong>Reducir la fricción</strong> - Incluir microcopy que elimine objeciones ("Sin compromiso", "Cancelá cuando quieras")</li>
                 <li><strong>Menos del 20% de texto</strong> - Meta penaliza anuncios con exceso de texto</li>
-                <li><strong>Adaptar por plataforma</strong> - Facebook e Instagram tienen necesidades visuales diferentes</li>
             </ul>
         </div>
         <button class="toggle-practices" id="togglePractices">Ver mejores prácticas para Ads</button>
@@ -662,8 +614,7 @@
 
         let activeService = 'optimizacion';
         let activeFormat = 'square';
-        let activeColor = 'original';
-        let activePlatform = 'facebook';
+        let activeColor = 'orange';
         let isProcessing = false;
 
         const serviceTitle = document.getElementById('serviceTitle');
@@ -671,11 +622,8 @@
         const tabButtons = document.querySelectorAll('.tab-button');
         const formatButtons = document.querySelectorAll('.format-btn');
         const colorButtons = document.querySelectorAll('.color-btn');
-        const platformButtons = document.querySelectorAll('.platform-btn');
         const squareBtn = document.getElementById('squareBtn');
         const verticalBtn = document.getElementById('verticalBtn');
-        const facebookBtn = document.getElementById('facebookBtn');
-        const instagramBtn = document.getElementById('instagramBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const togglePracticesBtn = document.getElementById('togglePractices');
         const bestPracticesBox = document.querySelector('.best-practices');
@@ -717,12 +665,8 @@
         }
 
         function getBackgroundStyle() {
-            if (activeColor === 'original') {
-                return gradients[activeService] || gradients.orange;
-            }
             if (activeColor === 'orange') return gradients.orange;
             if (activeColor === 'white') return colors.light;
-            if (activeColor === 'black') return colors.dark;
             return gradients.orange;
         }
 
@@ -750,7 +694,7 @@
         function getAccentColor(bgColor) {
             const textColor = getTextColor(bgColor);
             if (activeColor === 'orange') return textColor;
-            if (activeColor === 'white' || activeColor === 'black') return colors.primary;
+            if (activeColor === 'white') return colors.primary;
             return textColor;
         }
         
@@ -817,8 +761,6 @@
                 logoEl.innerHTML = `<span style="color: ${colors.dark};">Orange</span> <span style="color: ${colors.primary};">Vapor</span>`;
             } else if (activeColor === 'orange') {
                 logoEl.innerHTML = `<span style="color: ${colors.light};">Orange Vapor</span>`;
-            } else {
-                logoEl.innerHTML = `<span style="color: ${textColor};">Orange</span> <span style="color: ${colors.primary};">Vapor</span>`;
             }
             logoContainerEl.appendChild(logoEl);
             contentEl.appendChild(logoContainerEl);
@@ -1043,12 +985,6 @@
                 } else if (activeColor === 'orange') {
                     ctx.fillStyle = colors.light;
                     ctx.fillText('Orange Vapor', logoX, logoY);
-                } else {
-                    ctx.fillStyle = textColor;
-                    ctx.fillText('Orange', logoX, logoY);
-                    const orangeWidth = ctx.measureText('Orange ').width;
-                    ctx.fillStyle = colors.primary;
-                    ctx.fillText('Vapor', logoX + orangeWidth, logoY);
                 }
 
                 // Dibujar icono de servicio
@@ -1338,7 +1274,7 @@
                 const dataUrl = downloadCanvas.toDataURL('image/png');
                 const link = document.createElement('a');
                 link.href = dataUrl;
-                link.download = `orange-vapor-${activeService}-${activeColor}-${activeFormat}-${activePlatform}.png`;
+                link.download = `orange-vapor-${activeService}-${activeColor}-${activeFormat}.png`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -1442,14 +1378,6 @@
                 }
             });
             
-            // Actualizar botones de plataforma
-            platformButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.platform === activePlatform) {
-                    btn.classList.add('active');
-                }
-            });
-            
             renderCreative();
         }
 
@@ -1467,16 +1395,6 @@
         verticalBtn.addEventListener('click', () => { 
             activeFormat = 'vertical'; 
             updateUI(); 
-        });
-        
-        facebookBtn.addEventListener('click', () => {
-            activePlatform = 'facebook';
-            updateUI();
-        });
-        
-        instagramBtn.addEventListener('click', () => {
-            activePlatform = 'instagram';
-            updateUI();
         });
         
         colorButtons.forEach(btn => btn.addEventListener('click', () => { 
