@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creativos Orange Vapor - Campañas de Tráfico v2</title> <!-- v2 added -->
+    <title>Creativos Orange Vapor - Campañas de Tráfico v3 (Corregido)</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -129,8 +129,6 @@
         }
         .creative-vertical .creative-title { font-size: 28px; }
 
-        /* NO SE USA MÁS AQUÍ: .creative-service-type */
-
         .creative-subtitle {
             font-weight: bold;
             margin-bottom: 15px;
@@ -149,7 +147,7 @@
         .creative-vertical .creative-accent { top: 15%; height: 20%; width: 8px; }
         .creative:not(.creative-vertical) .creative-accent { top: 35%; height: 30%; width: 10px; }
 
-        /* NUEVO: Badge para previsualización */
+        /* Badge para previsualización */
         .creative-badge {
             position: absolute;
             top: 20px;
@@ -191,7 +189,7 @@
         .logo-container { position: absolute; top: 15px; left: 15px; padding: 5px 10px; border-radius: 4px; z-index: 20; }
         .creative-vertical .logo-container { top: 6%; left: 40px; } /* Ajustado para vertical */
 
-        /* Estilos Modal Carga y Canvas (sin cambios) */
+        /* Estilos Modal Carga y Canvas */
         .loading-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 9999; }
         .loading-container { background-color: #fff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); text-align: center; }
         .loading-spinner { display: inline-block; width: 30px; height: 30px; border: 4px solid rgba(0,0,0,.1); border-radius: 50%; border-top-color: #ff7e00; animation: spin 1s ease-in-out infinite; margin-bottom: 10px; }
@@ -199,7 +197,7 @@
         #downloadCanvas { position: absolute; left: -9999px; top: -9999px; }
         .text-20-indicator { padding: 8px 12px; font-size: 13px; background-color: rgba(255, 126, 0, 0.1); border: 1px solid #ff7e00; color: #666; margin: 10px 0; border-radius: 4px; text-align: center; }
 
-        /* Ad Copy Section (sin cambios) */
+        /* Ad Copy Section */
         .ad-copy-section { margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px; }
         .ad-copy-section h3 { font-size: 18px; color: #333; text-align: center; margin-bottom: 15px; }
         .ad-copy-container { background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto; }
@@ -213,8 +211,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1 id="serviceTitle">Creativos de Tráfico para Optimización Express</h1>
-            <p>Anuncios diseñados para maximizar tráfico hacia Orange Vapor (Single Image)</p>
+            <h1 id="serviceTitle">Creativos de Tráfico</h1> <!-- Título simplificado -->
+            <p>Anuncios diseñados para maximizar tráfico (con Badge de Servicio)</p>
         </div>
 
         <!-- Indicador de campaña -->
@@ -223,8 +221,8 @@
             <span>Campañas Optimizadas para Tráfico al Sitio Web</span>
         </div>
 
-        <!-- Tabs, Formato, Color, Descarga, Info (sin cambios funcionales) -->
-         <div class="tabs">
+        <!-- Tabs de servicios -->
+        <div class="tabs">
              <div class="tab-group">
                  <button class="tab-button auditoria" data-service="auditoria">Auditoría Gratis</button>
                  <button class="tab-button optimizacion active" data-service="optimizacion">Optimización Express</button>
@@ -235,23 +233,31 @@
                  <button class="tab-button all" data-service="all">Paquete Completo</button>
              </div>
          </div>
-         <div class="format-toggle">
+
+        <!-- Selector de formato -->
+        <div class="format-toggle">
              <button id="squareBtn" class="format-btn active">Cuadrado (1080x1080)</button>
              <button id="verticalBtn" class="format-btn">Vertical (1080x1920)</button>
          </div>
-         <div class="color-toggle">
+
+        <!-- Selector de color de fondo -->
+        <div class="color-toggle">
              <div class="color-btn color-btn-original active" data-color="original" title="Color original del servicio"></div>
              <div class="color-btn color-btn-orange" data-color="orange" title="Fondo naranja"></div>
              <div class="color-btn color-btn-white" data-color="white" title="Fondo blanco"></div>
              <div class="color-btn color-btn-black" data-color="black" title="Fondo negro"></div>
          </div>
-         <div class="download-section">
+
+        <!-- Sección de descarga -->
+        <div class="download-section">
              <button id="downloadBtn" class="download-btn">
                  <i class="fas fa-download"></i>
                  Descargar Creativo
              </button>
          </div>
-         <div class="info-box">
+
+        <!-- Mensaje informativo -->
+        <div class="info-box">
              <i class="fas fa-info-circle"></i>
              <div>
                  <p><strong>Instrucciones:</strong></p>
@@ -262,11 +268,15 @@
                  <p>5. También podés descargar el creativo pasando el mouse sobre la imagen y haciendo clic en el icono de descarga.</p>
              </div>
          </div>
-         <div class="text-20-indicator">
+
+        <!-- Indicador de texto 20% -->
+        <div class="text-20-indicator">
              <i class="fas fa-check-circle" style="color: #00b300;"></i>
              Texto optimizado (menos del 20% del espacio) - Aprobado para Meta Ads
          </div>
-         <div class="best-practices">
+
+        <!-- Mejores prácticas (colapsable) -->
+        <div class="best-practices">
              <h3>Mejores Prácticas para Anuncios de Tráfico:</h3>
              <ul>
                  <li><strong>Mensajes intrigantes</strong> - Copy que genera curiosidad y fomenta el clic</li>
@@ -289,10 +299,10 @@
         <div class="note">
             <p>Dimensiones: 1080x1080 píxeles y 1080x1920 píxeles (imágenes descargadas en alta resolución)</p>
             <p>El formato vertical respeta márgenes seguros para Instagram Stories.</p>
-            <p>El texto destacado del servicio se muestra como un badge.</p> <!-- Nota añadida -->
+            <p>El texto destacado del servicio se muestra como un badge.</p>
         </div>
 
-        <!-- Ad Copy Section (sin cambios funcionales) -->
+        <!-- Ad Copy Section -->
         <div class="ad-copy-section">
             <h3>Copy para Anuncio de Tráfico con Emojis (Voseo)</h3>
             <div class="ad-copy-container">
@@ -308,31 +318,161 @@
     </div>
 
     <script>
-        // Colores y Datos (sin cambios)
-        const colors = { primary: '#ff7e00', dark: '#181818', light: '#ffffff', auditoria: '#28a745', optimizacion: '#dc3545', meta: '#1877F2', google: '#4285F4', googleRed: '#DB4437', googleYellow: '#F4B400', googleGreen: '#0F9D58', email: '#00829b', chatbot: '#6f42c1' };
+        // --- START SCRIPT ---
+
+        // Colores
+        const colors = {
+            primary: '#ff7e00', dark: '#181818', light: '#ffffff',
+            auditoria: '#28a745', optimizacion: '#dc3545', meta: '#1877F2',
+            google: '#4285F4', googleRed: '#DB4437', googleYellow: '#F4B400', googleGreen: '#0F9D58',
+            email: '#00829b', chatbot: '#6f42c1'
+        };
+
+        // Datos de Creativos (con serviceHighlight)
         const creativesData = {
-            auditoria: { title: '¿TUS ADS GENERAN ROI REAL?', serviceHighlight: 'AUDITORÍA CAMPAÑAS DE ADS', subtitle: 'DESCUBRÍ LA VERDAD AHORA', description: 'Auditoría gratuita de tus campañas\nResultados en 48 horas sin compromiso', bgColor: colors.auditoria },
-            optimizacion: { title: 'EVITÁ PERDER PRESUPUESTO', serviceHighlight: 'OPTIMIZACIÓN CAMPAÑAS DE ADS', subtitle: 'OPTIMIZÁ TUS ADS EN 48HS', description: 'Sistema anti-fugas de presupuesto\nAumentá tus conversiones hasta un 20%', bgColor: colors.optimizacion },
-            meta: { title: 'MULTIPLICÁ TUS VENTAS', serviceHighlight: 'ANUNCIOS DE META', subtitle: '2.8X ROAS MÍNIMO GARANTIZADO', description: 'Campañas de Meta Ads que convierten\nOptimización continua • Estrategia personalizada', bgColor: colors.meta },
-            google: { title: 'CONVERTÍ BÚSQUEDAS EN VENTAS', serviceHighlight: 'ANUNCIOS DE GOOGLE', subtitle: 'DOMINÁ GOOGLE ADS AHORA', description: 'Palabras clave rentables • 2.8X ROAS\nReducción del CPA hasta 35%', bgColor: colors.google },
-            email: { title: 'EMAIL MARKETING AUTOMATIZADO', serviceHighlight: 'SERVICIOS DE EMAIL MARKETING', subtitle: '38% TASA DE APERTURA PROMEDIO', description: 'Convertí suscriptores en clientes\nIngresos recurrentes mientras dormís', bgColor: colors.email },
-            chatbot: { title: 'ATENCIÓN AL CLIENTE 24/7', serviceHighlight: 'SERVICIO DE CHATBOT', subtitle: 'AUTOMATIZACIÓN INTELIGENTE', description: 'Reducí costos operativos hasta 70%\nMejorá conversiones • Capturá leads automáticamente', bgColor: colors.chatbot },
-            all: { title: 'ESTRATEGIA DIGITAL COMPLETA', serviceHighlight: 'PAQUETE COMPLETO MARKETING DIGITAL', subtitle: 'AHORRÁ $200/MES', description: 'Meta Ads • Google Ads • Email • Chatbot\nTodo por $1000/mes en lugar de $1200', bgColor: '#333333' }
+             auditoria: { title: '¿TUS ADS GENERAN ROI REAL?', serviceHighlight: 'AUDITORÍA CAMPAÑAS DE ADS', subtitle: 'DESCUBRÍ LA VERDAD AHORA', description: 'Auditoría gratuita de tus campañas\nResultados en 48 horas sin compromiso', bgColor: colors.auditoria },
+             optimizacion: { title: 'EVITÁ PERDER PRESUPUESTO', serviceHighlight: 'OPTIMIZACIÓN CAMPAÑAS DE ADS', subtitle: 'OPTIMIZÁ TUS ADS EN 48HS', description: 'Sistema anti-fugas de presupuesto\nAumentá tus conversiones hasta un 20%', bgColor: colors.optimizacion },
+             meta: { title: 'MULTIPLICÁ TUS VENTAS', serviceHighlight: 'ANUNCIOS DE META', subtitle: '2.8X ROAS MÍNIMO GARANTIZADO', description: 'Campañas de Meta Ads que convierten\nOptimización continua • Estrategia personalizada', bgColor: colors.meta },
+             google: { title: 'CONVERTÍ BÚSQUEDAS EN VENTAS', serviceHighlight: 'ANUNCIOS DE GOOGLE', subtitle: 'DOMINÁ GOOGLE ADS AHORA', description: 'Palabras clave rentables • 2.8X ROAS\nReducción del CPA hasta 35%', bgColor: colors.google },
+             email: { title: 'EMAIL MARKETING AUTOMATIZADO', serviceHighlight: 'SERVICIOS DE EMAIL MARKETING', subtitle: '38% TASA DE APERTURA PROMEDIO', description: 'Convertí suscriptores en clientes\nIngresos recurrentes mientras dormís', bgColor: colors.email },
+             chatbot: { title: 'ATENCIÓN AL CLIENTE 24/7', serviceHighlight: 'SERVICIO DE CHATBOT', subtitle: 'AUTOMATIZACIÓN INTELIGENTE', description: 'Reducí costos operativos hasta 70%\nMejorá conversiones • Capturá leads automáticamente', bgColor: colors.chatbot },
+             all: { title: 'ESTRATEGIA DIGITAL COMPLETA', serviceHighlight: 'PAQUETE COMPLETO MARKETING DIGITAL', subtitle: 'AHORRÁ $200/MES', description: 'Meta Ads • Google Ads • Email • Chatbot\nTodo por $1000/mes en lugar de $1200', bgColor: '#333333' }
         };
-        const adCopyData = { // Copys sin cambios, ya estaban en voseo
-            auditoria: `🔍 ¿QUÉ ESTÁ FALLANDO EN TUS CAMPAÑAS DE MARKETING DIGITAL? 🔍...`, optimizacion: `⚡ TRANSFORMÁ TUS CAMPAÑAS QUE NO CONVIERTEN EN SOLO 48 HORAS ⚡...`, meta: `📱 MULTIPLICÁ TUS VENTAS CON META ADS QUE CONVIERTEN 📱...`, google: `🔎 CONVERTÍ BÚSQUEDAS EN VENTAS REALES CON GOOGLE ADS 🔎...`, email: `📧 EMAIL MARKETING QUE GENERA INGRESOS AUTOMÁTICOS 24/7 📧...`, chatbot: `🤖 ATENCIÓN AL CLIENTE AUTOMATIZADA QUE GENERA VENTAS 24/7 🤖...`, all: `🚀 MULTIPLICÁ TUS RESULTADOS CON MARKETING DIGITAL INTEGRADO 🚀...`
+
+        // Ad Copy Data (COMPLETO)
+        const adCopyData = {
+            auditoria: `🔍 ¿QUÉ ESTÁ FALLANDO EN TUS CAMPAÑAS DE MARKETING DIGITAL? 🔍
+
+¿Sabías que el 67% de las empresas invierten en publicidad sin comprender qué métricas realmente impactan sus ventas? 💡
+
+Estás a punto de descubrir por qué tu competencia consigue mejores resultados con el mismo presupuesto...
+
+✅ Análisis completo de tus campañas actuales
+✅ Identificación exacta de dónde estás perdiendo dinero
+✅ Comparativa con estrategias de competidores exitosos
+✅ 100% gratis y sin compromiso de contratación
+
+👉 Visitá nuestra web y descubrí qué oportunidades de crecimiento estás dejando pasar mientras leés esto.
+
+La auditoría gratuita tiene cupos limitados cada semana. ¿Por qué esperar?
+
+➡️ www.orangevapor.com`,
+
+            optimizacion: `⚡ TRANSFORMÁ TUS CAMPAÑAS QUE NO CONVIERTEN EN SOLO 48 HORAS ⚡
+
+Cada día con campañas mal optimizadas significa dinero perdido y oportunidades desaprovechadas... 💸
+
+Nuestro sistema de "Detección de Fugas™" ha revelado que:
+
+✅ El 63% del presupuesto se desperdicia en configuraciones incorrectas
+✅ La segmentación imprecisa es la principal causa de CPA elevados
+✅ La mayoría de las campañas necesitan solo 3 ajustes clave para aumentar ventas
+
+👉 En nuestro sitio web encontrarás cómo transformamos las campañas de una tienda online, aumentando sus ventas un 20% en solo 14 días.
+
+Diagnóstico + Estructura optimizada con garantía de resultados o solo pagás la mitad.
+
+¿Querés detener el sangrado presupuestario ahora? Visitá 👇
+www.orangevapor.com`,
+
+            meta: `📱 MULTIPLICÁ TUS VENTAS CON META ADS QUE CONVIERTEN 📱
+
+¿De cada $1 invertido en tus Facebook & Instagram Ads, cuánto recuperás en ventas reales? 🤔
+
+Nuestros clientes obtienen MÍNIMO $2.8 por cada $1 invertido...
+
+✅ 2.8x ROAS mínimo garantizado o te devolvemos tu dinero
+✅ 35% reducción promedio en costo por adquisición
+✅ 45% más conversiones con la misma inversión
+✅ Gestión profesional que maximiza cada peso invertido
+
+👉 En nuestro sitio web podrás ver cómo una tienda de moda online aumentó su ROAS de 1.2x a 3.4x en solo 3 meses.
+
+Campañas estructuradas y optimizadas específicamente para tu negocio.
+
+¿Querés aprovechar el verdadero potencial de Meta Ads? Hacé clic ahora 👇
+www.orangevapor.com`,
+
+            google: `🔎 CONVERTÍ BÚSQUEDAS EN VENTAS REALES CON GOOGLE ADS 🔎
+
+Mientras tus competidores aparecen en los primeros resultados de Google, ¿dónde está tu negocio? 👀
+
+Descubrí cómo posicionarte estratégicamente con:
+
+✅ 2.8x ROAS mínimo garantizado o te devolvemos tu dinero
+✅ Investigación de palabras clave rentables para tu industria
+✅ Optimización semanal de pujas y presupuestos
+✅ Análisis de competencia para detectar oportunidades ocultas
+
+👉 En nuestro sitio web verás cómo una empresa de servicios profesionales aumentó sus leads calificados un 190% y redujo su costo de adquisición un 38%.
+
+Google Ads gestionado por expertos con resultados medibles.
+
+Posicioná tu negocio donde tus clientes están buscando 👇
+www.orangevapor.com`,
+
+            email: `📧 EMAIL MARKETING QUE GENERA INGRESOS AUTOMÁTICOS 24/7 📧
+
+¿Sabías que el email marketing ofrece el mayor ROI de todos los canales digitales (3600% en promedio)? 📈
+
+Tu base de datos es uno de tus activos más valiosos. ¿Lo estás aprovechando?
+
+✅ 38% promedio de tasa de apertura (vs. 15% estándar de la industria)
+✅ Secuencias automatizadas que convierten prospectos en clientes
+✅ Segmentación estratégica basada en comportamiento real
+✅ Ingresos recurrentes, incluso mientras dormís
+
+👉 En nuestro sitio web conocerás cómo una boutique de cosmética natural aumentó sus ingresos mensuales por email de $400 a $4,800 en poco tiempo.
+
+Nurturing automatizado que monetiza cada contacto en tu base de datos.
+
+Descubrí cómo transformar tu email marketing hoy mismo 👇
+www.orangevapor.com`,
+
+            chatbot: `🤖 ATENCIÓN AL CLIENTE AUTOMATIZADA QUE GENERA VENTAS 24/7 🤖
+
+¿Cuántos leads y ventas perdés cuando tu equipo no puede responder inmediatamente? ⏰
+
+Los chatbots inteligentes están revolucionando la atención al cliente:
+
+✅ Atención instantánea 24/7, incluso fuera de horario comercial
+✅ Reducción de hasta 70% en costos de atención al cliente
+✅ Captura datos de clientes potenciales mientras dormís
+✅ Respuestas en 5 minutos vs. 48 horas de atención humana
+
+👉 En nuestro sitio web verás cómo una tienda redujo su tiempo de respuesta de 2 días a 10 minutos y aumentó su tasa de conversión del 22% al 68%.
+
+Chatbots inteligentes que maximizan tus resultados mientras liberan a tu equipo.
+
+¿Listo para nunca más perder una oportunidad de venta? 👇
+www.orangevapor.com`,
+
+            all: `🚀 MULTIPLICÁ TUS RESULTADOS CON MARKETING DIGITAL INTEGRADO 🚀
+
+¿Por qué conformarte con resultados mediocres cuando podés tener una estrategia digital completa? 🔄
+
+El paquete integral que está transformando negocios incluye:
+
+✅ Meta Ads: 2.8x ROAS mínimo garantizado
+✅ Google Ads: Posicionamiento estratégico que convierte
+✅ Email Marketing: 38% de tasa de apertura promedio
+✅ Chatbot: Atención 24/7 y captura de leads automática
+
+👉 En nuestro sitio web descubrirás cómo ahorrarte casi $200 al mes contratando nuestro paquete completo por solo $1000/mes.
+
+Estrategias digitales diseñadas con un único objetivo: maximizar tu ROI.
+
+Potenciá todos los canales de tu negocio con un solo clic 👇
+www.orangevapor.com`
         };
-         // Para brevedad, trunqué los copys aquí, pero usa los completos del código anterior.
-         // Asegúrate de pegar los textos completos de adCopyData de la respuesta anterior aquí.
 
-
-        // Estado actual (sin cambios)
+        // Estado actual
         let activeService = 'optimizacion';
         let activeFormat = 'square';
         let activeColor = 'original';
         let isProcessing = false;
 
-        // Elementos del DOM (sin cambios)
+        // Elementos del DOM
         const serviceTitle = document.getElementById('serviceTitle');
         const creativesContainer = document.getElementById('creativesContainer');
         const tabButtons = document.querySelectorAll('.tab-button');
@@ -347,31 +487,100 @@
         const adCopyText = document.getElementById('adCopyText');
         const copyBtn = document.getElementById('copyBtn');
 
-        // Funciones de utilidad: copyBtn, togglePractices, getServiceTitle, getBgColor, getTextColor (sin cambios)
-         copyBtn.addEventListener('click', () => { /* ... (código anterior) ... */ });
-         togglePracticesBtn.addEventListener('click', () => { /* ... (código anterior) ... */ });
-         function getServiceTitle(service) { /* ... (código anterior) ... */ }
-         function getBgColor() { /* ... (código anterior) ... */ }
-         function getTextColor(bgColor) { /* ... (código anterior - SIN CAMBIOS EN LA LÓGICA INTERNA) ... */ }
+        // --- FUNCIONES AUXILIARES ---
 
-        // Función getAccentColor - Simplificada: Usaremos Naranja o Blanco consistentemente para badge/accent
+        // Copiar al portapapeles
+        copyBtn.addEventListener('click', () => {
+             const textToCopy = adCopyText.innerText;
+             navigator.clipboard.writeText(textToCopy).then(() => {
+                 copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                 setTimeout(() => { copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar'; }, 2000);
+             }).catch(err => {
+                 console.error('Error al copiar: ', err);
+                 copyBtn.innerHTML = '<i class="fas fa-times"></i> Error';
+                 setTimeout(() => { copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar'; }, 2000);
+             });
+        });
+
+        // Toggle mejores prácticas
+        togglePracticesBtn.addEventListener('click', () => {
+            const isHidden = bestPracticesBox.style.display === 'none';
+            bestPracticesBox.style.display = isHidden ? 'block' : 'none';
+            togglePracticesBtn.textContent = isHidden ? 'Ocultar mejores prácticas' : 'Ver mejores prácticas para tráfico';
+        });
+
+        // Obtener título del servicio
+        function getServiceTitle(service) {
+            // Retorna el nombre basado en creativesData o un default
+            return `Creativos de Tráfico para ${creativesData[service]?.serviceHighlight || 'Servicio Desconocido'}`;
+        }
+
+        // Obtener color de fondo principal
+        function getBgColor() {
+            if (activeColor === 'original') return creativesData[activeService].bgColor;
+            if (activeColor === 'orange') return colors.primary;
+            if (activeColor === 'white') return colors.light;
+            if (activeColor === 'black') return colors.dark;
+            return creativesData[activeService].bgColor; // Fallback
+        }
+
+        // Obtener color de texto contrastante
+        function getTextColor(bgColor) {
+            try {
+                let rgb;
+                if (bgColor.startsWith('#')) {
+                    const bigint = parseInt(bgColor.slice(1), 16);
+                    rgb = { r: (bigint >> 16) & 255, g: (bigint >> 8) & 255, b: bigint & 255 };
+                } else if (bgColor.startsWith('rgb')) {
+                    const matches = bgColor.match(/\d+/g);
+                    if (!matches || matches.length < 3) return colors.dark; // Fallback
+                    rgb = { r: parseInt(matches[0]), g: parseInt(matches[1]), b: parseInt(matches[2]) };
+                } else {
+                    return colors.dark; // Fallback para formatos no reconocidos
+                }
+                const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+                return luminance > 0.5 ? colors.dark : colors.light;
+            } catch (e) {
+                console.error("Error calculando color de texto para:", bgColor, e);
+                return colors.dark; // Fallback seguro
+            }
+        }
+
+        // Obtener color de acento (para barra y badge)
         function getAccentColor(bgColor) {
             const mainTextColor = getTextColor(bgColor);
-            // Si el fondo principal es claro (texto oscuro), usa naranja para acentos/badges.
-            // Si el fondo principal es oscuro (texto claro), usa blanco para acentos/badges.
             return mainTextColor === colors.dark ? colors.primary : colors.light;
         }
 
+        // Mostrar/Ocultar Modal de Carga
+        function showLoadingModal(message = "Generando imagen...") {
+             let modal = document.getElementById('loadingModal');
+             if (!modal) {
+                 modal = document.createElement('div');
+                 modal.className = 'loading-modal';
+                 modal.id = 'loadingModal';
+                 modal.innerHTML = `<div class="loading-container"><div class="loading-spinner"></div><div id="loadingMessage">${message}</div></div>`;
+                 document.body.appendChild(modal);
+             }
+             document.getElementById('loadingMessage').textContent = message;
+             modal.style.display = 'flex';
+        }
+        function hideLoadingModal() {
+            const modal = document.getElementById('loadingModal');
+            if (modal) modal.style.display = 'none';
+        }
 
-        // Función para renderizar creativo en la interfaz (MODIFICADA)
+        // --- RENDERIZADO Y DIBUJO ---
+
+        // Renderizar previsualización en HTML
         function renderCreative() {
-            creativesContainer.innerHTML = '';
+            creativesContainer.innerHTML = ''; // Limpiar contenedor
             const creative = creativesData[activeService];
             const bgColor = getBgColor();
             const textColor = getTextColor(bgColor);
-            const accentColor = getAccentColor(bgColor); // Color para acento lateral
-            const badgeBgColor = accentColor; // Usar mismo color para badge
-            const badgeTextColor = getTextColor(badgeBgColor); // Color texto del badge
+            const accentColor = getAccentColor(bgColor);
+            const badgeBgColor = accentColor;
+            const badgeTextColor = getTextColor(badgeBgColor);
 
             const creativeEl = document.createElement('div');
             creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
@@ -380,18 +589,13 @@
             // Contenido Principal
             const contentEl = document.createElement('div');
             contentEl.className = 'creative-content';
-             if (activeFormat === 'vertical') {
-                 contentEl.style.paddingTop = '20%'; // Ajustado para más espacio arriba
-                 contentEl.style.paddingBottom = '15%';
-                 contentEl.style.justifyContent = 'flex-start';
-             } else {
-                 contentEl.style.justifyContent = 'center';
-             }
+             if (activeFormat === 'vertical') { contentEl.style.paddingTop = '20%'; contentEl.style.paddingBottom = '15%'; contentEl.style.justifyContent = 'flex-start'; }
+             else { contentEl.style.justifyContent = 'center'; }
 
             // Acento Lateral
             const accentEl = document.createElement('div');
             accentEl.className = 'creative-accent';
-            accentEl.style.background = accentColor; // Color del acento lateral
+            accentEl.style.background = accentColor;
             creativeEl.appendChild(accentEl);
 
             // Logo
@@ -404,16 +608,15 @@
             else if (activeColor === 'orange') { logoEl.innerHTML = `<span style="color: ${colors.light};">Orange Vapor</span>`; }
             else { logoEl.innerHTML = `<span style="color: ${textColor};">Orange</span> <span style="color: ${colors.primary};">Vapor</span>`; }
             logoContainerEl.appendChild(logoEl);
-            creativeEl.appendChild(logoContainerEl); // Posicionado absoluto
+            creativeEl.appendChild(logoContainerEl);
 
-             // NUEVO: Badge (para previsualización HTML)
+             // Badge (HTML Preview)
              const badgeEl = document.createElement('div');
              badgeEl.className = 'creative-badge';
              badgeEl.textContent = creative.serviceHighlight.toUpperCase();
-             // Estilos dinámicos para el badge en preview
              badgeEl.style.backgroundColor = badgeBgColor;
              badgeEl.style.color = badgeTextColor;
-             creativeEl.appendChild(badgeEl); // Posicionado absoluto
+             creativeEl.appendChild(badgeEl);
 
             // Título
             const titleEl = document.createElement('div');
@@ -423,7 +626,7 @@
             titleEl.style.color = textColor;
             contentEl.appendChild(titleEl);
 
-            // Subtítulo (Ahora va después del título)
+            // Subtítulo
             const subtitleEl = document.createElement('div');
             subtitleEl.className = 'creative-subtitle';
             subtitleEl.style.fontSize = activeFormat === 'vertical' ? '24px' : '18px';
@@ -442,70 +645,82 @@
 
             creativeEl.appendChild(contentEl);
 
-            // Botón Descarga (sin cambios)
+            // Botón Descarga Overlay
             const downloadEl = document.createElement('div');
             downloadEl.className = 'creative-download';
-            /* ... (código anterior) ... */
-             downloadEl.innerHTML = '<i class="fas fa-download" style="color: white;"></i>';
-             downloadEl.addEventListener('click', (e) => { e.stopPropagation(); generateAndDownloadImage(); });
+            downloadEl.innerHTML = '<i class="fas fa-download" style="color: white;"></i>';
+            downloadEl.addEventListener('click', (e) => { e.stopPropagation(); generateAndDownloadImage(); });
             creativeEl.appendChild(downloadEl);
 
+            // Click en creativo también descarga
             creativeEl.addEventListener('click', generateAndDownloadImage);
+
             creativesContainer.appendChild(creativeEl);
-            updateAdCopy();
+            updateAdCopy(); // Actualizar texto de anuncio
         }
 
-        // Función para actualizar el copy del anuncio (sin cambios)
-        function updateAdCopy() { /* ... (código anterior) ... */ }
-
-        // Funciones Modal Carga (sin cambios)
-        function showLoadingModal(message = "Generando imagen...") { /* ... (código anterior) ... */ }
-        function hideLoadingModal() { /* ... (código anterior) ... */ }
-
-        // NUEVA: Función para dibujar el Badge en Canvas
+        // Dibujar Badge en Canvas
         function drawBadge(ctx, text, isVertical, width, height, safeZoneTop) {
-            const badgePaddingX = 25;
-            const badgePaddingY = 15;
-            const badgeFontSize = isVertical ? 32 : 28;
-            const badgeText = text.toUpperCase();
-            const badgeMarginX = isVertical ? 60 : 40; // Margen desde el borde derecho
-            const badgeMarginY = isVertical ? safeZoneTop + 30 : 40; // Margen desde arriba (respeta safe zone en vertical)
+             const badgePaddingX = 25;
+             const badgePaddingY = 15;
+             const badgeFontSize = isVertical ? 32 : 28;
+             const badgeText = text.toUpperCase();
+             const badgeMarginX = isVertical ? 60 : 40;
+             const badgeMarginY = isVertical ? safeZoneTop + 20 : 40; // Ajustado Y para vertical
 
-            const badgeBgColor = getAccentColor(getBgColor()); // Fondo = color acento
-            const badgeTextColor = getTextColor(badgeBgColor); // Texto contrasta con fondo del badge
+             const badgeBgColor = getAccentColor(getBgColor());
+             const badgeTextColor = getTextColor(badgeBgColor);
 
-            ctx.font = `600 ${badgeFontSize}px Montserrat, sans-serif`; // Semibold
-            ctx.textAlign = 'center'; // Centrar texto dentro del badge
+             ctx.font = `600 ${badgeFontSize}px Montserrat, sans-serif`;
+             ctx.textAlign = 'center';
 
-            const textMetrics = ctx.measureText(badgeText);
-            const badgeWidth = textMetrics.width + badgePaddingX * 2;
-            const badgeHeight = badgeFontSize + badgePaddingY * 2; // Altura basada en font + padding Y
+             const textMetrics = ctx.measureText(badgeText);
+             // Limitar ancho máximo del badge si el texto es muy largo
+             const maxBadgeWidth = width * 0.5; // Máximo 50% del ancho de la imagen
+             const badgeWidth = Math.min(textMetrics.width + badgePaddingX * 2, maxBadgeWidth);
+             const badgeHeight = badgeFontSize + badgePaddingY * 2;
 
-            const badgeX = width - badgeWidth - badgeMarginX;
-            const badgeY = badgeMarginY;
+             const badgeX = width - badgeWidth - badgeMarginX;
+             const badgeY = badgeMarginY;
 
-            // Dibujar fondo del badge (rectángulo simple)
-            ctx.fillStyle = badgeBgColor;
-            ctx.fillRect(badgeX, badgeY, badgeWidth, badgeHeight);
+             // Dibujar fondo del badge
+             ctx.fillStyle = badgeBgColor;
+             // Dibujar rectángulo con bordes redondeados (opcional, pero más estético)
+             const borderRadius = 8;
+             ctx.beginPath();
+             ctx.moveTo(badgeX + borderRadius, badgeY);
+             ctx.lineTo(badgeX + badgeWidth - borderRadius, badgeY);
+             ctx.quadraticCurveTo(badgeX + badgeWidth, badgeY, badgeX + badgeWidth, badgeY + borderRadius);
+             ctx.lineTo(badgeX + badgeWidth, badgeY + badgeHeight - borderRadius);
+             ctx.quadraticCurveTo(badgeX + badgeWidth, badgeY + badgeHeight, badgeX + badgeWidth - borderRadius, badgeY + badgeHeight);
+             ctx.lineTo(badgeX + borderRadius, badgeY + badgeHeight);
+             ctx.quadraticCurveTo(badgeX, badgeY + badgeHeight, badgeX, badgeY + badgeHeight - borderRadius);
+             ctx.lineTo(badgeX, badgeY + borderRadius);
+             ctx.quadraticCurveTo(badgeX, badgeY, badgeX + borderRadius, badgeY);
+             ctx.closePath();
+             ctx.fill();
+             // ctx.fillRect(badgeX, badgeY, badgeWidth, badgeHeight); // Rectángulo simple
 
-            // Dibujar texto del badge
-            ctx.fillStyle = badgeTextColor;
-            // Ajustar Y para centrar texto verticalmente en el badge
-            const textY = badgeY + badgeHeight / 2 + badgeFontSize * 0.35; // Ajuste empírico para centrado vertical
-            ctx.fillText(badgeText, badgeX + badgeWidth / 2, textY);
-
-             // Reset text align if needed later
-             // ctx.textAlign = 'left';
+             // Dibujar texto del badge
+             ctx.fillStyle = badgeTextColor;
+             const textY = badgeY + badgeHeight / 2 + badgeFontSize * 0.35; // Centrado vertical
+             // Si el texto era más largo que el badge máximo, no se dibuja (o se podría truncar)
+             if (textMetrics.width + badgePaddingX * 2 <= maxBadgeWidth) {
+                ctx.fillText(badgeText, badgeX + badgeWidth / 2, textY);
+             } else {
+                // Opcional: dibujar texto truncado si excede el ancho
+                console.warn("Texto del badge demasiado largo, considera acortarlo:", badgeText);
+                // Podrías intentar dibujarlo truncado aquí si fuera necesario
+             }
         }
 
-
-        // Función para dibujar y descargar la imagen (MODIFICADA)
+        // Dibujar y Descargar Imagen en Canvas
         function generateAndDownloadImage() {
             if (isProcessing) return;
             isProcessing = true;
             showLoadingModal();
 
-            setTimeout(() => {
+            setTimeout(() => { // Permite que el modal se renderice
                 try {
                     const creative = creativesData[activeService];
                     const isVertical = activeFormat === 'vertical';
@@ -519,7 +734,7 @@
 
                     const bgColor = getBgColor();
                     const textColor = getTextColor(bgColor);
-                    const accentColor = getAccentColor(bgColor); // Color para acento lateral y badge
+                    const accentColor = getAccentColor(bgColor);
 
                     // PASO 1: Fondo
                     ctx.fillStyle = bgColor;
@@ -527,9 +742,9 @@
 
                     // PASO 2: Acento Lateral
                     ctx.fillStyle = accentColor;
-                    const accentWidth = isVertical ? 15 : 10; // Más delgado
+                    const accentWidth = isVertical ? 15 : 10;
                     const accentHeightRatio = isVertical ? 0.25 : 0.30;
-                    const accentTopRatio = isVertical ? 0.18 : 0.35; // Ajustado
+                    const accentTopRatio = isVertical ? 0.18 : 0.35;
                     ctx.fillRect(0, height * accentTopRatio, accentWidth, height * accentHeightRatio);
 
                     // PASO 3: Logo
@@ -537,31 +752,25 @@
                     ctx.font = `bold ${logoFontSize}px Montserrat, sans-serif`;
                     const logoMargin = isVertical ? 80 : 40;
                     const logoX = logoMargin;
-                    const logoY = isVertical ? Math.max(logoMargin, Math.round(height * 0.07)) : logoMargin; // Ajustado Y
+                    const logoY = isVertical ? Math.max(logoMargin, Math.round(height * 0.07)) : logoMargin;
                     ctx.textAlign = 'left';
-                    // ... (Lógica de dibujo del logo sin cambios)...
                     if (activeColor === 'white') { ctx.fillStyle = '#181818'; ctx.fillText('Orange', logoX, logoY); const orangeWidth = ctx.measureText('Orange ').width; ctx.fillStyle = '#FF7E00'; ctx.fillText('Vapor', logoX + orangeWidth, logoY); }
                     else if (activeColor === 'orange') { ctx.fillStyle = 'white'; ctx.fillText('Orange Vapor', logoX, logoY); }
                     else { ctx.fillStyle = textColor; ctx.fillText('Orange', logoX, logoY); const orangeWidth = ctx.measureText('Orange ').width; ctx.fillStyle = '#FF7E00'; ctx.fillText('Vapor', logoX + orangeWidth, logoY); }
 
-
-                    // PASO 4: Dibujar Badge (NUEVO)
-                    const safeZoneTop = height * 0.15; // Requerido para Y del badge en vertical
+                    // PASO 4: Badge
+                    const safeZoneTop = height * 0.15;
                     drawBadge(ctx, creative.serviceHighlight, isVertical, width, height, safeZoneTop);
 
-
-                    // PASO 5: Dibujar Texto Principal (Título, Subtítulo, Descripción)
+                    // PASO 5: Texto Principal
                     ctx.textAlign = 'center';
                     const contentPaddingX = 100;
                     const textMaxWidth = width - (contentPaddingX * 2);
-
-                    // Ajustar Y Offsets - Ya no hay highlight en medio
-                    const contentCenterY = isVertical ? safeZoneTop + (height - safeZoneTop - (height * 0.15)) / 2 : height / 2;
-                    const titleYOffset = isVertical ? -120 : -80; // Subir título un poco
-                    const subtitleYOffset = isVertical ? 0 : 30;  // Subtítulo más cerca del título
-                    const descYOffset = isVertical ? 100 : 110; // Descripción después del subtítulo
-                    const lineSpacingMultiplier = isVertical ? 1.4 : 1.3; // Ajustar espaciado
-
+                    const contentCenterY = isVertical ? safeZoneTop + (height - safeZoneTop * 2) / 2 : height / 2; // Centro del área segura
+                    const titleYOffset = isVertical ? -120 : -80;
+                    const subtitleYOffset = isVertical ? 0 : 30;
+                    const descYOffset = isVertical ? 100 : 110;
+                    const lineSpacingMultiplier = isVertical ? 1.4 : 1.3;
                     let currentY;
 
                     // 5.1 Título
@@ -576,27 +785,23 @@
                     const subtitleFontSize = isVertical ? 56 : 46;
                     const subtitleLineHeight = subtitleFontSize * 1.15;
                     ctx.font = `bold ${subtitleFontSize}px Montserrat, sans-serif`;
-                    currentY = contentCenterY + subtitleYOffset; // Posición relativa al centro
-                    // currentY += (isVertical ? 20 : 15); // Pequeño espacio extra post-título si es necesario
+                    currentY = contentCenterY + subtitleYOffset;
                     currentY = wrapText(ctx, creative.subtitle, width / 2, currentY, textMaxWidth, subtitleLineHeight);
 
                     // 5.3 Descripción
                     const descFontSize = isVertical ? 42 : 36;
                     const descLineHeight = descFontSize * lineSpacingMultiplier;
                     ctx.font = `400 ${descFontSize}px Montserrat, sans-serif`;
-                    currentY = contentCenterY + descYOffset; // Posición relativa al centro
-                    // currentY += (isVertical ? 30 : 25); // Pequeño espacio extra post-subtítulo si es necesario
+                    currentY = contentCenterY + descYOffset;
                     wrapText(ctx, creative.description, width / 2, currentY, textMaxWidth, descLineHeight);
 
-
-                    // PASO 6: Descargar
-                    setTimeout(() => {
+                    // PASO 6: Descargar Imagen
+                    setTimeout(() => { // Pequeña pausa para asegurar renderizado
                         try {
-                            // ... (Lógica de descarga sin cambios) ...
                              const dataUrl = downloadCanvas.toDataURL('image/png');
                              const link = document.createElement('a');
                              link.href = dataUrl;
-                             link.download = `orangevapor-trafico-${activeService}-${activeColor}-${activeFormat}-badge.png`; // Añadido badge al nombre
+                             link.download = `orangevapor-trafico-${activeService}-${activeColor}-${activeFormat}-badge.png`;
                              document.body.appendChild(link);
                              link.click();
                              document.body.removeChild(link);
@@ -615,143 +820,61 @@
             }, 100);
         }
 
-        // Función wrapText (sin cambios)
-        function wrapText(ctx, text, x, y, maxWidth, lineHeight) { /* ... (código anterior) ... */ }
+        // Función wrapText (para texto multilínea en canvas)
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            const words = text.split('\n'); // Primero dividir por saltos de línea explícitos
+            let currentY = y;
 
-        // Función updateUI (sin cambios)
-        function updateUI() { /* ... (código anterior) ... */ }
+            words.forEach(linePart => {
+                const lineWords = linePart.split(' ');
+                let line = '';
+                for (let n = 0; n < lineWords.length; n++) {
+                    const testLine = line + lineWords[n] + ' ';
+                    const metrics = ctx.measureText(testLine);
+                    if (metrics.width > maxWidth && n > 0) {
+                        ctx.fillText(line.trim(), x, currentY);
+                        line = lineWords[n] + ' ';
+                        currentY += lineHeight;
+                    } else {
+                        line = testLine;
+                    }
+                }
+                ctx.fillText(line.trim(), x, currentY);
+                currentY += lineHeight; // Mover a la siguiente línea después de cada parte (explícita o ajustada)
+            });
+            return currentY; // Devuelve la Y de la línea *después* de la última dibujada
+        }
 
-        // Eventos (sin cambios)
+
+        // --- ACTUALIZACIÓN UI Y EVENTOS ---
+
+        // Actualizar Interfaz Completa
+        function updateUI() {
+            serviceTitle.textContent = getServiceTitle(activeService); // Actualizar título principal de la página
+
+            // Actualizar tabs de servicio
+            tabButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.service === activeService));
+
+            // Actualizar botones de formato
+            formatButtons.forEach(btn => btn.classList.toggle('active', btn.id === (activeFormat === 'square' ? 'squareBtn' : 'verticalBtn')));
+
+            // Actualizar botones de color
+            colorButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.color === activeColor));
+
+            renderCreative(); // Renderizar previsualización
+        }
+
+        // Event Listeners para Controles
         tabButtons.forEach(btn => btn.addEventListener('click', () => { activeService = btn.dataset.service; updateUI(); }));
         squareBtn.addEventListener('click', () => { activeFormat = 'square'; updateUI(); });
         verticalBtn.addEventListener('click', () => { activeFormat = 'vertical'; updateUI(); });
         colorButtons.forEach(btn => btn.addEventListener('click', () => { activeColor = btn.dataset.color; updateUI(); }));
-        downloadBtn.addEventListener('click', generateAndDownloadImage);
+        downloadBtn.addEventListener('click', generateAndDownloadImage); // Botón principal de descarga
 
-        // Inicializar
+        // Inicializar al cargar la página
         updateUI();
 
-        // Asegúrate de pegar aquí los textos completos de adCopyData que omití arriba por brevedad
-        // Ejemplo (pega el resto):
-        adCopyData.auditoria = `🔍 ¿QUÉ ESTÁ FALLANDO EN TUS CAMPAÑAS DE MARKETING DIGITAL? 🔍
-
-¿Sabías que el 67% de las empresas invierten en publicidad sin comprender qué métricas realmente impactan sus ventas? 💡
-
-Estás a punto de descubrir por qué tu competencia consigue mejores resultados con el mismo presupuesto...
-
-✅ Análisis completo de tus campañas actuales
-✅ Identificación exacta de dónde estás perdiendo dinero
-✅ Comparativa con estrategias de competidores exitosos
-✅ 100% gratis y sin compromiso de contratación
-
-👉 Visitá nuestra web y descubrí qué oportunidades de crecimiento estás dejando pasar mientras leés esto.
-
-La auditoría gratuita tiene cupos limitados cada semana. ¿Por qué esperar?
-
-➡️ www.orangevapor.com`;
-        adCopyData.optimizacion = `⚡ TRANSFORMÁ TUS CAMPAÑAS QUE NO CONVIERTEN EN SOLO 48 HORAS ⚡
-
-Cada día con campañas mal optimizadas significa dinero perdido y oportunidades desaprovechadas... 💸
-
-Nuestro sistema de "Detección de Fugas™" ha revelado que:
-
-✅ El 63% del presupuesto se desperdicia en configuraciones incorrectas
-✅ La segmentación imprecisa es la principal causa de CPA elevados
-✅ La mayoría de las campañas necesitan solo 3 ajustes clave para aumentar ventas
-
-👉 En nuestro sitio web encontrarás cómo transformamos las campañas de una tienda online, aumentando sus ventas un 20% en solo 14 días.
-
-Diagnóstico + Estructura optimizada con garantía de resultados o solo pagás la mitad.
-
-¿Querés detener el sangrado presupuestario ahora? Visitá 👇
-www.orangevapor.com`;
-        // ... PEGA EL RESTO DE LOS TEXTOS DE ADCOPYDATA AQUÍ ...
-        adCopyData.meta = `📱 MULTIPLICÁ TUS VENTAS CON META ADS QUE CONVIERTEN 📱
-
-¿De cada $1 invertido en tus Facebook & Instagram Ads, cuánto recuperás en ventas reales? 🤔
-
-Nuestros clientes obtienen MÍNIMO $2.8 por cada $1 invertido...
-
-✅ 2.8x ROAS mínimo garantizado o te devolvemos tu dinero
-✅ 35% reducción promedio en costo por adquisición
-✅ 45% más conversiones con la misma inversión
-✅ Gestión profesional que maximiza cada peso invertido
-
-👉 En nuestro sitio web podrás ver cómo una tienda de moda online aumentó su ROAS de 1.2x a 3.4x en solo 3 meses.
-
-Campañas estructuradas y optimizadas específicamente para tu negocio.
-
-¿Querés aprovechar el verdadero potencial de Meta Ads? Hacé clic ahora 👇
-www.orangevapor.com`;
-        adCopyData.google = `🔎 CONVERTÍ BÚSQUEDAS EN VENTAS REALES CON GOOGLE ADS 🔎
-
-Mientras tus competidores aparecen en los primeros resultados de Google, ¿dónde está tu negocio? 👀
-
-Descubrí cómo posicionarte estratégicamente con:
-
-✅ 2.8x ROAS mínimo garantizado o te devolvemos tu dinero
-✅ Investigación de palabras clave rentables para tu industria
-✅ Optimización semanal de pujas y presupuestos
-✅ Análisis de competencia para detectar oportunidades ocultas
-
-👉 En nuestro sitio web verás cómo una empresa de servicios profesionales aumentó sus leads calificados un 190% y redujo su costo de adquisición un 38%.
-
-Google Ads gestionado por expertos con resultados medibles.
-
-Posicioná tu negocio donde tus clientes están buscando 👇
-www.orangevapor.com`;
-        adCopyData.email = `📧 EMAIL MARKETING QUE GENERA INGRESOS AUTOMÁTICOS 24/7 📧
-
-¿Sabías que el email marketing ofrece el mayor ROI de todos los canales digitales (3600% en promedio)? 📈
-
-Tu base de datos es uno de tus activos más valiosos. ¿Lo estás aprovechando?
-
-✅ 38% promedio de tasa de apertura (vs. 15% estándar de la industria)
-✅ Secuencias automatizadas que convierten prospectos en clientes
-✅ Segmentación estratégica basada en comportamiento real
-✅ Ingresos recurrentes, incluso mientras dormís
-
-👉 En nuestro sitio web conocerás cómo una boutique de cosmética natural aumentó sus ingresos mensuales por email de $400 a $4,800 en poco tiempo.
-
-Nurturing automatizado que monetiza cada contacto en tu base de datos.
-
-Descubrí cómo transformar tu email marketing hoy mismo 👇
-www.orangevapor.com`;
-        adCopyData.chatbot = `🤖 ATENCIÓN AL CLIENTE AUTOMATIZADA QUE GENERA VENTAS 24/7 🤖
-
-¿Cuántos leads y ventas perdés cuando tu equipo no puede responder inmediatamente? ⏰
-
-Los chatbots inteligentes están revolucionando la atención al cliente:
-
-✅ Atención instantánea 24/7, incluso fuera de horario comercial
-✅ Reducción de hasta 70% en costos de atención al cliente
-✅ Captura datos de clientes potenciales mientras dormís
-✅ Respuestas en 5 minutos vs. 48 horas de atención humana
-
-👉 En nuestro sitio web verás cómo una tienda redujo su tiempo de respuesta de 2 días a 10 minutos y aumentó su tasa de conversión del 22% al 68%.
-
-Chatbots inteligentes que maximizan tus resultados mientras liberan a tu equipo.
-
-¿Listo para nunca más perder una oportunidad de venta? 👇
-www.orangevapor.com`;
-        adCopyData.all = `🚀 MULTIPLICÁ TUS RESULTADOS CON MARKETING DIGITAL INTEGRADO 🚀
-
-¿Por qué conformarte con resultados mediocres cuando podés tener una estrategia digital completa? 🔄
-
-El paquete integral que está transformando negocios incluye:
-
-✅ Meta Ads: 2.8x ROAS mínimo garantizado
-✅ Google Ads: Posicionamiento estratégico que convierte
-✅ Email Marketing: 38% de tasa de apertura promedio
-✅ Chatbot: Atención 24/7 y captura de leads automática
-
-👉 En nuestro sitio web descubrirás cómo ahorrarte casi $200 al mes contratando nuestro paquete completo por solo $1000/mes.
-
-Estrategias digitales diseñadas con un único objetivo: maximizar tu ROI.
-
-Potenciá todos los canales de tu negocio con un solo clic 👇
-www.orangevapor.com`;
-
+        // --- END SCRIPT ---
     </script>
 </body>
 </html>
