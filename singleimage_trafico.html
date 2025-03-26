@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orange Vapor - Creativos para Campañas de Meta Ads</title>
+    <title>Creativos Orange Vapor - Campañas de Ads Optimizadas</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -38,30 +38,6 @@
             color: #666;
             font-size: 16px;
         }
-        .campaign-selector {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            background-color: #f0f0f0;
-            border-radius: 6px;
-            padding: 5px;
-            overflow: hidden;
-        }
-        .campaign-button {
-            padding: 10px 20px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 15px;
-            color: #555;
-        }
-        .campaign-button.active {
-            background-color: #ff7e00;
-            color: white;
-            border-radius: 4px;
-        }
         .tabs {
             display: flex;
             justify-content: center;
@@ -70,9 +46,8 @@
         }
         .tab-group {
             display: inline-flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             margin-bottom: 10px;
         }
         .tab-button {
@@ -84,20 +59,25 @@
             border: 1px solid #ddd;
             cursor: pointer;
             transition: all 0.2s ease;
-            border-radius: 6px;
+        }
+        .tab-button:first-child {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
+        .tab-button:last-child {
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
         }
         .tab-button.active {
             color: white;
         }
-        .tab-button.auditoria.active { background-color: #28a745; border-color: #28a745; }
-        .tab-button.problemas.active { background-color: #d9534f; border-color: #d9534f; }
-        .tab-button.optimizacion.active { background-color: #dc3545; border-color: #dc3545; }
-        .tab-button.meta.active { background-color: #1877F2; border-color: #1877F2; }
-        .tab-button.google.active { background-color: #4285F4; border-color: #4285F4; }
-        .tab-button.email.active { background-color: #00829b; border-color: #00829b; }
-        .tab-button.chatbot.active { background-color: #6f42c1; border-color: #6f42c1; }
-        .tab-button.paquete.active { background-color: #333333; border-color: #333333; }
-        .tab-button.exito.active { background-color: #fd7e14; border-color: #fd7e14; }
+        .tab-button.optimizacion.active { background: linear-gradient(135deg, #dc3545 0%, #ad1f2d 100%); border-color: #ad1f2d; }
+        .tab-button.meta.active { background: linear-gradient(135deg, #1877F2 0%, #0e4693 100%); border-color: #0e4693; }
+        .tab-button.google.active { background: linear-gradient(135deg, #4285F4 0%, #2a61c5 100%); border-color: #2a61c5; }
+        .tab-button.email.active { background: linear-gradient(135deg, #00829b 0%, #00546a 100%); border-color: #00546a; }
+        .tab-button.chatbot.active { background: linear-gradient(135deg, #6f42c1 0%, #502e8c 100%); border-color: #502e8c; }
+        .tab-button.all.active { background: linear-gradient(135deg, #333333 0%, #222222 100%); border-color: #222222; }
+        .tab-button.auditoria.active { background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); border-color: #1e7e34; }
 
         /* Selector de color */
         .color-toggle { text-align: center; margin: 20px 0; }
@@ -107,40 +87,219 @@
             transition: all 0.2s ease; overflow: hidden;
         }
         .color-btn.active { border-color: #ff7e00; transform: scale(1.1); }
-        .color-btn-original { background: linear-gradient(135deg, #28a745 14%, #d9534f 14% 28%, #dc3545 28% 42%, #1877F2 42% 56%, #4285F4 56% 70%, #00829b 70% 84%, #333 84%); }
+        .color-btn-original { background: linear-gradient(135deg, #28a745 14%, #dc3545 14% 28%, #1877F2 28% 42%, #4285F4 42% 56%, #00829b 56% 70%, #6f42c1 70% 84%, #333 84%); }
         .color-btn-orange { background-color: #ff7e00; }
         .color-btn-white { background-color: #ffffff; border: 2px solid #ccc; }
         .color-btn-black { background-color: #181818; }
+        
+        /* Selector de plataforma */
+        .platform-toggle {
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .platform-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: white;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .platform-btn.active {
+            background-color: #ff7e00;
+            color: white;
+            border-color: #ff7e00;
+        }
+        .platform-btn i {
+            font-size: 16px;
+        }
 
         /* Sección de descarga */
         .download-section { text-align: center; margin: 20px 0; }
         .download-btn {
-            background: #ff7e00; color: white; border: none; padding: 12px 24px;
+            background: linear-gradient(135deg, #ff7e00 0%, #e67300 100%);
+            color: white; border: none; padding: 12px 24px;
             font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer;
             display: inline-flex; align-items: center; gap: 10px;
             box-shadow: 0 4px 8px rgba(255, 126, 0, 0.3); transition: all 0.3s ease;
         }
-        .download-btn:hover { background: #e67300; transform: translateY(-2px); }
+        .download-btn:hover { background: linear-gradient(135deg, #e67300 0%, #cc6600 100%); transform: translateY(-2px); }
 
         /* Contenedor de creativos */
         .creatives-container { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
         .creative {
             width: 360px; height: 360px; margin: 10px; position: relative;
-            border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px; overflow: hidden; 
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
             color: white; cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .creative:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
         .creative-vertical { width: 240px; height: 427px; }
         .creative-content {
             position: relative; z-index: 2; padding: 20px; height: 100%;
             display: flex; flex-direction: column; justify-content: center; text-align: center;
         }
-        .creative-title { font-size: 22px; font-weight: bold; margin-bottom: 10px; line-height: 1.2; }
-        .creative-subtitle { font-size: 18px; font-weight: bold; margin-bottom: 10px; line-height: 1.2; }
-        .creative-description { font-size: 14px; line-height: 1.4; }
+        .creative-title { 
+            font-size: 22px; font-weight: bold; margin-bottom: 10px; line-height: 1.2; 
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        .creative-subtitle { 
+            font-size: 18px; font-weight: bold; margin-bottom: 10px; line-height: 1.2;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+        }
+        .creative-description { 
+            font-size: 14px; line-height: 1.4; 
+            margin-bottom: 15px;
+        }
+        .creative-description .highlight {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
         .creative-accent {
             position: absolute; left: 0; top: 30%; width: 6px; height: 100px;
             background: white; border-radius: 0 3px 3px 0; z-index: 1;
         }
+
+        /* CTA Button */
+        .cta-button {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 30px;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 10px auto;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.2s ease;
+            color: #333;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .cta-button .arrow-icon {
+            transition: transform 0.2s ease;
+        }
+        .cta-button:hover .arrow-icon {
+            transform: translateX(3px);
+        }
+        
+        /* Friction reducer text */
+        .friction-reducer {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        /* Service Icon */
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 22px;
+        }
+        
+        /* Proof Badge */
+        .proof-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            padding: 5px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 3;
+        }
+        .proof-number {
+            font-weight: bold;
+            font-size: 14px;
+            color: #ff7e00;
+        }
+        .proof-text {
+            font-size: 10px;
+            color: #333;
+        }
+        
+        /* Guarantee Badge */
+        .guarantee-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 5px 10px;
+            font-size: 12px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Limited Spots */
+        .limited-spots {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 3px solid rgba(255, 0, 0, 0.5);
+            padding: 5px 10px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Mini Testimonial */
+        .mini-testimonial {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 12px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .mini-testimonial .stars {
+            color: #FFD700;
+            margin-bottom: 3px;
+            letter-spacing: -1px;
+        }
+        .mini-testimonial .quote {
+            font-style: italic;
+        }
+        
+        /* Creative Download Button */
         .creative-download {
             position: absolute; top: 10px; right: 10px; width: 30px; height: 30px;
             border-radius: 50%; background: rgba(68, 68, 68, 0.8); display: flex;
@@ -151,8 +310,8 @@
 
         /* Estilo para el Ribbon */
         .creative-ribbon {
-            position: absolute; background-color: #FFD700; color: #333;
-            padding: 5px 8px; font-size: 12px; font-weight: bold; z-index: 3;
+            position: absolute; background: linear-gradient(135deg, #FFD700, #FFC107);
+            color: #333; padding: 5px 8px; font-size: 12px; font-weight: bold; z-index: 3;
             top: 15px; right: -35px; width: 130px; text-align: center;
             transform: rotate(45deg); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             text-transform: uppercase;
@@ -175,7 +334,7 @@
             padding: 8px 16px; border: 1px solid #ddd; border-radius: 4px;
             background-color: white; margin: 0 5px; cursor: pointer; transition: all 0.2s ease;
         }
-        .format-btn.active { background-color: #ff7e00; color: white; border-color: #ff7e00; }
+        .format-btn.active { background: linear-gradient(135deg, #ff7e00 0%, #e67300 100%); color: white; border-color: #e67300; }
 
         /* Mejores prácticas */
         .best-practices { background-color: #f8f8f8; border-radius: 8px; padding: 15px; margin: 20px 0; }
@@ -248,61 +407,63 @@
         }
         .campaign-type-indicator i { margin-right: 8px; }
         
-        .tab-group-container {
-            display: none;
-        }
-        .tab-group-container.active {
-            display: block;
+        /* Móvil optimizado */
+        @media (max-width: 600px) {
+            .tab-group {
+                flex-wrap: wrap;
+                box-shadow: none;
+            }
+            .tab-button {
+                border-radius: 4px !important;
+                margin: 2px;
+            }
+            .creative-vertical .cta-button {
+                padding: 16px 24px;
+                margin-top: 20px;
+                font-size: 16px;
+            }
+            .creative-vertical .service-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1 id="serviceTitle">Creativos para Campañas de Meta Ads</h1>
-            <p>Sistema optimizado para la estructura de campañas de Orange Vapor</p>
+            <h1 id="serviceTitle">Creativos de Alta Conversión para Optimización Express de Ads</h1>
+            <p>Anuncios optimizados para maximizar conversiones en tus campañas de Ads</p>
         </div>
 
         <div class="campaign-type-indicator">
             <i class="fas fa-bullhorn"></i>
-            <span id="campaignTypeText">Creativos Optimizados para Campañas de Meta Ads</span>
+            <span>Creativos Optimizados para Maximizar Conversión</span>
         </div>
 
-        <!-- Selector de Campañas -->
-        <div class="campaign-selector">
-            <button class="campaign-button active" data-campaign="awareness">Awareness</button>
-            <button class="campaign-button" data-campaign="consideracion">Consideración</button>
-            <button class="campaign-button" data-campaign="conversion">Conversión</button>
-        </div>
-
-        <!-- Tabs por campaña -->
         <div class="tabs">
-            <!-- Awareness -->
-            <div class="tab-group-container active" id="awareness-tabs">
-                <div class="tab-group">
-                    <button class="tab-button auditoria active" data-service="auditoria">Auditoría Gratis</button>
-                    <button class="tab-button problemas" data-service="problemas">Problemas Comunes</button>
-                </div>
+            <div class="tab-group">
+                <button class="tab-button auditoria" data-service="auditoria">Auditoría Gratis</button>
+                <button class="tab-button optimizacion active" data-service="optimizacion">Optimización Express</button>
+                <button class="tab-button meta" data-service="meta">Meta Ads</button>
+                <button class="tab-button google" data-service="google">Google Ads</button>
+                <button class="tab-button email" data-service="email">Email Marketing</button>
+                <button class="tab-button chatbot" data-service="chatbot">Chatbot</button>
+                <button class="tab-button all" data-service="all">Paquete Completo</button>
             </div>
-            
-            <!-- Consideración -->
-            <div class="tab-group-container" id="consideracion-tabs">
-                <div class="tab-group">
-                    <button class="tab-button optimizacion" data-service="optimizacion">Optimización Express</button>
-                    <button class="tab-button meta" data-service="meta">Meta Ads</button>
-                    <button class="tab-button google" data-service="google">Google Ads</button>
-                    <button class="tab-button email" data-service="email">Email Marketing</button>
-                    <button class="tab-button chatbot" data-service="chatbot">Chatbot</button>
-                </div>
-            </div>
-            
-            <!-- Conversión -->
-            <div class="tab-group-container" id="conversion-tabs">
-                <div class="tab-group">
-                    <button class="tab-button paquete" data-service="paquete">Paquete Completo</button>
-                    <button class="tab-button exito" data-service="exito">Casos de Éxito</button>
-                </div>
-            </div>
+        </div>
+
+        <div class="platform-toggle">
+            <button id="facebookBtn" class="platform-btn active" data-platform="facebook">
+                <i class="fab fa-facebook"></i>
+                <span>Facebook</span>
+            </button>
+            <button id="instagramBtn" class="platform-btn" data-platform="instagram">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </button>
         </div>
 
         <div class="format-toggle">
@@ -328,11 +489,11 @@
             <i class="fas fa-info-circle"></i>
             <div>
                 <p><strong>Instrucciones:</strong></p>
-                <p>1. Seleccioná el tipo de campaña (Awareness, Consideración o Conversión).</p>
-                <p>2. Elegí el adset específico para la campaña.</p>
-                <p>3. Selecciona el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
-                <p>4. Elige el color de fondo (original, naranja, blanco o negro).</p>
-                <p>5. Haz clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
+                <p>1. Seleccioná el tipo de servicio de Ads que deseás generar.</p>
+                <p>2. Elegí la plataforma (Facebook o Instagram) para optimizar el diseño.</p>
+                <p>3. Seleccioná el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
+                <p>4. Elegí el color de fondo (original, naranja, blanco o negro).</p>
+                <p>5. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
             </div>
         </div>
 
@@ -342,24 +503,19 @@
         </div>
 
         <div class="best-practices" style="display: none;">
-            <h3>Mejores Prácticas para Anuncios de Meta Ads:</h3>
+            <h3>Mejores Prácticas para Anuncios de Alta Conversión:</h3>
             <ul>
-                <li><strong>Mensajes específicos por fase del funnel</strong>
-                    <ul>
-                        <li>Awareness: Foco en problemas y solución general</li>
-                        <li>Consideración: Detalles específicos del servicio</li>
-                        <li>Conversión: Beneficios concretos y CTAs de acción</li>
-                    </ul>
-                </li>
+                <li><strong>Elementos de prueba social</strong> - Incluir testimonios, resultados numéricos y garantías</li>
+                <li><strong>Contraste de colores</strong> - Destacar visualmente los elementos más importantes</li>
+                <li><strong>CTA claro y llamativo</strong> - El botón de llamada a la acción debe ser inmediatamente visible</li>
+                <li><strong>Uso de urgencia</strong> - Elementos como "cupos limitados" o "48hs" crean impulso para actuar</li>
+                <li><strong>Iconografía relevante</strong> - Usar iconos que refuercen el mensaje principal</li>
+                <li><strong>Reducir la fricción</strong> - Incluir microcopy que elimine objeciones ("Sin compromiso", "Cancelá cuando quieras")</li>
                 <li><strong>Menos del 20% de texto</strong> - Meta penaliza anuncios con exceso de texto</li>
-                <li><strong>Propuesta de valor clara</strong> - Qué beneficio obtienen al hacer clic</li>
-                <li><strong>Copy único por segmento</strong> - Personaliza por industria cuando sea posible</li>
-                <li><strong>Crear urgencia</strong> - Especialmente en campañas de conversión</li>
-                <li><strong>Combinar razón y emoción</strong> - Datos concretos + elementos emotivos</li>
-                <li><strong>CTA específico</strong> - Alinear con la fase del funnel</li>
+                <li><strong>Adaptar por plataforma</strong> - Facebook e Instagram tienen necesidades visuales diferentes</li>
             </ul>
         </div>
-        <button class="toggle-practices" id="togglePractices">Ver mejores prácticas para Meta Ads</button>
+        <button class="toggle-practices" id="togglePractices">Ver mejores prácticas para Ads</button>
 
         <div id="creativesContainer" class="creatives-container">
             <!-- El creativo se inserta dinámicamente aquí -->
@@ -370,7 +526,7 @@
         </div>
 
         <div class="ad-copy-section">
-            <h3>Copy Sugerido para la Campaña</h3>
+            <h3>Copy Sugerido para Campañas de Ads (Alta Conversión)</h3>
             <div class="ad-copy-container">
                 <p id="adCopyText" class="ad-copy-text"></p>
                 <button id="copyBtn" class="copy-btn">
@@ -385,124 +541,141 @@
     <script>
         const colors = {
             primary: '#ff7e00', dark: '#181818', light: '#ffffff',
-            auditoria: '#28a745', problemas: '#d9534f', optimizacion: '#dc3545', 
-            meta: '#1877F2', google: '#4285F4', email: '#00829b', 
-            chatbot: '#6f42c1', paquete: '#333333', exito: '#fd7e14'
+            auditoria: '#28a745', optimizacion: '#dc3545', meta: '#1877F2',
+            google: '#4285F4', googleRed: '#DB4437', googleYellow: '#F4B400',
+            googleGreen: '#0F9D58', email: '#00829b', chatbot: '#6f42c1', 
+            all: '#333333'
+        };
+        
+        const gradients = {
+            auditoria: 'linear-gradient(135deg, #28a745 0%, #1e7e34 100%)',
+            optimizacion: 'linear-gradient(135deg, #dc3545 0%, #ad1f2d 100%)',
+            meta: 'linear-gradient(135deg, #1877F2 0%, #0e4693 100%)',
+            google: 'linear-gradient(135deg, #4285F4 0%, #2a61c5 100%)',
+            email: 'linear-gradient(135deg, #00829b 0%, #00546a 100%)',
+            chatbot: 'linear-gradient(135deg, #6f42c1 0%, #502e8c 100%)',
+            all: 'linear-gradient(135deg, #333333 0%, #222222 100%)',
+            orange: 'linear-gradient(135deg, #ff7e00 0%, #e67300 100%)'
         };
 
         const creativesData = {
-            // Awareness
             auditoria: { 
-                title: 'AUDITORÍA GRATUITA DE ADS', 
-                subtitle: '¿PERDIENDO DINERO EN ADS?', 
-                description: 'Descubrí dónde estás perdiendo presupuesto\ny cómo solucionarlo sin compromiso.', 
-                bgColor: colors.auditoria 
+                title: 'AUDITORÍA GRATIS DE ADS', 
+                subtitle: 'DESCUBRÍ QUÉ FALLA', 
+                description: 'Análisis experto de tus campañas\nMeta Ads y Google Ads. Sin compromiso.', 
+                bgColor: colors.auditoria,
+                icon: 'fa-search-dollar',
+                cta: 'Agendar Auditoría',
+                guaranteeText: 'Análisis en 24 horas',
+                proofstat: '100%',
+                prooftext: 'Gratis'
             },
-            problemas: { 
-                title: 'PROBLEMAS COMUNES EN ADS', 
-                subtitle: '¿CLICS SIN CONVERSIONES?', 
-                description: 'El 67% de los anunciantes desperdicia\nsu presupuesto en métricas que no venden.', 
-                bgColor: colors.problemas 
-            },
-            
-            // Consideración
             optimizacion: { 
-                title: 'OPTIMIZACIÓN EXPRESS', 
-                subtitle: 'RESULTADOS EN 48HS', 
-                description: 'Detené el sangrado de presupuesto\ny multiplicá conversiones de inmediato.', 
-                bgColor: colors.optimizacion 
+                title: 'OPTIMIZACIÓN EXPRESS DE ADS', 
+                subtitle: 'MEJORÁ TU ROAS EN 48HS', 
+                description: 'Ajuste rápido de campañas de Ads\nReducí costes, aumentá conversiones.', 
+                bgColor: colors.optimizacion,
+                icon: 'fa-bolt',
+                cta: 'Ver Detalles',
+                guaranteeText: 'Sin riesgo: 50% si no funciona',
+                proofstat: '48hs',
+                prooftext: 'resultados rápidos',
+                testimonio: '"Pasamos de 350% a 820% de ROAS"'
             },
             meta: { 
-                title: 'META ADS OPTIMIZADOS', 
-                subtitle: 'ROAS GARANTIZADO 2.8X', 
-                description: 'Estrategia para Facebook e Instagram\nque realmente genera ventas.', 
-                bgColor: colors.meta 
+                title: 'META ADS: VENTAS ASEGURADAS', 
+                subtitle: 'CAMPAÑAS QUE SÍ CONVIERTEN', 
+                description: 'Gestión experta de campañas\nMeta Ads (FB/IG). ROAS 2.8X garantizado.', 
+                bgColor: colors.meta,
+                icon: 'fa-facebook',
+                cta: 'Potenciar Campañas',
+                guaranteeText: 'ROAS mínimo garantizado',
+                proofstat: '2.8X',
+                prooftext: 'ROAS garantizado',
+                testimonio: '"Aumentamos ventas un 127%"'
             },
             google: { 
-                title: 'GOOGLE ADS QUE FUNCIONAN', 
-                subtitle: 'CAPTURÁ CLIENTES LISTOS', 
-                description: 'Aparecer cuando te buscan y\nconvertir búsquedas en ventas reales.', 
-                bgColor: colors.google 
+                title: 'GOOGLE ADS: MÁS CLIENTES', 
+                subtitle: 'DOMINÁ LAS BÚSQUEDAS YA', 
+                description: 'Campañas rentables en Google Ads\nAtrae clientes listos para comprar.', 
+                bgColor: colors.google,
+                icon: 'fa-google',
+                cta: 'Aparecer en Google',
+                guaranteeText: 'Mayor visibilidad garantizada',
+                proofstat: '32%',
+                prooftext: 'menos CPA',
+                testimonio: '"Tráfico cualificado de inmediato"'
             },
             email: { 
-                title: 'EMAIL MARKETING EFECTIVO', 
-                subtitle: 'CONVIERTE SUSCRIPTORES', 
-                description: 'Automatización que transforma tu\nlista en ventas recurrentes.', 
-                bgColor: colors.email 
+                title: 'CAMPAÑAS DE EMAIL MARKETING', 
+                subtitle: 'CONVERTÍ SUSCRIPTORES', 
+                description: 'Optimización Express de campañas\nde Email Marketing. Más aperturas y ventas.', 
+                bgColor: colors.email,
+                icon: 'fa-envelope-open-text',
+                cta: 'Revitalizar Emails',
+                guaranteeText: '+38% tasa de apertura',
+                proofstat: '12x',
+                prooftext: 'más ingresos',
+                testimonio: '"De $400 a $4,800 mensuales"'
             },
             chatbot: { 
-                title: 'CHATBOTS PARA VENDER 24/7', 
-                subtitle: 'CAPTURA Y CALIFICA LEADS', 
-                description: 'Atención automática que convierte\nvisitantes en leads cualificados.', 
-                bgColor: colors.chatbot 
+                title: 'CAMPAÑAS CON CHATBOTS', 
+                subtitle: 'AUTOMATIZÁ Y VENDÉ MÁS', 
+                description: 'Optimización Express de Chatbots\npara tus campañas. Capturá leads 24/7.', 
+                bgColor: colors.chatbot,
+                icon: 'fa-robot',
+                cta: 'Implementar Chatbot',
+                guaranteeText: 'Respuestas 24/7 garantizadas',
+                proofstat: '68%',
+                prooftext: 'tasa conversión',
+                testimonio: '"Triplicamos leads cualificados"'
             },
-            
-            // Conversión
-            paquete: { 
-                title: 'PAQUETE COMPLETO DE MARKETING', 
-                subtitle: 'AHORRÁ $200 MENSUALES', 
-                description: 'Meta + Google + Email + Chatbot\n¡Todo por $1000/mes!', 
-                bgColor: colors.paquete 
-            },
-            exito: { 
-                title: 'CASOS DE ÉXITO COMPROBABLES', 
-                subtitle: 'RESULTADOS REALES', 
-                description: 'Nuestros clientes aumentaron\nsus ventas un 127% en promedio.', 
-                bgColor: colors.exito 
+            all: { 
+                title: 'PAQUETE ADS COMPLETO', 
+                subtitle: 'MAXIMIZÁ TU ROI GLOBAL', 
+                description: 'Meta Ads + Google Ads + Email + Chatbot\nOptimización integral por $1000/mes.', 
+                bgColor: colors.all,
+                icon: 'fa-rocket',
+                cta: 'Obtener Pack Completo',
+                guaranteeText: 'Resultados o pagás la mitad',
+                proofstat: '$200',
+                prooftext: 'ahorro mensual',
+                testimonio: '"Solución integral que funciona"'
             }
         };
 
         const ribbonData = {
-            auditoria: 'GRATUITA',
-            problemas: 'DIAGNÓSTICO',
-            optimizacion: '48HS', 
-            meta: 'ROAS 2.8X', 
-            google: 'ALTO ROI', 
-            email: '38% APERTURA', 
-            chatbot: 'LEADS 24/7',
-            paquete: 'AHORRÁ $200',
-            exito: 'COMPROBADO'
+            auditoria: 'GRATUITA', optimizacion: 'EN 48HS', meta: 'ROAS 2.8X GARANT.',
+            google: 'ALTO ROI', email: '+38% APERTURA', chatbot: 'LEADS 24/7',
+            all: 'AHORRÁ $200'
         };
 
         const adCopyData = {
-            // Awareness
-            auditoria: `🔍 ¿Tus campañas de ads no están generando VENTAS? Podrías estar perdiendo dinero sin saberlo.\n\nDescubrí EXACTAMENTE dónde están las fugas en tu estrategia de marketing digital con nuestra Auditoría Gratuita de Ads.\n\n✅ Análisis completo de tus campañas actuales\n✅ Revisión de segmentación de audiencias\n✅ Evaluación de creativos y copy\n✅ Identificación de oportunidades ocultas\n\nSin compromiso. Sin letra pequeña. 100% GRATIS.\n\n👉 La semana pasada, un cliente descubrió que el 63% de su presupuesto estaba yendo a audiencias que NUNCA convertían.\n\n¡Agendá tu auditoría ahora! Cupos limitados 👇\nwww.orangevapor.com`,
-            
-            problemas: `⚠️ ¿Tu negocio sufre alguno de estos problemas?\n\n❌ Muchos clics en tus anuncios, pero pocas ventas reales\n❌ CPA (costo por adquisición) demasiado alto\n❌ Meta Ads cada vez más caros y menos efectivos\n❌ No sabés qué métricas realmente importan\n\nNO ESTÁS SOLO. El 67% de las empresas invierten en publicidad sin entender qué métricas impactan sus ventas.\n\nEn Orange Vapor hemos identificado los patrones que están hundiendo las campañas de marketing digital y desarrollado soluciones probadas.\n\n👉 Descubrí cómo detener el desangre presupuestario con estrategias que realmente funcionan.\n\nVisitá nuestra web y solicitá una consulta gratuita 👇\nwww.orangevapor.com`,
-            
-            // Consideración
-            optimizacion: `⚡ ¿Necesitás resultados YA? ¡Optimización Express en 48hs! ⚡\n\nNo más campañas mediocres. No más presupuesto desperdiciado.\n\n✅ Identificamos exactamente dónde pierdes dinero\n✅ Corregimos los errores técnicos y estratégicos\n✅ Eliminamos audiencias que no convierten\n✅ Implementamos nuestra metodología ROI First™\n\nPor solo US$299 (pago único), transformamos tus campañas estancadas en máquinas de resultados.\n\n👉 Un cliente reciente pasó de 350% a 820% de ROAS en menos de 72 horas.\n\n¡No pierdas más tiempo y dinero! ⏱️\nwww.orangevapor.com/optimizacion-express`,
-            
-            meta: `📱 Meta Ads que SÍ funcionan: ROAS mínimo garantizado de 2.8X 📱\n\nOlvidate de leer mil tutoriales y probar sin dirección. Confiá en expertos que han gestionado millones en ads de Facebook e Instagram.\n\nNuestro servicio mensual de Meta Ads incluye:\n\n✅ Estrategia personalizada para TU negocio\n✅ 4 creatividades nuevas cada mes\n✅ Optimización diaria por nuestro equipo\n✅ Audiencias de alto valor basadas en datos\n✅ Informes semanales transparentes\n\nTodo por solo US$299/mes con garantía de resultados.\n\n👉 Si no alcanzamos los KPIs acordados, ¡solo pagás la mitad!\n\nConvertí tus Ads en una inversión predecible 👇\nwww.orangevapor.com/meta-ads`,
-            
-            google: `🔎 Aparecer cuando tus clientes te buscan = VENTAS\n\nMientras tu competencia captura clientes en Google, vos estás perdiendo oportunidades.\n\nNuestro servicio de Google Ads incluye:\n\n✅ Investigación de palabras clave rentables\n✅ Optimización semanal de pujas\n✅ Creación de anuncios A/B para mejorar CTR\n✅ Mejora de Quality Score (= menor costo)\n✅ Análisis de competencia para detectar oportunidades\n\nUS$299/mes con garantía de ROI positivo.\n\n👉 Si no mejoramos tu CPA actual en 30 días, devolvemos el 50% de nuestro fee.\n\n¡Capturá clientes que ya están buscando lo que vendés! 👇\nwww.orangevapor.com/google-ads`,
-            
-            email: `📧 Tu lista de emails es un TESORO sin explotar 📧\n\nConvertí suscriptores inactivos en clientes recurrentes con secuencias automáticas que venden por vos.\n\nNuestro servicio mensual de Email Marketing incluye:\n\n✅ 2 campañas masivas diseñadas profesionalmente\n✅ 1 secuencia automatizada nueva o mejorada\n✅ Segmentación dinámica basada en comportamiento\n✅ Optimización de asuntos para aumentar aperturas\n✅ Informes detallados de rendimiento\n\nUS$299/mes con tasa de apertura garantizada del 38% o superior.\n\n👉 Una cliente reciente pasó de generar $400 a $4,800 mensuales solo con email marketing.\n\nMonetizá tu lista AHORA 👇\nwww.orangevapor.com/email-marketing`,
-            
-            chatbot: `🤖 ¿Sabías que el 60% de los leads se pierden por no responder en los primeros 5 minutos?\n\nIntegrá chatbots que convierten visitantes en clientes calificados 24/7.\n\nNuestro servicio mensual de Chatbots incluye:\n\n✅ Configuración personalizada para tu negocio\n✅ Integración con CRM y herramientas de marketing\n✅ Flujos de conversación optimizados para ventas\n✅ Actualización mensual de respuestas y flujos\n✅ Soporte técnico continuo\n\nUS$299/mes con resultados garantizados.\n\n👉 Un cliente reciente mejoró su tasa de conversión del 22% al 68% con nuestros chatbots.\n\n¡No pierdas más clientes potenciales! 👇\nwww.orangevapor.com/chatbot`,
-            
-            // Conversión
-            paquete: `🚀 OFERTA ESPECIAL: La estrategia de marketing digital COMPLETA 🚀\n\n¿Por qué elegir un solo canal cuando podés dominarlos TODOS?\n\nNuestro Paquete Integral incluye:\n✅ Meta Ads optimizados (Facebook e Instagram)\n✅ Google Ads estratégico\n✅ Email Marketing automatizado\n✅ Chatbots de conversión\n\nNormalmente US$1,196/mes (US$299 x 4 servicios)\nAHORA: US$1,000/mes - ¡AHORRÁS CASI US$200!\n\n👉 Además: si contratás ahora, incluimos la Optimización Express (valor US$299) ¡GRATIS!\n\nGarantía de resultados o pagás solo la mitad. Sin contratos a largo plazo.\n\nMaximizá tu presencia y ROI en todos los canales 👇\nwww.orangevapor.com/paquete-completo`,
-            
-            exito: `💎 RESULTADOS REALES de nuestros clientes en los últimos 30 días:\n\n✅ Tienda de decoración: de $7,000 a $85,000 mensuales (ROAS 820%)\n✅ Cosmética natural: de $400 a $4,800 en ventas por email\n✅ E-commerce de tecnología: redujo CPA de $25 a $8.20\n✅ Academia online: +127% conversiones con chatbots\n\nNo son promesas. Son RESULTADOS VERIFICABLES.\n\n👉 ¿Querés ser nuestro próximo caso de éxito?\n\nAccedé a un DIAGNÓSTICO GRATUITO donde analizaremos tu negocio y te mostraremos exactamente cómo podemos ayudarte.\n\nAgendá tu sesión estratégica ahora 👇\nwww.orangevapor.com/contacto`
+            auditoria: `🔍 ¿Tus campañas de Meta Ads y Google Ads no rinden como esperabas? 🔍\n\nDescubrí EXACTAMENTE dónde estás perdiendo dinero y qué corregir.\n\n¡Solicitá tu Auditoría de Ads GRATUITA! ⏱️\n\n✅ Análisis detallado de estructura y configuración.\n✅ Identificación de fugas de presupuesto.\n✅ Recomendaciones claras para optimizar YA.\n✅ 100% Gratis, sin compromiso.\n\n👉 SOLO 3 CUPOS ESTA SEMANA - Visitá nuestra web y pedí tu auditoría antes de que se acaben. ¡Dejá de tirar dinero!\n\n➡️ www.orangevapor.com`,
+            optimizacion: `⚡ ¿Campañas de Ads activas pero SIN resultados? ¡Optimización Express en 48hs! ⚡\n\nDetené el gasto innecesario y empezá a ver conversiones REALES.\n\n✅ Diagnóstico inmediato de puntos débiles\n✅ Reestructuración para máximo rendimiento\n✅ Ajuste de segmentaciones y creativos\n✅ Resultados visibles en SOLO 48 HORAS\n\n🔥 CASO REAL: Un cliente reciente pasó de 350% a 820% de ROAS en menos de 72 horas.\n\n⚠️ OFERTA POR TIEMPO LIMITADO: Nuestro fee se reduce a la mitad si no mejoramos tus métricas.\n\n¿Listo/a para transformar tus Ads? Visitá 👇\nwww.orangevapor.com`,
+            meta: `📱 ¿Invertís en Meta Ads (Facebook/Instagram) pero las ventas no llegan? 📱\n\n¡Dejá de adivinar y tirá dinero! Nuestras campañas tienen un ROAS mínimo GARANTIZADO de 2.8x.\n\n✅ Estrategia personalizada para TU negocio\n✅ Optimización continua basada en datos\n✅ Reducción del costo por adquisición (CPA)\n✅ Reportes claros enfocados en ROI\n\n🔥 NUESTROS CLIENTES HABLAN: "Aumentamos ventas un 127% en 30 días con Orange Vapor"\n\n⚠️ GARANTÍA DE RESULTADOS: Si no alcanzamos los KPIs acordados, solo pagás la mitad del fee.\n\n¡Es hora de que tus Ads trabajen para vos! Hacé clic 👇\nwww.orangevapor.com`,
+            google: `🔎 ¿Tu competencia aparece en Google Ads y vos no? ¡Perdés clientes TODOS LOS DÍAS! 🔎\n\nConvertí búsquedas activas en ventas con campañas de Google Ads OPTIMIZADAS.\n\n✅ ROAS mínimo 2.8x GARANTIZADO\n✅ Palabras clave que SÍ convierten\n✅ Reducción del CPA hasta un 32%\n✅ Anuncios que destacan en la competencia\n\n🔥 CUPOS LIMITADOS: Solo trabajamos con un negocio por nicho para garantizar resultados exclusivos.\n\n⚠️ Cada día que pasa sin aparecer en Google, tu competencia se lleva TUS CLIENTES.\n\n¡Aparecé donde te buscan tus clientes! 👇\nwww.orangevapor.com`,
+            email: `📧 ¿Tenés una lista de emails pero no genera ventas? ¡Optimizá tus Campañas de Email Marketing! 📧\n\nConvertí suscriptores inactivos en clientes recurrentes.\n\n✅ Secuencias automatizadas que nutren y venden\n✅ Segmentación avanzada para mensajes relevantes\n✅ Aumento GARANTIZADO de tasa de apertura (+38%)\n✅ Generá ingresos pasivos con tu base de datos\n\n🔥 CASO DE ÉXITO: Una cliente pasó de generar $400 a $4,800 mensuales SOLO con email marketing.\n\n⚠️ Tu lista pierde valor cada día que no la monetizás adecuadamente.\n\n¡Monetizá tu lista AHORA! 👇\nwww.orangevapor.com`,
+            chatbot: `🤖 ¿Perdés leads y ventas por no responder al instante? ¡Potenciá tus Campañas con Chatbots! 🤖\n\nIntegrá chatbots inteligentes para MAXIMIZAR la conversión de tus Ads.\n\n✅ Capturá y cualificá leads 24/7/365\n✅ Respondé preguntas frecuentes al instante\n✅ Tasa de conversión hasta 68% (vs 22% manual)\n✅ Liberá a tu equipo para tareas complejas\n\n🔥 DATO IMPACTANTE: El 60% de los leads se pierden por no responder en los primeros 5 minutos.\n\n⚠️ OFERTA ESPECIAL: Implementación gratuita si contratás este mes.\n\n¡No pierdas ni un lead más! 👇\nwww.orangevapor.com`,
+            all: `🚀 ¡La Estrategia de Ads COMPLETA que tu negocio necesita! 🚀\n\n¿Por qué elegir un solo canal cuando podés dominar TODOS?\n\nNuestro Paquete Integral incluye:\n✅ Meta Ads optimizados (Facebook e Instagram)\n✅ Google Ads estratégico con keywords premium\n✅ Email Marketing automatizado con alta apertura\n✅ Chatbots de conversión 24/7\n\n💰 AHORRÁ $200/MES: Normalmente $1,200/mes por separado\nAHORA: $1,000/mes - ¡AHORRO REAL DE $2,400 AL AÑO!\n\n🔥 BONO EXCLUSIVO: Si contratás ahora, incluimos la Optimización Express ($299) ¡GRATIS!\n\n⚠️ GARANTÍA ÚNICA: Si no mejoramos tus métricas, solo pagás la mitad. Sin contratos largos.\n\nMaximizá tu presencia y ROI en todos los canales 👇\nwww.orangevapor.com`
         };
 
-        let activeCampaign = 'awareness';
-        let activeService = 'auditoria'; // Default service
+        let activeService = 'optimizacion';
         let activeFormat = 'square';
         let activeColor = 'original';
+        let activePlatform = 'facebook';
         let isProcessing = false;
 
         const serviceTitle = document.getElementById('serviceTitle');
-        const campaignTypeText = document.getElementById('campaignTypeText');
         const creativesContainer = document.getElementById('creativesContainer');
-        const campaignButtons = document.querySelectorAll('.campaign-button');
-        const tabGroupContainers = document.querySelectorAll('.tab-group-container');
         const tabButtons = document.querySelectorAll('.tab-button');
         const formatButtons = document.querySelectorAll('.format-btn');
         const colorButtons = document.querySelectorAll('.color-btn');
+        const platformButtons = document.querySelectorAll('.platform-btn');
         const squareBtn = document.getElementById('squareBtn');
         const verticalBtn = document.getElementById('verticalBtn');
+        const facebookBtn = document.getElementById('facebookBtn');
+        const instagramBtn = document.getElementById('instagramBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const togglePracticesBtn = document.getElementById('togglePractices');
         const bestPracticesBox = document.querySelector('.best-practices');
@@ -510,7 +683,6 @@
         const adCopyText = document.getElementById('adCopyText');
         const copyBtn = document.getElementById('copyBtn');
 
-        // Listeners para la interfaz
         copyBtn.addEventListener('click', () => {
             const textToCopy = adCopyText.textContent || adCopyText.innerText;
             navigator.clipboard.writeText(textToCopy)
@@ -528,83 +700,40 @@
         togglePracticesBtn.addEventListener('click', () => {
             const isHidden = bestPracticesBox.style.display === 'none' || bestPracticesBox.style.display === '';
             bestPracticesBox.style.display = isHidden ? 'block' : 'none';
-            togglePracticesBtn.textContent = isHidden ? 'Ocultar mejores prácticas' : 'Ver mejores prácticas para Meta Ads';
+            togglePracticesBtn.textContent = isHidden ? 'Ocultar mejores prácticas' : 'Ver mejores prácticas para Ads';
         });
 
-        // Cambiar entre campañas (Awareness, Consideración, Conversión)
-        campaignButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Actualizar estado activo de botones
-                campaignButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                // Actualizar campaña activa
-                activeCampaign = btn.dataset.campaign;
-                
-                // Mostrar tabs correspondientes
-                tabGroupContainers.forEach(container => {
-                    container.classList.remove('active');
-                    if (container.id === `${activeCampaign}-tabs`) {
-                        container.classList.add('active');
-                    }
-                });
-                
-                // Seleccionar primer servicio de esta campaña
-                const firstTabInCampaign = document.querySelector(`#${activeCampaign}-tabs .tab-button`);
-                if (firstTabInCampaign) {
-                    // Limpiar selecciones anteriores
-                    tabButtons.forEach(t => t.classList.remove('active'));
-                    firstTabInCampaign.classList.add('active');
-                    activeService = firstTabInCampaign.dataset.service;
-                }
-                
-                // Actualizar UI
-                updateCampaignTypeText();
-                updateUI();
-            });
-        });
-
-        function updateCampaignTypeText() {
-            const campaignTextMap = {
-                'awareness': 'Campaña de Awareness y Descubrimiento',
-                'consideracion': 'Campaña de Consideración',
-                'conversion': 'Campaña de Conversión'
-            };
-            campaignTypeText.textContent = `${campaignTextMap[activeCampaign]}: ${getServiceTitle(activeService, false)}`;
-        }
-
-        function getServiceTitle(service, includePrefix = true) {
+        function getServiceTitle(service) {
             const titleMap = {
-                // Awareness
-                auditoria: 'Adset de Auditoría Gratis',
-                problemas: 'Adset de Problemas Comunes',
-                
-                // Consideración
-                optimizacion: 'Adset de Optimización Express',
-                meta: 'Adset de Meta Ads',
-                google: 'Adset de Google Ads',
-                email: 'Adset de Email Marketing',
-                chatbot: 'Adset de Chatbot',
-                
-                // Conversión
-                paquete: 'Adset de Paquete Completo',
-                exito: 'Adset de Casos de Éxito'
+                auditoria: 'Creativos para Auditoría Gratis de Ads', 
+                optimizacion: 'Creativos para Optimización Express de Ads',
+                meta: 'Creativos para Campañas de Meta Ads', 
+                google: 'Creativos para Campañas de Google Ads',
+                email: 'Creativos para Campañas de Email Marketing', 
+                chatbot: 'Creativos para Campañas con Chatbots',
+                all: 'Creativos para Paquete de Ads Completo'
             };
-            
-            const serviceTitle = titleMap[service] || 'Adset de Marketing Digital';
-            return includePrefix ? `Meta Ads: ${serviceTitle}` : serviceTitle;
+            return titleMap[service] ? `Alta Conversión: ${titleMap[service]}` : 'Creativos de Alta Conversión para Ads';
         }
 
-        function getBgColor() {
-            if (activeColor === 'original') return creativesData[activeService]?.bgColor || colors.primary;
-            if (activeColor === 'orange') return colors.primary;
+        function getBackgroundStyle() {
+            if (activeColor === 'original') {
+                return gradients[activeService] || gradients.orange;
+            }
+            if (activeColor === 'orange') return gradients.orange;
             if (activeColor === 'white') return colors.light;
             if (activeColor === 'black') return colors.dark;
-            return colors.primary;
+            return gradients.orange;
         }
 
         function getTextColor(bgColor) {
             if (!bgColor) return colors.dark;
+            // Si es un gradiente, tomar el primer color
+            if (bgColor.includes('gradient')) {
+                const startColor = bgColor.match(/#[0-9a-f]{6}/i)[0];
+                bgColor = startColor;
+            }
+            
             let rgb;
             if (bgColor.startsWith('#')) {
                 const bigint = parseInt(bgColor.slice(1), 16);
@@ -624,6 +753,19 @@
             if (activeColor === 'white' || activeColor === 'black') return colors.primary;
             return textColor;
         }
+        
+        function getCTAColor(service) {
+            switch(service) {
+                case 'auditoria': return '#28a745';
+                case 'optimizacion': return '#dc3545';
+                case 'meta': return '#1877F2';
+                case 'google': return '#4285F4';
+                case 'email': return '#00829b';
+                case 'chatbot': return '#6f42c1';
+                case 'all': return '#333333';
+                default: return '#ff7e00';
+            }
+        }
 
         function renderCreative() {
             creativesContainer.innerHTML = '';
@@ -634,13 +776,14 @@
                 return;
             }
 
-            const bgColor = getBgColor();
-            const textColor = getTextColor(bgColor);
-            const accentColor = getAccentColor(bgColor);
+            const bgStyle = getBackgroundStyle();
+            const textColor = getTextColor(bgStyle);
+            const accentColor = getAccentColor(bgStyle);
+            const ctaColor = getCTAColor(activeService);
 
             const creativeEl = document.createElement('div');
             creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
-            creativeEl.style.backgroundColor = bgColor;
+            creativeEl.style.background = bgStyle;
 
             const ribbonText = ribbonData[activeService];
             if (ribbonText) {
@@ -650,14 +793,21 @@
                 creativeEl.appendChild(ribbonEl);
             }
 
-            const accentEl = document.createElement('div');
-            accentEl.className = 'creative-accent';
-            accentEl.style.background = accentColor;
-            creativeEl.appendChild(accentEl);
+            // Agregamos prueba social si corresponde
+            if (creative.proofstat && creative.prooftext) {
+                const proofBadgeEl = document.createElement('div');
+                proofBadgeEl.className = 'proof-badge';
+                proofBadgeEl.innerHTML = `
+                    <span class="proof-number">${creative.proofstat}</span>
+                    <span class="proof-text">${creative.prooftext}</span>
+                `;
+                creativeEl.appendChild(proofBadgeEl);
+            }
 
             const contentEl = document.createElement('div');
             contentEl.className = 'creative-content';
 
+            // Logo
             const logoContainerEl = document.createElement('div');
             logoContainerEl.className = 'logo-container';
             const logoEl = document.createElement('div');
@@ -672,29 +822,122 @@
             }
             logoContainerEl.appendChild(logoEl);
             contentEl.appendChild(logoContainerEl);
+            
+            // Icono de servicio
+            if (creative.icon) {
+                const iconEl = document.createElement('div');
+                iconEl.className = 'service-icon';
+                iconEl.innerHTML = `<i class="fas ${creative.icon}"></i>`;
+                contentEl.appendChild(iconEl);
+            }
 
+            // Título
             const titleEl = document.createElement('div');
             titleEl.className = 'creative-title';
             titleEl.textContent = creative.title;
             titleEl.style.color = textColor;
-            titleEl.style.paddingTop = '50px';
             contentEl.appendChild(titleEl);
 
+            // Subtítulo
             const subtitleEl = document.createElement('div');
             subtitleEl.className = 'creative-subtitle';
             subtitleEl.textContent = creative.subtitle;
             subtitleEl.style.color = textColor;
             contentEl.appendChild(subtitleEl);
 
+            // Descripción con palabras destacadas
             const descEl = document.createElement('div');
             descEl.className = 'creative-description';
-            descEl.style.whiteSpace = 'pre-line';
-            descEl.textContent = creative.description;
             descEl.style.color = textColor;
+            
+            // Resaltar palabras clave
+            let enhancedDescription = creative.description;
+            
+            // Destacar palabras clave específicas según el servicio
+            const highlightTerms = {
+                'optimizacion': ['48hs', 'Reducí', 'aumentá'],
+                'meta': ['ROAS 2.8X', 'Meta Ads', 'garantizado'],
+                'google': ['rentables', 'clientes', 'comprar'],
+                'email': ['Email Marketing', 'aperturas', 'ventas'],
+                'chatbot': ['Chatbots', '24/7', 'leads'],
+                'all': ['$1000/mes', 'integral']
+            };
+            
+            if (highlightTerms[activeService]) {
+                highlightTerms[activeService].forEach(term => {
+                    enhancedDescription = enhancedDescription.replace(
+                        new RegExp(term, 'g'), 
+                        `<span class="highlight">${term}</span>`
+                    );
+                });
+            }
+            
+            descEl.innerHTML = enhancedDescription;
             contentEl.appendChild(descEl);
+            
+            // CTA Button
+            if (creative.cta) {
+                const ctaEl = document.createElement('button');
+                ctaEl.className = 'cta-button';
+                ctaEl.innerHTML = `
+                    <span class="cta-text">${creative.cta}</span>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                `;
+                ctaEl.style.color = activeColor === 'white' ? '#fff' : textColor;
+                ctaEl.style.backgroundColor = ctaColor;
+                contentEl.appendChild(ctaEl);
+                
+                // Texto de reducción de fricción para auditoría y optimización
+                if (activeService === 'auditoria' || activeService === 'optimizacion') {
+                    const frictionReducerEl = document.createElement('div');
+                    frictionReducerEl.className = 'friction-reducer';
+                    frictionReducerEl.textContent = activeService === 'auditoria' ? 
+                        'Sin compromiso • 100% gratis' : 
+                        'Sin riesgo • Resultados o 50% off';
+                    frictionReducerEl.style.color = textColor;
+                    contentEl.appendChild(frictionReducerEl);
+                }
+            }
+            
+            // Garantía si está disponible
+            if (creative.guaranteeText) {
+                const guaranteeEl = document.createElement('div');
+                guaranteeEl.className = 'guarantee-badge';
+                guaranteeEl.innerHTML = `
+                    <i class="fas fa-shield-alt"></i>
+                    <span>${creative.guaranteeText}</span>
+                `;
+                guaranteeEl.style.color = textColor;
+                contentEl.appendChild(guaranteeEl);
+            }
+            
+            // Urgencia para auditoría
+            if (activeService === 'auditoria') {
+                const urgencyEl = document.createElement('div');
+                urgencyEl.className = 'limited-spots';
+                urgencyEl.innerHTML = `
+                    <i class="fas fa-user-clock"></i>
+                    <span>Solo 3 cupos disponibles esta semana</span>
+                `;
+                urgencyEl.style.color = textColor;
+                contentEl.appendChild(urgencyEl);
+            }
+            
+            // Mini testimonial si está disponible
+            if (creative.testimonio) {
+                const testimonialEl = document.createElement('div');
+                testimonialEl.className = 'mini-testimonial';
+                testimonialEl.innerHTML = `
+                    <div class="stars">★★★★★</div>
+                    <div class="quote">${creative.testimonio}</div>
+                `;
+                testimonialEl.style.color = textColor;
+                contentEl.appendChild(testimonialEl);
+            }
 
             creativeEl.appendChild(contentEl);
 
+            // Botón de descarga
             const downloadEl = document.createElement('div');
             downloadEl.className = 'creative-download';
             downloadEl.innerHTML = `<i class="fas fa-download" style="color: ${colors.light};"></i>`;
@@ -707,7 +950,6 @@
             creativeEl.addEventListener('click', generateAndDownloadImage);
 
             creativesContainer.appendChild(creativeEl);
-
             updateAdCopy();
         }
 
@@ -728,6 +970,7 @@
                 </div>`;
             document.body.appendChild(modalEl);
         }
+        
         function hideLoadingModal() {
             const modal = document.getElementById('loadingModal');
             if (modal) { document.body.removeChild(modal); }
@@ -766,22 +1009,26 @@
                 const ctx = downloadCanvas.getContext('2d');
                 ctx.clearRect(0, 0, width, height);
 
-                const bgColor = getBgColor();
-                const textColor = getTextColor(bgColor);
-                const accentColor = getAccentColor(bgColor);
-
-                // 1. Fondo
-                ctx.fillStyle = bgColor;
+                // Crear gradiente para el fondo
+                let bgStyle = getBackgroundStyle();
+                if (bgStyle.includes('gradient')) {
+                    // Extraer colores del gradiente
+                    const startColor = bgStyle.match(/#[0-9a-f]{6}/ig)[0];
+                    const endColor = bgStyle.match(/#[0-9a-f]{6}/ig)[1];
+                    
+                    const gradient = ctx.createLinearGradient(0, 0, width, height);
+                    gradient.addColorStop(0, startColor);
+                    gradient.addColorStop(1, endColor);
+                    ctx.fillStyle = gradient;
+                } else {
+                    ctx.fillStyle = bgStyle;
+                }
                 ctx.fillRect(0, 0, width, height);
 
-                // 2. Acento lateral
-                ctx.fillStyle = accentColor;
-                const accentWidth = isVertical ? 20 : 15;
-                const accentHeightRatio = isVertical ? 0.4 : 0.3;
-                const accentYRatio = isVertical ? 0.3 : 0.35;
-                ctx.fillRect(0, height * accentYRatio, accentWidth, height * accentHeightRatio);
+                const textColor = getTextColor(bgStyle);
+                const ctaColor = getCTAColor(activeService);
 
-                // 3. Logo
+                // Dibujar logo
                 const logoFontSize = isVertical ? 42 : 36;
                 ctx.font = `bold ${logoFontSize}px Montserrat, sans-serif`;
                 ctx.textAlign = 'left';
@@ -804,9 +1051,43 @@
                     ctx.fillText('Vapor', logoX + orangeWidth, logoY);
                 }
 
-                // 4. Textos
+                // Dibujar icono de servicio
+                if (creative.icon) {
+                    // Aquí usaríamos canvas-icons o tendríamos que dibujar formas básicas para el icono
+                    // Como alternativa, dibujamos un círculo con el color del servicio
+                    const iconSize = isVertical ? 60 : 50;
+                    const iconX = width / 2;
+                    const iconY = logoY + 80;
+                    
+                    // Círculo de fondo
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+                    ctx.beginPath();
+                    ctx.arc(iconX, iconY, iconSize / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Simplificar con texto de icono (en producción deberías usar una librería como FontAwesome para canvas)
+                    ctx.fillStyle = textColor;
+                    ctx.font = `bold ${isVertical ? 24 : 20}px Montserrat, sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    
+                    // Mapeamos los iconos a simbolos simples para el canvas
+                    const iconText = {
+                        'fa-search-dollar': '$',
+                        'fa-bolt': '⚡',
+                        'fa-facebook': 'f',
+                        'fa-google': 'G',
+                        'fa-envelope-open-text': '✉',
+                        'fa-robot': '🤖',
+                        'fa-rocket': '🚀'
+                    };
+                    
+                    ctx.fillText(iconText[creative.icon] || '•', iconX, iconY);
+                }
+
+                // Configurar para el contenido central
                 ctx.textAlign = 'center';
-                const contentStartY = logoY + 80;
+                const contentStartY = logoY + 140;
                 const availableHeightForText = height - contentStartY - 40;
                 const contentCenterY = contentStartY + availableHeightForText / 2;
                 const textMaxWidth = width - 100;
@@ -817,33 +1098,162 @@
                 ctx.fillStyle = textColor;
                 const titleLineHeight = titleFontSize * 1.1;
                 
+                // Calculamos líneas para centrar verticalmente
                 const titleLines = calculateWrappedLines(ctx, creative.title, textMaxWidth);
                 const subtitleFontSize = isVertical ? 56 : 46;
                 const descFontSize = isVertical ? 42 : 36;
                 const descLineHeight = descFontSize * 1.2;
                 const descLines = calculateWrappedLines(ctx, creative.description, textMaxWidth);
-                const totalTextHeight = (titleLines * titleLineHeight) + subtitleFontSize + (isVertical ? 80 : 70) + (descLines * descLineHeight);
+                
+                // Altura total estimada del bloque de texto + elementos
+                const totalTextHeight = 
+                    (titleLines * titleLineHeight) + 
+                    subtitleFontSize + 
+                    (isVertical ? 80 : 70) + 
+                    (descLines * descLineHeight) +
+                    (isVertical ? 120 : 100); // Espacio para CTA y otros elementos
+                
                 const titleStartY = contentCenterY - (totalTextHeight / 2);
 
+                // Dibujar título
                 wrapText(ctx, creative.title, width / 2, titleStartY, textMaxWidth, titleLineHeight);
 
-                // Subtítulo
+                // Dibujar subtítulo
                 const subtitleY = titleStartY + (titleLines * titleLineHeight) + (isVertical ? 20 : 30);
                 ctx.font = `bold ${subtitleFontSize}px Montserrat, sans-serif`;
                 ctx.fillStyle = textColor;
                 ctx.fillText(creative.subtitle, width / 2, subtitleY);
 
-                // Descripción
+                // Dibujar descripción 
                 const descY = subtitleY + subtitleFontSize + (isVertical ? 60 : 50);
                 ctx.font = `${descFontSize}px Montserrat, sans-serif`;
                 ctx.fillStyle = textColor;
+                
+                // Procesamiento especial para destacar palabras clave
+                // Como no podemos usar HTML en canvas, simplificamos y usamos texto normal
                 wrapText(ctx, creative.description, width / 2, descY, textMaxWidth, descLineHeight);
+                
+                // Calcular posición Y final después de la descripción
+                let currentY = descY + (descLines * descLineHeight) + 30;
+                
+                // Dibujar CTA
+                if (creative.cta) {
+                    const ctaFontSize = isVertical ? 36 : 30;
+                    const ctaY = currentY + 20;
+                    const ctaWidth = 240;
+                    const ctaHeight = 50;
+                    const ctaX = width / 2 - ctaWidth / 2;
+                    
+                    // Fondo del CTA
+                    ctx.fillStyle = ctaColor;
+                    ctx.beginPath();
+                    ctx.roundRect(ctaX, ctaY, ctaWidth, ctaHeight, 25);
+                    ctx.fill();
+                    
+                    // Texto del CTA
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = `bold ${ctaFontSize}px Montserrat, sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(creative.cta, width / 2, ctaY + ctaHeight / 2);
+                    
+                    currentY = ctaY + ctaHeight + 15;
+                    
+                    // Texto de reducción de fricción
+                    if (activeService === 'auditoria' || activeService === 'optimizacion') {
+                        const frictionText = activeService === 'auditoria' ? 
+                            'Sin compromiso • 100% gratis' : 
+                            'Sin riesgo • Resultados o 50% off';
+                        
+                        ctx.font = `${isVertical ? 28 : 24}px Montserrat, sans-serif`;
+                        ctx.fillStyle = textColor;
+                        ctx.fillText(frictionText, width / 2, currentY + 20);
+                        
+                        currentY += 40;
+                    }
+                }
+                
+                // Dibujar sello de garantía si existe
+                if (creative.guaranteeText) {
+                    currentY += 15;
+                    const guaranteeText = creative.guaranteeText;
+                    
+                    // Fondo semi-transparente
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                    const guaranteeWidth = ctx.measureText(guaranteeText).width + 60;
+                    const guaranteeHeight = 36;
+                    const guaranteeX = width / 2 - guaranteeWidth / 2;
+                    
+                    ctx.beginPath();
+                    ctx.roundRect(guaranteeX, currentY, guaranteeWidth, guaranteeHeight, 18);
+                    ctx.fill();
+                    
+                    // Icono y texto
+                    ctx.fillStyle = textColor;
+                    ctx.font = `${isVertical ? 28 : 24}px Montserrat, sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    // Aquí simplificamos el icono con un texto
+                    ctx.fillText(`🛡️ ${guaranteeText}`, width / 2, currentY + guaranteeHeight / 2);
+                    
+                    currentY += guaranteeHeight + 20;
+                }
+                
+                // Dibujar indicador de urgencia para auditoría
+                if (activeService === 'auditoria') {
+                    const urgencyText = 'Solo 3 cupos disponibles esta semana';
+                    
+                    // Fondo rojo semi-transparente
+                    ctx.fillStyle = 'rgba(255, 0, 0, 0.1)';
+                    const urgencyWidth = width * 0.7;
+                    const urgencyHeight = 40;
+                    const urgencyX = width / 2 - urgencyWidth / 2;
+                    
+                    ctx.beginPath();
+                    ctx.roundRect(urgencyX, currentY, urgencyWidth, urgencyHeight, 5);
+                    ctx.fill();
+                    
+                    // Borde lateral
+                    ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+                    ctx.fillRect(urgencyX, currentY, 4, urgencyHeight);
+                    
+                    // Texto
+                    ctx.fillStyle = textColor;
+                    ctx.font = `${isVertical ? 26 : 22}px Montserrat, sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(`⏱️ ${urgencyText}`, width / 2, currentY + urgencyHeight / 2);
+                    
+                    currentY += urgencyHeight + 20;
+                }
+                
+                // Dibujar mini testimonial si existe
+                if (creative.testimonio) {
+                    // Fondo semi-transparente
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                    const testimonialWidth = width * 0.6;
+                    const testimonialHeight = 70;
+                    const testimonialX = width / 2 - testimonialWidth / 2;
+                    
+                    ctx.beginPath();
+                    ctx.roundRect(testimonialX, currentY, testimonialWidth, testimonialHeight, 8);
+                    ctx.fill();
+                    
+                    // Estrellas
+                    ctx.fillStyle = '#FFD700'; // Color dorado
+                    ctx.font = `${isVertical ? 28 : 24}px Montserrat, sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.fillText('★★★★★', width / 2, currentY + 25);
+                    
+                    // Texto testimonial
+                    ctx.fillStyle = textColor;
+                    ctx.font = `italic ${isVertical ? 26 : 22}px Montserrat, sans-serif`;
+                    ctx.fillText(creative.testimonio, width / 2, currentY + 55);
+                }
 
-                // 5. Ribbon
+                // Dibujar ribbon
                 const ribbonText = ribbonData[activeService];
                 if (ribbonText) {
-                    console.log(`Intentando dibujar ribbon: ${ribbonText}`);
-
                     ctx.save();
                     ctx.translate(width, 0);
                     ctx.rotate(45 * Math.PI / 180);
@@ -857,13 +1267,27 @@
                     const diagonalShift = 30;
                     const verticalCenter = 0;
 
-                    ctx.fillStyle = ribbonBgColor;
+                    // Crear gradiente para el ribbon
+                    const ribbonGradient = ctx.createLinearGradient(
+                        diagonalShift, verticalCenter,
+                        diagonalShift + ribbonWidth, verticalCenter
+                    );
+                    ribbonGradient.addColorStop(0, '#FFD700');
+                    ribbonGradient.addColorStop(1, '#FFC107');
+                    
+                    ctx.fillStyle = ribbonGradient;
                     ctx.fillRect(
                         diagonalShift,
                         verticalCenter - ribbonHeight / 2,
                         ribbonWidth,
                         ribbonHeight
                     );
+
+                    // Sombra suave
+                    ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+                    ctx.shadowBlur = 5;
+                    ctx.shadowOffsetX = 2;
+                    ctx.shadowOffsetY = 2;
 
                     ctx.fillStyle = ribbonTextColor;
                     ctx.font = `bold ${ribbonFontSize}px Montserrat, sans-serif`;
@@ -876,21 +1300,48 @@
                         verticalCenter
                     );
 
+                    // Restablecer sombra
+                    ctx.shadowColor = 'transparent';
+                    ctx.shadowBlur = 0;
+                    ctx.shadowOffsetX = 0;
+                    ctx.shadowOffsetY = 0;
+
                     ctx.restore();
-                    console.log("Ribbon dibujado.");
+                }
+                
+                // Badge de prueba social si existe
+                if (creative.proofstat && creative.prooftext) {
+                    const badgeX = width - 70;
+                    const badgeY = 80;
+                    const badgeRadius = 40;
+                    
+                    // Fondo del badge
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.beginPath();
+                    ctx.arc(badgeX, badgeY, badgeRadius, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Texto del stat
+                    ctx.fillStyle = colors.primary;
+                    ctx.font = `bold ${isVertical ? 24 : 20}px Montserrat, sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(creative.proofstat, badgeX, badgeY - 8);
+                    
+                    // Texto descriptivo
+                    ctx.fillStyle = '#333';
+                    ctx.font = `${isVertical ? 14 : 12}px Montserrat, sans-serif`;
+                    ctx.fillText(creative.prooftext, badgeX, badgeY + 14);
                 }
 
-                // 6. Descargar
-                console.log("Generando Data URL...");
+                // Descargar la imagen
                 const dataUrl = downloadCanvas.toDataURL('image/png');
                 const link = document.createElement('a');
                 link.href = dataUrl;
-                const campaignName = activeCampaign.replace('ó', 'o');
-                link.download = `orange-vapor-${campaignName}-${activeService}-${activeFormat}.png`;
+                link.download = `orange-vapor-${activeService}-${activeColor}-${activeFormat}-${activePlatform}.png`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                console.log("Descarga iniciada.");
 
             } catch (error) {
                 console.error('Error al generar/descargar la imagen:', error);
@@ -898,7 +1349,6 @@
             } finally {
                 hideLoadingModal();
                 isProcessing = false;
-                console.log("Proceso finalizado.");
             }
         }
 
@@ -906,7 +1356,6 @@
             const words = text.split(/[\s\n]+/);
             let line = '';
             let currentY = y;
-            
             for (let n = 0; n < words.length; n++) {
                 if (words[n].includes('\n')) {
                      const parts = words[n].split('\n');
@@ -935,9 +1384,9 @@
                     line = testLine;
                 }
             }
-            if (line.trim() !== '') {
-                ctx.fillText(line.trim(), x, currentY);
-            }
+             if (line.trim() !== '') {
+                 ctx.fillText(line.trim(), x, currentY);
+             }
         }
 
         function calculateWrappedLines(ctx, text, maxWidth) {
@@ -968,26 +1417,35 @@
 
         function updateUI() {
             serviceTitle.textContent = getServiceTitle(activeService);
-            updateCampaignTypeText();
             
-            // Actualizar botones activos
+            // Actualizar botones de servicio
             tabButtons.forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.dataset.service === activeService) {
-                    btn.classList.add('active');
+                if (btn.dataset.service === activeService) { 
+                    btn.classList.add('active'); 
                 }
             });
             
+            // Actualizar botones de formato
             formatButtons.forEach(btn => btn.classList.remove('active'));
-            if (activeFormat === 'square') {
-                squareBtn.classList.add('active');
-            } else {
-                verticalBtn.classList.add('active');
+            if (activeFormat === 'square') { 
+                squareBtn.classList.add('active'); 
+            } else { 
+                verticalBtn.classList.add('active'); 
             }
             
+            // Actualizar botones de color
             colorButtons.forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.dataset.color === activeColor) {
+                if (btn.dataset.color === activeColor) { 
+                    btn.classList.add('active'); 
+                }
+            });
+            
+            // Actualizar botones de plataforma
+            platformButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.platform === activePlatform) {
                     btn.classList.add('active');
                 }
             });
@@ -995,36 +1453,40 @@
             renderCreative();
         }
 
-        // Event listeners para todos los controles
-        tabButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                tabButtons.forEach(t => t.classList.remove('active'));
-                btn.classList.add('active');
-                activeService = btn.dataset.service;
-                updateUI();
-            });
+        // Event listeners para todos los botones
+        tabButtons.forEach(btn => btn.addEventListener('click', () => { 
+            activeService = btn.dataset.service; 
+            updateUI(); 
+        }));
+        
+        squareBtn.addEventListener('click', () => { 
+            activeFormat = 'square'; 
+            updateUI(); 
         });
         
-        squareBtn.addEventListener('click', () => {
-            activeFormat = 'square';
+        verticalBtn.addEventListener('click', () => { 
+            activeFormat = 'vertical'; 
+            updateUI(); 
+        });
+        
+        facebookBtn.addEventListener('click', () => {
+            activePlatform = 'facebook';
             updateUI();
         });
         
-        verticalBtn.addEventListener('click', () => {
-            activeFormat = 'vertical';
+        instagramBtn.addEventListener('click', () => {
+            activePlatform = 'instagram';
             updateUI();
         });
         
-        colorButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                activeColor = btn.dataset.color;
-                updateUI();
-            });
-        });
+        colorButtons.forEach(btn => btn.addEventListener('click', () => { 
+            activeColor = btn.dataset.color; 
+            updateUI(); 
+        }));
         
         downloadBtn.addEventListener('click', generateAndDownloadImage);
 
-        // Inicializar la aplicación
+        // Inicializar la interfaz
         updateUI();
     </script>
 </body>
