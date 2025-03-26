@@ -655,43 +655,75 @@
                 ctx.fillStyle = textColor;
                 wrapText(ctx, creative.description, width / 2, descY, textMaxWidth, descLineHeight);
 
-                // 5. Ribbon
+                               // 5. Ribbon
                 const ribbonText = ribbonData[activeService];
                 if (ribbonText) {
-                    ctx.save();
+                    console.log(`Intentando dibujar ribbon: ${ribbonText}`); // <-- Añadir para depurar
+
+                    ctx.save(); // Guarda el estado actual del canvas (transformaciones, estilos)
+
+                    // Mover el origen a la esquina superior derecha
                     ctx.translate(width, 0);
+                    // Rotar el sistema de coordenadas 45 grados
                     ctx.rotate(45 * Math.PI / 180);
 
-                    const ribbonBgColor = '#FFD700';
-                    const ribbonTextColor = '#333';
-                    const ribbonHeight = isVertical ? 50 : 45; // Ligeramente más alto
-                    const ribbonWidth = isVertical ? 280 : 230; // Ligeramente más ancho
-                    // --- NUEVO: Coordenadas de offset para ajustar posición ---
-                    const ribbonXOffset = isVertical ? 40 : 35; // Empuja más a la derecha (en el sistema rotado)
-                    const ribbonYOffset = isVertical ? 40 : 35; // Empuja más hacia abajo (en el sistema rotado)
+                    // Definir propiedades del ribbon
+                    const ribbonBgColor = '#FFD700'; // Amarillo dorado
+                    const ribbonTextColor = '#333';   // Texto oscuro
+                    const ribbonHeight = isVertical ? 55 : 45; // Alto del ribbon (un poco más alto quizás)
+                    const ribbonWidth = isVertical ? 300 : 250; // Ancho (suficientemente largo para el texto)
+                    const ribbonFontSize = isVertical ? 22 : 18;
 
-                    // Opcional: Añadir sombra al ribbon (si se desea)
-                    // ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+                    // --- AJUSTE CLAVE DE COORDENADAS ---
+                    // Coordenadas en el sistema ROTADO.
+                    // Queremos que el ribbon cruce la esquina.
+                    // Dibujaremos el rectángulo y el texto centrados verticalmente cerca del origen (0,0)
+                    // del sistema rotado, pero desplazados a lo largo del nuevo eje X (que ahora apunta hacia abajo-derecha).
+
+                    const diagonalShift = 30; // Cuánto empezamos a dibujar 'hacia adentro' en la diagonal (ajusta si es necesario)
+                    const verticalCenter = 0; // El centro vertical del ribbon estará sobre el eje X rotado (Y=0 rotado)
+
+                    // Dibujar el fondo del ribbon
+                    ctx.fillStyle = ribbonBgColor;
+                    // El punto (x,y) es la esquina superior izquierda del rectángulo en el sistema ROTADO.
+                    // x: Empezar en 'diagonalShift'
+                    // y: Empezar en 'verticalCenter - ribbonHeight / 2' para centrarlo verticalmente.
+                    ctx.fillRect(
+                        diagonalShift,                // x (a lo largo de la diagonal)
+                        verticalCenter - ribbonHeight / 2, // y (perpendicular a la diagonal)
+                        ribbonWidth,                  // width (a lo largo de la diagonal)
+                        ribbonHeight                  // height (perpendicular a la diagonal)
+                    );
+
+                    // Opcional: Añadir sombra (descomentar si quieres probar)
+                    // ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
                     // ctx.shadowBlur = 5;
                     // ctx.shadowOffsetX = 2;
                     // ctx.shadowOffsetY = 2;
+                    // ctx.fillRect(...) // Volver a dibujar o dibujar antes
+                    // Resetear sombra después:
+                    // ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0;
 
-                    ctx.fillStyle = ribbonBgColor;
-                    ctx.fillRect(ribbonXOffset, -ribbonHeight / 2 + ribbonYOffset, ribbonWidth, ribbonHeight);
-
-                    // Resetear sombra antes de dibujar texto si se activó
-                    // ctx.shadowColor = 'transparent';
-                    // ctx.shadowBlur = 0; ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0;
-
+                    // Dibujar el texto del ribbon
                     ctx.fillStyle = ribbonTextColor;
-                    const ribbonFontSize = isVertical ? 22 : 18;
-                    ctx.font = `bold ${ribbonFontSize}px Montserrat, sans-serif`; // --- MODIFICADO: Usa fuente cargada ---
+                    ctx.font = `bold ${ribbonFontSize}px Montserrat, sans-serif`; // Asegúrate que Montserrat bold está cargada
                     ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(ribbonText, ribbonXOffset + ribbonWidth / 2, ribbonYOffset); // Centro Y simplificado
+                    ctx.textBaseline = 'middle'; // Alinear verticalmente al centro
 
-                    ctx.restore();
+                    // Posicionar el texto en el centro del rectángulo dibujado
+                    ctx.fillText(
+                        ribbonText,
+                        diagonalShift + ribbonWidth / 2, // Centro horizontal del ribbon
+                        verticalCenter                   // Centro vertical (Y=0 rotado)
+                    );
+
+                    ctx.restore(); // Restaura el estado del canvas (quita rotación/translación)
+                    console.log("Ribbon dibujado (o al menos el código se ejecutó)."); // <-- Confirmación
+
+                } else {
+                    console.log("No se encontró texto para el ribbon del servicio:", activeService); // <-- Depuración
                 }
+                // --- FIN SECCIÓN RIBBON ---
 
                 // 6. Descargar
                 console.log("Generando Data URL...");
