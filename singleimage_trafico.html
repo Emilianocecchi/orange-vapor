@@ -80,17 +80,6 @@
         .tab-button.all.active { background: linear-gradient(135deg, #333333 0%, #222222 100%); border-color: #222222; }
         .tab-button.auditoria.active { background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); border-color: #1e7e34; }
 
-        /* Selector de color */
-        .color-toggle { text-align: center; margin: 20px 0; }
-        .color-btn {
-            width: 36px; height: 36px; border-radius: 50%; margin: 0 5px;
-            cursor: pointer; display: inline-block; border: 2px solid #ddd;
-            overflow: hidden;
-        }
-        .color-btn.active { border-color: #ff7e00; }
-        .color-btn-orange { background-color: #ff7e00; }
-        .color-btn-white { background-color: #ffffff; border: 2px solid #ccc; }
-
         /* Sección de descarga */
         .download-section { text-align: center; margin: 20px 0; }
         .download-btn {
@@ -107,7 +96,8 @@
             width: 360px; height: 360px; margin: 10px; position: relative;
             border-radius: 8px; overflow: hidden; 
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-            color: white; cursor: pointer;
+            color: #333; cursor: pointer;
+            background-color: #ffffff; /* Solo fondo blanco */
         }
         .creative-vertical { width: 240px; height: 427px; }
         .creative-content {
@@ -115,31 +105,35 @@
             display: flex; flex-direction: column; justify-content: center; text-align: center;
         }
         .creative-title { 
-            font-size: 22px; font-weight: bold; margin-bottom: 10px; line-height: 1.2; 
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            font-size: 22px; font-weight: 800; margin-bottom: 10px; line-height: 1.2; 
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            color: #2c2c2c; /* Mayor contraste */
         }
         .creative-subtitle { 
             font-size: 18px; font-weight: bold; margin-bottom: 10px; line-height: 1.2;
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            color: #333333; /* Mayor contraste */
         }
         .creative-description { 
             font-size: 14px; line-height: 1.4; 
             margin-bottom: 15px;
+            color: #333333; /* Mayor contraste */
         }
         .creative-description .highlight {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 126, 0, 0.2);
             padding: 0 5px;
             border-radius: 3px;
             font-weight: bold;
+            color: #e67300; /* Color naranja más oscuro para contraste */
         }
         .creative-accent {
             position: absolute; left: 0; top: 30%; width: 6px; height: 100px;
-            background: white; border-radius: 0 3px 3px 0; z-index: 1;
+            background: #ff7e00; border-radius: 0 3px 3px 0; z-index: 1;
         }
 
         /* CTA Button */
         .cta-button {
-            background: rgba(255, 255, 255, 0.9);
+            background: #ff7e00;
             border: none;
             border-radius: 30px;
             padding: 8px 20px;
@@ -152,7 +146,7 @@
             margin: 10px auto;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            color: #333;
+            color: white;
         }
         .cta-button .arrow-icon {
             /* Sin animación */
@@ -163,6 +157,7 @@
             font-size: 11px;
             opacity: 0.8;
             margin-top: 5px;
+            color: #555; /* Mayor contraste */
         }
         
         /* Service Icon */
@@ -170,12 +165,30 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 126, 0, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px;
             font-size: 22px;
+            color: #e67300; /* Naranja más oscuro para contraste */
+        }
+        
+        /* Especialización Icon */
+        .specialization-icon {
+            position: absolute;
+            top: 45px;
+            right: 20px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255, 126, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #e67300;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
         /* Estilo para el Ribbon */
@@ -195,13 +208,14 @@
             justify-content: center;
             gap: 5px;
             margin-top: 10px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 126, 0, 0.15);
             border-radius: 15px;
             padding: 5px 10px;
             font-size: 12px;
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
+            color: #d96c00; /* Mayor contraste */
         }
         
         /* Limited Spots */
@@ -217,11 +231,12 @@
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
+            color: #cc0000; /* Mayor contraste */
         }
         
         /* Mini Testimonial */
         .mini-testimonial {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 126, 0, 0.15);
             padding: 8px;
             border-radius: 8px;
             margin-top: 10px;
@@ -229,6 +244,7 @@
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
+            color: #444; /* Mayor contraste */
         }
         .mini-testimonial .stars {
             color: #FFD700;
@@ -404,11 +420,6 @@
             <button id="verticalBtn" class="format-btn">Vertical (1080x1920)</button>
         </div>
 
-        <div class="color-toggle">
-            <div class="color-btn color-btn-orange active" data-color="orange" title="Fondo naranja"></div>
-            <div class="color-btn color-btn-white" data-color="white" title="Fondo blanco"></div>
-        </div>
-
         <div class="download-section">
             <button id="downloadBtn" class="download-btn">
                 <i class="fas fa-download"></i>
@@ -422,8 +433,7 @@
                 <p><strong>Instrucciones:</strong></p>
                 <p>1. Seleccioná el tipo de servicio de Ads que deseás generar.</p>
                 <p>2. Seleccioná el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
-                <p>3. Elegí el color de fondo (naranja o blanco).</p>
-                <p>4. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
+                <p>3. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
             </div>
         </div>
 
@@ -473,6 +483,17 @@
             orange: 'linear-gradient(135deg, #ff7e00 0%, #e67300 100%)'
         };
 
+        // Iconos de especialización para cada servicio
+        const specializationIcons = {
+            auditoria: { icon: 'fa-chart-line', tooltip: 'Análisis Avanzado' },
+            optimizacion: { icon: 'fa-tachometer-alt', tooltip: 'Rendimiento Optimizado' },
+            meta: { icon: 'fa-thumbs-up', tooltip: 'Engagement Social' },
+            google: { icon: 'fa-search', tooltip: 'Búsquedas Optimizadas' },
+            email: { icon: 'fa-paper-plane', tooltip: 'Entregabilidad Mejorada' },
+            chatbot: { icon: 'fa-comments', tooltip: 'Conversación Automatizada' },
+            all: { icon: 'fa-star', tooltip: 'Servicio Premium' }
+        };
+
         const creativesData = {
             auditoria: { 
                 title: 'AUDITORÍA GRATIS DE ADS', 
@@ -480,7 +501,7 @@
                 description: 'Análisis experto de tus campañas\nMeta Ads y Google Ads. Sin compromiso.', 
                 bgColor: colors.auditoria,
                 icon: 'fa-search-dollar',
-                cta: 'Agendar Auditoría',
+                cta: 'Agendá tu auditoría gratis',
                 guaranteeText: 'Análisis en 24 horas'
             },
             optimizacion: { 
@@ -563,7 +584,8 @@
 
         let activeService = 'optimizacion';
         let activeFormat = 'square';
-        let activeColor = 'orange';
+        // Solo mantener fondo blanco (eliminamos opción naranja)
+        let activeColor = 'white';
         let exportQuality = 'high'; // Siempre alta calidad
         let isProcessing = false;
 
@@ -571,7 +593,6 @@
         const creativesContainer = document.getElementById('creativesContainer');
         const tabButtons = document.querySelectorAll('.tab-button');
         const formatButtons = document.querySelectorAll('.format-btn');
-        const colorButtons = document.querySelectorAll('.color-btn');
         const squareBtn = document.getElementById('squareBtn');
         const verticalBtn = document.getElementById('verticalBtn');
         const downloadBtn = document.getElementById('downloadBtn');
@@ -608,77 +629,23 @@
             return titleMap[service] ? `Alta Conversión: ${titleMap[service]}` : 'Creativos de Alta Conversión para Ads';
         }
 
-        // Obtener estilo de fondo según color activo
-        function getBackgroundStyle() {
-            if (activeColor === 'orange') return gradients.orange;
-            if (activeColor === 'white') return colors.light;
-            return gradients.orange;
-        }
-
-        // Determinar color de texto según color de fondo
-        function getTextColor(bgColor) {
-            // Si el fondo es naranja, siempre devolver blanco
-            if (activeColor === 'orange') return colors.light;
-            
-            // Para fondo blanco u otros colores
-            if (activeColor === 'white') return colors.dark;
-            
-            // Cálculo de luminancia para otros casos
-            if (!bgColor) return colors.dark;
-            
-            if (bgColor.includes('gradient')) {
-                const startColor = bgColor.match(/#[0-9a-f]{6}/i)[0];
-                bgColor = startColor;
-            }
-            
-            let rgb;
-            if (bgColor.startsWith('#')) {
-                const bigint = parseInt(bgColor.slice(1), 16);
-                rgb = { r: (bigint >> 16) & 255, g: (bigint >> 8) & 255, b: bigint & 255 };
-            } else if (bgColor.startsWith('rgb')) {
-                const matches = bgColor.match(/\d+/g);
-                if (!matches || matches.length < 3) return colors.dark;
-                rgb = { r: parseInt(matches[0]), g: parseInt(matches[1]), b: parseInt(matches[2]) };
-            } else { return colors.dark; }
-            
-            const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
-            return luminance > 0.5 ? colors.dark : colors.light;
-        }
-
         // Obtener color de acento para detalles
-        function getAccentColor(bgColor) {
-            const textColor = getTextColor(bgColor);
-            if (activeColor === 'orange') return textColor;
-            if (activeColor === 'white') return colors.primary;
-            return textColor;
+        function getAccentColor() {
+            return colors.primary; // Siempre naranja para acentos
         }
         
         // Obtener color del CTA según el servicio
         function getCTAColor(service) {
-            // Para fondo naranja, ajustar el contraste
-            if (activeColor === 'orange') {
-                switch(service) {
-                    case 'auditoria': return '#1c9d38'; // Verde más oscuro
-                    case 'optimizacion': return '#c41c2c'; // Rojo más oscuro
-                    case 'meta': return '#0d5bdb'; // Azul de Facebook más oscuro
-                    case 'google': return '#2a61c5'; // Azul de Google más oscuro
-                    case 'email': return '#006680'; // Azul email más oscuro
-                    case 'chatbot': return '#5e35b1'; // Púrpura más oscuro
-                    case 'all': return '#262626'; // Negro más intenso
-                    default: return '#e67300'; // Naranja más oscuro
-                }
-            }
-            
-            // Para fondo blanco, colores originales
+            // Usar colores más contrastantes para los CTAs
             switch(service) {
-                case 'auditoria': return '#28a745';
-                case 'optimizacion': return '#dc3545';
-                case 'meta': return '#1877F2';
-                case 'google': return '#4285F4';
-                case 'email': return '#00829b';
-                case 'chatbot': return '#6f42c1';
-                case 'all': return '#333333';
-                default: return '#ff7e00';
+                case 'auditoria': return '#1c9d38'; // Verde más oscuro
+                case 'optimizacion': return '#c41c2c'; // Rojo más oscuro
+                case 'meta': return '#0d5bdb'; // Azul de Facebook más oscuro
+                case 'google': return '#2a61c5'; // Azul de Google más oscuro
+                case 'email': return '#006680'; // Azul email más oscuro
+                case 'chatbot': return '#5e35b1'; // Púrpura más oscuro
+                case 'all': return '#262626'; // Negro más intenso
+                default: return '#e67300'; // Naranja más oscuro
             }
         }
 
@@ -692,15 +659,18 @@
                 return;
             }
 
-            const bgStyle = getBackgroundStyle();
-            const textColor = getTextColor(bgStyle);
-            const accentColor = getAccentColor(bgStyle);
+            const accentColor = getAccentColor();
             const ctaColor = getCTAColor(activeService);
+            
+            // Obtener datos de especialización para este servicio
+            const specialization = specializationIcons[activeService];
 
             const creativeEl = document.createElement('div');
             creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
-            creativeEl.style.background = bgStyle;
-
+            
+            // Fondo siempre blanco
+            creativeEl.style.backgroundColor = '#ffffff';
+            
             const ribbonText = ribbonData[activeService];
             if (ribbonText) {
                 const ribbonEl = document.createElement('div');
@@ -718,11 +688,7 @@
             const logoEl = document.createElement('div');
             logoEl.style.fontWeight = 'bold';
             logoEl.style.fontSize = '14px';
-            if (activeColor === 'white') {
-                logoEl.innerHTML = `<span style="color: ${colors.dark};">Orange</span> <span style="color: ${colors.primary};">Vapor</span>`;
-            } else if (activeColor === 'orange') {
-                logoEl.innerHTML = `<span style="color: ${colors.light};">Orange Vapor</span>`;
-            }
+            logoEl.innerHTML = `<span style="color: ${colors.dark};">Orange</span> <span style="color: ${colors.primary};">Vapor</span>`;
             logoContainerEl.appendChild(logoEl);
             contentEl.appendChild(logoContainerEl);
             
@@ -733,25 +699,31 @@
                 iconEl.innerHTML = `<i class="fas ${creative.icon}"></i>`;
                 contentEl.appendChild(iconEl);
             }
+            
+            // Icono de especialización
+            if (specialization) {
+                const specialIconEl = document.createElement('div');
+                specialIconEl.className = 'specialization-icon';
+                specialIconEl.innerHTML = `<i class="fas ${specialization.icon}"></i>`;
+                specialIconEl.title = specialization.tooltip;
+                contentEl.appendChild(specialIconEl);
+            }
 
             // Título
             const titleEl = document.createElement('div');
             titleEl.className = 'creative-title';
             titleEl.textContent = creative.title;
-            titleEl.style.color = textColor;
             contentEl.appendChild(titleEl);
 
             // Subtítulo
             const subtitleEl = document.createElement('div');
             subtitleEl.className = 'creative-subtitle';
             subtitleEl.textContent = creative.subtitle;
-            subtitleEl.style.color = textColor;
             contentEl.appendChild(subtitleEl);
 
             // Descripción con palabras destacadas
             const descEl = document.createElement('div');
             descEl.className = 'creative-description';
-            descEl.style.color = textColor;
             
             // Resaltar palabras clave
             let enhancedDescription = creative.description;
@@ -786,7 +758,6 @@
                     <span class="cta-text">${creative.cta}</span>
                     <i class="fas fa-arrow-right arrow-icon"></i>
                 `;
-                ctaEl.style.color = activeColor === 'white' ? '#fff' : textColor;
                 ctaEl.style.backgroundColor = ctaColor;
                 contentEl.appendChild(ctaEl);
                 
@@ -795,7 +766,6 @@
                     const frictionReducerEl = document.createElement('div');
                     frictionReducerEl.className = 'friction-reducer';
                     frictionReducerEl.textContent = 'Sin compromiso • 100% gratis';
-                    frictionReducerEl.style.color = textColor;
                     contentEl.appendChild(frictionReducerEl);
                 }
             }
@@ -808,19 +778,17 @@
                     <i class="fas fa-shield-alt"></i>
                     <span>${creative.guaranteeText}</span>
                 `;
-                guaranteeEl.style.color = textColor;
                 contentEl.appendChild(guaranteeEl);
             }
             
-            // Urgencia para auditoría
+            // Urgencia para auditoría modificada según lo solicitado
             if (activeService === 'auditoria') {
                 const urgencyEl = document.createElement('div');
                 urgencyEl.className = 'limited-spots';
                 urgencyEl.innerHTML = `
                     <i class="fas fa-user-clock"></i>
-                    <span>Solo 3 cupos disponibles esta semana</span>
+                    <span>Cupos limitados - Marzo 2025</span>
                 `;
-                urgencyEl.style.color = textColor;
                 contentEl.appendChild(urgencyEl);
             }
             
@@ -832,7 +800,6 @@
                     <div class="stars">★★★★★</div>
                     <div class="quote">${creative.testimonio}</div>
                 `;
-                testimonialEl.style.color = textColor;
                 contentEl.appendChild(testimonialEl);
             }
 
@@ -916,7 +883,9 @@
                 'fa-rocket', 'fa-shield-alt', 'fa-user-clock',
                 'fa-arrow-right', 'fa-download', 'fa-copy',
                 'fa-check', 'fa-info-circle', 'fa-check-circle',
-                'fa-bullhorn'
+                'fa-bullhorn', 'fa-chart-line', 'fa-tachometer-alt',
+                'fa-thumbs-up', 'fa-search', 'fa-paper-plane',
+                'fa-comments', 'fa-star'
             ];
             
             // Crear elementos temporales con cada icono para forzar la carga
@@ -1108,10 +1077,8 @@
                 finalCanvas.height = expectedHeight;
                 const ctx = finalCanvas.getContext('2d');
                 
-                // 12. Establecer fondo del color correcto
-                ctx.fillStyle = activeColor === 'orange' ? 
-                    '#ff7e00' : // Naranja
-                    '#ffffff';  // Blanco
+                // 12. Establecer fondo blanco
+                ctx.fillStyle = '#ffffff';
                 ctx.fillRect(0, 0, expectedWidth, expectedHeight);
                 
                 // 13. Dibujar el contenido renderizado manteniendo la proporción
@@ -1140,7 +1107,7 @@
                 // 18. Crear enlace de descarga
                 const link = document.createElement('a');
                 link.href = dataURL;
-                link.download = `orange-vapor-${activeService}-${activeColor}-${activeFormat}.png`;
+                link.download = `orange-vapor-${activeService}-white-${activeFormat}.png`;
                 document.body.appendChild(link);
                 
                 // 19. Descargar
@@ -1184,14 +1151,6 @@
                 verticalBtn.classList.add('active'); 
             }
             
-            // Actualizar botones de color
-            colorButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.color === activeColor) { 
-                    btn.classList.add('active'); 
-                }
-            });
-            
             // Renderizar el creativo con las selecciones actuales
             renderCreative();
         }
@@ -1212,12 +1171,6 @@
             activeFormat = 'vertical'; 
             updateUI(); 
         });
-        
-        // Event listeners para los botones de color
-        colorButtons.forEach(btn => btn.addEventListener('click', () => { 
-            activeColor = btn.dataset.color; 
-            updateUI(); 
-        }));
         
         // Event listener para el botón de descarga
         downloadBtn.addEventListener('click', generateAndDownloadImage);
