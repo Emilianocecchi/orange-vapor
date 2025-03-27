@@ -174,23 +174,6 @@
             color: #e67300; /* Naranja más oscuro para contraste */
         }
         
-        /* Especialización Icon */
-        .specialization-icon {
-            position: absolute;
-            top: 45px;
-            right: 20px;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: rgba(255, 126, 0, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #e67300;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
         /* Estilo para el Ribbon */
         .creative-ribbon {
             position: absolute; background: linear-gradient(135deg, #FFD700, #FFC107);
@@ -483,7 +466,7 @@
             orange: 'linear-gradient(135deg, #ff7e00 0%, #e67300 100%)'
         };
 
-        // Iconos de especialización para cada servicio
+        // Iconos de especialización para cada servicio (ya no se utilizan, pero se mantiene la definición)
         const specializationIcons = {
             auditoria: { icon: 'fa-chart-line', tooltip: 'Análisis Avanzado' },
             optimizacion: { icon: 'fa-tachometer-alt', tooltip: 'Rendimiento Optimizado' },
@@ -497,7 +480,7 @@
         const creativesData = {
             auditoria: { 
                 title: 'AUDITORÍA GRATIS DE ADS', 
-                subtitle: 'DESCUBRÍ QUÉ FALLA', 
+                subtitle: 'TE DECIMOS QUÉ HACER PARA QUE VENDAS MÁS CON EL MISMO PRESUPUESTO', 
                 description: 'Análisis experto de tus campañas\nMeta Ads y Google Ads. Sin compromiso.', 
                 bgColor: colors.auditoria,
                 icon: 'fa-search-dollar',
@@ -649,6 +632,17 @@
             }
         }
 
+        // Palabras clave para destacar en naranja
+        const highlightTerms = {
+            'auditoria': ['Análisis experto', 'Sin compromiso', 'gratis'],
+            'optimizacion': ['48hs', 'Reducí', 'aumentá'],
+            'meta': ['ROAS 2.8X', 'Meta Ads', 'garantizado'],
+            'google': ['rentables', 'clientes', 'comprar'],
+            'email': ['Email Marketing', 'aperturas', 'ventas'],
+            'chatbot': ['Chatbots', '24/7', 'leads'],
+            'all': ['$1000/mes', 'integral']
+        };
+
         // Renderizar el creativo según selecciones actuales
         function renderCreative() {
             creativesContainer.innerHTML = '';
@@ -662,9 +656,6 @@
             const accentColor = getAccentColor();
             const ctaColor = getCTAColor(activeService);
             
-            // Obtener datos de especialización para este servicio
-            const specialization = specializationIcons[activeService];
-
             const creativeEl = document.createElement('div');
             creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
             
@@ -692,21 +683,12 @@
             logoContainerEl.appendChild(logoEl);
             contentEl.appendChild(logoContainerEl);
             
-            // Icono de servicio
+            // Icono de servicio (solo este icono, eliminamos el de especialización)
             if (creative.icon) {
                 const iconEl = document.createElement('div');
                 iconEl.className = 'service-icon';
                 iconEl.innerHTML = `<i class="fas ${creative.icon}"></i>`;
                 contentEl.appendChild(iconEl);
-            }
-            
-            // Icono de especialización
-            if (specialization) {
-                const specialIconEl = document.createElement('div');
-                specialIconEl.className = 'specialization-icon';
-                specialIconEl.innerHTML = `<i class="fas ${specialization.icon}"></i>`;
-                specialIconEl.title = specialization.tooltip;
-                contentEl.appendChild(specialIconEl);
             }
 
             // Título
@@ -729,15 +711,6 @@
             let enhancedDescription = creative.description;
             
             // Destacar palabras clave específicas según el servicio
-            const highlightTerms = {
-                'optimizacion': ['48hs', 'Reducí', 'aumentá'],
-                'meta': ['ROAS 2.8X', 'Meta Ads', 'garantizado'],
-                'google': ['rentables', 'clientes', 'comprar'],
-                'email': ['Email Marketing', 'aperturas', 'ventas'],
-                'chatbot': ['Chatbots', '24/7', 'leads'],
-                'all': ['$1000/mes', 'integral']
-            };
-            
             if (highlightTerms[activeService]) {
                 highlightTerms[activeService].forEach(term => {
                     enhancedDescription = enhancedDescription.replace(
