@@ -647,7 +647,7 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN SERVICIOS FUSIONADA
+   SECCIÓN SERVICIOS FUSIONADA - ACTUALIZADA CON AUDITORÍA GRATIS
    ========================================================================== */
 .servicios-fusionados {
     background-color: var(--gris-claro);
@@ -659,14 +659,15 @@ p {
     z-index: 1;
 }
 
-/* Servicios Grid - Ahora es principal */
+/* Mejora en el grid: espaciado más consistente, alineación mejorada */
 .servicios-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: var(--espaciado-md);
     margin-top: var(--espaciado-lg);
 }
 
+/* Garantizar altura igual para todos los cards */
 .soluciones-card {
     display: flex;
     flex-direction: column;
@@ -678,6 +679,7 @@ p {
     height: 100%;
     overflow: hidden;
     background-color: var(--blanco);
+    min-height: 600px; /* Asegura altura mínima consistente */
 }
 
 .soluciones-card:hover {
@@ -712,14 +714,14 @@ p {
     z-index: 3;
 }
 
-/* Estilos específicos para cada tipo de solución */
+/* Estilos específicos para cada tipo de solución - MEJORADOS */
 .soluciones-card.ads {
-    background-color: var(--bg-ads);
+    background-color: var(--blanco);
     border-left: 4px solid var(--color-ads);
 }
 
 .soluciones-card.google-card {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: var(--blanco);
     border-top: 5px solid transparent;
     position: relative;
 }
@@ -735,13 +737,35 @@ p {
 }
 
 .soluciones-card.email {
-    background-color: var(--bg-email);
+    background-color: var(--blanco);
     border-left: 4px solid var(--color-email);
 }
 
 .soluciones-card.chatbot {
-    background-color: var(--bg-chatbot);
+    background-color: var(--blanco);
     border-left: 4px solid var(--color-chatbot);
+}
+
+/* NUEVO: Estilos para tarjeta de Auditoría gratis */
+.soluciones-card.auditoria {
+    background-color: var(--blanco);
+    border-left: 4px solid var(--auditoria-verde);
+    position: relative;
+}
+
+.soluciones-card.auditoria::after {
+    content: 'GRATIS';
+    position: absolute;
+    top: 10px;
+    right: -30px;
+    background-color: var(--auditoria-verde);
+    color: var(--blanco);
+    font-size: var(--texto-xs);
+    font-weight: 800;
+    padding: 5px 40px;
+    transform: rotate(45deg);
+    z-index: 3;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .soluciones-card-header {
@@ -750,6 +774,7 @@ p {
     margin-bottom: var(--espaciado-md);
 }
 
+/* Mejoras en los iconos para mejor contraste y coherencia visual */
 .soluciones-card-icon {
     width: 60px;
     height: 60px;
@@ -760,6 +785,7 @@ p {
     justify-content: center;
     font-size: 24px;
     margin-right: 15px;
+    box-shadow: var(--sombra-suave);
 }
 
 .soluciones-card.ads .soluciones-card-icon {
@@ -772,6 +798,7 @@ p {
     background: white;
     color: transparent;
     overflow: hidden;
+    border: 1px solid #EFEFEF;
 }
 
 .google-icon i {
@@ -788,6 +815,12 @@ p {
 
 .soluciones-card.chatbot .soluciones-card-icon {
     background-color: var(--color-chatbot);
+    color: white;
+}
+
+/* NUEVO: Estilo para el icono de Auditoría */
+.soluciones-card.auditoria .soluciones-card-icon {
+    background-color: var(--auditoria-verde);
     color: white;
 }
 
@@ -820,6 +853,11 @@ p {
     color: var(--color-chatbot);
 }
 
+/* NUEVO: Estilo para el título de Auditoría */
+.soluciones-card.auditoria h3 {
+    color: var(--auditoria-verde);
+}
+
 .soluciones-card-content {
     flex-grow: 1;
     display: flex;
@@ -829,18 +867,21 @@ p {
 .soluciones-card-content p {
     color: var(--texto-claro);
     margin-bottom: var(--espaciado-md);
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
-/* Precios dentro de las tarjetas */
+/* Precios dentro de las tarjetas - MEJORADO para mayor coherencia */
 .servicio-precio {
-    display: inline-flex;
+    display: flex;
     align-items: baseline;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: var(--borde-redondo-md);
-    padding: 5px 12px;
+    padding: 8px 15px;
     margin-bottom: var(--espaciado-sm);
     box-shadow: var(--sombra-suave);
     border: 1px solid var(--gris-borde);
+    width: fit-content;
 }
 
 .precio-valor {
@@ -855,16 +896,34 @@ p {
     margin-left: 2px;
 }
 
-/* Features en tarjetas de servicio */
+/* NUEVO: Estilo para el precio de Auditoría (GRATIS) */
+.auditoria-precio {
+    background-color: rgba(40, 167, 69, 0.1);
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.precio-gratis {
+    font-size: var(--texto-xl);
+    font-weight: 800;
+    color: var(--auditoria-verde);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Features en tarjetas de servicio - MEJORADO para mayor claridad */
 .servicio-features {
     margin: 0 0 var(--espaciado-md);
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .servicio-features li {
     display: flex;
     margin-bottom: var(--espaciado-sm);
     align-items: flex-start;
+    line-height: 1.4;
 }
 
 .servicio-features li i {
@@ -872,6 +931,10 @@ p {
     margin-right: 10px;
     margin-top: 5px;
     flex-shrink: 0;
+}
+
+.servicio-features li span {
+    font-size: 0.9rem;
 }
 
 .soluciones-card.ads .servicio-features li i {
@@ -890,11 +953,20 @@ p {
     color: var(--color-chatbot);
 }
 
-/* Botones específicos por servicio */
+/* NUEVO: Estilo para los checkmarks de Auditoría */
+.soluciones-card.auditoria .servicio-features li i {
+    color: var(--auditoria-verde);
+}
+
+/* Botones específicos por servicio - MEJORADOS para mayor contraste */
 .btn-servicio {
     width: 100%;
     margin-top: auto;
     text-align: center;
+    font-weight: 700;
+    padding: 14px;
+    border-radius: var(--borde-redondo-md);
+    transition: all 0.3s ease;
 }
 
 .btn-meta {
@@ -904,6 +976,7 @@ p {
 
 .btn-meta:hover {
     background-color: #3367d6;
+    transform: translateY(-3px);
 }
 
 .btn-google {
@@ -913,6 +986,7 @@ p {
 
 .btn-google:hover {
     opacity: 0.9;
+    transform: translateY(-3px);
 }
 
 .btn-email {
@@ -922,6 +996,7 @@ p {
 
 .btn-email:hover {
     background-color: #006a7f;
+    transform: translateY(-3px);
 }
 
 .btn-chatbot {
@@ -931,9 +1006,36 @@ p {
 
 .btn-chatbot:hover {
     background-color: #5e35b1;
+    transform: translateY(-3px);
 }
 
-/* Oferta especial */
+/* NUEVO: Estilo para el botón de Auditoría */
+.btn-auditoria-servicio {
+    background-color: var(--auditoria-verde);
+    border-color: var(--auditoria-verde);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    animation: pulse-animation-green 2s infinite;
+}
+
+.btn-auditoria-servicio:hover {
+    background-color: var(--auditoria-verde-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+}
+
+@keyframes pulse-animation-green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+    }
+}
+
+/* Oferta especial - MEJORADA */
 .oferta-especial {
     background: linear-gradient(to right, rgba(255, 126, 0, 0.1), rgba(255, 159, 69, 0.05));
     margin-top: var(--espaciado-lg);
@@ -977,6 +1079,7 @@ p {
     margin-bottom: var(--espaciado-md);
     position: relative;
     z-index: 1;
+    font-size: 1.5rem;
 }
 
 .precio-destacado {
@@ -988,9 +1091,16 @@ p {
 .oferta-especial .btn {
     position: relative;
     z-index: 1;
+    background-color: var(--naranja-principal);
+    border: none;
+    font-weight: 700;
 }
 
-/* Garantía */
+.oferta-especial .btn:hover {
+    background-color: var(--naranja-oscuro);
+}
+
+/* Garantía - MEJORADA */
 .servicios-garantia {
     display: flex;
     align-items: center;
@@ -1014,176 +1124,53 @@ p {
 .servicios-garantia p {
     margin: 0;
     color: var(--texto-oscuro);
+    font-size: 0.95rem;
 }
 
-/* Tarjeta de Auditoría Flash */
-.auditoria-flash-container {
-    margin: var(--espaciado-lg) 0;
-}
-
-.auditoria-flash-card {
-    position: relative;
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-lg);
-    box-shadow: var(--sombra-media);
-    overflow: hidden;
-    border: 1px solid var(--gris-borde);
-    border-top: 5px solid var(--auditoria-verde);
-    max-width: 900px;
-    margin: 0 auto;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.auditoria-flash-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-fuerte);
-}
-
-.auditoria-flash-badge {
-    position: absolute;
-    top: -10px;
-    right: 30px;
-    background-color: var(--auditoria-verde);
-    color: var(--blanco);
-    font-weight: 800;
-    font-size: var(--texto-md);
-    padding: 8px 20px;
-    border-radius: var(--borde-redondo-md);
-    transform: rotate(5deg);
-    box-shadow: var(--sombra-media);
-    z-index: 10;
-}
-
-.auditoria-flash-badge::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--auditoria-verde);
-    border-radius: var(--borde-redondo-md);
-    z-index: -1;
-    animation: pulse-badge-green 2s infinite;
-}
-
-@keyframes pulse-badge-green {
-    0% {
-        transform: scale(1);
-        opacity: 1;
+/* Media Queries mejorados para servicios */
+@media (max-width: 1200px) {
+    .servicios-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
-    70% {
-        transform: scale(1.1);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0;
+    
+    .soluciones-card.auditoria {
+        grid-column: span 3;
+        max-width: 900px;
+        margin: 0 auto;
     }
 }
 
-.auditoria-flash-header {
-    padding: var(--espaciado-md);
-    text-align: center;
-    background-color: rgba(40, 167, 69, 0.05);
-    border-bottom: 1px solid var(--gris-borde);
+@media (max-width: 992px) {
+    .servicios-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .soluciones-card.auditoria {
+        grid-column: span 2;
+    }
 }
 
-.auditoria-flash-icon {
-    width: 80px;
-    height: 80px;
-    background-color: var(--auditoria-verde);
-    color: var(--blanco);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    margin: 0 auto var(--espaciado-sm);
-    box-shadow: var(--sombra-suave);
+@media (max-width: 768px) {
+    .servicios-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .soluciones-card.auditoria {
+        grid-column: span 1;
+    }
+    
+    .soluciones-card {
+        min-height: auto;
+    }
+    
+    .soluciones-card.featured-card {
+        transform: none;
+    }
+    
+    .soluciones-card.featured-card:hover {
+        transform: translateY(-5px);
+    }
 }
-
-.auditoria-flash-header h3 {
-    color: var(--auditoria-verde);
-    font-size: var(--texto-2xl);
-    margin-bottom: 5px;
-}
-
-.auditoria-entrega {
-    color: var(--texto-claro);
-    font-size: var(--texto-md);
-    margin-bottom: 0;
-}
-
-.auditoria-flash-content {
-    padding: var(--espaciado-md);
-}
-
-.auditoria-flash-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--espaciado-sm);
-    margin-bottom: var(--espaciado-md);
-}
-
-.auditoria-flash-features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px;
-    background-color: rgba(248, 249, 250, 0.8);
-    border-radius: var(--borde-redondo-md);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.auditoria-flash-features li:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--sombra-suave);
-    background-color: var(--blanco);
-}
-
-.auditoria-flash-features li i {
-    color: var(--auditoria-verde);
-    font-size: 18px;
-    margin-top: 2px;
-    flex-shrink: 0;
-}
-
-.auditoria-flash-features li div {
-    display: flex;
-    flex-direction: column;
-}
-
-.auditoria-flash-features li strong {
-    display: block;
-    font-weight: 600;
-    color: var(--texto-oscuro);
-    margin-bottom: 2px;
-}
-
-.auditoria-flash-features li span {
-    font-size: var(--texto-sm);
-    color: var(--texto-claro);
-}
-
-.auditoria-flash-formato {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background-color: rgba(40, 167, 69, 0.1);
-    border-radius: var(--borde-redondo-md);
-    padding: 12px;
-    margin-bottom: var(--espaciado-md);
-    font-weight: 600;
-    color: var(--texto-oscuro);
-}
-
-.auditoria-flash-formato i {
-    color: var(--auditoria-verde);
-    font-size: 20px;
-}
-
 /* ==========================================================================
    SECCIÓN OPTIMIZACIÓN EXPRESS
    ========================================================================== */
