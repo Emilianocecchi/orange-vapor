@@ -1,6 +1,7 @@
 /**
  * Orange Vapor - JavaScript para Optimización Express
  * Optimizado para mejor rendimiento y experiencia de usuario
+ * Versión: 1.1 - Corregida para resolver problemas visuales
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -10,6 +11,15 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Detectar soporte para características específicas
   const supportsIntersectionObserver = 'IntersectionObserver' in window;
+  
+  // Configuración de animaciones basada en capacidades del dispositivo
+  const isMobile = window.innerWidth <= 768;
+  const preferReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  // Reducir animaciones si es móvil o se prefiere menos movimiento
+  if (isMobile || preferReducedMotion) {
+    document.documentElement.classList.add('reduce-animations');
+  }
   
   // =========================================================================
   // 2. MANEJO DEL ACORDEÓN FAQ
@@ -25,17 +35,35 @@ document.addEventListener('DOMContentLoaded', function() {
       faqItems.forEach(otherItem => {
         if (otherItem !== item && otherItem.classList.contains('active')) {
           otherItem.classList.remove('active');
+          const answer = otherItem.querySelector('.faq-answer');
+          answer.style.maxHeight = null;
         }
       });
       
       // Toggle el item actual
       item.classList.toggle('active');
+      
+      // Animación suave de despliegue
+      const answer = item.querySelector('.faq-answer');
+      if (item.classList.contains('active')) {
+        answer.style.display = 'block';
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      } else {
+        answer.style.maxHeight = null;
+        setTimeout(() => {
+          answer.style.display = 'none';
+        }, 300);
+      }
     });
   });
   
   // Activar el primer FAQ por defecto
   if (faqItems.length > 0) {
     faqItems[0].classList.add('active');
+    const firstAnswer = faqItems[0].querySelector('.faq-answer');
+    if (firstAnswer) {
+      firstAnswer.style.display = 'block';
+    }
   }
   
   // =========================================================================
@@ -47,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
   scrollTopBtn.setAttribute('aria-label', 'Volver arriba');
   scrollTopBtn.style.cssText = `
     position: fixed;
-    bottom: 90px;
+    bottom: 100px;
     right: 20px;
     width: 45px;
     height: 45px;
@@ -58,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
     font-size: 18px;
     cursor: pointer;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16);
-    z-index: 99;
+    z-index: 98;
     transition: all 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
@@ -76,8 +104,12 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Mostrar/ocultar botón según posición del scroll
+  let lastScrollTop = 0;
   window.addEventListener('scroll', function() {
-    if (window.scrollY > 600) {
+    const st = window.scrollY;
+    
+    // Mostrar botón cuando se ha hecho scroll suficiente
+    if (st > 600) {
       scrollTopBtn.style.display = 'block';
       setTimeout(() => {
         scrollTopBtn.style.opacity = '1';
@@ -92,27 +124,47 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }, 300);
     }
-  });
+    
+    // Ocultar botón cuando se muestra el CTA flotante en móvil
+    if (isMobile && st > lastScrollTop) {
+      scrollTopBtn.style.opacity = '0';
+    }
+    
+    lastScrollTop = st <= 0 ? 0 : st;
+  }, { passive: true });
   
   // =========================================================================
   // 4. ANIMACIONES AL HACER SCROLL
   // =========================================================================
   const fadeElements = document.querySelectorAll('.fade-in');
+  let animationFrameId = null;
   
   if (supportsIntersectionObserver) {
     // Usar IntersectionObserver si está disponible
+    const observerOptions = { 
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    // En móvil, reducimos el umbral para que se animen antes
+    if (isMobile) {
+      observerOptions.threshold = 0.05;
+      observerOptions.rootMargin = '0px 0px -10px 0px';
+    }
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          // Añadir una pequeña espera para animaciones escalonadas
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, isMobile ? 50 : 100);
+          
           // Una vez visible, dejar de observar
           observer.unobserve(entry.target);
         }
       });
-    }, { 
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
-    });
+    }, observerOptions);
     
     fadeElements.forEach(element => {
       observer.observe(element);
@@ -120,22 +172,37 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     // Fallback para navegadores que no soportan IntersectionObserver
     function checkVisibility() {
-      fadeElements.forEach(element => {
-        const rect = element.getBoundingClientRect();
-        const isVisible = (
-          rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
-          rect.bottom >= 0
-        );
+      cancelAnimationFrame(animationFrameId);
+      
+      animationFrameId = requestAnimationFrame(() => {
+        const visibleElements = [];
         
-        if (isVisible && !element.classList.contains('visible')) {
-          element.classList.add('visible');
-        }
+        fadeElements.forEach(element => {
+          if (!element.classList.contains('visible')) {
+            const rect = element.getBoundingClientRect();
+            const isVisible = (
+              rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+              rect.bottom >= 0
+            );
+            
+            if (isVisible) {
+              visibleElements.push(element);
+            }
+          }
+        });
+        
+        // Aplicar las clases después del cálculo para mejor rendimiento
+        visibleElements.forEach((element, index) => {
+          setTimeout(() => {
+            element.classList.add('visible');
+          }, index * 50);
+        });
       });
     }
     
     // Ejecutar al cargar y al hacer scroll
     checkVisibility();
-    window.addEventListener('scroll', checkVisibility);
+    window.addEventListener('scroll', checkVisibility, { passive: true });
   }
   
   // =========================================================================
@@ -151,33 +218,82 @@ document.addEventListener('DOMContentLoaded', function() {
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         e.preventDefault();
-        const headerOffset = 80;
-        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        
+        // Calcular offset basado en elementos fijos
+        const headerHeight = document.querySelector('#header')?.offsetHeight || 0;
+        const offset = headerHeight + 20; // 20px extra para espacio
+        
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
         
         window.scrollTo({
-          top: targetPosition - headerOffset,
+          top: targetPosition,
           behavior: 'smooth'
         });
         
         // Actualizar URL sin recargar la página
         history.pushState(null, null, targetId);
+        
+        // Si el menú móvil está abierto, cerrarlo
+        const navMenu = document.querySelector('.nav-menu');
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        if (navMenu && navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+          mobileToggle.classList.remove('active');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+        }
       }
     });
   });
   
   // =========================================================================
-  // 6. EFECTOS PARA ELEMENTOS INTERACTIVOS
+  // 6. CORRECCIÓN DE ELEMENTOS SUPERPUESTOS
+  // =========================================================================
+  
+  // Corregir superposiciones en la sección de precio
+  function corregirSuperposiciones() {
+    // Precio Badge
+    const precioBadge = document.querySelector('.precio-badge');
+    const precioInfo = document.querySelector('.precio-info');
+    if (precioBadge && precioInfo) {
+      // Asegurar que el badge tiene suficiente espacio
+      const badgeHeight = precioBadge.offsetHeight;
+      precioInfo.style.paddingTop = (badgeHeight / 2) + 'px';
+    }
+    
+    // Bono especial - badge de descuento
+    const descuentoBadge = document.querySelector('.descuento-badge');
+    const bonusOferta = document.querySelector('.bonus-oferta');
+    
+    if (descuentoBadge && bonusOferta && window.innerWidth <= 768) {
+      // En móvil, cambiar a flex column para evitar superposición
+      bonusOferta.style.flexDirection = 'column';
+      bonusOferta.style.gap = '15px';
+    }
+  }
+  
+  // Ejecutar al cargar y al cambiar tamaño de ventana
+  window.addEventListener('load', corregirSuperposiciones);
+  window.addEventListener('resize', corregirSuperposiciones);
+  
+  // =========================================================================
+  // 7. EFECTOS PARA ELEMENTOS INTERACTIVOS
   // =========================================================================
   
   // Efecto hover para tarjetas del plan
   const procesoPasos = document.querySelectorAll('.proceso-paso');
   procesoPasos.forEach(paso => {
     paso.addEventListener('mouseenter', function() {
-      this.querySelector('.paso-icono').style.transform = 'rotate(10deg)';
+      const icono = this.querySelector('.paso-icono');
+      if (icono && !isMobile) {
+        icono.style.transform = 'rotate(10deg)';
+      }
     });
     
     paso.addEventListener('mouseleave', function() {
-      this.querySelector('.paso-icono').style.transform = '';
+      const icono = this.querySelector('.paso-icono');
+      if (icono) {
+        icono.style.transform = '';
+      }
     });
   });
   
@@ -198,16 +314,15 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // =========================================================================
-  // 7. SIMULAR ESCASEZ (CONTADOR DE SPOTS DISPONIBLES)
+  // 8. ANIMACIÓN DE CONTADOR DE SPOTS DISPONIBLES
   // =========================================================================
   const spotsLabel = document.querySelector('.spots-label span:last-child');
   const spotsBar = document.querySelector('.spots-bar');
   
-  // Valor inicial ya establecido en HTML (2 spots ocupados)
-  
-  function mostrarNotificacionReserva() {
-    // Solo mostrar si el usuario ha bajado lo suficiente en la página
-    if (document.documentElement.scrollTop > 400) {
+  // Simular disminución gradual de spots disponibles
+  function actualizarSpots() {
+    if (spotsLabel && spotsBar) {
+      // Mostrar notificación de plaza ocupada
       const notification = document.createElement('div');
       notification.className = 'booking-notification';
       notification.innerHTML = `
@@ -218,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <p>¡Alguien acaba de reservar su diagnóstico!</p>
           <span>Queda 1 lugar disponible esta semana</span>
         </div>
-        <button class="notification-close"><i class="fas fa-times"></i></button>
+        <button class="notification-close" aria-label="Cerrar notificación"><i class="fas fa-times"></i></button>
       `;
       
       // Aplicar estilos
@@ -260,6 +375,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500);
       });
       
+      // Actualizar contador de spots ocupados
+      setTimeout(() => {
+        if (spotsLabel && spotsBar) {
+          spotsLabel.textContent = '2 spots ocupados';
+          spotsBar.style.width = '66%';
+        }
+      }, 1000);
+      
       // Auto-cerrar después de 8 segundos
       setTimeout(() => {
         if (document.body.contains(notification)) {
@@ -274,27 +397,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Mostrar notificación de reserva aleatoria después de cierto tiempo
-  setTimeout(() => {
-    // 40% de probabilidad de mostrar la notificación
-    if (Math.random() < 0.4) {
-      mostrarNotificacionReserva();
-      
-      // Actualizar contadores después de la notificación
-      setTimeout(() => {
-        if (spotsLabel && spotsBar) {
-          spotsLabel.textContent = '2 spots ocupados';
-          spotsBar.style.width = '66%';
-        }
-      }, 10000);
-    }
-  }, 45000); // Después de 45 segundos
+  // Mostrar notificación de forma aleatoria después de un tiempo
+  if (Math.random() < 0.3 && !isMobile) {
+    setTimeout(actualizarSpots, 45000);
+  }
   
   // =========================================================================
-  // 8. ESTILOS DINÁMICOS (NECESARIOS PARA ANIMACIONES)
+  // 9. ESTILOS DINÁMICOS Y CORRECCIONES ESPECÍFICAS
   // =========================================================================
   
-  // Añadir estilos para animaciones
+  // Añadir estilos para animaciones y correcciones
   const styleElement = document.createElement('style');
   styleElement.textContent = `
     @keyframes fadeInUp {
@@ -350,11 +462,71 @@ document.addEventListener('DOMContentLoaded', function() {
       font-size: 12px;
       color: #666;
     }
+    
+    /* Correcciones para elementos superpuestos */
+    .bonus-section {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .descuento-badge {
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Fixes específicos para móvil */
+    @media (max-width: 768px) {
+      .precio-badge {
+        display: block;
+        margin: 0 auto 20px;
+      }
+      
+      .precio-detalle {
+        margin-top: 10px;
+      }
+      
+      .bonus-oferta {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .descuento-badge {
+        margin-bottom: 10px;
+      }
+      
+      /* Ajustar timeline proceso */
+      .proceso-timeline::before {
+        left: 20px;
+      }
+      
+      .proceso-paso {
+        width: calc(100% - 50px);
+        margin-left: 40px !important;
+        margin-right: 0 !important;
+      }
+      
+      .proceso-paso .paso-numero {
+        left: -30px !important;
+        right: auto !important;
+      }
+    }
+    
+    /* Reducir animaciones si se ha solicitado */
+    .reduce-animations .fade-in {
+      transition-duration: 0.3s;
+    }
+    
+    .reduce-animations .pulse-button,
+    .reduce-animations .btn-express,
+    .reduce-animations .spots-fire,
+    .reduce-animations .cta-icon {
+      animation-duration: 4s;
+    }
   `;
   document.head.appendChild(styleElement);
   
   // =========================================================================
-  // 9. VERIFICAR HASH EN URL PARA SCROLL INICIAL
+  // 10. VERIFICAR HASH EN URL PARA SCROLL INICIAL
   // =========================================================================
   function manejarHashInicial() {
     // Si hay un hash en la URL al cargar, hacer scroll hasta ese elemento
@@ -363,11 +535,13 @@ document.addEventListener('DOMContentLoaded', function() {
       if (targetElement) {
         // Dar tiempo a que se cargue la página completamente
         setTimeout(() => {
-          const headerOffset = 80;
-          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+          const headerHeight = document.querySelector('#header')?.offsetHeight || 0;
+          const offset = headerHeight + 20;
+          
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
           
           window.scrollTo({
-            top: targetPosition - headerOffset,
+            top: targetPosition,
             behavior: 'smooth'
           });
         }, 500);
@@ -379,12 +553,14 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('load', manejarHashInicial);
   
   // =========================================================================
-  // 10. OPTIMIZACIONES PARA DISPOSITIVOS MÓVILES
+  // 11. OPTIMIZACIONES PARA DISPOSITIVOS MÓVILES
   // =========================================================================
   function aplicarOptimizacionesMobile() {
     if (window.innerWidth <= 768) {
       // Simplificar animaciones para mejor rendimiento
       document.body.classList.add('mobile-optimized');
+      
+      // Ajustar elementos para mejorar la experiencia móvil
       
       // Ajustar CTA principal para mayor visibilidad
       const mainCTA = document.querySelector('.hero-buttons .btn');
@@ -392,6 +568,26 @@ document.addEventListener('DOMContentLoaded', function() {
         mainCTA.style.width = '100%';
         mainCTA.style.padding = '16px 24px';
         mainCTA.style.fontSize = '1.1rem';
+      }
+      
+      // Corregir badge de precio
+      const precioBadge = document.querySelector('.precio-badge');
+      if (precioBadge) {
+        precioBadge.style.display = 'block';
+        precioBadge.style.margin = '0 auto 20px';
+      }
+      
+      // Ajustar oferta de bonos
+      const bonusOferta = document.querySelector('.bonus-oferta');
+      if (bonusOferta) {
+        bonusOferta.style.flexDirection = 'column';
+        bonusOferta.style.gap = '15px';
+      }
+      
+      // Ajustar badge de descuento
+      const descuentoBadge = document.querySelector('.descuento-badge');
+      if (descuentoBadge) {
+        descuentoBadge.style.marginBottom = '10px';
       }
     } else {
       document.body.classList.remove('mobile-optimized');
@@ -403,13 +599,13 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', aplicarOptimizacionesMobile);
   
   // =========================================================================
-  // 11. INICIALIZACIÓN AL CARGAR LA PÁGINA 
+  // 12. INICIALIZACIÓN AL CARGAR LA PÁGINA 
   // =========================================================================
   window.addEventListener('load', function() {
     // Eliminar clases de precarga
     document.body.classList.remove('preload');
     
-    // Destacar secciones principales
+    // Destacar secciones principales de inmediato
     const heroContent = document.querySelector('.hero-content');
     if (heroContent) {
       heroContent.classList.add('visible');
@@ -420,5 +616,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (scrollIndicator) {
       scrollIndicator.style.opacity = '1';
     }
+    
+    // Corregir cualquier superposición restante
+    setTimeout(corregirSuperposiciones, 500);
   });
 });
