@@ -346,6 +346,22 @@ p {
     box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
 }
 
+.btn-auditoria {
+    background-color: var(--auditoria-rojo);
+    color: var(--blanco);
+    font-weight: 700;
+    padding: 14px 28px;
+    margin-top: var(--espaciado-sm);
+    width: 100%;
+    box-shadow: var(--sombra-media);
+    animation: pulse-animation 2s infinite;
+}
+
+.btn-auditoria:hover {
+    background-color: var(--auditoria-rojo-hover);
+    transform: translateY(-3px);
+}
+
 /* Botón CTA del hero - Actualizado para auditoría flash */
 #home .hero-buttons .btn {
     background-color: var(--auditoria-rojo);
@@ -675,6 +691,39 @@ p {
     margin: var(--espaciado-sm) auto 0;
 }
 
+/* Subtítulo para los planes mensuales */
+.planes-subtitulo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: var(--espaciado-lg) 0 var(--espaciado-md);
+}
+
+.planes-subtitulo h4 {
+    font-size: var(--texto-xl);
+    margin-bottom: var(--espaciado-sm);
+    color: var(--texto-oscuro);
+    position: relative;
+}
+
+.planes-subtitulo h4::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background-color: var(--naranja-principal);
+}
+
+.planes-subtitulo p {
+    color: var(--texto-claro);
+    max-width: 700px;
+    margin: var(--espaciado-sm) auto 0;
+}
+
 /* Servicios Grid */
 .servicios-grid {
     display: grid;
@@ -882,12 +931,180 @@ p {
     color: white;
 }
 
+/* Tarjeta de Auditoría Flash */
+.auditoria-flash-container {
+    margin: var(--espaciado-lg) 0;
+}
+
+.auditoria-flash-card {
+    position: relative;
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: var(--sombra-media);
+    overflow: hidden;
+    border: 1px solid var(--gris-borde);
+    border-top: 5px solid var(--auditoria-rojo);
+    max-width: 900px;
+    margin: 0 auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auditoria-flash-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-fuerte);
+}
+
+.auditoria-flash-badge {
+    position: absolute;
+    top: -10px;
+    right: 30px;
+    background-color: var(--auditoria-rojo);
+    color: var(--blanco);
+    font-weight: 800;
+    font-size: var(--texto-md);
+    padding: 8px 20px;
+    border-radius: var(--borde-redondo-md);
+    transform: rotate(5deg);
+    box-shadow: var(--sombra-media);
+    z-index: 10;
+}
+
+.auditoria-flash-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--auditoria-rojo);
+    border-radius: var(--borde-redondo-md);
+    z-index: -1;
+    animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    70% {
+        transform: scale(1.1);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.auditoria-flash-header {
+    padding: var(--espaciado-md);
+    text-align: center;
+    background-color: rgba(220, 53, 69, 0.05);
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+.auditoria-flash-icon {
+    width: 80px;
+    height: 80px;
+    background-color: var(--auditoria-rojo);
+    color: var(--blanco);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto var(--espaciado-sm);
+    box-shadow: var(--sombra-suave);
+}
+
+.auditoria-flash-header h3 {
+    color: var(--auditoria-rojo);
+    font-size: var(--texto-2xl);
+    margin-bottom: 5px;
+}
+
+.auditoria-entrega {
+    color: var(--texto-claro);
+    font-size: var(--texto-md);
+    margin-bottom: 0;
+}
+
+.auditoria-flash-content {
+    padding: var(--espaciado-md);
+}
+
+.auditoria-flash-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--espaciado-sm);
+    margin-bottom: var(--espaciado-md);
+}
+
+.auditoria-flash-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    background-color: rgba(248, 249, 250, 0.8);
+    border-radius: var(--borde-redondo-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auditoria-flash-features li:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-suave);
+    background-color: var(--blanco);
+}
+
+.auditoria-flash-features li i {
+    color: var(--auditoria-rojo);
+    font-size: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.auditoria-flash-features li div {
+    display: flex;
+    flex-direction: column;
+}
+
+.auditoria-flash-features li strong {
+    display: block;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    margin-bottom: 2px;
+}
+
+.auditoria-flash-features li span {
+    font-size: var(--texto-sm);
+    color: var(--texto-claro);
+}
+
+.auditoria-flash-formato {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgba(220, 53, 69, 0.1);
+    border-radius: var(--borde-redondo-md);
+    padding: 12px;
+    margin-bottom: var(--espaciado-md);
+    font-weight: 600;
+    color: var(--texto-oscuro);
+}
+
+.auditoria-flash-formato i {
+    color: var(--auditoria-rojo);
+    font-size: 20px;
+}
+
 /* Servicios Mensuales Grid */
 .servicios-mensuales-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--espaciado-md);
-    margin-top: var(--espaciado-lg);
+    margin-top: var(--espaciado-md);
 }
 
 .servicio-mensual-card {
@@ -2667,6 +2884,10 @@ body .calendly-inline-widget iframe {
     .beneficios-lista {
         grid-template-columns: 1fr;
     }
+    
+    .auditoria-flash-features {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 992px) {
@@ -2778,6 +2999,16 @@ body .calendly-inline-widget iframe {
     .contacto-beneficios {
         padding: var(--espaciado-sm);
     }
+    
+    .auditoria-flash-badge {
+        position: static;
+        margin: 0 auto var(--espaciado-sm);
+        transform: none;
+    }
+    
+    .auditoria-flash-features {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 576px) {
@@ -2835,5 +3066,18 @@ body .calendly-inline-widget iframe {
     .servicios-mensuales-contenido::before {
         left: 0;
         right: 0;
+    }
+    
+    .auditoria-flash-header h3 {
+        font-size: var(--texto-xl);
+    }
+    
+    .auditoria-flash-badge {
+        font-size: var(--texto-sm);
+        padding: 6px 12px;
+    }
+    
+    .auditoria-flash-features li {
+        padding: 10px;
     }
 }
