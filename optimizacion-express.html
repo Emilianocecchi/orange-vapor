@@ -171,7 +171,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- SECCIÓN COMPARATIVA -->
+    <!-- SECCIÓN COMPARATIVA - CORREGIDA -->
     <section class="comparativa-section">
         <div class="container">
             <div class="seccion-titulo fade-in">
@@ -198,9 +198,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
             </div>
 
+            <!-- Contenedor de precio - CORREGIDO -->
             <div class="precio-info fade-in">
                 <div class="precio-badge">
-                    <span>Inversión única: $299 USD</span>
+                    Inversión única: $299 USD
                 </div>
                 <p class="precio-detalle">Solo pagás la mitad ($149) al inicio y el resto únicamente si aumentamos tus ventas un 20% en 14 días</p>
             </div>
@@ -254,7 +255,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
             </div>
 
-            <!-- Oferta especial -->
+            <!-- Oferta especial - CORREGIDA -->
             <div class="oferta-especial fade-in">
                 <div class="oferta-badge">
                     <i class="fas fa-percentage"></i>
@@ -274,7 +275,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- SECCIÓN NUESTRO PROCESO (antes "Proceso claro") -->
+    <!-- SECCIÓN NUESTRO PROCESO - CORREGIDA -->
     <section class="plan-express">
         <div class="container">
             <div class="seccion-titulo fade-in">
@@ -328,7 +329,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- SECCIÓN BENEFICIOS -->
+    <!-- SECCIÓN BENEFICIOS - CORREGIDA -->
     <section class="crecimiento-section">
         <div class="container">
             <div class="seccion-titulo fade-in">
@@ -363,6 +364,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
             </div>
 
+            <!-- Sección de bono especial - CORREGIDA -->
             <div class="bonus-section fade-in">
                 <div class="bonus-badge"><i class="fas fa-gift"></i> BONO ESPECIAL</div>
                 <h3>¿Interesado en gestión mensual después de ver resultados?</h3>
@@ -552,44 +554,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Scripts -->
     <script src="combined.js"></script>
-    <script>
-        // Script para animar las estadísticas y elementos fade-in
-        document.addEventListener('DOMContentLoaded', function() {
-            // Función para detectar elementos visibles
-            function isElementInViewport(el) {
-                let rect = el.getBoundingClientRect();
-                return (
-                    rect.top >= 0 &&
-                    rect.left >= 0 &&
-                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-                );
-            }
-            
-            // Función para animar elementos cuando son visibles
-            function animateElementsOnScroll() {
-                // Animar elementos .fade-in
-                document.querySelectorAll('.fade-in:not(.visible)').forEach(element => {
-                    if (isElementInViewport(element)) {
-                        element.classList.add('visible');
-                    }
-                });
-            }
-            
-            // Iniciar animaciones al cargar la página
-            animateElementsOnScroll();
-            
-            // Escuchar evento de scroll para animar elementos
-            window.addEventListener('scroll', animateElementsOnScroll);
-            
-            // Manejo de las preguntas frecuentes (FAQ)
-            document.querySelectorAll('.faq-question').forEach(question => {
-                question.addEventListener('click', () => {
-                    const item = question.parentElement;
-                    item.classList.toggle('active');
-                });
-            });
-        });
-    </script>
+    <script src="optimizacion-express.js"></script>
 </body>
 </html>
