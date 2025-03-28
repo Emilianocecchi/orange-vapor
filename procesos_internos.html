@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procesos Internos - Orange Vapor</title>
+    <style>
+        :root {
+            /* Colores principales */
+            --naranja-principal: #FF7200;
+            --naranja-secundario: #FF9340;
+            --naranja-claro: #FFF1E6;
+            --naranja-oscuro: #E56700;
+            
+            /* Colores de servicios */
+            --color-ads: #4267B2;
+            --color-google: #4285F4;
+            --color-email: #0E76A8;
+            --color-chatbot: #6B46C1;
+            --auditoria-verde: #2F855A;
+            --express-rojo: #E53E3E;
+            
+            /* Otros colores */
+            --blanco: #FFFFFF;
+            --negro: #1A1A1A;
+            --gris-oscuro: #2D2D2D;
+            --gris-medio: #666666;
+            --gris-claro: #F7F7F7;
+            --gris-borde: #E5E5E5;
+            --texto-oscuro: #2D2D2D;
+            --texto-claro: #555555;
+            
+            /* Espaciado */
+            --espaciado-xs: 0.5rem;
+            --espaciado-sm: 1rem;
+            --espaciado-md: 1.5rem;
+            --espaciado-lg: 2rem;
+            
+            /* Fuentes */
+            --fuente-principal: 'Montserrat', sans-serif;
+            --fuente-secundaria: 'Open Sans', sans-serif;
+            
+            /* Bordes */
+            --borde-redondo-sm: 5px;
+            --borde-redondo-md: 8px;
+            --borde-redondo-lg: 16px;
+        }
+        
+        /* Estilos base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--fuente-secundaria);
+            color: var(--texto-oscuro);
+            line-height: 1.6;
+            background-color: var(--gris-claro);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--espaciado-md);
+        }
+        
+        header {
+            background-color: var(--gris-oscuro);
+            color: var(--blanco);
+            padding: var(--espaciado-md) 0;
+            margin-bottom: var(--espaciado-lg);
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--fuente-principal);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .logo span {
+            color: var(--naranja-principal);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: var(--fuente-principal);
+            margin-bottom: var(--espaciado-sm);
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: var(--espaciado-lg);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            margin-top: var(--espaciado-md);
+        }
+        
+        p {
+            margin-bottom: var(--espaciado-sm);
+        }
+        
+        /* Tarjetas de servicio */
+        .servicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--espaciado-md);
+            margin-bottom: var(--espaciado-lg);
+        }
+        
+        .servicio-card {
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondo-md);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .servicio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .servicio-header {
+            padding: var(--espaciado-sm);
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--gris-borde);
+        }
+        
+        .servicio-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--espaciado-sm);
+            color: white;
+        }
+        
+        .servicio-title {
+            flex-grow: 1;
+            margin: 0;
+        }
+        
+        .servicio-price {
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: var(--borde-redondo-sm);
+            font-size: 0.9rem;
+        }
+        
+        .servicio-content {
+            padding: var(--espaciado-sm);
+        }
+        
+        /* Estilos específicos por servicio */
+        .auditoria .servicio-icon {
+            background-color: var(--auditoria-verde);
+        }
+        
+        .auditoria .servicio-title {
+            color: var(--auditoria-verde);
+        }
+        
+        .auditoria .servicio-price {
+            background-color: var(--auditoria-verde);
+            color: var(--blanco);
+        }
+        
+        .express .servicio-icon {
+            background-color: var(--express-rojo);
+        }
+        
+        .express .servicio-title {
+            color: var(--express-rojo);
+        }
+        
+        .express .servicio-price {
+            background-color: var(--express-rojo);
+            color: var(--blanco);
+        }
+        
+        .meta .servicio-icon {
+            background-color: var(--color-ads);
+        }
+        
+        .meta .servicio-title {
+            color: var(--color-ads);
+        }
+        
+        .meta .servicio-price {
+            background-color: var(--color-ads);
+            color: var(--blanco);
+        }
+        
+        .google .servicio-icon {
+            background-color: var(--color-google);
+        }
+        
+        .google .servicio-title {
+            color: var(--color-google);
+        }
+        
+        .google .servicio-price {
+            background-color: var(--color-google);
+            color: var(--blanco);
+        }
+        
+        .email .servicio-icon {
+            background-color: var(--color-email);
+        }
+        
+        .email .servicio-title {
+            color: var(--color-email);
+        }
+        
+        .email .servicio-price {
+            background-color: var(--color-email);
+            color: var(--blanco);
+        }
+        
+        .chatbot .servicio-icon {
+            background-color: var(--color-chatbot);
+        }
+        
+        .chatbot .servicio-title {
+            color: var(--color-chatbot);
+        }
+        
+        .chatbot .servicio-price {
+            background-color: var(--color-chatbot);
+            color: var(--blanco);
+        }
+        
+        /* Procesos detallados */
+        .proceso-detallado {
+            margin-bottom: var(--espaciado-lg);
+            padding: var(--espaciado-md);
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondo-md);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .proceso-titulo {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--espaciado-sm);
+            padding-bottom: var(--espaciado-xs);
+            border-bottom: 2px solid var(--gris-borde);
+        }
+        
+        .proceso-icono {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--espaciado-sm);
+            color: white;
+        }
+        
+        .proceso-nombre {
+            flex-grow: 1;
+            margin: 0;
+        }
+        
+        .pasos-lista {
+            list-style: none;
+            counter-reset: paso-counter;
+        }
+        
+        .paso {
+            position: relative;
+            padding: var(--espaciado-sm) var(--espaciado-sm) var(--espaciado-sm) 50px;
+            margin-bottom: var(--espaciado-sm);
+            border: 1px solid var(--gris-borde);
+            border-radius: var(--borde-redondo-sm);
+            background-color: var(--gris-claro);
+            counter-increment: paso-counter;
+        }
+        
+        .paso:before {
+            content: counter(paso-counter);
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: var(--naranja-principal);
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .paso-titulo {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .paso-detalles {
+            margin-bottom: 0;
+        }
+        
+        .responsable {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: var(--borde-redondo-sm);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            background-color: var(--naranja-claro);
+            color: var(--naranja-oscuro);
+        }
+        
+        .plazo {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: var(--borde-redondo-sm);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            margin-left: 5px;
+            background-color: var(--gris-claro);
+            border: 1px solid var(--gris-medio);
+        }
+        
+        .entregable {
+            margin-top: var(--espaciado-sm);
+            padding: var(--espaciado-sm);
+            background-color: var(--naranja-claro);
+            border-radius: var(--borde-redondo-sm);
+            border-left: 4px solid var(--naranja-principal);
+        }
+        
+        .entregable h4 {
+            color: var(--naranja-oscuro);
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+        
+        .entregable ul {
+            margin-left: 20px;
+        }
+        
+        .nota {
+            margin-top: var(--espaciado-sm);
+            padding: var(--espaciado-sm);
+            background-color: rgba(66, 103, 178, 0.1);
+            border-radius: var(--borde-redondo-sm);
+            border-left: 4px solid var(--color-ads);
+        }
+        
+        /* Estilos específicos por proceso */
+        .proceso-auditoria .proceso-icono {
+            background-color: var(--auditoria-verde);
+        }
+        
+        .proceso-auditoria .proceso-nombre {
+            color: var(--auditoria-verde);
+        }
+        
+        .proceso-express .proceso-icono {
+            background-color: var(--express-rojo);
+        }
+        
+        .proceso-express .proceso-nombre {
+            color: var(--express-rojo);
+        }
+        
+        .proceso-meta .proceso-icono {
+            background-color: var(--color-ads);
+        }
+        
+        .proceso-meta .proceso-nombre {
+            color: var(--color-ads);
+        }
+        
+        .proceso-google .proceso-icono {
+            background-color: var(--color-google);
+        }
+        
+        .proceso-google .proceso-nombre {
+            color: var(--color-google);
+        }
+        
+        .proceso-email .proceso-icono {
+            background-color: var(--color-email);
+        }
+        
+        .proceso-email .proceso-nombre {
+            color: var(--color-email);
+        }
+        
+        .proceso-chatbot .proceso-icono {
+            background-color: var(--color-chatbot);
+        }
+        
+        .proceso-chatbot .proceso-nombre {
+            color: var(--color-chatbot);
+        }
+        
+        /* Estilos para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .servicios {
+                grid-template-columns: 1fr;
+            }
+            
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                margin-top: var(--espaciado-sm);
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Orange<span>Vapor</span></div>
+            <div class="nav-links">
+                <strong>Procesos Internos</strong> | Documentación para el equipo
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1>Procesos de Entrega de Servicios</h1>
+        
+        <!-- Tarjetas de Servicios -->
+        <div class="servicios">
+            <!-- Auditoría Flash -->
+            <div class="servicio-card auditoria">
+                <div class="servicio-header">
+                    <div class="servicio-icon">
+                        <i class="fas fa-search-dollar"></i>
+                    </div>
+                    <h2 class="servicio-title">Auditoría Flash</h2>
+                    <span class="servicio-price">GRATIS</span>
+                </div>
+                <div class="servicio-content">
+                    <p>Diagnóstico profesional de campañas digitales en 24-48 horas, entregado en formato PDF.</p>
+                    <ul>
+                        <li>Detección de errores críticos</li>
+                        <li>Análisis de audiencia no alcanzada</li>
+                        <li>Semáforo de evaluación de campañas</li>
+                        <li>Comparativa con competidores</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Optimización Express -->
+            <div class="servicio-card express">
+                <div class="servicio-header">
+                    <div class="servicio-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h2 class="servicio-title">Optimización Express</h2>
+                    <span class="servicio-price">US$299</span>
+                </div>
+                <div class="servicio-content">
+                    <p>Detección y corrección de problemas en 48 horas para maximizar resultados inmediatos.</p>
+                    <ul>
+                        <li>Análisis completo de campañas</li>
+                        <li>Estrategia personalizada</li>
+                        <li>Estructura optimizada de campañas</li>
+                        <li>Configuración técnica</li>
+                        <li>Pack básico de anuncios</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Meta Ads -->
+            <div class="servicio-card meta">
+                <div class="servicio-header">
+                    <div class="servicio-icon">
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <h2 class="servicio-title">Meta Ads</h2>
+                    <span class="servicio-price">US$299/mes</span>
+                </div>
+                <div class="servicio-content">
+                    <p>Gestión profesional de campañas de Facebook e Instagram para maximizar ROI.</p>
+                    <ul>
+                        <li>Optimización diaria de campañas</li>
+                        <li>4 creatividades nuevas por mes</li>
+                        <li>Ajuste continuo de audiencias</li>
+                        <li>Informes semanales</li>
+                        <li>Estrategia adaptativa</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Google Ads -->
+            <div class="servicio-card google">
+                <div class="servicio-header">
+                    <div class="servicio-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h2 class="servicio-title">Google Ads</h2>
+                    <span class="servicio-price">US$299/mes</span>
+                </div>
+                <div class="servicio-content">
+                    <p>Posicionamiento estratégico en búsquedas con alto potencial de conversión.</p>
+                    <ul>
+                        <li>Investigación mensual de keywords</li>
+                        <li>Optimización semanal de pujas</li>
+                        <li>Creación de anuncios A/B</li>
+                        <li>Mejora de Quality Score</li>
+                        <li>Análisis de competencia</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Email Marketing -->
+            <div class="servicio-card email">
+                <div class="servicio-header">
+                    <div class="servicio-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h2 class="servicio-title">Email Marketing</h2>
+                    <span class="servicio-price">US$299/mes</span>
+                </div>
+                <div class="servicio-content">
+                    <p>Automatización que convierte suscriptores en clientes recurrentes.</p>
+                    <ul>
+                        <li>2 campañas masivas profesionales</li>
+                        <li>1 secuencia automatizada</li>
+                        <li>Segmentación dinámica</li>
+                        <li>Optimización de asuntos</li>
+                        <li>Análisis de conversión</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Chatbot -->
+            <div class="servicio-card chatbot">
+                <div class="servicio-header">
+                    <div class="servicio-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h2 class="servicio-title">Chatbot</h2>
+                    <span class="servicio-price">US$299/mes</span>
+                </div>
+                <div class="servicio-content">
+                    <p>Atención 24/7 que captura leads y responde consultas automáticamente.</p>
+                    <ul>
+                        <li>Actualización mensual de respuestas</li>
+                        <li>Integración con CRM</li>
+                        <li>Personalizaciones según comportamiento</li>
+                        <li>Reportes de conversaciones</li>
+                        <li>Soporte técnico continuo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Procesos Detallados -->
+        <h1>Procesos Paso a Paso</h1>
+        
+        <!-- Proceso Auditoría Flash -->
+        <section id="auditoria" class="proceso-detallado proceso-auditoria">
+            <div class="proceso-titulo">
+                <div class="proceso-icono">
+                    <i class="fas fa-search-dollar"></i>
+                </div>
+                <h2 class="proceso-nombre">Proceso: Auditoría Flash GRATIS</h2>
+            </div>
+            
+            <ol class="pasos-lista">
+                <li class="paso">
+                    <div class="paso-titulo">Recepción de solicitud</div>
+                    <p class="paso-detalles">Recibir la solicitud de auditoría a través del formulario de la web o Calendly. Crear carpeta en Drive con el nombre del cliente.</p>
+                    <span class="responsable">Responsable: Administrador</span>
+                    <span class="plazo">Plazo: 2 horas hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Contacto inicial con el cliente</div>
+                    <p class="paso-detalles">Enviar email de bienvenida al cliente con instrucciones para compartir acceso a sus cuentas de Meta Business y Google Ads (modo lectura). Incluir una breve explicación del proceso.</p>
+                    <span class="responsable">Responsable: Consultor Digital</span>
+                    <span class="plazo">Plazo: 3 horas hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Verificación de accesos</div>
+                    <p class="paso-detalles">Confirmar que los accesos compartidos funcionan correctamente. En caso contrario, contactar al cliente para resolver problemas.</p>
+                    <span class="responsable">Responsable: Consultor Digital</span>
+                    <span class="plazo">Plazo: 3 horas hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Análisis de campañas</div>
+                    <p class="paso-detalles">Revisar las campañas activas del cliente. Identificar 3 errores críticos, detectar públicos valiosos no alcanzados, evaluar métricas principales y comparar con competidores.</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: 24 horas</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Elaboración del informe</div>
+                    <p class="paso-detalles">Utilizar la plantilla "Auditoría-Flash-Template.pptx" para crear un informe profesional con las observaciones. Exportar a PDF. Incluir capturas de pantalla relevantes y gráficos cuando sea necesario.</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: 24 horas</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Revisión de calidad</div>
+                    <p class="paso-detalles">Revisar el informe para asegurar que cumple con los estándares de calidad. Verificar que sea comprensible para el cliente y contenga insights accionables.</p>
+                    <span class="responsable">Responsable: Director de Estrategia</span>
+                    <span class="plazo">Plazo: 3 horas hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Entrega al cliente</div>
+                    <p class="paso-detalles">Enviar el informe PDF al cliente vía email. Incluir una breve explicación de los hallazgos principales y ofrecer una llamada de 15 minutos para resolver dudas.</p>
+                    <span class="responsable">Responsable: Consultor Digital</span>
+                    <span class="plazo">Plazo: 3 horas hábiles tras la aprobación</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Seguimiento</div>
+                    <p class="paso-detalles">Realizar seguimiento con el cliente 24 horas después de enviado el informe. Consultar si tiene dudas y presentar propuesta comercial para servicios mensuales u Optimización Express.</p>
+                    <span class="responsable">Responsable: Consultor Digital</span>
+                    <span class="plazo">Plazo: 24 horas después de la entrega</span>
+                </li>
+            </ol>
+            
+            <div class="entregable">
+                <h4>Entregable final: Auditoría Flash PDF (2-3 páginas)</h4>
+                <ul>
+                    <li>Detección de los 3 errores críticos que cuestan dinero (con capturas)</li>
+                    <li>Análisis de un público valioso no alcanzado (con datos)</li>
+                    <li>Semáforo de evaluación visual de campañas (gráfico)</li>
+                    <li>Comparativa con anuncios efectivos de competencia (ejemplos)</li>
+                    <li>Checklist de auto-revisión con 5 preguntas clave</li>
+                </ul>
+            </div>
+            
+            <div class="nota">
+                <strong>Nota:</strong> El objetivo de la Auditoría Flash es mostrar el valor que podemos ofrecer y convertir al cliente en un servicio de pago. Asegúrese de identificar problemas reales pero no revelar todas las soluciones.
+            </div>
+        </section>
+        
+        <!-- Proceso Optimización Express -->
+        <section id="express" class="proceso-detallado proceso-express">
+            <div class="proceso-titulo">
+                <div class="proceso-icono">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h2 class="proceso-nombre">Proceso: Optimización Express (48hs)</h2>
+            </div>
+            
+            <ol class="pasos-lista">
+                <li class="paso">
+                    <div class="paso-titulo">Recepción del pago</div>
+                    <p class="paso-detalles">Verificar la recepción del pago de US$299. Actualizar estado del cliente en el CRM y crear carpeta de proyecto en Drive.</p>
+                    <span class="responsable">Responsable: Administrador</span>
+                    <span class="plazo">Plazo: 2 horas hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Confirmación y acceso</div>
+                    <p class="paso-detalles">Enviar email de confirmación al cliente. Solicitar acceso de administrador a cuentas de Meta Business y Google Ads. Programar llamada inicial de 30 minutos.</p>
+                    <span class="responsable">Responsable: Consultor Digital</span>
+                    <span class="plazo">Plazo: 3 horas hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Llamada de descubrimiento</div>
+                    <p class="paso-detalles">Realizar llamada con el cliente para entender objetivos de negocio, audiencia, productos principales, histórico de campañas y KPIs deseados. Completar el formulario "Brief Express".</p>
+                    <span class="responsable">Responsable: Especialista en Ads + Dir. Estrategia</span>
+                    <span class="plazo">Plazo: Día 1</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Auditoría profunda</div>
+                    <p class="paso-detalles">Realizar análisis exhaustivo de todas las campañas. Identificar fugas de presupuesto, problemas de configuración, oportunidades de mejora y públicos de alto valor.</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: Día 1</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Implementación de correcciones técnicas</div>
+                    <p class="paso-detalles">Corregir configuración de píxeles, eventos de conversión, públicos personalizados y parámetros UTM. Verificar tracking en la web del cliente.</p>
+                    <span class="responsable">Responsable: Especialista Técnico</span>
+                    <span class="plazo">Plazo: Día 1 (tarde)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Reestructuración de campañas</div>
+                    <p class="paso-detalles">Reorganizar estructura de campañas siguiendo el modelo "POE" (Prospectos, Ofertas, Engagement). Optimizar segmentación y pujas según los objetivos del cliente.</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: Día 2 (mañana)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Creación de anuncios</div>
+                    <p class="paso-detalles">Diseñar 3 anuncios visuales usando las plantillas de marca del cliente. Redactar 5 textos persuasivos para diferentes audiencias y objetivos.</p>
+                    <span class="responsable">Responsable: Diseñador + Copywriter</span>
+                    <span class="plazo">Plazo: Día 2 (mañana)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Implementación final</div>
+                    <p class="paso-detalles">Cargar todos los cambios y nuevos anuncios en las plataformas. Realizar pruebas de funcionamiento. Ajustar presupuestos según recomendaciones.</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: Día 2 (tarde)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Preparación del informe</div>
+                    <p class="paso-detalles">Documentar todos los cambios realizados, problemas corregidos y mejoras implementadas. Incluir capturas del antes y después. Usar la plantilla "Informe-Express.pptx".</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: Día 2 (tarde)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Revisión de calidad</div>
+                    <p class="paso-detalles">Revisar todas las implementaciones y el informe final. Verificar que se hayan abordado todos los puntos críticos identificados.</p>
+                    <span class="responsable">Responsable: Director de Estrategia</span>
+                    <span class="plazo">Plazo: Día 2 (tarde)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Entrega al cliente</div>
+                    <p class="paso-detalles">Enviar el informe final al cliente y programar una llamada de 45 minutos para explicar los cambios realizados, recomendaciones futuras y responder preguntas.</p>
+                    <span class="responsable">Responsable: Consultor Digital + Especialista en Ads</span>
+                    <span class="plazo">Plazo: Antes de las 48h desde el inicio</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Seguimiento</div>
+                    <p class="paso-detalles">Realizar seguimiento a los 5 días para verificar resultados iniciales. Presentar propuesta para servicio mensual continuo.</p>
+                    <span class="responsable">Responsable: Consultor Digital</span>
+                    <span class="plazo">Plazo: 5 días después de la entrega</span>
+                </li>
+            </ol>
+            
+            <div class="entregable">
+                <h4>Entregable final: Informe de Optimización Express</h4>
+                <ul>
+                    <li>Análisis de fugas presupuestarias identificadas y corregidas</li>
+                    <li>Estrategia personalizada implementada (con estructura visual)</li>
+                    <li>Configuración técnica realizada (píxeles, eventos, UTMs)</li>
+                    <li>Pack de 3 anuncios visuales y 5 textos persuasivos</li>
+                    <li>Recomendaciones para optimización continua</li>
+                    <li>Comparativa antes/después con métricas clave</li>
+                </ul>
+            </div>
+            
+            <div class="nota">
+                <strong>Nota:</strong> Este servicio debe demostrar resultados rápidos para facilitar la conversión a un servicio mensual. Foco en arreglos técnicos y de estructura que generen impacto inmediato.
+            </div>
+        </section>
+        
+        <!-- Proceso Meta Ads -->
+        <section id="meta" class="proceso-detallado proceso-meta">
+            <div class="proceso-titulo">
+                <div class="proceso-icono">
+                    <i class="fab fa-facebook"></i>
+                </div>
+                <h2 class="proceso-nombre">Proceso: Meta Ads (Mensual)</h2>
+            </div>
+            
+            <ol class="pasos-lista">
+                <li class="paso">
+                    <div class="paso-titulo">Onboarding de cliente</div>
+                    <p class="paso-detalles">Realizar reunión inicial con el cliente para establecer objetivos, KPIs, presupuesto y entender su negocio. Completar el "Brief de Campañas" y obtener accesos a cuentas.</p>
+                    <span class="responsable">Responsable: Consultor Digital + Especialista en Ads</span>
+                    <span class="plazo">Plazo: 2 días hábiles tras contratación</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Auditoría inicial y estrategia</div>
+                    <p class="paso-detalles">Analizar configuración técnica, histórico de campañas y audiencias. Diseñar estrategia mensual basada en objetivos del cliente y estacionalidad. Establecer plan de creatividades.</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: 5 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Desarrollo creativo</div>
+                    <p class="paso-detalles">Crear 4 creatividades nuevas (imágenes/carruseles) según plan. Redactar textos persuasivos para cada formato. Obtener aprobación del cliente.</p>
+                    <span class="responsable">Responsable: Diseñador + Copywriter</span>
+                    <span class="plazo">Plazo: Dentro de los primeros 10 días del mes</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Configuración técnica</div>
+                    <p class="paso-detalles">Verificar/corregir configuración de píxel, eventos de conversión, audiencias personalizadas y similares. Crear catálogo de productos si es necesario.</p>
+                    <span class="responsable">Responsable: Especialista Técnico</span>
+                    <span class="plazo">Plazo: 3 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Implementación de campañas</div>
+                    <p class="paso-detalles">Configurar estructura de campañas según estrategia. Crear anuncios con las creatividades aprobadas. Establecer presupuestos, segmentaciones y ofertas.</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: 12 días hábiles tras inicio del mes</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Monitoreo diario</div>
+                    <p class="paso-detalles">Revisar diariamente el rendimiento de las campañas. Ajustar presupuestos entre conjuntos de anuncios según performance. Identificar y resolver problemas.</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: Diario</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Optimización semanal</div>
+                    <p class="paso-detalles">Realizar análisis semanal profundo. Ajustar segmentaciones, rotación de anuncios, y estrategias de puja. Verificar calidad de las audiencias.</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: Semanal (lunes)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Informe semanal</div>
+                    <p class="paso-detalles">Preparar informe semanal simple con métricas clave: impresiones, CTR, CPC, conversiones, ROAS. Enviar al cliente cada viernes con breve resumen.</p>
+                    <span class="responsable">Responsable: Especialista en Ads</span>
+                    <span class="plazo">Plazo: Semanal (viernes)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Reunión de mitad de mes</div>
+                    <p class="paso-detalles">Mantener reunión breve con el cliente para revisar progresos, ajustar expectativas y planificar próximas creatividades. Registrar feedback.</p>
+                    <span class="responsable">Responsable: Consultor Digital</span>
+                    <span class="plazo">Plazo: Día 15 de cada mes</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Informe mensual completo</div>
+                    <p class="paso-detalles">Elaborar informe mensual detallado con análisis completo, comparativas mes anterior, ROI, recomendaciones y plan para el siguiente mes.</p>
+                    <span class="responsable">Responsable: Especialista en Ads + Director de Estrategia</span>
+                    <span class="plazo">Plazo: Hasta el día 5 del mes siguiente</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Reunión de revisión mensual</div>
+                    <p class="paso-detalles">Realizar videollamada para presentar resultados mensuales, analizar métricas, discutir estrategias futuras y obtener aprobación del plan del siguiente mes.</p>
+                    <span class="responsable">Responsable: Consultor Digital + Especialista en Ads</span>
+                    <span class="plazo">Plazo: Hasta el día 7 del mes siguiente</span>
+                </li>
+            </ol>
+            
+            <div class="entregable">
+                <h4>Entregables mensuales: Meta Ads</h4>
+                <ul>
+                    <li>4 creatividades nuevas (imágenes o carruseles)</li>
+                    <li>Informes semanales de rendimiento (4 por mes)</li>
+                    <li>Informe mensual completo con análisis y recomendaciones</li>
+                    <li>Estructura de campañas optimizada y documentada</li>
+                    <li>Acceso a dashboard de KPIs en tiempo real</li>
+                </ul>
+            </div>
+            
+            <div class="nota">
+                <strong>Nota:</strong> Para cumplir con la garantía "Si no alcanzamos los KPIs acordados, solo pagás la mitad", es fundamental definir KPIs realistas y medibles en la reunión inicial y documentarlos en el contrato.
+            </div>
+        </section>
+        
+        <!-- Proceso Google Ads -->
+        <section id="google" class="proceso-detallado proceso-google">
+            <div class="proceso-titulo">
+                <div class="proceso-icono">
+                    <i class="fab fa-google"></i>
+                </div>
+                <h2 class="proceso-nombre">Proceso: Google Ads (Mensual)</h2>
+            </div>
+            
+            <ol class="pasos-lista">
+                <li class="paso">
+                    <div class="paso-titulo">Onboarding de cliente</div>
+                    <p class="paso-detalles">Realizar reunión inicial con el cliente para establecer objetivos, definir KPIs, presupuesto y entender su negocio. Completar el "Brief de Google Ads" y obtener accesos a cuentas.</p>
+                    <span class="responsable">Responsable: Consultor Digital + Especialista en Google Ads</span>
+                    <span class="plazo">Plazo: 2 días hábiles tras contratación</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Investigación de palabras clave</div>
+                    <p class="paso-detalles">Realizar investigación exhaustiva de palabras clave relevantes para el negocio. Analizar competencia, volumen de búsquedas, intención y CPC estimado. Crear lista de keywords prioritarias.</p>
+                    <span class="responsable">Responsable: Especialista en Google Ads</span>
+                    <span class="plazo">Plazo: 5 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Auditoría técnica</div>
+                    <p class="paso-detalles">Revisar y corregir configuración de seguimiento de conversiones, vinculación con Analytics, tags GTM y extensiones de anuncios. Verificar Quality Score actual.</p>
+                    <span class="responsable">Responsable: Especialista Técnico</span>
+                    <span class="plazo">Plazo: 3 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Diseño de estrategia</div>
+                    <p class="paso-detalles">Elaborar estrategia de campañas según objetivos (búsqueda, display, video, shopping). Definir estructura de cuenta, grupos de anuncios y presupuesto asignado a cada campaña.</p>
+                    <span class="responsable">Responsable: Especialista en Google Ads + Director de Estrategia</span>
+                    <span class="plazo">Plazo: 7 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Creación de anuncios</div>
+                    <p class="paso-detalles">Redactar anuncios de texto atractivos para cada grupo de anuncios. Preparar anuncios responsivos y extensiones (sitelinks, llamadas, ubicación, fragmentos destacados).</p>
+                    <span class="responsable">Responsable: Copywriter + Especialista en Google Ads</span>
+                    <span class="plazo">Plazo: 10 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Implementación de campañas</div>
+                    <p class="paso-detalles">Configurar campañas en la plataforma según estrategia. Implementar palabras clave, anuncios, pujas y presupuestos. Configurar segmentaciones geográficas y por dispositivos.</p>
+                    <span class="responsable">Responsable: Especialista en Google Ads</span>
+                    <span class="plazo">Plazo: 12 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Monitoreo diario</div>
+                    <p class="paso-detalles">Revisar diariamente el rendimiento de las campañas. Ajustar presupuestos, pujas y pausar palabras clave con bajo rendimiento. Identificar términos de búsqueda relevantes.</p>
+                    <span class="responsable">Responsable: Especialista en Google Ads</span>
+                    <span class="plazo">Plazo: Diario</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Optimización semanal</div>
+                    <p class="paso-detalles">Realizar optimización semanal profunda. Ajustar pujas por dispositivo, hora del día y ubicación. Revisar y mejorar Quality Score. Actualizar palabras clave negativas.</p>
+                    <span class="responsable">Responsable: Especialista en Google Ads</span>
+                    <span class="plazo">Plazo: Semanal (lunes)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Testing A/B continuo</div>
+                    <p class="paso-detalles">Implementar pruebas A/B de anuncios continuamente. Analizar resultados y aplicar aprendizajes. Redactar nuevas variantes basadas en los datos.</p>
+                    <span class="responsable">Responsable: Especialista en Google Ads + Copywriter</span>
+                    <span class="plazo">Plazo: Quincenal</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Informe semanal</div>
+                    <p class="paso-detalles">Preparar informe semanal con métricas clave: impresiones, CTR, CPC, conversiones, CPA. Enviar al cliente cada viernes con breve resumen de acciones.</p>
+                    <span class="responsable">Responsable: Especialista en Google Ads</span>
+                    <span class="plazo">Plazo: Semanal (viernes)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Informe mensual completo</div>
+                    <p class="paso-detalles">Elaborar informe mensual detallado con análisis completo, comparativas, ROI, análisis de búsquedas y competencia, recomendaciones y plan para el mes siguiente.</p>
+                    <span class="responsable">Responsable: Especialista en Google Ads + Director de Estrategia</span>
+                    <span class="plazo">Plazo: Hasta el día 5 del mes siguiente</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Reunión de revisión mensual</div>
+                    <p class="paso-detalles">Realizar videollamada para presentar resultados mensuales, analizar competencia, discutir ajustes de presupuesto y obtener aprobación del plan del siguiente mes.</p>
+                    <span class="responsable">Responsable: Consultor Digital + Especialista en Google Ads</span>
+                    <span class="plazo">Plazo: Hasta el día 7 del mes siguiente</span>
+                </li>
+            </ol>
+            
+            <div class="entregable">
+                <h4>Entregables mensuales: Google Ads</h4>
+                <ul>
+                    <li>Investigación mensual de palabras clave rentables</li>
+                    <li>Informes semanales de rendimiento (4 por mes)</li>
+                    <li>Informe mensual completo con análisis y recomendaciones</li>
+                    <li>Estructura de cuenta optimizada y documentada</li>
+                    <li>Análisis de competencia actualizado</li>
+                    <li>Acceso a dashboard de KPIs en tiempo real</li>
+                </ul>
+            </div>
+            
+            <div class="nota">
+                <strong>Nota:</strong> Para maximizar el Quality Score, es esencial mantener alta relevancia entre palabras clave, anuncios y páginas de destino. Coordinar con el cliente posibles mejoras en landing pages cuando sea necesario.
+            </div>
+        </section>
+        
+        <!-- Proceso Email Marketing -->
+        <section id="email" class="proceso-detallado proceso-email">
+            <div class="proceso-titulo">
+                <div class="proceso-icono">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h2 class="proceso-nombre">Proceso: Email Marketing (Mensual)</h2>
+            </div>
+            
+            <ol class="pasos-lista">
+                <li class="paso">
+                    <div class="paso-titulo">Onboarding de cliente</div>
+                    <p class="paso-detalles">Realizar reunión inicial para comprender objetivos del cliente, productos/servicios, audiencia y ciclo de ventas. Completar el "Email Marketing Brief" y obtener accesos a plataformas.</p>
+                    <span class="responsable">Responsable: Consultor Digital + Especialista en Email</span>
+                    <span class="plazo">Plazo: 2 días hábiles tras contratación</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Auditoría de base de datos</div>
+                    <p class="paso-detalles">Analizar la base de suscriptores actual: tamaño, calidad, segmentación, historial de campañas anteriores, tasas de apertura/clic y conversiones previas.</p>
+                    <span class="responsable">Responsable: Especialista en Email</span>
+                    <span class="plazo">Plazo: 3 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Configuración técnica</div>
+                    <p class="paso-detalles">Verificar configuración de dominio, SPF, DKIM, DMARC. Implementar tracking UTM y conexión con CRM/Analytics. Configurar plantillas responsivas base.</p>
+                    <span class="responsable">Responsable: Especialista Técnico</span>
+                    <span class="plazo">Plazo: 4 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Estrategia de segmentación</div>
+                    <p class="paso-detalles">Desarrollar estrategia de segmentación basada en comportamiento, intereses, demografía y etapa del customer journey. Crear segmentos en la plataforma.</p>
+                    <span class="responsable">Responsable: Especialista en Email + Director de Estrategia</span>
+                    <span class="plazo">Plazo: 5 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Planificación de contenidos</div>
+                    <p class="paso-detalles">Crear calendario mensual con 2 campañas masivas y 1 secuencia automatizada. Definir objetivos específicos, temas, ofertas y fechas para cada envío.</p>
+                    <span class="responsable">Responsable: Especialista en Email + Copywriter</span>
+                    <span class="plazo">Plazo: 7 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Diseño de primera campaña masiva</div>
+                    <p class="paso-detalles">Redactar asuntos A/B, textos persuasivos y llamadas a la acción. Diseñar la estructura visual, imágenes y elementos interactivos. Obtener aprobación del cliente.</p>
+                    <span class="responsable">Responsable: Copywriter + Diseñador</span>
+                    <span class="plazo">Plazo: 10 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Implementación de primera campaña</div>
+                    <p class="paso-detalles">Construir el email en la plataforma asegurando compatibilidad con todos los clientes de correo. Configurar pruebas A/B de asuntos. Programar envío en día/hora óptimos.</p>
+                    <span class="responsable">Responsable: Especialista en Email</span>
+                    <span class="plazo">Plazo: 12 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Análisis post-campaña</div>
+                    <p class="paso-detalles">Analizar resultados 48 horas después del envío. Evaluar tasas de apertura, clic, rebote, desuscripción y conversión. Identificar segmentos de mejor rendimiento.</p>
+                    <span class="responsable">Responsable: Especialista en Email</span>
+                    <span class="plazo">Plazo: 2 días después de cada envío</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Diseño de segunda campaña masiva</div>
+                    <p class="paso-detalles">Aplicar aprendizajes de la primera campaña. Desarrollar nuevos asuntos A/B, contenido y diseño mejorados. Segmentar según comportamiento de la primera campaña.</p>
+                    <span class="responsable">Responsable: Copywriter + Diseñador</span>
+                    <span class="plazo">Plazo: 15 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Desarrollo de secuencia automatizada</div>
+                    <p class="paso-detalles">Diseñar flujo automatizado (bienvenida, abandono carrito, reactivación, etc.) con 3-5 emails. Configurar disparadores, condiciones y bifurcaciones según comportamiento.</p>
+                    <span class="responsable">Responsable: Especialista en Email + Copywriter</span>
+                    <span class="plazo">Plazo: 20 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Implementación y prueba</div>
+                    <p class="paso-detalles">Construir la secuencia en la plataforma. Realizar pruebas exhaustivas de triggers, contenido y tracking en todas las etapas.</p>
+                    <span class="responsable">Responsable: Especialista en Email + Especialista Técnico</span>
+                    <span class="plazo">Plazo: 22 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Informe mensual</div>
+                    <p class="paso-detalles">Elaborar informe mensual con análisis de todas las campañas: KPIs, segmentos de mejor rendimiento, comparativa con mes anterior, ROI y recomendaciones para el próximo mes.</p>
+                    <span class="responsable">Responsable: Especialista en Email</span>
+                    <span class="plazo">Plazo: Hasta el día 5 del mes siguiente</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Reunión de revisión</div>
+                    <p class="paso-detalles">Realizar videollamada para presentar resultados mensuales, discutir optimizaciones y aprobar plan de contenidos del mes siguiente. Registrar feedback del cliente.</p>
+                    <span class="responsable">Responsable: Consultor Digital + Especialista en Email</span>
+                    <span class="plazo">Plazo: Hasta el día 7 del mes siguiente</span>
+                </li>
+            </ol>
+            
+            <div class="entregable">
+                <h4>Entregables mensuales: Email Marketing</h4>
+                <ul>
+                    <li>2 campañas masivas diseñadas profesionalmente</li>
+                    <li>1 secuencia automatizada nueva o mejorada</li>
+                    <li>Informes post-campaña de cada envío</li>
+                    <li>Informe mensual completo con análisis y recomendaciones</li>
+                    <li>Segmentación dinámica actualizada mensualmente</li>
+                    <li>Estrategia de contenidos para el próximo mes</li>
+                </ul>
+            </div>
+            
+            <div class="nota">
+                <strong>Nota:</strong> Para maximizar las tasas de apertura, programar pruebas A/B continuas de asuntos (mínimo 3 variantes por campaña) y analizar los mejores momentos de envío según la industria del cliente.
+            </div>
+        </section>
+        
+        <!-- Proceso Chatbot -->
+        <section id="chatbot" class="proceso-detallado proceso-chatbot">
+            <div class="proceso-titulo">
+                <div class="proceso-icono">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h2 class="proceso-nombre">Proceso: Chatbot (Mensual)</h2>
+            </div>
+            
+            <ol class="pasos-lista">
+                <li class="paso">
+                    <div class="paso-titulo">Onboarding de cliente</div>
+                    <p class="paso-detalles">Realizar reunión inicial para entender objetivos del chatbot (atención al cliente, generación de leads, ventas), público objetivo y procesos actuales de atención/ventas.</p>
+                    <span class="responsable">Responsable: Consultor Digital + Especialista en Chatbots</span>
+                    <span class="plazo">Plazo: 2 días hábiles tras contratación</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Investigación de necesidades</div>
+                    <p class="paso-detalles">Analizar preguntas frecuentes, objeciones comunes, procesos de compra y puntos de contacto actuales. Revisar conversaciones históricas de atención al cliente.</p>
+                    <span class="responsable">Responsable: Especialista en Chatbots</span>
+                    <span class="plazo">Plazo: 5 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Selección de plataforma</div>
+                    <p class="paso-detalles">Determinar la plataforma óptima según necesidades (Facebook Messenger, WhatsApp Business, web, etc.). Evaluar herramientas disponibles y compatibilidad con sistemas del cliente.</p>
+                    <span class="responsable">Responsable: Especialista en Chatbots + Especialista Técnico</span>
+                    <span class="plazo">Plazo: 3 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Diseño de flujos conversacionales</div>
+                    <p class="paso-detalles">Crear diagramas de flujo detallados para cada escenario de conversación. Definir gatillos, respuestas, bifurcaciones y puntos de escalamiento a humanos.</p>
+                    <span class="responsable">Responsable: Especialista en Chatbots + Copywriter</span>
+                    <span class="plazo">Plazo: 7 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Redacción de mensajes</div>
+                    <p class="paso-detalles">Redactar todos los mensajes del chatbot asegurando tono de voz alineado con la marca. Crear variantes para evitar repeticiones y mantener conversaciones naturales.</p>
+                    <span class="responsable">Responsable: Copywriter</span>
+                    <span class="plazo">Plazo: 10 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Configuración técnica</div>
+                    <p class="paso-detalles">Implementar el chatbot en la plataforma seleccionada. Configurar integraciones con CRM, sistemas de tickets, o herramientas de marketing. Establecer sistema de notificaciones.</p>
+                    <span class="responsable">Responsable: Especialista Técnico</span>
+                    <span class="plazo">Plazo: 12 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Pruebas internas</div>
+                    <p class="paso-detalles">Realizar pruebas exhaustivas de todos los flujos conversacionales. Verificar integraciones, entradas de usuario inesperadas y mecanismos de escalamiento a humanos.</p>
+                    <span class="responsable">Responsable: Especialista en Chatbots + Equipo de QA</span>
+                    <span class="plazo">Plazo: 14 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Capacitación del cliente</div>
+                    <p class="paso-detalles">Instruir al equipo del cliente sobre el funcionamiento del chatbot, monitoreo de conversaciones y procedimientos de escalamiento. Proporcionar manual operativo.</p>
+                    <span class="responsable">Responsable: Consultor Digital + Especialista en Chatbots</span>
+                    <span class="plazo">Plazo: 15 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Lanzamiento</div>
+                    <p class="paso-detalles">Implementar el chatbot en producción. Monitorear continuamente durante las primeras 48 horas para detectar y corregir problemas rápidamente.</p>
+                    <span class="responsable">Responsable: Especialista en Chatbots + Especialista Técnico</span>
+                    <span class="plazo">Plazo: 16 días hábiles</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Monitoreo semanal</div>
+                    <p class="paso-detalles">Analizar conversaciones semanalmente para identificar patrones, preguntas sin responder y puntos de abandono. Revisar tasas de conversión y satisfacción.</p>
+                    <span class="responsable">Responsable: Especialista en Chatbots</span>
+                    <span class="plazo">Plazo: Semanal</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Optimización continua</div>
+                    <p class="paso-detalles">Realizar mejoras basadas en análisis de conversaciones. Actualizar flujos, agregar nuevas respuestas y refinar mensajes existentes. Implementar pruebas A/B.</p>
+                    <span class="responsable">Responsable: Especialista en Chatbots + Copywriter</span>
+                    <span class="plazo">Plazo: Continuo (implementación quincenal)</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Informe mensual</div>
+                    <p class="paso-detalles">Elaborar informe detallado con métricas clave: conversaciones iniciadas, tasa de resolución, puntos de abandono, tasa de conversión, satisfacción y ROI estimado.</p>
+                    <span class="responsable">Responsable: Especialista en Chatbots</span>
+                    <span class="plazo">Plazo: Hasta el día 5 del mes siguiente</span>
+                </li>
+                
+                <li class="paso">
+                    <div class="paso-titulo">Reunión de revisión</div>
+                    <p class="paso-detalles">Realizar videollamada para presentar resultados, discutir insights de conversaciones, proponer mejoras y planificar nuevas funcionalidades para el mes siguiente.</p>
+                    <span class="responsable">Responsable: Consultor Digital + Especialista en Chatbots</span>
+                    <span class="plazo">Plazo: Hasta el día 7 del mes siguiente</span>
+                </li>
+            </ol>
+            
+            <div class="entregable">
+                <h4>Entregables mensuales: Chatbot</h4>
+                <ul>
+                    <li>Actualización mensual de flujos y respuestas</li>
+                    <li>Informe semanal de conversaciones clave (4 por mes)</li>
+                    <li>Informe mensual completo con métricas y análisis</li>
+                    <li>Documentación actualizada de flujos conversacionales</li>
+                    <li>Recomendaciones de mejora basadas en datos</li>
+                    <li>Soporte técnico continuo (SLA de respuesta: 12 horas)</li>
+                </ul>
+            </div>
+            
+            <div class="nota">
+                <strong>Nota:</strong> Para chatbots de generación de leads, es crítico asegurar una transición fluida desde la conversación automatizada al equipo de ventas. Coordinar con el cliente un protocolo claro de seguimiento de leads.
+            </div>
+        </section>
+    </div>
+    
+    <footer style="background-color: var(--gris-oscuro); color: var(--blanco); text-align: center; padding: var(--espaciado-md); margin-top: var(--espaciado-lg);">
+        <div class="container">
+            <p>© Orange Vapor - Documento interno de procesos</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Script simple para resaltar la sección activa
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener todos los elementos de proceso
+            const procesos = document.querySelectorAll('.proceso-detallado');
+            
+            // Función para comprobar si un elemento está en el viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+            
+            // Función para resaltar el proceso visible
+            function highlightVisibleProcess() {
+                procesos.forEach(proceso => {
+                    if (isInViewport(proceso)) {
+                        proceso.style.boxShadow = '0 0 20px rgba(255, 114, 0, 0.2)';
+                    } else {
+                        proceso.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                    }
+                });
+            }
+            
+            // Agregar event listener para el scroll
+            window.addEventListener('scroll', highlightVisibleProcess);
+            
+            // Llamar a la función inicialmente
+            highlightVisibleProcess();
+        });
+    </script>
+</body>
+</html>
