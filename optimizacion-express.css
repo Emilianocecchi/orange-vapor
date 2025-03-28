@@ -325,7 +325,7 @@
 }
 
 /* ==========================================================================
-   4. SECCIÓN COMPARATIVA - MODERNIZADA
+   4. SECCIÓN COMPARATIVA - MODERNIZADA Y CORREGIDA
    ========================================================================== */
 
 .comparativa-section {
@@ -436,6 +436,8 @@
   margin-right: auto;
   border: 1px solid var(--gris-borde);
   transition: all var(--transicion-media);
+  position: relative;
+  z-index: 5;
 }
 
 .precio-info:hover {
@@ -444,6 +446,7 @@
   border-color: transparent;
 }
 
+/* CORREGIDO: Elimino los pseudo-elementos que podrían causar solapamiento */
 .precio-badge {
   display: inline-block;
   background-color: var(--express-color);
@@ -455,30 +458,10 @@
   margin-bottom: var(--espaciado-md);
   box-shadow: var(--sombra-media);
   position: relative;
+  z-index: 10;
 }
 
-.precio-badge::before, .precio-badge::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 20px;
-  height: 100%;
-  background-color: var(--express-color);
-  z-index: -1;
-}
-
-.precio-badge::before {
-  left: -10px;
-  transform: skew(-15deg);
-  border-radius: var(--borde-redondo-md) 0 0 var(--borde-redondo-md);
-}
-
-.precio-badge::after {
-  right: -10px;
-  transform: skew(15deg);
-  border-radius: 0 var(--borde-redondo-md) var(--borde-redondo-md) 0;
-}
-
+/* CORREGIDO: Mejoro la presentación de la información de precio */
 .precio-detalle {
   font-size: 1.1rem;
   color: var(--texto-oscuro);
@@ -486,6 +469,7 @@
   margin: 0 auto;
   line-height: 1.6;
   font-weight: 500;
+  padding-top: 0.5rem;
 }
 
 /* ==========================================================================
@@ -669,7 +653,7 @@
   }
 }
 
-/* Oferta especial - MEJORADA */
+/* Oferta especial - MEJORADA Y CORREGIDA */
 .oferta-especial {
   background: linear-gradient(135deg, rgba(220, 53, 69, 0.08), rgba(255, 107, 107, 0.05));
   margin-top: var(--espaciado-lg);
@@ -685,6 +669,7 @@
   margin-right: auto;
 }
 
+/* CORREGIDO: Ajusto el posicionamiento del elemento decorativo */
 .oferta-especial::before {
   content: '';
   position: absolute;
@@ -794,7 +779,7 @@
   text-align: center;
 }
 
-/* Proceso de pasos */
+/* Proceso de pasos - CORREGIDO */
 .proceso-timeline {
   position: relative;
   max-width: 900px;
@@ -802,6 +787,7 @@
   padding: 0 20px;
 }
 
+/* CORREGIDO: Ajusto la línea de tiempo para mejorar visualización en móvil */
 .proceso-timeline::before {
   content: '';
   position: absolute;
@@ -849,6 +835,7 @@
   margin-left: auto;
 }
 
+/* CORREGIDO: Ajusto posicionamiento del número de paso */
 .paso-numero {
   width: 60px;
   height: 60px;
@@ -1032,7 +1019,7 @@
 }
 
 /* ==========================================================================
-   7. SECCIÓN BENEFICIOS (RESULTADOS) - MODERNIZADA
+   7. SECCIÓN BENEFICIOS (RESULTADOS) - MODERNIZADA Y CORREGIDA
    ========================================================================== */
 
 .crecimiento-section {
@@ -1119,7 +1106,7 @@
   margin-bottom: 0;
 }
 
-/* Bono especial */
+/* Bono especial - CORREGIDO */
 .bonus-section {
   max-width: 800px;
   margin: 70px auto;
@@ -1140,16 +1127,9 @@
   border-color: transparent;
 }
 
+/* CORREGIDO: Removido el elemento decorativo que causa superposición */
 .bonus-section::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background-color: var(--express-color);
-  width: 120px;
-  height: 120px;
-  transform: rotate(45deg);
-  z-index: 0;
+  display: none;
 }
 
 .bonus-badge {
@@ -1177,6 +1157,7 @@
   font-weight: 700;
 }
 
+/* CORREGIDO: Mejorada la visualización de la oferta de bono */
 .bonus-oferta {
   display: flex;
   align-items: center;
@@ -1190,8 +1171,10 @@
   z-index: 1;
   box-shadow: var(--sombra-suave);
   border: 1px solid var(--gris-borde);
+  flex-wrap: wrap;
 }
 
+/* CORREGIDO: Ajustado el badge de descuento */
 .descuento-badge {
   background-color: var(--express-color);
   color: var(--blanco);
@@ -1204,28 +1187,12 @@
   box-shadow: var(--sombra-media);
   position: relative;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  margin: 0 auto 10px;
 }
 
+/* CORREGIDO: Eliminados los pseudo-elementos que causan superposición */
 .descuento-badge::before, .descuento-badge::after {
-  content: '';
-  position: absolute;
-  background-color: var(--express-color);
-  height: 100%;
-  width: 20px;
-  top: 0;
-  z-index: -1;
-}
-
-.descuento-badge::before {
-  left: -10px;
-  transform: skew(-15deg);
-  border-radius: var(--borde-redondo-md) 0 0 var(--borde-redondo-md);
-}
-
-.descuento-badge::after {
-  right: -10px;
-  transform: skew(15deg);
-  border-radius: 0 var(--borde-redondo-md) var(--borde-redondo-md) 0;
+  display: none;
 }
 
 .bonus-oferta p {
@@ -1805,7 +1772,7 @@
 }
 
 /* ==========================================================================
-   12. MEDIA QUERIES Y RESPONSIVIDAD - OPTIMIZADOS
+   12. MEDIA QUERIES Y RESPONSIVIDAD - OPTIMIZADOS Y CORREGIDOS
    ========================================================================== */
 
 @media (max-width: 1200px) {
@@ -1844,28 +1811,36 @@
     margin-right: auto;
   }
   
+  /* CORREGIDO: Ajustado el timeline para mejor visualización en tablets */
   .proceso-timeline::before {
     left: 20px;
   }
   
   .proceso-paso {
-    width: 100%;
+    width: calc(100% - 50px);
     padding-left: 70px;
   }
   
   .proceso-paso:nth-child(odd),
   .proceso-paso:nth-child(even) {
     margin-left: 30px;
+    margin-right: 0;
   }
   
   .proceso-paso:nth-child(odd) .paso-numero,
   .proceso-paso:nth-child(even) .paso-numero {
     left: -30px;
+    right: auto;
   }
   
+  /* CORREGIDO: Ajustada la presentación del bonus */
   .bonus-oferta {
     flex-direction: column;
     gap: var(--espaciado-sm);
+  }
+  
+  .descuento-badge {
+    margin-bottom: 15px;
   }
 }
 
@@ -1881,8 +1856,17 @@
     padding: 20px;
   }
   
+  /* CORREGIDO: Mejorado espaciado para precio */
   .precio-info {
-    padding: 0 var(--espaciado-md);
+    padding: var(--espaciado-md);
+  }
+  
+  .precio-badge {
+    margin-bottom: 20px;
+  }
+  
+  .precio-detalle {
+    padding-top: 0;
   }
   
   .express-box-header,
@@ -1903,6 +1887,15 @@
   .comparativa-grid,
   .beneficios-grid {
     grid-template-columns: 1fr;
+  }
+  
+  /* CORREGIDO: Ajuste para la sección de oferta de bono */
+  .bonus-section {
+    padding: var(--espaciado-md);
+  }
+  
+  .bonus-section h3 {
+    font-size: 1.3rem;
   }
 }
 
@@ -1929,13 +1922,18 @@
     text-align: center;
   }
   
+  /* CORREGIDO: Tamaño del badge de precio en mobile */
   .precio-badge {
     font-size: 1.2rem;
     padding: 8px 20px;
+    display: block;
+    margin: 0 auto 20px;
   }
   
+  /* CORREGIDO: Ajuste badge de descuento móvil */
   .descuento-badge {
     font-size: 1.5rem;
+    padding: 8px 15px;
   }
   
   .express-box-badge {
@@ -1952,5 +1950,22 @@
     font-size: var(--texto-sm);
     right: 15px;
     bottom: 15px;
+  }
+  
+  /* CORREGIDO: Ajustes adicionales de espaciado y layout para móvil */
+  .oferta-especial {
+    padding: var(--espaciado-sm) var(--espaciado-md);
+  }
+  
+  .oferta-especial h3 {
+    font-size: 1.1rem;
+  }
+  
+  .bonus-oferta {
+    padding: var(--espaciado-sm);
+  }
+  
+  .bonus-oferta p {
+    font-size: 1rem;
   }
 }
