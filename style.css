@@ -23,6 +23,13 @@
     --texto-claro: #666666;
     --texto-ligero: #999999;
     
+    /* Colores para auditoría flash */
+    --auditoria-rojo: #dc3545;
+    --auditoria-rojo-hover: #c82333;
+    --auditoria-rojo-claro: #ffdde1;
+    --auditoria-rojo-bg: rgba(220, 53, 69, 0.05);
+    --auditoria-rojo-border: rgba(220, 53, 69, 0.3);
+    
     /* Sombras */
     --sombra-suave: 0 5px 15px rgba(0, 0, 0, 0.05);
     --sombra-media: 0 8px 30px rgba(0, 0, 0, 0.12);
@@ -330,29 +337,30 @@ p {
 }
 
 .btn-express {
-    background-color: #dc3545;
+    background-color: var(--auditoria-rojo);
     box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
 }
 
 .btn-express:hover {
-    background-color: #c82333;
+    background-color: var(--auditoria-rojo-hover);
     box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
 }
 
-/* Botón CTA del hero */
+/* Botón CTA del hero - Actualizado para auditoría flash */
 #home .hero-buttons .btn {
-    background-color: var(--negro);
+    background-color: var(--auditoria-rojo);
     color: var(--blanco);
     border: none;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
     font-weight: 700;
     letter-spacing: 0.5px;
+    transition: all 0.3s ease;
 }
 
 #home .hero-buttons .btn:hover {
-    background-color: #000000;
+    background-color: var(--auditoria-rojo-hover);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
 }
 
 #home .hero-buttons .btn::before {
@@ -1228,8 +1236,8 @@ p {
 
 .express-badge {
     display: inline-block;
-    background-color: #ffdde1;
-    color: #dc3545;
+    background-color: var(--auditoria-rojo-claro);
+    color: var(--auditoria-rojo);
     font-weight: 600;
     font-size: var(--texto-sm);
     padding: 6px 16px;
@@ -1238,7 +1246,7 @@ p {
 }
 
 .express-info h2 {
-    color: #dc3545;
+    color: var(--auditoria-rojo);
     font-size: var(--texto-3xl);
     margin-bottom: var(--espaciado-md);
     font-weight: 800;
@@ -1265,7 +1273,7 @@ p {
 
 .express-benefit i {
     background-color: rgba(220, 53, 69, 0.1);
-    color: #dc3545;
+    color: var(--auditoria-rojo);
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -1304,7 +1312,7 @@ p {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: linear-gradient(135deg, #dc3545, #fd7e14);
+    background: linear-gradient(135deg, var(--auditoria-rojo), #fd7e14);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1363,7 +1371,7 @@ p {
     max-width: 850px;
     margin: 0 auto;
     border: 1px solid var(--gris-borde);
-    border-left: 5px solid #dc3545;
+    border-left: 5px solid var(--auditoria-rojo);
 }
 
 .express-box-header {
@@ -1385,7 +1393,7 @@ p {
 }
 
 .express-box-badge {
-    background-color: #dc3545;
+    background-color: var(--auditoria-rojo);
     color: var(--blanco);
     padding: 5px 12px;
     border-radius: var(--borde-redondo-full);
@@ -1456,7 +1464,7 @@ p {
 }
 
 .express-box-garantia i {
-    color: #dc3545;
+    color: var(--auditoria-rojo);
     font-size: var(--texto-md);
     flex-shrink: 0;
 }
@@ -1610,7 +1618,7 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN PLAN MEJORADO
+   SECCIÓN PLAN MEJORADO - ACTUALIZADA PARA AUDITORÍA FLASH
    ========================================================================== */
 .plan-mejorado {
     padding: var(--espaciado-xl) 0;
@@ -1625,6 +1633,42 @@ p {
 .plan-mejorado .proceso-paso {
     padding: 25px 30px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo específico para el paso 1 (Auditoría Flash) */
+.proceso-paso[data-step="1"] {
+    border-left: 4px solid var(--auditoria-rojo);
+}
+
+.proceso-paso[data-step="1"] .paso-icono {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--auditoria-rojo);
+    border: 2px dashed rgba(220, 53, 69, 0.2);
+}
+
+.proceso-paso[data-step="1"] h3 {
+    color: var(--auditoria-rojo);
+}
+
+/* Estilo para la palabra GRATIS */
+.gratuito-highlight {
+    color: var(--auditoria-rojo);
+    position: relative;
+    font-weight: 800;
+    background-color: rgba(220, 53, 69, 0.1);
+    padding: 0 5px;
+    border-radius: 3px;
+}
+
+.gratuito-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--auditoria-rojo);
+    opacity: 0.5;
 }
 
 /* Contenedor para las opciones del paso 2 */
@@ -1744,16 +1788,16 @@ p {
 
 /* Estilos específicos para cada opción */
 .express-opcion {
-    border-top: 4px solid #dc3545;
+    border-top: 4px solid var(--auditoria-rojo);
 }
 
 .express-opcion .opcion-icon {
     background-color: rgba(220, 53, 69, 0.1);
-    color: #dc3545;
+    color: var(--auditoria-rojo);
 }
 
 .express-highlight {
-    color: #dc3545;
+    color: var(--auditoria-rojo);
 }
 
 .mensual-opcion {
@@ -1853,6 +1897,10 @@ p {
     background-color: var(--naranja-oscuro);
 }
 
+.proceso-paso[data-step="1"]:hover .paso-numero {
+    background-color: var(--auditoria-rojo);
+}
+
 .paso-contenido {
     width: 100%;
 }
@@ -1877,6 +1925,10 @@ p {
     transform: rotate(10deg);
 }
 
+.proceso-paso[data-step="1"]:hover .paso-icono {
+    background-color: rgba(220, 53, 69, 0.2);
+}
+
 .paso-contenido h3 {
     font-size: var(--texto-xl);
     color: var(--naranja-oscuro);
@@ -1890,24 +1942,6 @@ p {
     margin: 0;
     line-height: 1.7;
     font-size: var(--texto-md);
-}
-
-/* Estilo para la palabra Gratuita */
-.gratuito-highlight {
-    color: #28a745;
-    font-weight: 700;
-    position: relative;
-}
-
-.gratuito-highlight::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #28a745;
-    opacity: 0.3;
 }
 
 /* Estilos para el CTA del proceso */
@@ -2170,6 +2204,11 @@ p {
 
 .cta-box .btn {
     margin-top: 0;
+    background-color: var(--auditoria-rojo);
+}
+
+.cta-box .btn:hover {
+    background-color: var(--auditoria-rojo-hover);
 }
 
 /* ==========================================================================
@@ -2260,12 +2299,20 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN CONTACTO CON CALENDLY
+   SECCIÓN CONTACTO CON CALENDLY - ACTUALIZADA PARA AUDITORÍA FLASH
    ========================================================================== */
 .contacto {
     background-color: var(--gris-claro);
     padding-top: var(--espaciado-xl);
     padding-bottom: 0;
+}
+
+.contacto .seccion-titulo h2 {
+    color: var(--auditoria-rojo);
+}
+
+.contacto .seccion-titulo h2::after {
+    background-color: var(--auditoria-rojo);
 }
 
 .contacto-content {
@@ -2281,56 +2328,75 @@ p {
     width: 100%;
     padding: var(--espaciado-md);
     background-color: var(--blanco);
-    border-radius: var(--borde-redondo-md);
-    box-shadow: var(--sombra-suave);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: var(--sombra-media);
+    border-left: 5px solid var(--auditoria-rojo);
 }
 
 .contacto-beneficios h3 {
-    color: var(--texto-oscuro);
+    color: var(--auditoria-rojo);
+    font-size: var(--texto-xl);
+    text-align: center;
     margin-bottom: var(--espaciado-md);
     font-weight: 700;
-    text-align: center;
+    border-bottom: 2px solid rgba(220, 53, 69, 0.1);
     padding-bottom: 10px;
-    border-bottom: 2px solid rgba(255, 126, 0, 0.1);
 }
 
 .beneficios-lista {
-    margin-bottom: var(--espaciado-md);
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--espaciado-sm);
 }
 
 .beneficios-lista li {
+    padding: 12px;
+    margin-bottom: 10px;
     display: flex;
     align-items: flex-start;
-    margin-bottom: var(--espaciado-sm);
-    color: var(--texto-oscuro);
-    width: calc(50% - var(--espaciado-sm));
+    background-color: rgba(248, 249, 250, 0.7);
+    border-radius: var(--borde-redondo-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.beneficios-lista li:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-suave);
+    background-color: rgba(248, 249, 250, 1);
 }
 
 .beneficios-lista li i {
-    color: var(--naranja-principal);
-    margin-right: 10px;
+    color: var(--auditoria-rojo);
+    margin-right: 12px;
+    margin-top: 3px;
     flex-shrink: 0;
-    margin-top: 5px;
+    font-size: 16px;
+}
+
+.beneficios-lista li strong {
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    display: block;
+    margin-bottom: 3px;
 }
 
 .contacto-garantia {
+    margin-top: var(--espaciado-md);
+    padding: 15px;
+    background-color: var(--auditoria-rojo-bg);
+    border-radius: var(--borde-redondo-md);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--texto-oscuro);
     font-weight: 600;
-    margin-top: var(--espaciado-md);
-    padding: 12px 20px;
-    background-color: rgba(255, 126, 0, 0.05);
-    border-radius: var(--borde-redondo-md);
+    border: 1px dashed var(--auditoria-rojo-border);
 }
 
 .contacto-garantia i {
-    color: var(--naranja-principal);
+    color: var(--auditoria-rojo);
     margin-right: 10px;
+    font-size: 18px;
 }
 
 /* Widget de Calendly */
@@ -2450,7 +2516,7 @@ body .calendly-inline-widget iframe {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* CTA Flotante */
+/* CTA Flotante - Actualizado para Auditoría Flash */
 .cta-flotante {
     position: fixed;
     bottom: 30px;
@@ -2463,16 +2529,30 @@ body .calendly-inline-widget iframe {
     align-items: center;
     gap: 10px;
     padding: 12px 20px;
-    background-color: var(--naranja-principal);
+    background-color: var(--auditoria-rojo);
     color: var(--blanco);
     border-radius: var(--borde-redondo-full);
     font-weight: 600;
     box-shadow: var(--sombra-media);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
 }
 
 .btn-flotante:hover {
     transform: translateY(-3px);
+    background-color: var(--auditoria-rojo-hover);
     box-shadow: var(--sombra-fuerte);
 }
 
@@ -2583,6 +2663,10 @@ body .calendly-inline-widget iframe {
         grid-template-columns: 1fr 1fr;
         gap: var(--espaciado-sm);
     }
+    
+    .beneficios-lista {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 992px) {
@@ -2649,8 +2733,8 @@ body .calendly-inline-widget iframe {
         height: 800px !important;
     }
     
-    .beneficios-lista li {
-        width: 100%;
+    .beneficios-lista {
+        grid-template-columns: 1fr;
     }
     
     .express-box-header,
@@ -2689,6 +2773,10 @@ body .calendly-inline-widget iframe {
     
     .desafios-compacto .desafio-icon {
         margin-bottom: var(--espaciado-xs);
+    }
+    
+    .contacto-beneficios {
+        padding: var(--espaciado-sm);
     }
 }
 
