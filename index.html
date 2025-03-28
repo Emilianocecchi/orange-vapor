@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     
     <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -166,7 +166,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
                 <div class="hero-buttons">
-                    <a href="#contacto" class="btn btn-lg">Auditoría Flash GRATIS</a>
+                    <a href="#contacto" class="btn btn-lg btn-primary pulse-animation">Auditoría Flash GRATIS</a>
                 </div>
             </div>
             <div class="hero-image fade-in">
@@ -828,5 +828,46 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Scripts -->
     <script src="combined.js"></script>
+    
+    <!-- Script para animar las estadísticas -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Función para detectar elementos visibles
+            function isElementInViewport(el) {
+                let rect = el.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+            
+            // Función para animar elementos cuando son visibles
+            function animateElementsOnScroll() {
+                // Animar elementos .fade-in
+                document.querySelectorAll('.fade-in:not(.visible)').forEach(element => {
+                    if (isElementInViewport(element)) {
+                        element.classList.add('visible');
+                    }
+                });
+                
+                // Animar métricas cuando son visibles
+                document.querySelectorAll('.metric-after:not(.animated)').forEach(element => {
+                    if (isElementInViewport(element)) {
+                        element.classList.add('animated');
+                        let valueDisplay = element.dataset.value;
+                        element.style.opacity = '1';
+                    }
+                });
+            }
+            
+            // Iniciar animaciones al cargar la página
+            animateElementsOnScroll();
+            
+            // Escuchar evento de scroll para animar elementos
+            window.addEventListener('scroll', animateElementsOnScroll);
+        });
+    </script>
 </body>
 </html>
