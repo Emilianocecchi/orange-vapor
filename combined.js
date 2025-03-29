@@ -3,18 +3,15 @@
  * Funcionalidades optimizadas para la navegación
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+(function() {
     'use strict';
     
     // =========================================================================
     // VARIABLES GLOBALES
     // =========================================================================
     
-    // Variables DOM compartidas
-    const header = document.getElementById('header');
-    const mobileToggle = document.querySelector('.mobile-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    const headerHeight = header ? header.offsetHeight : 70; // Altura por defecto si no existe
+    // Variables DOM compartidas (inicializadas durante load para evitar bloqueo)
+    let header, mobileToggle, navMenu, headerHeight;
     
     // Variables para el manejo de estado
     let lastScrollTop = 0;
@@ -27,11 +24,38 @@ document.addEventListener('DOMContentLoaded', function() {
     let lastSection = '';
     let replaceStateCount = 0;
     
+    // Umbral para throttling de scroll
+    const SCROLL_THROTTLE = 100; // ms
+    const RESIZE_DEBOUNCE = 150; // ms
+    
+    // =========================================================================
+    // FUNCIONES DE UTILIDAD OPTIMIZADAS
+    // =========================================================================
+    
+    // Función óptima para calcular si un elemento está en el viewport
+    function isElementInViewport(el) {
+        if (!el) return false;
+        
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
+    }
+    
+    // Función optimizada para easing
+    function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+    }
+    
     // =========================================================================
     // NAVEGACIÓN Y NAVBAR - INICIALIZACIÓN
     // =========================================================================
     
     function initNavbar() {
+        // Inicializar variables DOM solo cuando se necesitan
+        header = document.getElementById('header');
+        mobileToggle = document.querySelector('.mobile-toggle');
+        navMenu = document.getElementById('nav-menu');
+        headerHeight = header ? header.offsetHeight : 70; // Altura por defecto si no existe
+        
         if (!header || !navMenu) return; // Salir si los elementos no existen
         
         // Navegación: referencias adicionales
@@ -97,25 +121,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 link.addEventListener('click', function() {
                     // Cerrar menú móvil con animación suave
                     if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
-                        // Añadir clase de transición antes de cerrar
-                        navMenu.classList.add('closing');
-                        setTimeout(() => {
-                            navMenu.classList.remove('active');
-                            navMenu.classList.remove('closing');
-                            
-                            if (mobileToggle) {
-                                mobileToggle.classList.remove('active');
-                                mobileToggle.setAttribute('aria-expanded', 'false');
-                            }
-                            
-                            document.body.style.overflow = '';
-                        }, 300);
+                        closeMobileMenu();
                     }
                 });
             }
         });
         
-        // Cerrar menú al hacer clic fuera - mejorado
+        // Cerrar menú al hacer clic fuera - delegación de eventos para mejor rendimiento
         document.addEventListener('click', function(e) {
             // Cerrar menú móvil
             if (window.innerWidth <= 768 && navMenu && navMenu.classList.contains('active')) {
@@ -147,8 +159,17 @@ document.addEventListener('DOMContentLoaded', function() {
             initCTAAnimation(ctaButton);
         }
         
-        // Indicar que el navbar está listo
-        document.body.classList.add('navbar-initialized');
+        // Indicar que el navbar está listo después de un pequeño retraso para asegurar el renderizado
+        requestAnimationFrame(() => {
+            document.body.classList.add('navbar-initialized');
+            
+            // Agregar clase para transiciones solo después de cargar completamente
+            if (header && !header.classList.contains('transitions-enabled')) {
+                setTimeout(() => {
+                    header.classList.add('transitions-enabled');
+                }, 100);
+            }
+        });
     }
     
     // =========================================================================
@@ -161,31 +182,32 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const scrollPosition = window.scrollY;
         
-        // Añadir clase para transiciones solo después de cargar
-        if (!header.classList.contains('transitions-enabled')) {
-            header.classList.add('transitions-enabled');
-        }
-        
         // Detectar dirección del scroll
         const scrollingDown = scrollPosition > lastScrollTop;
         lastScrollTop = scrollPosition;
         
-        // Aplicar clases según posición
-        if (scrollPosition > 50) {
-            if (!header.classList.contains('sticky')) {
-                header.classList.add('sticky');
-            }
-            
-            // Auto-ocultar header en scroll hacia abajo después de 200px (opcional)
-            if (scrollPosition > 200 && scrollingDown) {
-                header.classList.add('header-hidden');
+        // Realizar operaciones de lectura antes de las de escritura
+        const shouldBeSticky = scrollPosition > 50;
+        const shouldBeHidden = scrollPosition > 200 && scrollingDown;
+        
+        // Aplicar clases según posición (agrupando las modificaciones del DOM)
+        requestAnimationFrame(() => {
+            if (shouldBeSticky) {
+                if (!header.classList.contains('sticky')) {
+                    header.classList.add('sticky');
+                }
+                
+                // Auto-ocultar header en scroll hacia abajo después de 200px
+                if (shouldBeHidden) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
             } else {
+                header.classList.remove('sticky');
                 header.classList.remove('header-hidden');
             }
-        } else {
-            header.classList.remove('sticky');
-            header.classList.remove('header-hidden');
-        }
+        });
     }
     
     // Toggle del menú móvil con mejor animación
@@ -256,14 +278,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Animar altura en móvil
+        // Animar altura en móvil - usar requestAnimationFrame para mejor rendimiento
         if (window.innerWidth <= 768 && menu) {
             if (!isActive) {
                 // Abrir menú
-                menu.style.maxHeight = `${menu.scrollHeight}px`;
+                requestAnimationFrame(() => {
+                    menu.style.maxHeight = `${menu.scrollHeight}px`;
+                });
             } else {
                 // Cerrar menú
-                menu.style.maxHeight = '0px';
+                requestAnimationFrame(() => {
+                    menu.style.maxHeight = '0px';
+                });
             }
         }
     }
@@ -318,14 +344,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Limpiar listeners previos (útil si se reinicializa)
         dropdowns.forEach(dropdown => {
             dropdown.removeAttribute('data-initialized');
-            const clone = dropdown.cloneNode(true);
-            dropdown.parentNode.replaceChild(clone, dropdown);
         });
         
-        // Re-obtener los elementos después del clonar
-        const refreshedDropdowns = document.querySelectorAll('.dropdown');
-        
-        refreshedDropdowns.forEach(dropdown => {
+        dropdowns.forEach(dropdown => {
             const toggle = dropdown.querySelector('.dropdown-toggle');
             const menu = dropdown.querySelector('.dropdown-menu');
             
@@ -378,17 +399,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            // Manejar contenido del dropdown en hover
-            const items = menu.querySelectorAll('.dropdown-item');
-            items.forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    this.classList.add('hover');
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    this.classList.remove('hover');
-                });
-            });
+            // Manejar contenido del dropdown en hover - delegación de eventos
+            menu.addEventListener('mouseenter', function(e) {
+                if (e.target.classList.contains('dropdown-item')) {
+                    e.target.classList.add('hover');
+                }
+            }, true);
+            
+            menu.addEventListener('mouseleave', function(e) {
+                if (e.target.classList.contains('dropdown-item')) {
+                    e.target.classList.remove('hover');
+                }
+            }, true);
         });
     }
     
@@ -460,19 +482,24 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Actualizar enlaces activos según sección visible con throttling
     function updateNavActiveState() {
-        // Limitar actualizaciones con throttling
-        clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(() => {
-            // Solo para página principal
-            if (window.location.pathname.endsWith('index.html') || 
-                window.location.pathname.endsWith('/')) {
-                
+        // Solo para página principal
+        if (!window.location.pathname.endsWith('index.html') && 
+            !window.location.pathname.endsWith('/')) {
+            return;
+        }
+        
+        // Throttle usando requestAnimationFrame para mejor rendimiento
+        if (!isScrolling) {
+            requestAnimationFrame(() => {
+                // Obtener todas las secciones una vez y reutilizar
                 const sections = document.querySelectorAll('section[id]');
                 let currentSection = '';
                 
+                const offset = headerHeight + 20;
+                
+                // Identificar la sección actual en el viewport
                 sections.forEach(section => {
                     const rect = section.getBoundingClientRect();
-                    const offset = headerHeight + 20;
                     
                     // Sección en vista cuando su top está por debajo del header pero aún visible
                     if (rect.top <= offset && rect.bottom >= offset) {
@@ -482,8 +509,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Solo actualizar si hay una sección identificada y es diferente
                 if (currentSection && currentSection !== lastSection) {
+                    // Preparar selectores para minimizar búsquedas en DOM
+                    const links = document.querySelectorAll('.nav-link');
+                    
                     // Actualizar navegación visual
-                    document.querySelectorAll('.nav-link').forEach(link => {
+                    links.forEach(link => {
                         link.classList.remove('active');
                         
                         const href = link.getAttribute('href');
@@ -521,59 +551,66 @@ document.addEventListener('DOMContentLoaded', function() {
                         lastSection = currentSection;
                     }
                 }
-            }
-        }, 100); // Throttle a 100ms
+                
+                isScrolling = false;
+            });
+            
+            isScrolling = true;
+        }
     }
     
     // Inicializar scroll suave para enlaces internos
     function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]:not(.dropdown-toggle)').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                
-                if (targetId === '#') return;
-                
-                e.preventDefault();
-                
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    // Cerrar menú móvil primero si está abierto
-                    if (window.innerWidth <= 768) {
-                        closeMobileMenu();
-                    }
-                    
-                    // Calcular offset según altura del header
-                    const offset = headerHeight + 16;
-                    
-                    // Scroll suave con timing mejorado
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
-                    
-                    // Añadir una animación más suave en dispositivos que lo soportan
-                    if ('scrollBehavior' in document.documentElement.style) {
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        // Fallback para navegadores que no soportan scrollBehavior
-                        animateScroll(targetPosition, 800);
-                    }
-                    
-                    // Actualizar URL
-                    if (history.pushState) {
-                        history.pushState(null, null, targetId);
-                    } else {
-                        location.hash = targetId;
-                    }
-                    
-                    // Activar el enlace
-                    document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    this.classList.add('active');
+        // Usar delegación de eventos para mejor rendimiento
+        document.addEventListener('click', (e) => {
+            // Comprobar si el clic fue en un enlace interno
+            const target = e.target.closest('a[href^="#"]:not(.dropdown-toggle)');
+            if (!target) return;
+            
+            const targetId = target.getAttribute('href');
+            
+            if (targetId === '#') return;
+            
+            e.preventDefault();
+            
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Cerrar menú móvil primero si está abierto
+                if (window.innerWidth <= 768) {
+                    closeMobileMenu();
                 }
-            });
+                
+                // Calcular offset según altura del header
+                const offset = headerHeight + 16;
+                
+                // Calcular posición de destino
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                
+                // Añadir una animación más suave en dispositivos que lo soportan
+                if ('scrollBehavior' in document.documentElement.style) {
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Fallback para navegadores que no soportan scrollBehavior
+                    animateScroll(targetPosition, 800);
+                }
+                
+                // Actualizar URL
+                if (history.pushState) {
+                    history.pushState(null, null, targetId);
+                } else {
+                    location.hash = targetId;
+                }
+                
+                // Activar el enlace
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                target.classList.add('active');
+            }
         });
     }
     
@@ -596,11 +633,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         window.requestAnimationFrame(step);
-    }
-    
-    // Función de easing para animación
-    function easeOutCubic(t) {
-        return 1 - Math.pow(1 - t, 3);
     }
     
     // Inicializar animación del CTA para primera visita
@@ -636,20 +668,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =========================================================================
-    // EVENT HANDLERS
+    // EVENT HANDLERS OPTIMIZADOS
     // =========================================================================
     
     // Handler optimizado para scroll con requestAnimationFrame y throttling
     function handleScroll() {
-        if (!isScrolling) {
-            window.requestAnimationFrame(() => {
-                updateHeaderState();
-                updateNavActiveState();
-                isScrolling = false;
-            });
-            
-            isScrolling = true;
-        }
+        // Limitar número de ejecuciones durante scroll rápido
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+            updateHeaderState();
+            updateNavActiveState();
+        }, SCROLL_THROTTLE);
     }
     
     // Handler para cambios de tamaño de ventana
@@ -657,6 +686,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Debounce para evitar demasiadas llamadas
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
+            // Actualizar altura del header
+            if (header) {
+                headerHeight = header.offsetHeight;
+            }
+            
             // Si pasamos de móvil a desktop
             if (window.innerWidth > 768) {
                 // Restaurar scroll
@@ -681,19 +715,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetDropdowns();
                 setupDropdowns(document.querySelectorAll('.dropdown'));
             }
-        }, 150);
+        }, RESIZE_DEBOUNCE);
     }
     
     // =========================================================================
-    // INICIALIZACIÓN
+    // INICIALIZACIÓN OPTIMIZADA
     // =========================================================================
     
-    // Inicializar la navbar
-    initNavbar();
-    
-    // Configurar event listeners globales con passive para mejor rendimiento
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize, { passive: true });
+    // Pre-cargar funciones críticas
+    document.addEventListener('DOMContentLoaded', function() {
+        initNavbar();
+        
+        // Configurar event listeners globales con passive para mejor rendimiento
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleResize, { passive: true });
+    });
     
     // Configuraciones específicas cuando la página está completamente cargada
     window.addEventListener('load', function() {
@@ -712,7 +748,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                setTimeout(() => {
+                // Posponer para asegurar que todo esté renderizado
+                requestAnimationFrame(() => {
                     // Asegurar que la transición de carga terminó
                     window.scrollTo({
                         top: targetElement.offsetTop - headerHeight,
@@ -721,7 +758,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Activar el enlace correspondiente
                     activateLinkByHash(targetId.substring(1));
-                }, 500);
+                });
             }
         }
     });
@@ -736,4 +773,4 @@ document.addEventListener('DOMContentLoaded', function() {
         closeMobileMenu,
         resetDropdowns
     };
-});
+})();
