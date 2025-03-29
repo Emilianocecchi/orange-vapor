@@ -1,6 +1,7 @@
 /**
- * Orange Vapor - JavaScript Optimizado
+ * Orange Vapor - JavaScript Optimizado y Corregido
  * Scripts centralizados para mejorar rendimiento y mantenibilidad
+ * Versión: 1.1.0 - Corregido problema de carga de contenido
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -24,6 +25,63 @@ document.addEventListener('DOMContentLoaded', function() {
     let lastReplaceStateTime = 0;
     let lastSection = '';
     let replaceStateCount = 0;
+    
+    // =========================================================================
+    // SOLUCIÓN INMEDIATA PARA LA VISIBILIDAD
+    // =========================================================================
+    
+    // NUEVO: Asegurar que los elementos críticos estén visibles de inmediato
+    function asegurarVisibilidadCritica() {
+        // Hacer visible inmediatamente la sección de servicios y sus elementos
+        const elementosCriticos = [
+            '#servicios .seccion-titulo',
+            '#servicios .servicios-grid',
+            '#servicios .oferta-especial',
+            '#servicios .servicios-garantia',
+            '#servicios .soluciones-card'
+        ];
+        
+        elementosCriticos.forEach(selector => {
+            const elementos = document.querySelectorAll(selector);
+            elementos.forEach(elemento => {
+                // Añadir clase visible y forzar estilos
+                elemento.classList.add('visible');
+                elemento.style.opacity = '1';
+                elemento.style.transform = 'translateY(0)';
+                elemento.style.visibility = 'visible';
+            });
+        });
+        
+        // Elementos específicos dentro de la sección
+        document.querySelectorAll('#servicios .fade-in').forEach(elemento => {
+            elemento.classList.add('visible');
+        });
+        
+        // También hacer visible los elementos del home
+        document.querySelectorAll('#home .fade-in').forEach(elemento => {
+            elemento.classList.add('visible');
+        });
+        
+        // Elementos del express
+        document.querySelectorAll('#optimizacion-express .fade-in').forEach(elemento => {
+            elemento.classList.add('visible');
+        });
+        
+        console.log('Elementos críticos asegurados como visibles');
+    }
+    
+    // Llamar inmediatamente para asegurar visibilidad
+    asegurarVisibilidadCritica();
+    
+    // NUEVO: Respaldo adicional con setTimeout
+    setTimeout(asegurarVisibilidadCritica, 500);
+    setTimeout(function() {
+        // Último respaldo: hacer visible TODOS los elementos fade-in
+        document.querySelectorAll('.fade-in').forEach(elemento => {
+            elemento.classList.add('visible');
+        });
+        console.log('Todos los elementos fade-in asegurados como visibles');
+    }, 2000);
     
     // =========================================================================
     // NAVEGACIÓN Y NAVBAR - INICIALIZACIÓN
@@ -149,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Cerrar menú móvil
     function closeMobileMenu() {
-        if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+        if (window.innerWidth <= 768 && navMenu && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
             
             if (mobileToggle) {
@@ -365,191 +423,121 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =========================================================================
-    // ANIMACIONES AL SCROLL
+    // ANIMACIONES AL SCROLL - MEJORADAS
     // =========================================================================
     
     function initScrollAnimations() {
-        // Detectar elementos para animar al hacer scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
+        // NUEVO: Marcar inmediatamente los elementos críticos
+        const criticalSections = [
+            '#servicios .fade-in',
+            '#home .fade-in',
+            '.hero-content',
+            '.hero-image',
+            '.seccion-titulo',
+            '.servicios-grid',
+            '.oferta-especial',
+            '.servicios-garantia'
+        ];
         
-        // Animación inmediata para elementos en la vista inicial (hero section)
-        const heroFadeElements = document.querySelectorAll('#home .fade-in');
-        heroFadeElements.forEach(element => {
-            setTimeout(() => {
-                element.classList.add('visible');
-            }, 300);
+        criticalSections.forEach(selector => {
+            document.querySelectorAll(selector).forEach(el => {
+                if (!el.classList.contains('visible')) {
+                    el.classList.add('visible');
+                }
+            });
         });
         
-        // Crear un observador de intersección para animaciones al hacer scroll
+        // MEJORADO: Actualizar el IntersectionObserver para ser más sensible
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                // Considerar elementos parcialmente visibles o que están por entrar en la pantalla
+                if (entry.isIntersecting || entry.intersectionRatio > 0) {
                     entry.target.classList.add('visible');
+                    // Dejar de observar después de hacer visible
                     observer.unobserve(entry.target);
+                    console.log('Elemento hecho visible por el observer:', entry.target);
                 }
             });
         }, { 
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            // Configuración más sensible
+            threshold: 0.01,  // Detectar con solo 1% visible
+            rootMargin: '0px 0px -10% 0px' // Considerar elementos casi visibles
         });
         
-        // Observar todos los elementos con la clase fade-in (excepto los del hero)
-        fadeElements.forEach(element => {
-            if (!element.closest('#home')) {
-                observer.observe(element);
-            }
+        // Observar todos los elementos fade-in excepto los ya procesados
+        document.querySelectorAll('.fade-in:not(.visible)').forEach(element => {
+            observer.observe(element);
         });
     }
     
     // =========================================================================
-    // ANIMACIÓN DE MÉTRICAS
+    // ANIMACIÓN DE MÉTRICAS - MEJORADA
     // =========================================================================
     
     function initMetricAnimations() {
-        // Animar los valores de métricas cuando son visibles
-        const metricElements = document.querySelectorAll('.metric-after');
+        // MEJORADO: Hacer visibles las métricas inmediatamente
+        document.querySelectorAll('.metric-after').forEach(metric => {
+            metric.classList.add('animated');
+            metric.style.opacity = '1';
+            
+            // Obtener y mostrar el valor final
+            const targetValue = metric.getAttribute('data-value');
+            if (targetValue) {
+                metric.textContent = targetValue;
+            }
+        });
         
-        // Mejorar la observación de métricas para asegurar que se animen
+        // Mantener el observer como respaldo
         const metricObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const metric = entry.target;
-                    const targetValue = metric.getAttribute('data-value');
+                    metric.classList.add('animated');
+                    metric.style.opacity = '1';
                     
+                    // Obtener y mostrar el valor final
+                    const targetValue = metric.getAttribute('data-value');
                     if (targetValue) {
-                        // Si el valor contiene números, animamos la parte numérica
-                        if (/\d/.test(targetValue)) {
-                            const numericPart = targetValue.match(/[\d.]+/)[0];
-                            const prefix = targetValue.split(numericPart)[0] || '';
-                            const suffix = targetValue.split(numericPart)[1] || '';
-                            const decimalPlaces = numericPart.includes('.') ? numericPart.split('.')[1].length : 0;
-                            const startValue = 0;
-                            const endValue = parseFloat(numericPart);
-                            
-                            // Utilizamos requestAnimationFrame para una animación suave
-                            let startTime = null;
-                            const duration = 1500; // 1.5 segundos de duración
-                            
-                            function animateValue(timestamp) {
-                                if (!startTime) startTime = timestamp;
-                                const progress = Math.min((timestamp - startTime) / duration, 1);
-                                
-                                // Usamos una función de ease-out para que se desacelere al final
-                                const easeOutProgress = 1 - Math.pow(1 - progress, 3);
-                                const currentValue = startValue + easeOutProgress * (endValue - startValue);
-                                
-                                // Formatear el valor con los decimales correctos
-                                const formattedValue = currentValue.toFixed(decimalPlaces);
-                                metric.textContent = `${prefix}${formattedValue}${suffix}`;
-                                
-                                if (progress < 1) {
-                                    requestAnimationFrame(animateValue);
-                                } else {
-                                    // Al finalizar, destacar el valor final con un pequeño efecto
-                                    metric.style.transform = 'scale(1.05)';
-                                    setTimeout(() => {
-                                        metric.style.transform = 'scale(1)';
-                                    }, 150);
-                                }
-                            }
-                            
-                            requestAnimationFrame(animateValue);
-                        } else {
-                            // Si no contiene números, simplemente mostramos el valor
-                            metric.textContent = targetValue;
-                        }
+                        metric.textContent = targetValue;
                     }
                     
-                    // Dejar de observar después de la animación
+                    // Dejar de observar
                     metricObserver.unobserve(metric);
                 }
             });
         }, {
-            threshold: 0.5,
+            threshold: 0.1,
             rootMargin: '0px 0px -10% 0px'
         });
         
-        // Observar todos los elementos de métricas
-        metricElements.forEach(metric => {
+        // Observar solo métricas que aún no estén animadas
+        document.querySelectorAll('.metric-after:not(.animated)').forEach(metric => {
             metricObserver.observe(metric);
         });
     }
     
     // =========================================================================
-    // SERVICIOS MENSUALES - ANIMACIONES
+    // SERVICIOS MENSUALES - ANIMACIONES CORREGIDAS
     // =========================================================================
     
     function initServiciosMensuales() {
-        const serviciosMensuales = document.querySelector('.servicios-mensuales');
-        if (!serviciosMensuales) return;
-        
-        const servicioCards = document.querySelectorAll('.servicio-mensual-card');
-        const ofertaEspecial = document.querySelector('.oferta-especial');
-        const serviciosGarantia = document.querySelector('.servicios-garantia');
-        
-        // Observador de intersección para animaciones
-        const serviciosObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Si es el contenedor principal, comenzar animación de las tarjetas escalonada
-                    if (entry.target === serviciosMensuales) {
-                        servicioCards.forEach((card, index) => {
-                            setTimeout(() => {
-                                card.classList.add('visible');
-                                card.style.transform = 'translateY(0)';
-                                card.style.opacity = '1';
-                            }, 100 * index);
-                        });
-                        
-                        // Animar oferta especial después de las tarjetas
-                        if (ofertaEspecial) {
-                            setTimeout(() => {
-                                ofertaEspecial.classList.add('visible');
-                                ofertaEspecial.style.transform = 'translateY(0)';
-                                ofertaEspecial.style.opacity = '1';
-                            }, 100 * servicioCards.length + 100);
-                        }
-                        
-                        // Animar garantía al final
-                        if (serviciosGarantia) {
-                            setTimeout(() => {
-                                serviciosGarantia.classList.add('visible');
-                                serviciosGarantia.style.transform = 'translateY(0)';
-                                serviciosGarantia.style.opacity = '1';
-                            }, 100 * servicioCards.length + 300);
-                        }
-                    }
-                    
-                    serviciosObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1
+        // CORREGIDO: Hacer visibles inmediatamente todos los elementos de servicios
+        document.querySelectorAll('.servicios-grid .soluciones-card').forEach(card => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+            card.classList.add('visible');
         });
         
-        // Configurar elementos para animación
-        servicioCards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        document.querySelectorAll('.oferta-especial, .servicios-garantia').forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            el.classList.add('visible');
         });
         
-        if (ofertaEspecial) {
-            ofertaEspecial.style.opacity = '0';
-            ofertaEspecial.style.transform = 'translateY(20px)';
-            ofertaEspecial.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        }
+        console.log('Elementos de servicios mensuales hechos visibles');
         
-        if (serviciosGarantia) {
-            serviciosGarantia.style.opacity = '0';
-            serviciosGarantia.style.transform = 'translateY(20px)';
-            serviciosGarantia.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        }
-        
-        // Comenzar a observar
-        serviciosObserver.observe(serviciosMensuales);
-        
-        // Efecto hover en las tarjetas
+        // Mantener el efecto hover en las tarjetas
+        const servicioCards = document.querySelectorAll('.soluciones-card');
         servicioCards.forEach(card => {
             card.addEventListener('mouseenter', function() {
                 const button = this.querySelector('.btn-servicio');
@@ -570,53 +558,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =========================================================================
-    // EXPRESS BOX - ANIMACIONES
+    // EXPRESS BOX - ANIMACIONES CORREGIDAS
     // =========================================================================
     
     function initExpressBox() {
         const expressBox = document.querySelector('.express-box-container');
         if (!expressBox) return;
         
-        const expressBoxItems = document.querySelectorAll('.express-box-list li');
+        // CORREGIDO: Hacer visible inmediatamente
+        expressBox.classList.add('visible');
         
-        // Observador de intersección para activar las animaciones al hacer scroll
-        const boxObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Animar el box cuando sea visible
-                    expressBox.classList.add('visible');
-                    
-                    // Animar cada ítem de la lista con un retraso escalonado
-                    expressBoxItems.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'translateX(0)';
-                        }, 300 + (index * 100)); // 300ms base + 100ms por cada ítem
-                    });
-                    
-                    // Dejar de observar una vez animado
-                    boxObserver.unobserve(expressBox);
-                }
-            });
-        }, {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
+        const expressBoxItems = document.querySelectorAll('.express-box-list li');
+        expressBoxItems.forEach(item => {
+            item.style.opacity = '1';
+            item.style.transform = 'translateX(0)';
         });
         
-        // Crear efecto inicial para los ítems
-        if (window.innerWidth > 768) {
-            expressBoxItems.forEach((item, index) => {
-                item.style.opacity = '0';
-                item.style.transform = 'translateX(-20px)';
-                item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-                item.style.transitionDelay = (index * 0.1) + 's';
-            });
-        }
-        
-        // Comenzar a observar el box
-        boxObserver.observe(expressBox);
-        
-        // Interactividad al hover para los ítems de la lista
+        // Mantener interactividad al hover
         expressBoxItems.forEach(item => {
             item.addEventListener('mouseenter', function() {
                 this.style.backgroundColor = 'rgba(255, 126, 0, 0.05)';
@@ -701,22 +659,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Simplificar animaciones para mejor rendimiento
             document.body.classList.add('mobile-optimized');
-            
-            // Ajustar scroll del hero para mejor vista del contenido
-            const heroButtons = document.querySelector('.hero-buttons');
-            if (heroButtons) {
-                heroButtons.addEventListener('click', function() {
-                    const serviciosSection = document.getElementById('servicios');
-                    if (serviciosSection) {
-                        setTimeout(() => {
-                            window.scrollTo({
-                                top: serviciosSection.offsetTop - 70,
-                                behavior: 'smooth'
-                            });
-                        }, 200);
-                    }
-                });
-            }
         }
     }
     
@@ -768,6 +710,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // INICIALIZACIÓN PRINCIPAL
     // =========================================================================
     
+    // NUEVO: Remover clase preload inmediatamente
+    document.body.classList.remove('preload');
+    
     // Inicializar componentes de la interfaz
     initNavbar();
     initScrollAnimations();
@@ -792,6 +737,9 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollIndicator.style.opacity = '1';
         }
         
+        // Último respaldo para hacer todos los elementos visibles
+        asegurarVisibilidadCritica();
+        
         // Verificar si hay un hash en la URL para navegar directamente
         if (window.location.hash) {
             const targetElement = document.querySelector(window.location.hash);
@@ -806,23 +754,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Mostrar inmediatamente el contenido crítico
-    // Asegurarnos que los elementos clave se muestran sin esperar animaciones
-    const criticalElements = [
-        document.querySelector('#home h1'),
-        document.querySelector('#home .hero-subtitle'),
-        document.querySelector('#home .grunt-test-services'),
-        document.querySelector('#home .grunt-test-points'),
-        document.querySelector('#home .hero-buttons'),
-        document.querySelector('#servicios .seccion-titulo')
-    ];
-    
-    criticalElements.forEach(el => {
-        if (el && el.closest('.fade-in')) {
-            el.closest('.fade-in').classList.add('visible');
-        }
-    });
-    
     // =========================================================================
     // EXPORTAR FUNCIONES GLOBALES
     // =========================================================================
@@ -830,6 +761,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Exponer funciones públicas para acceso desde otros scripts
     window.OrangeVaporApp = {
         updateHeaderState,
-        closeMobileMenu
+        closeMobileMenu,
+        asegurarVisibilidadCritica // NUEVO: Exponer función para uso externo
     };
 });
