@@ -90,13 +90,14 @@ body {
     z-index: 1000;
     background-color: var(--blanco);
     box-shadow: var(--sombra-sm);
-    /* Desactivar transiciones al cargar para evitar flash */
     padding: var(--space-md) 0;
+    transform: translateZ(0);
+    will-change: transform, padding, box-shadow;
 }
 
-/* Habilitar transiciones una vez cargado */
 #header.transitions-enabled {
-    transition: all var(--duration-normal) var(--ease-out);
+    transition: padding var(--duration-normal) var(--ease-out),
+                box-shadow var(--duration-normal) var(--ease-out);
 }
 
 #header.sticky {
@@ -107,6 +108,7 @@ body {
 /* Animación para ocultar/mostrar el header */
 #header.header-hidden {
     transform: translateY(-100%);
+    transition: transform var(--duration-normal) var(--ease-out);
 }
 
 .navbar {
@@ -160,8 +162,7 @@ body {
     opacity: 1;
     visibility: visible;
     transition: transform 0.5s var(--ease-out), 
-                opacity 0.4s var(--ease-out), 
-                visibility 0s;
+                opacity 0.4s var(--ease-out);
 }
 
 .logo-full .vapor {
@@ -192,8 +193,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: transform 0.5s var(--ease-out), 
-                opacity 0.4s var(--ease-out), 
-                visibility 0s 0.4s;
+                opacity 0.4s var(--ease-out);
     font-size: var(--text-3xl);
     font-weight: 800;
     color: var(--gris-90);
@@ -215,8 +215,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: transform 0.5s var(--ease-out), 
-                opacity 0.4s var(--ease-out), 
-                visibility 0s 0.4s;
+                opacity 0.4s var(--ease-out);
 }
 
 #header.sticky .logo-short {
@@ -224,8 +223,7 @@ body {
     opacity: 1;
     visibility: visible;
     transition: transform 0.5s var(--ease-out), 
-                opacity 0.4s var(--ease-out), 
-                visibility 0s;
+                opacity 0.4s var(--ease-out);
 }
 
 /* Efectos hover para el logo */
@@ -291,10 +289,14 @@ body {
     width: 100%;
 }
 
-/* Efecto de foco para accesibilidad */
+/* Corrección para eliminar el rectángulo anaranjado en focus */
+.nav-link:focus {
+    outline: none;
+}
+
 .nav-link:focus-visible {
-    outline: 2px solid var(--naranja-principal);
-    outline-offset: 3px;
+    outline: none;
+    box-shadow: 0 0 0 2px var(--naranja-principal);
     border-radius: var(--radius-sm);
 }
 
@@ -372,7 +374,9 @@ body {
     font-weight: 600;
     font-size: var(--text-sm);
     border-radius: var(--radius-md);
-    transition: all var(--duration-normal) var(--ease-bounce);
+    transition: transform var(--duration-normal) var(--ease-bounce),
+                background-color var(--duration-normal) var(--ease-in-out),
+                box-shadow var(--duration-normal) var(--ease-in-out);
     box-shadow: var(--sombra-naranja);
     position: relative;
     overflow: hidden;
@@ -461,6 +465,17 @@ body {
     user-select: none;
 }
 
+/* Corrección para eliminar rectángulo anaranjado en focus */
+.dropdown-toggle:focus {
+    outline: none;
+}
+
+.dropdown-toggle:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--naranja-principal);
+    border-radius: var(--radius-sm);
+}
+
 .dropdown-icon {
     transition: transform var(--duration-normal) var(--ease-out);
     font-size: 0.8em;
@@ -498,7 +513,9 @@ body {
     box-shadow: var(--sombra-lg);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s var(--ease-out);
+    transition: opacity 0.3s var(--ease-out),
+                visibility 0.3s var(--ease-out),
+                transform 0.3s var(--ease-out);
     z-index: 10;
     pointer-events: none;
 }
@@ -533,11 +550,24 @@ body {
     padding: var(--space-xs) var(--space-md);
     color: var(--gris-70);
     border-radius: var(--radius-sm);
-    transition: all var(--duration-fast) var(--ease-out);
+    transition: transform var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
     white-space: nowrap;
     margin: var(--space-2xs) 0;
     position: relative;
     overflow: hidden;
+}
+
+/* Corrección para eliminar rectángulo anaranjado en focus */
+.dropdown-item:focus {
+    outline: none;
+}
+
+.dropdown-item:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--naranja-principal);
+    border-radius: var(--radius-sm);
 }
 
 .dropdown-item:hover,
@@ -579,7 +609,8 @@ body {
     opacity: 0.8;
     width: 16px;
     text-align: center;
-    transition: all 0.2s var(--ease-bounce);
+    transition: transform 0.2s var(--ease-bounce),
+                opacity 0.2s var(--ease-out);
 }
 
 .dropdown-item:hover .item-icon {
@@ -603,9 +634,14 @@ body {
     position: relative;
 }
 
+/* Corrección para eliminar rectángulo anaranjado en focus */
+.mobile-toggle:focus {
+    outline: none;
+}
+
 .mobile-toggle:focus-visible {
-    outline: 2px solid var(--naranja-principal);
-    outline-offset: 3px;
+    outline: none;
+    box-shadow: 0 0 0 2px var(--naranja-principal);
     border-radius: var(--radius-sm);
 }
 
@@ -615,7 +651,9 @@ body {
     height: 2px;
     background-color: var(--gris-80);
     border-radius: var(--radius-full);
-    transition: all var(--duration-normal) var(--ease-out);
+    transition: transform var(--duration-normal) var(--ease-out),
+                opacity var(--duration-normal) var(--ease-out),
+                background-color var(--duration-normal) var(--ease-out);
     transform-origin: center;
 }
 
@@ -703,12 +741,13 @@ body {
         flex-direction: column;
         align-items: flex-start;
         background-color: var(--blanco);
-        padding: 0 var(--space-xl);
+        padding: 0;
         overflow: hidden;
         opacity: 0;
         pointer-events: none;
         box-shadow: var(--sombra-md);
-        transition: all var(--duration-normal) var(--ease-out);
+        transition: opacity var(--duration-normal) var(--ease-out),
+                    transform var(--duration-normal) var(--ease-out);
         gap: var(--space-lg);
         transform: translateY(-20px);
     }
@@ -717,7 +756,8 @@ body {
     .nav-menu.closing {
         opacity: 0;
         transform: translateY(-20px);
-        transition: all var(--duration-normal) var(--ease-out);
+        transition: opacity var(--duration-normal) var(--ease-out),
+                    transform var(--duration-normal) var(--ease-out);
     }
     
     /* Menú móvil activo */
@@ -800,7 +840,8 @@ body {
     .dropdown.active .dropdown-item {
         transform: translateX(0);
         opacity: 1;
-        transition: all 0.3s var(--ease-out);
+        transition: transform 0.3s var(--ease-out),
+                    opacity 0.3s var(--ease-out);
     }
     
     /* Animación secuencial para los ítems del dropdown */
@@ -834,18 +875,4 @@ body {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
-}
-
-/* Mejora en renderizado con GPU */
-.nav-link, 
-.dropdown-menu, 
-.dropdown-item, 
-.cta-button, 
-.logo-full, 
-.logo-short,
-.mobile-toggle span,
-#header.transitions-enabled {
-    will-change: transform, opacity;
-    transform: translateZ(0);
-    backface-visibility: hidden;
 }
