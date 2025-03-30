@@ -284,23 +284,24 @@
             margin: 0;
         }
         
-        .pasos-lista {
+        /* Nuevo estilo para checklist */
+        .checklist {
             list-style: none;
-            counter-reset: paso-counter;
+            counter-reset: checklist-counter;
         }
         
-        .paso {
+        .checklist-item {
             position: relative;
             padding: var(--espaciado-sm) var(--espaciado-sm) var(--espaciado-sm) 50px;
             margin-bottom: var(--espaciado-sm);
             border: 1px solid var(--gris-borde);
             border-radius: var(--borde-redondo-sm);
             background-color: var(--gris-claro);
-            counter-increment: paso-counter;
+            counter-increment: checklist-counter;
         }
         
-        .paso:before {
-            content: counter(paso-counter);
+        .checklist-item:before {
+            content: "✓";
             position: absolute;
             left: 10px;
             top: 50%;
@@ -316,12 +317,28 @@
             border-radius: 50%;
         }
         
-        .paso-titulo {
+        .checklist-titulo {
             font-weight: 700;
             margin-bottom: 5px;
+            display: flex;
+            align-items: center;
         }
         
-        .paso-detalles {
+        .checklist-titulo:after {
+            content: counter(checklist-counter);
+            margin-left: 8px;
+            background-color: var(--gris-medio);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .checklist-detalles {
             margin-bottom: 0;
         }
         
@@ -419,6 +436,31 @@
         
         .proceso-chatbot .proceso-nombre {
             color: var(--color-chatbot);
+        }
+        
+        /* Colores específicos para checklist items en cada proceso */
+        .proceso-auditoria .checklist-item:before {
+            background-color: var(--auditoria-verde);
+        }
+        
+        .proceso-express .checklist-item:before {
+            background-color: var(--express-rojo);
+        }
+        
+        .proceso-meta .checklist-item:before {
+            background-color: var(--color-ads);
+        }
+        
+        .proceso-google .checklist-item:before {
+            background-color: var(--color-google);
+        }
+        
+        .proceso-email .checklist-item:before {
+            background-color: var(--color-email);
+        }
+        
+        .proceso-chatbot .checklist-item:before {
+            background-color: var(--color-chatbot);
         }
         
         /* Estilos para pantallas pequeñas */
@@ -593,63 +635,63 @@
                 <h2 class="proceso-nombre">Proceso: Auditoría Flash GRATIS</h2>
             </div>
             
-            <ol class="pasos-lista">
-                <li class="paso">
-                    <div class="paso-titulo">Recepción de solicitud</div>
-                    <p class="paso-detalles">Recibir la solicitud de auditoría a través del formulario de la web o Calendly. Crear carpeta en Drive con el nombre del cliente.</p>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Recepción de solicitud</div>
+                    <p class="checklist-detalles">Recibir la solicitud de auditoría a través del formulario de la web o Calendly. Crear carpeta en Drive con el nombre del cliente.</p>
                     <span class="responsable">Responsable: Administrador</span>
                     <span class="plazo">Plazo: 2 horas hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Contacto inicial con el cliente</div>
-                    <p class="paso-detalles">Enviar email de bienvenida al cliente con instrucciones para compartir acceso a sus cuentas de Meta Business y Google Ads (modo lectura). Incluir una breve explicación del proceso.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Contacto inicial con el cliente</div>
+                    <p class="checklist-detalles">Enviar email de bienvenida al cliente con instrucciones para compartir acceso a sus cuentas de Meta Business y Google Ads (modo lectura). Incluir una breve explicación del proceso.</p>
                     <span class="responsable">Responsable: Consultor Digital</span>
                     <span class="plazo">Plazo: 3 horas hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Verificación de accesos</div>
-                    <p class="paso-detalles">Confirmar que los accesos compartidos funcionan correctamente. En caso contrario, contactar al cliente para resolver problemas.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Verificación de accesos</div>
+                    <p class="checklist-detalles">Confirmar que los accesos compartidos funcionan correctamente. En caso contrario, contactar al cliente para resolver problemas.</p>
                     <span class="responsable">Responsable: Consultor Digital</span>
                     <span class="plazo">Plazo: 3 horas hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Análisis de campañas</div>
-                    <p class="paso-detalles">Revisar las campañas activas del cliente. Identificar 3 errores críticos, detectar públicos valiosos no alcanzados, evaluar métricas principales y comparar con competidores.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Análisis de campañas</div>
+                    <p class="checklist-detalles">Revisar las campañas activas del cliente. Identificar 3 errores críticos, detectar públicos valiosos no alcanzados, evaluar métricas principales y comparar con competidores.</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: 24 horas</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Elaboración del informe</div>
-                    <p class="paso-detalles">Utilizar la plantilla "Auditoría-Flash-Template.pptx" para crear un informe profesional con las observaciones. Exportar a PDF. Incluir capturas de pantalla relevantes y gráficos cuando sea necesario.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Elaboración del informe</div>
+                    <p class="checklist-detalles">Utilizar la plantilla "Auditoría-Flash-Template.pptx" para crear un informe profesional con las observaciones. Exportar a PDF. Incluir capturas de pantalla relevantes y gráficos cuando sea necesario.</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: 24 horas</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Revisión de calidad</div>
-                    <p class="paso-detalles">Revisar el informe para asegurar que cumple con los estándares de calidad. Verificar que sea comprensible para el cliente y contenga insights accionables.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Revisión de calidad</div>
+                    <p class="checklist-detalles">Revisar el informe para asegurar que cumple con los estándares de calidad. Verificar que sea comprensible para el cliente y contenga insights accionables.</p>
                     <span class="responsable">Responsable: Director de Estrategia</span>
                     <span class="plazo">Plazo: 3 horas hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Entrega al cliente</div>
-                    <p class="paso-detalles">Enviar el informe PDF al cliente vía email. Incluir una breve explicación de los hallazgos principales y ofrecer una llamada de 15 minutos para resolver dudas.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Entrega al cliente</div>
+                    <p class="checklist-detalles">Enviar el informe PDF al cliente vía email. Incluir una breve explicación de los hallazgos principales y ofrecer una llamada de 15 minutos para resolver dudas.</p>
                     <span class="responsable">Responsable: Consultor Digital</span>
                     <span class="plazo">Plazo: 3 horas hábiles tras la aprobación</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Seguimiento</div>
-                    <p class="paso-detalles">Realizar seguimiento con el cliente 24 horas después de enviado el informe. Consultar si tiene dudas y presentar propuesta comercial para servicios mensuales u Optimización Express.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Seguimiento</div>
+                    <p class="checklist-detalles">Realizar seguimiento con el cliente 24 horas después de enviado el informe. Consultar si tiene dudas y presentar propuesta comercial para servicios mensuales u Optimización Express.</p>
                     <span class="responsable">Responsable: Consultor Digital</span>
                     <span class="plazo">Plazo: 24 horas después de la entrega</span>
-                </li>
-            </ol>
+                </div>
+            </div>
             
             <div class="entregable">
                 <h4>Entregable final: Auditoría Flash PDF (2-3 páginas)</h4>
@@ -676,91 +718,91 @@
                 <h2 class="proceso-nombre">Proceso: Optimización Express (48hs)</h2>
             </div>
             
-            <ol class="pasos-lista">
-                <li class="paso">
-                    <div class="paso-titulo">Recepción del pago</div>
-                    <p class="paso-detalles">Verificar la recepción del pago de US$299. Actualizar estado del cliente en el CRM y crear carpeta de proyecto en Drive.</p>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Recepción del pago</div>
+                    <p class="checklist-detalles">Verificar la recepción del pago de US$299. Actualizar estado del cliente en el CRM y crear carpeta de proyecto en Drive.</p>
                     <span class="responsable">Responsable: Administrador</span>
                     <span class="plazo">Plazo: 2 horas hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Confirmación y acceso</div>
-                    <p class="paso-detalles">Enviar email de confirmación al cliente. Solicitar acceso de administrador a cuentas de Meta Business y Google Ads. Programar llamada inicial de 30 minutos.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Confirmación y acceso</div>
+                    <p class="checklist-detalles">Enviar email de confirmación al cliente. Solicitar acceso de administrador a cuentas de Meta Business y Google Ads. Programar llamada inicial de 30 minutos.</p>
                     <span class="responsable">Responsable: Consultor Digital</span>
                     <span class="plazo">Plazo: 3 horas hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Llamada de descubrimiento</div>
-                    <p class="paso-detalles">Realizar llamada con el cliente para entender objetivos de negocio, audiencia, productos principales, histórico de campañas y KPIs deseados. Completar el formulario "Brief Express".</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Llamada de descubrimiento</div>
+                    <p class="checklist-detalles">Realizar llamada con el cliente para entender objetivos de negocio, audiencia, productos principales, histórico de campañas y KPIs deseados. Completar el formulario "Brief Express".</p>
                     <span class="responsable">Responsable: Especialista en Ads + Dir. Estrategia</span>
                     <span class="plazo">Plazo: Día 1</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Auditoría profunda</div>
-                    <p class="paso-detalles">Realizar análisis exhaustivo de todas las campañas. Identificar fugas de presupuesto, problemas de configuración, oportunidades de mejora y públicos de alto valor.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Auditoría profunda</div>
+                    <p class="checklist-detalles">Realizar análisis exhaustivo de todas las campañas. Identificar fugas de presupuesto, problemas de configuración, oportunidades de mejora y públicos de alto valor.</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: Día 1</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Implementación de correcciones técnicas</div>
-                    <p class="paso-detalles">Corregir configuración de píxeles, eventos de conversión, públicos personalizados y parámetros UTM. Verificar tracking en la web del cliente.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Implementación de correcciones técnicas</div>
+                    <p class="checklist-detalles">Corregir configuración de píxeles, eventos de conversión, públicos personalizados y parámetros UTM. Verificar tracking en la web del cliente.</p>
                     <span class="responsable">Responsable: Especialista Técnico</span>
                     <span class="plazo">Plazo: Día 1 (tarde)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Reestructuración de campañas</div>
-                    <p class="paso-detalles">Reorganizar estructura de campañas siguiendo el modelo "POE" (Prospectos, Ofertas, Engagement). Optimizar segmentación y pujas según los objetivos del cliente.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Reestructuración de campañas</div>
+                    <p class="checklist-detalles">Reorganizar estructura de campañas siguiendo el modelo "POE" (Prospectos, Ofertas, Engagement). Optimizar segmentación y pujas según los objetivos del cliente.</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: Día 2 (mañana)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Creación de anuncios</div>
-                    <p class="paso-detalles">Diseñar 3 anuncios visuales usando las plantillas de marca del cliente. Redactar 5 textos persuasivos para diferentes audiencias y objetivos.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Creación de anuncios</div>
+                    <p class="checklist-detalles">Diseñar 3 anuncios visuales usando las plantillas de marca del cliente. Redactar 5 textos persuasivos para diferentes audiencias y objetivos.</p>
                     <span class="responsable">Responsable: Diseñador + Copywriter</span>
                     <span class="plazo">Plazo: Día 2 (mañana)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Implementación final</div>
-                    <p class="paso-detalles">Cargar todos los cambios y nuevos anuncios en las plataformas. Realizar pruebas de funcionamiento. Ajustar presupuestos según recomendaciones.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Implementación final</div>
+                    <p class="checklist-detalles">Cargar todos los cambios y nuevos anuncios en las plataformas. Realizar pruebas de funcionamiento. Ajustar presupuestos según recomendaciones.</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: Día 2 (tarde)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Preparación del informe</div>
-                    <p class="paso-detalles">Documentar todos los cambios realizados, problemas corregidos y mejoras implementadas. Incluir capturas del antes y después. Usar la plantilla "Informe-Express.pptx".</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Preparación del informe</div>
+                    <p class="checklist-detalles">Documentar todos los cambios realizados, problemas corregidos y mejoras implementadas. Incluir capturas del antes y después. Usar la plantilla "Informe-Express.pptx".</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: Día 2 (tarde)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Revisión de calidad</div>
-                    <p class="paso-detalles">Revisar todas las implementaciones y el informe final. Verificar que se hayan abordado todos los puntos críticos identificados.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Revisión de calidad</div>
+                    <p class="checklist-detalles">Revisar todas las implementaciones y el informe final. Verificar que se hayan abordado todos los puntos críticos identificados.</p>
                     <span class="responsable">Responsable: Director de Estrategia</span>
                     <span class="plazo">Plazo: Día 2 (tarde)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Entrega al cliente</div>
-                    <p class="paso-detalles">Enviar el informe final al cliente y programar una llamada de 45 minutos para explicar los cambios realizados, recomendaciones futuras y responder preguntas.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Entrega al cliente</div>
+                    <p class="checklist-detalles">Enviar el informe final al cliente y programar una llamada de 45 minutos para explicar los cambios realizados, recomendaciones futuras y responder preguntas.</p>
                     <span class="responsable">Responsable: Consultor Digital + Especialista en Ads</span>
                     <span class="plazo">Plazo: Antes de las 48h desde el inicio</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Seguimiento</div>
-                    <p class="paso-detalles">Realizar seguimiento a los 5 días para verificar resultados iniciales. Presentar propuesta para servicio mensual continuo.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Seguimiento</div>
+                    <p class="checklist-detalles">Realizar seguimiento a los 5 días para verificar resultados iniciales. Presentar propuesta para servicio mensual continuo.</p>
                     <span class="responsable">Responsable: Consultor Digital</span>
                     <span class="plazo">Plazo: 5 días después de la entrega</span>
-                </li>
-            </ol>
+                </div>
+            </div>
             
             <div class="entregable">
                 <h4>Entregable final: Informe de Optimización Express</h4>
@@ -788,84 +830,84 @@
                 <h2 class="proceso-nombre">Proceso: Meta Ads (Mensual)</h2>
             </div>
             
-            <ol class="pasos-lista">
-                <li class="paso">
-                    <div class="paso-titulo">Onboarding de cliente</div>
-                    <p class="paso-detalles">Realizar reunión inicial con el cliente para establecer objetivos, KPIs, presupuesto y entender su negocio. Completar el "Brief de Campañas" y obtener accesos a cuentas.</p>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Onboarding de cliente</div>
+                    <p class="checklist-detalles">Realizar reunión inicial con el cliente para establecer objetivos, KPIs, presupuesto y entender su negocio. Completar el "Brief de Campañas" y obtener accesos a cuentas.</p>
                     <span class="responsable">Responsable: Consultor Digital + Especialista en Ads</span>
                     <span class="plazo">Plazo: 2 días hábiles tras contratación</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Auditoría inicial y estrategia</div>
-                    <p class="paso-detalles">Analizar configuración técnica, histórico de campañas y audiencias. Diseñar estrategia mensual basada en objetivos del cliente y estacionalidad. Establecer plan de creatividades.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Auditoría inicial y estrategia</div>
+                    <p class="checklist-detalles">Analizar configuración técnica, histórico de campañas y audiencias. Diseñar estrategia mensual basada en objetivos del cliente y estacionalidad. Establecer plan de creatividades.</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: 5 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Desarrollo creativo</div>
-                    <p class="paso-detalles">Crear 4 creatividades nuevas (imágenes/carruseles) según plan. Redactar textos persuasivos para cada formato. Obtener aprobación del cliente.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Desarrollo creativo</div>
+                    <p class="checklist-detalles">Crear 4 creatividades nuevas (imágenes/carruseles) según plan. Redactar textos persuasivos para cada formato. Obtener aprobación del cliente.</p>
                     <span class="responsable">Responsable: Diseñador + Copywriter</span>
                     <span class="plazo">Plazo: Dentro de los primeros 10 días del mes</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Configuración técnica</div>
-                    <p class="paso-detalles">Verificar/corregir configuración de píxel, eventos de conversión, audiencias personalizadas y similares. Crear catálogo de productos si es necesario.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Configuración técnica</div>
+                    <p class="checklist-detalles">Verificar/corregir configuración de píxel, eventos de conversión, audiencias personalizadas y similares. Crear catálogo de productos si es necesario.</p>
                     <span class="responsable">Responsable: Especialista Técnico</span>
                     <span class="plazo">Plazo: 3 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Implementación de campañas</div>
-                    <p class="paso-detalles">Configurar estructura de campañas según estrategia. Crear anuncios con las creatividades aprobadas. Establecer presupuestos, segmentaciones y ofertas.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Implementación de campañas</div>
+                    <p class="checklist-detalles">Configurar estructura de campañas según estrategia. Crear anuncios con las creatividades aprobadas. Establecer presupuestos, segmentaciones y ofertas.</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: 12 días hábiles tras inicio del mes</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Monitoreo diario</div>
-                    <p class="paso-detalles">Revisar diariamente el rendimiento de las campañas. Ajustar presupuestos entre conjuntos de anuncios según performance. Identificar y resolver problemas.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Monitoreo diario</div>
+                    <p class="checklist-detalles">Revisar diariamente el rendimiento de las campañas. Ajustar presupuestos entre conjuntos de anuncios según performance. Identificar y resolver problemas.</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: Diario</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Optimización semanal</div>
-                    <p class="paso-detalles">Realizar análisis semanal profundo. Ajustar segmentaciones, rotación de anuncios, y estrategias de puja. Verificar calidad de las audiencias.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Optimización semanal</div>
+                    <p class="checklist-detalles">Realizar análisis semanal profundo. Ajustar segmentaciones, rotación de anuncios, y estrategias de puja. Verificar calidad de las audiencias.</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: Semanal (lunes)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Informe semanal</div>
-                    <p class="paso-detalles">Preparar informe semanal simple con métricas clave: impresiones, CTR, CPC, conversiones, ROAS. Enviar al cliente cada viernes con breve resumen.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Informe semanal</div>
+                    <p class="checklist-detalles">Preparar informe semanal simple con métricas clave: impresiones, CTR, CPC, conversiones, ROAS. Enviar al cliente cada viernes con breve resumen.</p>
                     <span class="responsable">Responsable: Especialista en Ads</span>
                     <span class="plazo">Plazo: Semanal (viernes)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Reunión de mitad de mes</div>
-                    <p class="paso-detalles">Mantener reunión breve con el cliente para revisar progresos, ajustar expectativas y planificar próximas creatividades. Registrar feedback.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Reunión de mitad de mes</div>
+                    <p class="checklist-detalles">Mantener reunión breve con el cliente para revisar progresos, ajustar expectativas y planificar próximas creatividades. Registrar feedback.</p>
                     <span class="responsable">Responsable: Consultor Digital</span>
                     <span class="plazo">Plazo: Día 15 de cada mes</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Informe mensual completo</div>
-                    <p class="paso-detalles">Elaborar informe mensual detallado con análisis completo, comparativas mes anterior, ROI, recomendaciones y plan para el siguiente mes.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Informe mensual completo</div>
+                    <p class="checklist-detalles">Elaborar informe mensual detallado con análisis completo, comparativas mes anterior, ROI, recomendaciones y plan para el siguiente mes.</p>
                     <span class="responsable">Responsable: Especialista en Ads + Director de Estrategia</span>
                     <span class="plazo">Plazo: Hasta el día 5 del mes siguiente</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Reunión de revisión mensual</div>
-                    <p class="paso-detalles">Realizar videollamada para presentar resultados mensuales, analizar métricas, discutir estrategias futuras y obtener aprobación del plan del siguiente mes.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Reunión de revisión mensual</div>
+                    <p class="checklist-detalles">Realizar videollamada para presentar resultados mensuales, analizar métricas, discutir estrategias futuras y obtener aprobación del plan del siguiente mes.</p>
                     <span class="responsable">Responsable: Consultor Digital + Especialista en Ads</span>
                     <span class="plazo">Plazo: Hasta el día 7 del mes siguiente</span>
-                </li>
-            </ol>
+                </div>
+            </div>
             
             <div class="entregable">
                 <h4>Entregables mensuales: Meta Ads</h4>
@@ -892,91 +934,91 @@
                 <h2 class="proceso-nombre">Proceso: Google Ads (Mensual)</h2>
             </div>
             
-            <ol class="pasos-lista">
-                <li class="paso">
-                    <div class="paso-titulo">Onboarding de cliente</div>
-                    <p class="paso-detalles">Realizar reunión inicial con el cliente para establecer objetivos, definir KPIs, presupuesto y entender su negocio. Completar el "Brief de Google Ads" y obtener accesos a cuentas.</p>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Onboarding de cliente</div>
+                    <p class="checklist-detalles">Realizar reunión inicial con el cliente para establecer objetivos, definir KPIs, presupuesto y entender su negocio. Completar el "Brief de Google Ads" y obtener accesos a cuentas.</p>
                     <span class="responsable">Responsable: Consultor Digital + Especialista en Google Ads</span>
                     <span class="plazo">Plazo: 2 días hábiles tras contratación</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Investigación de palabras clave</div>
-                    <p class="paso-detalles">Realizar investigación exhaustiva de palabras clave relevantes para el negocio. Analizar competencia, volumen de búsquedas, intención y CPC estimado. Crear lista de keywords prioritarias.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Investigación de palabras clave</div>
+                    <p class="checklist-detalles">Realizar investigación exhaustiva de palabras clave relevantes para el negocio. Analizar competencia, volumen de búsquedas, intención y CPC estimado. Crear lista de keywords prioritarias.</p>
                     <span class="responsable">Responsable: Especialista en Google Ads</span>
                     <span class="plazo">Plazo: 5 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Auditoría técnica</div>
-                    <p class="paso-detalles">Revisar y corregir configuración de seguimiento de conversiones, vinculación con Analytics, tags GTM y extensiones de anuncios. Verificar Quality Score actual.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Auditoría técnica</div>
+                    <p class="checklist-detalles">Revisar y corregir configuración de seguimiento de conversiones, vinculación con Analytics, tags GTM y extensiones de anuncios. Verificar Quality Score actual.</p>
                     <span class="responsable">Responsable: Especialista Técnico</span>
                     <span class="plazo">Plazo: 3 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Diseño de estrategia</div>
-                    <p class="paso-detalles">Elaborar estrategia de campañas según objetivos (búsqueda, display, video, shopping). Definir estructura de cuenta, grupos de anuncios y presupuesto asignado a cada campaña.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Diseño de estrategia</div>
+                    <p class="checklist-detalles">Elaborar estrategia de campañas según objetivos (búsqueda, display, video, shopping). Definir estructura de cuenta, grupos de anuncios y presupuesto asignado a cada campaña.</p>
                     <span class="responsable">Responsable: Especialista en Google Ads + Director de Estrategia</span>
                     <span class="plazo">Plazo: 7 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Creación de anuncios</div>
-                    <p class="paso-detalles">Redactar anuncios de texto atractivos para cada grupo de anuncios. Preparar anuncios responsivos y extensiones (sitelinks, llamadas, ubicación, fragmentos destacados).</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Creación de anuncios</div>
+                    <p class="checklist-detalles">Redactar anuncios de texto atractivos para cada grupo de anuncios. Preparar anuncios responsivos y extensiones (sitelinks, llamadas, ubicación, fragmentos destacados).</p>
                     <span class="responsable">Responsable: Copywriter + Especialista en Google Ads</span>
                     <span class="plazo">Plazo: 10 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Implementación de campañas</div>
-                    <p class="paso-detalles">Configurar campañas en la plataforma según estrategia. Implementar palabras clave, anuncios, pujas y presupuestos. Configurar segmentaciones geográficas y por dispositivos.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Implementación de campañas</div>
+                    <p class="checklist-detalles">Configurar campañas en la plataforma según estrategia. Implementar palabras clave, anuncios, pujas y presupuestos. Configurar segmentaciones geográficas y por dispositivos.</p>
                     <span class="responsable">Responsable: Especialista en Google Ads</span>
                     <span class="plazo">Plazo: 12 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Monitoreo diario</div>
-                    <p class="paso-detalles">Revisar diariamente el rendimiento de las campañas. Ajustar presupuestos, pujas y pausar palabras clave con bajo rendimiento. Identificar términos de búsqueda relevantes.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Monitoreo diario</div>
+                    <p class="checklist-detalles">Revisar diariamente el rendimiento de las campañas. Ajustar presupuestos, pujas y pausar palabras clave con bajo rendimiento. Identificar términos de búsqueda relevantes.</p>
                     <span class="responsable">Responsable: Especialista en Google Ads</span>
                     <span class="plazo">Plazo: Diario</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Optimización semanal</div>
-                    <p class="paso-detalles">Realizar optimización semanal profunda. Ajustar pujas por dispositivo, hora del día y ubicación. Revisar y mejorar Quality Score. Actualizar palabras clave negativas.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Optimización semanal</div>
+                    <p class="checklist-detalles">Realizar optimización semanal profunda. Ajustar pujas por dispositivo, hora del día y ubicación. Revisar y mejorar Quality Score. Actualizar palabras clave negativas.</p>
                     <span class="responsable">Responsable: Especialista en Google Ads</span>
                     <span class="plazo">Plazo: Semanal (lunes)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Testing A/B continuo</div>
-                    <p class="paso-detalles">Implementar pruebas A/B de anuncios continuamente. Analizar resultados y aplicar aprendizajes. Redactar nuevas variantes basadas en los datos.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Testing A/B continuo</div>
+                    <p class="checklist-detalles">Implementar pruebas A/B de anuncios continuamente. Analizar resultados y aplicar aprendizajes. Redactar nuevas variantes basadas en los datos.</p>
                     <span class="responsable">Responsable: Especialista en Google Ads + Copywriter</span>
                     <span class="plazo">Plazo: Quincenal</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Informe semanal</div>
-                    <p class="paso-detalles">Preparar informe semanal con métricas clave: impresiones, CTR, CPC, conversiones, CPA. Enviar al cliente cada viernes con breve resumen de acciones.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Informe semanal</div>
+                    <p class="checklist-detalles">Preparar informe semanal con métricas clave: impresiones, CTR, CPC, conversiones, CPA. Enviar al cliente cada viernes con breve resumen de acciones.</p>
                     <span class="responsable">Responsable: Especialista en Google Ads</span>
                     <span class="plazo">Plazo: Semanal (viernes)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Informe mensual completo</div>
-                    <p class="paso-detalles">Elaborar informe mensual detallado con análisis completo, comparativas, ROI, análisis de búsquedas y competencia, recomendaciones y plan para el mes siguiente.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Informe mensual completo</div>
+                    <p class="checklist-detalles">Elaborar informe mensual detallado con análisis completo, comparativas, ROI, análisis de búsquedas y competencia, recomendaciones y plan para el mes siguiente.</p>
                     <span class="responsable">Responsable: Especialista en Google Ads + Director de Estrategia</span>
                     <span class="plazo">Plazo: Hasta el día 5 del mes siguiente</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Reunión de revisión mensual</div>
-                    <p class="paso-detalles">Realizar videollamada para presentar resultados mensuales, analizar competencia, discutir ajustes de presupuesto y obtener aprobación del plan del siguiente mes.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Reunión de revisión mensual</div>
+                    <p class="checklist-detalles">Realizar videollamada para presentar resultados mensuales, analizar competencia, discutir ajustes de presupuesto y obtener aprobación del plan del siguiente mes.</p>
                     <span class="responsable">Responsable: Consultor Digital + Especialista en Google Ads</span>
                     <span class="plazo">Plazo: Hasta el día 7 del mes siguiente</span>
-                </li>
-            </ol>
+                </div>
+            </div>
             
             <div class="entregable">
                 <h4>Entregables mensuales: Google Ads</h4>
@@ -1004,98 +1046,98 @@
                 <h2 class="proceso-nombre">Proceso: Email Marketing (Mensual)</h2>
             </div>
             
-            <ol class="pasos-lista">
-                <li class="paso">
-                    <div class="paso-titulo">Onboarding de cliente</div>
-                    <p class="paso-detalles">Realizar reunión inicial para comprender objetivos del cliente, productos/servicios, audiencia y ciclo de ventas. Completar el "Email Marketing Brief" y obtener accesos a plataformas.</p>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Onboarding de cliente</div>
+                    <p class="checklist-detalles">Realizar reunión inicial para comprender objetivos del cliente, productos/servicios, audiencia y ciclo de ventas. Completar el "Email Marketing Brief" y obtener accesos a plataformas.</p>
                     <span class="responsable">Responsable: Consultor Digital + Especialista en Email</span>
                     <span class="plazo">Plazo: 2 días hábiles tras contratación</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Auditoría de base de datos</div>
-                    <p class="paso-detalles">Analizar la base de suscriptores actual: tamaño, calidad, segmentación, historial de campañas anteriores, tasas de apertura/clic y conversiones previas.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Auditoría de base de datos</div>
+                    <p class="checklist-detalles">Analizar la base de suscriptores actual: tamaño, calidad, segmentación, historial de campañas anteriores, tasas de apertura/clic y conversiones previas.</p>
                     <span class="responsable">Responsable: Especialista en Email</span>
                     <span class="plazo">Plazo: 3 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Configuración técnica</div>
-                    <p class="paso-detalles">Verificar configuración de dominio, SPF, DKIM, DMARC. Implementar tracking UTM y conexión con CRM/Analytics. Configurar plantillas responsivas base.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Configuración técnica</div>
+                    <p class="checklist-detalles">Verificar configuración de dominio, SPF, DKIM, DMARC. Implementar tracking UTM y conexión con CRM/Analytics. Configurar plantillas responsivas base.</p>
                     <span class="responsable">Responsable: Especialista Técnico</span>
                     <span class="plazo">Plazo: 4 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Estrategia de segmentación</div>
-                    <p class="paso-detalles">Desarrollar estrategia de segmentación basada en comportamiento, intereses, demografía y etapa del customer journey. Crear segmentos en la plataforma.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Estrategia de segmentación</div>
+                    <p class="checklist-detalles">Desarrollar estrategia de segmentación basada en comportamiento, intereses, demografía y etapa del customer journey. Crear segmentos en la plataforma.</p>
                     <span class="responsable">Responsable: Especialista en Email + Director de Estrategia</span>
                     <span class="plazo">Plazo: 5 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Planificación de contenidos</div>
-                    <p class="paso-detalles">Crear calendario mensual con 2 campañas masivas y 1 secuencia automatizada. Definir objetivos específicos, temas, ofertas y fechas para cada envío.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Planificación de contenidos</div>
+                    <p class="checklist-detalles">Crear calendario mensual con 2 campañas masivas y 1 secuencia automatizada. Definir objetivos específicos, temas, ofertas y fechas para cada envío.</p>
                     <span class="responsable">Responsable: Especialista en Email + Copywriter</span>
                     <span class="plazo">Plazo: 7 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Diseño de primera campaña masiva</div>
-                    <p class="paso-detalles">Redactar asuntos A/B, textos persuasivos y llamadas a la acción. Diseñar la estructura visual, imágenes y elementos interactivos. Obtener aprobación del cliente.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Diseño de primera campaña masiva</div>
+                    <p class="checklist-detalles">Redactar asuntos A/B, textos persuasivos y llamadas a la acción. Diseñar la estructura visual, imágenes y elementos interactivos. Obtener aprobación del cliente.</p>
                     <span class="responsable">Responsable: Copywriter + Diseñador</span>
                     <span class="plazo">Plazo: 10 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Implementación de primera campaña</div>
-                    <p class="paso-detalles">Construir el email en la plataforma asegurando compatibilidad con todos los clientes de correo. Configurar pruebas A/B de asuntos. Programar envío en día/hora óptimos.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Implementación de primera campaña</div>
+                    <p class="checklist-detalles">Construir el email en la plataforma asegurando compatibilidad con todos los clientes de correo. Configurar pruebas A/B de asuntos. Programar envío en día/hora óptimos.</p>
                     <span class="responsable">Responsable: Especialista en Email</span>
                     <span class="plazo">Plazo: 12 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Análisis post-campaña</div>
-                    <p class="paso-detalles">Analizar resultados 48 horas después del envío. Evaluar tasas de apertura, clic, rebote, desuscripción y conversión. Identificar segmentos de mejor rendimiento.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Análisis post-campaña</div>
+                    <p class="checklist-detalles">Analizar resultados 48 horas después del envío. Evaluar tasas de apertura, clic, rebote, desuscripción y conversión. Identificar segmentos de mejor rendimiento.</p>
                     <span class="responsable">Responsable: Especialista en Email</span>
                     <span class="plazo">Plazo: 2 días después de cada envío</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Diseño de segunda campaña masiva</div>
-                    <p class="paso-detalles">Aplicar aprendizajes de la primera campaña. Desarrollar nuevos asuntos A/B, contenido y diseño mejorados. Segmentar según comportamiento de la primera campaña.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Diseño de segunda campaña masiva</div>
+                    <p class="checklist-detalles">Aplicar aprendizajes de la primera campaña. Desarrollar nuevos asuntos A/B, contenido y diseño mejorados. Segmentar según comportamiento de la primera campaña.</p>
                     <span class="responsable">Responsable: Copywriter + Diseñador</span>
                     <span class="plazo">Plazo: 15 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Desarrollo de secuencia automatizada</div>
-                    <p class="paso-detalles">Diseñar flujo automatizado (bienvenida, abandono carrito, reactivación, etc.) con 3-5 emails. Configurar disparadores, condiciones y bifurcaciones según comportamiento.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Desarrollo de secuencia automatizada</div>
+                    <p class="checklist-detalles">Diseñar flujo automatizado (bienvenida, abandono carrito, reactivación, etc.) con 3-5 emails. Configurar disparadores, condiciones y bifurcaciones según comportamiento.</p>
                     <span class="responsable">Responsable: Especialista en Email + Copywriter</span>
                     <span class="plazo">Plazo: 20 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Implementación y prueba</div>
-                    <p class="paso-detalles">Construir la secuencia en la plataforma. Realizar pruebas exhaustivas de triggers, contenido y tracking en todas las etapas.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Implementación y prueba</div>
+                    <p class="checklist-detalles">Construir la secuencia en la plataforma. Realizar pruebas exhaustivas de triggers, contenido y tracking en todas las etapas.</p>
                     <span class="responsable">Responsable: Especialista en Email + Especialista Técnico</span>
                     <span class="plazo">Plazo: 22 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Informe mensual</div>
-                    <p class="paso-detalles">Elaborar informe mensual con análisis de todas las campañas: KPIs, segmentos de mejor rendimiento, comparativa con mes anterior, ROI y recomendaciones para el próximo mes.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Informe mensual</div>
+                    <p class="checklist-detalles">Elaborar informe mensual con análisis de todas las campañas: KPIs, segmentos de mejor rendimiento, comparativa con mes anterior, ROI y recomendaciones para el próximo mes.</p>
                     <span class="responsable">Responsable: Especialista en Email</span>
                     <span class="plazo">Plazo: Hasta el día 5 del mes siguiente</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Reunión de revisión</div>
-                    <p class="paso-detalles">Realizar videollamada para presentar resultados mensuales, discutir optimizaciones y aprobar plan de contenidos del mes siguiente. Registrar feedback del cliente.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Reunión de revisión</div>
+                    <p class="checklist-detalles">Realizar videollamada para presentar resultados mensuales, discutir optimizaciones y aprobar plan de contenidos del mes siguiente. Registrar feedback del cliente.</p>
                     <span class="responsable">Responsable: Consultor Digital + Especialista en Email</span>
                     <span class="plazo">Plazo: Hasta el día 7 del mes siguiente</span>
-                </li>
-            </ol>
+                </div>
+            </div>
             
             <div class="entregable">
                 <h4>Entregables mensuales: Email Marketing</h4>
@@ -1123,98 +1165,98 @@
                 <h2 class="proceso-nombre">Proceso: Chatbot (Mensual)</h2>
             </div>
             
-            <ol class="pasos-lista">
-                <li class="paso">
-                    <div class="paso-titulo">Onboarding de cliente</div>
-                    <p class="paso-detalles">Realizar reunión inicial para entender objetivos del chatbot (atención al cliente, generación de leads, ventas), público objetivo y procesos actuales de atención/ventas.</p>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Onboarding de cliente</div>
+                    <p class="checklist-detalles">Realizar reunión inicial para entender objetivos del chatbot (atención al cliente, generación de leads, ventas), público objetivo y procesos actuales de atención/ventas.</p>
                     <span class="responsable">Responsable: Consultor Digital + Especialista en Chatbots</span>
                     <span class="plazo">Plazo: 2 días hábiles tras contratación</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Investigación de necesidades</div>
-                    <p class="paso-detalles">Analizar preguntas frecuentes, objeciones comunes, procesos de compra y puntos de contacto actuales. Revisar conversaciones históricas de atención al cliente.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Investigación de necesidades</div>
+                    <p class="checklist-detalles">Analizar preguntas frecuentes, objeciones comunes, procesos de compra y puntos de contacto actuales. Revisar conversaciones históricas de atención al cliente.</p>
                     <span class="responsable">Responsable: Especialista en Chatbots</span>
                     <span class="plazo">Plazo: 5 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Selección de plataforma</div>
-                    <p class="paso-detalles">Determinar la plataforma óptima según necesidades (Facebook Messenger, WhatsApp Business, web, etc.). Evaluar herramientas disponibles y compatibilidad con sistemas del cliente.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Selección de plataforma</div>
+                    <p class="checklist-detalles">Determinar la plataforma óptima según necesidades (Facebook Messenger, WhatsApp Business, web, etc.). Evaluar herramientas disponibles y compatibilidad con sistemas del cliente.</p>
                     <span class="responsable">Responsable: Especialista en Chatbots + Especialista Técnico</span>
                     <span class="plazo">Plazo: 3 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Diseño de flujos conversacionales</div>
-                    <p class="paso-detalles">Crear diagramas de flujo detallados para cada escenario de conversación. Definir gatillos, respuestas, bifurcaciones y puntos de escalamiento a humanos.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Diseño de flujos conversacionales</div>
+                    <p class="checklist-detalles">Crear diagramas de flujo detallados para cada escenario de conversación. Definir gatillos, respuestas, bifurcaciones y puntos de escalamiento a humanos.</p>
                     <span class="responsable">Responsable: Especialista en Chatbots + Copywriter</span>
                     <span class="plazo">Plazo: 7 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Redacción de mensajes</div>
-                    <p class="paso-detalles">Redactar todos los mensajes del chatbot asegurando tono de voz alineado con la marca. Crear variantes para evitar repeticiones y mantener conversaciones naturales.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Redacción de mensajes</div>
+                    <p class="checklist-detalles">Redactar todos los mensajes del chatbot asegurando tono de voz alineado con la marca. Crear variantes para evitar repeticiones y mantener conversaciones naturales.</p>
                     <span class="responsable">Responsable: Copywriter</span>
                     <span class="plazo">Plazo: 10 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Configuración técnica</div>
-                    <p class="paso-detalles">Implementar el chatbot en la plataforma seleccionada. Configurar integraciones con CRM, sistemas de tickets, o herramientas de marketing. Establecer sistema de notificaciones.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Configuración técnica</div>
+                    <p class="checklist-detalles">Implementar el chatbot en la plataforma seleccionada. Configurar integraciones con CRM, sistemas de tickets, o herramientas de marketing. Establecer sistema de notificaciones.</p>
                     <span class="responsable">Responsable: Especialista Técnico</span>
                     <span class="plazo">Plazo: 12 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Pruebas internas</div>
-                    <p class="paso-detalles">Realizar pruebas exhaustivas de todos los flujos conversacionales. Verificar integraciones, entradas de usuario inesperadas y mecanismos de escalamiento a humanos.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Pruebas internas</div>
+                    <p class="checklist-detalles">Realizar pruebas exhaustivas de todos los flujos conversacionales. Verificar integraciones, entradas de usuario inesperadas y mecanismos de escalamiento a humanos.</p>
                     <span class="responsable">Responsable: Especialista en Chatbots + Equipo de QA</span>
                     <span class="plazo">Plazo: 14 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Capacitación del cliente</div>
-                    <p class="paso-detalles">Instruir al equipo del cliente sobre el funcionamiento del chatbot, monitoreo de conversaciones y procedimientos de escalamiento. Proporcionar manual operativo.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Capacitación del cliente</div>
+                    <p class="checklist-detalles">Instruir al equipo del cliente sobre el funcionamiento del chatbot, monitoreo de conversaciones y procedimientos de escalamiento. Proporcionar manual operativo.</p>
                     <span class="responsable">Responsable: Consultor Digital + Especialista en Chatbots</span>
                     <span class="plazo">Plazo: 15 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Lanzamiento</div>
-                    <p class="paso-detalles">Implementar el chatbot en producción. Monitorear continuamente durante las primeras 48 horas para detectar y corregir problemas rápidamente.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Lanzamiento</div>
+                    <p class="checklist-detalles">Implementar el chatbot en producción. Monitorear continuamente durante las primeras 48 horas para detectar y corregir problemas rápidamente.</p>
                     <span class="responsable">Responsable: Especialista en Chatbots + Especialista Técnico</span>
                     <span class="plazo">Plazo: 16 días hábiles</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Monitoreo semanal</div>
-                    <p class="paso-detalles">Analizar conversaciones semanalmente para identificar patrones, preguntas sin responder y puntos de abandono. Revisar tasas de conversión y satisfacción.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Monitoreo semanal</div>
+                    <p class="checklist-detalles">Analizar conversaciones semanalmente para identificar patrones, preguntas sin responder y puntos de abandono. Revisar tasas de conversión y satisfacción.</p>
                     <span class="responsable">Responsable: Especialista en Chatbots</span>
                     <span class="plazo">Plazo: Semanal</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Optimización continua</div>
-                    <p class="paso-detalles">Realizar mejoras basadas en análisis de conversaciones. Actualizar flujos, agregar nuevas respuestas y refinar mensajes existentes. Implementar pruebas A/B.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Optimización continua</div>
+                    <p class="checklist-detalles">Realizar mejoras basadas en análisis de conversaciones. Actualizar flujos, agregar nuevas respuestas y refinar mensajes existentes. Implementar pruebas A/B.</p>
                     <span class="responsable">Responsable: Especialista en Chatbots + Copywriter</span>
                     <span class="plazo">Plazo: Continuo (implementación quincenal)</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Informe mensual</div>
-                    <p class="paso-detalles">Elaborar informe detallado con métricas clave: conversaciones iniciadas, tasa de resolución, puntos de abandono, tasa de conversión, satisfacción y ROI estimado.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Informe mensual</div>
+                    <p class="checklist-detalles">Elaborar informe detallado con métricas clave: conversaciones iniciadas, tasa de resolución, puntos de abandono, tasa de conversión, satisfacción y ROI estimado.</p>
                     <span class="responsable">Responsable: Especialista en Chatbots</span>
                     <span class="plazo">Plazo: Hasta el día 5 del mes siguiente</span>
-                </li>
+                </div>
                 
-                <li class="paso">
-                    <div class="paso-titulo">Reunión de revisión</div>
-                    <p class="paso-detalles">Realizar videollamada para presentar resultados, discutir insights de conversaciones, proponer mejoras y planificar nuevas funcionalidades para el mes siguiente.</p>
+                <div class="checklist-item">
+                    <div class="checklist-titulo">Reunión de revisión</div>
+                    <p class="checklist-detalles">Realizar videollamada para presentar resultados, discutir insights de conversaciones, proponer mejoras y planificar nuevas funcionalidades para el mes siguiente.</p>
                     <span class="responsable">Responsable: Consultor Digital + Especialista en Chatbots</span>
                     <span class="plazo">Plazo: Hasta el día 7 del mes siguiente</span>
-                </li>
-            </ol>
+                </div>
+            </div>
             
             <div class="entregable">
                 <h4>Entregables mensuales: Chatbot</h4>
