@@ -1,24 +1,414 @@
 /* ==========================================================================
-   ESTILOS ESPECÍFICOS PARA EMAIL MARKETING - OPTIMIZADOS
+   VARIABLES GLOBALES PARA EMAIL MARKETING
    ========================================================================== */
-
-/* Variables específicas de Email Marketing */
 :root {
-    /* Paleta de colores de Email Marketing */
-    --email-principal: #00829b;
-    --email-secundario: #00a3c4;
-    --email-claro: #e0f7fa;
-    --email-oscuro: #005f73;
-    --email-gradiente: linear-gradient(135deg, #00829b, #00a3c4);
+    /* Paleta de colores principal - REFINADA */
+    --email-principal: #0E76A8;
+    --email-secundario: #1A8DC5;
+    --email-claro: #E1F5FE;
+    --email-oscuro: #085980;
+    --email-gradiente: linear-gradient(135deg, #0E76A8, #1A8DC5);
     
-    /* Variables adicionales */
-    --email-bg-claro: rgba(0, 130, 155, 0.05);
-    --email-bg-medio: rgba(0, 130, 155, 0.1);
-    --email-sombra: 0 10px 20px rgba(0, 130, 155, 0.2);
+    /* Colores complementarios - MEJORADOS */
+    --blanco: #FFFFFF;
+    --negro: #1A1A1A;
+    --gris-oscuro: #2D2D2D;
+    --gris-medio: #666666;
+    --gris-claro: #F7F7F7;
+    --gris-borde: #E5E5E5;
+    
+    /* Variables adicionales - REFINADAS */
+    --fondo-claro: #FAFAFA;
+    --texto-oscuro: #2D2D2D;
+    --texto-claro: #555555;
+    --texto-ligero: #888888;
+    
+    /* Variables adicionales para email marketing */
+    --email-bg-claro: rgba(14, 118, 168, 0.05);
+    --email-bg-medio: rgba(14, 118, 168, 0.1);
+    --email-sombra: 0 10px 20px rgba(14, 118, 168, 0.2);
+    
+    /* Sombras mejoradas */
+    --sombra-suave: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
+    --sombra-media: 0 10px 15px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.08);
+    --sombra-fuerte: 0 20px 25px rgba(0, 0, 0, 0.06), 0 10px 10px rgba(0, 0, 0, 0.04);
+    --sombra-focus: 0 0 0 3px rgba(14, 118, 168, 0.3);
+    
+    /* Bordes */
+    --borde-fino: 1px;
+    --borde-medio: 2px;
+    --borde-redondo-xs: 3px;
+    --borde-redondo-sm: 5px;
+    --borde-redondo-md: 8px;
+    --borde-redondo-lg: 16px;
+    --borde-redondo-xl: 24px;
+    --borde-redondo-full: 9999px;
+    
+    /* Espaciado */
+    --espaciado-xs: 0.5rem;
+    --espaciado-sm: 1rem;
+    --espaciado-md: 1.5rem;
+    --espaciado-lg: 3rem;
+    --espaciado-xl: 6rem;
+    
+    /* Fuentes */
+    --fuente-principal: 'Montserrat', sans-serif;
+    --fuente-secundaria: 'Open Sans', sans-serif;
+    
+    /* Tamaños de fuente */
+    --texto-xs: 0.75rem;
+    --texto-sm: 0.875rem;
+    --texto-base: 1rem;
+    --texto-md: 1.125rem;
+    --texto-lg: 1.25rem;
+    --texto-xl: 1.5rem;
+    --texto-2xl: 2rem;
+    --texto-3xl: 2.5rem;
+    --texto-4xl: 3rem;
+    --texto-5xl: 3.5rem;
+    
+    /* Transiciones */
+    --transicion-rapida: 0.15s ease-in-out;
+    --transicion-media: 0.25s ease-in-out;
+    --transicion-lenta: 0.4s ease-in-out;
+    
+    /* Breakpoints */
+    --bp-mobile: 480px;
+    --bp-tablet: 768px;
+    --bp-desktop: 1024px;
+    --bp-desktop-wide: 1280px;
+    
+    /* Contenedor */
+    --ancho-maximo: 1200px;
 }
 
 /* ==========================================================================
-   SECCIÓN HERO EMAIL MARKETING
+   RESET Y ESTILOS BASE
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--fuente-secundaria);
+    color: var(--texto-oscuro);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-color: var(--blanco);
+}
+
+.preload * {
+    transition: none !important;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transicion-rapida), background-color var(--transicion-rapida);
+}
+
+button, input, select, textarea {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transicion-rapida);
+}
+
+button:focus, a:focus {
+    outline: none;
+    box-shadow: var(--sombra-focus);
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/* ==========================================================================
+   LAYOUT Y CONTENEDORES
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: var(--ancho-maximo);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--espaciado-md);
+    padding-right: var(--espaciado-md);
+}
+
+section {
+    padding: var(--espaciado-lg) 0;
+    position: relative;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -1rem;
+}
+
+/* ==========================================================================
+   TIPOGRAFÍA - MEJORADA
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--fuente-principal);
+    line-height: 1.2;
+    margin-bottom: var(--espaciado-sm);
+    font-weight: 700;
+    color: var(--negro);
+    letter-spacing: -0.01em;
+}
+
+h1 {
+    font-size: var(--texto-4xl);
+    margin-bottom: var(--espaciado-md);
+    font-weight: 800;
+}
+
+h2 {
+    font-size: var(--texto-3xl);
+    margin-bottom: var(--espaciado-md);
+    font-weight: 700;
+}
+
+h3 {
+    font-size: var(--texto-xl);
+    font-weight: 600;
+}
+
+h4 {
+    font-size: var(--texto-lg);
+    font-weight: 600;
+}
+
+p {
+    margin-bottom: var(--espaciado-sm);
+    color: var(--texto-claro);
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.seccion-titulo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: var(--espaciado-lg);
+}
+
+.seccion-titulo span.subtitulo {
+    display: block;
+    padding: 6px 16px;
+    background-color: var(--email-claro);
+    color: var(--email-principal);
+    border-radius: var(--borde-redondo-full);
+    font-size: var(--texto-sm);
+    font-weight: 700;
+    margin-bottom: var(--espaciado-xs);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.seccion-titulo h2 {
+    color: var(--texto-oscuro);
+    font-size: var(--texto-3xl);
+    font-weight: 800;
+    margin-bottom: var(--espaciado-sm);
+    position: relative;
+    display: inline-block;
+}
+
+.seccion-titulo h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--email-principal);
+    border-radius: var(--borde-redondo-full);
+}
+
+.seccion-titulo p {
+    color: var(--texto-claro);
+    max-width: 700px;
+    margin: var(--espaciado-md) auto 0;
+    font-size: var(--texto-md);
+}
+
+.seccion-titulo.text-left {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.seccion-titulo.text-left h2::after {
+    left: 0;
+    transform: none;
+}
+
+.subtitulo {
+    display: block;
+    font-family: var(--fuente-principal);
+    font-size: var(--texto-sm);
+    font-weight: 700;
+    color: var(--email-principal);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: var(--espaciado-xs);
+}
+
+/* ==========================================================================
+   ANIMACIONES - MEJORADAS
+   ========================================================================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    animation: forceVisible 5s forwards;
+}
+
+@keyframes forceVisible {
+    0%, 60% { /* Mantener estados actuales durante 3 segundos */ }
+    100% {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(14, 118, 168, 0.4);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 15px rgba(14, 118, 168, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(14, 118, 168, 0);
+    }
+}
+
+/* ==========================================================================
+   BOTONES Y ENLACES - MEJORADOS
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 12px 28px;
+    color: var(--blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    border-radius: var(--borde-redondo-md);
+    overflow: hidden;
+    transition: all var(--transicion-media);
+    text-align: center;
+    z-index: 1;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--sombra-suave);
+    background-color: var(--email-principal);
+}
+
+.btn-primary {
+    background-color: var(--email-principal);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.15);
+    z-index: -1;
+    transition: width var(--transicion-media);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-media);
+}
+
+.btn:hover::before {
+    width: 100%;
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: var(--borde-medio) solid var(--email-principal);
+    color: var(--email-principal);
+    box-shadow: none;
+}
+
+.btn-outline:hover {
+    background-color: var(--email-principal);
+    color: var(--blanco);
+}
+
+.btn-outline::before {
+    display: none;
+}
+
+.btn-lg {
+    padding: 14px 32px;
+    font-size: var(--texto-md);
+    font-weight: 700;
+    border-radius: var(--borde-redondo-md);
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: var(--texto-sm);
+    border-radius: var(--borde-redondo-sm);
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+/* ==========================================================================
+   SECCIÓN HERO EMAIL MARKETING - MODERNIZADA
    ========================================================================== */
 .email-hero {
     padding-top: 160px;
@@ -38,7 +428,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom right, rgba(0, 130, 155, 0.95), rgba(0, 163, 196, 0.85));
+    background: linear-gradient(to bottom right, rgba(14, 118, 168, 0.95), rgba(26, 141, 197, 0.85));
     z-index: 1;
 }
 
@@ -73,11 +463,17 @@
 }
 
 .email-hero .hero-subtitle {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
     font-size: var(--texto-lg);
     margin-bottom: var(--espaciado-md);
     max-width: 540px;
     line-height: 1.5;
+    font-weight: 500;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 12px 18px;
+    border-radius: var(--borde-redondo-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
 }
 
 /* Service Tag en el Hero */
@@ -92,6 +488,15 @@
     margin-bottom: var(--espaciado-sm);
     font-weight: 600;
     font-size: var(--texto-sm);
+    transition: all var(--transicion-media);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.service-tag:hover {
+    transform: translateY(-3px);
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .service-tag i {
@@ -104,24 +509,45 @@
     color: var(--email-principal);
     font-weight: 700;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: none;
 }
 
 .email-hero-btn:hover {
     background-color: var(--email-oscuro);
     color: var(--blanco);
     transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0, 95, 115, 0.3);
+    box-shadow: 0 8px 20px rgba(8, 89, 128, 0.3);
 }
 
 .email-btn-flotante {
     background-color: var(--email-principal);
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 12px 24px;
+    border-radius: var(--borde-redondo-full);
+    color: var(--blanco);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--sombra-fuerte);
+    transition: all var(--transicion-media);
+    z-index: 99;
+    animation: pulse 2.5s infinite;
 }
 
 .email-btn-flotante:hover {
     background-color: var(--email-oscuro);
+    transform: translateY(-5px) scale(1.05);
 }
 
-/* Email Templates en Hero */
+.email-btn-flotante i {
+    font-size: var(--texto-base);
+}
+
+/* Email Templates en Hero - MEJORADAS */
 .email-hero-visual {
     position: relative;
     width: 100%;
@@ -136,9 +562,36 @@
     width: 240px;
     background-color: var(--blanco);
     border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     transition: all 0.5s ease;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.email-template:hover {
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.template-1 {
+    left: 0;
+    z-index: 3;
+}
+
+.template-2 {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.template-2:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.template-3 {
+    right: 0;
+    z-index: 1;
 }
 
 .email-header {
@@ -186,14 +639,6 @@
     margin: 15px auto 0;
 }
 
-.template-2 {
-    z-index: 2;
-}
-
-.template-3 {
-    z-index: 1;
-}
-
 .automation-line {
     position: absolute;
     width: 80%;
@@ -235,6 +680,7 @@
     justify-content: center;
     box-shadow: var(--sombra-media);
     animation: pulse 2s infinite;
+    border: 2px solid rgba(14, 118, 168, 0.1);
 }
 
 .metrics-value {
@@ -249,50 +695,50 @@
     text-transform: uppercase;
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(0, 130, 155, 0.4);
-    }
-    70% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 15px rgba(0, 130, 155, 0);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(0, 130, 155, 0);
-    }
-}
-
 /* Grunt Test Points - Llamados a la acción claros */
 .grunt-test-points {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: var(--espaciado-md);
 }
 
 .grunt-point {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     background-color: rgba(255, 255, 255, 0.15);
-    padding: 10px 15px;
+    padding: 12px 18px;
     border-radius: var(--borde-redondo-md);
     backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all var(--transicion-media);
+}
+
+.grunt-point:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
 }
 
 .grunt-point i {
-    color: var(--blanco);
+    color: var(--email-claro);
+    font-size: var(--texto-md);
 }
 
 .grunt-point span {
     color: var(--blanco);
     font-weight: 600;
+    font-size: var(--texto-base);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--espaciado-sm);
+    margin-top: var(--espaciado-md);
 }
 
 /* ==========================================================================
-   SECCIÓN DESAFÍOS
+   SECCIÓN DESAFÍOS - MODERNIZADA
    ========================================================================== */
 .desafios {
     background-color: var(--blanco);
@@ -328,6 +774,7 @@
     margin-bottom: var(--espaciado-md);
     color: var(--texto-oscuro);
     font-size: var(--texto-3xl);
+    font-weight: 800;
 }
 
 .desafios-intro h2::after {
@@ -339,6 +786,7 @@
     width: 80px;
     height: 3px;
     background-color: var(--email-principal);
+    border-radius: var(--borde-redondo-full);
 }
 
 .desafios-grid {
@@ -361,12 +809,13 @@
     display: flex;
     align-items: center;
     gap: var(--espaciado-sm);
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--gris-borde);
 }
 
 .desafio-item:hover {
     transform: translateY(-5px);
     box-shadow: var(--sombra-fuerte);
+    border-color: transparent;
     border-left: 3px solid var(--email-principal);
 }
 
@@ -382,6 +831,11 @@
     border-radius: 50%;
     box-shadow: var(--email-sombra);
     flex-shrink: 0;
+    transition: all var(--transicion-media);
+}
+
+.desafio-item:hover .desafio-icon {
+    transform: rotate(10deg);
 }
 
 .desafio-item p {
@@ -409,6 +863,12 @@
     text-align: center;
     position: relative;
     border-left: 4px solid var(--email-principal);
+    transition: transform var(--transicion-media), box-shadow var(--transicion-media);
+}
+
+.desafios-mensaje-content:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-fuerte);
 }
 
 .experiencia-badge {
@@ -423,6 +883,7 @@
     background-color: var(--email-bg-claro);
     border-radius: var(--borde-redondo-full);
     box-shadow: var(--sombra-suave);
+    border: 1px solid rgba(14, 118, 168, 0.1);
 }
 
 .experiencia-badge i {
@@ -434,10 +895,11 @@
     line-height: 1.8;
     max-width: 800px;
     margin: 0 auto;
+    color: var(--texto-claro);
 }
 
 /* ==========================================================================
-   SECCIÓN BENEFICIOS DE EMAIL
+   SECCIÓN BENEFICIOS DE EMAIL - MODERNIZADA
    ========================================================================== */
 .beneficios-email {
     background-color: var(--gris-claro);
@@ -452,12 +914,12 @@
     left: 0;
     width: 100%;
     height: 20px;
-    background: linear-gradient(to bottom, rgba(0, 130, 155, 0.1), transparent);
+    background: linear-gradient(to bottom, rgba(14, 118, 168, 0.1), transparent);
 }
 
 .beneficios-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--espaciado-md);
     margin-top: var(--espaciado-lg);
 }
@@ -465,7 +927,7 @@
 .beneficio-email-card {
     background-color: var(--blanco);
     padding: var(--espaciado-md);
-    border-radius: var(--borde-redondo-md);
+    border-radius: var(--borde-redondo-lg);
     text-align: center;
     box-shadow: var(--sombra-suave);
     transition: transform var(--transicion-media), box-shadow var(--transicion-media);
@@ -474,11 +936,13 @@
     flex-direction: column;
     align-items: center;
     border-top: 4px solid var(--email-principal);
+    border: 1px solid var(--gris-borde);
 }
 
 .beneficio-email-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--sombra-media);
+    border-color: transparent;
 }
 
 .beneficio-email-card .beneficio-icon {
@@ -492,22 +956,32 @@
     border-radius: 50%;
     margin: 0 auto var(--espaciado-md);
     font-size: var(--texto-xl);
+    transition: all var(--transicion-media);
+    border: 2px dashed rgba(14, 118, 168, 0.2);
+}
+
+.beneficio-email-card:hover .beneficio-icon {
+    transform: rotate(10deg);
+    background-color: rgba(14, 118, 168, 0.15);
 }
 
 .beneficio-email-card h3 {
     color: var(--email-principal);
     margin-bottom: var(--espaciado-sm);
     font-weight: 700;
+    font-size: var(--texto-lg);
 }
 
 .beneficio-email-card p {
     color: var(--texto-claro);
     margin-bottom: 0;
     flex-grow: 1;
+    line-height: 1.6;
+    font-size: var(--texto-base);
 }
 
 /* ==========================================================================
-   SECCIÓN SERVICIOS MENSUALES
+   SECCIÓN SERVICIOS MENSUALES - MODERNIZADA
    ========================================================================== */
 .servicios-mensuales {
     background-color: var(--blanco);
@@ -524,8 +998,8 @@
     width: 100%;
     height: 100%;
     background-image: 
-        radial-gradient(circle at 10% 10%, rgba(0, 130, 155, 0.03) 0%, transparent 60%),
-        radial-gradient(circle at 90% 90%, rgba(0, 163, 196, 0.05) 0%, transparent 70%);
+        radial-gradient(circle at 10% 10%, rgba(14, 118, 168, 0.03) 0%, transparent 60%),
+        radial-gradient(circle at 90% 90%, rgba(26, 141, 197, 0.05) 0%, transparent 70%);
     z-index: 0;
 }
 
@@ -546,11 +1020,13 @@
     border-top: 5px solid var(--email-principal);
     max-width: 600px;
     margin: 0 auto;
+    border: 1px solid var(--gris-borde);
 }
 
 .servicio-mensual-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
     box-shadow: var(--sombra-fuerte);
+    border-color: transparent;
 }
 
 .servicio-header {
@@ -573,12 +1049,18 @@
     justify-content: center;
     font-size: 30px;
     margin: 0 auto var(--espaciado-sm);
+    transition: all var(--transicion-media);
+}
+
+.servicio-mensual-card:hover .servicio-icon {
+    transform: rotate(15deg);
 }
 
 .servicio-header h3 {
     color: var(--blanco);
     margin-bottom: var(--espaciado-xs);
     font-size: var(--texto-xl);
+    font-weight: 700;
 }
 
 .servicio-precio {
@@ -588,6 +1070,7 @@
     border-radius: var(--borde-redondo-md);
     padding: 8px 15px;
     margin-top: var(--espaciado-xs);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .precio-valor {
@@ -613,38 +1096,67 @@
     margin-bottom: var(--espaciado-md);
     color: var(--texto-claro);
     font-size: var(--texto-md);
+    line-height: 1.6;
 }
 
 .servicio-features {
     margin: 0 0 var(--espaciado-md);
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .servicio-features li {
     display: flex;
     margin-bottom: var(--espaciado-sm);
     align-items: flex-start;
+    transition: transform var(--transicion-rapida);
+    padding: 5px 0;
+}
+
+.servicio-features li:hover {
+    transform: translateX(5px);
 }
 
 .servicio-features li i {
-    margin-right: 10px;
+    color: var(--email-principal);
+    margin-right: 12px;
     margin-top: 5px;
     flex-shrink: 0;
 }
 
+.servicio-features li span {
+    font-size: var(--texto-base);
+    color: var(--texto-claro);
+    line-height: 1.5;
+}
+
 .oferta-especial {
-    background: linear-gradient(to right, rgba(0, 130, 155, 0.1), rgba(0, 163, 196, 0.05));
+    background: linear-gradient(to right, rgba(14, 118, 168, 0.1), rgba(26, 141, 197, 0.05));
     margin-top: var(--espaciado-lg);
     padding: var(--espaciado-md) var(--espaciado-lg);
     border-radius: var(--borde-redondo-lg);
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--sombra-suave);
+    box-shadow: var(--sombra-media);
     border: 1px dashed var(--email-principal);
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.oferta-especial::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background-color: rgba(14, 118, 168, 0.05);
+    border-radius: 50%;
+    z-index: 0;
 }
 
 .oferta-badge {
@@ -666,12 +1178,24 @@
     margin-bottom: var(--espaciado-md);
     position: relative;
     z-index: 1;
+    font-size: var(--texto-xl);
 }
 
 .precio-destacado {
     color: var(--email-principal);
-    font-weight: 700;
+    font-weight: 800;
     font-size: var(--texto-2xl);
+}
+
+.oferta-especial .btn {
+    position: relative;
+    z-index: 1;
+    background-color: var(--email-principal);
+    font-weight: 700;
+}
+
+.oferta-especial .btn:hover {
+    background-color: var(--email-oscuro);
 }
 
 .servicios-garantia {
@@ -687,6 +1211,13 @@
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid var(--gris-borde);
+    transition: all var(--transicion-media);
+}
+
+.servicios-garantia:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-media);
 }
 
 .garantia-icon {
@@ -697,10 +1228,12 @@
 .servicios-garantia p {
     margin: 0;
     color: var(--texto-oscuro);
+    font-size: var(--texto-sm);
+    font-weight: 500;
 }
 
 /* ==========================================================================
-   SECCIÓN CÓMO FUNCIONA
+   SECCIÓN CÓMO FUNCIONA - MODERNIZADA
    ========================================================================== */
 .como-funciona {
     background-color: var(--blanco);
@@ -708,8 +1241,8 @@
     position: relative;
     overflow: hidden;
     background-image: 
-        radial-gradient(circle at 10% 10%, rgba(0, 130, 155, 0.03) 0%, transparent 60%),
-        radial-gradient(circle at 90% 90%, rgba(0, 163, 196, 0.05) 0%, transparent 70%);
+        radial-gradient(circle at 10% 10%, rgba(14, 118, 168, 0.03) 0%, transparent 60%),
+        radial-gradient(circle at 90% 90%, rgba(26, 141, 197, 0.05) 0%, transparent 70%);
 }
 
 .proceso-timeline {
@@ -726,9 +1259,10 @@
     bottom: 0;
     left: 50%;
     width: 3px;
-    background-color: rgba(0, 130, 155, 0.2);
+    background-color: rgba(14, 118, 168, 0.2);
     transform: translateX(-50%);
     z-index: 0;
+    border-radius: var(--borde-redondo-full);
 }
 
 .proceso-paso {
@@ -744,12 +1278,13 @@
     box-shadow: var(--sombra-suave);
     width: calc(50% - 40px);
     z-index: 1;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--gris-borde);
 }
 
 .proceso-paso:hover {
     transform: translateY(-5px);
     box-shadow: var(--sombra-media);
+    border-color: transparent;
 }
 
 .proceso-paso:last-child {
@@ -775,7 +1310,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 0 6px white, 0 8px 20px rgba(0, 130, 155, 0.25);
+    box-shadow: 0 0 0 6px white, 0 8px 20px rgba(14, 118, 168, 0.25);
     position: absolute;
     top: 0;
     z-index: 5;
@@ -802,7 +1337,7 @@
 .paso-icono {
     width: 70px;
     height: 70px;
-    background-color: rgba(0, 130, 155, 0.1);
+    background-color: rgba(14, 118, 168, 0.1);
     color: var(--email-principal);
     border-radius: 50%;
     display: flex;
@@ -811,11 +1346,11 @@
     font-size: 28px;
     margin-bottom: 20px;
     transition: all 0.3s ease;
-    border: 2px dashed rgba(0, 130, 155, 0.2);
+    border: 2px dashed rgba(14, 118, 168, 0.2);
 }
 
 .proceso-paso:hover .paso-icono {
-    background-color: rgba(0, 130, 155, 0.2);
+    background-color: rgba(14, 118, 168, 0.2);
     transform: rotate(10deg);
 }
 
@@ -835,11 +1370,22 @@
 }
 
 /* ==========================================================================
-   SECCIÓN FUNCIONALIDADES EMAIL
+   SECCIÓN FUNCIONALIDADES EMAIL - MODERNIZADA
    ========================================================================== */
 .funcionalidades-email {
     background-color: var(--gris-claro);
     padding: var(--espaciado-xl) 0;
+    position: relative;
+}
+
+.funcionalidades-email::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(14, 118, 168, 0.1), transparent);
 }
 
 .funcionalidades-grid {
@@ -852,7 +1398,7 @@
 .funcionalidad-card {
     background-color: var(--blanco);
     padding: var(--espaciado-md);
-    border-radius: var(--borde-redondo-md);
+    border-radius: var(--borde-redondo-lg);
     text-align: center;
     box-shadow: var(--sombra-suave);
     transition: transform var(--transicion-media), box-shadow var(--transicion-media);
@@ -860,12 +1406,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--gris-borde);
 }
 
 .funcionalidad-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--sombra-media);
+    border-color: transparent;
     border-left: 3px solid var(--email-principal);
 }
 
@@ -880,25 +1427,53 @@
     border-radius: 50%;
     margin: 0 auto var(--espaciado-md);
     font-size: 24px;
+    transition: all var(--transicion-media);
+    border: 2px dashed rgba(14, 118, 168, 0.2);
+}
+
+.funcionalidad-card:hover .funcionalidad-icon {
+    transform: rotate(10deg);
+    background-color: rgba(14, 118, 168, 0.15);
 }
 
 .funcionalidad-card h3 {
     color: var(--email-principal);
     margin-bottom: var(--espaciado-sm);
     font-weight: 700;
+    font-size: var(--texto-lg);
 }
 
 .funcionalidad-card p {
     color: var(--texto-claro);
     margin-bottom: 0;
+    line-height: 1.6;
+    font-size: var(--texto-base);
 }
 
 /* ==========================================================================
-   SECCIÓN RESULTADOS
+   SECCIÓN RESULTADOS - MODERNIZADA
    ========================================================================== */
 .resultados {
     background-color: var(--blanco);
     padding: var(--espaciado-xl) 0;
+    position: relative;
+}
+
+.resultados::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230E76A8' fill-opacity='0.03'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.resultados .container {
+    position: relative;
+    z-index: 1;
 }
 
 .credibilidad-banner {
@@ -909,11 +1484,14 @@
     display: inline-flex;
     align-items: center;
     margin-bottom: var(--espaciado-md);
-    font-weight: 600;
+    font-weight: 700;
+    gap: 10px;
+    border: 1px solid rgba(14, 118, 168, 0.1);
 }
 
 .credibilidad-banner i {
     margin-right: 10px;
+    font-size: var(--texto-md);
 }
 
 .resultados-stories {
@@ -930,12 +1508,13 @@
     overflow: hidden;
     transition: transform var(--transicion-media), box-shadow var(--transicion-media);
     height: 100%;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--gris-borde);
 }
 
 .resultado-story:hover {
     transform: translateY(-5px);
     box-shadow: var(--sombra-media);
+    border-color: transparent;
 }
 
 .resultado-story.email {
@@ -966,9 +1545,14 @@
     transition: all 0.3s ease;
 }
 
+.resultado-story:hover .resultado-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
 .resultado-story.email .resultado-icon {
     background-color: var(--email-principal);
     color: white;
+    box-shadow: 0 4px 10px rgba(14, 118, 168, 0.25);
 }
 
 .resultado-title {
@@ -988,6 +1572,8 @@
 .resultado-content p {
     color: var(--texto-claro);
     margin-bottom: var(--espaciado-md);
+    font-size: var(--texto-base);
+    line-height: 1.7;
 }
 
 .client-name {
@@ -995,7 +1581,7 @@
     color: var(--texto-oscuro);
 }
 
-/* Métricas */
+/* Métricas - MEJORADAS */
 .resultado-metrics {
     display: flex;
     flex-direction: column;
@@ -1006,24 +1592,26 @@
 
 .metric {
     margin-bottom: 15px;
-    padding: 8px 0;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid var(--gris-borde);
+    padding: 12px;
+    background-color: var(--fondo-claro);
+    border-radius: var(--borde-redondo-md);
     width: 100%;
+    transition: transform var(--transicion-rapida);
 }
 
-.metric:last-child {
-    border-bottom: none;
+.metric:hover {
+    transform: translateX(5px);
+    background-color: rgba(247, 247, 247, 0.9);
 }
 
 .metric-label {
     display: block;
     font-size: var(--texto-xs);
-    font-weight: 600;
+    font-weight: 700;
     color: var(--gris-medio);
     text-transform: uppercase;
     margin-bottom: 5px;
+    letter-spacing: 0.5px;
 }
 
 .metric-values {
@@ -1054,18 +1642,21 @@
 .cta-box {
     background-color: var(--email-bg-claro);
     padding: var(--espaciado-md);
-    border-radius: var(--borde-redondo-md);
+    border-radius: var(--borde-redondo-lg);
     text-align: center;
     margin-top: var(--espaciado-lg);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--espaciado-md);
+    border: 1px dashed rgba(14, 118, 168, 0.2);
+    box-shadow: var(--sombra-media);
 }
 
 .cta-icon {
     color: var(--email-principal);
     margin-bottom: var(--espaciado-sm);
+    font-size: var(--texto-2xl);
 }
 
 .cta-box p {
@@ -1073,24 +1664,39 @@
     margin-bottom: var(--espaciado-md);
     color: var(--texto-oscuro);
     max-width: 800px;
+    font-weight: 500;
 }
 
 .cta-box .btn {
     margin-top: 0;
     background-color: var(--email-principal);
+    font-weight: 700;
+    animation: pulse 2s infinite;
 }
 
 .cta-box .btn:hover {
     background-color: var(--email-oscuro);
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-media);
 }
 
 /* ==========================================================================
-   SECCIÓN RIESGO
+   SECCIÓN RIESGO - MODERNIZADA
    ========================================================================== */
 .riesgo-seccion {
     background-color: var(--gris-claro);
     padding: var(--espaciado-xl) 0;
     position: relative;
+}
+
+.riesgo-seccion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(14, 118, 168, 0.1), transparent);
 }
 
 .riesgo-content {
@@ -1106,12 +1712,14 @@
     color: var(--texto-oscuro);
     margin-bottom: var(--espaciado-sm);
     font-size: var(--texto-2xl);
+    font-weight: 800;
 }
 
 .riesgo-descripcion {
     font-size: var(--texto-lg);
     margin-bottom: var(--espaciado-md);
     color: var(--texto-claro);
+    line-height: 1.7;
 }
 
 .riesgos-lista {
@@ -1129,11 +1737,14 @@
     box-shadow: var(--sombra-suave);
     border-left: 3px solid var(--email-principal);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--gris-borde);
 }
 
 .riesgo-item:hover {
     transform: translateY(-3px);
     box-shadow: var(--sombra-media);
+    border-color: transparent;
+    border-left: 3px solid var(--email-principal);
 }
 
 .riesgo-icon {
@@ -1147,6 +1758,13 @@
     align-items: center;
     justify-content: center;
     font-size: var(--texto-lg);
+    transition: all var(--transicion-media);
+    border: 2px dashed rgba(14, 118, 168, 0.2);
+}
+
+.riesgo-item:hover .riesgo-icon {
+    transform: rotate(10deg);
+    background-color: rgba(14, 118, 168, 0.15);
 }
 
 .riesgo-texto {
@@ -1157,11 +1775,13 @@
     color: var(--email-principal);
     margin-bottom: 5px;
     font-size: var(--texto-lg);
+    font-weight: 700;
 }
 
 .riesgo-texto p {
     margin: 0;
     color: var(--texto-claro);
+    line-height: 1.6;
 }
 
 .riesgo-accion {
@@ -1179,38 +1799,57 @@
     border-top: 4px solid var(--email-principal);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
+    border: 1px solid var(--gris-borde);
 }
 
 .accion-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--sombra-fuerte);
+    border-color: transparent;
 }
 
 .accion-card h3 {
     color: var(--email-principal);
     margin-bottom: var(--espaciado-sm);
     font-size: var(--texto-xl);
+    font-weight: 700;
 }
 
 .accion-card p {
     margin-bottom: var(--espaciado-md);
+    color: var(--texto-claro);
+    line-height: 1.6;
 }
 
 .accion-card .btn {
     background-color: var(--email-principal);
     font-weight: 700;
+    animation: pulse 2s infinite;
 }
 
 .accion-card .btn:hover {
     background-color: var(--email-oscuro);
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-media);
 }
 
 /* ==========================================================================
-   SECCIÓN FAQ
+   SECCIÓN FAQ - MODERNIZADA
    ========================================================================== */
 .faq-seccion {
     background-color: var(--blanco);
     padding: var(--espaciado-xl) 0;
+    position: relative;
+}
+
+.faq-seccion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(14, 118, 168, 0.05), transparent);
 }
 
 .faq-grid {
@@ -1225,12 +1864,13 @@
     margin-bottom: var(--espaciado-md);
     box-shadow: var(--sombra-suave);
     transition: transform var(--transicion-media), box-shadow var(--transicion-media);
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--gris-borde);
 }
 
 .faq-item:hover {
     transform: translateY(-3px);
     box-shadow: var(--sombra-media);
+    border-color: transparent;
 }
 
 .faq-question {
@@ -1249,6 +1889,7 @@
     margin-bottom: 0;
     padding-right: 40px;
     font-size: var(--texto-lg);
+    font-weight: 700;
 }
 
 .faq-question i {
@@ -1273,13 +1914,14 @@
     padding: var(--espaciado-md);
     display: none;
     background-color: var(--blanco);
-    border-top: 1px dashed rgba(0, 130, 155, 0.2);
+    border-top: 1px dashed rgba(14, 118, 168, 0.2);
 }
 
 .faq-answer p {
     color: var(--texto-claro);
     margin-bottom: 0;
     line-height: 1.6;
+    font-size: var(--texto-base);
 }
 
 .faq-item.active .faq-answer {
@@ -1293,7 +1935,7 @@
 }
 
 /* ==========================================================================
-   SECCIÓN CONTACTO
+   SECCIÓN CONTACTO - MODERNIZADA
    ========================================================================== */
 .contacto {
     background-color: var(--gris-claro);
@@ -1309,7 +1951,7 @@
     left: 0;
     width: 100%;
     height: 20px;
-    background: linear-gradient(to bottom, rgba(0, 130, 155, 0.1), transparent);
+    background: linear-gradient(to bottom, rgba(14, 118, 168, 0.1), transparent);
 }
 
 .contacto .seccion-titulo h2 {
@@ -1317,10 +1959,10 @@
 }
 
 .contacto-content {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
     gap: var(--espaciado-md);
 }
@@ -1329,9 +1971,19 @@
     width: 100%;
     padding: var(--espaciado-lg);
     background-color: var(--blanco);
-    border-radius: var(--borde-redondo-md);
+    border-radius: var(--borde-redondo-lg);
     box-shadow: var(--sombra-media);
-    border: 1px solid #e0e0e0;
+    border-left: 5px solid var(--email-principal);
+    transition: transform var(--transicion-media), box-shadow var(--transicion-media);
+    height: fit-content;
+    border: 1px solid var(--gris-borde);
+}
+
+.contacto-beneficios:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-fuerte);
+    border-color: transparent;
+    border-left: 5px solid var(--email-principal);
 }
 
 .contacto-beneficios h3 {
@@ -1341,7 +1993,20 @@
     font-size: var(--texto-xl);
     text-align: center;
     padding-bottom: 15px;
-    border-bottom: 2px solid rgba(0, 130, 155, 0.2);
+    border-bottom: 2px solid rgba(14, 118, 168, 0.2);
+    position: relative;
+}
+
+.contacto-beneficios h3::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--email-principal);
+    border-radius: var(--borde-redondo-full);
 }
 
 .beneficios-lista {
@@ -1359,7 +2024,12 @@
     width: calc(50% - var(--espaciado-md));
     padding: 8px 0;
     font-size: var(--texto-md);
-    border-bottom: 1px dashed rgba(0, 130, 155, 0.1);
+    border-bottom: 1px dashed rgba(14, 118, 168, 0.1);
+    transition: transform var(--transicion-rapida);
+}
+
+.beneficios-lista li:hover {
+    transform: translateX(5px);
 }
 
 .beneficios-lista li:last-of-type,
@@ -1386,6 +2056,12 @@
     background-color: var(--email-bg-claro);
     border-radius: var(--borde-redondo-md);
     font-size: var(--texto-md);
+    border: 1px dashed rgba(14, 118, 168, 0.2);
+    transition: background-color var(--transicion-rapida);
+}
+
+.contacto-garantia:hover {
+    background-color: rgba(14, 118, 168, 0.1);
 }
 
 .contacto-garantia i {
@@ -1399,14 +2075,17 @@
     height: 750px !important;
     min-width: 320px;
     overflow: hidden !important;
-    background-color: transparent !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    border: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    transform: scale(1) !important;
-    transform-origin: center top !important;
+    background-color: var(--blanco) !important;
+    border-radius: var(--borde-redondo-lg) !important;
+    box-shadow: var(--sombra-media) !important;
+    border: 1px solid var(--gris-borde) !important;
+    transition: transform var(--transicion-media) !important;
+}
+
+.calendly-inline-widget:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: var(--sombra-fuerte) !important;
+    border-color: transparent !important;
 }
 
 body .calendly-inline-widget iframe {
@@ -1416,6 +2095,7 @@ body .calendly-inline-widget iframe {
     display: block !important;
     transform: none !important;
     background-color: transparent !important;
+    border: none !important;
 }
 
 /* Botón de volver arriba */
@@ -1443,23 +2123,43 @@ body .calendly-inline-widget iframe {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Animaciones para hacer elementos visibles al hacer scroll */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 /* ==========================================================================
-   MEDIA QUERIES PARA RESPONSIVE
+   MEDIA QUERIES PARA RESPONSIVE - OPTIMIZADOS
    ========================================================================== */
 
+@media (max-width: 1200px) {
+    :root {
+        --texto-4xl: 2.75rem;
+        --texto-3xl: 2.25rem;
+    }
+    
+    .container {
+        padding-left: var(--espaciado-md);
+        padding-right: var(--espaciado-md);
+    }
+    
+    .contacto-content {
+        grid-template-columns: 1fr;
+        max-width: 800px;
+    }
+    
+    .riesgo-content {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--espaciado-md);
+    }
+}
+
 @media (max-width: 1024px) {
+    :root {
+        --espaciado-xl: 5rem;
+        --texto-4xl: 2.5rem;
+        --texto-3xl: 2rem;
+    }
+    
+    .email-hero {
+        padding-top: 130px;
+    }
+    
     .email-hero .container {
         grid-template-columns: 1fr;
         text-align: center;
@@ -1500,9 +2200,21 @@ body .calendly-inline-widget iframe {
     .proceso-paso:nth-child(even) .paso-numero {
         left: -30px;
     }
+    
+    .beneficios-lista li {
+        width: 100%;
+    }
 }
 
 @media (max-width: 768px) {
+    :root {
+        --espaciado-xl: 4rem;
+        --espaciado-lg: 3rem;
+        --texto-4xl: 2rem;
+        --texto-3xl: 1.75rem;
+        --texto-2xl: 1.5rem;
+    }
+    
     .email-hero {
         min-height: auto;
         padding-bottom: var(--espaciado-lg);
@@ -1541,10 +2253,15 @@ body .calendly-inline-widget iframe {
     .hero-buttons {
         flex-direction: column;
         gap: var(--espaciado-sm);
-    }
-
-    .beneficios-lista li {
         width: 100%;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+    }
+    
+    .email-template {
+        width: 200px;
     }
     
     .calendly-inline-widget {
@@ -1553,8 +2270,25 @@ body .calendly-inline-widget iframe {
 }
 
 @media (max-width: 576px) {
+    :root {
+        --espaciado-xl: 3.5rem;
+        --espaciado-lg: 2.5rem;
+        --texto-4xl: 1.75rem;
+        --texto-3xl: 1.5rem;
+        --texto-2xl: 1.375rem;
+    }
+    
+    .container {
+        padding-left: var(--espaciado-sm);
+        padding-right: var(--espaciado-sm);
+    }
+    
     .email-hero h1 {
         font-size: var(--texto-xl);
+    }
+    
+    .grunt-point {
+        width: 100%;
     }
     
     .riesgo-item {
@@ -1586,4 +2320,23 @@ body .calendly-inline-widget iframe {
     .calendly-inline-widget {
         height: 850px !important;
     }
+    
+    .contacto-beneficios {
+        padding: var(--espaciado-sm);
+    }
 }
+
+/* ==========================================================================
+   UTILIDADES - ADICIONALES
+   ========================================================================== */
+.text-email { color: var(--email-principal) !important; }
+.bg-email-claro { background-color: var(--email-bg-claro) !important; }
+.fw-bold { font-weight: 700 !important; }
+.fw-black { font-weight: 800 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-sm { margin-bottom: var(--espaciado-xs) !important; }
+.mb-md { margin-bottom: var(--espaciado-sm) !important; }
+.mb-lg { margin-bottom: var(--espaciado-md) !important; }
+.mb-xl { margin-bottom: var(--espaciado-lg) !important; }
+.text-small { font-size: var(--texto-sm) !important; }
+.text-large { font-size: var(--texto-lg) !important; }
