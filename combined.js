@@ -765,3 +765,28 @@ document.addEventListener('DOMContentLoaded', function() {
         asegurarVisibilidadCritica // NUEVO: Exponer función para uso externo
     };
 });
+
+// JavaScript para controlar el comportamiento del navbar al hacer scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.getElementById('header');
+    const navbarHeight = header.offsetHeight;
+    
+    // Función que se ejecuta al hacer scroll
+    const handleScroll = () => {
+        // Obtener la posición actual del scroll
+        const scrollPosition = window.scrollY;
+        
+        // Si hemos bajado más que la altura del navbar, hacerlo sticky
+        if (scrollPosition > navbarHeight) {
+            header.classList.add('sticky');
+        } else {
+            header.classList.remove('sticky');
+        }
+    };
+    
+    // Agregar el evento de scroll
+    window.addEventListener('scroll', handleScroll);
+    
+    // Ejecutar una vez al cargar para establecer el estado inicial
+    handleScroll();
+});
