@@ -342,7 +342,9 @@ p {
 }
 
 .btn-primary {
-    background-color: var(--naranja-principal);
+    background-color: var(--auditoria-verde);
+    border: 2px solid var(--auditoria-verde-hover);
+    box-shadow: 0 6px 18px rgba(47, 133, 90, 0.3);
 }
 
 .btn::before {
@@ -387,7 +389,7 @@ p {
 }
 
 .btn-lg {
-    padding: 14px 32px;
+    padding: 16px 32px;
     font-size: var(--texto-md);
     font-weight: 700;
     border-radius: var(--borde-redondo-md);
@@ -437,27 +439,30 @@ p {
         box-shadow: 0 0 0 0 rgba(47, 133, 90, 0.7);
     }
     70% {
-        box-shadow: 0 0 0 10px rgba(47, 133, 90, 0);
+        box-shadow: 0 0 0 15px rgba(47, 133, 90, 0);
     }
     100% {
         box-shadow: 0 0 0 0 rgba(47, 133, 90, 0);
     }
 }
 
-/* Botón CTA del hero - Refinado */
+/* Botón CTA del hero - Mejorado */
 #home .hero-buttons .btn {
     background-color: var(--auditoria-verde);
     color: var(--blanco);
-    border: none;
-    font-weight: 700;
+    border: 2px solid var(--auditoria-verde-hover);
+    font-weight: 800;
     letter-spacing: 0.5px;
-    padding: 14px 30px;
+    padding: 16px 34px;
+    box-shadow: 0 8px 20px rgba(47, 133, 90, 0.4);
+    border-radius: var(--borde-redondo-md);
+    font-size: 1.2rem;
 }
 
 #home .hero-buttons .btn:hover {
     background-color: var(--auditoria-verde-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(47, 133, 90, 0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(47, 133, 90, 0.5);
 }
 
 #home .hero-buttons .btn::before {
@@ -534,10 +539,10 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN HERO - REFINADA
+   SECCIÓN HERO - MEJORADA Y CORREGIDA 
    ========================================================================== */
 .hero {
-    padding-top: 120px;
+    padding-top: 160px; /* Aumentado de 120px para dar más espacio al header */
     padding-bottom: var(--espaciado-xl);
     min-height: 85vh;
     display: flex;
@@ -545,6 +550,7 @@ p {
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, var(--gris-oscuro) 0%, #333333 100%);
+    margin-top: 0;
 }
 
 .hero::before {
@@ -584,6 +590,7 @@ p {
     z-index: 2;
     text-align: left;
     align-items: flex-start;
+    margin-top: 20px; /* Añadido para dar más espacio desde arriba */
 }
 
 .hero-content h1 {
@@ -722,11 +729,12 @@ p {
     align-items: center;
 }
 
+/* Rediseño del promo de Auditoría Flash */
 .audit-promo {
     position: relative;
     width: 320px;
     height: 320px;
-    background-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(8px);
     border-radius: 20px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
@@ -735,7 +743,7 @@ p {
     align-items: center;
     justify-content: center;
     padding: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     text-align: center;
     transition: transform 0.3s ease;
 }
@@ -745,19 +753,22 @@ p {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* Mejora del badge de GRATIS */
 .audit-promo-badge {
     position: absolute;
     top: -15px;
     right: -15px;
-    background-color: var(--auditoria-verde);
+    background: var(--auditoria-verde);
     color: white;
     font-weight: 800;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border-radius: 30px;
-    font-size: 16px;
-    box-shadow: 0 5px 15px rgba(47, 133, 90, 0.4);
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     letter-spacing: 1px;
     z-index: 10;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .audit-promo-icons {
@@ -811,15 +822,16 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     background-color: var(--auditoria-verde);
     color: white;
     border-radius: 50%;
     font-weight: 800;
-    font-size: 24px;
-    box-shadow: 0 5px 15px rgba(47, 133, 90, 0.4);
+    font-size: 26px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     animation: pulse-animation 2s infinite;
+    border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .scroll-indicator {
@@ -1384,6 +1396,11 @@ p {
 
 /* Media Queries refinados para servicios */
 @media (max-width: 1200px) {
+    :root {
+        --texto-4xl: 2.75rem;
+        --texto-3xl: 2.25rem;
+    }
+    
     .servicios-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -1396,6 +1413,16 @@ p {
 }
 
 @media (max-width: 992px) {
+    :root {
+        --espaciado-xl: 5rem;
+        --texto-4xl: 2.5rem;
+        --texto-3xl: 2rem;
+    }
+    
+    .hero {
+        padding-top: 150px;
+    }
+    
     .servicios-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1406,6 +1433,22 @@ p {
 }
 
 @media (max-width: 768px) {
+    :root {
+        --espaciado-xl: 4rem;
+        --espaciado-lg: 3rem;
+        --texto-4xl: 2rem;
+        --texto-3xl: 1.75rem;
+        --texto-2xl: 1.5rem;
+    }
+    
+    .hero {
+        padding-top: 130px;
+    }
+    
+    .hero-content {
+        margin-top: 10px;
+    }
+    
     .servicios-grid {
         grid-template-columns: 1fr;
     }
@@ -2504,1734 +2547,6 @@ p {
     color: var(--color-chatbot);
 }
 
-.cta-box p {
-    font-size: var(--texto-lg);
-    margin-bottom: var(--espaciado-md);
-    color: var(--texto-oscuro);
-    max-width: 800px;
-    font-weight: 500;
-}
-
-.cta-box .btn {
-    margin-top: 0;
-    background-color: var(--auditoria-verde);
-    font-weight: 700;
-    padding: 15px 32px;
-    box-shadow: 0 8px 15px rgba(47, 133, 90, 0.25);
-}
-
-.cta-box .btn:hover {
-    background-color: var(--auditoria-verde-hover);
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(47, 133, 90, 0.35);
-}
-
-/* ==========================================================================
-   SECCIÓN EQUIPO - REFINADA
-   ========================================================================== */
-.equipo {
-    background-color: var(--fondo-claro);
-    padding: var(--espaciado-xl) 0;
-    position: relative;
-}
-
-.equipo::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FF7200' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
-    z-index: 0;
-}
-
-.equipo .container {
-    position: relative;
-    z-index: 1;
-}
-
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--espaciado-xl);
-    margin-bottom: var(--espaciado-lg);
-    margin-top: var(--espaciado-lg);
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.team-member {
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-lg);
-    padding: var(--espaciado-md);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
-    transition: all var(--transicion-media);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border: 1px solid var(--gris-borde);
-}
-
-.team-member:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 8px 15px rgba(0, 0, 0, 0.05);
-    border-color: transparent;
-}
-
-.member-avatar {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: var(--espaciado-md);
-    box-shadow: var(--sombra-media);
-    position: relative;
-    transition: all var(--transicion-lenta);
-    border: 4px solid var(--naranja-claro);
-}
-
-.team-member:hover .member-avatar {
-    transform: scale(1.05);
-    border-color: var(--naranja-principal);
-}
-
-.profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--transicion-lenta);
-}
-
-.team-member:hover .profile-image {
-    transform: scale(1.1);
-}
-
-.member-info {
-    width: 100%;
-}
-
-.member-info h3 {
-    color: var(--texto-oscuro);
-    margin-bottom: var(--espaciado-xs);
-    font-size: var(--texto-xl);
-    font-weight: 700;
-}
-
-.member-info h4 {
-    color: var(--naranja-principal);
-    margin-bottom: var(--espaciado-sm);
-    font-size: var(--texto-md);
-    font-weight: 600;
-}
-
-.member-info p {
-    color: var(--texto-claro);
-    margin-bottom: var(--espaciado-md);
-    font-size: var(--texto-base);
-    line-height: 1.7;
-}
-
-.social-links {
-    margin-top: var(--espaciado-sm);
-}
-
-.social-links a {
-    margin: 0 8px;
-    font-size: var(--texto-xl);
-    color: var(--gris-medio);
-    transition: all var(--transicion-rapida);
-    display: inline-block;
-}
-
-.social-links a:hover {
-    color: var(--naranja-principal);
-    transform: translateY(-3px) scale(1.1);
-}
-
-/* ==========================================================================
-   SECCIÓN CONTACTO CON CALENDLY - REFINADA Y MEJORADA
-   ========================================================================== */
-.contacto {
-    background-color: var(--gris-claro);
-    padding-top: var(--espaciado-xl);
-    padding-bottom: var(--espaciado-xl);
-    position: relative;
-    overflow: visible;
-}
-
-.contacto::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='24' viewBox='0 0 88 24'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='autumn' fill='%232F855A' fill-opacity='0.03'%3E%3Cpath d='M10 0l30 15 2 1V2.18A10 10 0 0 0 41.76 0H39.7a8 8 0 0 1 .3 2.18v10.58L14.47 0H10zm31.76 24a10 10 0 0 0-5.29-6.76L4 1 2 0v13.82a10 10 0 0 0 5.53 8.94L10 24h4.47l-6.05-3.02A8 8 0 0 1 4 13.82V3.24l22.86 11.43a10 10 0 0 0 5.83 1.94h3.05a8 8 0 0 1-3.36 1.58 2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-1.55 1.94z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    opacity: 0.4;
-    z-index: 0;
-}
-
-.contacto .container {
-    position: relative;
-    z-index: 1;
-}
-
-.contacto .seccion-titulo h2 {
-    color: var(--auditoria-verde);
-}
-
-.contacto .seccion-titulo h2::after {
-    background-color: var(--auditoria-verde);
-}
-
-.contacto-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    gap: var(--espaciado-lg);
-}
-
-.contacto-beneficios {
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-lg);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
-    padding: var(--espaciado-lg);
-    border-left: 5px solid var(--auditoria-verde);
-    height: fit-content;
-    transition: transform var(--transicion-media);
-    position: relative;
-    z-index: 3;
-}
-
-.contacto-beneficios:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.contacto-beneficios h3 {
-    color: var(--auditoria-verde);
-    font-size: var(--texto-xl);
-    text-align: center;
-    margin-bottom: var(--espaciado-md);
-    font-weight: 700;
-    position: relative;
-    padding-bottom: 12px;
-}
-
-.contacto-beneficios h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: var(--auditoria-verde);
-    border-radius: var(--borde-redondo-full);
-}
-
-.beneficios-lista {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--espaciado-sm);
-    margin-bottom: var(--espaciado-md);
-}
-
-.beneficios-lista li {
-    padding: 16px 20px;
-    display: flex;
-    align-items: flex-start;
-    background-color: var(--fondo-claro);
-    border-radius: var(--borde-redondo-md);
-    transition: all var(--transicion-media);
-    border: 1px solid transparent;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
-    margin-bottom: 12px;
-}
-
-.beneficios-lista li:hover {
-    transform: translateY(-3px) translateX(3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    background-color: var(--blanco);
-    border-color: var(--gris-borde);
-}
-
-.beneficios-lista li i {
-    color: var(--auditoria-verde);
-    margin-right: 12px;
-    margin-top: 3px;
-    flex-shrink: 0;
-    font-size: 18px;
-}
-
-.beneficios-lista li strong {
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    display: block;
-    margin-bottom: 3px;
-}
-
-.contacto-garantia {
-    margin-top: var(--espaciado-md);
-    padding: 20px;
-    background-color: var(--auditoria-verde-bg);
-    border-radius: var(--borde-redondo-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--texto-oscuro);
-    font-weight: 600;
-    border: 1px dashed var(--auditoria-verde-border);
-    transition: background-color var(--transicion-rapida);
-    text-align: center;
-    font-size: var(--texto-md);
-    box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
-    animation: subtle-pulse 3s infinite alternate;
-}
-
-@keyframes subtle-pulse {
-    0% {
-        box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
-    }
-    100% {
-        box-shadow: 0 5px 15px rgba(47, 133, 90, 0.2);
-    }
-}
-
-.contacto-garantia:hover {
-    background-color: var(--auditoria-verde-claro);
-}
-
-.contacto-garantia i {
-    color: var(--auditoria-verde);
-    margin-right: 10px;
-    font-size: 18px;
-}
-
-/* Widget de Calendly - REFINADO */
-.calendly-inline-widget {
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-lg);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    height: 680px;
-    min-width: 320px;
-    width: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    transform: translateZ(0);
-    border: 1px solid var(--gris-borde);
-    position: relative;
-    z-index: 2;
-}
-
-.calendly-inline-widget:hover {
-    transform: translateY(-5px) translateZ(0);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.calendly-inline-widget iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* ==========================================================================
-   FOOTER - REFINADO
-   ========================================================================== */
-.footer {
-    background-color: var(--gris-oscuro);
-    color: rgba(255, 255, 255, 0.7);
-    padding: var(--espaciado-lg) 0 var(--espaciado-sm);
-    position: relative;
-    margin-top: var(--espaciado-xl);
-}
-
-.footer::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    background: linear-gradient(to top, rgba(255, 114, 0, 0.1), transparent);
-    border-radius: 100% 100% 0 0;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: var(--espaciado-md);
-    margin-bottom: var(--espaciado-md);
-}
-
-.footer-about {
-    padding-right: var(--espaciado-md);
-}
-
-.footer-logo {
-    color: var(--blanco);
-    font-family: var(--fuente-principal);
-    font-weight: 800;
-    font-size: var(--texto-xl);
-    margin-bottom: var(--espaciado-sm);
-    display: inline-block;
-    transition: transform var(--transicion-rapida);
-}
-
-.footer-logo:hover {
-    transform: translateY(-3px);
-}
-
-.footer-logo span {
-    color: var(--naranja-principal);
-}
-
-.footer-about p {
-    margin-bottom: var(--espaciado-md);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: var(--texto-base);
-}
-
-.footer-column h4 {
-    color: var(--blanco);
-    margin-bottom: 20px;
-    position: relative;
-    font-weight: 700;
-    padding-bottom: 10px;
-}
-
-.footer-column h4::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background-color: var(--naranja-principal);
-    border-radius: var(--borde-redondo-full);
-}
-
-.footer-column ul li {
-    margin-bottom: 12px;
-    transition: transform var(--transicion-rapida);
-}
-
-.footer-column ul li:hover {
-    transform: translateX(5px);
-}
-
-.footer-column ul li a {
-    color: rgba(255, 255, 255, 0.7);
-    transition: color var(--transicion-rapida);
-}
-
-.footer-column ul li a:hover {
-    color: var(--naranja-principal);
-}
-
-.footer-contact ul li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 15px;
-    transition: transform var(--transicion-rapida);
-}
-
-.footer-contact ul li:hover {
-    transform: translateX(5px);
-}
-
-.footer-contact ul li i {
-    margin-right: 12px;
-    color: var(--naranja-principal);
-    margin-top: 5px;
-    flex-shrink: 0;
-}
-
-.footer-bottom {
-    padding: var(--espaciado-sm) 0;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: var(--espaciado-md);
-}
-
-.footer-bottom p {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: var(--texto-sm);
-}
-
-/* CTA Flotante - REFINADO */
-.cta-flotante {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 99;
-}
-
-.btn-flotante {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
-    background-color: var(--auditoria-verde);
-    color: var(--blanco);
-    border-radius: var(--borde-redondo-full);
-    font-weight: 700;
-    box-shadow: var(--sombra-fuerte);
-    transition: all var(--transicion-media);
-    animation: pulse-animation 2.5s infinite;
-}
-
-.btn-flotante:hover {
-    transform: translateY(-5px) scale(1.05);
-    background-color: var(--auditoria-verde-hover);
-}
-
-.btn-flotante i {
-    font-size: var(--texto-base);
-}
-
-/* ==========================================================================
-   MEDIA QUERIES - REFINADOS
-   ========================================================================== */
-@media (max-width: 1200px) {
-    :root {
-        --texto-4xl: 2.75rem;
-        --texto-3xl: 2.25rem;
-    }
-    
-    .container {
-        padding-left: var(--espaciado-md);
-        padding-right: var(--espaciado-md);
-    }
-    
-    .contacto-content {
-        grid-template-columns: 1fr;
-        max-width: 800px;
-    }
-    
-    .calendly-inline-widget {
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 1024px) {
-    :root {
-        --espaciado-xl: 5rem;
-        --texto-4xl: 2.5rem;
-        --texto-3xl: 2rem;
-    }
-    
-    .hero {
-        padding-top: 130px;
-        min-height: auto;
-    }
-    
-    .express-content {
-        grid-template-columns: 1fr;
-        gap: var(--espaciado-md);
-    }
-    
-    .express-image {
-        display: none;
-    }
-    
-    .proceso-timeline::before {
-        left: 20px;
-    }
-    
-    .proceso-paso {
-        width: 100%;
-        padding-left: 70px;
-    }
-    
-    .proceso-paso:nth-child(odd),
-    .proceso-paso:nth-child(even) {
-        margin-left: 30px;
-    }
-    
-    .proceso-paso:nth-child(odd) .paso-numero,
-    .proceso-paso:nth-child(even) .paso-numero {
-        left: -30px;
-    }
-    
-    .opciones-container-rediseno {
-        flex-direction: column;
-        align-items: center;
-        max-width: 500px;
-        margin-bottom: 60px;
-    }
-    
-    .opcion-card {
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .conectador-opciones {
-        margin: 15px 0;
-    }
-    
-    .conectador-opciones::before {
-        left: 50%;
-        right: auto;
-        top: -25px;
-        bottom: -25px;
-        width: 2px;
-        height: auto;
-        transform: translateX(-50%);
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .footer-about {
-        grid-column: span 2;
-        text-align: center;
-        padding-right: 0;
-        margin-bottom: var(--espaciado-md);
-    }
-    
-    .footer-about .social-links {
-        justify-content: center;
-        display: flex;
-    }
-    
-    /* Mejora para Calendly en tablets */
-    .contacto-beneficios {
-        order: 2;
-        margin-top: var(--espaciado-md);
-    }
-    
-    .calendly-inline-widget {
-        height: 600px;
-    }
-}
-
-@media (max-width: 992px) {
-    :root {
-        --texto-4xl: 2.25rem;
-        --texto-3xl: 1.875rem;
-        --texto-2xl: 1.75rem;
-    }
-    
-    .hero .container {
-        grid-template-columns: 1fr;
-        gap: var(--espaciado-md);
-    }
-    
-    .hero-content {
-        text-align: center;
-        align-items: center;
-    }
-    
-    .grunt-test-services,
-    .grunt-test-points {
-        justify-content: center;
-    }
-    
-    .hero-image {
-        height: 250px;
-        margin-top: var(--espaciado-md);
-    }
-    
-    .hero-letter-o,
-    .hero-letter-v {
-        font-size: 6rem;
-    }
-    
-    .resultados-stories {
-        grid-template-columns: 1fr;
-        max-width: 550px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .team-grid {
-        gap: var(--espaciado-lg);
-    }
-    
-    .beneficios-lista {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    :root {
-        --espaciado-xl: 4rem;
-        --espaciado-lg: 3rem;
-        --texto-4xl: 2rem;
-        --texto-3xl: 1.75rem;
-        --texto-2xl: 1.5rem;
-    }
-    
-    .hero-content h1 {
-        font-size: var(--texto-2xl);
-    }
-    
-    .hero-subtitle {
-        font-size: var(--texto-md);
-    }
-    
-    .hero-image {
-        height: 200px;
-    }
-    
-    .hero-letter-o,
-    .hero-letter-v {
-        font-size: 5rem;
-        left: -30px;
-    }
-    
-    .hero-letter-v {
-        left: 30px;
-    }
-    
-    .servicios-grid,
-    .team-grid,
-    .desafios-grid-compacto {
-        grid-template-columns: 1fr;
-    }
-    
-    .soluciones-card {
-        min-height: auto;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .footer-column h4::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .footer-contact ul li {
-        justify-content: center;
-    }
-    
-    .calendly-inline-widget {
-        height: 600px;
-    }
-    
-    .express-box-header,
-    .express-box-footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .express-box-footer .btn {
-        width: 100%;
-    }
-    
-    .express-box-garantia {
-        max-width: none;
-        margin-top: var(--espaciado-sm);
-    }
-    
-    .contacto-beneficios h3,
-    .contacto-beneficios .beneficios-lista li {
-        text-align: left;
-    }
-}
-
-@media (max-width: 576px) {
-    :root {
-        --espaciado-xl: 3.5rem;
-        --espaciado-lg: 2.5rem;
-        --texto-4xl: 1.75rem;
-        --texto-3xl: 1.5rem;
-        --texto-2xl: 1.375rem;
-    }
-    
-    .container {
-        padding-left: var(--espaciado-sm);
-        padding-right: var(--espaciado-sm);
-    }
-    
-    .hero {
-        padding-top: 110px;
-    }
-    
-    .hero-content h1 {
-        font-size: var(--texto-xl);
-        line-height: 1.3;
-    }
-    
-    .hero-subtitle {
-        font-size: var(--texto-base);
-    }
-    
-    .grunt-test-services {
-        flex-wrap: wrap;
-    }
-    
-    .grunt-test-points {
-        margin-bottom: var(--espaciado-sm);
-    }
-    
-    .service-pill,
-    .grunt-point {
-        width: 100%;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .hero-buttons .btn {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .btn-flotante {
-        padding: 10px 15px;
-        font-size: var(--texto-sm);
-        right: 15px;
-        bottom: 15px;
-    }
-    
-    .seccion-titulo h2 {
-        font-size: var(--texto-xl);
-    }
-    
-    .plan-mejorado .proceso-paso {
-        padding: 20px 15px 20px 60px;
-    }
-    
-    .opcion-header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: var(--espaciado-sm);
-    }
-    
-    .opcion-body {
-        padding: var(--espaciado-sm);
-    }
-    
-    .desafios-compacto .desafio-item {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: var(--espaciado-sm);
-    }
-    
-    .desafios-compacto .desafio-icon {
-        margin-bottom: var(--espaciado-xs);
-    }
-    
-    .contacto-beneficios {
-        padding: var(--espaciado-sm);
-    }
-    
-    .beneficios-lista li {
-        padding: var(--espaciado-xs);
-    }
-    
-    .calendly-inline-widget {
-        height: 550px;
-    }
-    
-    .resultado-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .resultado-icon {
-        margin-right: 0;
-        margin-bottom: var(--espaciado-xs);
-    }
-}
-
-/* ==========================================================================
-   UTILIDADES - REFINADAS
-   ========================================================================== */
-.text-orange { color: var(--naranja-principal) !important; }
-.text-green { color: var(--auditoria-verde) !important; }
-.text-red { color: var(--express-rojo) !important; }
-.fw-bold { font-weight: 700 !important; }
-.fw-black { font-weight: 800 !important; }
-.mb-0 { margin-bottom: 0 !important; }
-.mb-sm { margin-bottom: var(--espaciado-xs) !important; }
-.mb-md { margin-bottom: var(--espaciado-sm) !important; }
-.mb-lg { margin-bottom: var(--espaciado-md) !important; }
-.mb-xl { margin-bottom: var(--espaciado-lg) !important; }
-.text-small { font-size: var(--texto-sm) !important; }
-.text-large { font-size: var(--texto-lg) !important; }
-.cta-box p {
-    font-size: var(--texto-lg);
-    margin-bottom: var(--espaciado-md);
-    color: var(--texto-oscuro);
-    max-width: 800px;
-    font-weight: 500;
-}
-
-.cta-box .btn {
-    margin-top: 0;
-    background-color: var(--auditoria-verde);
-    font-weight: 700;
-    padding: 15px 32px;
-    box-shadow: 0 8px 15px rgba(47, 133, 90, 0.25);
-}
-
-.cta-box .btn:hover {
-    background-color: var(--auditoria-verde-hover);
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(47, 133, 90, 0.35);
-}
-
-/* ==========================================================================
-   SECCIÓN EQUIPO - REFINADA
-   ========================================================================== */
-.equipo {
-    background-color: var(--fondo-claro);
-    padding: var(--espaciado-xl) 0;
-    position: relative;
-}
-
-.equipo::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FF7200' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
-    z-index: 0;
-}
-
-.equipo .container {
-    position: relative;
-    z-index: 1;
-}
-
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--espaciado-xl);
-    margin-bottom: var(--espaciado-lg);
-    margin-top: var(--espaciado-lg);
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.team-member {
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-lg);
-    padding: var(--espaciado-md);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
-    transition: all var(--transicion-media);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border: 1px solid var(--gris-borde);
-}
-
-.team-member:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 8px 15px rgba(0, 0, 0, 0.05);
-    border-color: transparent;
-}
-
-.member-avatar {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: var(--espaciado-md);
-    box-shadow: var(--sombra-media);
-    position: relative;
-    transition: all var(--transicion-lenta);
-    border: 4px solid var(--naranja-claro);
-}
-
-.team-member:hover .member-avatar {
-    transform: scale(1.05);
-    border-color: var(--naranja-principal);
-}
-
-.profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--transicion-lenta);
-}
-
-.team-member:hover .profile-image {
-    transform: scale(1.1);
-}
-
-.member-info {
-    width: 100%;
-}
-
-.member-info h3 {
-    color: var(--texto-oscuro);
-    margin-bottom: var(--espaciado-xs);
-    font-size: var(--texto-xl);
-    font-weight: 700;
-}
-
-.member-info h4 {
-    color: var(--naranja-principal);
-    margin-bottom: var(--espaciado-sm);
-    font-size: var(--texto-md);
-    font-weight: 600;
-}
-
-.member-info p {
-    color: var(--texto-claro);
-    margin-bottom: var(--espaciado-md);
-    font-size: var(--texto-base);
-    line-height: 1.7;
-}
-
-.social-links {
-    margin-top: var(--espaciado-sm);
-}
-
-.social-links a {
-    margin: 0 8px;
-    font-size: var(--texto-xl);
-    color: var(--gris-medio);
-    transition: all var(--transicion-rapida);
-    display: inline-block;
-}
-
-.social-links a:hover {
-    color: var(--naranja-principal);
-    transform: translateY(-3px) scale(1.1);
-}
-
-/* ==========================================================================
-   SECCIÓN CONTACTO CON CALENDLY - REFINADA Y MEJORADA
-   ========================================================================== */
-.contacto {
-    background-color: var(--gris-claro);
-    padding-top: var(--espaciado-xl);
-    padding-bottom: var(--espaciado-xl);
-    position: relative;
-    overflow: visible;
-}
-
-.contacto::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='24' viewBox='0 0 88 24'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='autumn' fill='%232F855A' fill-opacity='0.03'%3E%3Cpath d='M10 0l30 15 2 1V2.18A10 10 0 0 0 41.76 0H39.7a8 8 0 0 1 .3 2.18v10.58L14.47 0H10zm31.76 24a10 10 0 0 0-5.29-6.76L4 1 2 0v13.82a10 10 0 0 0 5.53 8.94L10 24h4.47l-6.05-3.02A8 8 0 0 1 4 13.82V3.24l22.86 11.43a10 10 0 0 0 5.83 1.94h3.05a8 8 0 0 1-3.36 1.58 2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-1.55 1.94z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    opacity: 0.4;
-    z-index: 0;
-}
-
-.contacto .container {
-    position: relative;
-    z-index: 1;
-}
-
-.contacto .seccion-titulo h2 {
-    color: var(--auditoria-verde);
-}
-
-.contacto .seccion-titulo h2::after {
-    background-color: var(--auditoria-verde);
-}
-
-.contacto-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    gap: var(--espaciado-lg);
-}
-
-.contacto-beneficios {
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-lg);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
-    padding: var(--espaciado-lg);
-    border-left: 5px solid var(--auditoria-verde);
-    height: fit-content;
-    transition: transform var(--transicion-media);
-    position: relative;
-    z-index: 3;
-}
-
-.contacto-beneficios:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.contacto-beneficios h3 {
-    color: var(--auditoria-verde);
-    font-size: var(--texto-xl);
-    text-align: center;
-    margin-bottom: var(--espaciado-md);
-    font-weight: 700;
-    position: relative;
-    padding-bottom: 12px;
-}
-
-.contacto-beneficios h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: var(--auditoria-verde);
-    border-radius: var(--borde-redondo-full);
-}
-
-.beneficios-lista {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--espaciado-sm);
-    margin-bottom: var(--espaciado-md);
-}
-
-.beneficios-lista li {
-    padding: 16px 20px;
-    display: flex;
-    align-items: flex-start;
-    background-color: var(--fondo-claro);
-    border-radius: var(--borde-redondo-md);
-    transition: all var(--transicion-media);
-    border: 1px solid transparent;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
-    margin-bottom: 12px;
-}
-
-.beneficios-lista li:hover {
-    transform: translateY(-3px) translateX(3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    background-color: var(--blanco);
-    border-color: var(--gris-borde);
-}
-
-.beneficios-lista li i {
-    color: var(--auditoria-verde);
-    margin-right: 12px;
-    margin-top: 3px;
-    flex-shrink: 0;
-    font-size: 18px;
-}
-
-.beneficios-lista li strong {
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    display: block;
-    margin-bottom: 3px;
-}
-
-.contacto-garantia {
-    margin-top: var(--espaciado-md);
-    padding: 20px;
-    background-color: var(--auditoria-verde-bg);
-    border-radius: var(--borde-redondo-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--texto-oscuro);
-    font-weight: 600;
-    border: 1px dashed var(--auditoria-verde-border);
-    transition: background-color var(--transicion-rapida);
-    text-align: center;
-    font-size: var(--texto-md);
-    box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
-    animation: subtle-pulse 3s infinite alternate;
-}
-
-@keyframes subtle-pulse {
-    0% {
-        box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
-    }
-    100% {
-        box-shadow: 0 5px 15px rgba(47, 133, 90, 0.2);
-    }
-}
-
-.contacto-garantia:hover {
-    background-color: var(--auditoria-verde-claro);
-}
-
-.contacto-garantia i {
-    color: var(--auditoria-verde);
-    margin-right: 10px;
-    font-size: 18px;
-}
-
-/* Widget de Calendly - REFINADO */
-.calendly-inline-widget {
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-lg);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    height: 680px;
-    min-width: 320px;
-    width: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    transform: translateZ(0);
-    border: 1px solid var(--gris-borde);
-    position: relative;
-    z-index: 2;
-}
-
-.calendly-inline-widget:hover {
-    transform: translateY(-5px) translateZ(0);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.calendly-inline-widget iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* ==========================================================================
-   FOOTER - REFINADO
-   ========================================================================== */
-.footer {
-    background-color: var(--gris-oscuro);
-    color: rgba(255, 255, 255, 0.7);
-    padding: var(--espaciado-lg) 0 var(--espaciado-sm);
-    position: relative;
-    margin-top: var(--espaciado-xl);
-}
-
-.footer::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    background: linear-gradient(to top, rgba(255, 114, 0, 0.1), transparent);
-    border-radius: 100% 100% 0 0;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: var(--espaciado-md);
-    margin-bottom: var(--espaciado-md);
-}
-
-.footer-about {
-    padding-right: var(--espaciado-md);
-}
-
-.footer-logo {
-    color: var(--blanco);
-    font-family: var(--fuente-principal);
-    font-weight: 800;
-    font-size: var(--texto-xl);
-    margin-bottom: var(--espaciado-sm);
-    display: inline-block;
-    transition: transform var(--transicion-rapida);
-}
-
-.footer-logo:hover {
-    transform: translateY(-3px);
-}
-
-.footer-logo span {
-    color: var(--naranja-principal);
-}
-
-.footer-about p {
-    margin-bottom: var(--espaciado-md);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: var(--texto-base);
-}
-
-.footer-column h4 {
-    color: var(--blanco);
-    margin-bottom: 20px;
-    position: relative;
-    font-weight: 700;
-    padding-bottom: 10px;
-}
-
-.footer-column h4::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background-color: var(--naranja-principal);
-    border-radius: var(--borde-redondo-full);
-}
-
-.footer-column ul li {
-    margin-bottom: 12px;
-    transition: transform var(--transicion-rapida);
-}
-
-.footer-column ul li:hover {
-    transform: translateX(5px);
-}
-
-.footer-column ul li a {
-    color: rgba(255, 255, 255, 0.7);
-    transition: color var(--transicion-rapida);
-}
-
-.footer-column ul li a:hover {
-    color: var(--naranja-principal);
-}
-
-.footer-contact ul li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 15px;
-    transition: transform var(--transicion-rapida);
-}
-
-.footer-contact ul li:hover {
-    transform: translateX(5px);
-}
-
-.footer-contact ul li i {
-    margin-right: 12px;
-    color: var(--naranja-principal);
-    margin-top: 5px;
-    flex-shrink: 0;
-}
-
-.footer-bottom {
-    padding: var(--espaciado-sm) 0;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: var(--espaciado-md);
-}
-
-.footer-bottom p {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: var(--texto-sm);
-}
-
-/* CTA Flotante - REFINADO */
-.cta-flotante {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 99;
-}
-
-.btn-flotante {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
-    background-color: var(--auditoria-verde);
-    color: var(--blanco);
-    border-radius: var(--borde-redondo-full);
-    font-weight: 700;
-    box-shadow: var(--sombra-fuerte);
-    transition: all var(--transicion-media);
-    animation: pulse-animation 2.5s infinite;
-}
-
-.btn-flotante:hover {
-    transform: translateY(-5px) scale(1.05);
-    background-color: var(--auditoria-verde-hover);
-}
-
-.btn-flotante i {
-    font-size: var(--texto-base);
-}
-
-/* ==========================================================================
-   MEDIA QUERIES - REFINADOS
-   ========================================================================== */
-@media (max-width: 1200px) {
-    :root {
-        --texto-4xl: 2.75rem;
-        --texto-3xl: 2.25rem;
-    }
-    
-    .container {
-        padding-left: var(--espaciado-md);
-        padding-right: var(--espaciado-md);
-    }
-    
-    .contacto-content {
-        grid-template-columns: 1fr;
-        max-width: 800px;
-    }
-    
-    .calendly-inline-widget {
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 1024px) {
-    :root {
-        --espaciado-xl: 5rem;
-        --texto-4xl: 2.5rem;
-        --texto-3xl: 2rem;
-    }
-    
-    .hero {
-        padding-top: 130px;
-        min-height: auto;
-    }
-    
-    .express-content {
-        grid-template-columns: 1fr;
-        gap: var(--espaciado-md);
-    }
-    
-    .express-image {
-        display: none;
-    }
-    
-    .proceso-timeline::before {
-        left: 20px;
-    }
-    
-    .proceso-paso {
-        width: 100%;
-        padding-left: 70px;
-    }
-    
-    .proceso-paso:nth-child(odd),
-    .proceso-paso:nth-child(even) {
-        margin-left: 30px;
-    }
-    
-    .proceso-paso:nth-child(odd) .paso-numero,
-    .proceso-paso:nth-child(even) .paso-numero {
-        left: -30px;
-    }
-    
-    .opciones-container-rediseno {
-        flex-direction: column;
-        align-items: center;
-        max-width: 500px;
-        margin-bottom: 60px;
-    }
-    
-    .opcion-card {
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .conectador-opciones {
-        margin: 15px 0;
-    }
-    
-    .conectador-opciones::before {
-        left: 50%;
-        right: auto;
-        top: -25px;
-        bottom: -25px;
-        width: 2px;
-        height: auto;
-        transform: translateX(-50%);
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .footer-about {
-        grid-column: span 2;
-        text-align: center;
-        padding-right: 0;
-        margin-bottom: var(--espaciado-md);
-    }
-    
-    .footer-about .social-links {
-        justify-content: center;
-        display: flex;
-    }
-    
-    /* Mejora para Calendly en tablets */
-    .contacto-beneficios {
-        order: 2;
-        margin-top: var(--espaciado-md);
-    }
-    
-    .calendly-inline-widget {
-        height: 600px;
-    }
-}
-
-@media (max-width: 992px) {
-    :root {
-        --texto-4xl: 2.25rem;
-        --texto-3xl: 1.875rem;
-        --texto-2xl: 1.75rem;
-    }
-    
-    .hero .container {
-        grid-template-columns: 1fr;
-        gap: var(--espaciado-md);
-    }
-    
-    .hero-content {
-        text-align: center;
-        align-items: center;
-    }
-    
-    .grunt-test-services,
-    .grunt-test-points {
-        justify-content: center;
-    }
-    
-    .hero-image {
-        height: 250px;
-        margin-top: var(--espaciado-md);
-    }
-    
-    .hero-letter-o,
-    .hero-letter-v {
-        font-size: 6rem;
-    }
-    
-    .resultados-stories {
-        grid-template-columns: 1fr;
-        max-width: 550px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .team-grid {
-        gap: var(--espaciado-lg);
-    }
-    
-    .beneficios-lista {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    :root {
-        --espaciado-xl: 4rem;
-        --espaciado-lg: 3rem;
-        --texto-4xl: 2rem;
-        --texto-3xl: 1.75rem;
-        --texto-2xl: 1.5rem;
-    }
-    
-    .hero-content h1 {
-        font-size: var(--texto-2xl);
-    }
-    
-    .hero-subtitle {
-        font-size: var(--texto-md);
-    }
-    
-    .hero-image {
-        height: 200px;
-    }
-    
-    .hero-letter-o,
-    .hero-letter-v {
-        font-size: 5rem;
-        left: -30px;
-    }
-    
-    .hero-letter-v {
-        left: 30px;
-    }
-    
-    .servicios-grid,
-    .team-grid,
-    .desafios-grid-compacto {
-        grid-template-columns: 1fr;
-    }
-    
-    .soluciones-card {
-        min-height: auto;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .footer-column h4::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .footer-contact ul li {
-        justify-content: center;
-    }
-    
-    .calendly-inline-widget {
-        height: 600px;
-    }
-    
-    .express-box-header,
-    .express-box-footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .express-box-footer .btn {
-        width: 100%;
-    }
-    
-    .express-box-garantia {
-        max-width: none;
-        margin-top: var(--espaciado-sm);
-    }
-    
-    .contacto-beneficios h3,
-    .contacto-beneficios .beneficios-lista li {
-        text-align: left;
-    }
-}
-
-@media (max-width: 576px) {
-    :root {
-        --espaciado-xl: 3.5rem;
-        --espaciado-lg: 2.5rem;
-        --texto-4xl: 1.75rem;
-        --texto-3xl: 1.5rem;
-        --texto-2xl: 1.375rem;
-    }
-    
-    .container {
-        padding-left: var(--espaciado-sm);
-        padding-right: var(--espaciado-sm);
-    }
-    
-    .hero {
-        padding-top: 110px;
-    }
-    
-    .hero-content h1 {
-        font-size: var(--texto-xl);
-        line-height: 1.3;
-    }
-    
-    .hero-subtitle {
-        font-size: var(--texto-base);
-    }
-    
-    .grunt-test-services {
-        flex-wrap: wrap;
-    }
-    
-    .grunt-test-points {
-        margin-bottom: var(--espaciado-sm);
-    }
-    
-    .service-pill,
-    .grunt-point {
-        width: 100%;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .hero-buttons .btn {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .btn-flotante {
-        padding: 10px 15px;
-        font-size: var(--texto-sm);
-        right: 15px;
-        bottom: 15px;
-    }
-    
-    .seccion-titulo h2 {
-        font-size: var(--texto-xl);
-    }
-    
-    .plan-mejorado .proceso-paso {
-        padding: 20px 15px 20px 60px;
-    }
-    
-    .opcion-header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: var(--espaciado-sm);
-    }
-    
-    .opcion-body {
-        padding: var(--espaciado-sm);
-    }
-    
-    .desafios-compacto .desafio-item {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: var(--espaciado-sm);
-    }
-    
-    .desafios-compacto .desafio-icon {
-        margin-bottom: var(--espaciado-xs);
-    }
-    
-    .contacto-beneficios {
-        padding: var(--espaciado-sm);
-    }
-    
-    .beneficios-lista li {
-        padding: var(--espaciado-xs);
-    }
-    
-    .calendly-inline-widget {
-        height: 550px;
-    }
-    
-    .resultado-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .resultado-icon {
-        margin-right: 0;
-        margin-bottom: var(--espaciado-xs);
-    }
-}
-
-/* ==========================================================================
-   UTILIDADES - REFINADAS
-   ========================================================================== */
-.text-orange { color: var(--naranja-principal) !important; }
-.text-green { color: var(--auditoria-verde) !important; }
-.text-red { color: var(--express-rojo) !important; }
-.fw-bold { font-weight: 700 !important; }
-.fw-black { font-weight: 800 !important; }
-.mb-0 { margin-bottom: 0 !important; }
-.mb-sm { margin-bottom: var(--espaciado-xs) !important; }
-.mb-md { margin-bottom: var(--espaciado-sm) !important; }
-.mb-lg { margin-bottom: var(--espaciado-md) !important; }
-.mb-xl { margin-bottom: var(--espaciado-lg) !important; }
-.text-small { font-size: var(--texto-sm) !important; }
-.text-large { font-size: var(--texto-lg) !important; }
 .cta-box {
     background: linear-gradient(135deg, var(--naranja-claro), rgba(255, 147, 64, 0.1));
     padding: var(--espaciado-lg);
@@ -4251,4 +2566,847 @@ p {
     margin-bottom: var(--espaciado-sm);
 }
 
-.cta-box
+.cta-box p {
+    font-size: var(--texto-lg);
+    margin-bottom: var(--espaciado-md);
+    color: var(--texto-oscuro);
+    max-width: 800px;
+    font-weight: 500;
+}
+
+.cta-box .btn {
+    margin-top: 0;
+    background-color: var(--auditoria-verde);
+    font-weight: 700;
+    padding: 15px 32px;
+    box-shadow: 0 8px 15px rgba(47, 133, 90, 0.25);
+}
+
+.cta-box .btn:hover {
+    background-color: var(--auditoria-verde-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(47, 133, 90, 0.35);
+}
+
+/* ==========================================================================
+   SECCIÓN EQUIPO - REFINADA
+   ========================================================================== */
+.equipo {
+    background-color: var(--fondo-claro);
+    padding: var(--espaciado-xl) 0;
+    position: relative;
+}
+
+.equipo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FF7200' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    z-index: 0;
+}
+
+.equipo .container {
+    position: relative;
+    z-index: 1;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--espaciado-xl);
+    margin-bottom: var(--espaciado-lg);
+    margin-top: var(--espaciado-lg);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.team-member {
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-lg);
+    padding: var(--espaciado-md);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
+    transition: all var(--transicion-media);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--gris-borde);
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 8px 15px rgba(0, 0, 0, 0.05);
+    border-color: transparent;
+}
+
+.member-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: var(--espaciado-md);
+    box-shadow: var(--sombra-media);
+    position: relative;
+    transition: all var(--transicion-lenta);
+    border: 4px solid var(--naranja-claro);
+}
+
+.team-member:hover .member-avatar {
+    transform: scale(1.05);
+    border-color: var(--naranja-principal);
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transicion-lenta);
+}
+
+.team-member:hover .profile-image {
+    transform: scale(1.1);
+}
+
+.member-info {
+    width: 100%;
+}
+
+.member-info h3 {
+    color: var(--texto-oscuro);
+    margin-bottom: var(--espaciado-xs);
+    font-size: var(--texto-xl);
+    font-weight: 700;
+}
+
+.member-info h4 {
+    color: var(--naranja-principal);
+    margin-bottom: var(--espaciado-sm);
+    font-size: var(--texto-md);
+    font-weight: 600;
+}
+
+.member-info p {
+    color: var(--texto-claro);
+    margin-bottom: var(--espaciado-md);
+    font-size: var(--texto-base);
+    line-height: 1.7;
+}
+
+.social-links {
+    margin-top: var(--espaciado-sm);
+}
+
+.social-links a {
+    margin: 0 8px;
+    font-size: var(--texto-xl);
+    color: var(--gris-medio);
+    transition: all var(--transicion-rapida);
+    display: inline-block;
+}
+
+.social-links a:hover {
+    color: var(--naranja-principal);
+    transform: translateY(-3px) scale(1.1);
+}
+
+/* ==========================================================================
+   SECCIÓN CONTACTO CON CALENDLY - REFINADA Y MEJORADA
+   ========================================================================== */
+.contacto {
+    background-color: var(--gris-claro);
+    padding-top: var(--espaciado-xl);
+    padding-bottom: var(--espaciado-xl);
+    position: relative;
+    overflow: visible;
+}
+
+.contacto::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='24' viewBox='0 0 88 24'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='autumn' fill='%232F855A' fill-opacity='0.03'%3E%3Cpath d='M10 0l30 15 2 1V2.18A10 10 0 0 0 41.76 0H39.7a8 8 0 0 1 .3 2.18v10.58L14.47 0H10zm31.76 24a10 10 0 0 0-5.29-6.76L4 1 2 0v13.82a10 10 0 0 0 5.53 8.94L10 24h4.47l-6.05-3.02A8 8 0 0 1 4 13.82V3.24l22.86 11.43a10 10 0 0 0 5.83 1.94h3.05a8 8 0 0 1-3.36 1.58 2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-1.55 1.94z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.4;
+    z-index: 0;
+}
+
+.contacto .container {
+    position: relative;
+    z-index: 1;
+}
+
+.contacto .seccion-titulo h2 {
+    color: var(--auditoria-verde);
+}
+
+.contacto .seccion-titulo h2::after {
+    background-color: var(--auditoria-verde);
+}
+
+.contacto-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: var(--espaciado-lg);
+}
+
+.contacto-beneficios {
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: var(--espaciado-lg);
+    border-left: 5px solid var(--auditoria-verde);
+    height: fit-content;
+    transition: transform var(--transicion-media);
+    position: relative;
+    z-index: 3;
+}
+
+.contacto-beneficios:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.contacto-beneficios h3 {
+    color: var(--auditoria-verde);
+    font-size: var(--texto-xl);
+    text-align: center;
+    margin-bottom: var(--espaciado-md);
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.contacto-beneficios h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--auditoria-verde);
+    border-radius: var(--borde-redondo-full);
+}
+
+.beneficios-lista {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espaciado-sm);
+    margin-bottom: var(--espaciado-md);
+}
+
+.beneficios-lista li {
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    background-color: var(--fondo-claro);
+    border-radius: var(--borde-redondo-md);
+    transition: all var(--transicion-media);
+    border: 1px solid transparent;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    margin-bottom: 12px;
+}
+
+.beneficios-lista li:hover {
+    transform: translateY(-3px) translateX(3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    background-color: var(--blanco);
+    border-color: var(--gris-borde);
+}
+
+.beneficios-lista li i {
+    color: var(--auditoria-verde);
+    margin-right: 12px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    font-size: 18px;
+}
+
+.beneficios-lista li strong {
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    display: block;
+    margin-bottom: 3px;
+}
+
+.contacto-garantia {
+    margin-top: var(--espaciado-md);
+    padding: 20px;
+    background-color: var(--auditoria-verde-bg);
+    border-radius: var(--borde-redondo-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto-oscuro);
+    font-weight: 600;
+    border: 1px dashed var(--auditoria-verde-border);
+    transition: background-color var(--transicion-rapida);
+    text-align: center;
+    font-size: var(--texto-md);
+    box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
+    animation: subtle-pulse 3s infinite alternate;
+}
+
+@keyframes subtle-pulse {
+    0% {
+        box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
+    }
+    100% {
+        box-shadow: 0 5px 15px rgba(47, 133, 90, 0.2);
+    }
+}
+
+.contacto-garantia:hover {
+    background-color: var(--auditoria-verde-claro);
+}
+
+.contacto-garantia i {
+    color: var(--auditoria-verde);
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+/* Widget de Calendly - REFINADO */
+.calendly-inline-widget {
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    height: 680px;
+    min-width: 320px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform: translateZ(0);
+    border: 1px solid var(--gris-borde);
+    position: relative;
+    z-index: 2;
+}
+
+.calendly-inline-widget:hover {
+    transform: translateY(-5px) translateZ(0);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.calendly-inline-widget iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ==========================================================================
+   FOOTER - REFINADO
+   ========================================================================== */
+.footer {
+    background-color: var(--gris-oscuro);
+    color: rgba(255, 255, 255, 0.7);
+    padding: var(--espaciado-lg) 0 var(--espaciado-sm);
+    position: relative;
+    margin-top: var(--espaciado-xl);
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to top, rgba(255, 114, 0, 0.1), transparent);
+    border-radius: 100% 100% 0 0;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--espaciado-md);
+    margin-bottom: var(--espaciado-md);
+}
+
+.footer-about {
+    padding-right: var(--espaciado-md);
+}
+
+.footer-logo {
+    color: var(--blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 800;
+    font-size: var(--texto-xl);
+    margin-bottom: var(--espaciado-sm);
+    display: inline-block;
+    transition: transform var(--transicion-rapida);
+}
+
+.footer-logo:hover {
+    transform: translateY(-3px);
+}
+
+.footer-logo span {
+    color: var(--naranja-principal);
+}
+
+.footer-about p {
+    margin-bottom: var(--espaciado-md);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--texto-base);
+}
+
+.footer-column h4 {
+    color: var(--blanco);
+    margin-bottom: 20px;
+    position: relative;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+
+.footer-column h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: var(--naranja-principal);
+    border-radius: var(--borde-redondo-full);
+}
+
+.footer-column ul li {
+    margin-bottom: 12px;
+    transition: transform var(--transicion-rapida);
+}
+
+.footer-column ul li:hover {
+    transform: translateX(5px);
+}
+
+.footer-column ul li a {
+    color: rgba(255, 255, 255, 0.7);
+    transition: color var(--transicion-rapida);
+}
+
+.footer-column ul li a:hover {
+    color: var(--naranja-principal);
+}
+
+.footer-contact ul li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    transition: transform var(--transicion-rapida);
+}
+
+.footer-contact ul li:hover {
+    transform: translateX(5px);
+}
+
+.footer-contact ul li i {
+    margin-right: 12px;
+    color: var(--naranja-principal);
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.footer-bottom {
+    padding: var(--espaciado-sm) 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: var(--espaciado-md);
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: var(--texto-sm);
+}
+
+/* CTA Flotante - REFINADO */
+.cta-flotante {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+}
+
+.btn-flotante {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background-color: var(--auditoria-verde);
+    color: var(--blanco);
+    border-radius: var(--borde-redondo-full);
+    font-weight: 700;
+    box-shadow: var(--sombra-fuerte);
+    transition: all var(--transicion-media);
+    animation: pulse-animation 2.5s infinite;
+}
+
+.btn-flotante:hover {
+    transform: translateY(-5px) scale(1.05);
+    background-color: var(--auditoria-verde-hover);
+}
+
+.btn-flotante i {
+    font-size: var(--texto-base);
+}
+
+/* ==========================================================================
+   MEDIA QUERIES - REFINADOS
+   ========================================================================== */
+@media (max-width: 1200px) {
+    :root {
+        --texto-4xl: 2.75rem;
+        --texto-3xl: 2.25rem;
+    }
+    
+    .container {
+        padding-left: var(--espaciado-md);
+        padding-right: var(--espaciado-md);
+    }
+    
+    .contacto-content {
+        grid-template-columns: 1fr;
+        max-width: 800px;
+    }
+    
+    .calendly-inline-widget {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --espaciado-xl: 5rem;
+        --texto-4xl: 2.5rem;
+        --texto-3xl: 2rem;
+    }
+    
+    .hero {
+        padding-top: 150px;
+    }
+    
+    .express-content {
+        grid-template-columns: 1fr;
+        gap: var(--espaciado-md);
+    }
+    
+    .express-image {
+        display: none;
+    }
+    
+    .proceso-timeline::before {
+        left: 20px;
+    }
+    
+    .proceso-paso {
+        width: 100%;
+        padding-left: 70px;
+    }
+    
+    .proceso-paso:nth-child(odd),
+    .proceso-paso:nth-child(even) {
+        margin-left: 30px;
+    }
+    
+    .proceso-paso:nth-child(odd) .paso-numero,
+    .proceso-paso:nth-child(even) .paso-numero {
+        left: -30px;
+    }
+    
+    .opciones-container-rediseno {
+        flex-direction: column;
+        align-items: center;
+        max-width: 500px;
+        margin-bottom: 60px;
+    }
+    
+    .opcion-card {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .conectador-opciones {
+        margin: 15px 0;
+    }
+    
+    .conectador-opciones::before {
+        left: 50%;
+        right: auto;
+        top: -25px;
+        bottom: -25px;
+        width: 2px;
+        height: auto;
+        transform: translateX(-50%);
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .footer-about {
+        grid-column: span 2;
+        text-align: center;
+        padding-right: 0;
+        margin-bottom: var(--espaciado-md);
+    }
+    
+    .footer-about .social-links {
+        justify-content: center;
+        display: flex;
+    }
+    
+    /* Mejora para Calendly en tablets */
+    .contacto-beneficios {
+        order: 2;
+        margin-top: var(--espaciado-md);
+    }
+    
+    .calendly-inline-widget {
+        height: 600px;
+    }
+}
+
+@media (max-width: 992px) {
+    :root {
+        --texto-4xl: 2.25rem;
+        --texto-3xl: 1.875rem;
+        --texto-2xl: 1.75rem;
+    }
+    
+    .hero .container {
+        grid-template-columns: 1fr;
+        gap: var(--espaciado-md);
+    }
+    
+    .hero-content {
+        text-align: center;
+        align-items: center;
+    }
+    
+    .grunt-test-services,
+    .grunt-test-points {
+        justify-content: center;
+    }
+    
+    .hero-image {
+        height: 250px;
+        margin-top: var(--espaciado-md);
+    }
+    
+    .resultados-stories {
+        grid-template-columns: 1fr;
+        max-width: 550px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .team-grid {
+        gap: var(--espaciado-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --espaciado-xl: 4rem;
+        --espaciado-lg: 3rem;
+        --texto-4xl: 2rem;
+        --texto-3xl: 1.75rem;
+        --texto-2xl: 1.5rem;
+    }
+    
+    .hero-content h1 {
+        font-size: var(--texto-2xl);
+    }
+    
+    .hero-subtitle {
+        font-size: var(--texto-md);
+    }
+    
+    .hero-image {
+        height: 200px;
+    }
+    
+    .servicios-grid,
+    .team-grid,
+    .desafios-grid-compacto {
+        grid-template-columns: 1fr;
+    }
+    
+    .soluciones-card {
+        min-height: auto;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer-contact ul li {
+        justify-content: center;
+    }
+    
+    .calendly-inline-widget {
+        height: 600px;
+    }
+    
+    .express-box-header,
+    .express-box-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .express-box-footer .btn {
+        width: 100%;
+    }
+    
+    .express-box-garantia {
+        max-width: none;
+        margin-top: var(--espaciado-sm);
+    }
+    
+    .contacto-beneficios h3,
+    .contacto-beneficios .beneficios-lista li {
+        text-align: left;
+    }
+}
+
+@media (max-width: 576px) {
+    :root {
+        --espaciado-xl: 3.5rem;
+        --espaciado-lg: 2.5rem;
+        --texto-4xl: 1.75rem;
+        --texto-3xl: 1.5rem;
+        --texto-2xl: 1.375rem;
+    }
+    
+    .container {
+        padding-left: var(--espaciado-sm);
+        padding-right: var(--espaciado-sm);
+    }
+    
+    .hero {
+        padding-top: 120px;
+    }
+    
+    .hero-content h1 {
+        font-size: var(--texto-xl);
+        line-height: 1.3;
+    }
+    
+    .hero-subtitle {
+        font-size: var(--texto-base);
+    }
+    
+    .grunt-test-services {
+        flex-wrap: wrap;
+    }
+    
+    .grunt-test-points {
+        margin-bottom: var(--espaciado-sm);
+    }
+    
+    .service-pill,
+    .grunt-point {
+        width: 100%;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .btn-flotante {
+        padding: 10px 15px;
+        font-size: var(--texto-sm);
+        right: 15px;
+        bottom: 15px;
+    }
+    
+    .seccion-titulo h2 {
+        font-size: var(--texto-xl);
+    }
+    
+    .plan-mejorado .proceso-paso {
+        padding: 20px 15px 20px 60px;
+    }
+    
+    .opcion-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--espaciado-sm);
+    }
+    
+    .opcion-body {
+        padding: var(--espaciado-sm);
+    }
+    
+    .desafios-compacto .desafio-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: var(--espaciado-sm);
+    }
+    
+    .desafios-compacto .desafio-icon {
+        margin-bottom: var(--espaciado-xs);
+    }
+    
+    .contacto-beneficios {
+        padding: var(--espaciado-sm);
+    }
+    
+    .beneficios-lista li {
+        padding: var(--espaciado-xs);
+    }
+    
+    .calendly-inline-widget {
+        height: 550px;
+    }
+    
+    .resultado-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .resultado-icon {
+        margin-right: 0;
+        margin-bottom: var(--espaciado-xs);
+    }
+}
+
+/* ==========================================================================
+   UTILIDADES - REFINADAS
+   ========================================================================== */
+.text-orange { color: var(--naranja-principal) !important; }
+.text-green { color: var(--auditoria-verde) !important; }
+.text-red { color: var(--express-rojo) !important; }
+.fw-bold { font-weight: 700 !important; }
+.fw-black { font-weight: 800 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-sm { margin-bottom: var(--espaciado-xs) !important; }
+.mb-md { margin-bottom: var(--espaciado-sm) !important; }
+.mb-lg { margin-bottom: var(--espaciado-md) !important; }
+.mb-xl { margin-bottom: var(--espaciado-lg) !important; }
+.text-small { font-size: var(--texto-sm) !important; }
+.text-large { font-size: var(--texto-lg) !important; }
