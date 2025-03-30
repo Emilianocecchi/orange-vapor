@@ -2729,20 +2729,20 @@ p {
 
 /* Estilo específico para el paso 1 (Auditoría Flash) */
 .proceso-paso[data-step="1"] {
-    border-left: 4px solid var(--auditoria-verde);
+    border-left: 4px solid var(--naranja-principal);
 }
 
 .proceso-paso[data-step="1"] .paso-icono {
-    background-color: var(--auditoria-verde-bg);
-    color: var(--auditoria-verde);
-    border: 2px dashed rgba(47, 133, 90, 0.2);
+    background-color: rgba(255, 114, 0, 0.05);
+    color: var(--naranja-principal);
+    border: 2px dashed rgba(255, 114, 0, 0.2);
 }
 
 .proceso-paso[data-step="1"] h3 {
-    color: var(--auditoria-verde);
+    color: var(--naranja-oscuro);
 }
 
-/* Estilo para la palabra GRATIS */
+/* Estilo para la palabra GRATIS - MODIFICADO */
 .gratuito-highlight {
     color: var(--auditoria-verde);
     position: relative;
@@ -2996,10 +2996,6 @@ p {
     background-color: var(--naranja-oscuro);
 }
 
-.proceso-paso[data-step="1"]:hover .paso-numero {
-    background-color: var(--auditoria-verde);
-}
-
 .paso-contenido {
     width: 100%;
 }
@@ -3022,10 +3018,6 @@ p {
 .proceso-paso:hover .paso-icono {
     background-color: rgba(255, 114, 0, 0.1);
     transform: rotate(10deg);
-}
-
-.proceso-paso[data-step="1"]:hover .paso-icono {
-    background-color: var(--auditoria-verde-bg);
 }
 
 .paso-contenido h3 {
@@ -3082,6 +3074,70 @@ p {
     }
     100% {
         transform: translateY(0);
+    }
+}
+
+/* Media queries para responsividad */
+@media (max-width: 1024px) {
+    .proceso-timeline::before {
+        left: 20px;
+    }
+    
+    .proceso-paso {
+        width: 100%;
+        padding-left: 70px;
+    }
+    
+    .proceso-paso:nth-child(odd),
+    .proceso-paso:nth-child(even) {
+        margin-left: 30px;
+    }
+    
+    .proceso-paso:nth-child(odd) .paso-numero,
+    .proceso-paso:nth-child(even) .paso-numero {
+        left: -30px;
+    }
+    
+    .opciones-container-rediseno {
+        flex-direction: column;
+        align-items: center;
+        max-width: 500px;
+        margin-bottom: 60px;
+    }
+    
+    .opcion-card {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .conectador-opciones {
+        margin: 15px 0;
+    }
+    
+    .conectador-opciones::before {
+        left: 50%;
+        right: auto;
+        top: -25px;
+        bottom: -25px;
+        width: 2px;
+        height: auto;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .plan-mejorado .proceso-paso {
+        padding: 20px 15px 20px 60px;
+    }
+    
+    .opcion-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--espaciado-sm);
+    }
+    
+    .opcion-body {
+        padding: var(--espaciado-sm);
     }
 }
 
