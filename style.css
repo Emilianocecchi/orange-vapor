@@ -50,9 +50,9 @@
     --bg-chatbot: rgba(107, 70, 193, 0.08);
     
     /* Sombras mejoradas */
-    --sombra-suave: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
-    --sombra-media: 0 10px 15px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.08);
-    --sombra-fuerte: 0 20px 25px rgba(0, 0, 0, 0.06), 0 10px 10px rgba(0, 0, 0, 0.04);
+    --sombra-suave: 0 4px 10px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.06);
+    --sombra-media: 0 10px 20px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.06);
+    --sombra-fuerte: 0 20px 30px rgba(0, 0, 0, 0.07), 0 10px 15px rgba(0, 0, 0, 0.05);
     --sombra-focus: 0 0 0 3px rgba(255, 114, 0, 0.3);
     
     /* Bordes */
@@ -104,7 +104,7 @@
 }
 
 /* ==========================================================================
-   RESET Y ESTILOS BASE
+   RESET Y ESTILOS BASE - MEJORADOS
    ========================================================================== */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -112,24 +112,29 @@
     padding: 0;
 }
 
-html {
+html, body {
     font-size: 16px;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 body {
     font-family: var(--fuente-secundaria);
     color: var(--texto-oscuro);
     line-height: 1.6;
-    overflow-x: hidden;
     background-color: var(--blanco);
+    min-height: 100vh;
 }
 
-/* Clase preload modificada para evitar transiciones al cargar */
+/* Clase preload optimizada */
 .preload * {
     transition: none !important;
+    animation-duration: 0.001s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
 }
 
 img {
@@ -166,7 +171,7 @@ ul, ol {
 }
 
 /* ==========================================================================
-   LAYOUT Y CONTENEDORES
+   LAYOUT Y CONTENEDORES - OPTIMIZADOS
    ========================================================================== */
 .container {
     width: 100%;
@@ -175,11 +180,17 @@ ul, ol {
     margin-right: auto;
     padding-left: var(--espaciado-md);
     padding-right: var(--espaciado-md);
+    position: relative;
 }
 
 section {
     padding: var(--espaciado-lg) 0;
     position: relative;
+    overflow: hidden;
+}
+
+section:first-of-type {
+    padding-top: 0;
 }
 
 .row {
@@ -189,7 +200,7 @@ section {
 }
 
 /* ==========================================================================
-   TIPOGRAFÍA - MEJORADA
+   TIPOGRAFÍA - REFINADA
    ========================================================================== */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--fuente-principal);
@@ -204,12 +215,14 @@ h1 {
     font-size: var(--texto-4xl);
     margin-bottom: var(--espaciado-md);
     font-weight: 800;
+    line-height: 1.15;
 }
 
 h2 {
     font-size: var(--texto-3xl);
     margin-bottom: var(--espaciado-md);
     font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 h3 {
@@ -225,6 +238,7 @@ h4 {
 p {
     margin-bottom: var(--espaciado-sm);
     color: var(--texto-claro);
+    line-height: 1.7;
 }
 
 .text-center { text-align: center; }
@@ -254,11 +268,12 @@ p {
 
 .seccion-titulo h2 {
     color: var(--texto-oscuro);
-    font-size: var(--texto-3xl);
+    font-size: calc(var(--texto-3xl) * 1.1);
     font-weight: 800;
     margin-bottom: var(--espaciado-sm);
     position: relative;
     display: inline-block;
+    letter-spacing: -0.02em;
 }
 
 .seccion-titulo h2::after {
@@ -278,6 +293,7 @@ p {
     max-width: 700px;
     margin: var(--espaciado-md) auto 0;
     font-size: var(--texto-md);
+    line-height: 1.7;
 }
 
 .seccion-titulo.text-left {
@@ -302,7 +318,7 @@ p {
 }
 
 /* ==========================================================================
-   BOTONES Y ENLACES - MEJORADOS
+   BOTONES Y ENLACES - REFINADOS
    ========================================================================== */
 .btn {
     display: inline-flex;
@@ -322,6 +338,7 @@ p {
     cursor: pointer;
     box-shadow: var(--sombra-suave);
     background-color: var(--naranja-principal);
+    letter-spacing: 0.3px;
 }
 
 .btn-primary {
@@ -400,6 +417,8 @@ p {
     margin-top: var(--espaciado-sm);
     width: 100%;
     box-shadow: 0 5px 15px rgba(47, 133, 90, 0.25);
+    border-radius: var(--borde-redondo-md);
+    letter-spacing: 0.5px;
 }
 
 .btn-auditoria:hover {
@@ -408,7 +427,7 @@ p {
     box-shadow: 0 8px 20px rgba(47, 133, 90, 0.35);
 }
 
-/* Nuevo estilo de animación de pulso */
+/* Estilo de animación de pulso */
 .pulse-animation {
     animation: pulse-animation 2s infinite;
 }
@@ -425,13 +444,14 @@ p {
     }
 }
 
-/* Botón CTA del hero - Mejorado */
+/* Botón CTA del hero - Refinado */
 #home .hero-buttons .btn {
     background-color: var(--auditoria-verde);
     color: var(--blanco);
     border: none;
     font-weight: 700;
     letter-spacing: 0.5px;
+    padding: 14px 30px;
 }
 
 #home .hero-buttons .btn:hover {
@@ -445,29 +465,19 @@ p {
 }
 
 /* ==========================================================================
-   ANIMACIONES - MEJORADAS Y CORREGIDAS
+   ANIMACIONES - REFINADAS
    ========================================================================== */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* CORRECCIÓN: Regla modificada para asegurar que los elementos sean visibles */
+/* Regla refinada para mejor visibilidad */
 .fade-in {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-    /* Animación de respaldo para asegurar que todo sea visible eventualmente */
-    animation: forceVisible 5s forwards;
-}
-
-/* NUEVO: Asegurar que los elementos siempre son visibles */
-@keyframes forceVisible {
-    0%, 60% { /* Mantener estados actuales durante 3 segundos */ }
-    100% {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-    }
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    will-change: opacity, transform;
 }
 
 .fade-in.visible {
@@ -475,53 +485,56 @@ p {
     transform: translateY(0);
 }
 
-/* NUEVO: Selección específica para sección de servicios */
+/* Asegurar que secciones críticas siempre sean visibles */
+.servicios-fusionados .fade-in,
+.servicios-fusionados .seccion-titulo,
+.servicios-fusionados .servicios-grid,
+.servicios-fusionados .oferta-especial,
+.servicios-fusionados .servicios-garantia,
 #servicios .fade-in,
-#servicios .seccion-titulo,
-#servicios .servicios-grid,
-#servicios .oferta-especial,
-#servicios .servicios-garantia {
+#header {
     opacity: 1 !important;
     transform: translateY(0) !important;
-    animation: none !important; /* Deshabilitar animación para elementos críticos */
+    animation: none !important;
+    visibility: visible !important;
 }
 
-/* Animación de las métricas */
+/* Animación optimizada para las métricas */
 @keyframes countUp {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+.metric-after {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
 .metric-after.animated {
+    opacity: 1;
     animation: countUp 0.8s ease forwards;
 }
 
-/* NUEVO: Asegurar visibilidad del texto del header */
-#header {
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-/* NUEVO: Botón flotante siempre visible */
+/* Botón flotante siempre visible */
 .cta-flotante {
     opacity: 1 !important;
     visibility: visible !important;
 }
 
-/* NUEVO: Soluciones para debugging */
-.debug-border {
-    border: 3px solid red !important;
-}
-
-.debug-visible {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    display: block !important;
+/* Optimización para usuarios que prefieren reducir el movimiento */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* ==========================================================================
-   SECCIÓN HERO - MODERNIZADA
+   SECCIÓN HERO - REFINADA
    ========================================================================== */
 .hero {
     padding-top: 160px;
@@ -576,10 +589,10 @@ p {
 .hero-content h1 {
     color: var(--blanco);
     margin-bottom: var(--espaciado-md);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     font-size: var(--texto-4xl);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.15;
     letter-spacing: -0.02em;
 }
 
@@ -597,7 +610,7 @@ p {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Servicios en Hero - Mejorados */
+/* Servicios en Hero - Refinados */
 .grunt-test-services {
     display: flex;
     flex-wrap: wrap;
@@ -656,7 +669,7 @@ p {
     border-color: rgba(229, 62, 62, 0.2);
 }
 
-/* Grunt Test Points - Mejorados */
+/* Grunt Test Points - Refinados */
 .grunt-test-points {
     display: flex;
     flex-direction: column;
@@ -795,13 +808,12 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN SERVICIOS FUSIONADA - MODERNIZADA Y CORREGIDA
+   SECCIÓN SERVICIOS FUSIONADA - REFINADA
    ========================================================================== */
 .servicios-fusionados {
     background-color: var(--gris-claro);
     padding: var(--espaciado-xl) 0;
     position: relative;
-    /* Asegurar que la sección sea visible y no tenga overflow hidden */
     visibility: visible !important;
     overflow: visible !important;
 }
@@ -821,12 +833,11 @@ p {
 .servicios-fusionados .container {
     position: relative;
     z-index: 1;
-    /* Asegurar visibilidad */
     opacity: 1 !important;
     transform: none !important;
 }
 
-/* CORREGIDO: Asegurar que el contenido sea visible inmediatamente */
+/* Asegurar visibilidad inmediata */
 .servicios-fusionados .seccion-titulo,
 .servicios-fusionados .servicios-grid,
 .servicios-fusionados .oferta-especial,
@@ -837,36 +848,35 @@ p {
     animation: none !important;
 }
 
-/* Mejora en el grid: espaciado más consistente, alineación mejorada */
+/* Grid mejorado con espaciado consistente */
 .servicios-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: var(--espaciado-md);
     margin-top: var(--espaciado-lg);
-    /* Asegurar visibilidad */
     opacity: 1 !important;
     transform: none !important;
 }
 
-/* Garantizar altura igual para todos los cards */
+/* Tarjetas de soluciones mejoradas */
 .soluciones-card {
     display: flex;
     flex-direction: column;
     position: relative;
     padding: var(--espaciado-md);
     border-radius: var(--borde-redondo-lg);
-    box-shadow: var(--sombra-suave);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
     transition: all var(--transicion-media);
     height: 100%;
     overflow: hidden;
     background-color: var(--blanco);
-    min-height: 580px;
+    min-height: 550px;
     border: 1px solid var(--gris-borde);
 }
 
 .soluciones-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-media);
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 8px 15px rgba(0, 0, 0, 0.05);
     border-color: transparent;
 }
 
@@ -898,26 +908,17 @@ p {
     z-index: 3;
 }
 
-/* Estilos específicos para cada tipo de solución - MEJORADOS */
+/* Estilos unificados y consistentes para cada tipo de solución */
 .soluciones-card.ads {
     background-color: var(--blanco);
     border-left: 4px solid var(--color-ads);
 }
 
+/* CORREGIDO: Servicio de Google unificado con el resto */
 .soluciones-card.google-card {
     background-color: var(--blanco);
-    border-top: 5px solid transparent;
+    border-left: 4px solid var(--color-google);
     position: relative;
-}
-
-.soluciones-card.google-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853);
 }
 
 .soluciones-card.email {
@@ -930,7 +931,7 @@ p {
     border-left: 4px solid var(--color-chatbot);
 }
 
-/* Estilos para tarjeta de Auditoría gratis - REFINADOS */
+/* Estilos para tarjeta de Auditoría gratis */
 .soluciones-card.auditoria {
     background-color: var(--blanco);
     border-left: 4px solid var(--auditoria-verde);
@@ -958,7 +959,7 @@ p {
     margin-bottom: var(--espaciado-md);
 }
 
-/* Mejoras en los iconos para mejor contraste y coherencia visual */
+/* Iconos mejorados */
 .soluciones-card-icon {
     width: 64px;
     height: 64px;
@@ -982,21 +983,23 @@ p {
     color: white;
 }
 
-.google-icon {
-    position: relative;
-    background: white;
-    overflow: hidden;
-    border: 1px solid #EFEFEF;
+/* Unificar estilos del icono de Google */
+.soluciones-card.google-card .soluciones-card-icon {
+    background-color: var(--blanco);
+    border: 1px solid rgba(66, 133, 244, 0.2);
+    box-shadow: var(--sombra-suave);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--sombra-suave);
 }
 
-.google-icon i {
-    font-size: 28px; /* Tamaño ajustado */
+.soluciones-card.google-card .soluciones-card-icon i {
+    font-size: var(--texto-xl);
+    background: linear-gradient(to bottom right, #4285F4, #EA4335, #FBBC05, #34A853);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
-
 
 .soluciones-card.email .soluciones-card-icon {
     background-color: var(--color-email);
@@ -1028,40 +1031,10 @@ p {
     color: var(--color-ads);
 }
 
-/* Estilo específico para el icono de Google usando colores directos */
-.soluciones-card.google-card .soluciones-card-icon {
-    position: relative;
-    background: white;
-    color: #4285F4; /* Color azul de Google */
-    border: 1px solid #EFEFEF;
-}
-
-/* Clase auxiliar para mostrar el logo de Google correctamente */
-.fa-google {
-    background: linear-gradient(to bottom right, #4285F4, #EA4335, #FBBC05, #34A853);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent !important; /* Forzamos transparencia para que se vea el degradado */
-    display: inline-block;
-}
-
-/* Ajustar el tamaño y alineación */
-.soluciones-card.google-card .soluciones-card-icon i {
-    font-size: 30px; /* Tamaño más grande para mejor visualización */
-    display: inline-block;
-}
-
-/* Mejorar el hover effect */
-.soluciones-card.google-card:hover .soluciones-card-icon {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
-}
-
+/* Título consistente para servicio de Google */
 .soluciones-card.google-card h3 {
-    background: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853);
-    -webkit-background-clip: text;
-    color: transparent;
-    display: inline-block;
+    color: var(--color-google);
+    display: block;
 }
 
 .soluciones-card.email h3 {
@@ -1090,13 +1063,13 @@ p {
     line-height: 1.6;
 }
 
-/* Precios dentro de las tarjetas - MEJORADO para mayor coherencia */
+/* Precios dentro de las tarjetas - Refinados */
 .servicio-precio {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     background-color: var(--fondo-claro);
     border-radius: var(--borde-redondo-md);
-    padding: 10px 16px;
+    padding: 12px 20px;
     margin-bottom: var(--espaciado-sm);
     box-shadow: var(--sombra-suave);
     border: 1px solid var(--gris-borde);
@@ -1107,6 +1080,7 @@ p {
     font-size: var(--texto-2xl);
     font-weight: 800;
     color: var(--texto-oscuro);
+    letter-spacing: -0.5px;
 }
 
 .precio-periodo {
@@ -1129,7 +1103,7 @@ p {
     letter-spacing: 1px;
 }
 
-/* Features en tarjetas de servicio - MEJORADO para mayor claridad */
+/* Features en tarjetas de servicio */
 .servicio-features {
     margin: 0 0 var(--espaciado-md);
     flex-grow: 1;
@@ -1183,55 +1157,65 @@ p {
     color: var(--auditoria-verde);
 }
 
-/* Botones específicos por servicio - MEJORADOS para mayor contraste */
+/* Botones específicos por servicio - Unificados */
 .btn-servicio {
     width: 100%;
     margin-top: auto;
     text-align: center;
     font-weight: 700;
-    padding: 14px;
+    padding: 14px 20px;
     border-radius: var(--borde-redondo-md);
     transition: all 0.3s ease;
+    letter-spacing: 0.5px;
 }
 
 .btn-meta {
     background-color: var(--color-ads);
     border-color: var(--color-ads);
+    box-shadow: 0 4px 12px rgba(66, 103, 178, 0.25);
 }
 
 .btn-meta:hover {
     background-color: #385898;
     transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(66, 103, 178, 0.35);
 }
 
+/* Corregir estilo del botón de Google */
 .btn-google {
-    background: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853);
-    border: none;
+    background-color: var(--color-google);
+    border-color: var(--color-google);
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.25);
 }
 
 .btn-google:hover {
-    opacity: 0.95;
+    background-color: #3367d6;
     transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(66, 133, 244, 0.35);
 }
 
 .btn-email {
     background-color: var(--color-email);
     border-color: var(--color-email);
+    box-shadow: 0 4px 12px rgba(14, 118, 168, 0.25);
 }
 
 .btn-email:hover {
     background-color: #0c5d85;
     transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(14, 118, 168, 0.35);
 }
 
 .btn-chatbot {
     background-color: var(--color-chatbot);
     border-color: var(--color-chatbot);
+    box-shadow: 0 4px 12px rgba(107, 70, 193, 0.25);
 }
 
 .btn-chatbot:hover {
     background-color: #553c9a;
     transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(107, 70, 193, 0.35);
 }
 
 /* Estilo para el botón de Auditoría */
@@ -1260,7 +1244,7 @@ p {
     }
 }
 
-/* Oferta especial - MEJORADA */
+/* Oferta especial - Refinada */
 .oferta-especial {
     background: linear-gradient(135deg, rgba(255, 114, 0, 0.08), rgba(255, 147, 64, 0.05));
     margin-top: var(--espaciado-lg);
@@ -1325,7 +1309,7 @@ p {
     background-color: var(--naranja-oscuro);
 }
 
-/* Garantía - MEJORADA */
+/* Garantía - Refinada */
 .servicios-garantia {
     display: flex;
     align-items: center;
@@ -1353,7 +1337,7 @@ p {
     font-size: 0.95rem;
 }
 
-/* Media Queries mejorados para servicios */
+/* Media Queries refinados para servicios */
 @media (max-width: 1200px) {
     .servicios-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -1399,7 +1383,7 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN OPTIMIZACIÓN EXPRESS - MODERNIZADA
+   SECCIÓN OPTIMIZACIÓN EXPRESS - REFINADA
    ========================================================================== */
 .optimizacion-express {
     background-color: var(--blanco);
@@ -1710,7 +1694,7 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN DESAFÍOS COMPACTO - MODERNIZADA
+   SECCIÓN DESAFÍOS COMPACTO - REFINADA
    ========================================================================== */
 .desafios-compacto {
     background-color: var(--blanco);
@@ -1743,14 +1727,14 @@ p {
     max-width: 1100px;
 }
 
-/* Rediseño de los items de desafío */
+/* Items de desafío refinados */
 .desafios-compacto .desafio-item {
     display: flex;
     align-items: flex-start;
     padding: var(--espaciado-md);
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-md);
-    box-shadow: var(--sombra-suave);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
     transition: all var(--transicion-media);
     gap: var(--espaciado-sm);
     border: 1px solid var(--gris-borde);
@@ -1758,7 +1742,7 @@ p {
 
 .desafios-compacto .desafio-item:hover {
     transform: translateY(-5px);
-    box-shadow: var(--sombra-media);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 8px 15px rgba(0, 0, 0, 0.05);
     border-color: transparent;
 }
 
@@ -1844,7 +1828,7 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN PLAN MEJORADO - MODERNIZADA
+   SECCIÓN PLAN MEJORADO - REFINADA
    ========================================================================== */
 .plan-mejorado {
     padding: var(--espaciado-xl) 0;
@@ -1962,7 +1946,7 @@ p {
     flex: 1;
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-lg);
-    box-shadow: var(--sombra-media);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 6px 15px rgba(0, 0, 0, 0.03);
     overflow: hidden;
     transition: all var(--transicion-media);
     max-width: 450px;
@@ -2231,7 +2215,7 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN RESULTADOS - MODERNIZADA
+   SECCIÓN RESULTADOS - REFINADA
    ========================================================================== */
 .resultados {
     background-color: var(--blanco);
@@ -2283,7 +2267,7 @@ p {
 .resultado-story {
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-lg);
-    box-shadow: var(--sombra-suave);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
     overflow: hidden;
     transition: all var(--transicion-media);
     height: 100%;
@@ -2292,7 +2276,7 @@ p {
 
 .resultado-story:hover {
     transform: translateY(-8px);
-    box-shadow: var(--sombra-media);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 8px 15px rgba(0, 0, 0, 0.05);
     border-color: transparent;
 }
 
@@ -2397,26 +2381,28 @@ p {
     color: var(--texto-oscuro);
 }
 
-/* Métricas - MEJORADAS */
+/* Métricas - Refinadas */
 .resultado-metrics {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 22px;
     margin: 20px 0;
     width: 100%;
 }
 
 .metric {
-    padding: 12px;
+    padding: 12px 18px;
     background-color: var(--fondo-claro);
     border-radius: var(--borde-redondo-md);
     width: 100%;
-    transition: transform var(--transicion-rapida);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
 .metric:hover {
     transform: translateX(5px);
     background-color: rgba(247, 247, 247, 0.9);
+    box-shadow: var(--sombra-suave);
 }
 
 .metric-label {
@@ -2448,12 +2434,13 @@ p {
 }
 
 .metric-after {
-    font-size: var(--texto-xl);
+    font-size: var(--texto-2xl);
     font-weight: 700;
     color: var(--naranja-principal);
     white-space: nowrap;
     opacity: 0;
     transition: opacity 0.8s ease;
+    letter-spacing: -0.5px;
 }
 
 .metric-after.animated {
@@ -2472,25 +2459,6 @@ p {
     color: var(--color-chatbot);
 }
 
-.cta-box {
-    background: linear-gradient(135deg, var(--naranja-claro), rgba(255, 147, 64, 0.1));
-    padding: var(--espaciado-lg);
-    border-radius: var(--borde-redondo-lg);
-    text-align: center;
-    margin-top: var(--espaciado-xl);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--espaciado-md);
-    border: 1px dashed rgba(255, 114, 0, 0.2);
-    box-shadow: var(--sombra-media);
-}
-
-.cta-icon {
-    color: var(--naranja-principal);
-    margin-bottom: var(--espaciado-sm);
-}
-
 .cta-box p {
     font-size: var(--texto-lg);
     margin-bottom: var(--espaciado-md);
@@ -2502,14 +2470,19 @@ p {
 .cta-box .btn {
     margin-top: 0;
     background-color: var(--auditoria-verde);
+    font-weight: 700;
+    padding: 15px 32px;
+    box-shadow: 0 8px 15px rgba(47, 133, 90, 0.25);
 }
 
 .cta-box .btn:hover {
     background-color: var(--auditoria-verde-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(47, 133, 90, 0.35);
 }
 
 /* ==========================================================================
-   SECCIÓN EQUIPO - MODERNIZADA
+   SECCIÓN EQUIPO - REFINADA
    ========================================================================== */
 .equipo {
     background-color: var(--fondo-claro);
@@ -2548,7 +2521,7 @@ p {
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-lg);
     padding: var(--espaciado-md);
-    box-shadow: var(--sombra-suave);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
     transition: all var(--transicion-media);
     display: flex;
     flex-direction: column;
@@ -2559,7 +2532,7 @@ p {
 
 .team-member:hover {
     transform: translateY(-10px);
-    box-shadow: var(--sombra-media);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 8px 15px rgba(0, 0, 0, 0.05);
     border-color: transparent;
 }
 
@@ -2625,6 +2598,7 @@ p {
     font-size: var(--texto-xl);
     color: var(--gris-medio);
     transition: all var(--transicion-rapida);
+    display: inline-block;
 }
 
 .social-links a:hover {
@@ -2633,13 +2607,14 @@ p {
 }
 
 /* ==========================================================================
-   SECCIÓN CONTACTO CON CALENDLY - MODERNIZADA
+   SECCIÓN CONTACTO CON CALENDLY - REFINADA Y MEJORADA
    ========================================================================== */
 .contacto {
     background-color: var(--gris-claro);
     padding-top: var(--espaciado-xl);
-    padding-bottom: 0;
+    padding-bottom: var(--espaciado-xl);
     position: relative;
+    overflow: visible;
 }
 
 .contacto::before {
@@ -2673,22 +2648,24 @@ p {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-    gap: var(--espaciado-md);
+    gap: var(--espaciado-lg);
 }
 
 .contacto-beneficios {
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-lg);
-    box-shadow: var(--sombra-media);
-    padding: var(--espaciado-md) var(--espaciado-lg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: var(--espaciado-lg);
     border-left: 5px solid var(--auditoria-verde);
     height: fit-content;
     transition: transform var(--transicion-media);
+    position: relative;
+    z-index: 3;
 }
 
 .contacto-beneficios:hover {
     transform: translateY(-5px);
-    box-shadow: var(--sombra-fuerte);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .contacto-beneficios h3 {
@@ -2721,18 +2698,20 @@ p {
 }
 
 .beneficios-lista li {
-    padding: 12px 16px;
+    padding: 16px 20px;
     display: flex;
     align-items: flex-start;
     background-color: var(--fondo-claro);
     border-radius: var(--borde-redondo-md);
-    transition: transform var(--transicion-rapida), box-shadow var(--transicion-rapida);
+    transition: all var(--transicion-media);
     border: 1px solid transparent;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    margin-bottom: 12px;
 }
 
 .beneficios-lista li:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--sombra-suave);
+    transform: translateY(-3px) translateX(3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     background-color: var(--blanco);
     border-color: var(--gris-borde);
 }
@@ -2754,7 +2733,7 @@ p {
 
 .contacto-garantia {
     margin-top: var(--espaciado-md);
-    padding: 16px;
+    padding: 20px;
     background-color: var(--auditoria-verde-bg);
     border-radius: var(--borde-redondo-md);
     display: flex;
@@ -2764,6 +2743,19 @@ p {
     font-weight: 600;
     border: 1px dashed var(--auditoria-verde-border);
     transition: background-color var(--transicion-rapida);
+    text-align: center;
+    font-size: var(--texto-md);
+    box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
+    animation: subtle-pulse 3s infinite alternate;
+}
+
+@keyframes subtle-pulse {
+    0% {
+        box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
+    }
+    100% {
+        box-shadow: 0 5px 15px rgba(47, 133, 90, 0.2);
+    }
 }
 
 .contacto-garantia:hover {
@@ -2776,33 +2768,35 @@ p {
     font-size: 18px;
 }
 
-/* Widget de Calendly - MEJORADO */
+/* Widget de Calendly - REFINADO */
 .calendly-inline-widget {
-    background-color: var(--blanco) !important;
-    border-radius: var(--borde-redondo-lg) !important;
-    box-shadow: var(--sombra-media) !important;
-    overflow: hidden !important;
-    height: 750px !important;
-    min-width: 320px !important;
-    width: 100% !important;
-    transition: transform var(--transicion-media) !important;
-    transform: translateZ(0) !important;
-    border: 1px solid var(--gris-borde) !important;
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    height: 680px;
+    min-width: 320px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform: translateZ(0);
+    border: 1px solid var(--gris-borde);
+    position: relative;
+    z-index: 2;
 }
 
 .calendly-inline-widget:hover {
-    transform: translateY(-5px) translateZ(0) !important;
-    box-shadow: var(--sombra-fuerte) !important;
+    transform: translateY(-5px) translateZ(0);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .calendly-inline-widget iframe {
-    width: 100% !important;
-    height: 100% !important;
-    border: none !important;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 /* ==========================================================================
-   FOOTER - MEJORADO
+   FOOTER - REFINADO
    ========================================================================== */
 .footer {
     background-color: var(--gris-oscuro);
@@ -2927,7 +2921,7 @@ p {
     font-size: var(--texto-sm);
 }
 
-/* CTA Flotante - MEJORADO */
+/* CTA Flotante - REFINADO */
 .cta-flotante {
     position: fixed;
     bottom: 30px;
@@ -2959,7 +2953,7 @@ p {
 }
 
 /* ==========================================================================
-   MEDIA QUERIES - OPTIMIZADOS
+   MEDIA QUERIES - REFINADOS
    ========================================================================== */
 @media (max-width: 1200px) {
     :root {
@@ -3063,6 +3057,16 @@ p {
         justify-content: center;
         display: flex;
     }
+    
+    /* Mejora para Calendly en tablets */
+    .contacto-beneficios {
+        order: 2;
+        margin-top: var(--espaciado-md);
+    }
+    
+    .calendly-inline-widget {
+        height: 600px;
+    }
 }
 
 @media (max-width: 992px) {
@@ -3077,6 +3081,16 @@ p {
         gap: var(--espaciado-md);
     }
     
+    .hero-content {
+        text-align: center;
+        align-items: center;
+    }
+    
+    .grunt-test-services,
+    .grunt-test-points {
+        justify-content: center;
+    }
+    
     .hero-image {
         height: 250px;
         margin-top: var(--espaciado-md);
@@ -3089,6 +3103,9 @@ p {
     
     .resultados-stories {
         grid-template-columns: 1fr;
+        max-width: 550px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .team-grid {
@@ -3137,6 +3154,10 @@ p {
         grid-template-columns: 1fr;
     }
     
+    .soluciones-card {
+        min-height: auto;
+    }
+    
     .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
@@ -3152,7 +3173,7 @@ p {
     }
     
     .calendly-inline-widget {
-        height: 700px !important;
+        height: 600px;
     }
     
     .express-box-header,
@@ -3169,6 +3190,11 @@ p {
     .express-box-garantia {
         max-width: none;
         margin-top: var(--espaciado-sm);
+    }
+    
+    .contacto-beneficios h3,
+    .contacto-beneficios .beneficios-lista li {
+        text-align: left;
     }
 }
 
@@ -3267,7 +3293,7 @@ p {
     }
     
     .calendly-inline-widget {
-        height: 620px !important;
+        height: 550px;
     }
     
     .resultado-header {
@@ -3283,30 +3309,7 @@ p {
 }
 
 /* ==========================================================================
-   DARK MODE SUPPORT - OPCIONAL
-   ========================================================================== */
-@media (prefers-color-scheme: dark) {
-    /* Esta sección se activaría si el usuario tiene activado el modo oscuro en su sistema.
-       Como esto requeriría una revisión completa, se deja comentado como referencia para futuras mejoras */
-    
-    /*
-    :root {
-        --blanco: #1a1a1a;
-        --negro: #f7f7f7;
-        --gris-oscuro: #f1f1f1;
-        --gris-medio: #aaaaaa;
-        --gris-claro: #2d2d2d;
-        --gris-borde: #444444;
-        --fondo-claro: #252525;
-        --texto-oscuro: #f1f1f1;
-        --texto-claro: #cccccc;
-        --texto-ligero: #999999;
-    }
-    */
-}
-
-/* ==========================================================================
-   UTILIDADES - ADICIONALES
+   UTILIDADES - REFINADAS
    ========================================================================== */
 .text-orange { color: var(--naranja-principal) !important; }
 .text-green { color: var(--auditoria-verde) !important; }
@@ -3320,3 +3323,887 @@ p {
 .mb-xl { margin-bottom: var(--espaciado-lg) !important; }
 .text-small { font-size: var(--texto-sm) !important; }
 .text-large { font-size: var(--texto-lg) !important; }
+.cta-box p {
+    font-size: var(--texto-lg);
+    margin-bottom: var(--espaciado-md);
+    color: var(--texto-oscuro);
+    max-width: 800px;
+    font-weight: 500;
+}
+
+.cta-box .btn {
+    margin-top: 0;
+    background-color: var(--auditoria-verde);
+    font-weight: 700;
+    padding: 15px 32px;
+    box-shadow: 0 8px 15px rgba(47, 133, 90, 0.25);
+}
+
+.cta-box .btn:hover {
+    background-color: var(--auditoria-verde-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(47, 133, 90, 0.35);
+}
+
+/* ==========================================================================
+   SECCIÓN EQUIPO - REFINADA
+   ========================================================================== */
+.equipo {
+    background-color: var(--fondo-claro);
+    padding: var(--espaciado-xl) 0;
+    position: relative;
+}
+
+.equipo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FF7200' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    z-index: 0;
+}
+
+.equipo .container {
+    position: relative;
+    z-index: 1;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--espaciado-xl);
+    margin-bottom: var(--espaciado-lg);
+    margin-top: var(--espaciado-lg);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.team-member {
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-lg);
+    padding: var(--espaciado-md);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
+    transition: all var(--transicion-media);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--gris-borde);
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 8px 15px rgba(0, 0, 0, 0.05);
+    border-color: transparent;
+}
+
+.member-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: var(--espaciado-md);
+    box-shadow: var(--sombra-media);
+    position: relative;
+    transition: all var(--transicion-lenta);
+    border: 4px solid var(--naranja-claro);
+}
+
+.team-member:hover .member-avatar {
+    transform: scale(1.05);
+    border-color: var(--naranja-principal);
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transicion-lenta);
+}
+
+.team-member:hover .profile-image {
+    transform: scale(1.1);
+}
+
+.member-info {
+    width: 100%;
+}
+
+.member-info h3 {
+    color: var(--texto-oscuro);
+    margin-bottom: var(--espaciado-xs);
+    font-size: var(--texto-xl);
+    font-weight: 700;
+}
+
+.member-info h4 {
+    color: var(--naranja-principal);
+    margin-bottom: var(--espaciado-sm);
+    font-size: var(--texto-md);
+    font-weight: 600;
+}
+
+.member-info p {
+    color: var(--texto-claro);
+    margin-bottom: var(--espaciado-md);
+    font-size: var(--texto-base);
+    line-height: 1.7;
+}
+
+.social-links {
+    margin-top: var(--espaciado-sm);
+}
+
+.social-links a {
+    margin: 0 8px;
+    font-size: var(--texto-xl);
+    color: var(--gris-medio);
+    transition: all var(--transicion-rapida);
+    display: inline-block;
+}
+
+.social-links a:hover {
+    color: var(--naranja-principal);
+    transform: translateY(-3px) scale(1.1);
+}
+
+/* ==========================================================================
+   SECCIÓN CONTACTO CON CALENDLY - REFINADA Y MEJORADA
+   ========================================================================== */
+.contacto {
+    background-color: var(--gris-claro);
+    padding-top: var(--espaciado-xl);
+    padding-bottom: var(--espaciado-xl);
+    position: relative;
+    overflow: visible;
+}
+
+.contacto::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='24' viewBox='0 0 88 24'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='autumn' fill='%232F855A' fill-opacity='0.03'%3E%3Cpath d='M10 0l30 15 2 1V2.18A10 10 0 0 0 41.76 0H39.7a8 8 0 0 1 .3 2.18v10.58L14.47 0H10zm31.76 24a10 10 0 0 0-5.29-6.76L4 1 2 0v13.82a10 10 0 0 0 5.53 8.94L10 24h4.47l-6.05-3.02A8 8 0 0 1 4 13.82V3.24l22.86 11.43a10 10 0 0 0 5.83 1.94h3.05a8 8 0 0 1-3.36 1.58 2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-.44.1l-1.17.38a2 2 0 0 0-1.55 1.94z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.4;
+    z-index: 0;
+}
+
+.contacto .container {
+    position: relative;
+    z-index: 1;
+}
+
+.contacto .seccion-titulo h2 {
+    color: var(--auditoria-verde);
+}
+
+.contacto .seccion-titulo h2::after {
+    background-color: var(--auditoria-verde);
+}
+
+.contacto-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: var(--espaciado-lg);
+}
+
+.contacto-beneficios {
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: var(--espaciado-lg);
+    border-left: 5px solid var(--auditoria-verde);
+    height: fit-content;
+    transition: transform var(--transicion-media);
+    position: relative;
+    z-index: 3;
+}
+
+.contacto-beneficios:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.contacto-beneficios h3 {
+    color: var(--auditoria-verde);
+    font-size: var(--texto-xl);
+    text-align: center;
+    margin-bottom: var(--espaciado-md);
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.contacto-beneficios h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--auditoria-verde);
+    border-radius: var(--borde-redondo-full);
+}
+
+.beneficios-lista {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--espaciado-sm);
+    margin-bottom: var(--espaciado-md);
+}
+
+.beneficios-lista li {
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    background-color: var(--fondo-claro);
+    border-radius: var(--borde-redondo-md);
+    transition: all var(--transicion-media);
+    border: 1px solid transparent;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    margin-bottom: 12px;
+}
+
+.beneficios-lista li:hover {
+    transform: translateY(-3px) translateX(3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    background-color: var(--blanco);
+    border-color: var(--gris-borde);
+}
+
+.beneficios-lista li i {
+    color: var(--auditoria-verde);
+    margin-right: 12px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    font-size: 18px;
+}
+
+.beneficios-lista li strong {
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    display: block;
+    margin-bottom: 3px;
+}
+
+.contacto-garantia {
+    margin-top: var(--espaciado-md);
+    padding: 20px;
+    background-color: var(--auditoria-verde-bg);
+    border-radius: var(--borde-redondo-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto-oscuro);
+    font-weight: 600;
+    border: 1px dashed var(--auditoria-verde-border);
+    transition: background-color var(--transicion-rapida);
+    text-align: center;
+    font-size: var(--texto-md);
+    box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
+    animation: subtle-pulse 3s infinite alternate;
+}
+
+@keyframes subtle-pulse {
+    0% {
+        box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
+    }
+    100% {
+        box-shadow: 0 5px 15px rgba(47, 133, 90, 0.2);
+    }
+}
+
+.contacto-garantia:hover {
+    background-color: var(--auditoria-verde-claro);
+}
+
+.contacto-garantia i {
+    color: var(--auditoria-verde);
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+/* Widget de Calendly - REFINADO */
+.calendly-inline-widget {
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    height: 680px;
+    min-width: 320px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform: translateZ(0);
+    border: 1px solid var(--gris-borde);
+    position: relative;
+    z-index: 2;
+}
+
+.calendly-inline-widget:hover {
+    transform: translateY(-5px) translateZ(0);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.calendly-inline-widget iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ==========================================================================
+   FOOTER - REFINADO
+   ========================================================================== */
+.footer {
+    background-color: var(--gris-oscuro);
+    color: rgba(255, 255, 255, 0.7);
+    padding: var(--espaciado-lg) 0 var(--espaciado-sm);
+    position: relative;
+    margin-top: var(--espaciado-xl);
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to top, rgba(255, 114, 0, 0.1), transparent);
+    border-radius: 100% 100% 0 0;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--espaciado-md);
+    margin-bottom: var(--espaciado-md);
+}
+
+.footer-about {
+    padding-right: var(--espaciado-md);
+}
+
+.footer-logo {
+    color: var(--blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 800;
+    font-size: var(--texto-xl);
+    margin-bottom: var(--espaciado-sm);
+    display: inline-block;
+    transition: transform var(--transicion-rapida);
+}
+
+.footer-logo:hover {
+    transform: translateY(-3px);
+}
+
+.footer-logo span {
+    color: var(--naranja-principal);
+}
+
+.footer-about p {
+    margin-bottom: var(--espaciado-md);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--texto-base);
+}
+
+.footer-column h4 {
+    color: var(--blanco);
+    margin-bottom: 20px;
+    position: relative;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+
+.footer-column h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: var(--naranja-principal);
+    border-radius: var(--borde-redondo-full);
+}
+
+.footer-column ul li {
+    margin-bottom: 12px;
+    transition: transform var(--transicion-rapida);
+}
+
+.footer-column ul li:hover {
+    transform: translateX(5px);
+}
+
+.footer-column ul li a {
+    color: rgba(255, 255, 255, 0.7);
+    transition: color var(--transicion-rapida);
+}
+
+.footer-column ul li a:hover {
+    color: var(--naranja-principal);
+}
+
+.footer-contact ul li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    transition: transform var(--transicion-rapida);
+}
+
+.footer-contact ul li:hover {
+    transform: translateX(5px);
+}
+
+.footer-contact ul li i {
+    margin-right: 12px;
+    color: var(--naranja-principal);
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.footer-bottom {
+    padding: var(--espaciado-sm) 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: var(--espaciado-md);
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: var(--texto-sm);
+}
+
+/* CTA Flotante - REFINADO */
+.cta-flotante {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+}
+
+.btn-flotante {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background-color: var(--auditoria-verde);
+    color: var(--blanco);
+    border-radius: var(--borde-redondo-full);
+    font-weight: 700;
+    box-shadow: var(--sombra-fuerte);
+    transition: all var(--transicion-media);
+    animation: pulse-animation 2.5s infinite;
+}
+
+.btn-flotante:hover {
+    transform: translateY(-5px) scale(1.05);
+    background-color: var(--auditoria-verde-hover);
+}
+
+.btn-flotante i {
+    font-size: var(--texto-base);
+}
+
+/* ==========================================================================
+   MEDIA QUERIES - REFINADOS
+   ========================================================================== */
+@media (max-width: 1200px) {
+    :root {
+        --texto-4xl: 2.75rem;
+        --texto-3xl: 2.25rem;
+    }
+    
+    .container {
+        padding-left: var(--espaciado-md);
+        padding-right: var(--espaciado-md);
+    }
+    
+    .contacto-content {
+        grid-template-columns: 1fr;
+        max-width: 800px;
+    }
+    
+    .calendly-inline-widget {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --espaciado-xl: 5rem;
+        --texto-4xl: 2.5rem;
+        --texto-3xl: 2rem;
+    }
+    
+    .hero {
+        padding-top: 130px;
+        min-height: auto;
+    }
+    
+    .express-content {
+        grid-template-columns: 1fr;
+        gap: var(--espaciado-md);
+    }
+    
+    .express-image {
+        display: none;
+    }
+    
+    .proceso-timeline::before {
+        left: 20px;
+    }
+    
+    .proceso-paso {
+        width: 100%;
+        padding-left: 70px;
+    }
+    
+    .proceso-paso:nth-child(odd),
+    .proceso-paso:nth-child(even) {
+        margin-left: 30px;
+    }
+    
+    .proceso-paso:nth-child(odd) .paso-numero,
+    .proceso-paso:nth-child(even) .paso-numero {
+        left: -30px;
+    }
+    
+    .opciones-container-rediseno {
+        flex-direction: column;
+        align-items: center;
+        max-width: 500px;
+        margin-bottom: 60px;
+    }
+    
+    .opcion-card {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .conectador-opciones {
+        margin: 15px 0;
+    }
+    
+    .conectador-opciones::before {
+        left: 50%;
+        right: auto;
+        top: -25px;
+        bottom: -25px;
+        width: 2px;
+        height: auto;
+        transform: translateX(-50%);
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .footer-about {
+        grid-column: span 2;
+        text-align: center;
+        padding-right: 0;
+        margin-bottom: var(--espaciado-md);
+    }
+    
+    .footer-about .social-links {
+        justify-content: center;
+        display: flex;
+    }
+    
+    /* Mejora para Calendly en tablets */
+    .contacto-beneficios {
+        order: 2;
+        margin-top: var(--espaciado-md);
+    }
+    
+    .calendly-inline-widget {
+        height: 600px;
+    }
+}
+
+@media (max-width: 992px) {
+    :root {
+        --texto-4xl: 2.25rem;
+        --texto-3xl: 1.875rem;
+        --texto-2xl: 1.75rem;
+    }
+    
+    .hero .container {
+        grid-template-columns: 1fr;
+        gap: var(--espaciado-md);
+    }
+    
+    .hero-content {
+        text-align: center;
+        align-items: center;
+    }
+    
+    .grunt-test-services,
+    .grunt-test-points {
+        justify-content: center;
+    }
+    
+    .hero-image {
+        height: 250px;
+        margin-top: var(--espaciado-md);
+    }
+    
+    .hero-letter-o,
+    .hero-letter-v {
+        font-size: 6rem;
+    }
+    
+    .resultados-stories {
+        grid-template-columns: 1fr;
+        max-width: 550px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .team-grid {
+        gap: var(--espaciado-lg);
+    }
+    
+    .beneficios-lista {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --espaciado-xl: 4rem;
+        --espaciado-lg: 3rem;
+        --texto-4xl: 2rem;
+        --texto-3xl: 1.75rem;
+        --texto-2xl: 1.5rem;
+    }
+    
+    .hero-content h1 {
+        font-size: var(--texto-2xl);
+    }
+    
+    .hero-subtitle {
+        font-size: var(--texto-md);
+    }
+    
+    .hero-image {
+        height: 200px;
+    }
+    
+    .hero-letter-o,
+    .hero-letter-v {
+        font-size: 5rem;
+        left: -30px;
+    }
+    
+    .hero-letter-v {
+        left: 30px;
+    }
+    
+    .servicios-grid,
+    .team-grid,
+    .desafios-grid-compacto {
+        grid-template-columns: 1fr;
+    }
+    
+    .soluciones-card {
+        min-height: auto;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer-contact ul li {
+        justify-content: center;
+    }
+    
+    .calendly-inline-widget {
+        height: 600px;
+    }
+    
+    .express-box-header,
+    .express-box-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .express-box-footer .btn {
+        width: 100%;
+    }
+    
+    .express-box-garantia {
+        max-width: none;
+        margin-top: var(--espaciado-sm);
+    }
+    
+    .contacto-beneficios h3,
+    .contacto-beneficios .beneficios-lista li {
+        text-align: left;
+    }
+}
+
+@media (max-width: 576px) {
+    :root {
+        --espaciado-xl: 3.5rem;
+        --espaciado-lg: 2.5rem;
+        --texto-4xl: 1.75rem;
+        --texto-3xl: 1.5rem;
+        --texto-2xl: 1.375rem;
+    }
+    
+    .container {
+        padding-left: var(--espaciado-sm);
+        padding-right: var(--espaciado-sm);
+    }
+    
+    .hero {
+        padding-top: 110px;
+    }
+    
+    .hero-content h1 {
+        font-size: var(--texto-xl);
+        line-height: 1.3;
+    }
+    
+    .hero-subtitle {
+        font-size: var(--texto-base);
+    }
+    
+    .grunt-test-services {
+        flex-wrap: wrap;
+    }
+    
+    .grunt-test-points {
+        margin-bottom: var(--espaciado-sm);
+    }
+    
+    .service-pill,
+    .grunt-point {
+        width: 100%;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .btn-flotante {
+        padding: 10px 15px;
+        font-size: var(--texto-sm);
+        right: 15px;
+        bottom: 15px;
+    }
+    
+    .seccion-titulo h2 {
+        font-size: var(--texto-xl);
+    }
+    
+    .plan-mejorado .proceso-paso {
+        padding: 20px 15px 20px 60px;
+    }
+    
+    .opcion-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--espaciado-sm);
+    }
+    
+    .opcion-body {
+        padding: var(--espaciado-sm);
+    }
+    
+    .desafios-compacto .desafio-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: var(--espaciado-sm);
+    }
+    
+    .desafios-compacto .desafio-icon {
+        margin-bottom: var(--espaciado-xs);
+    }
+    
+    .contacto-beneficios {
+        padding: var(--espaciado-sm);
+    }
+    
+    .beneficios-lista li {
+        padding: var(--espaciado-xs);
+    }
+    
+    .calendly-inline-widget {
+        height: 550px;
+    }
+    
+    .resultado-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .resultado-icon {
+        margin-right: 0;
+        margin-bottom: var(--espaciado-xs);
+    }
+}
+
+/* ==========================================================================
+   UTILIDADES - REFINADAS
+   ========================================================================== */
+.text-orange { color: var(--naranja-principal) !important; }
+.text-green { color: var(--auditoria-verde) !important; }
+.text-red { color: var(--express-rojo) !important; }
+.fw-bold { font-weight: 700 !important; }
+.fw-black { font-weight: 800 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-sm { margin-bottom: var(--espaciado-xs) !important; }
+.mb-md { margin-bottom: var(--espaciado-sm) !important; }
+.mb-lg { margin-bottom: var(--espaciado-md) !important; }
+.mb-xl { margin-bottom: var(--espaciado-lg) !important; }
+.text-small { font-size: var(--texto-sm) !important; }
+.text-large { font-size: var(--texto-lg) !important; }
+.cta-box {
+    background: linear-gradient(135deg, var(--naranja-claro), rgba(255, 147, 64, 0.1));
+    padding: var(--espaciado-lg);
+    border-radius: var(--borde-redondo-lg);
+    text-align: center;
+    margin-top: var(--espaciado-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--espaciado-md);
+    border: 1px dashed rgba(255, 114, 0, 0.2);
+    box-shadow: var(--sombra-media);
+}
+
+.cta-icon {
+    color: var(--naranja-principal);
+    margin-bottom: var(--espaciado-sm);
+}
+
+.cta-box
