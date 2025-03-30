@@ -538,12 +538,12 @@ p {
     }
 }
 /* ==========================================================================
-   SECCIÓN HERO - REDISEÑADA CON ESPACIADO UNIFORME Y COLOR EXACTO
+   SECCIÓN HERO - CENTRADO CON ESPACIADO UNIFORME
    ========================================================================== */
 .hero {
-    padding-top: 220px; /* Espaciado superior */
-    padding-bottom: 220px; /* Espaciado inferior igualado */
-    min-height: 100vh;
+    padding-top: 120px; /* Espaciado superior reducido */
+    padding-bottom: 120px; /* Espaciado inferior igualado */
+    min-height: 85vh; /* Altura reducida para equilibrar espacios */
     display: flex;
     align-items: center;
     position: relative;
@@ -577,13 +577,15 @@ p {
 .hero-container.container {
     position: relative;
     z-index: 3;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 60px;
     max-width: var(--ancho-maximo);
     width: 100%;
     padding: 0 60px; /* Mayor padding lateral */
+    text-align: center;
 }
 
 /* Hero Content Section */
@@ -591,14 +593,17 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     height: 100%;
+    width: 100%;
+    max-width: 900px;
 }
 
 .hero-content {
     color: var(--blanco);
     position: relative;
     z-index: 2;
-    text-align: left;
+    text-align: center;
     padding: 20px 0;
 }
 
@@ -606,11 +611,13 @@ p {
     color: var(--blanco);
     margin-bottom: 28px;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     font-weight: 800;
     line-height: 1.15;
     letter-spacing: -0.02em;
-    max-width: 600px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-subtitle {
@@ -625,8 +632,10 @@ p {
     font-weight: 500;
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    max-width: 550px;
+    max-width: 700px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Hero Services Section */
@@ -635,6 +644,7 @@ p {
     flex-wrap: wrap;
     gap: 14px;
     margin-bottom: 36px;
+    justify-content: center;
 }
 
 .service-pill {
@@ -695,6 +705,7 @@ p {
 .hero-cta {
     display: flex;
     margin-top: 16px;
+    justify-content: center;
 }
 
 .hero-cta .btn {
@@ -735,11 +746,14 @@ p {
     justify-content: center;
     align-items: center;
     position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto 0;
 }
 
 .hero-image {
     position: relative;
-    height: 400px;
+    height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -749,13 +763,14 @@ p {
 /* Diseño de tarjeta mucho más moderna y profesional */
 .audit-card {
     position: relative;
-    width: 360px;
+    width: 350px;
     background: rgba(255, 255, 255, 0.85);
     border-radius: 20px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     transition: all 0.4s ease;
     transform: perspective(1000px) rotateY(-5deg);
+    margin: 0 auto;
 }
 
 .audit-card:hover {
@@ -913,70 +928,49 @@ p {
 }
 
 /* Responsive Styles */
-@media (max-width: 1200px) {
-    .hero {
-        padding-top: 180px;
-        padding-bottom: 180px;
-    }
-    
-    .hero-title {
-        font-size: 3rem;
-    }
-    
-    .audit-card {
-        width: 340px;
-    }
-}
-
-@media (max-width: 992px) {
-    .hero {
-        padding-top: 160px;
-        padding-bottom: 160px;
-    }
-    
+@media (min-width: 992px) {
     .hero-container.container {
-        grid-template-columns: 1fr;
-        gap: 50px;
-        padding: 0 40px;
+        flex-direction: row;
+        text-align: left;
+    }
+    
+    .hero-content-wrapper {
+        align-items: flex-start;
+        width: 60%;
     }
     
     .hero-content {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        text-align: left;
     }
     
-    .hero-title, .hero-subtitle {
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
+    .hero-title,
+    .hero-subtitle {
+        margin-left: 0;
+        margin-right: 0;
     }
     
     .hero-services {
-        justify-content: center;
+        justify-content: flex-start;
+    }
+    
+    .hero-cta {
+        justify-content: flex-start;
+    }
+    
+    .hero-visual-wrapper {
+        width: 40%;
+        margin: 0;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .hero {
-        padding-top: 140px;
-        padding-bottom: 140px;
-    }
-    
-    .hero-container.container {
-        padding: 0 25px;
+        padding-top: 100px;
+        padding-bottom: 100px;
     }
     
     .hero-title {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 30px;
-        padding: 12px 16px;
+        font-size: 2.8rem;
     }
     
     .audit-card {
@@ -984,10 +978,31 @@ p {
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 992px) {
     .hero {
-        padding-top: 120px;
-        padding-bottom: 120px;
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+    
+    .hero-container.container {
+        padding: 0 30px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+        padding: 14px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 80px;
+        padding-bottom: 80px;
+        min-height: 80vh;
     }
     
     .hero-container.container {
@@ -995,28 +1010,16 @@ p {
     }
     
     .hero-title {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
     
     .hero-subtitle {
         font-size: 1rem;
-    }
-    
-    .service-pill {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .hero-cta {
-        width: 100%;
-    }
-    
-    .hero-cta .btn {
-        width: 100%;
+        padding: 12px 16px;
     }
     
     .audit-card {
-        width: 280px;
+        width: 300px;
     }
     
     .audit-card-header,
@@ -1038,6 +1041,42 @@ p {
         width: 60px;
         height: 60px;
         font-size: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero {
+        padding-top: 70px;
+        padding-bottom: 70px;
+        min-height: 75vh;
+    }
+    
+    .hero-container.container {
+        padding: 0 15px;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+        padding: 10px 14px;
+    }
+    
+    .service-pill {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .hero-cta .btn {
+        width: 100%;
+        padding: 15px 25px;
+        font-size: 1.1rem;
+    }
+    
+    .audit-card {
+        width: 280px;
     }
 }
 /* ==========================================================================
