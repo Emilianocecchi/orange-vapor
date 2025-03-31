@@ -66,6 +66,47 @@
             overflow: hidden;
         }
         
+        /* Barra de documentos fija */
+        .docs-bar {
+            position: sticky;
+            top: 0;
+            background-color: var(--naranja-principal);
+            color: white;
+            padding: 8px var(--espaciado-md);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .docs-bar-title {
+            font-weight: bold;
+            margin-right: var(--espaciado-md);
+        }
+        
+        .docs-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--espaciado-sm);
+        }
+        
+        .doc-link {
+            padding: 4px 12px;
+            background-color: var(--blanco);
+            color: var(--naranja-oscuro);
+            border-radius: var(--borde-redondo-sm);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+        
+        .doc-link:hover {
+            background-color: var(--naranja-claro);
+            transform: translateY(-2px);
+        }
+        
         header {
             background-color: var(--gris-oscuro);
             color: var(--blanco);
@@ -544,6 +585,27 @@
             .task-checkbox {
                 align-self: flex-start;
             }
+            
+            .docs-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: var(--espaciado-xs) var(--espaciado-md);
+            }
+            
+            .docs-bar-title {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+            
+            .docs-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .doc-link {
+                font-size: 0.8rem;
+                padding: 3px 8px;
+            }
         }
         
         /* Utilidades */
@@ -597,6 +659,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+        <!-- Barra de documentos fija -->
+    <div class="docs-bar">
+        <span class="docs-bar-title">Documentos Principales:</span>
+        <div class="docs-links">
+            <a href="https://www.orangevapor.com/script.html" class="doc-link" target="_blank">Script de Ventas</a>
+            <a href="https://www.orangevapor.com/brochure.html" class="doc-link" target="_blank">Brochure</a>
+            <a href="https://www.orangevapor.com/presupuesto.html" class="doc-link" target="_blank">Presupuestos</a>
+            <a href="https://www.orangevapor.com/kickoff.html" class="doc-link" target="_blank">Kickoff Guide</a>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <div class="logo">Orange<span>Vapor</span></div>
@@ -719,7 +792,7 @@
                                         Identificar sector, tamaño aproximado y posibles competidores.
                                         Crear carpeta en Drive con nombre del cliente y fecha.
                                         Preparar documento interno de notas con formato estándar.
-                                        Tener a mano brochure para enviarlo luego de la reunión.
+                                        <a href="https://www.orangevapor.com/brochure.html" target="_blank" style="color: var(--naranja-oscuro); text-decoration: underline;">Tener a mano brochure para enviarlo luego de la reunión.</a>
                                         Preparar checklist de 5 preguntas clave adaptadas al sector del cliente.
                                     </p>
                                     <div class="task-meta">
@@ -747,7 +820,7 @@
                                         Presentación personal y de Orange Vapor: "Mi nombre es [X], soy analista de campañas digitales en Orange Vapor...".
                                         Explicar brevemente el proceso: "Durante esta llamada vamos a...".
                                         Establecer expectativas: "En 24-48 horas recibirás un análisis completo...".
-                                        Ver script de ventas para seguir la reunión.
+                                        <a href="https://www.orangevapor.com/script.html" target="_blank" style="color: var(--naranja-oscuro); text-decoration: underline;">Ver script de ventas para seguir la reunión.</a>
                                         Guiar al cliente para compartir acceso a Google Ads (nivel cuenta, solo lectura).
                                         Guiar al cliente para compartir acceso a Meta Business Manager (solo lectura).
                                         Verificar accesos en tiempo real.
