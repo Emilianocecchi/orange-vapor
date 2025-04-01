@@ -1392,60 +1392,6 @@ p {
     letter-spacing: 1px;
 }
 
-/* Features en tarjetas de servicio */
-.servicio-features {
-    margin: 0 0 var(--espaciado-md);
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 10px;
-}
-
-.servicio-features li {
-    display: flex;
-    align-items: flex-start;
-    line-height: 1.4;
-    transition: transform var(--transicion-rapida);
-    padding: 6px 0;
-}
-
-.servicio-features li:hover {
-    transform: translateX(3px);
-}
-
-.servicio-features li i {
-    color: #28a745;
-    margin-right: 10px;
-    margin-top: 5px;
-    flex-shrink: 0;
-}
-
-.servicio-features li span {
-    font-size: 0.9rem;
-}
-
-.soluciones-card.ads .servicio-features li i {
-    color: var(--color-ads);
-}
-
-.soluciones-card.google-card .servicio-features li i {
-    color: #34A853; /* Verde de Google */
-}
-
-.soluciones-card.email .servicio-features li i {
-    color: var(--color-email);
-}
-
-.soluciones-card.chatbot .servicio-features li i {
-    color: var(--color-chatbot);
-}
-
-/* Estilo para los checkmarks de Auditoría */
-.soluciones-card.auditoria .servicio-features li i {
-    color: var(--auditoria-verde);
-}
-
 /* Botones específicos por servicio - Unificados */
 .btn-servicio {
     width: 100%;
@@ -1714,6 +1660,127 @@ p {
     letter-spacing: 0.5px;
 }
 
+/* ==========================================================================
+   ESTILOS PARA LA NUEVA ESTRUCTURA DE SERVICIOS
+   ========================================================================== */
+
+/* Actualizar los nombres de tiers para que coincidan con los nuevos nombres */
+.tier-tab[data-tier="starter"],
+.tier-info.starter,
+.tier-price.starter,
+.tier-detalle.starter {
+    display: block;
+}
+
+/* Ocultar por defecto todos los detalles de tier */
+.tier-detalle {
+    display: none;
+}
+
+/* Mostrar solo los detalles del tier activo */
+.tier-detalle.starter.active,
+.tier-detalle.pro.active,
+.tier-detalle.elite.active {
+    display: flex;
+}
+
+/* Estructura de tabla para servicios */
+.servicios-tabla {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 20px 0;
+    border-radius: var(--borde-redondo-md);
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+    background-color: var(--fondo-claro);
+    border: 1px solid var(--gris-borde);
+}
+
+/* Categoría (fila) */
+.tabla-categoria {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+.tabla-categoria:last-child {
+    border-bottom: none;
+}
+
+/* Título de categoría */
+.categoria-titulo {
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 10px 15px;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Contenedor de detalles de tier */
+.categoria-detalles {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+}
+
+/* Estilo para cada detalle de tier */
+.tier-detalle {
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 15px;
+    transition: all var(--transicion-rapida);
+}
+
+.tier-detalle:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.tier-detalle i {
+    flex-shrink: 0;
+    margin-right: 10px;
+    color: #28a745;
+    margin-top: 3px;
+}
+
+.tier-detalle i.fa-minus {
+    color: var(--texto-ligero);
+}
+
+.tier-detalle span {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--texto-claro);
+}
+
+/* Color específico para los checks según el servicio */
+.soluciones-card.ads .tier-detalle i.fa-check {
+    color: var(--color-ads);
+}
+
+.soluciones-card.google-card .tier-detalle i.fa-check {
+    color: #34A853; /* Verde de Google */
+}
+
+.soluciones-card.email .tier-detalle i.fa-check {
+    color: var(--color-email);
+}
+
+.soluciones-card.chatbot .tier-detalle i.fa-check {
+    color: var(--color-chatbot);
+}
+
+/* Mostrar solo el tier activo */
+.tier-detalle.starter {
+    display: flex;
+}
+
+.tier-detalle.pro,
+.tier-detalle.elite {
+    display: none;
+}
+
 /* Ajuste para mostrar los 4 servicios mensuales en una fila */
 .servicios-mensuales-grid {
     display: grid;
@@ -1817,6 +1884,185 @@ p {
     font-size: 0.95rem;
 }
 
+/* Estilos para pestañas de selección de tier */
+.tier-selector {
+    margin: 40px auto 20px;
+    max-width: 800px;
+    text-align: center;
+}
+
+.tier-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.tier-tab {
+    padding: 10px 30px;
+    background-color: var(--fondo-claro);
+    border-radius: var(--borde-redondo-md);
+    font-weight: 600;
+    font-size: var(--texto-base);
+    color: var(--texto-oscuro);
+    cursor: pointer;
+    transition: all var(--transicion-media);
+    box-shadow: var(--sombra-suave);
+    border: 1px solid var(--gris-borde);
+}
+
+.tier-tab.active {
+    background-color: var(--naranja-principal);
+    color: var(--blanco);
+    box-shadow: 0 4px 12px rgba(255, 114, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+.tier-tab:hover:not(.active) {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-media);
+}
+
+.tier-description {
+    margin-bottom: 30px;
+}
+
+.tier-info {
+    display: none;
+    font-size: var(--texto-md);
+    color: var(--texto-claro);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.tier-info.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Precios de tiers */
+.tier-prices {
+    position: relative;
+    margin-bottom: 15px;
+    min-height: 80px;
+}
+
+.servicio-precio.tier-price {
+    display: none;
+    animation: fadeIn 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.servicio-precio.tier-price.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.precio-setup {
+    font-size: var(--texto-xs);
+    color: var(--naranja-principal);
+    font-weight: 600;
+    background-color: var(--naranja-claro);
+    padding: 3px 10px;
+    border-radius: var(--borde-redondo-full);
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+/* Badge para servicio estrella */
+.hero-service-badge {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    background-color: var(--naranja-principal);
+    color: var(--blanco);
+    font-weight: 700;
+    font-size: var(--texto-xs);
+    padding: 6px 15px;
+    border-radius: var(--borde-redondo-full);
+    z-index: 5;
+    box-shadow: 0 4px 12px rgba(255, 114, 0, 0.25);
+    transform: rotate(-10deg);
+}
+
+/* Oferta especial mejorada */
+.oferta-especial {
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+.oferta-countdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.limited-offer {
+    font-weight: 700;
+    color: var(--naranja-oscuro);
+    font-size: var(--texto-md);
+    margin-bottom: 10px;
+    background-color: rgba(255, 114, 0, 0.1);
+    padding: 5px 15px;
+    border-radius: var(--borde-redondo-full);
+}
+
+.countdown-timer {
+    display: flex;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--blanco);
+    border-radius: var(--borde-redondo-md);
+    padding: 10px;
+    min-width: 80px;
+    box-shadow: var(--sombra-suave);
+}
+
+.countdown-number {
+    font-size: var(--texto-2xl);
+    font-weight: 800;
+    color: var(--naranja-principal);
+}
+
+.countdown-label {
+    font-size: var(--texto-sm);
+    color: var(--texto-claro);
+}
+
+.setup-fee-notice {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px 20px;
+    border-radius: var(--borde-redondo-full);
+    margin: 15px auto;
+    max-width: 500px;
+    font-size: var(--texto-sm);
+    color: var(--texto-claro);
+    box-shadow: var(--sombra-suave);
+}
+
+.setup-fee-notice i {
+    color: var(--naranja-principal);
+}
+
+.setup-fee-notice strong {
+    color: var(--naranja-oscuro);
+}
+
 /* Media queries para responsividad */
 @media (max-width: 1200px) {
     .servicios-mensuales-grid {
@@ -1829,6 +2075,16 @@ p {
     
     .intro-spacing {
         margin-bottom: 40px !important;
+    }
+    
+    .tier-tabs {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .tier-tab {
+        padding: 8px 20px;
+        font-size: 0.9rem;
     }
 }
 
@@ -1865,6 +2121,47 @@ p {
     .intro-spacing {
         margin-bottom: 30px !important;
     }
+    
+    .categoria-titulo {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+    
+    .tier-detalle {
+        padding: 6px 12px;
+    }
+    
+    .tier-detalle span {
+        font-size: 0.85rem;
+    }
+    
+    .tier-tabs {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .tier-tab {
+        width: 100%;
+    }
+    
+    .countdown-timer {
+        gap: 10px;
+    }
+    
+    .countdown-item {
+        min-width: 70px;
+        padding: 8px;
+    }
+    
+    .limited-offer {
+        font-size: var(--texto-base);
+        text-align: center;
+    }
+    
+    .setup-fee-notice {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 @media (max-width: 576px) {
@@ -1886,410 +2183,35 @@ p {
     .intro-spacing {
         margin-bottom: 20px !important;
     }
-}
-
-/* ==========================================================================
-   AUDITORÍA FLASH DESTACADA - NUEVO DISEÑO
-   ========================================================================== */
-
-/* Contenedor para la Auditoría Flash Destacada */
-.auditoria-destacada-container {
-    width: 100%;
-    margin-bottom: var(--espaciado-lg);
-    opacity: 1 !important;
-    transform: none !important;
-}
-
-/* Tarjeta principal modificada */
-.soluciones-card.auditoria.auditoria-destacada {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-    border: none;
-    box-shadow: 0 15px 35px rgba(47, 133, 90, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
-    border-radius: var(--borde-redondo-lg);
-    border-left: 5px solid var(--auditoria-verde);
-    transform: translateY(-10px);
-    background-color: var(--blanco);
-}
-
-.soluciones-card.auditoria.auditoria-destacada:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 20px 40px rgba(47, 133, 90, 0.15), 0 10px 20px rgba(0, 0, 0, 0.08);
-}
-
-/* Eliminamos el estilo after anterior que tenía */
-.soluciones-card.auditoria.auditoria-destacada::after {
-    display: none;
-}
-
-/* Ribbon estilo "GRATIS" */
-.auditoria-ribbon {
-    position: absolute;
-    top: 20px;
-    right: -30px;
-    transform: rotate(45deg);
-    width: 150px;
-    background-color: var(--auditoria-verde);
-    text-align: center;
-    padding: 5px 0;
-    color: var(--blanco);
-    font-weight: 800;
-    font-size: var(--texto-sm);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    letter-spacing: 1px;
-}
-
-/* Header con diseño centrado */
-.auditoria-destacada-header {
-    background-color: var(--auditoria-verde-claro);
-    padding: var(--espaciado-md);
-    text-align: center;
-    border-bottom: 1px dashed rgba(47, 133, 90, 0.3);
-}
-
-.auditoria-icon-wrapper {
-    margin-bottom: var(--espaciado-sm);
-}
-
-.auditoria-destacada .soluciones-card-icon {
-    margin: 0 auto;
-    width: 90px;
-    height: 90px;
-    background-color: var(--auditoria-verde);
-    font-size: 36px;
-    color: white;
-    box-shadow: 0 10px 20px rgba(47, 133, 90, 0.2);
-}
-
-.auditoria-destacada h3 {
-    color: var(--auditoria-verde);
-    font-size: var(--texto-2xl);
-    margin-bottom: 10px;
-}
-
-.auditoria-timer {
-    display: inline-flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 8px 16px;
-    border-radius: var(--borde-redondo-full);
-    font-weight: 600;
-    color: var(--auditoria-verde);
-    font-size: var(--texto-sm);
-}
-
-.auditoria-timer i {
-    margin-right: 8px;
-    animation: pulse-animation-green 2s infinite;
-}
-
-/* Contenido principal con grid de características */
-.auditoria-destacada-content {
-    padding: var(--espaciado-md);
-}
-
-.auditoria-destacada-content p {
-    text-align: center;
-    font-size: var(--texto-md);
-    color: var(--texto-oscuro);
-    margin-bottom: var(--espaciado-md);
-    font-weight: 500;
-}
-
-/* Grid de características */
-.auditoria-features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 15px;
-    margin-bottom: var(--espaciado-md);
-}
-
-.auditoria-feature-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    background-color: var(--fondo-claro);
-    border-radius: var(--borde-redondo-md);
-    transition: all var(--transicion-media);
-    border: 1px solid rgba(47, 133, 90, 0.1);
-}
-
-.auditoria-feature-item:hover {
-    transform: translateY(-3px) translateX(3px);
-    background-color: var(--auditoria-verde-claro);
-    box-shadow: 0 5px 15px rgba(47, 133, 90, 0.1);
-    border-color: rgba(47, 133, 90, 0.2);
-}
-
-.feature-icon {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    background-color: var(--blanco);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--auditoria-verde);
-    margin-right: 15px;
-    font-size: var(--texto-md);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-}
-
-.feature-text {
-    font-size: var(--texto-base);
-    line-height: 1.4;
-    color: var(--texto-oscuro);
-}
-
-/* Botón de auditoría dentro del diseño destacado */
-.auditoria-destacada .btn-auditoria-servicio {
-    margin-top: var(--espaciado-sm);
-    width: 100%;
-    padding: 15px;
-    letter-spacing: 0.5px;
-}
-
-/* Ajuste para mostrar los 4 servicios mensuales en una fila */
-.servicios-mensuales-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--espaciado-md);
-    margin-top: var(--espaciado-md);
-    opacity: 1 !important;
-    transform: none !important;
-}
-
-/* Media queries para responsividad */
-@media (max-width: 1200px) {
-    .servicios-mensuales-grid {
-        grid-template-columns: repeat(2, 1fr);
+    
+    .categoria-titulo {
+        font-size: 0.8rem;
+        padding: 6px 10px;
     }
     
-    .auditoria-features-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .servicios-mensuales-grid {
-        grid-template-columns: 1fr;
+    .tier-detalle {
+        padding: 5px 10px;
     }
     
-    .auditoria-destacada-header,
-    .auditoria-destacada-content {
-        padding: var(--espaciado-sm);
+    .tier-detalle span {
+        font-size: 0.8rem;
     }
     
-    .auditoria-destacada .soluciones-card-icon {
-        width: 70px;
-        height: 70px;
-        font-size: 28px;
+    .countdown-timer {
+        gap: 5px;
     }
     
-    .auditoria-feature-item {
-        padding: 10px;
+    .countdown-item {
+        min-width: 50px;
+        padding: 5px;
     }
     
-    .feature-icon {
-        width: 36px;
-        height: 36px;
-        margin-right: 10px;
-    }
-
-    .auditoria-features-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 576px) {
-    .auditoria-ribbon {
-        right: -40px;
-        top: 15px;
+    .countdown-number {
+        font-size: var(--texto-lg);
     }
     
-    .feature-icon {
-        width: 32px;
-        height: 32px;
-        font-size: 14px;
-    }
-    
-    .feature-text {
-        font-size: var(--texto-sm);
-    }
-}
-
-/* Oferta especial - Refinada */
-.oferta-especial {
-    background: linear-gradient(135deg, rgba(255, 114, 0, 0.08), rgba(255, 147, 64, 0.05));
-    margin-top: var(--espaciado-lg);
-    padding: var(--espaciado-md) var(--espaciado-lg);
-    border-radius: var(--borde-redondo-lg);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--sombra-suave);
-    border: 2px dashed var(--naranja-principal);
-}
-
-.oferta-especial::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 150px;
-    height: 150px;
-    background-color: rgba(255, 114, 0, 0.1);
-    border-radius: 50%;
-    z-index: 0;
-}
-
-.oferta-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-    padding: 6px 15px;
-    border-radius: var(--borde-redondo-full);
-    font-weight: 600;
-    margin-bottom: var(--espaciado-sm);
-    position: relative;
-    z-index: 1;
-}
-
-.oferta-especial h3 {
-    color: var(--texto-oscuro);
-    margin-bottom: var(--espaciado-md);
-    position: relative;
-    z-index: 1;
-    font-size: 1.5rem;
-}
-
-.precio-destacado {
-    color: var(--naranja-principal);
-    font-weight: 800;
-    font-size: var(--texto-2xl);
-}
-
-.oferta-especial .btn {
-    position: relative;
-    z-index: 1;
-    background-color: var(--naranja-principal);
-    border: none;
-    font-weight: 700;
-}
-
-.oferta-especial .btn:hover {
-    background-color: var(--naranja-oscuro);
-}
-
-/* Garantía - Refinada */
-.servicios-garantia {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--espaciado-sm);
-    background-color: var(--blanco);
-    padding: var(--espaciado-sm) var(--espaciado-md);
-    border-radius: var(--borde-redondo-full);
-    margin-top: var(--espaciado-md);
-    box-shadow: var(--sombra-suave);
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid var(--gris-borde);
-}
-
-.garantia-icon {
-    color: var(--naranja-principal);
-    font-size: var(--texto-xl);
-}
-
-.servicios-garantia p {
-    margin: 0;
-    color: var(--texto-oscuro);
-    font-size: 0.95rem;
-}
-
-/* Media Queries refinados para servicios */
-@media (max-width: 1200px) {
-    :root {
-        --texto-4xl: 2.75rem;
-        --texto-3xl: 2.25rem;
-    }
-    
-    .servicios-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .soluciones-card.auditoria {
-        grid-column: span 3;
-        max-width: 900px;
-        margin: 0 auto;
-    }
-}
-
-@media (max-width: 992px) {
-    :root {
-        --espaciado-xl: 5rem;
-        --texto-4xl: 2.5rem;
-        --texto-3xl: 2rem;
-    }
-    
-    .hero {
-        padding-top: 150px;
-    }
-    
-    .servicios-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .soluciones-card.auditoria {
-        grid-column: span 2;
-    }
-}
-
-@media (max-width: 768px) {
-    :root {
-        --espaciado-xl: 4rem;
-        --espaciado-lg: 3rem;
-        --texto-4xl: 2rem;
-        --texto-3xl: 1.75rem;
-        --texto-2xl: 1.5rem;
-    }
-    
-    .hero {
-        padding-top: 130px;
-    }
-    
-    .hero-content {
-        margin-top: 10px;
-    }
-    
-    .servicios-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .soluciones-card.auditoria {
-        grid-column: span 1;
-    }
-    
-    .soluciones-card {
-        min-height: auto;
-    }
-    
-    .soluciones-card.featured-card {
-        transform: none;
-    }
-    
-    .soluciones-card.featured-card:hover {
-        transform: translateY(-5px);
+    .countdown-label {
+        font-size: var(--texto-xs);
     }
 }
 
@@ -3117,68 +3039,42 @@ p {
     }
 }
 
-/* Media queries para responsividad */
-@media (max-width: 1024px) {
-    .proceso-timeline::before {
-        left: 20px;
-    }
-    
-    .proceso-paso {
-        width: 100%;
-        padding-left: 70px;
-    }
-    
-    .proceso-paso:nth-child(odd),
-    .proceso-paso:nth-child(even) {
-        margin-left: 30px;
-    }
-    
-    .proceso-paso:nth-child(odd) .paso-numero,
-    .proceso-paso:nth-child(even) .paso-numero {
-        left: -30px;
-    }
-    
-    .opciones-container-rediseno {
-        flex-direction: column;
-        align-items: center;
-        max-width: 500px;
-        margin-bottom: 60px;
-    }
-    
-    .opcion-card {
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .conectador-opciones {
-        margin: 15px 0;
-    }
-    
-    .conectador-opciones::before {
-        left: 50%;
-        right: auto;
-        top: -25px;
-        bottom: -25px;
-        width: 2px;
-        height: auto;
-        transform: translateX(-50%);
-    }
+/* ==========================================================================
+   SELECTOR DE TIER MINI (Para el proceso)
+   ========================================================================== */
+.tier-selector-mini {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: var(--texto-sm);
 }
 
-@media (max-width: 768px) {
-    .plan-mejorado .proceso-paso {
-        padding: 20px 15px 20px 60px;
-    }
-    
-    .opcion-header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: var(--espaciado-sm);
-    }
-    
-    .opcion-body {
-        padding: var(--espaciado-sm);
-    }
+.tier-option {
+    padding: 4px 12px;
+    background-color: var(--fondo-claro);
+    border-radius: var(--borde-redondo-full);
+    color: var(--texto-claro);
+    cursor: pointer;
+    transition: all var(--transicion-rapida);
+    font-weight: 500;
+}
+
+.tier-option.active {
+    background-color: var(--naranja-principal);
+    color: var(--blanco);
+}
+
+.opcion-precio.tier-mini {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.opcion-precio.tier-mini.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 /* ==========================================================================
@@ -4273,318 +4169,7 @@ p {
         margin-bottom: var(--espaciado-xs);
     }
 }
-/* Estilos adicionales para la estructura de tiers */
 
-/* ==========================================================================
-   SELECTOR DE TIERS
-   ========================================================================== */
-.tier-selector {
-    margin: 40px auto 20px;
-    max-width: 800px;
-    text-align: center;
-}
-
-.tier-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.tier-tab {
-    padding: 10px 30px;
-    background-color: var(--fondo-claro);
-    border-radius: var(--borde-redondo-md);
-    font-weight: 600;
-    font-size: var(--texto-base);
-    color: var(--texto-oscuro);
-    cursor: pointer;
-    transition: all var(--transicion-media);
-    box-shadow: var(--sombra-suave);
-    border: 1px solid var(--gris-borde);
-}
-
-.tier-tab.active {
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-    box-shadow: 0 4px 12px rgba(255, 114, 0, 0.25);
-    transform: translateY(-2px);
-}
-
-.tier-tab:hover:not(.active) {
-    transform: translateY(-2px);
-    box-shadow: var(--sombra-media);
-}
-
-.tier-description {
-    margin-bottom: 30px;
-}
-
-.tier-info {
-    display: none;
-    font-size: var(--texto-md);
-    color: var(--texto-claro);
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-}
-
-.tier-info.active {
-    display: block;
-    animation: fadeIn 0.3s ease;
-}
-
-/* ==========================================================================
-   PRECIOS DE TIERS
-   ========================================================================== */
-.tier-prices {
-    position: relative;
-    margin-bottom: 15px;
-    min-height: 80px;
-}
-
-.servicio-precio.tier-price {
-    display: none;
-    animation: fadeIn 0.3s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-
-.servicio-precio.tier-price.active {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.precio-setup {
-    font-size: var(--texto-xs);
-    color: var(--naranja-principal);
-    font-weight: 600;
-    background-color: var(--naranja-claro);
-    padding: 3px 10px;
-    border-radius: var(--borde-redondo-full);
-    margin-bottom: 5px;
-    white-space: nowrap;
-}
-
-/* Garantía actualizada */
-.servicios-garantia p {
-    font-size: var(--texto-base);
-}
-
-/* Badge para servicio estrella */
-.hero-service-badge {
-    position: absolute;
-    top: -15px;
-    left: -15px;
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-    font-weight: 700;
-    font-size: var(--texto-xs);
-    padding: 6px 15px;
-    border-radius: var(--borde-redondo-full);
-    z-index: 5;
-    box-shadow: 0 4px 12px rgba(255, 114, 0, 0.25);
-    transform: rotate(-10deg);
-}
-
-/* ==========================================================================
-   OFERTA ESPECIAL MEJORADA
-   ========================================================================== */
-.oferta-especial {
-    padding-top: 30px;
-    padding-bottom: 40px;
-}
-
-.oferta-countdown {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 15px 0;
-}
-
-.limited-offer {
-    font-weight: 700;
-    color: var(--naranja-oscuro);
-    font-size: var(--texto-md);
-    margin-bottom: 10px;
-    background-color: rgba(255, 114, 0, 0.1);
-    padding: 5px 15px;
-    border-radius: var(--borde-redondo-full);
-}
-
-.countdown-timer {
-    display: flex;
-    gap: 15px;
-    margin: 10px 0;
-}
-
-.countdown-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-md);
-    padding: 10px;
-    min-width: 80px;
-    box-shadow: var(--sombra-suave);
-}
-
-.countdown-number {
-    font-size: var(--texto-2xl);
-    font-weight: 800;
-    color: var(--naranja-principal);
-}
-
-.countdown-label {
-    font-size: var(--texto-sm);
-    color: var(--texto-claro);
-}
-
-.setup-fee-notice {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 10px 20px;
-    border-radius: var(--borde-redondo-full);
-    margin: 15px auto;
-    max-width: 500px;
-    font-size: var(--texto-sm);
-    color: var(--texto-claro);
-    box-shadow: var(--sombra-suave);
-}
-
-.setup-fee-notice i {
-    color: var(--naranja-principal);
-}
-
-.setup-fee-notice strong {
-    color: var(--naranja-oscuro);
-}
-
-/* ==========================================================================
-   SELECTOR DE TIER MINI (Para el proceso)
-   ========================================================================== */
-.tier-selector-mini {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 15px;
-    font-size: var(--texto-sm);
-}
-
-.tier-option {
-    padding: 4px 12px;
-    background-color: var(--fondo-claro);
-    border-radius: var(--borde-redondo-full);
-    color: var(--texto-claro);
-    cursor: pointer;
-    transition: all var(--transicion-rapida);
-    font-weight: 500;
-}
-
-.tier-option.active {
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-}
-
-.opcion-precio.tier-mini {
-    display: none;
-    animation: fadeIn 0.3s ease;
-}
-
-.opcion-precio.tier-mini.active {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-/* ==========================================================================
-   RESPONSIVE PARA NUEVOS ELEMENTOS
-   ========================================================================== */
-@media (max-width: 992px) {
-    .tier-tabs {
-        gap: 10px;
-    }
-    
-    .tier-tab {
-        padding: 8px 20px;
-        font-size: var(--texto-sm);
-    }
-    
-    .hero-service-badge {
-        transform: rotate(-10deg) scale(0.9);
-    }
-    
-    .countdown-timer {
-        gap: 10px;
-    }
-    
-    .countdown-item {
-        min-width: 70px;
-        padding: 8px;
-    }
-}
-
-@media (max-width: 768px) {
-    .tier-tabs {
-        flex-wrap: wrap;
-    }
-    
-    .tier-tab {
-        width: calc(33.333% - 10px);
-    }
-    
-    .limited-offer {
-        font-size: var(--texto-base);
-        text-align: center;
-    }
-    
-    .countdown-item {
-        min-width: 60px;
-    }
-    
-    .countdown-number {
-        font-size: var(--texto-xl);
-    }
-    
-    .setup-fee-notice {
-        flex-direction: column;
-        text-align: center;
-    }
-}
-
-@media (max-width: 576px) {
-    .tier-tabs {
-        gap: 5px;
-    }
-    
-    .tier-tab {
-        font-size: var(--texto-xs);
-        padding: 6px 12px;
-    }
-    
-    .countdown-timer {
-        gap: 5px;
-    }
-    
-    .countdown-item {
-        min-width: 50px;
-        padding: 5px;
-    }
-    
-    .countdown-number {
-        font-size: var(--texto-lg);
-    }
-    
-    .countdown-label {
-        font-size: var(--texto-xs);
-    }
-}
 /* ==========================================================================
    UTILIDADES - REFINADAS
    ========================================================================== */
