@@ -642,6 +642,107 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // =========================================================================
+    // INICIALIZACIÓN DEL SELECTOR DE TIERS
+    // =========================================================================
+    
+    /**
+     * Función para inicializar la interacción con los tiers de servicio
+     */
+    function initTierSelector() {
+        // Selector de tiers en la sección principal
+        const tierTabs = document.querySelectorAll('.tier-tab');
+        
+        tierTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Desactivar todos los tabs
+                tierTabs.forEach(t => t.classList.remove('active'));
+                
+                // Activar el tab seleccionado
+                tab.classList.add('active');
+                
+                // Obtener el tier seleccionado (starter, pro, elite)
+                const tier = tab.getAttribute('data-tier');
+                
+                // Actualizar la descripción del tier
+                document.querySelectorAll('.tier-info').forEach(info => {
+                    info.classList.remove('active');
+                });
+                document.querySelector(`.tier-info.${tier}`).classList.add('active');
+                
+                // Actualizar los precios mostrados
+                document.querySelectorAll('.tier-price').forEach(price => {
+                    price.classList.remove('active');
+                });
+                document.querySelectorAll(`.tier-price.${tier}`).forEach(price => {
+                    price.classList.add('active');
+                });
+                
+                // Actualizar las características mostradas en la nueva estructura
+                document.querySelectorAll('.servicios-tabla').forEach(tabla => {
+                    // Ocultar todos los detalles de tier
+                    tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
+                        detalle.style.display = 'none';
+                    });
+                    
+                    // Mostrar solo los detalles del tier seleccionado
+                    tabla.querySelectorAll(`.tier-detalle.${tier}`).forEach(detalle => {
+                        detalle.style.display = 'flex';
+                    });
+                });
+            });
+        });
+        
+        // Inicialización - mostrar solo características del tier starter (antes llamado basic)
+        document.querySelectorAll('.servicios-tabla').forEach(tabla => {
+            tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
+                if (!detalle.classList.contains('tier-detalle.starter')) {
+                    detalle.style.display = 'none';
+                }
+            });
+            
+            tabla.querySelectorAll('.tier-detalle.starter').forEach(detalle => {
+                detalle.style.display = 'flex';
+            });
+        });
+    }
+
+    // Selector de tiers mini en la sección proceso (si existe)
+    function initTierSelectorMini() {
+        const tierOptionsMini = document.querySelectorAll('.tier-option');
+        if (!tierOptionsMini.length) return;
+        
+        tierOptionsMini.forEach(option => {
+            option.addEventListener('click', () => {
+                tierOptionsMini.forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+                
+                const tier = option.getAttribute('data-tier');
+                
+                document.querySelectorAll('.tier-mini').forEach(price => {
+                    price.classList.remove('active');
+                });
+                document.querySelector(`.tier-mini.${tier}`).classList.add('active');
+            });
+        });
+    }
+
+    /**
+     * Actualizar el precio de la oferta especial basado en los nuevos precios de los planes
+     */
+    function updateSpecialOffer() {
+        // El nuevo precio paquete es 4 servicios Elite a $999 con descuento
+        const regularPrice = 999 * 4; // $3,996
+        const discountedPrice = 1800; // Precio con descuento
+        const savings = regularPrice - discountedPrice;
+        
+        // Actualizar texto de ahorro si existe el elemento
+        const ofertaEspecial = document.querySelector('.oferta-especial h3');
+        if (ofertaEspecial) {
+            ofertaEspecial.innerHTML = `¡Ahorra $${savings}/mes! Contrata los 4 servicios por solo <span class="precio-destacado">US$${discountedPrice}/mes</span> (valor real $${regularPrice})`;
+        }
+    }
     
     // =========================================================================
     // OPTIMIZACIÓN MOBILE
@@ -720,6 +821,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initServiciosMensuales();
     initExpressBox();
     initServicePills();
+    initTierSelector();
+    initTierSelectorMini();
+    updateSpecialOffer();
     setupMobileEnhancements();
     
     // Configurar event listeners globales
