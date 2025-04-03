@@ -429,7 +429,7 @@ p {
 /* Botones de servicios específicos */
 .btn-servicio {
     width: 100%;
-    margin-top: auto;
+    margin-top: 20px;
     text-align: center;
     font-weight: 700;
     padding: 14px 20px;
@@ -998,8 +998,18 @@ p {
 }
 
 /* ==========================================================================
-   8. SECCIÓN SERVICIOS 
+   8. SECCIÓN SERVICIOS MENSUALES - ACTUALIZADA
    ========================================================================== */
+/* Título y sección */
+.servicios-mensuales-titulo {
+    margin-top: 50px;
+}
+
+.intro-spacing {
+    margin: 20px auto 0;
+    max-width: 700px;
+}
+
 /* Selector de tiers */
 .tier-selector {
     margin: 40px auto 20px;
@@ -1079,7 +1089,7 @@ p {
     height: 100%;
     overflow: hidden;
     background-color: var(--blanco);
-    min-height: 550px;
+    min-height: 700px;
     border: 1px solid var(--gris-borde);
 }
 
@@ -1305,6 +1315,12 @@ p {
     box-shadow: var(--sombra-suave);
     background-color: var(--fondo-claro);
     border: 1px solid var(--gris-borde);
+    flex-grow: 1;
+    transition: all 0.3s ease;
+}
+
+.servicios-tabla:hover {
+    box-shadow: var(--sombra-media);
 }
 
 .tabla-categoria {
@@ -1318,12 +1334,13 @@ p {
 }
 
 .categoria-titulo {
-    background-color: rgba(0, 0, 0, 0.03);
-    padding: 10px 15px;
+    background-color: rgba(0, 0, 0, 0.04);
+    padding: 12px 16px;
     font-weight: 700;
     color: var(--texto-oscuro);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    letter-spacing: 0.5px;
 }
 
 .categoria-detalles {
@@ -1335,7 +1352,7 @@ p {
 .tier-detalle {
     display: flex;
     align-items: flex-start;
-    padding: 8px 15px;
+    padding: 10px 16px;
     transition: all var(--transicion-rapida);
 }
 
@@ -1345,9 +1362,10 @@ p {
 
 .tier-detalle i {
     flex-shrink: 0;
-    margin-right: 10px;
+    margin-right: 12px;
     color: #28a745;
     margin-top: 3px;
+    font-size: 14px;
 }
 
 .tier-detalle i.fa-minus {
@@ -1391,6 +1409,7 @@ p {
 .tier-detalle.pro.active,
 .tier-detalle.elite.active {
     display: flex;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 /* Badge para servicio estrella */
@@ -3161,132 +3180,6 @@ p {
 }
 
 /* ==========================================================================
-   18. FOOTER
-   ========================================================================== */
-.footer {
-    background-color: var(--gris-oscuro);
-    color: rgba(255, 255, 255, 0.7);
-    padding: var(--espaciado-lg) 0 var(--espaciado-sm);
-    position: relative;
-    margin-top: var(--espaciado-xl);
-}
-
-.footer::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    background: linear-gradient(to top, rgba(255, 114, 0, 0.1), transparent);
-    border-radius: 100% 100% 0 0;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: var(--espaciado-md);
-    margin-bottom: var(--espaciado-md);
-}
-
-.footer-about {
-    padding-right: var(--espaciado-md);
-}
-
-.footer-logo {
-    color: var(--blanco);
-    font-family: var(--fuente-principal);
-    font-weight: 800;
-    font-size: var(--texto-xl);
-    margin-bottom: var(--espaciado-sm);
-    display: inline-block;
-    transition: transform var(--transicion-rapida);
-}
-
-.footer-logo:hover {
-    transform: translateY(-3px);
-}
-
-.footer-logo span {
-    color: var(--naranja-principal);
-}
-
-.footer-about p {
-    margin-bottom: var(--espaciado-md);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: var(--texto-base);
-}
-
-.footer-column h4 {
-    color: var(--blanco);
-    margin-bottom: 20px;
-    position: relative;
-    font-weight: 700;
-    padding-bottom: 10px;
-}
-
-.footer-column h4::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background-color: var(--naranja-principal);
-    border-radius: var(--borde-redondo-full);
-}
-
-.footer-column ul li {
-    margin-bottom: 12px;
-    transition: transform var(--transicion-rapida);
-}
-
-.footer-column ul li:hover {
-    transform: translateX(5px);
-}
-
-.footer-column ul li a {
-    color: rgba(255, 255, 255, 0.7);
-    transition: color var(--transicion-rapida);
-}
-
-.footer-column ul li a:hover {
-    color: var(--naranja-principal);
-}
-
-.footer-contact ul li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 15px;
-    transition: transform var(--transicion-rapida);
-}
-
-.footer-contact ul li:hover {
-    transform: translateX(5px);
-}
-
-.footer-contact ul li i {
-    margin-right: 12px;
-    color: var(--naranja-principal);
-    margin-top: 5px;
-    flex-shrink: 0;
-}
-
-.footer-bottom {
-    padding: var(--espaciado-sm) 0;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: var(--espaciado-md);
-}
-
-.footer-bottom p {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: var(--texto-sm);
-}
-
-/* ==========================================================================
    19. RESPONSIVE
    ========================================================================== */
 @media (max-width: 1200px) {
@@ -3328,164 +3221,6 @@ p {
     }
 }
 
-@media (max-width: 1024px) {
-    :root {
-        --espaciado-xl: 5rem;
-        --texto-4xl: 2.5rem;
-        --texto-3xl: 2rem;
-    }
-    
-    .hero {
-        padding-top: 150px;
-    }
-    
-    .express-content {
-        grid-template-columns: 1fr;
-        gap: var(--espaciado-md);
-    }
-    
-    .express-image {
-        display: none;
-    }
-    
-    .proceso-timeline::before {
-        left: 20px;
-    }
-    
-    .proceso-paso {
-        width: 100%;
-        padding-left: 70px;
-    }
-    
-    .proceso-paso:nth-child(odd),
-    .proceso-paso:nth-child(even) {
-        margin-left: 30px;
-    }
-    
-    .proceso-paso:nth-child(odd) .paso-numero,
-    .proceso-paso:nth-child(even) .paso-numero {
-        left: -30px;
-    }
-    
-    .opciones-container-rediseno {
-        flex-direction: column;
-        align-items: center;
-        max-width: 500px;
-        margin-bottom: 60px;
-    }
-    
-    .opcion-card {
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .conectador-opciones {
-        margin: 15px 0;
-    }
-    
-    .conectador-opciones::before {
-        left: 50%;
-        right: auto;
-        top: -25px;
-        bottom: -25px;
-        width: 2px;
-        height: auto;
-        transform: translateX(-50%);
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .footer-about {
-        grid-column: span 2;
-        text-align: center;
-        padding-right: 0;
-        margin-bottom: var(--espaciado-md);
-    }
-    
-    .footer-about .social-links {
-        justify-content: center;
-        display: flex;
-    }
-    
-    /* Mejora para Calendly en tablets */
-    .contacto-beneficios {
-        order: 2;
-        margin-top: var(--espaciado-md);
-    }
-    
-    .calendly-inline-widget {
-        height: 600px;
-    }
-}
-
-@media (min-width: 992px) {
-    .hero-container.container {
-        flex-direction: row;
-        text-align: left;
-    }
-    
-    .hero-content-wrapper {
-        align-items: flex-start;
-        width: 60%;
-    }
-    
-    .hero-content {
-        text-align: left;
-    }
-    
-    .hero-title,
-    .hero-subtitle {
-        margin-left: 0;
-        margin-right: 0;
-    }
-    
-    .hero-services {
-        justify-content: flex-start;
-    }
-    
-    .hero-cta {
-        justify-content: flex-start;
-    }
-    
-    .hero-visual-wrapper {
-        width: 40%;
-        margin: 0;
-    }
-}
-
-@media (max-width: 992px) {
-    :root {
-        --texto-4xl: 2.25rem;
-        --texto-3xl: 1.875rem;
-        --texto-2xl: 1.75rem;
-    }
-    
-    .hero-title, .hero-subtitle {
-        font-size: calc(var(--texto-2xl) * 0.9);
-    }
-    
-    .servicios-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .resultados-stories {
-        grid-template-columns: 1fr;
-        max-width: 550px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .team-grid {
-        gap: var(--espaciado-lg);
-    }
-    
-    .desafios-grid-compacto {
-        grid-template-columns: 1fr;
-    }
-}
-
 @media (max-width: 768px) {
     :root {
         --espaciado-xl: 4rem;
@@ -3495,97 +3230,26 @@ p {
         --texto-2xl: 1.5rem;
     }
     
-    .hero-content h1 {
-        font-size: var(--texto-2xl);
-    }
-    
-    .hero-subtitle {
-        font-size: var(--texto-md);
-    }
-    
-    .hero-image {
-        height: 200px;
-    }
-    
-    .team-grid {
+    .servicios-mensuales-grid {
         grid-template-columns: 1fr;
+        gap: 32px;
     }
     
     .soluciones-card {
         min-height: auto;
     }
     
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .footer-column h4::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .footer-contact ul li {
-        justify-content: center;
-    }
-    
-    .calendly-inline-widget {
-        height: 600px;
-    }
-    
-    .express-box-header,
-    .express-box-footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .express-box-footer .btn {
-        width: 100%;
-    }
-    
-    .express-box-garantia {
-        max-width: none;
-        margin-top: var(--espaciado-sm);
-    }
-    
-    .contacto-beneficios h3,
-    .contacto-beneficios .beneficios-lista li {
-        text-align: left;
-    }
-    
-    .auditoria-destacada-header,
-    .auditoria-destacada-content {
-        padding: var(--espaciado-sm);
-    }
-    
-    .auditoria-destacada .soluciones-card-icon {
-        width: 70px;
-        height: 70px;
-        font-size: 28px;
-    }
-    
-    .auditoria-feature-item {
-        padding: 10px;
-    }
-    
-    .feature-icon {
-        width: 36px;
-        height: 36px;
-        margin-right: 10px;
-    }
-    
-    .categoria-titulo {
-        font-size: 0.85rem;
-        padding: 8px 12px;
-    }
-    
     .tier-detalle {
-        padding: 6px 12px;
+        padding: 8px 12px;
     }
     
     .tier-detalle span {
         font-size: 0.85rem;
+    }
+    
+    .categoria-titulo {
+        font-size: 0.9rem;
+        padding: 10px 12px;
     }
     
     .tier-tabs {
@@ -3596,142 +3260,9 @@ p {
     .tier-tab {
         width: 100%;
     }
-    
-    .countdown-timer {
-        gap: 10px;
-    }
-    
-    .countdown-item {
-        min-width: 70px;
-        padding: 8px;
-    }
-    
-    .limited-offer {
-        font-size: var(--texto-base);
-        text-align: center;
-    }
-    
-    .setup-fee-notice {
-        flex-direction: column;
-        text-align: center;
-    }
 }
 
 @media (max-width: 576px) {
-    :root {
-        --espaciado-xl: 3.5rem;
-        --espaciado-lg: 2.5rem;
-        --texto-4xl: 1.75rem;
-        --texto-3xl: 1.5rem;
-        --texto-2xl: 1.375rem;
-    }
-    
-    .container {
-        padding-left: var(--espaciado-sm);
-        padding-right: var(--espaciado-sm);
-    }
-    
-    .hero {
-        padding-top: 120px;
-    }
-    
-    .hero-content h1 {
-        font-size: var(--texto-xl);
-        line-height: 1.3;
-    }
-    
-    .hero-subtitle {
-        font-size: var(--texto-base);
-    }
-    
-    .service-pill {
-        width: 100%;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .hero-buttons .btn {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .btn-flotante {
-        padding: 10px 15px;
-        font-size: var(--texto-sm);
-        right: 15px;
-        bottom: 15px;
-    }
-    
-    .seccion-titulo h2 {
-        font-size: var(--texto-xl);
-    }
-    
-    .plan-mejorado .proceso-paso {
-        padding: 20px 15px 20px 60px;
-    }
-    
-    .opcion-header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: var(--espaciado-sm);
-    }
-    
-    .opcion-body {
-        padding: var(--espaciado-sm);
-    }
-    
-    .desafios-compacto .desafio-item {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: var(--espaciado-sm);
-    }
-    
-    .desafios-compacto .desafio-icon {
-        margin-bottom: var(--espaciado-xs);
-    }
-    
-    .contacto-beneficios {
-        padding: var(--espaciado-sm);
-    }
-    
-    .beneficios-lista li {
-        padding: var(--espaciado-xs);
-    }
-    
-    .calendly-inline-widget {
-        height: 550px;
-    }
-    
-    .resultado-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .resultado-icon {
-        margin-right: 0;
-        margin-bottom: var(--espaciado-xs);
-    }
-    
-    .auditoria-ribbon {
-        right: -40px;
-        top: 15px;
-    }
-    
-    .feature-icon {
-        width: 32px;
-        height: 32px;
-        font-size: 14px;
-    }
-    
-    .feature-text {
-        font-size: var(--texto-sm);
-    }
-    
     .categoria-titulo {
         font-size: 0.8rem;
         padding: 6px 10px;
@@ -3743,23 +3274,6 @@ p {
     
     .tier-detalle span {
         font-size: 0.8rem;
-    }
-    
-    .countdown-timer {
-        gap: 5px;
-    }
-    
-    .countdown-item {
-        min-width: 50px;
-        padding: 5px;
-    }
-    
-    .countdown-number {
-        font-size: var(--texto-lg);
-    }
-    
-    .countdown-label {
-        font-size: var(--texto-xs);
     }
 }
 
