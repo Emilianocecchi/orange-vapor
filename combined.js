@@ -736,14 +736,14 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function updateSpecialOffer() {
         // El nuevo precio paquete es 4 servicios Elite a $999 con descuento
-        const regularPrice = 999 * 4; // $3,996
-        const discountedPrice = 1800; // Precio con descuento
+        const regularPrice = 299 * 4; // $1,196
+        const discountedPrice = 1000; // Precio con descuento
         const savings = regularPrice - discountedPrice;
         
         // Actualizar texto de ahorro si existe el elemento
         const ofertaEspecial = document.querySelector('.oferta-especial h3');
         if (ofertaEspecial) {
-            ofertaEspecial.innerHTML = `¡Ahorra $${savings}/mes! Contrata los 4 servicios por solo <span class="precio-destacado">US$${discountedPrice}/mes</span> (valor real $${regularPrice})`;
+            ofertaEspecial.innerHTML = `¡Ahorrá $${savings}/mes! Contratá los 4 servicios por solo <span class="precio-destacado">US$${discountedPrice}/mes</span> (valor real $${regularPrice})`;
         }
     }
     
