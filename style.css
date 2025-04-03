@@ -671,14 +671,13 @@ p {
     position: relative;
     z-index: 3;
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Cambiado de column a row para layout horizontal */
     align-items: center;
-    justify-content: center;
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
     gap: 60px;
     max-width: var(--ancho-maximo);
     width: 100%;
     padding: 0 60px;
-    text-align: center;
 }
 
 /* Contenido del Hero */
@@ -686,17 +685,16 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    max-width: 900px;
+    align-items: flex-start; /* Cambiado de center a flex-start */
+    width: 50%; /* Ocupa la mitad del espacio */
+    text-align: left; /* Alineación de texto a la izquierda */
 }
 
 .hero-content {
     color: var(--blanco);
     position: relative;
     z-index: 2;
-    text-align: center;
+    text-align: left; /* Cambiado de center a left */
     padding: 20px 0;
 }
 
@@ -708,9 +706,10 @@ p {
     font-weight: 800;
     line-height: 1.15;
     letter-spacing: -0.02em;
+    text-align: left; /* Asegurar alineación izquierda */
+    margin-left: 0; /* Eliminado el auto */
+    margin-right: 0; /* Eliminado el auto */
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .hero-subtitle {
@@ -727,8 +726,8 @@ p {
     border: 1px solid rgba(255, 255, 255, 0.15);
     max-width: 700px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 0; /* Eliminado el auto */
+    margin-right: 0; /* Eliminado el auto */
 }
 
 /* Servicios del Hero */
@@ -737,7 +736,7 @@ p {
     flex-wrap: wrap;
     gap: 14px;
     margin-bottom: 36px;
-    justify-content: center;
+    justify-content: flex-start; /* Cambiado de center a flex-start */
 }
 
 .service-pill {
@@ -799,7 +798,7 @@ p {
 .hero-cta {
     display: flex;
     margin-top: 16px;
-    justify-content: center;
+    justify-content: flex-start; /* Cambiado de center a flex-start */
 }
 
 .hero-cta .btn {
@@ -840,9 +839,8 @@ p {
     justify-content: center;
     align-items: center;
     position: relative;
-    width: 100%;
-    max-width: 400px;
-    margin: 20px auto 0;
+    width: 40%; /* Cambiado para ocupar el 40% del espacio */
+    margin: 0; /* Eliminado el auto */
 }
 
 .hero-image {
@@ -997,6 +995,132 @@ p {
     opacity: 1;
 }
 
+/* Media queries para responsive */
+@media (max-width: 992px) {
+    .hero-container.container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-content-wrapper {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .hero-content {
+        text-align: center;
+    }
+    
+    .hero-title, .hero-subtitle {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-services {
+        justify-content: center;
+    }
+    
+    .hero-cta {
+        justify-content: center;
+    }
+    
+    .hero-visual-wrapper {
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+    
+    .hero-container.container {
+        padding: 0 30px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .service-pill {
+        padding: 10px 16px;
+    }
+    
+    .service-pill span {
+        font-size: 0.85rem;
+    }
+    
+    .audit-card {
+        width: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        padding: 12px 18px;
+    }
+    
+    .hero-services {
+        gap: 10px;
+    }
+    
+    .service-pill {
+        padding: 8px 14px;
+    }
+    
+    .service-pill i {
+        font-size: 0.9rem;
+    }
+    
+    .service-pill span {
+        font-size: 0.8rem;
+    }
+    
+    .hero-cta .btn {
+        padding: 14px 28px;
+        font-size: 1rem;
+    }
+    
+    .audit-card {
+        width: 280px;
+    }
+    
+    .audit-card-header, .audit-card-body {
+        padding: 20px;
+    }
+    
+    .audit-title {
+        font-size: 24px;
+    }
+    
+    .audit-desc {
+        font-size: 14px;
+    }
+    
+    .audit-time {
+        height: 60px;
+        font-size: 18px;
+    }
+}
 /* ==========================================================================
    8. SECCIÓN SERVICIOS MENSUALES - ACTUALIZADA
    ========================================================================== */
