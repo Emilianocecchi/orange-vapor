@@ -651,62 +651,65 @@ document.addEventListener('DOMContentLoaded', function() {
      * Función para inicializar la interacción con los tiers de servicio
      */
     function initTierSelector() {
-        // Selector de tiers en la sección principal
-        const tierTabs = document.querySelectorAll('.tier-tab');
-        
-        tierTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Desactivar todos los tabs
-                tierTabs.forEach(t => t.classList.remove('active'));
-                
-                // Activar el tab seleccionado
-                tab.classList.add('active');
-                
-                // Obtener el tier seleccionado (starter, pro, elite)
-                const tier = tab.getAttribute('data-tier');
-                
-                // Actualizar la descripción del tier
-                document.querySelectorAll('.tier-info').forEach(info => {
-                    info.classList.remove('active');
-                });
-                document.querySelector(`.tier-info.${tier}`).classList.add('active');
-                
-                // Actualizar los precios mostrados
-                document.querySelectorAll('.tier-price').forEach(price => {
-                    price.classList.remove('active');
-                });
-                document.querySelectorAll(`.tier-price.${tier}`).forEach(price => {
-                    price.classList.add('active');
-                });
-                
-                // Actualizar las características mostradas en la nueva estructura
-                document.querySelectorAll('.servicios-tabla').forEach(tabla => {
-                    // Ocultar todos los detalles de tier
-                    tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
-                        detalle.style.display = 'none';
-                    });
-                    
-                    // Mostrar solo los detalles del tier seleccionado
-                    tabla.querySelectorAll(`.tier-detalle.${tier}`).forEach(detalle => {
-                        detalle.style.display = 'flex';
-                    });
-                });
-            });
-        });
-        
-        // Inicialización - mostrar solo características del tier starter (antes llamado basic)
-        document.querySelectorAll('.servicios-tabla').forEach(tabla => {
-            tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
-                if (!detalle.classList.contains('tier-detalle.starter')) {
-                    detalle.style.display = 'none';
+    // Selector de tiers en la sección principal
+    const tierTabs = document.querySelectorAll('.tier-tab');
+    
+    tierTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Desactivar todos los tabs
+            tierTabs.forEach(t => t.classList.remove('active'));
+            
+            // Activar el tab seleccionado
+            tab.classList.add('active');
+            
+            // Obtener el tier seleccionado (starter, pro, elite)
+            const tier = tab.getAttribute('data-tier');
+            
+            // Actualizar la descripción del tier
+            document.querySelectorAll('.tier-info').forEach(info => {
+                info.classList.remove('active');
+                if (info.classList.contains(tier)) {
+                    info.classList.add('active');
                 }
             });
             
-            tabla.querySelectorAll('.tier-detalle.starter').forEach(detalle => {
-                detalle.style.display = 'flex';
+            // Actualizar los precios mostrados
+            document.querySelectorAll('.tier-price').forEach(price => {
+                price.classList.remove('active');
+            });
+            document.querySelectorAll(`.tier-price.${tier}`).forEach(price => {
+                price.classList.add('active');
+            });
+            
+            // Actualizar las características mostradas en la nueva estructura
+            document.querySelectorAll('.servicios-tabla').forEach(tabla => {
+                // Ocultar todos los detalles de tier
+                tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
+                    detalle.style.display = 'none';
+                });
+                
+                // Mostrar solo los detalles del tier seleccionado
+                tabla.querySelectorAll(`.tier-detalle.${tier}`).forEach(detalle => {
+                    detalle.style.display = 'flex';
+                });
             });
         });
-    }
+    });
+    
+    // Inicialización - mostrar solo características del tier starter (antes llamado basic)
+    document.querySelectorAll('.servicios-tabla').forEach(tabla => {
+        tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
+            if (!detalle.classList.contains('starter')) {
+                detalle.style.display = 'none';
+            } else {
+                detalle.style.display = 'flex';
+            }
+        });
+    });
+
+    // Inicializar mostrando solo la descripción del tier starter
+    document.querySelector('.tier-info.starter').classList.add('active');
+}
 
     // Selector de tiers mini en la sección proceso (si existe)
     function initTierSelectorMini() {
