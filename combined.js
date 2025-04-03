@@ -732,6 +732,136 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
+ * Función para inicializar la interacción con los tiers de servicio
+ */
+function initTierSelector() {
+    // Selector de tiers en la sección principal
+    const tierTabs = document.querySelectorAll('.tier-tab');
+    
+    tierTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Desactivar todos los tabs
+            tierTabs.forEach(t => t.classList.remove('active'));
+            
+            // Activar el tab seleccionado
+            tab.classList.add('active');
+            
+            // Obtener el tier seleccionado (starter, pro, elite)
+            const tier = tab.getAttribute('data-tier');
+            
+            // Actualizar la descripción del tier
+            document.querySelectorAll('.tier-info').forEach(info => {
+                info.classList.remove('active');
+                if (info.classList.contains(tier)) {
+                    info.classList.add('active');
+                }
+            });
+            
+            // Actualizar los precios mostrados
+            document.querySelectorAll('.tier-price').forEach(price => {
+                price.classList.remove('active');
+            });
+            document.querySelectorAll(`.tier-price.${tier}`).forEach(price => {
+                price.classList.add('active');
+            });
+            
+            // Actualizar las características mostradas en la nueva estructura
+            document.querySelectorAll('.servicios-tabla').forEach(tabla => {
+                // Ocultar todos los detalles de tier
+                tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
+                    detalle.style.display = 'none';
+                    detalle.classList.remove('active');
+                });
+                
+                // Mostrar solo los detalles del tier seleccionado
+                tabla.querySelectorAll(`.tier-detalle.${tier}`).forEach(detalle => {
+                    detalle.style.display = 'flex';
+                    detalle.classList.add('active');
+                    
+                    // Añadir una pequeña animación de entrada
+                    detalle.style.animation = 'none';
+                    setTimeout(() => {
+                        detalle.style.animation = 'fadeIn 0.3s ease-in-out forwards';
+                    }, 10);
+                });
+            });
+        });
+    });
+    
+    // Inicialización - mostrar solo características del tier starter por defecto
+    document.querySelectorAll('.servicios-tabla').forEach(tabla => {
+        tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
+            if (!detalle.classList.contains('starter')) {
+                detalle.style.display = 'none';
+                detalle.classList.remove('active');
+            } else {
+                detalle.style.display = 'flex';
+                detalle.classList.add('active');
+            }
+        });
+    });
+
+    // Inicializar mostrando solo la descripción del tier starter
+    document.querySelector('.tier-info.starter').classList.add('active');
+}
+
+// Selector de tiers mini en la sección proceso (si existe)
+function initTierSelectorMini() {
+    const tierOptionsMini = document.querySelectorAll('.tier-option');
+    if (!tierOptionsMini.length) return;
+    
+    tierOptionsMini.forEach(option => {
+        option.addEventListener('click', () => {
+            tierOptionsMini.forEach(o => o.classList.remove('active'));
+            option.classList.add('active');
+            
+            const tier = option.getAttribute('data-tier');
+            
+            document.querySelectorAll('.tier-mini').forEach(price => {
+                price.classList.remove('active');
+            });
+            document.querySelector(`.tier-mini.${tier}`).classList.add('active');
+        });
+    });
+}
+
+// Asegurarse de que el DOM esté cargado antes de inicializar
+document.addEventListener('DOMContentLoaded', function() {
+    initTierSelector();
+    initTierSelectorMini();
+    
+    // Asegurar que las tarjetas tengan altura similar
+    function equalizeCardHeights() {
+        // Resetear altura
+        document.querySelectorAll('.soluciones-card').forEach(card => {
+            card.style.height = 'auto';
+        });
+        
+        // Solo aplicar en desktop
+        if (window.innerWidth >= 768) {
+            let maxHeight = 0;
+            
+            // Encontrar la altura máxima
+            document.querySelectorAll('.soluciones-card').forEach(card => {
+                const height = card.offsetHeight;
+                if (height > maxHeight) {
+                    maxHeight = height;
+                }
+            });
+            
+            // Aplicar altura máxima a todas las tarjetas
+            document.querySelectorAll('.soluciones-card').forEach(card => {
+                card.style.height = `${maxHeight}px`;
+            });
+        }
+    }
+    
+    // Ejecutar al cargar y al cambiar el tamaño de la ventana
+    equalizeCardHeights();
+    window.addEventListener('resize', equalizeCardHeights);
+});
+
+    /**
      * Actualizar el precio de la oferta especial basado en los nuevos precios de los planes
      */
     function updateSpecialOffer() {
