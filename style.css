@@ -1368,11 +1368,11 @@ p {
     line-height: 1.5;
 }
 
-/* Precios por tier - REDISEÑADO */
+/* Precios por tier - POSICIONADO ANTES DEL CTA */
 .tier-prices-container {
-    margin-bottom: 25px;
-    height: 90px; /* Altura fija para evitar desplazamientos */
+    margin: 25px 0 20px;
     position: relative;
+    height: 90px; /* Altura fija para evitar desplazamientos */
 }
 
 .tier-prices {
@@ -1389,6 +1389,12 @@ p {
     align-items: center;
     box-shadow: var(--sombra-suave);
     border: 1px solid var(--gris-borde);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.servicio-precio:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-media);
 }
 
 .servicio-precio.tier-price {
@@ -1501,7 +1507,7 @@ p {
 /* Botones de servicio */
 .btn-servicio {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 0; /* Reducido porque ahora está después del precio */
     text-align: center;
     font-weight: 700;
     padding: 14px 20px;
