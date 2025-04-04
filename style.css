@@ -3596,12 +3596,17 @@ p {
 }
 
 .contacto-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    max-width: 1100px;
+    max-width: 900px;
     margin: 0 auto;
-    gap: var(--espaciado-lg);
+    background-color: var(--auditoria-verde-claro);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: var(--espaciado-lg);
+    width: 100%;
+    display: block; /* Cambiado de grid a block */
+    transition: transform var(--transicion-media);
+    border: 1px solid var(--auditoria-verde-border);
+    border-left: 5px solid var(--auditoria-verde);
 }
 
 .contacto-beneficios {
@@ -3614,6 +3619,8 @@ p {
     transition: transform var(--transicion-media);
     position: relative;
     z-index: 3;
+    max-width: 900px;
+    margin: 0 auto var(--espaciado-lg);
 }
 
 .contacto-beneficios:hover {
@@ -3683,7 +3690,52 @@ p {
     display: block;
     margin-bottom: 3px;
 }
+/* Estilos adicionales para el formulario de HubSpot */
+.hs-form-frame {
+    background-color: var(--auditoria-verde-claro) !important;
+}
 
+/* Personalizando los botones del formulario */
+.contacto-content iframe body .hs-button.primary {
+    background-color: var(--auditoria-verde) !important;
+    border-color: var(--auditoria-verde) !important;
+}
+
+.contacto-content iframe body .hs-button.primary:hover {
+    background-color: var(--auditoria-verde-hover) !important;
+}
+
+/* Personalizando los campos del formulario */
+.contacto-content iframe body .hs-input:focus {
+    border-color: var(--auditoria-verde) !important;
+    box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.2) !important;
+}
+
+/* Título del contenedor del formulario */
+.contacto-form-titulo {
+    text-align: center;
+    margin-bottom: var(--espaciado-md);
+    color: var(--auditoria-verde);
+    font-weight: 700;
+    font-size: var(--texto-lg);
+}
+
+/* Asegurando responsive adecuado */
+@media (max-width: 768px) {
+    .contacto-beneficios {
+        padding: var(--espaciado-md);
+    }
+    
+    .contacto-content {
+        padding: var(--espaciado-md);
+    }
+}
+
+@media (max-width: 576px) {
+    .beneficios-lista li {
+        padding: 10px 15px;
+    }
+}
 .contacto-garantia {
     margin-top: var(--espaciado-md);
     padding: 20px;
@@ -3761,10 +3813,19 @@ p {
         grid-template-columns: 1fr;
     }
     
-    .contacto-content {
-        grid-template-columns: 1fr;
-        max-width: 800px;
-    }
+   .contacto-content {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--auditoria-verde-claro);
+    border-radius: var(--borde-redondo-lg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: var(--espaciado-lg);
+    width: 100%;
+    display: block; /* Cambiado de grid a block */
+    transition: transform var(--transicion-media);
+    border: 1px solid var(--auditoria-verde-border);
+    border-left: 5px solid var(--auditoria-verde);
+}
     
     .calendly-inline-widget {
         max-width: 100%;
