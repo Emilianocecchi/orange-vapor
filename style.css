@@ -3560,14 +3560,13 @@ p {
 }
 
 /* ==========================================================================
-   17. SECCIÓN CONTACTO CON CALENDLY
+   SECCIÓN DE CONTACTO
    ========================================================================== */
 .contacto {
-    background-color: var(--gris-claro);
-    padding-top: var(--espaciado-xl);
-    padding-bottom: var(--espaciado-xl);
+    background-color: var(--fondo-claro);
+    padding: var(--espaciado-xl) 0;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .contacto::before {
@@ -3595,202 +3594,312 @@ p {
     background-color: var(--auditoria-verde);
 }
 
-.contacto-content {
-    max-width: 900px;
+/* Contenedor principal con grid */
+.contacto-wrapper {
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    gap: 30px;
+    max-width: 1100px;
     margin: 0 auto;
-    background-color: var(--auditoria-verde-claro);
-    border-radius: var(--borde-redondo-lg);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
-    padding: var(--espaciado-lg);
-    width: 100%;
-    display: block; /* Cambiado de grid a block */
-    transition: transform var(--transicion-media);
-    border: 1px solid var(--auditoria-verde-border);
-    border-left: 5px solid var(--auditoria-verde);
 }
 
-.contacto-beneficios {
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-lg);
+/* Estilos para el contenedor del formulario */
+.contacto-form-container {
+    background-color: white;
+    border-radius: 12px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
-    padding: var(--espaciado-lg);
-    border-left: 5px solid var(--auditoria-verde);
-    height: fit-content;
-    transition: transform var(--transicion-media);
+    padding: 0;
+    overflow: hidden;
     position: relative;
-    z-index: 3;
-    max-width: 900px;
-    margin: 0 auto var(--espaciado-lg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.contacto-beneficios:hover {
+.contacto-form-container:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-.contacto-beneficios h3 {
-    color: var(--auditoria-verde);
-    font-size: var(--texto-xl);
+.form-header {
+    background-color: var(--auditoria-verde);
+    padding: 25px 20px;
     text-align: center;
-    margin-bottom: var(--espaciado-md);
-    font-weight: 700;
+    color: white;
     position: relative;
-    padding-bottom: 12px;
 }
 
-.contacto-beneficios h3::after {
+.form-icon {
+    width: 70px;
+    height: 70px;
+    background-color: white;
+    color: var(--auditoria-verde);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.form-header h3 {
+    margin: 0 0 10px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: white;
+}
+
+.form-header p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+    color: white;
+}
+
+.hs-form-frame {
+    width: 100%;
+    min-height: 380px;
+    border: none;
+    padding: 20px;
+}
+
+.form-trust-signals {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: #f9f9f9;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.trust-item i {
+    color: var(--auditoria-verde);
+    opacity: 0.8;
+}
+
+/* Estilos para la sección de beneficios más compacta */
+.beneficios-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border-left: 3px solid var(--auditoria-verde);
+}
+
+.beneficios-titulo {
+    color: var(--auditoria-verde);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.beneficios-titulo::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
+    left: 0;
+    width: 50px;
+    height: 2px;
     background-color: var(--auditoria-verde);
-    border-radius: var(--borde-redondo-full);
 }
 
-.beneficios-lista {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--espaciado-sm);
-    margin-bottom: var(--espaciado-md);
+.beneficios-lista-compacta {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
 }
 
-.beneficios-lista li {
-    padding: 16px 20px;
+.beneficios-lista-compacta li {
     display: flex;
     align-items: flex-start;
-    background-color: var(--fondo-claro);
-    border-radius: var(--borde-redondo-md);
-    transition: all var(--transicion-media);
-    border: 1px solid transparent;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    gap: 10px;
     margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.4;
 }
 
-.beneficios-lista li:hover {
-    transform: translateY(-3px) translateX(3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    background-color: var(--blanco);
-    border-color: var(--gris-borde);
-}
-
-.beneficios-lista li i {
+.beneficios-lista-compacta li i {
     color: var(--auditoria-verde);
-    margin-right: 12px;
+    font-size: 14px;
+    min-width: 14px;
     margin-top: 3px;
-    flex-shrink: 0;
-    font-size: 18px;
 }
 
-.beneficios-lista li strong {
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    display: block;
-    margin-bottom: 3px;
-}
-/* Estilos adicionales para el formulario de HubSpot */
-.hs-form-frame {
-    background-color: var(--auditoria-verde-claro) !important;
-}
-
-/* Personalizando los botones del formulario */
-.contacto-content iframe body .hs-button.primary {
-    background-color: var(--auditoria-verde) !important;
-    border-color: var(--auditoria-verde) !important;
+.beneficios-nota {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background-color: rgba(47, 133, 90, 0.05);
+    border-radius: 8px;
+    margin-bottom: 25px;
 }
 
-.contacto-content iframe body .hs-button.primary:hover {
-    background-color: var(--auditoria-verde-hover) !important;
-}
-
-/* Personalizando los campos del formulario */
-.contacto-content iframe body .hs-input:focus {
-    border-color: var(--auditoria-verde) !important;
-    box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.2) !important;
-}
-
-/* Título del contenedor del formulario */
-.contacto-form-titulo {
-    text-align: center;
-    margin-bottom: var(--espaciado-md);
+.beneficios-nota i {
     color: var(--auditoria-verde);
-    font-weight: 700;
-    font-size: var(--texto-lg);
+    font-size: 16px;
 }
 
-/* Asegurando responsive adecuado */
-@media (max-width: 768px) {
-    .contacto-beneficios {
-        padding: var(--espaciado-md);
+.beneficios-nota p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* Mini testimonial */
+.testimonial-mini {
+    background-color: #f6f9f8;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    margin-top: 30px;
+    border: 1px solid rgba(47, 133, 90, 0.1);
+}
+
+.quote-icon {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: var(--auditoria-verde);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quote-text {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #444;
+    margin: 0 0 15px;
+    line-height: 1.5;
+}
+
+.quote-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.author-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--auditoria-verde);
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.author-business {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Estilos responsivos */
+@media (max-width: 992px) {
+    .contacto-wrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
     }
     
-    .contacto-content {
-        padding: var(--espaciado-md);
+    .beneficios-container {
+        order: 2; /* Cambia el orden para que aparezca después del formulario en móvil */
+    }
+    
+    .contacto-form-container {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-header {
+        padding: 20px 15px;
+    }
+    
+    .form-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+    
+    .form-header h3 {
+        font-size: 1.4rem;
+    }
+    
+    .form-trust-signals {
+        flex-wrap: wrap;
+        padding: 10px;
     }
 }
 
 @media (max-width: 576px) {
-    .beneficios-lista li {
-        padding: 10px 15px;
+    .hs-form-frame {
+        padding: 15px;
+    }
+    
+    .beneficios-lista-compacta li {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+    
+    .form-trust-signals {
+        justify-content: space-around;
+    }
+    
+    .trust-item span {
+        display: none;
+    }
+    
+    .trust-item i {
+        font-size: 16px;
     }
 }
-.contacto-garantia {
-    margin-top: var(--espaciado-md);
-    padding: 20px;
-    background-color: var(--auditoria-verde-bg);
-    border-radius: var(--borde-redondo-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--texto-oscuro);
-    font-weight: 600;
-    border: 1px dashed var(--auditoria-verde-border);
-    transition: background-color var(--transicion-rapida);
-    text-align: center;
-    font-size: var(--texto-md);
-    box-shadow: 0 3px 10px rgba(47, 133, 90, 0.1);
-    animation: subtle-pulse 3s infinite alternate;
-}
 
-.contacto-garantia:hover {
-    background-color: var(--auditoria-verde-claro);
-}
-
-.contacto-garantia i {
-    color: var(--auditoria-verde);
-    margin-right: 10px;
-    font-size: 18px;
-}
-
-/* Widget de Calendly */
-.calendly-inline-widget {
-    background-color: var(--blanco);
-    border-radius: var(--borde-redondo-lg);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    height: 680px;
-    min-width: 320px;
-    width: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    transform: translateZ(0);
-    border: 1px solid var(--gris-borde);
-    position: relative;
-    z-index: 2;
-}
-
-.calendly-inline-widget:hover {
-    transform: translateY(-5px) translateZ(0);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.calendly-inline-widget iframe {
+/* Añadiendo estilos específicos para la visualización del iframe de HubSpot */
+.hs-form-iframe {
     width: 100%;
     height: 100%;
     border: none;
 }
 
+/* Animación sutil para los elementos */
+@keyframes subtle-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.contacto-form-container,
+.beneficios-container {
+    animation: subtle-fade-in 0.6s ease-out forwards;
+}
+
+.beneficios-container {
+    animation-delay: 0.2s;
+}
 /* ==========================================================================
    19. RESPONSIVE
    ========================================================================== */
