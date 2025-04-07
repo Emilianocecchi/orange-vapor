@@ -1,7 +1,7 @@
 /**
  * Orange Vapor - JavaScript Optimizado y Corregido
  * Scripts centralizados para mejorar rendimiento y mantenibilidad
- * Versión: 1.1.0 - Corregido problema de carga de contenido
+ * Versión: 1.2.0 - Implementación de servicios mensuales compactos
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -30,12 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // SOLUCIÓN INMEDIATA PARA LA VISIBILIDAD
     // =========================================================================
     
-    // NUEVO: Asegurar que los elementos críticos estén visibles de inmediato
+    // FUNCIÓN: Asegurar que los elementos críticos estén visibles de inmediato
     function asegurarVisibilidadCritica() {
         // Hacer visible inmediatamente la sección de servicios y sus elementos
         const elementosCriticos = [
             '#servicios .seccion-titulo',
-            '#servicios .servicios-grid',
+            '#servicios .servicios-tabs-container',
+            '#servicios .servicios-content-container',
             '#servicios .oferta-especial',
             '#servicios .servicios-garantia',
             '#servicios .soluciones-card'
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Llamar inmediatamente para asegurar visibilidad
     asegurarVisibilidadCritica();
     
-    // NUEVO: Respaldo adicional con setTimeout
+    // Respaldo adicional con setTimeout
     setTimeout(asegurarVisibilidadCritica, 500);
     setTimeout(function() {
         // Último respaldo: hacer visible TODOS los elementos fade-in
@@ -427,14 +428,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // =========================================================================
     
     function initScrollAnimations() {
-        // NUEVO: Marcar inmediatamente los elementos críticos
+        // Marcar inmediatamente los elementos críticos
         const criticalSections = [
             '#servicios .fade-in',
             '#home .fade-in',
             '.hero-content',
             '.hero-image',
             '.seccion-titulo',
-            '.servicios-grid',
+            '.servicios-tabs-container',
+            '.servicios-content-container',
             '.oferta-especial',
             '.servicios-garantia'
         ];
@@ -447,7 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // MEJORADO: Actualizar el IntersectionObserver para ser más sensible
+        // Actualizar el IntersectionObserver para ser más sensible
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 // Considerar elementos parcialmente visibles o que están por entrar en la pantalla
@@ -475,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // =========================================================================
     
     function initMetricAnimations() {
-        // MEJORADO: Hacer visibles las métricas inmediatamente
+        // Hacer visibles las métricas inmediatamente
         document.querySelectorAll('.metric-after').forEach(metric => {
             metric.classList.add('animated');
             metric.style.opacity = '1';
@@ -517,382 +519,189 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =========================================================================
-    // SERVICIOS MENSUALES - ANIMACIONES CORREGIDAS
+    // INICIALIZACIÓN DEL SELECTOR DE TIERS Y SERVICIOS
     // =========================================================================
     
-    function initServiciosMensuales() {
-        // CORREGIDO: Hacer visibles inmediatamente todos los elementos de servicios
-        document.querySelectorAll('.servicios-grid .soluciones-card').forEach(card => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-            card.classList.add('visible');
-        });
+    /**
+     * Función para inicializar la interacción con los tiers de servicio
+     * @returns {void}
+     */
+    function initTierSelector() {
+        // Selector de tiers en la sección principal
+        const tierTabs = document.querySelectorAll('.tier-tab');
         
-        document.querySelectorAll('.oferta-especial, .servicios-garantia').forEach(el => {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-            el.classList.add('visible');
-        });
-        
-        console.log('Elementos de servicios mensuales hechos visibles');
-        
-        // Mantener el efecto hover en las tarjetas
-        const servicioCards = document.querySelectorAll('.soluciones-card');
-        servicioCards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                const button = this.querySelector('.btn-servicio');
-                if (button) {
-                    button.style.transform = 'translateY(-5px)';
-                    button.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
-                }
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                const button = this.querySelector('.btn-servicio');
-                if (button) {
-                    button.style.transform = '';
-                    button.style.boxShadow = '';
-                }
-            });
-        });
-    }
-    
-    // =========================================================================
-    // EXPRESS BOX - ANIMACIONES CORREGIDAS
-    // =========================================================================
-    
-    function initExpressBox() {
-        const expressBox = document.querySelector('.express-box-container');
-        if (!expressBox) return;
-        
-        // CORREGIDO: Hacer visible inmediatamente
-        expressBox.classList.add('visible');
-        
-        const expressBoxItems = document.querySelectorAll('.express-box-list li');
-        expressBoxItems.forEach(item => {
-            item.style.opacity = '1';
-            item.style.transform = 'translateX(0)';
-        });
-        
-        // Mantener interactividad al hover
-        expressBoxItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = 'rgba(255, 126, 0, 0.05)';
-                this.style.borderRadius = '8px';
-                this.style.padding = '8px';
-                this.style.marginLeft = '-8px';
-                this.style.marginRight = '-8px';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.backgroundColor = '';
-                this.style.padding = '';
-                this.style.marginLeft = '';
-                this.style.marginRight = '';
-            });
-        });
-    }
-    
-    // =========================================================================
-    // NAVEGACIÓN DE SERVICE PILLS - SECCIÓN HERO
-    // =========================================================================
-    
-    function initServicePills() {
-        const servicePills = document.querySelectorAll('.service-pill');
-        
-        servicePills.forEach(pill => {
-            pill.addEventListener('click', function() {
-                // Determinar qué sección debe mostrarse basado en la clase del pill
-                let targetSection = '#servicios';
+        tierTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Desactivar todos los tabs
+                tierTabs.forEach(t => t.classList.remove('active'));
                 
-                if (this.classList.contains('express-pill')) {
-                    targetSection = '#optimizacion-express';
-                }
+                // Activar el tab seleccionado
+                tab.classList.add('active');
                 
-                // Scroll a la sección correspondiente
-                const section = document.querySelector(targetSection);
-                if (section) {
-                    window.scrollTo({
-                        top: section.offsetTop - 80,
-                        behavior: 'smooth'
+                // Obtener el tier seleccionado (starter, pro, elite)
+                const tier = tab.getAttribute('data-tier');
+                
+                // Actualizar la descripción del tier
+                document.querySelectorAll('.tier-info').forEach(info => {
+                    info.classList.remove('active');
+                    if (info.classList.contains(tier)) {
+                        info.classList.add('active');
+                    }
+                });
+                
+                // Actualizar los precios mostrados
+                document.querySelectorAll('.tier-price').forEach(price => {
+                    price.classList.remove('active');
+                });
+                document.querySelectorAll(`.tier-price.${tier}`).forEach(price => {
+                    price.classList.add('active');
+                });
+                
+                // Actualizar las características mostradas en la nueva estructura
+                document.querySelectorAll('.servicios-tabla, .servicios-tabla-compacta').forEach(tabla => {
+                    // Ocultar todos los detalles de tier
+                    tabla.querySelectorAll('.tier-detalle, .tier-detalle-compacto').forEach(detalle => {
+                        detalle.style.display = 'none';
+                        detalle.classList.remove('active');
                     });
                     
-                    // Destacar brevemente la tarjeta correspondiente en la sección de servicios
-                    if (targetSection === '#servicios') {
-                        let serviceCard = null;
+                    // Mostrar solo los detalles del tier seleccionado
+                    tabla.querySelectorAll(`.tier-detalle.${tier}, .tier-detalle-compacto.${tier}`).forEach(detalle => {
+                        detalle.style.display = 'flex';
+                        detalle.classList.add('active');
                         
-                        if (this.classList.contains('ads-pill')) {
-                            serviceCard = document.querySelector('.soluciones-card.ads');
-                        } else if (this.classList.contains('email-pill')) {
-                            serviceCard = document.querySelector('.soluciones-card.email');
-                        } else if (this.classList.contains('chatbot-pill')) {
-                            serviceCard = document.querySelector('.soluciones-card.chatbot');
-                        }
-                        
-                        if (serviceCard) {
-                            serviceCard.style.transform = 'scale(1.05)';
-                            serviceCard.style.boxShadow = 'var(--sombra-fuerte)';
-                            setTimeout(() => {
-                                serviceCard.style.transform = '';
-                                serviceCard.style.boxShadow = '';
-                            }, 2000);
-                        }
-                    }
+                        // Añadir una pequeña animación de entrada
+                        detalle.style.animation = 'none';
+                        setTimeout(() => {
+                            detalle.style.animation = 'fadeIn 0.3s ease-in-out forwards';
+                        }, 10);
+                    });
+                });
+
+                // Actualizar tabs de servicios para el nuevo diseño compacto
+                document.querySelectorAll('.servicio-tab').forEach(serviceTab => {
+                    serviceTab.classList.remove('active');
+                });
+                document.querySelector('.servicio-tab[data-servicio="meta"]').classList.add('active');
+                
+                // Mostrar solo el primer servicio al cambiar de tier
+                document.querySelectorAll('.servicio-content-wrapper').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.querySelector('.servicio-content-wrapper[data-servicio="meta"]').classList.add('active');
+            });
+        });
+        
+        // Inicialización - mostrar solo características del tier starter por defecto
+        document.querySelectorAll('.servicios-tabla, .servicios-tabla-compacta').forEach(tabla => {
+            tabla.querySelectorAll('.tier-detalle, .tier-detalle-compacto').forEach(detalle => {
+                if (!detalle.classList.contains('starter')) {
+                    detalle.style.display = 'none';
+                    detalle.classList.remove('active');
+                } else {
+                    detalle.style.display = 'flex';
+                    detalle.classList.add('active');
+                }
+            });
+        });
+
+        // Inicializar mostrando solo la descripción del tier starter
+        document.querySelector('.tier-info.starter').classList.add('active');
+        
+        // Inicializar tabs de servicios para el diseño compacto
+        initServiceTabs();
+        
+        // Inicializar tooltips
+        initTooltips();
+    }
+
+    // Función para inicializar tabs de servicios para el diseño compacto
+    function initServiceTabs() {
+        const serviceTabs = document.querySelectorAll('.servicio-tab');
+        
+        serviceTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Desactivar todos los tabs
+                serviceTabs.forEach(t => t.classList.remove('active'));
+                
+                // Activar el tab seleccionado
+                tab.classList.add('active');
+                
+                // Obtener el servicio seleccionado
+                const servicio = tab.getAttribute('data-servicio');
+                
+                // Mostrar solo el contenido del servicio seleccionado
+                document.querySelectorAll('.servicio-content-wrapper').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.querySelector(`.servicio-content-wrapper[data-servicio="${servicio}"]`).classList.add('active');
+            });
+        });
+        
+        // Inicializar mostrando el primer servicio
+        if (document.querySelector('.servicio-tab[data-servicio="meta"]')) {
+            document.querySelector('.servicio-tab[data-servicio="meta"]').classList.add('active');
+            document.querySelector('.servicio-content-wrapper[data-servicio="meta"]')?.classList.add('active');
+        }
+    }
+
+    // Selector de tiers mini en la sección proceso (si existe)
+    function initTierSelectorMini() {
+        const tierOptionsMini = document.querySelectorAll('.tier-option');
+        if (!tierOptionsMini.length) return;
+        
+        tierOptionsMini.forEach(option => {
+            option.addEventListener('click', () => {
+                tierOptionsMini.forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+                
+                const tier = option.getAttribute('data-tier');
+                
+                document.querySelectorAll('.tier-mini').forEach(price => {
+                    price.classList.remove('active');
+                });
+                document.querySelector(`.tier-mini.${tier}`).classList.add('active');
+            });
+        });
+    }
+    
+    // Inicializar tooltips para características
+    function initTooltips() {
+        const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+        
+        tooltipTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => {
+                const tooltip = trigger.querySelector('.tooltip');
+                if (tooltip) {
+                    tooltip.classList.add('visible');
+                }
+            });
+            
+            trigger.addEventListener('mouseleave', () => {
+                const tooltip = trigger.querySelector('.tooltip');
+                if (tooltip) {
+                    tooltip.classList.remove('visible');
                 }
             });
         });
     }
-
-    // =========================================================================
-    // INICIALIZACIÓN DEL SELECTOR DE TIERS
-    // =========================================================================
     
- /**
- * Función para inicializar la interacción con los tiers de servicio
- * @returns {void}
- */
-function initTierSelector() {
-    // Selector de tiers en la sección principal
-    const tierTabs = document.querySelectorAll('.tier-tab');
-    
-    tierTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Desactivar todos los tabs
-            tierTabs.forEach(t => t.classList.remove('active'));
-            
-            // Activar el tab seleccionado
-            tab.classList.add('active');
-            
-            // Obtener el tier seleccionado (starter, pro, elite)
-            const tier = tab.getAttribute('data-tier');
-            
-            // Actualizar la descripción del tier
-            document.querySelectorAll('.tier-info').forEach(info => {
-                info.classList.remove('active');
-                if (info.classList.contains(tier)) {
-                    info.classList.add('active');
-                }
-            });
-            
-            // Actualizar los precios mostrados
-            document.querySelectorAll('.tier-price').forEach(price => {
-                price.classList.remove('active');
-            });
-            document.querySelectorAll(`.tier-price.${tier}`).forEach(price => {
-                price.classList.add('active');
-            });
-            
-            // Actualizar las características mostradas en la nueva estructura
-            document.querySelectorAll('.servicios-tabla').forEach(tabla => {
-                // Ocultar todos los detalles de tier
-                tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
-                    detalle.style.display = 'none';
-                    detalle.classList.remove('active');
-                });
-                
-                // Mostrar solo los detalles del tier seleccionado
-                tabla.querySelectorAll(`.tier-detalle.${tier}`).forEach(detalle => {
-                    detalle.style.display = 'flex';
-                    detalle.classList.add('active');
-                    
-                    // Añadir una pequeña animación de entrada
-                    detalle.style.animation = 'none';
-                    setTimeout(() => {
-                        detalle.style.animation = 'fadeIn 0.3s ease-in-out forwards';
-                    }, 10);
-                });
-            });
-
-            // Actualizar tabs de servicios para el nuevo diseño compacto
-            document.querySelectorAll('.servicio-tab').forEach(serviceTab => {
-                serviceTab.classList.remove('active');
-            });
-            document.querySelector('.servicio-tab[data-servicio="meta"]').classList.add('active');
-            
-            // Mostrar solo el primer servicio al cambiar de tier
-            document.querySelectorAll('.servicio-content-wrapper').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.querySelector('.servicio-content-wrapper[data-servicio="meta"]').classList.add('active');
-        });
-    });
-    
-    // Inicialización - mostrar solo características del tier starter por defecto
-    document.querySelectorAll('.servicios-tabla').forEach(tabla => {
-        tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
-            if (!detalle.classList.contains('starter')) {
-                detalle.style.display = 'none';
-                detalle.classList.remove('active');
-            } else {
-                detalle.style.display = 'flex';
-                detalle.classList.add('active');
-            }
-        });
-    });
-
-    // Inicializar mostrando solo la descripción del tier starter
-    document.querySelector('.tier-info.starter').classList.add('active');
-    
-    // NUEVO: Inicializar tabs de servicios para el diseño compacto
-    initServiceTabs();
-}
-
-// NUEVA FUNCIÓN: Inicializar tabs de servicios para el diseño compacto
-function initServiceTabs() {
-    const serviceTabs = document.querySelectorAll('.servicio-tab');
-    
-    serviceTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Desactivar todos los tabs
-            serviceTabs.forEach(t => t.classList.remove('active'));
-            
-            // Activar el tab seleccionado
-            tab.classList.add('active');
-            
-            // Obtener el servicio seleccionado
-            const servicio = tab.getAttribute('data-servicio');
-            
-            // Mostrar solo el contenido del servicio seleccionado
-            document.querySelectorAll('.servicio-content-wrapper').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.querySelector(`.servicio-content-wrapper[data-servicio="${servicio}"]`).classList.add('active');
-        });
-    });
-    
-    // Inicializar mostrando el primer servicio
-    document.querySelector('.servicio-tab[data-servicio="meta"]').classList.add('active');
-    document.querySelector('.servicio-content-wrapper[data-servicio="meta"]').classList.add('active');
-}
-
-// Selector de tiers mini en la sección proceso (si existe)
-function initTierSelectorMini() {
-    const tierOptionsMini = document.querySelectorAll('.tier-option');
-    if (!tierOptionsMini.length) return;
-    
-    tierOptionsMini.forEach(option => {
-        option.addEventListener('click', () => {
-            tierOptionsMini.forEach(o => o.classList.remove('active'));
-            option.classList.add('active');
-            
-            const tier = option.getAttribute('data-tier');
-            
-            document.querySelectorAll('.tier-mini').forEach(price => {
-                price.classList.remove('active');
-            });
-            document.querySelector(`.tier-mini.${tier}`).classList.add('active');
-        });
-    });
-}
-
-// Asegurarse de que el DOM esté cargado antes de inicializar
-document.addEventListener('DOMContentLoaded', function() {
-    initTierSelector();
-    initTierSelectorMini();
-    
-    // Asegurar que las tarjetas tengan altura similar
-    function equalizeCardHeights() {
-        // Resetear altura
-        document.querySelectorAll('.soluciones-card').forEach(card => {
-            card.style.height = 'auto';
-        });
+    /**
+     * Actualizar el precio de la oferta especial basado en los nuevos precios de los planes
+     */
+    function updateSpecialOffer() {
+        // El nuevo precio paquete es 4 servicios Elite a $999 con descuento
+        const regularPrice = 299 * 4; // $1,196
+        const discountedPrice = 1000; // Precio con descuento
+        const savings = regularPrice - discountedPrice;
         
-        // Solo aplicar en desktop
-        if (window.innerWidth >= 768) {
-            let maxHeight = 0;
-            
-            // Encontrar la altura máxima
-            document.querySelectorAll('.soluciones-card').forEach(card => {
-                const height = card.offsetHeight;
-                if (height > maxHeight) {
-                    maxHeight = height;
-                }
-            });
-            
-            // Aplicar altura máxima a todas las tarjetas
-            document.querySelectorAll('.soluciones-card').forEach(card => {
-                card.style.height = `${maxHeight}px`;
-            });
+        // Actualizar texto de ahorro si existe el elemento
+        const ofertaEspecial = document.querySelector('.oferta-especial h3');
+        if (ofertaEspecial) {
+            ofertaEspecial.innerHTML = `¡Ahorrá $${savings}/mes! Contratá los 4 servicios por solo <span class="precio-destacado">US$${discountedPrice}/mes</span> (valor real $${regularPrice})`;
         }
     }
     
-    // Ejecutar al cargar y al cambiar el tamaño de la ventana
-    equalizeCardHeights();
-    window.addEventListener('resize', equalizeCardHeights);
-
-    // Inicializar tooltips (si existen)
-    if (typeof initTooltips === 'function') {
-        initTooltips();
-    }
-});
-
-/**
- * Actualizar el precio de la oferta especial basado en los nuevos precios de los planes
- */
-function updateSpecialOffer() {
-    // El nuevo precio paquete es 4 servicios Elite a $999 con descuento
-    const regularPrice = 299 * 4; // $1,196
-    const discountedPrice = 1000; // Precio con descuento
-    const savings = regularPrice - discountedPrice;
-    
-    // Actualizar texto de ahorro si existe el elemento
-    const ofertaEspecial = document.querySelector('.oferta-especial h3');
-    if (ofertaEspecial) {
-        ofertaEspecial.innerHTML = `¡Ahorrá $${savings}/mes! Contratá los 4 servicios por solo <span class="precio-destacado">US$${discountedPrice}/mes</span> (valor real $${regularPrice})`;
-    }
-}
-
-// NUEVA FUNCIÓN: Inicializar tooltips para características
-function initTooltips() {
-    const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
-    
-    tooltipTriggers.forEach(trigger => {
-        trigger.addEventListener('mouseenter', () => {
-            const tooltip = trigger.querySelector('.tooltip');
-            if (tooltip) {
-                tooltip.classList.add('visible');
-            }
-        });
-        
-        trigger.addEventListener('mouseleave', () => {
-            const tooltip = trigger.querySelector('.tooltip');
-            if (tooltip) {
-                tooltip.classList.remove('visible');
-            }
-        });
-    });
-}
-
-// Asegurar visibilidad de secciones críticas
-function asegurarVisibilidadCritica() {
-    // Hacer visible inmediatamente la sección de servicios y sus elementos
-    const elementosCriticos = [
-        '#servicios .seccion-titulo',
-        '#servicios .servicios-tabs-container',
-        '#servicios .servicios-content-container',
-        '#servicios .oferta-especial',
-        '#servicios .servicios-garantia'
-    ];
-    
-    elementosCriticos.forEach(selector => {
-        const elementos = document.querySelectorAll(selector);
-        elementos.forEach(elemento => {
-            // Añadir clase visible y forzar estilos
-            elemento.classList.add('visible');
-            elemento.style.opacity = '1';
-            elemento.style.transform = 'translateY(0)';
-            elemento.style.visibility = 'visible';
-        });
-    });
-    
-    // Elementos específicos dentro de la sección
-    document.querySelectorAll('#servicios .fade-in').forEach(elemento => {
-        elemento.classList.add('visible');
-    });
-}
-
-// Ejecutar las funciones críticas inmediatamente
-asegurarVisibilidadCritica();
     // =========================================================================
     // OPTIMIZACIÓN MOBILE
     // =========================================================================
@@ -960,16 +769,13 @@ asegurarVisibilidadCritica();
     // INICIALIZACIÓN PRINCIPAL
     // =========================================================================
     
-    // NUEVO: Remover clase preload inmediatamente
+    // Remover clase preload inmediatamente
     document.body.classList.remove('preload');
     
     // Inicializar componentes de la interfaz
     initNavbar();
     initScrollAnimations();
     initMetricAnimations();
-    initServiciosMensuales();
-    initExpressBox();
-    initServicePills();
     initTierSelector();
     initTierSelectorMini();
     updateSpecialOffer();
@@ -1015,19 +821,24 @@ asegurarVisibilidadCritica();
     window.OrangeVaporApp = {
         updateHeaderState,
         closeMobileMenu,
-        asegurarVisibilidadCritica // NUEVO: Exponer función para uso externo
+        asegurarVisibilidadCritica,
+        initTierSelector,
+        initServiceTabs,
+        initTooltips
     };
 });
 
 // JavaScript para controlar el comportamiento del navbar al hacer scroll
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.getElementById('header');
-    const navbarHeight = header.offsetHeight;
+    const navbarHeight = header ? header.offsetHeight : 0;
     
     // Función que se ejecuta al hacer scroll
     const handleScroll = () => {
         // Obtener la posición actual del scroll
         const scrollPosition = window.scrollY;
+        
+        if (!header) return;
         
         // Si hemos bajado más que la altura del navbar, hacerlo sticky
         if (scrollPosition > navbarHeight) {
