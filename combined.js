@@ -647,92 +647,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // INICIALIZACIÓN DEL SELECTOR DE TIERS
     // =========================================================================
     
-    /**
-     * Función para inicializar la interacción con los tiers de servicio
-     */
-    function initTierSelector() {
-    // Selector de tiers en la sección principal
-    const tierTabs = document.querySelectorAll('.tier-tab');
-    
-    tierTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Desactivar todos los tabs
-            tierTabs.forEach(t => t.classList.remove('active'));
-            
-            // Activar el tab seleccionado
-            tab.classList.add('active');
-            
-            // Obtener el tier seleccionado (starter, pro, elite)
-            const tier = tab.getAttribute('data-tier');
-            
-            // Actualizar la descripción del tier
-            document.querySelectorAll('.tier-info').forEach(info => {
-                info.classList.remove('active');
-                if (info.classList.contains(tier)) {
-                    info.classList.add('active');
-                }
-            });
-            
-            // Actualizar los precios mostrados
-            document.querySelectorAll('.tier-price').forEach(price => {
-                price.classList.remove('active');
-            });
-            document.querySelectorAll(`.tier-price.${tier}`).forEach(price => {
-                price.classList.add('active');
-            });
-            
-            // Actualizar las características mostradas en la nueva estructura
-            document.querySelectorAll('.servicios-tabla').forEach(tabla => {
-                // Ocultar todos los detalles de tier
-                tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
-                    detalle.style.display = 'none';
-                });
-                
-                // Mostrar solo los detalles del tier seleccionado
-                tabla.querySelectorAll(`.tier-detalle.${tier}`).forEach(detalle => {
-                    detalle.style.display = 'flex';
-                });
-            });
-        });
-    });
-    
-    // Inicialización - mostrar solo características del tier starter (antes llamado basic)
-    document.querySelectorAll('.servicios-tabla').forEach(tabla => {
-        tabla.querySelectorAll('.tier-detalle').forEach(detalle => {
-            if (!detalle.classList.contains('starter')) {
-                detalle.style.display = 'none';
-            } else {
-                detalle.style.display = 'flex';
-            }
-        });
-    });
-
-    // Inicializar mostrando solo la descripción del tier starter
-    document.querySelector('.tier-info.starter').classList.add('active');
-}
-
-    // Selector de tiers mini en la sección proceso (si existe)
-    function initTierSelectorMini() {
-        const tierOptionsMini = document.querySelectorAll('.tier-option');
-        if (!tierOptionsMini.length) return;
-        
-        tierOptionsMini.forEach(option => {
-            option.addEventListener('click', () => {
-                tierOptionsMini.forEach(o => o.classList.remove('active'));
-                option.classList.add('active');
-                
-                const tier = option.getAttribute('data-tier');
-                
-                document.querySelectorAll('.tier-mini').forEach(price => {
-                    price.classList.remove('active');
-                });
-                document.querySelector(`.tier-mini.${tier}`).classList.add('active');
-            });
-        });
-    }
-
-    /**
+ /**
  * Función para inicializar la interacción con los tiers de servicio
+ * @returns {void}
  */
 function initTierSelector() {
     // Selector de tiers en la sección principal
@@ -785,6 +702,18 @@ function initTierSelector() {
                     }, 10);
                 });
             });
+
+            // Actualizar tabs de servicios para el nuevo diseño compacto
+            document.querySelectorAll('.servicio-tab').forEach(serviceTab => {
+                serviceTab.classList.remove('active');
+            });
+            document.querySelector('.servicio-tab[data-servicio="meta"]').classList.add('active');
+            
+            // Mostrar solo el primer servicio al cambiar de tier
+            document.querySelectorAll('.servicio-content-wrapper').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelector('.servicio-content-wrapper[data-servicio="meta"]').classList.add('active');
         });
     });
     
@@ -803,6 +732,37 @@ function initTierSelector() {
 
     // Inicializar mostrando solo la descripción del tier starter
     document.querySelector('.tier-info.starter').classList.add('active');
+    
+    // NUEVO: Inicializar tabs de servicios para el diseño compacto
+    initServiceTabs();
+}
+
+// NUEVA FUNCIÓN: Inicializar tabs de servicios para el diseño compacto
+function initServiceTabs() {
+    const serviceTabs = document.querySelectorAll('.servicio-tab');
+    
+    serviceTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Desactivar todos los tabs
+            serviceTabs.forEach(t => t.classList.remove('active'));
+            
+            // Activar el tab seleccionado
+            tab.classList.add('active');
+            
+            // Obtener el servicio seleccionado
+            const servicio = tab.getAttribute('data-servicio');
+            
+            // Mostrar solo el contenido del servicio seleccionado
+            document.querySelectorAll('.servicio-content-wrapper').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelector(`.servicio-content-wrapper[data-servicio="${servicio}"]`).classList.add('active');
+        });
+    });
+    
+    // Inicializar mostrando el primer servicio
+    document.querySelector('.servicio-tab[data-servicio="meta"]').classList.add('active');
+    document.querySelector('.servicio-content-wrapper[data-servicio="meta"]').classList.add('active');
 }
 
 // Selector de tiers mini en la sección proceso (si existe)
@@ -859,24 +819,80 @@ document.addEventListener('DOMContentLoaded', function() {
     // Ejecutar al cargar y al cambiar el tamaño de la ventana
     equalizeCardHeights();
     window.addEventListener('resize', equalizeCardHeights);
+
+    // Inicializar tooltips (si existen)
+    if (typeof initTooltips === 'function') {
+        initTooltips();
+    }
 });
 
-    /**
-     * Actualizar el precio de la oferta especial basado en los nuevos precios de los planes
-     */
-    function updateSpecialOffer() {
-        // El nuevo precio paquete es 4 servicios Elite a $999 con descuento
-        const regularPrice = 299 * 4; // $1,196
-        const discountedPrice = 1000; // Precio con descuento
-        const savings = regularPrice - discountedPrice;
-        
-        // Actualizar texto de ahorro si existe el elemento
-        const ofertaEspecial = document.querySelector('.oferta-especial h3');
-        if (ofertaEspecial) {
-            ofertaEspecial.innerHTML = `¡Ahorrá $${savings}/mes! Contratá los 4 servicios por solo <span class="precio-destacado">US$${discountedPrice}/mes</span> (valor real $${regularPrice})`;
-        }
-    }
+/**
+ * Actualizar el precio de la oferta especial basado en los nuevos precios de los planes
+ */
+function updateSpecialOffer() {
+    // El nuevo precio paquete es 4 servicios Elite a $999 con descuento
+    const regularPrice = 299 * 4; // $1,196
+    const discountedPrice = 1000; // Precio con descuento
+    const savings = regularPrice - discountedPrice;
     
+    // Actualizar texto de ahorro si existe el elemento
+    const ofertaEspecial = document.querySelector('.oferta-especial h3');
+    if (ofertaEspecial) {
+        ofertaEspecial.innerHTML = `¡Ahorrá $${savings}/mes! Contratá los 4 servicios por solo <span class="precio-destacado">US$${discountedPrice}/mes</span> (valor real $${regularPrice})`;
+    }
+}
+
+// NUEVA FUNCIÓN: Inicializar tooltips para características
+function initTooltips() {
+    const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+    
+    tooltipTriggers.forEach(trigger => {
+        trigger.addEventListener('mouseenter', () => {
+            const tooltip = trigger.querySelector('.tooltip');
+            if (tooltip) {
+                tooltip.classList.add('visible');
+            }
+        });
+        
+        trigger.addEventListener('mouseleave', () => {
+            const tooltip = trigger.querySelector('.tooltip');
+            if (tooltip) {
+                tooltip.classList.remove('visible');
+            }
+        });
+    });
+}
+
+// Asegurar visibilidad de secciones críticas
+function asegurarVisibilidadCritica() {
+    // Hacer visible inmediatamente la sección de servicios y sus elementos
+    const elementosCriticos = [
+        '#servicios .seccion-titulo',
+        '#servicios .servicios-tabs-container',
+        '#servicios .servicios-content-container',
+        '#servicios .oferta-especial',
+        '#servicios .servicios-garantia'
+    ];
+    
+    elementosCriticos.forEach(selector => {
+        const elementos = document.querySelectorAll(selector);
+        elementos.forEach(elemento => {
+            // Añadir clase visible y forzar estilos
+            elemento.classList.add('visible');
+            elemento.style.opacity = '1';
+            elemento.style.transform = 'translateY(0)';
+            elemento.style.visibility = 'visible';
+        });
+    });
+    
+    // Elementos específicos dentro de la sección
+    document.querySelectorAll('#servicios .fade-in').forEach(elemento => {
+        elemento.classList.add('visible');
+    });
+}
+
+// Ejecutar las funciones críticas inmediatamente
+asegurarVisibilidadCritica();
     // =========================================================================
     // OPTIMIZACIÓN MOBILE
     // =========================================================================
