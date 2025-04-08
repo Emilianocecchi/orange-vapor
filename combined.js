@@ -83,7 +83,166 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         console.log('Todos los elementos fade-in asegurados como visibles');
     }, 2000);
+    // Script para contador regresivo y funcionalidad de tabs
+document.addEventListener('DOMContentLoaded', function() {
+    // Función para inicializar el contador
+    function initCountdown() {
+        // Valores iniciales
+        let days = 14;
+        let hours = 22;
+        let minutes = 59;
+        let seconds = 59;
+        
+        // Referencias a los elementos del DOM
+        const daysElement = document.querySelector('.countdown-item:nth-child(1) .countdown-number');
+        const hoursElement = document.querySelector('.countdown-item:nth-child(2) .countdown-number');
+        const minutesElement = document.querySelector('.countdown-item:nth-child(3) .countdown-number');
+        const secondsElement = document.querySelector('.countdown-item:nth-child(4) .countdown-number');
+        
+        // Verificar si se encontraron los elementos
+        if (!daysElement || !hoursElement || !minutesElement || !secondsElement) {
+            console.error('No se encontraron todos los elementos del contador');
+            return;
+        }
+        
+        // Actualizar los valores iniciales en el DOM
+        daysElement.textContent = days;
+        hoursElement.textContent = hours;
+        minutesElement.textContent = minutes;
+        secondsElement.textContent = seconds;
+        
+        // Función para actualizar el contador
+        function updateCountdown() {
+            // Disminuir los segundos
+            seconds--;
+            
+            // Ajustar minutos, horas y días si es necesario
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+                
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                    
+                    if (hours < 0) {
+                        hours = 23;
+                        days--;
+                        
+                        if (days < 0) {
+                            // Reiniciar el contador cuando llegue a cero
+                            days = 14;
+                            hours = 22;
+                            minutes = 59;
+                            seconds = 59;
+                        }
+                    }
+                }
+            }
+            
+            // Actualizar los valores en el DOM
+            daysElement.textContent = days;
+            hoursElement.textContent = hours;
+            minutesElement.textContent = minutes < 10 ? '0' + minutes : minutes;
+            secondsElement.textContent = seconds < 10 ? '0' + seconds : seconds;
+        }
+        
+        // Actualizar el contador cada segundo
+        setInterval(updateCountdown, 1000);
+    }
     
+    // Inicializar el contador cuando el DOM esté cargado
+    initCountdown();
+    
+    // Seleccionar todas las pestañas de servicios
+    const servicioTabs = document.querySelectorAll('.servicio-tab');
+    const servicioContents = document.querySelectorAll('.servicio-content-wrapper');
+    
+    // Añadir evento click a cada pestaña
+    servicioTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Obtener el servicio seleccionado
+            const servicio = this.getAttribute('data-servicio');
+            
+            // Remover clase 'active' de todas las pestañas
+            servicioTabs.forEach(t => t.classList.remove('active'));
+            
+            // Añadir clase 'active' a la pestaña seleccionada
+            this.classList.add('active');
+            
+            // Remover clase 'active' de todos los contenidos
+            servicioContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Añadir clase 'active' al contenido correspondiente
+            document.querySelector(`.servicio-content-wrapper[data-servicio="${servicio}"]`).classList.add('active');
+        });
+    });
+    
+    // Seleccionar todas las pestañas de tiers
+    const tierTabs = document.querySelectorAll('.tier-tab');
+    const tierInfos = document.querySelectorAll('.tier-info');
+    const tierPrices = document.querySelectorAll('.precio-compacto');
+    const tierDetalles = document.querySelectorAll('.tier-detalle-compacto');
+    
+    // Añadir evento click a cada pestaña de tier
+    tierTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Obtener el tier seleccionado
+            const tier = this.getAttribute('data-tier');
+            
+            // Remover clase 'active' de todas las pestañas
+            tierTabs.forEach(t => t.classList.remove('active'));
+            
+            // Añadir clase 'active' a la pestaña seleccionada
+            this.classList.add('active');
+            
+            // Remover clase 'active' de todas las descripciones
+            tierInfos.forEach(info => {
+                info.classList.remove('active');
+            });
+            
+            // Añadir clase 'active' a la descripción correspondiente
+            document.querySelector(`.tier-info.${tier}`).classList.add('active');
+            
+            // Remover clase 'active' de todos los precios
+            tierPrices.forEach(price => {
+                price.classList.remove('active');
+            });
+            
+            // Añadir clase 'active' a los precios correspondientes
+            document.querySelectorAll(`.precio-compacto.tier-price.${tier}`).forEach(price => {
+                price.classList.add('active');
+            });
+            
+            // Remover clase 'active' de todos los detalles
+            tierDetalles.forEach(detalle => {
+                detalle.classList.remove('active');
+            });
+            
+            // Añadir clase 'active' a los detalles correspondientes
+            document.querySelectorAll(`.tier-detalle-compacto.${tier}`).forEach(detalle => {
+                detalle.classList.add('active');
+            });
+        });
+    });
+
+    // Tooltips
+    const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+    
+    tooltipTriggers.forEach(trigger => {
+        const tooltip = trigger.querySelector('.tooltip');
+        
+        trigger.addEventListener('mouseenter', () => {
+            tooltip.classList.add('visible');
+        });
+        
+        trigger.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('visible');
+        });
+    });
+});
     // =========================================================================
     // NAVEGACIÓN Y NAVBAR - INICIALIZACIÓN
     // =========================================================================
