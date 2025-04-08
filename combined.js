@@ -1,7 +1,7 @@
 /**
  * Orange Vapor - JavaScript Optimizado y Corregido
  * Scripts centralizados para mejorar rendimiento y mantenibilidad
- * Versión: 1.2.0 - Implementación de servicios mensuales compactos
+ * Versión: 2.0.0 - Implementación mejorada con código optimizado
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -27,45 +27,75 @@ document.addEventListener('DOMContentLoaded', function() {
     let replaceStateCount = 0;
     
     // =========================================================================
+    // UTILIDADES Y FUNCIONES AUXILIARES
+    // =========================================================================
+    
+    /**
+     * Selecciona elementos del DOM y ejecuta una función para cada uno
+     * @param {string} selector - Selector CSS
+     * @param {Function} fn - Función a ejecutar para cada elemento
+     * @param {HTMLElement} [parent=document] - Elemento padre donde buscar
+     */
+    const forEachElement = (selector, fn, parent = document) => {
+        const elements = parent.querySelectorAll(selector);
+        if (elements.length > 0) {
+            elements.forEach(fn);
+            return true;
+        }
+        return false;
+    };
+    
+    /**
+     * Añade un evento a múltiples elementos
+     * @param {string} selector - Selector CSS
+     * @param {string} event - Nombre del evento
+     * @param {Function} handler - Función manejadora del evento
+     * @param {HTMLElement} [parent=document] - Elemento padre donde buscar
+     */
+    const addEventToElements = (selector, event, handler, parent = document) => {
+        forEachElement(selector, element => {
+            element.addEventListener(event, handler);
+        }, parent);
+    };
+    
+    /**
+     * Comprueba si un elemento existe en el DOM
+     * @param {string} selector - Selector CSS
+     * @returns {boolean} - True si existe, false en caso contrario
+     */
+    const elementExists = selector => document.querySelector(selector) !== null;
+    
+    // =========================================================================
     // SOLUCIÓN INMEDIATA PARA LA VISIBILIDAD
     // =========================================================================
     
-    // FUNCIÓN: Asegurar que los elementos críticos estén visibles de inmediato
+    /**
+     * Asegura que los elementos críticos estén visibles de inmediato
+     */
     function asegurarVisibilidadCritica() {
-        // Hacer visible inmediatamente la sección de servicios y sus elementos
         const elementosCriticos = [
             '#servicios .seccion-titulo',
             '#servicios .servicios-tabs-container',
             '#servicios .servicios-content-container',
             '#servicios .oferta-especial',
             '#servicios .servicios-garantia',
-            '#servicios .soluciones-card'
+            '#servicios .soluciones-card',
+            '#servicios .fade-in',
+            '#home .fade-in',
+            '#optimizacion-express .fade-in',
+            '.servicios-tabla-modern .fade-in',
+            '.hero-content',
+            '.hero-image'
         ];
         
         elementosCriticos.forEach(selector => {
-            const elementos = document.querySelectorAll(selector);
-            elementos.forEach(elemento => {
+            forEachElement(selector, elemento => {
                 // Añadir clase visible y forzar estilos
                 elemento.classList.add('visible');
                 elemento.style.opacity = '1';
                 elemento.style.transform = 'translateY(0)';
                 elemento.style.visibility = 'visible';
             });
-        });
-        
-        // Elementos específicos dentro de la sección
-        document.querySelectorAll('#servicios .fade-in').forEach(elemento => {
-            elemento.classList.add('visible');
-        });
-        
-        // También hacer visible los elementos del home
-        document.querySelectorAll('#home .fade-in').forEach(elemento => {
-            elemento.classList.add('visible');
-        });
-        
-        // Elementos del express
-        document.querySelectorAll('#optimizacion-express .fade-in').forEach(elemento => {
-            elemento.classList.add('visible');
         });
         
         console.log('Elementos críticos asegurados como visibles');
@@ -76,42 +106,48 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Respaldo adicional con setTimeout
     setTimeout(asegurarVisibilidadCritica, 500);
-    setTimeout(function() {
-        // Último respaldo: hacer visible TODOS los elementos fade-in
-        document.querySelectorAll('.fade-in').forEach(elemento => {
+    setTimeout(() => {
+        forEachElement('.fade-in', elemento => {
             elemento.classList.add('visible');
         });
         console.log('Todos los elementos fade-in asegurados como visibles');
     }, 2000);
-    // Script para contador regresivo y funcionalidad de tabs
-document.addEventListener('DOMContentLoaded', function() {
-    // Función para inicializar el contador
+    
+    // =========================================================================
+    // CONTADOR REGRESIVO
+    // =========================================================================
+    
+    /**
+     * Inicializa y configura el contador regresivo
+     */
     function initCountdown() {
+        // Verificar si existe el contador en la página
+        const countdownElements = {
+            days: document.querySelector('.countdown-item:nth-child(1) .countdown-number'),
+            hours: document.querySelector('.countdown-item:nth-child(2) .countdown-number'),
+            minutes: document.querySelector('.countdown-item:nth-child(3) .countdown-number'),
+            seconds: document.querySelector('.countdown-item:nth-child(4) .countdown-number')
+        };
+        
+        // Si no existen todos los elementos, no iniciar el contador
+        if (!countdownElements.days || !countdownElements.hours || 
+            !countdownElements.minutes || !countdownElements.seconds) {
+            return;
+        }
+        
         // Valores iniciales
         let days = 14;
         let hours = 22;
         let minutes = 59;
         let seconds = 59;
         
-        // Referencias a los elementos del DOM
-        const daysElement = document.querySelector('.countdown-item:nth-child(1) .countdown-number');
-        const hoursElement = document.querySelector('.countdown-item:nth-child(2) .countdown-number');
-        const minutesElement = document.querySelector('.countdown-item:nth-child(3) .countdown-number');
-        const secondsElement = document.querySelector('.countdown-item:nth-child(4) .countdown-number');
-        
-        // Verificar si se encontraron los elementos
-        if (!daysElement || !hoursElement || !minutesElement || !secondsElement) {
-            console.error('No se encontraron todos los elementos del contador');
-            return;
-        }
-        
         // Actualizar los valores iniciales en el DOM
-        daysElement.textContent = days;
-        hoursElement.textContent = hours;
-        minutesElement.textContent = minutes;
-        secondsElement.textContent = seconds;
+        countdownElements.days.textContent = days;
+        countdownElements.hours.textContent = hours;
+        countdownElements.minutes.textContent = minutes;
+        countdownElements.seconds.textContent = seconds;
         
-        // Función para actualizar el contador
+        // Función para actualizar el contador cada segundo
         function updateCountdown() {
             // Disminuir los segundos
             seconds--;
@@ -140,115 +176,240 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
+            // Formatear valores para mostrar siempre dos dígitos
+            const formatNumber = num => num < 10 ? `0${num}` : num;
+            
             // Actualizar los valores en el DOM
-            daysElement.textContent = days;
-            hoursElement.textContent = hours;
-            minutesElement.textContent = minutes < 10 ? '0' + minutes : minutes;
-            secondsElement.textContent = seconds < 10 ? '0' + seconds : seconds;
+            countdownElements.days.textContent = days;
+            countdownElements.hours.textContent = formatNumber(hours);
+            countdownElements.minutes.textContent = formatNumber(minutes);
+            countdownElements.seconds.textContent = formatNumber(seconds);
         }
         
         // Actualizar el contador cada segundo
         setInterval(updateCountdown, 1000);
     }
     
-    // Inicializar el contador cuando el DOM esté cargado
-    initCountdown();
+    // =========================================================================
+    // TABS DE SERVICIOS Y TIERS
+    // =========================================================================
     
-    // Seleccionar todas las pestañas de servicios
-    const servicioTabs = document.querySelectorAll('.servicio-tab');
-    const servicioContents = document.querySelectorAll('.servicio-content-wrapper');
-    
-    // Añadir evento click a cada pestaña
-    servicioTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Obtener el servicio seleccionado
-            const servicio = this.getAttribute('data-servicio');
-            
-            // Remover clase 'active' de todas las pestañas
-            servicioTabs.forEach(t => t.classList.remove('active'));
-            
-            // Añadir clase 'active' a la pestaña seleccionada
-            this.classList.add('active');
-            
-            // Remover clase 'active' de todos los contenidos
-            servicioContents.forEach(content => {
-                content.classList.remove('active');
+    /**
+     * Inicializa las pestañas de servicios
+     */
+    function initServiceTabs() {
+        // Seleccionar todas las pestañas de servicios
+        const servicioTabs = document.querySelectorAll('.servicio-tab');
+        if (!servicioTabs.length) return;
+        
+        servicioTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Obtener el servicio seleccionado
+                const servicio = this.getAttribute('data-servicio');
+                
+                // Remover clase 'active' de todas las pestañas
+                servicioTabs.forEach(t => t.classList.remove('active'));
+                
+                // Añadir clase 'active' a la pestaña seleccionada
+                this.classList.add('active');
+                
+                // Actualizar contenido visible
+                forEachElement('.servicio-content-wrapper', content => {
+                    content.classList.remove('active');
+                });
+                
+                const targetContent = document.querySelector(`.servicio-content-wrapper[data-servicio="${servicio}"]`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
             });
-            
-            // Añadir clase 'active' al contenido correspondiente
-            document.querySelector(`.servicio-content-wrapper[data-servicio="${servicio}"]`).classList.add('active');
         });
-    });
+        
+        // Inicializar mostrando el primer servicio
+        const firstTab = document.querySelector('.servicio-tab[data-servicio="meta"]');
+        if (firstTab) {
+            firstTab.classList.add('active');
+            const firstContent = document.querySelector('.servicio-content-wrapper[data-servicio="meta"]');
+            if (firstContent) {
+                firstContent.classList.add('active');
+            }
+        }
+    }
     
-    // Seleccionar todas las pestañas de tiers
-    const tierTabs = document.querySelectorAll('.tier-tab');
-    const tierInfos = document.querySelectorAll('.tier-info');
-    const tierPrices = document.querySelectorAll('.precio-compacto');
-    const tierDetalles = document.querySelectorAll('.tier-detalle-compacto');
+    /**
+     * Inicializa las pestañas de tiers (planes)
+     */
+    function initTierTabs() {
+        const tierTabs = document.querySelectorAll('.tier-tab');
+        if (!tierTabs.length) return;
+        
+        tierTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Obtener el tier seleccionado
+                const tier = this.getAttribute('data-tier');
+                
+                // Remover clase 'active' de todas las pestañas
+                tierTabs.forEach(t => t.classList.remove('active'));
+                
+                // Añadir clase 'active' a la pestaña seleccionada
+                this.classList.add('active');
+                
+                // Actualizar descripciones
+                forEachElement('.tier-info', info => {
+                    info.classList.remove('active');
+                });
+                const tierInfo = document.querySelector(`.tier-info.${tier}`);
+                if (tierInfo) tierInfo.classList.add('active');
+                
+                // Actualizar precios
+                forEachElement('.precio-compacto', price => {
+                    price.classList.remove('active');
+                });
+                forEachElement(`.precio-compacto.tier-price.${tier}`, price => {
+                    price.classList.add('active');
+                });
+                
+                // Actualizar detalles (versiones de tabla normal y compacta)
+                updateTierDetails(tier);
+                
+                // Reiniciar la vista de servicios al primer servicio
+                resetServiceView();
+            });
+        });
+        
+        // Inicializar con el tier Starter
+        const starterTab = document.querySelector('.tier-tab[data-tier="starter"]');
+        if (starterTab) {
+            starterTab.classList.add('active');
+            const starterInfo = document.querySelector('.tier-info.starter');
+            if (starterInfo) starterInfo.classList.add('active');
+            updateTierDetails('starter');
+        }
+    }
     
-    // Añadir evento click a cada pestaña de tier
-    tierTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Obtener el tier seleccionado
-            const tier = this.getAttribute('data-tier');
-            
-            // Remover clase 'active' de todas las pestañas
-            tierTabs.forEach(t => t.classList.remove('active'));
-            
-            // Añadir clase 'active' a la pestaña seleccionada
-            this.classList.add('active');
-            
-            // Remover clase 'active' de todas las descripciones
-            tierInfos.forEach(info => {
-                info.classList.remove('active');
-            });
-            
-            // Añadir clase 'active' a la descripción correspondiente
-            document.querySelector(`.tier-info.${tier}`).classList.add('active');
-            
-            // Remover clase 'active' de todos los precios
-            tierPrices.forEach(price => {
-                price.classList.remove('active');
-            });
-            
-            // Añadir clase 'active' a los precios correspondientes
-            document.querySelectorAll(`.precio-compacto.tier-price.${tier}`).forEach(price => {
-                price.classList.add('active');
-            });
-            
-            // Remover clase 'active' de todos los detalles
-            tierDetalles.forEach(detalle => {
+    /**
+     * Actualiza los detalles de tier en todas las tablas
+     * @param {string} tier - Nombre del tier (starter, pro, elite)
+     */
+    function updateTierDetails(tier) {
+        // Para cada tabla de servicios (normal y compacta)
+        forEachElement('.servicios-tabla, .servicios-tabla-compacta, .servicios-tabla-modern', tabla => {
+            // Ocultar todos los detalles primero
+            forEachElement('.tier-detalle, .tier-detalle-compacto', detalle => {
+                detalle.style.display = 'none';
                 detalle.classList.remove('active');
+            }, tabla);
+            
+            // Mostrar solo los detalles del tier seleccionado
+            forEachElement(`.tier-detalle.${tier}, .tier-detalle-compacto.${tier}`, detalle => {
+                detalle.style.display = 'flex';
+                detalle.classList.add('active');
+                
+                // Añadir animación
+                detalle.style.animation = 'none';
+                setTimeout(() => {
+                    detalle.style.animation = 'fadeIn 0.3s ease-in-out forwards';
+                }, 10);
+            }, tabla);
+        });
+    }
+    
+    /**
+     * Reinicia la vista de servicios al primer servicio
+     */
+    function resetServiceView() {
+        forEachElement('.servicio-tab', tab => {
+            tab.classList.remove('active');
+        });
+        const firstTab = document.querySelector('.servicio-tab[data-servicio="meta"]');
+        if (firstTab) firstTab.classList.add('active');
+        
+        forEachElement('.servicio-content-wrapper', content => {
+            content.classList.remove('active');
+        });
+        const firstContent = document.querySelector('.servicio-content-wrapper[data-servicio="meta"]');
+        if (firstContent) firstContent.classList.add('active');
+    }
+    
+    /**
+     * Inicializa el selector de tiers mini en la sección proceso
+     */
+    function initTierSelectorMini() {
+        const tierOptionsMini = document.querySelectorAll('.tier-option');
+        if (!tierOptionsMini.length) return;
+        
+        tierOptionsMini.forEach(option => {
+            option.addEventListener('click', function() {
+                // Actualizar estado visual de opciones
+                tierOptionsMini.forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Obtener tier seleccionado
+                const tier = this.getAttribute('data-tier');
+                
+                // Actualizar precios mini
+                forEachElement('.tier-mini', price => {
+                    price.classList.remove('active');
+                });
+                
+                const activeTierMini = document.querySelector(`.tier-mini.${tier}`);
+                if (activeTierMini) activeTierMini.classList.add('active');
+            });
+        });
+        
+        // Inicializar con el primer tier activo
+        if (tierOptionsMini[0]) tierOptionsMini[0].classList.add('active');
+        const firstTierType = tierOptionsMini[0]?.getAttribute('data-tier');
+        if (firstTierType) {
+            const firstTierMini = document.querySelector(`.tier-mini.${firstTierType}`);
+            if (firstTierMini) firstTierMini.classList.add('active');
+        }
+    }
+    
+    // =========================================================================
+    // TOOLTIPS
+    // =========================================================================
+    
+    /**
+     * Inicializa el comportamiento de los tooltips
+     */
+    function initTooltips() {
+        const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+        if (!tooltipTriggers.length) return;
+        
+        tooltipTriggers.forEach(trigger => {
+            const tooltip = trigger.querySelector('.tooltip');
+            if (!tooltip) return;
+            
+            // Mostrar tooltip al entrar
+            trigger.addEventListener('mouseenter', () => {
+                tooltip.classList.add('visible');
             });
             
-            // Añadir clase 'active' a los detalles correspondientes
-            document.querySelectorAll(`.tier-detalle-compacto.${tier}`).forEach(detalle => {
-                detalle.classList.add('active');
+            // Ocultar tooltip al salir
+            trigger.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('visible');
             });
+            
+            // Para dispositivos táctiles
+            trigger.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                tooltip.classList.toggle('visible');
+            }, { passive: false });
         });
-    });
-
-    // Tooltips
-    const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+    }
     
-    tooltipTriggers.forEach(trigger => {
-        const tooltip = trigger.querySelector('.tooltip');
-        
-        trigger.addEventListener('mouseenter', () => {
-            tooltip.classList.add('visible');
-        });
-        
-        trigger.addEventListener('mouseleave', () => {
-            tooltip.classList.remove('visible');
-        });
-    });
-});
     // =========================================================================
-    // NAVEGACIÓN Y NAVBAR - INICIALIZACIÓN
+    // NAVEGACIÓN Y NAVBAR
     // =========================================================================
     
+    /**
+     * Inicializa la navegación y comportamiento del navbar
+     */
     function initNavbar() {
-        // Navegación: referencias adicionales
+        if (!header) return;
+        
+        // Referencias adicionales
         const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
         const navLinks = document.querySelectorAll('.nav-link');
         const dropdowns = document.querySelectorAll('.dropdown');
@@ -258,30 +419,30 @@ document.addEventListener('DOMContentLoaded', function() {
         updateHeaderState();
         setActiveNavLinks();
         
-        // Agregar event listeners para navegación
+        // Agregar event listener para el botón de menú móvil
         if (mobileToggle) {
             mobileToggle.addEventListener('click', toggleMobileMenu);
         }
         
-        // Dropdown toggles
+        // Event listeners para dropdowns en móvil
         dropdownToggles.forEach(toggle => {
             toggle.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
                     e.preventDefault();
                     const parent = this.closest('.dropdown');
-                    toggleDropdown(parent);
+                    if (parent) toggleDropdown(parent);
                 }
             });
         });
         
-        // Enlaces de navegación
+        // Cerrar menú móvil cuando se hace click en links (excepto toggles)
         navLinks.forEach(link => {
             if (!link.classList.contains('dropdown-toggle')) {
                 link.addEventListener('click', closeMobileMenu);
             }
         });
         
-        // Cerrar menú al hacer clic fuera
+        // Cerrar menú al hacer click fuera
         document.addEventListener('click', function(e) {
             if (window.innerWidth <= 768 && navMenu && navMenu.classList.contains('active')) {
                 if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
@@ -300,12 +461,12 @@ document.addEventListener('DOMContentLoaded', function() {
         initCTAAnimation(ctaButton);
     }
     
-    // =========================================================================
-    // FUNCIONES DE NAVEGACIÓN
-    // =========================================================================
-    
-    // Actualizar estado del header al hacer scroll
+    /**
+     * Actualiza el estado del header según la posición de scroll
+     */
     function updateHeaderState() {
+        if (!header) return;
+        
         const scrollPosition = window.scrollY;
         
         if (scrollPosition > 50) {
@@ -319,13 +480,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Toggle del menú móvil
+    /**
+     * Toggle del menú móvil
+     */
     function toggleMobileMenu() {
+        if (!navMenu || !mobileToggle) return;
+        
         const isExpanded = this.getAttribute('aria-expanded') === 'true';
         
         this.classList.toggle('active');
         navMenu.classList.toggle('active');
-        this.setAttribute('aria-expanded', !isExpanded);
+        this.setAttribute('aria-expanded', (!isExpanded).toString());
         
         // Controlar scroll del body
         document.body.style.overflow = !isExpanded ? 'hidden' : '';
@@ -336,14 +501,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Toggle dropdown específico
+    /**
+     * Toggle dropdown específico
+     * @param {HTMLElement} dropdown - Elemento dropdown a togglear
+     */
     function toggleDropdown(dropdown) {
         dropdown.classList.toggle('active');
         const toggle = dropdown.querySelector('.dropdown-toggle');
         
         if (toggle) {
             const isExpanded = dropdown.classList.contains('active');
-            toggle.setAttribute('aria-expanded', isExpanded);
+            toggle.setAttribute('aria-expanded', isExpanded.toString());
             
             // Rotar ícono
             const icon = toggle.querySelector('.dropdown-icon');
@@ -353,7 +521,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Cerrar todos los dropdowns
+    /**
+     * Cerrar todos los dropdowns
+     */
     function resetDropdowns() {
         const dropdowns = document.querySelectorAll('.dropdown');
         dropdowns.forEach(dropdown => {
@@ -365,7 +535,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Cerrar menú móvil
+    /**
+     * Cerrar menú móvil
+     */
     function closeMobileMenu() {
         if (window.innerWidth <= 768 && navMenu && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
@@ -379,7 +551,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Configurar dropdowns con hover en desktop y click en móvil
+    /**
+     * Configurar dropdowns con hover en desktop y click en móvil
+     * @param {NodeList} dropdowns - Lista de elementos dropdown
+     */
     function setupDropdowns(dropdowns) {
         dropdowns.forEach(dropdown => {
             const toggle = dropdown.querySelector('.dropdown-toggle');
@@ -408,16 +583,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =========================================================================
-    // ENLACES ACTIVOS Y NAVEGACIÓN POR SCROLL
+    // NAVEGACIÓN ACTIVA Y SCROLL
     // =========================================================================
     
-    // Establecer enlaces activos según URL
+    /**
+     * Establecer enlaces activos según URL
+     */
     function setActiveNavLinks() {
         const currentUrl = window.location.pathname;
         const filename = currentUrl.split('/').pop();
         
         // Resetear todos los enlaces
-        document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
+        forEachElement('.nav-link, .dropdown-item', link => {
             link.classList.remove('active');
         });
         
@@ -437,27 +614,37 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (filename.includes('chatbot.html')) {
             activateDropdownItem('chatbot.html');
         } else if (filename.includes('optimizacion-express.html')) {
-            document.querySelector('a[href="optimizacion-express.html"]')?.classList.add('active');
+            const link = document.querySelector('a[href="optimizacion-express.html"]');
+            if (link) link.classList.add('active');
         } else if (filename.includes('contacto.html')) {
-            document.querySelector('a[href="contacto.html"]')?.classList.add('active');
+            const link = document.querySelector('a[href="contacto.html"]');
+            if (link) link.classList.add('active');
         }
     }
     
-    // Activar un item de dropdown y su toggle
+    /**
+     * Activar un item de dropdown y su toggle
+     * @param {string} href - Ruta del enlace a activar
+     */
     function activateDropdownItem(href) {
         const item = document.querySelector(`a[href="${href}"]`);
-        const dropdown = item?.closest('.dropdown');
+        if (!item) return;
         
-        if (item) item.classList.add('active');
+        item.classList.add('active');
+        const dropdown = item.closest('.dropdown');
+        
         if (dropdown) {
             const toggle = dropdown.querySelector('.dropdown-toggle');
             if (toggle) toggle.classList.add('active');
         }
     }
     
-    // Activar enlace según hash
+    /**
+     * Activar enlace según hash en la URL
+     * @param {string} hash - Hash de la URL sin #
+     */
     function activateLinkByHash(hash) {
-        document.querySelectorAll('.nav-link').forEach(link => {
+        forEachElement('.nav-link', link => {
             const href = link.getAttribute('href');
             if (href) {
                 const linkHash = href.startsWith('#') ? href.substring(1) : '';
@@ -468,7 +655,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Actualizar enlaces activos según sección visible
+    /**
+     * Actualizar enlaces activos según sección visible
+     */
     function updateNavActiveState() {
         // Solo para página principal
         if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
@@ -487,7 +676,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Solo actualizar si hay una sección identificada y es diferente a la última
             if (currentSection && currentSection !== lastSection) {
                 // Actualizar navegación visual
-                document.querySelectorAll('.nav-link').forEach(link => {
+                forEachElement('.nav-link', link => {
                     link.classList.remove('active');
                     
                     const href = link.getAttribute('href');
@@ -521,9 +710,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Inicializar scroll suave para enlaces internos
+    /**
+     * Inicializar scroll suave para enlaces internos
+     */
     function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]:not(.dropdown-toggle)').forEach(anchor => {
+        forEachElement('a[href^="#"]:not(.dropdown-toggle)', anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
                 
@@ -538,7 +729,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     closeMobileMenu();
                     
                     // Calcular offset según altura del header
-                    const headerHeight = header.offsetHeight;
+                    const headerHeight = header?.offsetHeight || 0;
                     const offset = headerHeight + 16;
                     
                     // Scroll suave con animación
@@ -557,7 +748,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     
                     // Activar el enlace
-                    document.querySelectorAll('.nav-link').forEach(link => {
+                    forEachElement('.nav-link', link => {
                         link.classList.remove('active');
                     });
                     this.classList.add('active');
@@ -566,7 +757,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Inicializar animación del CTA para primera visita
+    /**
+     * Inicializar animación del CTA para primera visita
+     * @param {HTMLElement} ctaButton - Botón CTA a animar
+     */
     function initCTAAnimation(ctaButton) {
         if (ctaButton && !sessionStorage.getItem('visited')) {
             setTimeout(() => {
@@ -583,9 +777,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =========================================================================
-    // ANIMACIONES AL SCROLL - MEJORADAS
+    // ANIMACIONES
     // =========================================================================
     
+    /**
+     * Inicializa las animaciones al scroll
+     */
     function initScrollAnimations() {
         // Marcar inmediatamente los elementos críticos
         const criticalSections = [
@@ -601,14 +798,14 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
         
         criticalSections.forEach(selector => {
-            document.querySelectorAll(selector).forEach(el => {
+            forEachElement(selector, el => {
                 if (!el.classList.contains('visible')) {
                     el.classList.add('visible');
                 }
             });
         });
         
-        // Actualizar el IntersectionObserver para ser más sensible
+        // Configurar IntersectionObserver para animaciones al scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 // Considerar elementos parcialmente visibles o que están por entrar en la pantalla
@@ -616,28 +813,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     entry.target.classList.add('visible');
                     // Dejar de observar después de hacer visible
                     observer.unobserve(entry.target);
-                    console.log('Elemento hecho visible por el observer:', entry.target);
                 }
             });
         }, { 
-            // Configuración más sensible
             threshold: 0.01,  // Detectar con solo 1% visible
             rootMargin: '0px 0px -10% 0px' // Considerar elementos casi visibles
         });
         
-        // Observar todos los elementos fade-in excepto los ya procesados
-        document.querySelectorAll('.fade-in:not(.visible)').forEach(element => {
+        // Observar elementos fade-in que aún no sean visibles
+        forEachElement('.fade-in:not(.visible)', element => {
             observer.observe(element);
         });
     }
     
-    // =========================================================================
-    // ANIMACIÓN DE MÉTRICAS - MEJORADA
-    // =========================================================================
-    
+    /**
+     * Inicializa las animaciones de métricas
+     */
     function initMetricAnimations() {
         // Hacer visibles las métricas inmediatamente
-        document.querySelectorAll('.metric-after').forEach(metric => {
+        forEachElement('.metric-after', metric => {
             metric.classList.add('animated');
             metric.style.opacity = '1';
             
@@ -648,7 +842,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Mantener el observer como respaldo
+        // Configurar respaldo con IntersectionObserver
         const metricObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -672,199 +866,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Observar solo métricas que aún no estén animadas
-        document.querySelectorAll('.metric-after:not(.animated)').forEach(metric => {
+        forEachElement('.metric-after:not(.animated)', metric => {
             metricObserver.observe(metric);
         });
     }
     
     // =========================================================================
-    // INICIALIZACIÓN DEL SELECTOR DE TIERS Y SERVICIOS
+    // FUNCIONES ADICIONALES
     // =========================================================================
     
     /**
-     * Función para inicializar la interacción con los tiers de servicio
-     * @returns {void}
-     */
-    function initTierSelector() {
-        // Selector de tiers en la sección principal
-        const tierTabs = document.querySelectorAll('.tier-tab');
-        
-        tierTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Desactivar todos los tabs
-                tierTabs.forEach(t => t.classList.remove('active'));
-                
-                // Activar el tab seleccionado
-                tab.classList.add('active');
-                
-                // Obtener el tier seleccionado (starter, pro, elite)
-                const tier = tab.getAttribute('data-tier');
-                
-                // Actualizar la descripción del tier
-                document.querySelectorAll('.tier-info').forEach(info => {
-                    info.classList.remove('active');
-                    if (info.classList.contains(tier)) {
-                        info.classList.add('active');
-                    }
-                });
-                
-                // Actualizar los precios mostrados
-                document.querySelectorAll('.tier-price').forEach(price => {
-                    price.classList.remove('active');
-                });
-                document.querySelectorAll(`.tier-price.${tier}`).forEach(price => {
-                    price.classList.add('active');
-                });
-                
-                // Actualizar las características mostradas en la nueva estructura
-                document.querySelectorAll('.servicios-tabla, .servicios-tabla-compacta').forEach(tabla => {
-                    // Ocultar todos los detalles de tier
-                    tabla.querySelectorAll('.tier-detalle, .tier-detalle-compacto').forEach(detalle => {
-                        detalle.style.display = 'none';
-                        detalle.classList.remove('active');
-                    });
-                    
-                    // Mostrar solo los detalles del tier seleccionado
-                    tabla.querySelectorAll(`.tier-detalle.${tier}, .tier-detalle-compacto.${tier}`).forEach(detalle => {
-                        detalle.style.display = 'flex';
-                        detalle.classList.add('active');
-                        
-                        // Añadir una pequeña animación de entrada
-                        detalle.style.animation = 'none';
-                        setTimeout(() => {
-                            detalle.style.animation = 'fadeIn 0.3s ease-in-out forwards';
-                        }, 10);
-                    });
-                });
-
-                // Actualizar tabs de servicios para el nuevo diseño compacto
-                document.querySelectorAll('.servicio-tab').forEach(serviceTab => {
-                    serviceTab.classList.remove('active');
-                });
-                document.querySelector('.servicio-tab[data-servicio="meta"]').classList.add('active');
-                
-                // Mostrar solo el primer servicio al cambiar de tier
-                document.querySelectorAll('.servicio-content-wrapper').forEach(content => {
-                    content.classList.remove('active');
-                });
-                document.querySelector('.servicio-content-wrapper[data-servicio="meta"]').classList.add('active');
-            });
-        });
-        
-        // Inicialización - mostrar solo características del tier starter por defecto
-        document.querySelectorAll('.servicios-tabla, .servicios-tabla-compacta').forEach(tabla => {
-            tabla.querySelectorAll('.tier-detalle, .tier-detalle-compacto').forEach(detalle => {
-                if (!detalle.classList.contains('starter')) {
-                    detalle.style.display = 'none';
-                    detalle.classList.remove('active');
-                } else {
-                    detalle.style.display = 'flex';
-                    detalle.classList.add('active');
-                }
-            });
-        });
-
-        // Inicializar mostrando solo la descripción del tier starter
-        document.querySelector('.tier-info.starter').classList.add('active');
-        
-        // Inicializar tabs de servicios para el diseño compacto
-        initServiceTabs();
-        
-        // Inicializar tooltips
-        initTooltips();
-    }
-
-    // Función para inicializar tabs de servicios para el diseño compacto
-    function initServiceTabs() {
-        const serviceTabs = document.querySelectorAll('.servicio-tab');
-        
-        serviceTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Desactivar todos los tabs
-                serviceTabs.forEach(t => t.classList.remove('active'));
-                
-                // Activar el tab seleccionado
-                tab.classList.add('active');
-                
-                // Obtener el servicio seleccionado
-                const servicio = tab.getAttribute('data-servicio');
-                
-                // Mostrar solo el contenido del servicio seleccionado
-                document.querySelectorAll('.servicio-content-wrapper').forEach(content => {
-                    content.classList.remove('active');
-                });
-                document.querySelector(`.servicio-content-wrapper[data-servicio="${servicio}"]`).classList.add('active');
-            });
-        });
-        
-        // Inicializar mostrando el primer servicio
-        if (document.querySelector('.servicio-tab[data-servicio="meta"]')) {
-            document.querySelector('.servicio-tab[data-servicio="meta"]').classList.add('active');
-            document.querySelector('.servicio-content-wrapper[data-servicio="meta"]')?.classList.add('active');
-        }
-    }
-
-    // Selector de tiers mini en la sección proceso (si existe)
-    function initTierSelectorMini() {
-        const tierOptionsMini = document.querySelectorAll('.tier-option');
-        if (!tierOptionsMini.length) return;
-        
-        tierOptionsMini.forEach(option => {
-            option.addEventListener('click', () => {
-                tierOptionsMini.forEach(o => o.classList.remove('active'));
-                option.classList.add('active');
-                
-                const tier = option.getAttribute('data-tier');
-                
-                document.querySelectorAll('.tier-mini').forEach(price => {
-                    price.classList.remove('active');
-                });
-                document.querySelector(`.tier-mini.${tier}`).classList.add('active');
-            });
-        });
-    }
-    
-    // Inicializar tooltips para características
-    function initTooltips() {
-        const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
-        
-        tooltipTriggers.forEach(trigger => {
-            trigger.addEventListener('mouseenter', () => {
-                const tooltip = trigger.querySelector('.tooltip');
-                if (tooltip) {
-                    tooltip.classList.add('visible');
-                }
-            });
-            
-            trigger.addEventListener('mouseleave', () => {
-                const tooltip = trigger.querySelector('.tooltip');
-                if (tooltip) {
-                    tooltip.classList.remove('visible');
-                }
-            });
-        });
-    }
-    
-    /**
-     * Actualizar el precio de la oferta especial basado en los nuevos precios de los planes
+     * Actualiza el precio de la oferta especial
      */
     function updateSpecialOffer() {
-        // El nuevo precio paquete es 4 servicios Elite a $999 con descuento
+        // Calcular precio regular y ahorro
         const regularPrice = 299 * 4; // $1,196
         const discountedPrice = 1000; // Precio con descuento
         const savings = regularPrice - discountedPrice;
         
-        // Actualizar texto de ahorro si existe el elemento
+        // Actualizar texto de oferta especial
         const ofertaEspecial = document.querySelector('.oferta-especial h3');
         if (ofertaEspecial) {
-            ofertaEspecial.innerHTML = `¡Ahorrá $${savings}/mes! Contratá los 4 servicios por solo <span class="precio-destacado">US$${discountedPrice}/mes</span> (valor real $${regularPrice})`;
+            ofertaEspecial.innerHTML = `Growth Accelerator: Meta + Google + Email + Chatbot por <span class="precio-destacado">US$${discountedPrice}/mes</span> <span class="precio-strike">$${regularPrice}</span>`;
+        }
+        
+        // Actualizar información de ahorro si existe
+        const bundleInfo = document.querySelector('.bundle-offer-price');
+        if (bundleInfo) {
+            bundleInfo.textContent = `Incluye: 1 consulta estratégica gratis al mes + Set up inicial bonificado. ¡Ahorrá $${savings}/mes!`;
         }
     }
     
-    // =========================================================================
-    // OPTIMIZACIÓN MOBILE
-    // =========================================================================
-    
+    /**
+     * Configura mejoras para móvil
+     */
     function setupMobileEnhancements() {
         if (window.innerWidth <= 768) {
             // En móvil, hacer los CTAs más accesibles
@@ -877,6 +912,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Simplificar animaciones para mejor rendimiento
             document.body.classList.add('mobile-optimized');
+        } else {
+            // En desktop, eliminar optimizaciones móviles
+            document.body.classList.remove('mobile-optimized');
         }
     }
     
@@ -884,7 +922,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // EVENT HANDLERS
     // =========================================================================
     
-    // Handler optimizado para scroll con requestAnimationFrame
+    /**
+     * Maneja el evento de scroll
+     */
     function handleScroll() {
         if (!isScrolling) {
             window.requestAnimationFrame(() => {
@@ -897,7 +937,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Handler para cambios de tamaño de ventana
+    /**
+     * Maneja el evento de resize de la ventana
+     */
     function handleResize() {
         // Debounce para evitar demasiadas llamadas
         clearTimeout(resizeTimer);
@@ -924,6 +966,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 150);
     }
     
+    /**
+     * Verifica si hay un hash en la URL para navegar directamente
+     */
+    function handleHashNavigation() {
+        if (window.location.hash) {
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                setTimeout(() => {
+                    const headerHeight = header?.offsetHeight || 0;
+                    const offset = headerHeight + 16;
+                    const targetPosition = targetElement.offsetTop - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }, 500);
+            }
+        }
+    }
+    
     // =========================================================================
     // INICIALIZACIÓN PRINCIPAL
     // =========================================================================
@@ -931,12 +994,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Remover clase preload inmediatamente
     document.body.classList.remove('preload');
     
-    // Inicializar componentes de la interfaz
+    // Inicializar componentes principales
     initNavbar();
     initScrollAnimations();
     initMetricAnimations();
-    initTierSelector();
+    initCountdown();
+    initServiceTabs();
+    initTierTabs();
     initTierSelectorMini();
+    initTooltips();
     updateSpecialOffer();
     setupMobileEnhancements();
     
@@ -944,9 +1010,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
     
-    // Configuraciones específicas cuando la página está completamente cargada
+    // Configuraciones al cargar completamente la página
     window.addEventListener('load', function() {
-        // Eliminar cualquier clase de precarga si existe
+        // Eliminar cualquier clase de precarga
         document.body.classList.remove('preload');
         
         // Iniciar animación de scroll
@@ -955,21 +1021,11 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollIndicator.style.opacity = '1';
         }
         
-        // Último respaldo para hacer todos los elementos visibles
+        // Último respaldo para asegurar visibilidad
         asegurarVisibilidadCritica();
         
-        // Verificar si hay un hash en la URL para navegar directamente
-        if (window.location.hash) {
-            const targetElement = document.querySelector(window.location.hash);
-            if (targetElement) {
-                setTimeout(() => {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }, 500);
-            }
-        }
+        // Manejar navegación por hash
+        handleHashNavigation();
     });
     
     // =========================================================================
@@ -981,35 +1037,9 @@ document.addEventListener('DOMContentLoaded', function() {
         updateHeaderState,
         closeMobileMenu,
         asegurarVisibilidadCritica,
-        initTierSelector,
         initServiceTabs,
-        initTooltips
+        initTierTabs,
+        initTooltips,
+        updateSpecialOffer
     };
-});
-
-// JavaScript para controlar el comportamiento del navbar al hacer scroll
-document.addEventListener('DOMContentLoaded', function() {
-    const header = document.getElementById('header');
-    const navbarHeight = header ? header.offsetHeight : 0;
-    
-    // Función que se ejecuta al hacer scroll
-    const handleScroll = () => {
-        // Obtener la posición actual del scroll
-        const scrollPosition = window.scrollY;
-        
-        if (!header) return;
-        
-        // Si hemos bajado más que la altura del navbar, hacerlo sticky
-        if (scrollPosition > navbarHeight) {
-            header.classList.add('sticky');
-        } else {
-            header.classList.remove('sticky');
-        }
-    };
-    
-    // Agregar el evento de scroll
-    window.addEventListener('scroll', handleScroll);
-    
-    // Ejecutar una vez al cargar para establecer el estado inicial
-    handleScroll();
 });
