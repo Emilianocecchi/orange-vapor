@@ -313,7 +313,383 @@ p {
     letter-spacing: 1.5px;
     margin-bottom: var(--espaciado-xs);
 }
+/* CSS para Microinteracciones en Orange Vapor */
 
+/* =============================================
+   ANIMACIONES BASE
+============================================= */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-8deg); }
+    75% { transform: rotate(8deg); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes wave {
+    0% { transform: translateY(0); opacity: 1; }
+    25% { transform: translateY(-4px); opacity: 0.8; }
+    50% { transform: translateY(0); opacity: 1; }
+    75% { transform: translateY(4px); opacity: 0.8; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes ripple {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(47, 133, 90, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(47, 133, 90, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(47, 133, 90, 0.5); }
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+}
+
+/* =============================================
+   CLASES DE ANIMACIÓN PARA JS
+============================================= */
+/* Clases para animaciones al scroll */
+.animate-fade-in {
+    animation: fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-fade-out {
+    animation: fadeOut 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
+
+.animate-fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-fade-left {
+    animation: fadeLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-fade-right {
+    animation: fadeRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Clase para animación continua */
+.animate-continuous {
+    animation: floatUp 5s ease-in-out infinite;
+}
+
+/* Animaciones para efectos de iconos */
+.icon-wiggle {
+    animation: wiggle 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+}
+
+.icon-spin {
+    animation: spin 0.5s ease-in-out forwards;
+}
+
+.icon-pop {
+    animation: pulse 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.continuous-pulse {
+    animation: pulse 2s infinite ease-in-out;
+}
+
+/* Efectos para botones y badges */
+.btn-ripple, .tab-ripple {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: scale(0);
+    pointer-events: none;
+    animation: ripple 0.6s linear forwards;
+}
+
+.tab-ripple {
+    background: rgba(255, 114, 0, 0.15);
+}
+
+.arrow-bounce {
+    animation: bounce 0.6s ease forwards;
+}
+
+.cta-glow {
+    animation: glow 2s ease infinite;
+}
+
+.badge-pulse {
+    animation: pulse 1s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+.oferta-badge-highlight {
+    animation: pulse 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.ribbon-wave {
+    animation: wave 1s ease-in-out forwards;
+}
+
+/* Efectos para cards y precios */
+.feature-hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 15px 30px rgba(47, 133, 90, 0.15) !important;
+    z-index: 2;
+}
+
+.price-hover {
+    transform: scale(1.05) !important;
+    z-index: 2;
+}
+
+.price-bounce {
+    animation: bounce 1s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+.countdown-pulse {
+    animation: pulse 0.8s ease-in-out forwards;
+}
+
+/* Efectos para cambio de tiers */
+.tier-change-wave {
+    animation: wave 0.5s ease-in-out forwards;
+}
+
+/* Específicos para servicios */
+.meta-pulse {
+    animation: pulse 0.5s ease-in-out forwards;
+    box-shadow: 0 0 15px rgba(66, 103, 178, 0.3) !important;
+}
+
+.google-pulse {
+    animation: pulse 0.5s ease-in-out forwards;
+    box-shadow: 0 0 15px rgba(66, 133, 244, 0.3) !important;
+}
+
+.email-pulse {
+    animation: pulse 0.5s ease-in-out forwards;
+    box-shadow: 0 0 15px rgba(14, 118, 168, 0.3) !important;
+}
+
+.chatbot-pulse {
+    animation: pulse 0.5s ease-in-out forwards;
+    box-shadow: 0 0 15px rgba(107, 70, 193, 0.3) !important;
+}
+
+/* =============================================
+   MEJORAS PARA SOPORTAR MICROINTERACCIONES
+============================================= */
+/* Establecer posición relativa para elementos con animaciones */
+.servicio-tab,
+.tier-tab,
+.btn-auditoria-premium,
+.btn-servicio-premium,
+.btn-oferta-especial,
+.auditoria-feature-item,
+.precio-card,
+.auditoria-card,
+.auditoria-ribbon,
+.title-badge,
+.oferta-badge {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Estilos para los elementos con fade-in */
+.fade-in {
+    will-change: opacity, transform;
+}
+
+/* Transiciones suaves para hover */
+.servicio-tab,
+.tier-tab,
+.auditoria-feature-item,
+.btn-servicio-premium,
+.btn-auditoria-premium,
+.btn-oferta-especial,
+.bundle-option,
+.precio-card {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform, box-shadow;
+}
+
+/* Transiciones para iconos */
+.feature-icon,
+.servicio-tab i,
+.servicio-icon,
+.btn-arrow-container,
+.btn-lightning {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform;
+}
+
+/* Transición para tab active (que sea diferente) */
+.servicio-tab.active,
+.tier-tab.active {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Optimización para animaciones de cambio de contenido */
+.servicio-content-wrapper {
+    transition: opacity 0.3s ease-in-out;
+    will-change: opacity;
+}
+
+/* Optimización para hover 3D */
+.auditoria-card {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    will-change: transform, box-shadow;
+}
+
+/* Efecto 3D para features */
+.auditoria-feature-item {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    will-change: transform, box-shadow;
+}
+
+/* Efectos específicos para cada servicio */
+.servicio-content-wrapper[data-servicio="meta"] .servicio-icon:hover {
+    box-shadow: 0 0 20px rgba(66, 103, 178, 0.3) !important;
+}
+
+.servicio-content-wrapper[data-servicio="google"] .servicio-icon:hover {
+    box-shadow: 0 0 20px rgba(66, 133, 244, 0.3) !important;
+}
+
+.servicio-content-wrapper[data-servicio="email"] .servicio-icon:hover {
+    box-shadow: 0 0 20px rgba(14, 118, 168, 0.3) !important;
+}
+
+.servicio-content-wrapper[data-servicio="chatbot"] .servicio-icon:hover {
+    box-shadow: 0 0 20px rgba(107, 70, 193, 0.3) !important;
+}
+
+/* Mejoras para botones CTA */
+.btn-servicio-premium span,
+.btn-auditoria-premium span,
+.btn-oferta-especial span {
+    position: relative;
+    z-index: 3;
+}
+
+/* Optimización para fondo parallax */
+.servicios-bg-gradient {
+    transition: transform 0.3s ease-out;
+    will-change: transform;
+}
+
+/* Corregir z-index para elementos superpuestos */
+.servicios-tabs-container {
+    z-index: 10;
+    position: relative;
+}
+
+.servicios-content-container {
+    z-index: 5;
+    position: relative;
+}
+
+.oferta-especial {
+    z-index: 4;
+    position: relative;
+}
+
+/* =============================================
+   OPTIMIZACIÓN PARA DISPOSITIVOS MÓVILES
+============================================= */
+@media (max-width: 768px) {
+    /* Reducir animaciones en mobile */
+    .auditoria-card {
+        transform: none !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    }
+    
+    .auditoria-feature-item:hover {
+        transform: translateY(-5px) !important;
+    }
+    
+    /* Asegurar que el ripple funcione bien en mobile */
+    .btn-ripple, .tab-ripple {
+        transform-origin: center;
+    }
+    
+    /* Ajustar timing para mobile */
+    .animate-fade-in,
+    .animate-fade-up,
+    .animate-fade-left,
+    .animate-fade-right {
+        animation-duration: 0.6s;
+    }
+}
+
+/* Optimización para usuarios que prefieren reducir el movimiento */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .animate-continuous {
+        animation: none !important;
+    }
+    
+    .continuous-pulse {
+        animation: none !important;
+    }
+    
+    .servicios-bg-gradient {
+        transform: none !important;
+    }
+}
 /* ==========================================================================
    5. BUTTONS AND LINKS
    ========================================================================== */
