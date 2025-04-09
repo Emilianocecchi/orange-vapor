@@ -87,11 +87,11 @@
         /* Sección de descarga */
         .download-section { text-align: center; margin: 20px 0; }
         .download-btn {
-            background: linear-gradient(135deg, #2F855A 0%, #276749 100%);
+            background: linear-gradient(135deg, #FF7200 0%, #E56700 100%);
             color: white; border: none; padding: 12px 24px;
             font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer;
             display: inline-flex; align-items: center; gap: 10px;
-            box-shadow: 0 4px 8px rgba(47, 133, 90, 0.3);
+            box-shadow: 0 4px 8px rgba(255, 114, 0, 0.3);
             font-family: 'Montserrat', sans-serif;
         }
 
@@ -104,7 +104,57 @@
             color: #333; cursor: pointer;
             background-color: #F5F5F5; /* Solo fondo blanco */
         }
-        .creative-vertical { width: 240px; height: 427px; }
+        .creative-horizontal {
+            width: 427px; 
+            height: 240px;
+        }
+        
+        /* Ajustes específicos para formato horizontal */
+        .creative-horizontal .creative-title {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        
+        .creative-horizontal .creative-subtitle {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .creative-horizontal .creative-description {
+            font-size: 12px;
+            margin-bottom: 8px;
+            max-width: 400px;
+        }
+        
+        .creative-horizontal .service-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .creative-horizontal .cta-button {
+            padding: 6px 14px;
+            font-size: 12px;
+        }
+        
+        .creative-horizontal .creative-ribbon {
+            font-size: 11px;
+            top: 15px;
+            right: -35px;
+            width: 120px;
+        }
+        
+        .creative-horizontal .guarantee-badge,
+        .creative-horizontal .limited-spots,
+        .creative-horizontal .mini-testimonial {
+            font-size: 10px;
+            padding: 3px 6px;
+        }
+        
+        .creative-horizontal .creative-content {
+            padding: 15px;
+        }
         .creative-content {
             position: relative; z-index: 2; padding: 20px; height: 100%;
             display: flex; flex-direction: column; justify-content: center; text-align: center;
@@ -279,8 +329,8 @@
             font-family: 'Montserrat', sans-serif;
         }
         .format-btn.active { 
-            background: linear-gradient(135deg, #2F855A 0%, #276749 100%); 
-            color: white; border-color: #276749; 
+            background: linear-gradient(135deg, #FF7200 0%, #E56700 100%); 
+            color: white; border-color: #E56700; 
         }
 
         /* Logo */
@@ -429,6 +479,7 @@
 
         <div class="format-toggle">
             <button id="squareBtn" class="format-btn active">Cuadrado (1080x1080)</button>
+            <button id="horizontalBtn" class="format-btn">Horizontal (1200x628)</button>
             <button id="verticalBtn" class="format-btn">Vertical (1080x1920)</button>
         </div>
 
@@ -459,7 +510,7 @@
         </div>
 
         <div class="note">
-            <p>Dimensiones: 1080x1080 píxeles y 1080x1920 píxeles (imágenes descargadas en alta resolución)</p>
+            <p>Dimensiones: 1080x1080 píxeles (cuadrado), 1200x628 píxeles (horizontal) y 1080x1920 píxeles (vertical) en alta resolución</p>
         </div>
 
         <div class="ad-copy-section">
@@ -610,6 +661,7 @@
         const tabButtons = document.querySelectorAll('.tab-button');
         const formatButtons = document.querySelectorAll('.format-btn');
         const squareBtn = document.getElementById('squareBtn');
+        const horizontalBtn = document.getElementById('horizontalBtn');
         const verticalBtn = document.getElementById('verticalBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const downloadCanvas = document.getElementById('downloadCanvas');
@@ -690,7 +742,15 @@
             const ctaColor = getCTAColor(activeService);
             
             const creativeEl = document.createElement('div');
-            creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
+            
+            // Aplicar la clase según el formato activo
+            if (activeFormat === 'vertical') {
+                creativeEl.className = 'creative creative-vertical';
+            } else if (activeFormat === 'horizontal') {
+                creativeEl.className = 'creative creative-horizontal';
+            } else {
+                creativeEl.className = 'creative';
+            }
             
             // Fondo siempre blanco
             creativeEl.style.backgroundColor = '#ffffff';
@@ -1079,9 +1139,19 @@
                 
                 // 10. Obtener dimensiones esperadas según el formato
                 showLoadingModal("Ajustando dimensiones...", 70);
-                const isVertical = activeFormat === 'vertical';
-                const expectedWidth = 1080;
-                const expectedHeight = isVertical ? 1920 : 1080;
+                let expectedWidth, expectedHeight;
+                
+                if (activeFormat === 'vertical') {
+                    expectedWidth = 1080;
+                    expectedHeight = 1920;
+                } else if (activeFormat === 'horizontal') {
+                    expectedWidth = 1200;
+                    expectedHeight = 628;
+                } else {
+                    // Formato cuadrado por defecto
+                    expectedWidth = 1080;
+                    expectedHeight = 1080;
+                }
                 
                 // 11. Crear un canvas con las dimensiones exactas requeridas
                 const finalCanvas = document.createElement('canvas');
@@ -1159,6 +1229,8 @@
             formatButtons.forEach(btn => btn.classList.remove('active'));
             if (activeFormat === 'square') { 
                 squareBtn.classList.add('active'); 
+            } else if (activeFormat === 'horizontal') {
+                horizontalBtn.classList.add('active');
             } else { 
                 verticalBtn.classList.add('active'); 
             }
@@ -1176,6 +1248,11 @@
         // Event listeners para los botones de formato
         squareBtn.addEventListener('click', () => { 
             activeFormat = 'square'; 
+            updateUI(); 
+        });
+        
+        horizontalBtn.addEventListener('click', () => { 
+            activeFormat = 'horizontal'; 
             updateUI(); 
         });
         
