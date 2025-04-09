@@ -68,7 +68,601 @@ document.addEventListener('DOMContentLoaded', function() {
     // =========================================================================
     // SOLUCIÓN INMEDIATA PARA LA VISIBILIDAD
     // =========================================================================
+    // Microinteracciones para Orange Vapor Landing Page
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar todas las microinteracciones
+    initScrollAnimations();
+    initServiceTabsAnimation();
+    initPricingHoverEffects();
+    initCardHoverEffects();
+    initButtonEffects();
+    initCountersAnimation();
+    initParallaxEffect();
+    initIconAnimations();
+    initAuditBadgePulse();
+    initFeatureCardTilt();
+});
+
+// 1. ANIMACIONES AL SCROLL
+function initScrollAnimations() {
+    // Seleccionar todos los elementos que deben animarse al hacer scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
     
+    // Opciones para el Intersection Observer
+    const options = {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 0.15 // El elemento es visible cuando el 15% está en el viewport
+    };
+    
+    // Callback para el observer
+    const fadeInOnScroll = (entries, observer) => {
+        entries.forEach(entry => {
+            // Si el elemento es visible
+            if (entry.isIntersecting) {
+                // Diferentes animaciones basadas en clases adicionales
+                if (entry.target.classList.contains('fade-left')) {
+                    entry.target.classList.add('animate-fade-left');
+                } else if (entry.target.classList.contains('fade-right')) {
+                    entry.target.classList.add('animate-fade-right');
+                } else if (entry.target.classList.contains('fade-up')) {
+                    entry.target.classList.add('animate-fade-up');
+                } else {
+                    entry.target.classList.add('animate-fade-in');
+                }
+                
+                // Añadir la clase visible para la opacidad
+                entry.target.classList.add('visible');
+                
+                // Dejar de observar este elemento
+                observer.unobserve(entry.target);
+            }
+        });
+    };
+    
+    // Crear el observer
+    const observer = new IntersectionObserver(fadeInOnScroll, options);
+    
+    // Observar cada elemento fadeIn
+    fadeElements.forEach(el => {
+        observer.observe(el);
+    });
+    
+    // Añadir delay personalizado a elementos en secuencia
+    document.querySelectorAll('.features-sequence > *').forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
+    // Añadir clase para animaciones continuas (como fade-slide)
+    document.querySelectorAll('.continuous-animation').forEach(el => {
+        const continuousObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-continuous');
+                } else {
+                    entry.target.classList.remove('animate-continuous');
+                }
+            });
+        }, { threshold: 0.2 });
+        
+        continuousObserver.observe(el);
+    });
+}
+
+// 2. ANIMACIÓN DE TABS DE SERVICIOS
+function initServiceTabsAnimation() {
+    const serviceTabs = document.querySelectorAll('.servicio-tab');
+    const serviceContents = document.querySelectorAll('.servicio-content-wrapper');
+    
+    serviceTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Remover la clase activa de todos los tabs
+            serviceTabs.forEach(t => t.classList.remove('active'));
+            
+            // Añadir clase activa al tab actual
+            this.classList.add('active');
+            
+            // Obtener el servicio al que hace referencia este tab
+            const servicio = this.getAttribute('data-servicio');
+            
+            // Animar la salida del contenido activo y entrada del nuevo
+            serviceContents.forEach(content => {
+                if (content.classList.contains('active')) {
+                    // Animar la salida
+                    content.classList.add('animate-fade-out');
+                    setTimeout(() => {
+                        content.classList.remove('active', 'animate-fade-out');
+                    }, 300);
+                }
+                
+                // Si este es el contenido que debe mostrarse
+                if (content.getAttribute('data-servicio') === servicio) {
+                    // Mostrar después de un breve delay para la animación
+                    setTimeout(() => {
+                        content.classList.add('active', 'animate-fade-in');
+                        
+                        // Remover la clase de animación después
+                        setTimeout(() => {
+                            content.classList.remove('animate-fade-in');
+                        }, 600);
+                    }, 300);
+                }
+            });
+            
+            // Añadir efecto de ripple al hacer clic
+            const ripple = document.createElement('span');
+            ripple.classList.add('tab-ripple');
+            this.appendChild(ripple);
+            
+            // Calcular el tamaño del ripple basado en el tamaño del elemento
+            const size = Math.max(this.offsetWidth, this.offsetHeight);
+            ripple.style.width = ripple.style.height = `${size}px`;
+            
+            // Posicionar el ripple
+            const rect = this.getBoundingClientRect();
+            ripple.style.left = `${event.clientX - rect.left - (size / 2)}px`;
+            ripple.style.top = `${event.clientY - rect.top - (size / 2)}px`;
+            
+            // Remover el ripple después de la animación
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+    
+    // Selección de tiers similar a los tabs
+    const tierTabs = document.querySelectorAll('.tier-tab');
+    
+    tierTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Obtener el tier seleccionado
+            const tier = this.getAttribute('data-tier');
+            
+            // Remover clase activa de todos los tabs de tier
+            tierTabs.forEach(t => t.classList.remove('active'));
+            
+            // Añadir clase activa al tab actual
+            this.classList.add('active');
+            
+            // Activar info de tier correspondiente
+            document.querySelectorAll('.tier-info').forEach(info => {
+                info.classList.remove('active');
+            });
+            document.querySelector(`.tier-info.${tier}`).classList.add('active');
+            
+            // Activar precios correspondientes
+            document.querySelectorAll('.tier-price').forEach(price => {
+                price.classList.remove('active');
+            });
+            document.querySelectorAll(`.tier-price.${tier}`).forEach(price => {
+                price.classList.add('active');
+            });
+            
+            // Activar detalles correspondientes
+            document.querySelectorAll('.tier-detalle').forEach(detail => {
+                detail.classList.remove('active');
+            });
+            document.querySelectorAll(`.tier-detalle.${tier}`).forEach(detail => {
+                detail.classList.add('active');
+            });
+            
+            // Añadir efecto de wave para el cambio
+            document.querySelectorAll('.categoria-detalles').forEach(cat => {
+                cat.classList.add('tier-change-wave');
+                setTimeout(() => {
+                    cat.classList.remove('tier-change-wave');
+                }, 500);
+            });
+        });
+    });
+}
+
+// 3. EFECTOS HOVER PARA CARDS DE PRECIOS
+function initPricingHoverEffects() {
+    const pricingCards = document.querySelectorAll('.precio-card');
+    
+    pricingCards.forEach(card => {
+        card.addEventListener('mouseover', function() {
+            if (this.classList.contains('active')) {
+                this.classList.add('price-hover');
+                
+                // Animar el precio
+                const precioValor = this.querySelector('.precio-valor');
+                precioValor.classList.add('price-bounce');
+                
+                setTimeout(() => {
+                    precioValor.classList.remove('price-bounce');
+                }, 1000);
+            }
+        });
+        
+        card.addEventListener('mouseout', function() {
+            this.classList.remove('price-hover');
+        });
+    });
+}
+
+// 4. EFECTOS HOVER PARA CARDS DE SERVICIOS Y CARACTERÍSTICAS
+function initCardHoverEffects() {
+    // Efecto para cards de características
+    const featureItems = document.querySelectorAll('.auditoria-feature-item');
+    
+    featureItems.forEach(item => {
+        item.addEventListener('mouseover', function() {
+            // Añadir clase para efecto hover avanzado
+            this.classList.add('feature-hover');
+            
+            // Animar el icono
+            const icon = this.querySelector('.feature-icon');
+            icon.classList.add('icon-wiggle');
+            
+            setTimeout(() => {
+                icon.classList.remove('icon-wiggle');
+            }, 500);
+        });
+        
+        item.addEventListener('mouseout', function() {
+            this.classList.remove('feature-hover');
+        });
+    });
+    
+    // Efecto de profundidad 3D al hover sobre la card de auditoría
+    const auditCard = document.querySelector('.auditoria-card');
+    if (auditCard) {
+        auditCard.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left; // x position within the element
+            const y = e.clientY - rect.top; // y position within the element
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calcular distancia desde el centro (de -15 a 15 grados)
+            const rotateY = ((x - centerX) / centerX) * 3;
+            const rotateX = ((y - centerY) / centerY) * -3;
+            
+            // Aplicar la rotación
+            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px)`;
+            
+            // Efecto de iluminación basado en la posición del cursor
+            const shadowX = (x - centerX) / 10;
+            const shadowY = (y - centerY) / 10;
+            this.style.boxShadow = `0 20px 50px rgba(0, 0, 0, 0.1), ${shadowX}px ${shadowY}px 30px rgba(47, 133, 90, 0.15)`;
+        });
+        
+        auditCard.addEventListener('mouseleave', function() {
+            // Restaurar el estado original con una transición suave
+            this.style.transform = 'translateY(-12px)';
+            this.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.12), 0 15px 35px rgba(0, 0, 0, 0.08)';
+        });
+    }
+    
+    // Efecto para servicios específicos
+    const servicioContentWrappers = document.querySelectorAll('.servicio-content-wrapper');
+    
+    servicioContentWrappers.forEach(wrapper => {
+        const servicio = wrapper.getAttribute('data-servicio');
+        const icon = wrapper.querySelector('.servicio-icon');
+        
+        if (icon) {
+            icon.addEventListener('mouseover', function() {
+                // Añadir clase específica al servicio
+                this.classList.add(`${servicio}-pulse`);
+            });
+            
+            icon.addEventListener('mouseout', function() {
+                this.classList.remove(`${servicio}-pulse`);
+            });
+        }
+    });
+}
+
+// 5. EFECTOS PARA BOTONES
+function initButtonEffects() {
+    const buttons = document.querySelectorAll('.btn-auditoria-premium, .btn-servicio-premium, .btn-oferta-especial');
+    
+    buttons.forEach(button => {
+        // Efecto de ripple al hacer clic
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('btn-ripple');
+            this.appendChild(ripple);
+            
+            // Calcular tamaño basado en el ancho del botón
+            const size = Math.max(this.offsetWidth, this.offsetHeight) * 2;
+            ripple.style.width = ripple.style.height = `${size}px`;
+            
+            // Posición del clic
+            const rect = this.getBoundingClientRect();
+            ripple.style.left = `${e.clientX - rect.left - (size / 2)}px`;
+            ripple.style.top = `${e.clientY - rect.top - (size / 2)}px`;
+            
+            // Remover después de la animación
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+        
+        // Efecto de hover avanzado
+        button.addEventListener('mouseover', function() {
+            // Obtener el icono de flecha
+            const arrow = this.querySelector('.btn-arrow-container, .btn-lightning');
+            if (arrow) {
+                arrow.classList.add('arrow-bounce');
+                
+                setTimeout(() => {
+                    arrow.classList.remove('arrow-bounce');
+                }, 600);
+            }
+        });
+    });
+    
+    // Efecto especial para botones CTA principales
+    const ctaButtons = document.querySelectorAll('.hero-cta .btn, .btn-auditoria-premium');
+    
+    ctaButtons.forEach(btn => {
+        btn.addEventListener('mouseover', function() {
+            this.classList.add('cta-glow');
+        });
+        
+        btn.addEventListener('mouseout', function() {
+            this.classList.remove('cta-glow');
+        });
+    });
+}
+
+// 6. ANIMACIÓN DE CONTADORES
+function initCountersAnimation() {
+    // Animación para métricas en resultados
+    const metricAfters = document.querySelectorAll('.metric-after');
+    
+    // Opciones para el Intersection Observer
+    const options = {
+        threshold: 0.5
+    };
+    
+    // Callback para el observer
+    const animateCounter = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                const targetValue = entry.target.getAttribute('data-value');
+                let isPercentage = false;
+                
+                // Verificar si es porcentaje
+                if (targetValue.includes('%')) {
+                    isPercentage = true;
+                }
+                
+                // Remover símbolos para obtener el valor numérico
+                let numericValue = parseFloat(targetValue.replace(/[^0-9.-]+/g, ''));
+                
+                // Valor inicial
+                let currentValue = 0;
+                let prefix = '';
+                let suffix = '';
+                
+                // Determinar prefijo/sufijo
+                if (targetValue.includes('$')) {
+                    prefix = '$';
+                }
+                
+                if (isPercentage) {
+                    suffix = '%';
+                }
+                
+                // Cálculo para la animación
+                const duration = 1500; // 1.5 segundos
+                const frameDuration = 1000 / 60; // 60fps
+                const totalFrames = Math.round(duration / frameDuration);
+                const increment = numericValue / totalFrames;
+                
+                // Función para animar el contador
+                const animate = (currentFrame) => {
+                    currentValue += increment;
+                    
+                    // Asegurarse de no exceder el valor objetivo
+                    if (currentFrame === totalFrames) {
+                        currentValue = numericValue;
+                    }
+                    
+                    // Formatear el valor (2 decimales si es necesario)
+                    let formattedValue;
+                    if (Number.isInteger(numericValue)) {
+                        formattedValue = Math.floor(currentValue).toLocaleString();
+                    } else {
+                        formattedValue = currentValue.toFixed(1);
+                    }
+                    
+                    // Actualizar el texto
+                    entry.target.textContent = `${prefix}${formattedValue}${suffix}`;
+                    
+                    // Continuar la animación si no hemos llegado al final
+                    if (currentFrame < totalFrames) {
+                        requestAnimationFrame(() => animate(currentFrame + 1));
+                    }
+                };
+                
+                // Iniciar la animación
+                animate(1);
+                
+                // Marcar como animado
+                entry.target.classList.add('animated');
+                observer.unobserve(entry.target);
+            }
+        });
+    };
+    
+    // Crear el observer
+    const observer = new IntersectionObserver(animateCounter, options);
+    
+    // Observar cada elemento counter
+    metricAfters.forEach(metric => {
+        observer.observe(metric);
+    });
+    
+    // Animación para cuenta regresiva
+    const countdownTimer = document.querySelector('.countdown-timer');
+    if (countdownTimer) {
+        // Añadir pulsación a los números del countdown
+        const numbers = countdownTimer.querySelectorAll('.countdown-number');
+        let index = 0;
+        
+        // Animar un número cada 2 segundos, rotando entre ellos
+        setInterval(() => {
+            // Remover la clase del número anterior
+            numbers.forEach(num => num.classList.remove('countdown-pulse'));
+            
+            // Añadir clase al número actual
+            numbers[index].classList.add('countdown-pulse');
+            
+            // Incrementar índice y volver a 0 si es necesario
+            index = (index + 1) % numbers.length;
+        }, 2000);
+    }
+}
+
+// 7. EFECTO PARALLAX
+function initParallaxEffect() {
+    // Seleccionar elementos para el efecto parallax
+    const parallaxElements = document.querySelectorAll('.servicios-bg-gradient, .auditoria-card');
+    
+    // Escuchar movimiento del mouse
+    document.addEventListener('mousemove', function(e) {
+        // Calcular posición relativa del mouse (de 0 a 1 para cada dimensión)
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+        
+        // Aplicar movimiento a los elementos
+        parallaxElements.forEach(el => {
+            // El elemento debe tener la clase para el efecto parallax
+            if (el.classList.contains('servicios-bg-gradient')) {
+                // Movimiento amplio para el fondo
+                const moveX = (mouseX - 0.5) * 40; // -20px a 20px
+                const moveY = (mouseY - 0.5) * 40; // -20px a 20px
+                
+                el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            } else if (el.classList.contains('auditoria-card') && !el.classList.contains('hover-3d-active')) {
+                // Movimiento más sutil para la tarjeta
+                const moveX = (mouseX - 0.5) * 15; // -7.5px a 7.5px
+                const moveY = (mouseY - 0.5) * 10; // -5px a 5px
+                
+                // Preservar la transformación existente y añadir el parallax
+                const existingTransform = el.style.transform.replace(/translate\([^)]*\)/g, '');
+                el.style.transform = `${existingTransform} translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+    });
+}
+
+// 8. ANIMACIONES PARA ICONOS
+function initIconAnimations() {
+    // Iconos que deben tener animaciones continuas
+    const pulseIcons = document.querySelectorAll('.pulse-slow, .auditoria-timer i, .btn-lightning i');
+    pulseIcons.forEach(icon => {
+        icon.classList.add('continuous-pulse');
+    });
+    
+    // Iconos de características que se animan al hacer hover
+    const featureIcons = document.querySelectorAll('.feature-icon i');
+    featureIcons.forEach(icon => {
+        const parent = icon.closest('.auditoria-feature-item');
+        
+        parent.addEventListener('mouseover', function() {
+            icon.classList.add('icon-spin');
+        });
+        
+        parent.addEventListener('mouseout', function() {
+            icon.classList.remove('icon-spin');
+        });
+    });
+    
+    // Iconos de servicio que se transforman
+    const serviceIcons = document.querySelectorAll('.servicio-tab i');
+    serviceIcons.forEach(icon => {
+        const tab = icon.closest('.servicio-tab');
+        
+        tab.addEventListener('mouseover', function() {
+            icon.classList.add('icon-pop');
+        });
+        
+        tab.addEventListener('mouseout', function() {
+            setTimeout(() => {
+                icon.classList.remove('icon-pop');
+            }, 300);
+        });
+    });
+    
+    // Animación para el ribbon de "GRATIS"
+    const ribbon = document.querySelector('.auditoria-ribbon');
+    if (ribbon) {
+        setInterval(() => {
+            ribbon.classList.add('ribbon-wave');
+            
+            setTimeout(() => {
+                ribbon.classList.remove('ribbon-wave');
+            }, 1000);
+        }, 5000);
+    }
+}
+
+// 9. PULSO PARA EL BADGE DE AUDITORÍA
+function initAuditBadgePulse() {
+    const titleBadge = document.querySelector('.title-badge');
+    
+    if (titleBadge) {
+        // Aplicar efecto de pulso con intervalo
+        setInterval(() => {
+            titleBadge.classList.add('badge-pulse');
+            
+            setTimeout(() => {
+                titleBadge.classList.remove('badge-pulse');
+            }, 1000);
+        }, 8000);
+    }
+    
+    // Animar el badge de precio en oferta especial
+    const ofertaBadge = document.querySelector('.oferta-badge');
+    
+    if (ofertaBadge) {
+        setInterval(() => {
+            ofertaBadge.classList.add('oferta-badge-highlight');
+            
+            setTimeout(() => {
+                ofertaBadge.classList.remove('oferta-badge-highlight');
+            }, 1200);
+        }, 7000);
+    }
+}
+
+// 10. EFECTO TILT PARA TARJETAS DE CARACTERÍSTICAS
+function initFeatureCardTilt() {
+    const cards = document.querySelectorAll('.auditoria-feature-item');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+            // Solo aplicar si no está en dispositivo móvil
+            if (window.innerWidth > 768) {
+                const rect = this.getBoundingClientRect();
+                
+                // Calcular posición relativa del cursor dentro del elemento
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Calcular rotación (valores bajos para un efecto sutil)
+                const tiltX = (y / rect.height - 0.5) * 5; // -2.5 a 2.5 grados
+                const tiltY = (x / rect.width - 0.5) * -5; // -2.5 a 2.5 grados
+                
+                // Aplicar transformación
+                this.style.transform = `translateY(-5px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+            }
+        });
+        
+        // Restaurar al salir
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+        });
+    });
+}
     /**
      * Asegura que los elementos críticos estén visibles de inmediato
      */
