@@ -105,55 +105,106 @@
             background-color: #F5F5F5; /* Solo fondo blanco */
         }
         .creative-horizontal {
-            width: 427px; 
-            height: 240px;
+            width: 500px; /* Tamaño para vista previa */
+            height: 262px;
+            overflow: hidden;
         }
         
-        /* Ajustes específicos para formato horizontal */
-        .creative-horizontal .creative-title {
-            font-size: 18px;
-            margin-bottom: 4px;
+        /* Ajustes específicos para formato horizontal con mejor distribución */
+        .creative-horizontal .creative-content {
+            padding: 15px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
         
-        .creative-horizontal .creative-subtitle {
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-        
-        .creative-horizontal .creative-description {
-            font-size: 12px;
-            margin-bottom: 8px;
-            max-width: 400px;
-        }
-        
-        .creative-horizontal .service-icon {
-            width: 40px;
-            height: 40px;
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-        
-        .creative-horizontal .cta-button {
-            padding: 6px 14px;
-            font-size: 12px;
+        .creative-horizontal .logo-container {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            z-index: 5;
         }
         
         .creative-horizontal .creative-ribbon {
-            font-size: 11px;
-            top: 15px;
-            right: -35px;
-            width: 120px;
+            font-size: 14px;
+            top: 50px;
+            right: -70px;
+            width: 240px;
+            transform: rotate(45deg);
+            padding: 8px 0;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
+        .creative-horizontal .creative-title {
+            font-size: 28px;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            max-width: 90%;
+            font-weight: 800;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        
+        .creative-horizontal .creative-subtitle {
+            font-size: 22px;
+            margin-bottom: 10px;
+            max-width: 90%;
+            font-weight: 700;
+        }
+        
+        .creative-horizontal .creative-description {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            max-width: 85%;
+        }
+        
+        .creative-horizontal .service-icon {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            font-size: 22px;
+            margin: 0;
+        }
+        
+        .creative-horizontal .cta-button {
+            padding: 10px 28px;
+            font-size: 16px;
+            margin: 12px auto 8px;
+            border-radius: 40px;
+            min-width: 220px;
+        }
+        
+        /* Trust badges en horizontal */
         .creative-horizontal .guarantee-badge,
         .creative-horizontal .limited-spots,
         .creative-horizontal .mini-testimonial {
-            font-size: 10px;
-            padding: 3px 6px;
+            margin: 5px auto;
+            font-size: 12px;
+            display: inline-flex;
+            width: auto;
+            margin: 0 4px;
         }
         
-        .creative-horizontal .creative-content {
-            padding: 15px;
+        /* Contenedor de badges para mejor alineación */
+        .creative-horizontal .badges-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            width: 100%;
+        }
+        
+        .creative-horizontal .friction-reducer {
+            margin-top: 5px;
         }
         .creative-content {
             position: relative; z-index: 2; padding: 20px; height: 100%;
@@ -189,7 +240,7 @@
             background: #2F855A; border-radius: 0 3px 3px 0; z-index: 1;
         }
 
-        /* CTA Button */
+        /* Estilo para el botón */
         .cta-button {
             background: #2F855A;
             border: none;
@@ -206,9 +257,27 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             color: white;
             font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
         }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
         .cta-button .arrow-icon {
-            /* Sin animación */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .cta-button:hover .arrow-icon {
+            transform: translateX(3px);
         }
         
         /* Friction reducer text */
@@ -836,37 +905,78 @@
                 }
             }
             
-            // Garantía si está disponible
-            if (creative.guaranteeText) {
-                const guaranteeEl = document.createElement('div');
-                guaranteeEl.className = 'guarantee-badge';
-                guaranteeEl.innerHTML = `
-                    <i class="fas fa-shield-alt"></i>
-                    <span>${creative.guaranteeText}</span>
-                `;
-                contentEl.appendChild(guaranteeEl);
-            }
-            
-            // Urgencia para auditoría modificada según lo solicitado
-            if (activeService === 'auditoria') {
-                const urgencyEl = document.createElement('div');
-                urgencyEl.className = 'limited-spots';
-                urgencyEl.innerHTML = `
-                    <i class="fas fa-user-clock"></i>
-                    <span>Últimos 3 cupos disponibles</span>
-                `;
-                contentEl.appendChild(urgencyEl);
-            }
-            
-            // Mini testimonial si está disponible
-            if (creative.testimonio) {
-                const testimonialEl = document.createElement('div');
-                testimonialEl.className = 'mini-testimonial';
-                testimonialEl.innerHTML = `
-                    <div class="stars">★★★★★</div>
-                    <div class="quote">${creative.testimonio}</div>
-                `;
-                contentEl.appendChild(testimonialEl);
+            // Contenedor para badges de garantía
+            if (activeFormat === 'horizontal') {
+                const badgesContainer = document.createElement('div');
+                badgesContainer.className = 'badges-container';
+                
+                // Garantía si está disponible
+                if (creative.guaranteeText) {
+                    const guaranteeEl = document.createElement('div');
+                    guaranteeEl.className = 'guarantee-badge';
+                    guaranteeEl.innerHTML = `
+                        <i class="fas fa-shield-alt"></i>
+                        <span>${creative.guaranteeText}</span>
+                    `;
+                    badgesContainer.appendChild(guaranteeEl);
+                }
+                
+                // Urgencia para auditoría modificada según lo solicitado
+                if (activeService === 'auditoria') {
+                    const urgencyEl = document.createElement('div');
+                    urgencyEl.className = 'limited-spots';
+                    urgencyEl.innerHTML = `
+                        <i class="fas fa-user-clock"></i>
+                        <span>Últimos 3 cupos disponibles</span>
+                    `;
+                    badgesContainer.appendChild(urgencyEl);
+                }
+                
+                // Mini testimonial si está disponible
+                if (creative.testimonio) {
+                    const testimonialEl = document.createElement('div');
+                    testimonialEl.className = 'mini-testimonial';
+                    testimonialEl.innerHTML = `
+                        <div class="stars">★★★★★</div>
+                        <div class="quote">${creative.testimonio}</div>
+                    `;
+                    badgesContainer.appendChild(testimonialEl);
+                }
+                
+                contentEl.appendChild(badgesContainer);
+            } else {
+                // Garantía si está disponible
+                if (creative.guaranteeText) {
+                    const guaranteeEl = document.createElement('div');
+                    guaranteeEl.className = 'guarantee-badge';
+                    guaranteeEl.innerHTML = `
+                        <i class="fas fa-shield-alt"></i>
+                        <span>${creative.guaranteeText}</span>
+                    `;
+                    contentEl.appendChild(guaranteeEl);
+                }
+                
+                // Urgencia para auditoría modificada según lo solicitado
+                if (activeService === 'auditoria') {
+                    const urgencyEl = document.createElement('div');
+                    urgencyEl.className = 'limited-spots';
+                    urgencyEl.innerHTML = `
+                        <i class="fas fa-user-clock"></i>
+                        <span>Últimos 3 cupos disponibles</span>
+                    `;
+                    contentEl.appendChild(urgencyEl);
+                }
+                
+                // Mini testimonial si está disponible
+                if (creative.testimonio) {
+                    const testimonialEl = document.createElement('div');
+                    testimonialEl.className = 'mini-testimonial';
+                    testimonialEl.innerHTML = `
+                        <div class="stars">★★★★★</div>
+                        <div class="quote">${creative.testimonio}</div>
+                    `;
+                    contentEl.appendChild(testimonialEl);
+                }
             }
 
             creativeEl.appendChild(contentEl);
