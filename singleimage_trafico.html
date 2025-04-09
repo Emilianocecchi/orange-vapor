@@ -272,8 +272,8 @@
         .info-box p { color: #333; font-size: 14px; margin: 0; line-height: 1.5; }
 
         /* Toggle de formato */
-        .format-toggle { text-align: center; margin: 20px 0; }
-        .format-btn {
+        .format-toggle, .color-toggle { text-align: center; margin: 20px 0; }
+        .format-btn, .color-btn {
             padding: 8px 16px; border: 1px solid #ddd; border-radius: 4px;
             background-color: white; margin: 0 5px; cursor: pointer;
             font-family: 'Montserrat', sans-serif;
@@ -281,6 +281,16 @@
         .format-btn.active { 
             background: linear-gradient(135deg, #2F855A 0%, #276749 100%); 
             color: white; border-color: #276749; 
+        }
+        .color-btn.active {
+            color: white; border-color: #276749;
+        }
+        .color-btn.white.active {
+            background: linear-gradient(135deg, #2F855A 0%, #276749 100%);
+        }
+        .color-btn.orange.active {
+            background: linear-gradient(135deg, #FF7200 0%, #cc5a00 100%);
+            border-color: #cc5a00;
         }
 
         /* Logo */
@@ -432,6 +442,12 @@
             <button id="verticalBtn" class="format-btn">Vertical (1080x1920)</button>
         </div>
 
+        <!-- Nueva sección de toggle para color de fondo -->
+        <div class="color-toggle">
+            <button id="whiteBtn" class="color-btn white active">Fondo Blanco</button>
+            <button id="orangeBtn" class="color-btn orange">Fondo Naranja</button>
+        </div>
+
         <div class="download-section">
             <button id="downloadBtn" class="download-btn">
                 <i class="fas fa-download"></i>
@@ -445,7 +461,8 @@
                 <p><strong>Instrucciones:</strong></p>
                 <p>1. Seleccioná el tipo de servicio de Ads que deseás generar.</p>
                 <p>2. Seleccioná el formato (cuadrado 1080x1080 o vertical 1080x1920).</p>
-                <p>3. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
+                <p>3. Para Auditoría Gratis, podés elegir entre fondo blanco o naranja.</p>
+                <p>4. Hacé clic en "Descargar Creativo" para obtener la imagen en alta resolución.</p>
             </div>
         </div>
 
@@ -609,8 +626,11 @@
         const creativesContainer = document.getElementById('creativesContainer');
         const tabButtons = document.querySelectorAll('.tab-button');
         const formatButtons = document.querySelectorAll('.format-btn');
+        const colorButtons = document.querySelectorAll('.color-btn');
         const squareBtn = document.getElementById('squareBtn');
         const verticalBtn = document.getElementById('verticalBtn');
+        const whiteBtn = document.getElementById('whiteBtn');
+        const orangeBtn = document.getElementById('orangeBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const downloadCanvas = document.getElementById('downloadCanvas');
         const adCopyText = document.getElementById('adCopyText');
@@ -692,8 +712,14 @@
             const creativeEl = document.createElement('div');
             creativeEl.className = `creative ${activeFormat === 'vertical' ? 'creative-vertical' : ''}`;
             
-            // Fondo siempre blanco
-            creativeEl.style.backgroundColor = '#ffffff';
+            // Establecer el color de fondo según la selección
+            if (activeService === 'auditoria' && activeColor === 'orange') {
+                // Fondo naranja para auditoría
+                creativeEl.style.backgroundColor = '#FF7200';
+            } else {
+                // Fondo blanco para los demás
+                creativeEl.style.backgroundColor = '#ffffff';
+            }
             
             const ribbonText = ribbonData[activeService];
             if (ribbonText) {
@@ -706,57 +732,103 @@
             const contentEl = document.createElement('div');
             contentEl.className = 'creative-content';
 
-            // Logo
+            // Logo con color adaptado según el fondo
             const logoContainerEl = document.createElement('div');
             logoContainerEl.className = 'logo-container';
             const logoEl = document.createElement('div');
             logoEl.style.fontWeight = 'bold';
             logoEl.style.fontSize = '14px';
-            logoEl.innerHTML = `<span style="color: ${colors.dark};">Orange</span> <span style="color: ${colors.primary};">Vapor</span>`;
+            
+            // Ajustar colores del logo según el fondo
+            if (activeService === 'auditoria' && activeColor === 'orange') {
+                logoEl.innerHTML = `<span style="color: #ffffff;">Orange</span> <span style="color: #ffffff;">Vapor</span>`;
+                logoEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.3)';
+            } else {
+                logoEl.innerHTML = `<span style="color: ${colors.dark};">Orange</span> <span style="color: ${colors.primary};">Vapor</span>`;
+            }
+            
             logoContainerEl.appendChild(logoEl);
             contentEl.appendChild(logoContainerEl);
             
-            // Icono de servicio
+            // Icono de servicio con colores adaptados
             if (creative.icon) {
                 const iconEl = document.createElement('div');
                 iconEl.className = 'service-icon';
+                
+                // Ajustar colores del icono según el fondo
+                if (activeService === 'auditoria' && activeColor === 'orange') {
+                    iconEl.style.backgroundColor = 'rgba(255,255,255,0.2)';
+                    iconEl.style.color = '#ffffff';
+                } else {
+                    iconEl.style.backgroundColor = 'rgba(47, 133, 90, 0.15)';
+                    iconEl.style.color = '#2F855A';
+                }
+                
                 iconEl.innerHTML = `<i class="fas ${creative.icon}"></i>`;
                 contentEl.appendChild(iconEl);
             }
 
-            // Título
+            // Título con colores adaptados
             const titleEl = document.createElement('div');
             titleEl.className = 'creative-title';
             titleEl.textContent = creative.title;
+            
+            // Ajustar color del título según el fondo
+            if (activeService === 'auditoria' && activeColor === 'orange') {
+                titleEl.style.color = '#ffffff';
+                titleEl.style.textShadow = '0 1px 3px rgba(0,0,0,0.4)';
+            }
+            
             contentEl.appendChild(titleEl);
 
-            // Subtítulo
+            // Subtítulo con colores adaptados
             const subtitleEl = document.createElement('div');
             subtitleEl.className = 'creative-subtitle';
             subtitleEl.textContent = creative.subtitle;
+            
+            // Ajustar color del subtítulo según el fondo
+            if (activeService === 'auditoria' && activeColor === 'orange') {
+                subtitleEl.style.color = '#ffffff';
+                subtitleEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.3)';
+            }
+            
             contentEl.appendChild(subtitleEl);
 
-            // Descripción con palabras destacadas
+            // Descripción con palabras destacadas y colores adaptados
             const descEl = document.createElement('div');
             descEl.className = 'creative-description';
             
-            // Resaltar palabras clave
+            // Resaltar palabras clave con estilos adaptados al fondo
             let enhancedDescription = creative.description;
             
-            // Destacar palabras clave específicas según el servicio
-            if (highlightTerms[activeService]) {
-                highlightTerms[activeService].forEach(term => {
-                    enhancedDescription = enhancedDescription.replace(
-                        new RegExp(term, 'g'), 
-                        `<span class="highlight">${term}</span>`
-                    );
-                });
+            if (activeService === 'auditoria' && activeColor === 'orange') {
+                // Para fondo naranja, usamos un estilo diferente de resaltado
+                if (highlightTerms[activeService]) {
+                    highlightTerms[activeService].forEach(term => {
+                        enhancedDescription = enhancedDescription.replace(
+                            new RegExp(term, 'g'), 
+                            `<span style="background: rgba(255,255,255,0.3); padding: 0 5px; border-radius: 3px; font-weight: bold; color: #ffffff;">${term}</span>`
+                        );
+                    });
+                }
+                descEl.style.color = '#ffffff';
+                descEl.style.textShadow = '0 1px 1px rgba(0,0,0,0.2)';
+            } else {
+                // Para fondo blanco, usamos el estilo original
+                if (highlightTerms[activeService]) {
+                    highlightTerms[activeService].forEach(term => {
+                        enhancedDescription = enhancedDescription.replace(
+                            new RegExp(term, 'g'), 
+                            `<span class="highlight">${term}</span>`
+                        );
+                    });
+                }
             }
             
             descEl.innerHTML = enhancedDescription;
             contentEl.appendChild(descEl);
             
-            // CTA Button
+            // CTA Button con colores adaptados
             if (creative.cta) {
                 const ctaEl = document.createElement('button');
                 ctaEl.className = 'cta-button';
@@ -764,7 +836,16 @@
                     <span class="cta-text">${creative.cta}</span>
                     <i class="fas fa-arrow-right arrow-icon"></i>
                 `;
-                ctaEl.style.backgroundColor = ctaColor;
+                
+                // Ajustar color del CTA según el fondo
+                if (activeService === 'auditoria' && activeColor === 'orange') {
+                    // Para fondo naranja, usamos un CTA con más contraste
+                    ctaEl.style.backgroundColor = '#276749'; // Verde oscuro para contraste
+                    ctaEl.style.boxShadow = '0 4px 8px rgba(0,0,0,0.25)';
+                } else {
+                    ctaEl.style.backgroundColor = ctaColor;
+                }
+                
                 contentEl.appendChild(ctaEl);
                 
                 // Texto de reducción de fricción para auditoría
@@ -772,11 +853,17 @@
                     const frictionReducerEl = document.createElement('div');
                     frictionReducerEl.className = 'friction-reducer';
                     frictionReducerEl.textContent = 'Meta y Google Ads • Acceso solo lectura';
+                    
+                    // Ajustar color del texto de fricción según el fondo
+                    if (activeColor === 'orange') {
+                        frictionReducerEl.style.color = 'rgba(255,255,255,0.9)';
+                    }
+                    
                     contentEl.appendChild(frictionReducerEl);
                 }
             }
             
-            // Garantía si está disponible
+            // Garantía si está disponible, con colores adaptados
             if (creative.guaranteeText) {
                 const guaranteeEl = document.createElement('div');
                 guaranteeEl.className = 'guarantee-badge';
@@ -784,10 +871,17 @@
                     <i class="fas fa-shield-alt"></i>
                     <span>${creative.guaranteeText}</span>
                 `;
+                
+                // Ajustar colores de la garantía según el fondo
+                if (activeService === 'auditoria' && activeColor === 'orange') {
+                    guaranteeEl.style.backgroundColor = 'rgba(255,255,255,0.2)';
+                    guaranteeEl.style.color = '#ffffff';
+                }
+                
                 contentEl.appendChild(guaranteeEl);
             }
             
-            // Urgencia para auditoría modificada según lo solicitado
+            // Urgencia para auditoría modificada según lo solicitado, con colores adaptados
             if (activeService === 'auditoria') {
                 const urgencyEl = document.createElement('div');
                 urgencyEl.className = 'limited-spots';
@@ -795,10 +889,18 @@
                     <i class="fas fa-user-clock"></i>
                     <span>Últimos 3 cupos disponibles</span>
                 `;
+                
+                // Ajustar colores de la urgencia según el fondo
+                if (activeColor === 'orange') {
+                    urgencyEl.style.backgroundColor = 'rgba(255,255,255,0.2)';
+                    urgencyEl.style.borderLeft = '3px solid rgba(255,255,255,0.5)';
+                    urgencyEl.style.color = '#ffffff';
+                }
+                
                 contentEl.appendChild(urgencyEl);
             }
             
-            // Mini testimonial si está disponible
+            // Mini testimonial si está disponible, con colores adaptados
             if (creative.testimonio) {
                 const testimonialEl = document.createElement('div');
                 testimonialEl.className = 'mini-testimonial';
@@ -806,6 +908,13 @@
                     <div class="stars">★★★★★</div>
                     <div class="quote">${creative.testimonio}</div>
                 `;
+                
+                // Ajustar colores del testimonial según el fondo
+                if (activeService === 'auditoria' && activeColor === 'orange') {
+                    testimonialEl.style.backgroundColor = 'rgba(255,255,255,0.2)';
+                    testimonialEl.style.color = '#ffffff';
+                }
+                
                 contentEl.appendChild(testimonialEl);
             }
 
@@ -1089,8 +1198,12 @@
                 finalCanvas.height = expectedHeight;
                 const ctx = finalCanvas.getContext('2d');
                 
-                // 12. Establecer fondo blanco
-                ctx.fillStyle = '#ffffff';
+                // 12. Establecer fondo
+                if (activeService === 'auditoria' && activeColor === 'orange') {
+                    ctx.fillStyle = '#FF7200';
+                } else {
+                    ctx.fillStyle = '#ffffff';
+                }
                 ctx.fillRect(0, 0, expectedWidth, expectedHeight);
                 
                 // 13. Dibujar el contenido renderizado manteniendo la proporción
@@ -1119,7 +1232,7 @@
                 // 18. Crear enlace de descarga
                 const link = document.createElement('a');
                 link.href = dataURL;
-                link.download = `orange-vapor-${activeService}-white-${activeFormat}.png`;
+                link.download = `orange-vapor-${activeService}-${activeColor}-${activeFormat}.png`;
                 document.body.appendChild(link);
                 
                 // 19. Descargar
@@ -1163,6 +1276,24 @@
                 verticalBtn.classList.add('active'); 
             }
             
+            // Actualizar botones de color
+            colorButtons.forEach(btn => btn.classList.remove('active'));
+            if (activeColor === 'white') {
+                whiteBtn.classList.add('active');
+            } else {
+                orangeBtn.classList.add('active');
+            }
+            
+            // Mostrar/ocultar opciones de color según el servicio seleccionado
+            const colorToggle = document.querySelector('.color-toggle');
+            if (activeService === 'auditoria') {
+                colorToggle.style.display = 'block';
+            } else {
+                // Para otros servicios, ocultar las opciones de color y forzar blanco
+                colorToggle.style.display = 'none';
+                activeColor = 'white';
+            }
+            
             // Renderizar el creativo con las selecciones actuales
             renderCreative();
         }
@@ -1182,6 +1313,17 @@
         verticalBtn.addEventListener('click', () => { 
             activeFormat = 'vertical'; 
             updateUI(); 
+        });
+        
+        // Event listeners para los botones de color
+        whiteBtn.addEventListener('click', () => {
+            activeColor = 'white';
+            updateUI();
+        });
+        
+        orangeBtn.addEventListener('click', () => {
+            activeColor = 'orange';
+            updateUI();
         });
         
         // Event listener para el botón de descarga
