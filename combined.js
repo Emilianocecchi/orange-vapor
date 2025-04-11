@@ -1080,6 +1080,42 @@ function initCountdown() {
     // =========================================================================
     // NAVEGACIÓN Y NAVBAR
     // =========================================================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Capturar los elementos relevantes
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navWrapper = document.querySelector('.nav-wrapper');
+    
+    // Verificar si los elementos existen
+    if (mobileToggle && navMenu && navWrapper) {
+        console.log('Elementos del menú encontrados correctamente');
+        
+        // Agregar un evento click al botón móvil con debugging
+        mobileToggle.addEventListener('click', function(e) {
+            console.log('Botón de menú móvil clickeado');
+            e.preventDefault(); // Prevenir comportamiento por defecto
+            
+            // Toggle de las clases
+            this.classList.toggle('active');
+            navWrapper.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Controlar el scroll del body
+            const isExpanded = this.classList.contains('active');
+            this.setAttribute('aria-expanded', isExpanded.toString());
+            document.body.style.overflow = isExpanded ? 'hidden' : '';
+            
+            console.log('Estado del menú:', isExpanded ? 'abierto' : 'cerrado');
+        });
+    } else {
+        console.error('No se encontraron los elementos del menú:');
+        console.error('mobileToggle:', mobileToggle);
+        console.error('navMenu:', navMenu);
+        console.error('navWrapper:', navWrapper);
+    }
+});
+
     
     /**
      * Inicializa la navegación y comportamiento del navbar
