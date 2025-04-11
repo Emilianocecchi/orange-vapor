@@ -320,56 +320,70 @@ p {
 }
 
 /* ==========================================================================
-   5. HEADER AND NAVIGATION (REVISED)
+   5. HEADER AND NAVIGATION
    ========================================================================== */
 #header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
-    background-color: transparent;
-    transition: all 0.3s ease;
     height: var(--header-height);
+    z-index: 1000;
+    transition: all var(--transicion-media);
+    background-color: transparent;
+    /* Fondo con gradiente semi-transparente para mejorar contraste */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.05) 70%, transparent);
 }
 
+#header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    transition: all var(--transicion-media);
+    z-index: -1;
+}
+
+/* Header en modo sticky */
 #header.sticky {
-    background-color: var(--blanco);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     height: var(--header-height-sticky);
+    background-image: none;
 }
 
+#header.sticky::before {
+    background-color: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--sombra-suave);
+}
+
+/* Ocultar al scrollear hacia abajo */
 #header.scrolled-down {
     transform: translateY(-100%);
 }
 
+/* Navbar contenedor */
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0;
-    position: relative;
     height: 100%;
+    position: relative;
 }
 
-/* Logo styles */
+/* LOGO */
 .logo {
-    display: block;
-    color: var(--blanco);
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    transition: all 0.3s ease;
+    position: relative;
     z-index: 10;
-    border: none;
-}
-
-#header.sticky .logo {
-    color: var(--naranja-principal);
+    padding: 10px 0;
 }
 
 .logo-container {
-    display: flex;
-    align-items: center;
-    transition: all 0.3s ease;
+    transition: all var(--transicion-media);
 }
 
 .logo-full {
@@ -377,15 +391,7 @@ p {
     font-family: var(--fuente-principal);
     font-weight: 800;
     font-size: 1.6rem;
-    transition: all 0.3s ease;
-}
-
-.logo-short {
-    display: none;
-    font-family: var(--fuente-principal);
-    font-weight: 800;
-    font-size: 1.8rem;
-    transition: all 0.3s ease;
+    transition: all var(--transicion-media);
 }
 
 .orange-text {
@@ -394,32 +400,35 @@ p {
 
 .vapor {
     color: var(--blanco);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: all var(--transicion-media);
 }
 
 #header.sticky .vapor {
     color: var(--texto-oscuro);
+    text-shadow: none;
 }
 
-.logo-container.compact .logo-full {
+.logo-short {
     display: none;
+    font-family: var(--fuente-principal);
+    font-weight: 800;
+    font-size: 1.8rem;
 }
 
-.logo-container.compact .logo-short {
-    display: block;
-}
-
-/* Mobile button */
+/* BOTÓN MÓVIL */
 .mobile-toggle {
     display: none;
     flex-direction: column;
     justify-content: space-between;
     width: 30px;
-    height: 24px;
+    height: 22px;
     background: transparent;
     border: none;
     padding: 0;
-    z-index: 10;
     cursor: pointer;
+    z-index: 10;
+    position: relative;
 }
 
 .mobile-toggle span {
@@ -428,156 +437,224 @@ p {
     height: 3px;
     background-color: var(--blanco);
     border-radius: var(--borde-redondo-full);
-    transition: all 0.3s ease;
+    transition: all var(--transicion-media);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 #header.sticky .mobile-toggle span {
     background-color: var(--naranja-principal);
+    box-shadow: none;
+}
+
+.mobile-toggle.active span {
+    background-color: var(--naranja-principal);
+    box-shadow: none;
 }
 
 .mobile-toggle.active span:nth-child(1) {
-    transform: translateY(10.5px) rotate(45deg);
+    transform: translateY(9.5px) rotate(45deg);
 }
 
 .mobile-toggle.active span:nth-child(2) {
     opacity: 0;
+    transform: translateX(-10px);
 }
 
 .mobile-toggle.active span:nth-child(3) {
-    transform: translateY(-10.5px) rotate(-45deg);
+    transform: translateY(-9.5px) rotate(-45deg);
 }
 
-/* Navigation menu */
+/* MENÚ DE NAVEGACIÓN */
+.nav-wrapper {
+    display: flex;
+    align-items: center;
+}
+
 .nav-menu {
     display: flex;
     align-items: center;
+    gap: 8px;
+    list-style: none;
     margin: 0;
     padding: 0;
-    list-style: none;
 }
 
 .nav-link {
-    display: block;
-    color: var(--blanco);
-    font-family: var(--fuente-principal);
-    font-weight: 600;
-    font-size: var(--texto-base);
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-    border-radius: var(--borde-redondo-md);
-}
-
-#header.sticky .nav-link {
-    color: var(--texto-oscuro);
-}
-
-.nav-link:hover {
-    color: var(--naranja-claro);
-}
-
-#header.sticky .nav-link:hover {
-    color: var(--naranja-principal);
-}
-
-/* Express link */
-.express-link {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--express-rojo);
-    background-color: var(--express-rojo-claro);
-    padding: 0.5rem 1rem;
-    border-radius: var(--borde-redondo-full);
-    margin-right: 0.5rem;
+    padding: 10px 16px;
+    color: var(--blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-radius: var(--borde-redondo-md);
+    transition: all var(--transicion-media);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--naranja-principal);
+    transition: all var(--transicion-media);
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.nav-link:hover::before {
+    width: 70%;
+    opacity: 1;
+}
+
+/* Enlaces de navegación en modo sticky */
+#header.sticky .nav-link {
+    color: var(--texto-oscuro);
+    background-color: transparent;
+    box-shadow: none;
+}
+
+#header.sticky .nav-link:hover {
+    background-color: rgba(255, 114, 0, 0.05);
+    color: var(--naranja-principal);
+}
+
+/* ENLACE ESPECIAL (EXPRESS) */
+.express-link {
+    background-color: var(--express-rojo);
+    color: var(--blanco);
+    padding: 10px 16px;
     font-weight: 700;
-    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(229, 62, 62, 0.3);
 }
 
 .express-link:hover {
-    background-color: var(--express-rojo);
+    background-color: var(--express-rojo-hover);
     color: var(--blanco) !important;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
+}
+
+.express-link::before {
+    background-color: var(--blanco);
+}
+
+#header.sticky .express-link {
+    background-color: var(--express-rojo);
+    color: var(--blanco);
+    box-shadow: 0 3px 8px rgba(229, 62, 62, 0.3);
 }
 
 .express-badge {
-    display: inline-block;
-    background-color: var(--express-rojo);
-    color: var(--blanco);
-    font-size: 0.75rem;
-    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--blanco);
+    color: var(--express-rojo);
+    font-size: 0.7rem;
+    font-weight: 800;
     padding: 2px 6px;
     border-radius: var(--borde-redondo-full);
-    margin-left: 4px;
+    margin-left: 2px;
 }
 
-/* Dropdown */
+/* DROPDOWN */
 .dropdown {
     position: relative;
 }
 
 .dropdown-toggle {
+    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 6px;
-    cursor: pointer;
 }
 
 .dropdown-icon {
-    font-size: 0.8rem;
-    transition: transform 0.3s ease;
+    transition: transform var(--transicion-media);
+    margin-left: 6px;
+    font-size: 0.7rem;
 }
 
-.dropdown-toggle.active .dropdown-icon {
+.dropdown.active .dropdown-icon {
     transform: rotate(180deg);
 }
 
 .dropdown-menu {
     position: absolute;
-    top: 100%;
-    left: 0;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    min-width: 240px;
     background-color: var(--blanco);
-    min-width: 200px;
     border-radius: var(--borde-redondo-md);
     box-shadow: var(--sombra-media);
-    padding: 0.75rem;
+    padding: 8px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    z-index: 5;
+    transition: all var(--transicion-media);
+    z-index: 100;
 }
 
-.dropdown:hover .dropdown-menu {
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background-color: var(--blanco);
+    z-index: -1;
+}
+
+.dropdown.active .dropdown-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
 }
 
 .dropdown-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 0.75rem 1rem;
-    color: var(--texto-oscuro);
-    font-weight: 500;
+    gap: 12px;
+    padding: 12px 15px;
     border-radius: var(--borde-redondo-sm);
-    transition: all 0.3s ease;
+    color: var(--texto-oscuro);
+    text-decoration: none;
+    transition: all var(--transicion-rapida);
+    font-weight: 500;
 }
 
 .dropdown-item:hover {
     background-color: var(--gris-claro);
-    color: var(--naranja-principal);
+    transform: translateX(3px);
 }
 
 .item-icon {
     width: 20px;
     text-align: center;
     color: var(--naranja-principal);
+    font-size: 1.1rem;
 }
 
 .featured-item {
     background-color: var(--naranja-claro);
     color: var(--naranja-principal);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .featured-item:hover {
@@ -589,83 +666,151 @@ p {
     color: var(--blanco);
 }
 
-/* CTA Button */
+/* BOTÓN CTA */
 .nav-cta {
-    margin-left: 1rem;
+    margin-left: 12px;
 }
 
 .cta-button {
+    background-color: var(--auditoria-verde);
+    color: var(--blanco);
+    padding: 10px 20px;
+    border-radius: var(--borde-redondo-full);
     display: flex;
     align-items: center;
     gap: 8px;
-    background-color: var(--auditoria-verde);
-    color: var(--blanco);
     font-weight: 700;
-    padding: 0.6rem 1.2rem;
-    border-radius: var(--borde-redondo-full);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(47, 133, 90, 0.2);
+    text-decoration: none;
+    transition: all var(--transicion-media);
+    box-shadow: 0 5px 15px rgba(47, 133, 90, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+    z-index: 1;
+}
+
+.cta-button span, .cta-button i {
+    position: relative;
+    z-index: 2;
 }
 
 .cta-button:hover {
     background-color: var(--auditoria-verde-hover);
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(47, 133, 90, 0.3);
-    color: var(--blanco) !important;
+    box-shadow: 0 8px 20px rgba(47, 133, 90, 0.4);
 }
 
 .arrow-icon {
-    transition: transform 0.3s ease;
+    transition: transform var(--transicion-rapida);
 }
 
 .cta-button:hover .arrow-icon {
-    transform: translateX(3px);
+    transform: translateX(4px);
 }
 
-/* Mobile navigation */
+/* RESPONSIVE PARA TABLET Y MÓVIL */
 @media (max-width: 1024px) {
+    /* Ajustes para el header */
     #header {
         height: var(--header-height-mobile);
-        background-color: var(--naranja-principal);
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.15));
     }
     
     #header.sticky {
         height: var(--header-height-mobile);
-        background-color: var(--blanco);
     }
     
+    /* Mostrar botón móvil */
     .mobile-toggle {
         display: flex;
     }
     
-    .nav-menu {
+    /* Ajustar logo */
+    .logo-full {
+        font-size: 1.4rem;
+    }
+    
+    /* Contenedor del menú */
+    .nav-wrapper {
         position: fixed;
         top: var(--header-height-mobile);
-        left: 0;
+        right: -100%;
         width: 100%;
         height: calc(100vh - var(--header-height-mobile));
-        background-color: var(--blanco);
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        z-index: 99;
+        transition: all var(--transicion-lenta);
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    .nav-wrapper.active {
+        right: 0;
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* Menú nav */
+    .nav-menu {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 85%;
+        max-width: 360px;
+        height: 100%;
         flex-direction: column;
-        align-items: flex-start;
-        padding: 2rem;
-        gap: 1.5rem;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
+        align-items: stretch;
+        background-color: var(--blanco);
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
         overflow-y: auto;
-        z-index: 999;
+        gap: 15px;
+        transform: translateX(30px);
+        opacity: 0;
+        transition: all var(--transicion-lenta);
     }
     
     .nav-menu.active {
         transform: translateX(0);
+        opacity: 1;
     }
     
+    /* Links en móvil */
     .nav-link {
+        padding: 14px 16px;
+        background-color: var(--gris-claro);
         color: var(--texto-oscuro);
-        font-size: 1.2rem;
-        padding: 0.5rem 0;
+        font-size: 1rem;
+        box-shadow: none;
         width: 100%;
+        justify-content: flex-start;
+        border-left: 3px solid transparent;
+        border-radius: var(--borde-redondo-sm);
     }
     
+    .nav-link:hover {
+        background-color: var(--naranja-claro);
+        border-left-color: var(--naranja-principal);
+        color: var(--naranja-principal);
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .nav-link::before {
+        display: none;
+    }
+    
+    /* Dropdown en móvil */
     .dropdown {
         width: 100%;
     }
@@ -677,47 +822,93 @@ p {
     
     .dropdown-menu {
         position: static;
-        box-shadow: none;
-        padding: 0.5rem 0 0.5rem 1.5rem;
-        opacity: 0;
-        visibility: hidden;
-        height: 0;
-        min-width: 100%;
         transform: none;
-        background-color: transparent;
-        transition: all 0.3s ease;
+        width: 100%;
+        min-width: 100%;
+        box-shadow: none;
+        padding: 5px 0 5px 15px;
+        margin-top: 8px;
+        max-height: 0;
+        overflow: hidden;
+        border-left: 2px solid var(--gris-borde);
     }
     
-    .dropdown-menu.active {
-        opacity: 1;
-        visibility: visible;
-        height: auto;
+    .dropdown-menu::before {
+        display: none;
     }
     
+    .dropdown.active .dropdown-menu {
+        max-height: 500px;
+        transform: none;
+    }
+    
+    /* Enlaces dropdown en móvil */
     .dropdown-item {
-        padding: 0.5rem 0;
-        margin-bottom: 0.5rem;
+        padding: 10px 15px;
+        margin-bottom: 5px;
     }
     
-    .express-item {
-        width: 100%;
-    }
-    
+    /* Express link en móvil */
     .express-link {
-        width: 100%;
-        justify-content: flex-start;
-        margin-right: 0;
+        background-color: var(--express-rojo);
+        color: var(--blanco);
+        border-left-color: var(--express-rojo-hover);
     }
     
+    .express-link:hover {
+        background-color: var(--express-rojo-hover);
+        color: var(--blanco);
+        border-left-color: var(--express-rojo);
+    }
+    
+    #header.sticky .express-link {
+        background-color: var(--express-rojo);
+        color: var(--blanco);
+    }
+    
+    /* CTA en móvil */
     .nav-cta {
         width: 100%;
         margin-left: 0;
-        margin-top: 1rem;
+        margin-top: 10px;
     }
     
     .cta-button {
         width: 100%;
         justify-content: center;
+        padding: 16px 20px;
+    }
+}
+
+/* Ajustes para móviles más pequeños */
+@media (max-width: 576px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .logo-full {
+        font-size: 1.2rem;
+    }
+    
+    .nav-menu {
+        width: 100%;
+        max-width: none;
+        padding: 15px;
+    }
+    
+    .nav-link,
+    .dropdown-item {
+        font-size: 0.95rem;
+        padding: 12px 15px;
+    }
+    
+    .express-badge {
+        font-size: 0.65rem;
+    }
+    
+    .cta-button {
+        padding: 14px 16px;
+        font-size: 0.95rem;
     }
 }
 
@@ -5246,127 +5437,3 @@ p {
 .mb-xl { margin-bottom: var(--espaciado-lg) !important; }
 .text-small { font-size: var(--texto-sm) !important; }
 .text-large { font-size: var(--texto-lg) !important; }
-
-/* ==========================================================================
-   CORRECCIÓN DE CONTRASTE PARA NAVBAR
-   ========================================================================== */
-
-/* 1. Mejoras para links de navegación en estado normal */
-.nav-link {
-    color: var(--texto-oscuro); /* Cambiar de blanco a oscuro */
-    font-weight: 700; /* Aumentar el peso de la fuente */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Añadir sombra para mejorar contraste */
-    background-color: rgba(255, 255, 255, 0.15); /* Fondo semi-transparente */
-    border-radius: var(--borde-redondo-md);
-    transition: all 0.3s ease;
-    padding: 8px 16px;
-}
-
-.nav-link:hover {
-    color: var(--texto-oscuro);
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-}
-
-/* 2. Estado sticky mejorado */
-#header.sticky .nav-link {
-    color: var(--texto-oscuro);
-    text-shadow: none;
-    background-color: transparent;
-}
-
-#header.sticky .nav-link:hover {
-    color: var(--naranja-principal);
-    background-color: rgba(255, 114, 0, 0.1);
-}
-
-/* 3. Express link mejorado */
-.express-link {
-    color: var(--blanco) !important;
-    background-color: var(--express-rojo);
-    font-weight: 700;
-}
-
-.express-link:hover {
-    background-color: var(--express-rojo-hover);
-    transform: translateY(-2px);
-}
-
-.express-badge {
-    background-color: var(--blanco);
-    color: var(--express-rojo);
-}
-
-/* 4. CTA Button mejorado */
-.cta-button {
-    color: var(--blanco);
-    background-color: var(--auditoria-verde);
-    font-weight: 700;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.cta-button:hover {
-    background-color: var(--auditoria-verde-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-}
-
-/* 5. Dropdown mejorado */
-.dropdown-toggle {
-    color: var(--texto-oscuro);
-    font-weight: 700;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: var(--borde-redondo-md);
-    padding: 8px 16px;
-}
-
-.dropdown-toggle:hover {
-    color: var(--texto-oscuro);
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-#header.sticky .dropdown-toggle {
-    color: var(--texto-oscuro);
-    text-shadow: none;
-    background-color: transparent;
-}
-
-#header.sticky .dropdown-toggle:hover {
-    color: var(--naranja-principal);
-    background-color: rgba(255, 114, 0, 0.1);
-}
-
-/* 6. Ajuste del logo */
-.logo-full .vapor {
-    color: var(--texto-oscuro);
-    font-weight: 800;
-}
-
-/* 7. Menú móvil mejorado */
-@media (max-width: 1024px) {
-    .mobile-toggle span {
-        background-color: var(--texto-oscuro);
-    }
-    
-    .nav-menu {
-        background-color: var(--blanco);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-    
-    .nav-link, .dropdown-toggle {
-        color: var(--texto-oscuro);
-        background-color: transparent;
-        text-shadow: none;
-        width: 100%;
-        text-align: left;
-        border-radius: 0;
-        border-left: 3px solid transparent;
-    }
-    
-    .nav-link:hover, .dropdown-toggle:hover {
-        background-color: var(--gris-claro);
-        border-left: 3px solid var(--naranja-principal);
-        transform: none;
-    }
-}
