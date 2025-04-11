@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.getElementById('header');
     const mobileToggle = document.querySelector('.mobile-toggle');
     const navMenu = document.getElementById('nav-menu');
+    const navWrapper = document.querySelector('.nav-wrapper');
     
     // Variables para el manejo de estado
     let lastScrollTop = 0;
@@ -1085,29 +1086,70 @@ function initCountdown() {
      */
     function initNavbar() {
         if (!header) return;
-        
+
         // Referencias adicionales
         const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
         const navLinks = document.querySelectorAll('.nav-link');
         const dropdowns = document.querySelectorAll('.dropdown');
         const ctaButton = document.querySelector('.cta-button');
         
-        // Inicializar estado
-        updateHeaderState();
-        setActiveNavLinks();
+        // Manejar scroll para cambiar estilo de navbar
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Cambiar a scrolled cuando scrollea
+            if (scrollTop > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Ocultar navbar al scrollear hacia abajo
+            if (scrollTop > lastScrollTop && scrollTop > 300) {
+                header.classList.add('scrolled-down');
+            } else {
+                header.classList.remove('scrolled-down');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
         
-        // Agregar event listener para el botón de menú móvil
+        // Toggle menú móvil
         if (mobileToggle) {
-            mobileToggle.addEventListener('click', toggleMobileMenu);
+            mobileToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navWrapper.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                
+                // Actualizar aria-expanded
+                const isExpanded = this.classList.contains('active');
+                this.setAttribute('aria-expanded', isExpanded);
+                
+                // Controlar scroll del body
+                document.body.style.overflow = isExpanded ? 'hidden' : '';
+            });
         }
         
-        // Event listeners para dropdowns en móvil
+        // Dropdowns en móvil
         dropdownToggles.forEach(toggle => {
             toggle.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
+                if (window.innerWidth <= 1024) {
                     e.preventDefault();
                     const parent = this.closest('.dropdown');
-                    if (parent) toggleDropdown(parent);
+                    
+                    // Cerrar otros dropdowns
+                    dropdowns.forEach(dropdown => {
+                        if (dropdown !== parent) {
+                            dropdown.classList.remove('active');
+                            const dropToggle = dropdown.querySelector('.dropdown-toggle');
+                            if (dropToggle) dropToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                    
+                    // Abrir/cerrar el dropdown actual
+                    parent.classList.toggle('active');
+                    const isExpanded = parent.classList.contains('active');
+                    this.setAttribute('aria-expanded', isExpanded);
                 }
             });
         });
@@ -1115,109 +1157,141 @@ function initCountdown() {
         // Cerrar menú móvil cuando se hace click en links (excepto toggles)
         navLinks.forEach(link => {
             if (!link.classList.contains('dropdown-toggle')) {
-                link.addEventListener('click', closeMobileMenu);
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1024 && navMenu && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        navWrapper.classList.remove('active');
+                        
+                        if (mobileToggle) {
+                            mobileToggle.classList.remove('active');
+                            mobileToggle.setAttribute('aria-expanded', 'false');
+                        }
+                        
+                        document.body.style.overflow = '';
+                    }
+                });
             }
         });
         
-        // Cerrar menú al hacer click fuera
+        // Cerrar dropdown y menú al hacer click fuera
         document.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768 && navMenu && navMenu.classList.contains('active')) {
-                if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-                    closeMobileMenu();
+            // Solo en modo móvil para el menú
+            if (window.innerWidth <= 1024) {
+                // Verificar si el click fue fuera del menú y toggle
+                if (navMenu && navMenu.classList.contains('active') && 
+                    !navMenu.contains(e.target) && 
+                    !mobileToggle.contains(e.target)) {
+                    mobileToggle.classList.remove('active');
+                    navWrapper.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    mobileToggle.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
                 }
             }
+            
+            // En cualquier modo, cerrar dropdowns si click fuera
+            if (!e.target.closest('.dropdown')) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                    const toggle = dropdown.querySelector('.dropdown-toggle');
+                    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                });
+            }
         });
         
-        // Configurar dropdowns
-        setupDropdowns(dropdowns);
+        // En modo desktop, hover para dropdowns
+        if (window.innerWidth > 1024) {
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('mouseenter', function() {
+                    this.classList.add('active');
+                    const toggle = this.querySelector('.dropdown-toggle');
+                    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+                });
+                
+                dropdown.addEventListener('mouseleave', function() {
+                    this.classList.remove('active');
+                    const toggle = this.querySelector('.dropdown-toggle');
+                    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+        
+        // Manejar cambios de tamaño de ventana
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                // Si cambia de móvil a desktop
+                if (window.innerWidth > 1024) {
+                    document.body.style.overflow = '';
+                    if (mobileToggle) {
+                        mobileToggle.classList.remove('active');
+                        mobileToggle.setAttribute('aria-expanded', 'false');
+                    }
+                    if (navWrapper) {
+                        navWrapper.classList.remove('active');
+                    }
+                    if (navMenu) {
+                        navMenu.classList.remove('active');
+                    }
+                    
+                    // Configurar hover de dropdowns para desktop
+                    dropdowns.forEach(dropdown => {
+                        dropdown.addEventListener('mouseenter', function() {
+                            this.classList.add('active');
+                            const toggle = this.querySelector('.dropdown-toggle');
+                            if (toggle) toggle.setAttribute('aria-expanded', 'true');
+                        });
+                        
+                        dropdown.addEventListener('mouseleave', function() {
+                            this.classList.remove('active');
+                            const toggle = this.querySelector('.dropdown-toggle');
+                            if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                        });
+                    });
+                }
+            }, 250);
+        });
         
         // Inicializar scrolling suave
         initSmoothScroll();
         
         // Inicializar animación del CTA principal
-        initCTAAnimation(ctaButton);
+        if (ctaButton && !sessionStorage.getItem('visited')) {
+            setTimeout(() => {
+                ctaButton.classList.add('pulse-animation');
+                
+                setTimeout(() => {
+                    ctaButton.classList.remove('pulse-animation');
+                }, 5000);
+            }, 2000);
+            
+            // Marcar como visitado
+            sessionStorage.setItem('visited', 'true');
+        }
+        
+        // Actualizar enlaces activos
+        setActiveNavLinks();
     }
     
     /**
      * Actualiza el estado del header según la posición de scroll
+     * @deprecated Reemplazado por la lógica en initNavbar
      */
     function updateHeaderState() {
-        if (!header) return;
-        
-        const scrollPosition = window.scrollY;
-        
-        if (scrollPosition > 50) {
-            if (!header.classList.contains('sticky')) {
-                header.classList.add('sticky');
-            }
-        } else {
-            if (header.classList.contains('sticky')) {
-                header.classList.remove('sticky');
-            }
-        }
-    }
-    
-    /**
-     * Toggle del menú móvil
-     */
-    function toggleMobileMenu() {
-        if (!navMenu || !mobileToggle) return;
-        
-        const isExpanded = this.getAttribute('aria-expanded') === 'true';
-        
-        this.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        this.setAttribute('aria-expanded', (!isExpanded).toString());
-        
-        // Controlar scroll del body
-        document.body.style.overflow = !isExpanded ? 'hidden' : '';
-        
-        // Resetear dropdowns al cerrar menú
-        if (isExpanded) {
-            resetDropdowns();
-        }
-    }
-    
-    /**
-     * Toggle dropdown específico
-     * @param {HTMLElement} dropdown - Elemento dropdown a togglear
-     */
-    function toggleDropdown(dropdown) {
-        dropdown.classList.toggle('active');
-        const toggle = dropdown.querySelector('.dropdown-toggle');
-        
-        if (toggle) {
-            const isExpanded = dropdown.classList.contains('active');
-            toggle.setAttribute('aria-expanded', isExpanded.toString());
-            
-            // Rotar ícono
-            const icon = toggle.querySelector('.dropdown-icon');
-            if (icon) {
-                icon.style.transform = isExpanded ? 'rotate(180deg)' : '';
-            }
-        }
-    }
-    
-    /**
-     * Cerrar todos los dropdowns
-     */
-    function resetDropdowns() {
-        const dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(dropdown => {
-            dropdown.classList.remove('active');
-            const toggle = dropdown.querySelector('.dropdown-toggle');
-            if (toggle) {
-                toggle.setAttribute('aria-expanded', 'false');
-            }
-        });
+        // Esta función se mantiene para compatibilidad pero su lógica ahora está en initNavbar
+        return;
     }
     
     /**
      * Cerrar menú móvil
      */
     function closeMobileMenu() {
-        if (window.innerWidth <= 768 && navMenu && navMenu.classList.contains('active')) {
+        if (window.innerWidth <= 1024 && navMenu && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
+            
+            if (navWrapper) {
+                navWrapper.classList.remove('active');
+            }
             
             if (mobileToggle) {
                 mobileToggle.classList.remove('active');
@@ -1229,39 +1303,37 @@ function initCountdown() {
     }
     
     /**
-     * Configurar dropdowns con hover en desktop y click en móvil
-     * @param {NodeList} dropdowns - Lista de elementos dropdown
+     * Activar un item de dropdown y su toggle
+     * @param {string} href - Ruta del enlace a activar
      */
-    function setupDropdowns(dropdowns) {
-        dropdowns.forEach(dropdown => {
+    function activateDropdownItem(href) {
+        const item = document.querySelector(`a[href="${href}"]`);
+        if (!item) return;
+        
+        item.classList.add('active');
+        const dropdown = item.closest('.dropdown');
+        
+        if (dropdown) {
             const toggle = dropdown.querySelector('.dropdown-toggle');
-            const menu = dropdown.querySelector('.dropdown-menu');
-            
-            if (!toggle || !menu) return;
-            
-            // Para desktop, usar mouse events
-            if (window.innerWidth > 768) {
-                dropdown.addEventListener('mouseenter', function() {
-                    dropdown.classList.add('active');
-                });
-                
-                dropdown.addEventListener('mouseleave', function() {
-                    dropdown.classList.remove('active');
-                });
-                
-                toggle.addEventListener('click', (e) => {
-                    if (window.innerWidth > 768) {
-                        e.preventDefault();
-                        dropdown.classList.add('active');
-                    }
-                });
+            if (toggle) toggle.classList.add('active');
+        }
+    }
+    
+    /**
+     * Activar enlace según hash en la URL
+     * @param {string} hash - Hash de la URL sin #
+     */
+    function activateLinkByHash(hash) {
+        forEachElement('.nav-link', link => {
+            const href = link.getAttribute('href');
+            if (href) {
+                const linkHash = href.startsWith('#') ? href.substring(1) : '';
+                if (linkHash === hash) {
+                    link.classList.add('active');
+                }
             }
         });
     }
-    
-    // =========================================================================
-    // NAVEGACIÓN ACTIVA Y SCROLL
-    // =========================================================================
     
     /**
      * Establecer enlaces activos según URL
@@ -1297,39 +1369,6 @@ function initCountdown() {
             const link = document.querySelector('a[href="contacto.html"]');
             if (link) link.classList.add('active');
         }
-    }
-    
-    /**
-     * Activar un item de dropdown y su toggle
-     * @param {string} href - Ruta del enlace a activar
-     */
-    function activateDropdownItem(href) {
-        const item = document.querySelector(`a[href="${href}"]`);
-        if (!item) return;
-        
-        item.classList.add('active');
-        const dropdown = item.closest('.dropdown');
-        
-        if (dropdown) {
-            const toggle = dropdown.querySelector('.dropdown-toggle');
-            if (toggle) toggle.classList.add('active');
-        }
-    }
-    
-    /**
-     * Activar enlace según hash en la URL
-     * @param {string} hash - Hash de la URL sin #
-     */
-    function activateLinkByHash(hash) {
-        forEachElement('.nav-link', link => {
-            const href = link.getAttribute('href');
-            if (href) {
-                const linkHash = href.startsWith('#') ? href.substring(1) : '';
-                if (linkHash === hash) {
-                    link.classList.add('active');
-                }
-            }
-        });
     }
     
     /**
@@ -1437,20 +1476,11 @@ function initCountdown() {
     /**
      * Inicializar animación del CTA para primera visita
      * @param {HTMLElement} ctaButton - Botón CTA a animar
+     * @deprecated La lógica ahora está en initNavbar
      */
     function initCTAAnimation(ctaButton) {
-        if (ctaButton && !sessionStorage.getItem('visited')) {
-            setTimeout(() => {
-                ctaButton.classList.add('pulse-animation');
-                
-                setTimeout(() => {
-                    ctaButton.classList.remove('pulse-animation');
-                }, 5000);
-            }, 2000);
-            
-            // Marcar como visitado
-            sessionStorage.setItem('visited', 'true');
-        }
+        // Función mantenida para compatibilidad, pero su lógica está en initNavbar
+        return;
     }
     
     // =========================================================================
@@ -1605,7 +1635,6 @@ function initCountdown() {
     function handleScroll() {
         if (!isScrolling) {
             window.requestAnimationFrame(() => {
-                updateHeaderState();
                 updateNavActiveState();
                 isScrolling = false;
             });
@@ -1635,6 +1664,10 @@ function initCountdown() {
                 // Resetear menú
                 if (navMenu) {
                     navMenu.classList.remove('active');
+                }
+                
+                if (navWrapper) {
+                    navWrapper.classList.remove('active');
                 }
             }
             
