@@ -1106,46 +1106,145 @@
             text-decoration: underline;
         }
 
+        .competencia-ejemplos {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px dashed var(--gris-borde);
+        }
+
+        .competencia-ejemplos h4 {
+            font-family: var(--fuente-principal);
+            font-size: var(--texto-lg);
+            font-weight: 700;
+            color: var(--color-ads);
+            margin-bottom: 15px;
+        }
+
+        .competencia-ejemplos p {
+            margin-bottom: 20px;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .gallery-item {
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondo-md);
+            box-shadow: var(--sombra-suave);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--sombra-media);
+        }
+
+        .gallery-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+
+        .gallery-image-container {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background-color: var(--fondo-claro);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-zoom {
+            color: var(--blanco);
+            background-color: rgba(66, 103, 178, 0.8);
+            padding: 10px 20px;
+            border-radius: var(--borde-redondo-full);
+            font-weight: 600;
+            font-size: var(--texto-sm);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-zoom:hover {
+            background-color: rgba(66, 103, 178, 1);
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            padding: 15px;
+            background-color: var(--blanco);
+        }
+
+        .gallery-caption p {
+            margin: 0;
+            font-weight: 600;
+            font-size: var(--texto-sm);
+            color: var(--texto-oscuro);
+        }
+
+        .gallery-caption i {
+            color: var(--color-ads);
+            margin-right: 8px;
+        }
+
+        .gallery-insight {
+            background-color: var(--bg-ads);
+            border-radius: var(--borde-redondo-md);
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            border-left: 3px solid var(--color-ads);
+        }
+
+        .gallery-insight i {
+            color: var(--color-ads);
+            font-size: 24px;
+            margin-top: 3px;
+        }
+
+        .gallery-insight p {
+            margin: 0;
+            color: var(--texto-claro);
+            font-size: var(--texto-sm);
+        }
+
         @media (max-width: 768px) {
-            .main-title {
-                padding: 50px 0;
-            }
-
-            .main-title h1 {
-                font-size: var(--texto-2xl);
-            }
-
-            .main-title p {
-                font-size: var(--texto-md);
-            }
-
-            .audit-card {
-                padding: 25px;
-            }
-
-            .errors-grid, .semaforo-grid {
+            .gallery-container {
                 grid-template-columns: 1fr;
-            }
-
-            .competencia-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hallazgos-key {
-                flex-direction: column;
-            }
-
-            .hallazgo-item {
-                width: 100%;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-included {
-                flex-direction: column;
-                align-items: center;
             }
         }
     </style>
@@ -1219,9 +1318,6 @@
                             <strong>Ejemplo concreto:</strong>
                             <p>La campaña LUCHI consume $332,808.70 mientras JOEL y JOEL modificable gastan $498,589.68 combinados con mensajes muy similares y públicos superpuestos.</p>
                         </div>
-                        <div class="img-placeholder">
-                            <span>Imagen: Campañas fragmentadas</span>
-                        </div>
                     </div>
                 </div>
 
@@ -1242,9 +1338,6 @@
                             <strong>Ejemplo concreto:</strong>
                             <p>El conjunto de anuncios "PUNILLA" incluye industrias diversas con una frecuencia excesiva de 4.99, indicando saturación de la audiencia y poca relevancia del mensaje.</p>
                         </div>
-                        <div class="img-placeholder">
-                            <span>Imagen: Segmentación ineficiente</span>
-                        </div>
                     </div>
                 </div>
 
@@ -1264,9 +1357,6 @@
                         <div class="error-example">
                             <strong>Ejemplo concreto:</strong>
                             <p>Anuncios como "CLINICAS" con costo por conversión de $7,093.32 y conjuntos como "VIDEO MUJER" con CPAs elevados de $3,506.10 operan sin las optimizaciones automáticas que podrían reducir significativamente el costo por resultado.</p>
-                        </div>
-                        <div class="img-placeholder">
-                            <span>Imagen: Optimización desactivada</span>
                         </div>
                     </div>
                 </div>
@@ -1361,9 +1451,9 @@
 
                             <h4 class="acciones-title">Acciones correctivas urgentes:</h4>
                             <ul class="optimizar-list">
-                                <li class="optimizar-item">Pausar inmediatamente campañas con CPA >$3,000</li>
+                                <li class="optimizar-item">Pausar inmediatamente anuncios con CPA >$3,000</li>
                                 <li class="optimizar-item">Resolver advertencias de configuración</li>
-                                <li class="optimizar-item">Eliminar o consolidar conjuntos de anuncios inactivos</li>
+                                <li class="optimizar-item">Eliminar o consolidar conjuntos de anuncios sin conversiones</li>
                             </ul>
                         </div>
                     </div>
@@ -1489,6 +1579,74 @@
                             <p><strong>Proceso de WhatsApp</strong> más directo vs. formularios complejos de competidores</p>
                         </li>
                     </ul>
+
+                    <div class="competencia-ejemplos">
+                        <h4>Ejemplos de anuncios destacados de la competencia:</h4>
+                        <p>Analiza cómo estos competidores están comunicando sus propuestas de valor:</p>
+                        
+                        <div class="gallery-container">
+                            <div class="gallery-item">
+                                <a href="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/da4b77e2-f6cb-56ef-b02a-8dc06b5e649f.png" target="_blank" class="gallery-link">
+                                    <div class="gallery-image-container">
+                                        <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/da4b77e2-f6cb-56ef-b02a-8dc06b5e649f.png" alt="Ejemplo de anuncio de competidor 1" class="gallery-image">
+                                        <div class="gallery-overlay">
+                                            <span class="gallery-zoom"><i class="fas fa-search-plus"></i> Ver imagen completa</span>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-caption">
+                                        <p><i class="fas fa-chart-line"></i> Uso de testimonios destacando beneficios</p>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="gallery-item">
+                                <a href="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/ad31e7a3-3448-4526-dda1-7decc1d2cf7f.png" target="_blank" class="gallery-link">
+                                    <div class="gallery-image-container">
+                                        <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/ad31e7a3-3448-4526-dda1-7decc1d2cf7f.png" alt="Ejemplo de anuncio de competidor 2" class="gallery-image">
+                                        <div class="gallery-overlay">
+                                            <span class="gallery-zoom"><i class="fas fa-search-plus"></i> Ver imagen completa</span>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-caption">
+                                        <p><i class="fas fa-bullseye"></i> Enfoque visual en cobertura nacional</p>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="gallery-item">
+                                <a href="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/cec4f3f5-3a0e-b108-034e-f5334174ebe0.png" target="_blank" class="gallery-link">
+                                    <div class="gallery-image-container">
+                                        <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/cec4f3f5-3a0e-b108-034e-f5334174ebe0.png" alt="Ejemplo de anuncio de competidor 3" class="gallery-image">
+                                        <div class="gallery-overlay">
+                                            <span class="gallery-zoom"><i class="fas fa-search-plus"></i> Ver imagen completa</span>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-caption">
+                                        <p><i class="fas fa-video"></i> Uso efectivo de video explicativo</p>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="gallery-item">
+                                <a href="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/90fc04c2-fc7d-7bcb-ca9d-0cd4cab25fb6.png" target="_blank" class="gallery-link">
+                                    <div class="gallery-image-container">
+                                        <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/90fc04c2-fc7d-7bcb-ca9d-0cd4cab25fb6.png" alt="Ejemplo de anuncio de competidor 4" class="gallery-image">
+                                        <div class="gallery-overlay">
+                                            <span class="gallery-zoom"><i class="fas fa-search-plus"></i> Ver imagen completa</span>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-caption">
+                                        <p><i class="fas fa-check-double"></i> Destaque de múltiples beneficios</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="gallery-insight">
+                            <i class="fas fa-lightbulb"></i>
+                            <p><strong>Insight clave:</strong> Los anuncios más efectivos de la competencia combinan elementos visuales atractivos con mensajes claros sobre beneficios específicos. Note el uso de colores contrastantes y llamadas a la acción directas.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1627,6 +1785,30 @@
                             <div class="accion-content">
                                 <h4>Crear sistema de seguimiento y remarketing</h4>
                                 <p>Audiencia de personas que interactuaron pero no convirtieron, mensaje específico abordando objeciones comunes e incentivo especial para cerrar (ej: "Beneficio adicional por afiliación esta semana").</p>
+                            </div>
+                        </li>
+                        <li class="accion-item">
+                            <div class="accion-number">4</div>
+                            <div class="accion-content">
+                                <h4>Implementar estructura de nomenclatura estandarizada</h4>
+                                <p>Para facilitar análisis y optimización, utilizar la siguiente estructura de nombres:</p>
+                                <ul class="nomenclatura-list" style="margin-top: 10px; list-style-type: none; padding-left: 0;">
+                                    <li style="margin-bottom: 8px; padding-left: 20px; position: relative; font-size: 0.9rem;">
+                                        <span style="position: absolute; left: 0; top: 2px; color: var(--naranja-principal);"><i class="fas fa-caret-right"></i></span>
+                                        <strong>Campañas:</strong> nombre_mes_año_objetivo<br>
+                                        <span style="color: var(--gris-medio); font-style: italic; font-size: 0.85rem;">Ejemplo: LIMPIEZA_ABR25_CONVERSIONES</span>
+                                    </li>
+                                    <li style="margin-bottom: 8px; padding-left: 20px; position: relative; font-size: 0.9rem;">
+                                        <span style="position: absolute; left: 0; top: 2px; color: var(--naranja-principal);"><i class="fas fa-caret-right"></i></span>
+                                        <strong>Conjuntos de anuncios:</strong> audiencia_tipoPuja_diaIni_diaFin<br>
+                                        <span style="color: var(--gris-medio); font-style: italic; font-size: 0.85rem;">Ejemplo: CHOFERES_CPA_15ABR_30ABR</span>
+                                    </li>
+                                    <li style="margin-bottom: 8px; padding-left: 20px; position: relative; font-size: 0.9rem;">
+                                        <span style="position: absolute; left: 0; top: 2px; color: var(--naranja-principal);"><i class="fas fa-caret-right"></i></span>
+                                        <strong>Anuncios:</strong> nombreCampaña_formato_nombreCreativo<br>
+                                        <span style="color: var(--gris-medio); font-style: italic; font-size: 0.85rem;">Ejemplo: LUCHI_VIDEO_MUJER</span>
+                                    </li>
+                                </ul>
                             </div>
                         </li>
                     </ul>
