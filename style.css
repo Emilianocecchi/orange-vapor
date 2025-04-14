@@ -5178,20 +5178,14 @@ p {
     }
 }
 
-/* Styles for Mailchimp Form */
+/* Estilos para el formulario de Mailchimp */
 #mc_embed_signup {
     background: transparent;
     font-family: var(--fuente-secundaria);
     width: 100%;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-    margin: 0;
-}
-
-#mc_embed_signup form {
+    clear: left;
+    box-sizing: border-box;
     padding: 20px 0;
-    margin: 0;
 }
 
 #mc_embed_signup .indicates-required {
@@ -5202,10 +5196,14 @@ p {
     color: var(--texto-ligero);
 }
 
+#mc_embed_signup .asterisk {
+    color: var(--express-rojo);
+    font-size: 14px;
+}
+
 #mc_embed_signup .mc-field-group {
     width: 100%;
     padding: 8px 25px;
-    position: relative;
     box-sizing: border-box;
     margin-bottom: 5px;
 }
@@ -5228,7 +5226,6 @@ p {
     font-size: 14px;
     transition: all 0.3s ease;
     box-sizing: border-box;
-    background-color: white;
 }
 
 #mc_embed_signup .mc-field-group input:focus {
@@ -5237,17 +5234,7 @@ p {
     outline: none;
 }
 
-#mc_embed_signup .asterisk {
-    color: var(--express-rojo);
-    font-size: 14px;
-}
-
-#mc_embed_signup .foot {
-    padding: 15px 25px 20px;
-    text-align: center;
-}
-
-#mc-embedded-subscribe {
+#mc_embed_signup #mc-embedded-subscribe {
     background-color: var(--auditoria-verde) !important;
     color: white !important;
     font-weight: 700 !important;
@@ -5260,14 +5247,15 @@ p {
     font-size: 16px !important;
     border: none !important;
     cursor: pointer !important;
-    text-transform: uppercase !important;
     transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
     margin-bottom: 0 !important;
+    margin-top: 10px !important;
     height: auto !important;
     line-height: normal !important;
 }
 
-#mc-embedded-subscribe:hover {
+#mc_embed_signup #mc-embedded-subscribe:hover {
     background-color: var(--auditoria-verde-hover) !important;
     transform: translateY(-3px) !important;
     box-shadow: 0 8px 20px rgba(47, 133, 90, 0.35) !important;
@@ -5298,6 +5286,44 @@ p {
     background-color: var(--auditoria-verde-claro);
     color: var(--auditoria-verde);
     border: 1px solid rgba(47, 133, 90, 0.2);
+}
+
+#mc_embed_signup .clear {
+    padding: 0 25px;
+}
+
+/* Estilos responsivos para el formulario */
+@media (max-width: 768px) {
+    #mc_embed_signup .mc-field-group {
+        padding: 8px 15px;
+    }
+    
+    #mc_embed_signup .indicates-required {
+        margin-right: 15px;
+    }
+    
+    #mc_embed_signup #mce-responses {
+        margin: 10px 15px;
+    }
+    
+    #mc_embed_signup .clear {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    #mc_embed_signup {
+        padding: 10px 0;
+    }
+    
+    #mc_embed_signup .mc-field-group {
+        padding: 5px 10px;
+    }
+    
+    #mc_embed_signup #mc-embedded-subscribe {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+    }
 }
 
 /* ==========================================================================
