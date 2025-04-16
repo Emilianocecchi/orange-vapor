@@ -512,3 +512,67 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Manejo de tabs de servicios
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleccionar todos los botones de tabs de servicios
+    const servicioTabs = document.querySelectorAll('.servicio-tab');
+    const servicioPaneles = document.querySelectorAll('.servicio-panel');
+    
+    // Agregar evento de clic a cada tab
+    servicioTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Obtener el atributo data-servicio del tab clickeado
+            const servicio = this.getAttribute('data-servicio');
+            
+            // Desactivar todos los tabs activos
+            servicioTabs.forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            
+            // Activar el tab clickeado
+            this.classList.add('active');
+            this.setAttribute('aria-selected', 'true');
+            
+            // Desactivar todos los paneles
+            servicioPaneles.forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            // Activar el panel correspondiente al tab clickeado
+            const panelActivo = document.querySelector(`.servicio-panel[data-servicio="${servicio}"]`);
+            if (panelActivo) {
+                panelActivo.classList.add('active');
+            }
+        });
+    });
+    
+    // Añadir atributos data-tier a las columnas para versión responsiva
+    document.querySelectorAll('.col-starter').forEach(col => {
+        col.setAttribute('data-tier', 'Starter');
+    });
+    
+    document.querySelectorAll('.col-pro').forEach(col => {
+        col.setAttribute('data-tier', 'Pro');
+    });
+    
+    document.querySelectorAll('.col-elite').forEach(col => {
+        col.setAttribute('data-tier', 'Elite');
+    });
+    
+    // Hover mejorado para las características
+    document.querySelectorAll('.comparativa-row').forEach(row => {
+        const cols = row.querySelectorAll('.comparativa-col');
+        
+        cols.forEach(col => {
+            col.addEventListener('mouseenter', function() {
+                cols.forEach(c => c.classList.add('hover-effect'));
+            });
+            
+            col.addEventListener('mouseleave', function() {
+                cols.forEach(c => c.classList.remove('hover-effect'));
+            });
+        });
+    });
+});
