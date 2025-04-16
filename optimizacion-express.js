@@ -1,7 +1,7 @@
 /**
  * Orange Vapor - JavaScript para Optimización Express
  * Optimizado para mejor rendimiento y experiencia de usuario
- * Versión: 1.1 - Corregida para resolver problemas visuales
+ * Versión: 1.2 - Actualizada para trabajar con la nueva navbar
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         // Calcular offset basado en elementos fijos
-        const headerHeight = document.querySelector('#header')?.offsetHeight || 0;
+        const headerHeight = document.querySelector('.ov-header')?.offsetHeight || 0;
         const offset = headerHeight + 20; // 20px extra para espacio
         
         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
@@ -233,13 +233,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Actualizar URL sin recargar la página
         history.pushState(null, null, targetId);
         
-        // Si el menú móvil está abierto, cerrarlo
-        const navMenu = document.querySelector('.nav-menu');
-        const mobileToggle = document.querySelector('.mobile-toggle');
-        if (navMenu && navMenu.classList.contains('active')) {
-          navMenu.classList.remove('active');
-          mobileToggle.classList.remove('active');
-          mobileToggle.setAttribute('aria-expanded', 'false');
+        // Si el menú móvil está abierto, usar la función de OrangeVapor para cerrarlo
+        if (window.OrangeVapor && typeof window.OrangeVapor.closeMobileMenu === 'function') {
+          window.OrangeVapor.closeMobileMenu();
         }
       }
     });
@@ -535,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (targetElement) {
         // Dar tiempo a que se cargue la página completamente
         setTimeout(() => {
-          const headerHeight = document.querySelector('#header')?.offsetHeight || 0;
+          const headerHeight = document.querySelector('.ov-header')?.offsetHeight || 0;
           const offset = headerHeight + 20;
           
           const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
@@ -620,4 +616,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Corregir cualquier superposición restante
     setTimeout(corregirSuperposiciones, 500);
   });
+
+  // =========================================================================
+  // 13. CARGAR LA NAVBAR
+  // =========================================================================
+  // La carga de la navbar ahora se maneja con el archivo combined.js
+  // y la estructura está definida en navbar.html
 });
