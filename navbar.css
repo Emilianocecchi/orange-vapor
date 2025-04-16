@@ -1,7 +1,7 @@
 /* ==========================================================================
    NAVBAR PRINCIPAL - ORANGE VAPOR 2.0
    Diseño minimalista optimizado
-   Versión: 3.2 - 2025
+   Versión: 3.3 - 2025
    ========================================================================== */
 
 :root {
@@ -75,7 +75,9 @@
   -webkit-backdrop-filter: blur(8px);
   box-shadow: var(--sombra-sm);
   z-index: 1000;
-  transition: all var(--transicion-media);
+  transition: height var(--transicion-media), 
+              transform var(--transicion-media),
+              box-shadow var(--transicion-media);
 }
 
 /* Efectos de scroll */
@@ -243,8 +245,11 @@
   font-size: 0.9rem;
   text-decoration: none;
   border-radius: var(--radio-md);
-  transition: all var(--transicion-rapida);
+  transition: color var(--transicion-rapida),
+              background-color var(--transicion-rapida),
+              transform var(--transicion-rapida);
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent; /* Elimina el highlight en móviles */
 }
 
 /* Indicador de enlace activo */
@@ -262,35 +267,33 @@
   border-radius: var(--radio-full);
 }
 
-/* Estados de hover y activo */
-.ov-nav-link:hover,
-.ov-nav-link.active {
+/* Estado hover */
+.ov-nav-link:hover {
   color: var(--naranja-principal);
 }
 
-.ov-nav-link:hover::after,
-.ov-nav-link.active::after {
+.ov-nav-link:hover::after {
   width: 30%;
   opacity: 1;
 }
 
-.ov-nav-link:hover {
-  background-color: var(--naranja-bg);
-  transform: translateY(-2px);
-}
-
-/* Eliminar el efecto de fondo naranja al hacer focus/active */
+/* Eliminar TODOS los efectos de fondo y transformación al hacer hover/focus/active */
+.ov-nav-link:hover,
 .ov-nav-link:focus,
-.ov-nav-link:active {
-  background-color: transparent !important;
-  transform: none !important;
-  outline: none !important;
+.ov-nav-link:active,
+.ov-nav-link.active {
+  background-color: transparent;
+  transform: none;
+  outline: none;
 }
 
-/* Mantener el hover correctamente */
-.ov-nav-link:hover:not(:focus):not(:active) {
-  background-color: var(--naranja-bg);
-  transform: translateY(-2px);
+.ov-nav-link.active {
+  color: var(--naranja-principal);
+}
+
+.ov-nav-link.active::after {
+  width: 30%;
+  opacity: 1;
 }
 
 /* ======== ENLACE EXPRESS MINIMALISTA ======== */
@@ -314,22 +317,15 @@
   border-radius: var(--radio-full);
 }
 
+/* Sobreescribir comportamiento de hover para Express */
 .ov-express-link:hover {
-  background-color: rgba(220, 53, 69, 0.1);
+  background-color: var(--rojizo-bg);
   color: var(--rojizo-hover);
-  transform: translateY(-2px);
+  transform: none;
 }
 
 .ov-express-link:hover::after {
   background-color: var(--rojizo-express);
-}
-
-/* Corrección para el enlace Express al hacer focus */
-.ov-express-link:focus,
-.ov-express-link:active {
-  background-color: var(--rojizo-bg) !important;
-  transform: none !important;
-  outline: none !important;
 }
 
 /* ======== DROPDOWN MEJORADO ======== */
@@ -370,14 +366,6 @@
   transform: translateY(-50%) rotate(180deg);
 }
 
-/* Corrección para el botón dropdown al hacer focus */
-.ov-dropdown-toggle:focus,
-.ov-dropdown-toggle:active {
-  background-color: transparent !important;
-  transform: none !important;
-  outline: none !important;
-}
-
 /* Mega Dropdown */
 .ov-dropdown-menu {
   position: absolute;
@@ -390,12 +378,13 @@
   box-shadow: var(--sombra-md);
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transicion-rapida), 
-              visibility var(--transicion-rapida), 
+  transition: opacity var(--transicion-rapida),
+              visibility var(--transicion-rapida),
               transform var(--transicion-media);
   z-index: 100;
   overflow: hidden;
   border: 1px solid var(--gris-borde);
+  pointer-events: none; /* Importante para evitar problemas con hover */
 }
 
 /* Flecha del mega dropdown */
@@ -413,10 +402,12 @@
   z-index: -1;
 }
 
+/* Estado activo del dropdown */
 .ov-dropdown.active .ov-dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(8px);
+  pointer-events: auto; /* Habilitar interacción cuando está visible */
 }
 
 /* Estructura del mega dropdown */
@@ -449,18 +440,6 @@
   transform: translateY(-2px);
   border-color: var(--gris-borde);
   box-shadow: var(--sombra-xs);
-}
-
-/* Modificación: Quitar destacado naranja de todos los servicios */
-.ov-featured-item {
-  background-color: var(--gris-bg) !important;
-  border-color: transparent !important;
-}
-
-.ov-featured-item:hover {
-  background-color: var(--blanco) !important;
-  border-color: var(--gris-borde) !important;
-  box-shadow: var(--sombra-xs) !important;
 }
 
 /* Iconos de servicio */
@@ -542,26 +521,19 @@
 /* Footer del mega dropdown */
 .ov-mega-dropdown-footer {
   background-color: var(--gris-bg);
-  padding: 12px 16px;
+  padding: 12px 24px;
   border-top: 1px solid var(--gris-borde);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-/* Modificación: Ajustar footer tras quitar botón "Ver todos los servicios" */
-.ov-mega-dropdown-footer {
-  justify-content: flex-start !important;
-  padding-left: 24px !important;
-  padding-right: 24px !important;
+  justify-content: flex-start;
 }
 
 .ov-mega-promo {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-right: auto; /* Para ocupar todo el espacio disponible */
   width: 100%;
+  margin-right: auto;
 }
 
 .ov-promo-badge {
@@ -580,11 +552,6 @@
   color: var(--gris-oscuro);
   font-weight: 500;
   margin: 0;
-}
-
-/* Ocultar el elemento ov-mini-cta */
-.ov-mini-cta {
-  display: none;
 }
 
 /* ======== BOTÓN CTA SIMPLIFICADO ======== */
@@ -613,10 +580,9 @@
   box-shadow: 0 4px 8px rgba(47, 133, 90, 0.25);
 }
 
-/* Fix para el botón CTA en focus/active */
 .ov-cta-button:focus,
 .ov-cta-button:active {
-  outline: none !important;
+  outline: none;
 }
 
 /* ======== RESPONSIVE MEJORADO ======== */
@@ -660,7 +626,7 @@
     top: var(--navbar-movil);
     right: -100%;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - var(--navbar-movil));
     background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(5px);
     z-index: 99;
@@ -719,20 +685,13 @@
   
   .ov-nav-link:hover,
   .ov-nav-link.active {
-    background-color: var(--naranja-bg);
+    background-color: var(--gris-claro);
     border-left-color: var(--naranja-principal);
     color: var(--naranja-principal);
-    transform: none;
   }
   
   .ov-nav-link::after {
     display: none;
-  }
-  
-  /* Mejora para versión móvil - links sin efecto hover */
-  .ov-dropdown-toggle:hover:not(:focus):not(:active) {
-    background-color: var(--naranja-bg);
-    transform: none !important;
   }
   
   /* Express link en móvil */
@@ -745,9 +704,8 @@
   }
   
   .ov-express-link:hover {
-    background-color: rgba(220, 53, 69, 0.1);
+    background-color: var(--rojizo-bg);
     border-left-color: var(--rojizo-express);
-    transform: none;
   }
   
   /* Dropdown en móvil */
@@ -771,6 +729,8 @@
     overflow: hidden;
     transition: max-height 0.4s ease, opacity 0.3s;
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
   
   .ov-dropdown-menu::before {
@@ -781,6 +741,8 @@
     max-height: 1000px;
     transform: none;
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
   
   /* Mega dropdown en móvil */
@@ -788,11 +750,6 @@
     grid-template-columns: 1fr;
     gap: 8px;
     padding: 12px;
-  }
-  
-  /* Ajustar espaciado en el footer del dropdown en móvil */
-  .ov-mega-dropdown-footer {
-    padding: 12px 20px !important;
   }
   
   /* CTA en móvil */
@@ -853,18 +810,16 @@
     flex-direction: column;
     gap: 8px;
     align-items: flex-start;
-    padding: 12px 16px !important;
+    padding: 12px 16px;
   }
   
-  /* Ajustar tamaño de texto en el badge para móvil */
   .ov-promo-badge {
-    font-size: 0.65rem !important;
-    padding: 3px 6px !important;
+    font-size: 0.65rem;
+    padding: 3px 6px;
   }
   
-  /* Mejorar espaciado en dispositivos pequeños */
   .ov-mega-promo p {
-    font-size: 0.75rem !important;
-    line-height: 1.3 !important;
+    font-size: 0.75rem;
+    line-height: 1.3;
   }
 }
