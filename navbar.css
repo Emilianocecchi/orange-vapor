@@ -1,7 +1,7 @@
 /* ==========================================================================
    NAVBAR PRINCIPAL - ORANGE VAPOR 2.0
-   Diseño optimizado para mayor conversión y experiencia de usuario
-   Versión: 3.0 - 2025
+   Diseño minimalista optimizado
+   Versión: 3.1 - 2025
    ========================================================================== */
 
 :root {
@@ -11,6 +11,12 @@
   --naranja-oscuro: #E56700;
   --naranja-claro: #FFF1E6;
   --naranja-bg: rgba(255, 114, 0, 0.05);
+  
+  /* Color rojizo para Optimización Express */
+  --rojizo-express: #dc3545;
+  --rojizo-hover: #c82333;
+  --rojizo-claro: #f8d7da;
+  --rojizo-bg: rgba(220, 53, 69, 0.05);
   
   /* Verdes para CTA */
   --verde-principal: #2F855A;
@@ -27,29 +33,24 @@
   --gris-borde: #E5E7EB;
   --gris-bg: #F9FAFB;
   
-  /* Sombras rediseñadas */
+  /* Sombras simplificadas */
   --sombra-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --sombra-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
-  --sombra-md: 0 10px 15px rgba(0, 0, 0, 0.07);
-  --sombra-lg: 0 20px 25px rgba(0, 0, 0, 0.1);
-  --sombra-inner: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  --sombra-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --sombra-md: 0 4px 6px rgba(0, 0, 0, 0.05);
   
   /* Efectos y transiciones */
   --transicion-rapida: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transicion-media: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transicion-lenta: 500ms cubic-bezier(0.4, 0, 0.2, 1);
   
   /* Dimensiones navbar */
-  --navbar-altura: 80px;
-  --navbar-scrolled: 65px;
-  --navbar-movil: 70px;
+  --navbar-altura: 70px;
+  --navbar-scrolled: 60px;
+  --navbar-movil: 65px;
   
   /* Radios de bordes */
   --radio-xs: 2px;
   --radio-sm: 4px;
-  --radio-md: 8px;
-  --radio-lg: 12px;
-  --radio-xl: 16px;
+  --radio-md: 6px;
   --radio-full: 9999px;
 }
 
@@ -62,16 +63,16 @@
   padding: 0;
 }
 
-/* Header principal con efecto glass */
+/* Header principal minimalista */
 .ov-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: var(--navbar-altura);
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: var(--sombra-sm);
   z-index: 1000;
   transition: all var(--transicion-media);
@@ -80,7 +81,6 @@
 /* Efectos de scroll */
 .ov-header.scrolled {
   height: var(--navbar-scrolled);
-  box-shadow: var(--sombra-md);
 }
 
 .ov-header.scrolled-down {
@@ -125,7 +125,7 @@
 .ov-logo-full {
   font-family: var(--fuente-principal);
   font-weight: 800;
-  font-size: 1.75rem;
+  font-size: 1.6rem;
   transition: all var(--transicion-media);
   opacity: 1;
   transform: translateY(0);
@@ -136,7 +136,7 @@
   left: 0;
   font-family: var(--fuente-principal);
   font-weight: 800;
-  font-size: 1.75rem;
+  font-size: 1.6rem;
   opacity: 0;
   transform: translateY(10px);
   transition: all var(--transicion-media);
@@ -174,8 +174,8 @@
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px;
-  height: 24px;
+  width: 28px;
+  height: 20px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -190,33 +190,22 @@
   height: 2px;
   background-color: var(--gris-oscuro);
   border-radius: var(--radio-full);
-  transition: all 0.4s cubic-bezier(.68,-0.6,.32,1.6);
+  transition: all var(--transicion-media);
 }
 
-/* Animación del toggle mejorada */
+/* Animación del toggle simplificada */
 .ov-mobile-toggle.active .toggle-bar:nth-child(1) {
-  transform: translateY(11px) rotate(45deg);
-  width: 50%;
-  transform-origin: right;
-  background-color: var(--naranja-principal);
+  transform: translateY(9px) rotate(45deg);
+  background-color: var(--gris-oscuro);
 }
 
 .ov-mobile-toggle.active .toggle-bar:nth-child(2) {
-  transform-origin: center;
-  transform: scaleX(1.3);
-  background-color: var(--naranja-principal);
+  opacity: 0;
 }
 
 .ov-mobile-toggle.active .toggle-bar:nth-child(3) {
-  transform: translateY(-11px) rotate(-45deg);
-  width: 50%;
-  transform-origin: right;
-  background-color: var(--naranja-principal);
-}
-
-/* Efecto hover */
-.ov-mobile-toggle:hover .toggle-bar {
-  background-color: var(--naranja-principal);
+  transform: translateY(-9px) rotate(-45deg);
+  background-color: var(--gris-oscuro);
 }
 
 /* ======== NAVEGACIÓN PRINCIPAL ======== */
@@ -229,7 +218,7 @@
 .ov-nav-menu {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   list-style: none;
   height: 100%;
   margin: 0;
@@ -246,12 +235,12 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: 6px;
+  padding: 8px 14px;
   color: var(--gris-oscuro);
   font-family: var(--fuente-principal);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   text-decoration: none;
   border-radius: var(--radio-md);
   transition: all var(--transicion-rapida);
@@ -262,10 +251,10 @@
 .ov-nav-link::after {
   content: '';
   position: absolute;
-  bottom: -5px;
+  bottom: -2px;
   left: 50%;
   width: 0;
-  height: 3px;
+  height: 2px;
   background-color: var(--naranja-principal);
   transition: all var(--transicion-media);
   transform: translateX(-50%);
@@ -281,77 +270,44 @@
 
 .ov-nav-link:hover::after,
 .ov-nav-link.active::after {
-  width: 40%;
+  width: 30%;
   opacity: 1;
 }
 
 .ov-nav-link:hover {
   background-color: var(--naranja-bg);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
-/* ======== ENLACE EXPRESS MEJORADO ======== */
+/* ======== ENLACE EXPRESS MINIMALISTA ======== */
 .ov-express-link {
-  gap: 12px;
-  color: var(--naranja-principal);
-  font-weight: 700;
+  color: var(--rojizo-express);
+  font-weight: 600;
   transition: all var(--transicion-media);
-  background-color: var(--naranja-bg);
-  padding: 12px 18px;
-  margin-right: 5px;
-}
-
-.express-icon-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  background-color: var(--naranja-principal);
-  color: var(--blanco);
-  border-radius: var(--radio-full);
-  transition: all var(--transicion-media);
-}
-
-.express-content {
+  background-color: var(--rojizo-bg);
+  padding: 8px 14px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .ov-express-badge {
-  background-color: rgba(255, 114, 0, 0.15);
-  color: var(--naranja-oscuro);
-  border: 1px solid rgba(255, 114, 0, 0.3);
+  background-color: var(--rojizo-express);
+  color: var(--blanco);
   font-size: 0.7rem;
-  font-weight: 800;
-  padding: 3px 8px;
+  font-weight: 700;
+  padding: 2px 6px;
   border-radius: var(--radio-full);
-  animation: badge-pulse 2s infinite;
-}
-
-/* Animación para badge */
-@keyframes badge-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 114, 0, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 8px rgba(255, 114, 0, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 114, 0, 0);
-  }
 }
 
 .ov-express-link:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: var(--sombra-sm);
-  background-color: rgba(255, 114, 0, 0.1);
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--rojizo-hover);
+  transform: translateY(-2px);
 }
 
-.ov-express-link:hover .express-icon-container {
-  transform: rotate(20deg) scale(1.1);
-  background-color: var(--naranja-hover);
+.ov-express-link:hover::after {
+  background-color: var(--rojizo-express);
 }
 
 /* ======== DROPDOWN MEJORADO ======== */
@@ -364,16 +320,16 @@
 
 .ov-dropdown-toggle {
   cursor: pointer;
-  padding-right: 28px;
+  padding-right: 26px;
   position: relative;
 }
 
 .ov-dropdown-icon {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   transition: transform var(--transicion-rapida);
   margin-left: 2px;
   position: absolute;
-  right: 12px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -398,10 +354,10 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
-  min-width: 640px;
+  min-width: 600px;
   background-color: var(--blanco);
-  border-radius: var(--radio-lg);
-  box-shadow: var(--sombra-lg);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-md);
   opacity: 0;
   visibility: hidden;
   transition: all var(--transicion-media);
@@ -414,11 +370,11 @@
 .ov-dropdown-menu::before {
   content: '';
   position: absolute;
-  top: -6px;
+  top: -5px;
   left: 50%;
   transform: translateX(-50%) rotate(45deg);
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background-color: var(--blanco);
   border-top: 1px solid var(--gris-borde);
   border-left: 1px solid var(--gris-borde);
@@ -428,7 +384,7 @@
 .ov-dropdown.active .ov-dropdown-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(10px);
+  transform: translateX(-50%) translateY(8px);
 }
 
 /* Estructura del mega dropdown */
@@ -440,15 +396,15 @@
 .ov-services-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  padding: 20px;
+  gap: 12px;
+  padding: 16px;
 }
 
 /* Tarjetas de servicio */
 .ov-service-card {
   display: flex;
-  gap: 16px;
-  padding: 16px;
+  gap: 12px;
+  padding: 12px;
   background-color: var(--gris-bg);
   border-radius: var(--radio-md);
   text-decoration: none;
@@ -458,9 +414,9 @@
 
 .ov-service-card:hover {
   background-color: var(--blanco);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   border-color: var(--gris-borde);
-  box-shadow: var(--sombra-sm);
+  box-shadow: var(--sombra-xs);
 }
 
 .ov-featured-item {
@@ -478,19 +434,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   background-color: var(--blanco);
   border-radius: var(--radio-md);
   color: var(--naranja-principal);
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   box-shadow: var(--sombra-xs);
   transition: all var(--transicion-media);
   flex-shrink: 0;
 }
 
 .ov-service-card:hover .ov-service-icon {
-  transform: scale(1.1) rotate(5deg);
+  transform: scale(1.05);
   color: var(--naranja-hover);
 }
 
@@ -498,13 +454,13 @@
 .ov-service-content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .ov-service-content h3 {
   font-family: var(--fuente-principal);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--gris-oscuro);
   margin: 0;
   transition: color var(--transicion-rapida);
@@ -512,22 +468,22 @@
 
 .ov-service-content p {
   font-family: var(--fuente-secundaria);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--gris-medio);
   margin: 0;
   line-height: 1.4;
 }
 
 .ov-service-cta {
-  margin-top: 6px;
-  font-size: 0.8rem;
+  margin-top: 4px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--naranja-principal);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   opacity: 0;
-  transform: translateX(-10px);
+  transform: translateX(-5px);
   transition: all var(--transicion-media);
 }
 
@@ -542,7 +498,7 @@
 }
 
 .ov-service-card:hover .ov-service-cta i {
-  transform: translateX(3px);
+  transform: translateX(2px);
 }
 
 .ov-service-card:hover .ov-service-content h3 {
@@ -552,7 +508,7 @@
 /* Footer del mega dropdown */
 .ov-mega-dropdown-footer {
   background-color: var(--gris-bg);
-  padding: 16px 20px;
+  padding: 12px 16px;
   border-top: 1px solid var(--gris-borde);
   display: flex;
   align-items: center;
@@ -562,32 +518,32 @@
 .ov-mega-promo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .ov-promo-badge {
   background-color: var(--verde-claro);
   color: var(--verde-principal);
   font-size: 0.7rem;
-  font-weight: 800;
-  padding: 4px 10px;
+  font-weight: 700;
+  padding: 3px 8px;
   border-radius: var(--radio-full);
   border: 1px solid rgba(47, 133, 90, 0.2);
 }
 
 .ov-mega-promo p {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--gris-oscuro);
   font-weight: 500;
   margin: 0;
 }
 
 .ov-mini-cta {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--verde-principal);
   background-color: var(--verde-claro);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: var(--radio-full);
   text-decoration: none;
   transition: all var(--transicion-rapida);
@@ -595,115 +551,53 @@
 
 .ov-mini-cta:hover {
   background-color: var(--verde-hover-bg);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
-/* ======== BOTÓN CTA MEJORADO ======== */
+/* ======== BOTÓN CTA SIMPLIFICADO ======== */
 .ov-nav-cta {
-  margin-left: 12px;
+  margin-left: 10px;
 }
 
 .ov-cta-button {
-  background: linear-gradient(135deg, var(--verde-principal), #236c48);
+  background: var(--verde-principal);
   color: var(--blanco);
-  padding: 10px 20px 10px 16px;
+  padding: 8px 16px;
   border-radius: var(--radio-full);
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 700;
+  text-align: center;
+  font-weight: 600;
   text-decoration: none;
   transition: all var(--transicion-media);
-  box-shadow: 0 5px 15px rgba(47, 133, 90, 0.3);
-  position: relative;
-  overflow: hidden;
-  font-size: 0.95rem;
-}
-
-/* Icono del CTA */
-.ov-cta-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: var(--radio-full);
-  transition: all var(--transicion-media);
-}
-
-/* Efecto de brillo */
-.ov-cta-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.2), 
-    transparent
-  );
-  transition: left 0.8s ease;
-}
-
-.ov-cta-button:hover::before {
-  left: 100%;
+  box-shadow: 0 2px 5px rgba(47, 133, 90, 0.2);
+  font-size: 0.9rem;
 }
 
 .ov-cta-button:hover {
-  background: linear-gradient(135deg, #286c4c, #165938);
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(47, 133, 90, 0.4);
-}
-
-.ov-cta-button:hover .ov-cta-icon {
-  transform: rotate(15deg) scale(1.1);
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Animación de pulso para destacar CTA */
-.pulse-animation {
-  animation: ovCtaPulse 2.5s infinite;
-}
-
-@keyframes ovCtaPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(47, 133, 90, 0.6);
-  }
-  70% {
-    box-shadow: 0 0 0 15px rgba(47, 133, 90, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(47, 133, 90, 0);
-  }
+  background: var(--verde-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(47, 133, 90, 0.25);
 }
 
 /* ======== RESPONSIVE MEJORADO ======== */
 @media (max-width: 1200px) {
   .ov-dropdown-menu {
-    min-width: 580px;
+    min-width: 560px;
   }
   
   .ov-logo-full, .ov-logo-short {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
   
   .ov-nav-link {
-    padding: 8px 14px;
-    font-size: 0.9rem;
+    padding: 6px 12px;
+    font-size: 0.85rem;
   }
   
   .ov-cta-button {
-    padding: 8px 16px 8px 12px;
-    font-size: 0.9rem;
-  }
-  
-  .ov-cta-icon {
-    width: 24px;
-    height: 24px;
+    padding: 7px 14px;
+    font-size: 0.85rem;
   }
 }
 
@@ -713,7 +607,7 @@
   }
   
   .ov-logo-full, .ov-logo-short {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
   
   /* Mostrar botón móvil */
@@ -728,10 +622,10 @@
     right: -100%;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
     z-index: 99;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s ease;
     opacity: 0;
     visibility: hidden;
   }
@@ -753,18 +647,18 @@
     top: 0;
     right: 0;
     width: 85%;
-    max-width: 360px;
+    max-width: 320px;
     height: 100%;
     flex-direction: column;
     align-items: stretch;
     background-color: var(--blanco);
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-    padding: 25px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     overflow-y: auto;
-    gap: 15px;
-    transform: translateX(30px);
+    gap: 10px;
+    transform: translateX(20px);
     opacity: 0;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s ease;
   }
   
   .ov-nav-menu.active {
@@ -774,14 +668,14 @@
   
   /* Links en móvil */
   .ov-nav-link {
-    padding: 14px 16px;
+    padding: 12px;
     background-color: var(--gris-claro);
     color: var(--gris-oscuro);
-    font-size: 1rem;
+    font-size: 0.95rem;
     width: 100%;
     justify-content: flex-start;
     border-radius: var(--radio-md);
-    border-left: 3px solid transparent;
+    border-left: 2px solid transparent;
   }
   
   .ov-nav-link:hover,
@@ -798,13 +692,16 @@
   
   /* Express link en móvil */
   .ov-express-link {
-    background-color: var(--naranja-bg);
+    background-color: var(--rojizo-bg);
     border-radius: var(--radio-md);
     justify-content: flex-start;
-    padding: 16px;
+    padding: 12px;
+    border-left-color: var(--rojizo-express);
   }
   
   .ov-express-link:hover {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-left-color: var(--rojizo-express);
     transform: none;
   }
   
@@ -824,10 +721,10 @@
     width: 100%;
     min-width: 100%;
     box-shadow: none;
-    margin-top: 8px;
+    margin-top: 6px;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+    transition: max-height 0.4s ease, opacity 0.3s;
     opacity: 0;
   }
   
@@ -844,67 +741,67 @@
   /* Mega dropdown en móvil */
   .ov-services-grid {
     grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 15px;
+    gap: 8px;
+    padding: 12px;
   }
   
   /* CTA en móvil */
   .ov-nav-cta {
     width: 100%;
     margin-left: 0;
-    margin-top: 10px;
+    margin-top: 8px;
   }
   
   .ov-cta-button {
     width: 100%;
     justify-content: center;
-    padding: 16px 20px;
-    font-size: 1rem;
+    padding: 12px;
+    font-size: 0.95rem;
   }
 }
 
 /* Ajustes para pantallas más pequeñas */
 @media (max-width: 576px) {
   .ov-header .container {
-    padding: 0 16px;
+    padding: 0 15px;
   }
   
   .ov-logo-full, .ov-logo-short {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   
   .ov-nav-menu {
     width: 100%;
     max-width: none;
-    padding: 20px 15px;
+    padding: 15px 12px;
   }
   
   .ov-services-grid {
-    padding: 10px;
+    padding: 8px;
   }
   
   .ov-service-card {
-    padding: 12px;
-    gap: 10px;
+    padding: 10px;
+    gap: 8px;
   }
   
   .ov-service-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
   }
   
   .ov-service-content h3 {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
   
   .ov-service-content p {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
   
   .ov-mega-dropdown-footer {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     align-items: flex-start;
   }
 }
