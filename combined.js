@@ -8,7 +8,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   'use strict';
   
-  // CARGA DINÁMICA DE NAVBAR
+  // CARGA DINÁMICA DE NAVBAR 
   // Verifica si existe un placeholder para cargar la navbar dinámicamente
   const navbarPlaceholder = document.getElementById('navbar-placeholder');
   
