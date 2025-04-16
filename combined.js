@@ -3,12 +3,12 @@
  * Version optimizada: funcionalidades estrictamente de navbar
  * Con soporte de hoverIntent y toggle por clic
  * Version: 3.3 - 2025
- */ 
+ */
 
 document.addEventListener('DOMContentLoaded', function() {
   'use strict';
   
-  // CARGA DINÁMICA DE NAVBAR 
+  // CARGA DINÁMICA DE NAVBAR
   // Verifica si existe un placeholder para cargar la navbar dinámicamente
   const navbarPlaceholder = document.getElementById('navbar-placeholder');
   
@@ -411,4 +411,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Iniciar navbar
     initNavbar();
   }
-});
+}); 
