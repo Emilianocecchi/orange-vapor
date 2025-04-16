@@ -2,6 +2,7 @@
  * Orange Vapor - JavaScript para Navbar
  * Version optimizada: funcionalidades estrictamente de navbar
  * Con carga dinámica integrada
+ * Actualizado 2025 - Interacciones mejoradas
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -149,44 +150,39 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Configura comportamiento de dropdowns
     function setupDropdowns() {
-      // Click en toggles móvil
+      // Manejar clics en toggles (para todos los tamaños de pantalla)
       dropdownToggles.forEach(toggle => {
         toggle.addEventListener('click', function(e) {
-          if (window.innerWidth <= 1024) {
-            e.preventDefault();
-            const parent = this.closest('.ov-dropdown');
-            
-            // Cerrar otros dropdowns
-            dropdowns.forEach(dropdown => {
-              if (dropdown !== parent) {
-                dropdown.classList.remove('active');
-                const dropToggle = dropdown.querySelector('.ov-dropdown-toggle');
-                if (dropToggle) dropToggle.setAttribute('aria-expanded', 'false');
-              }
-            });
-            
-            // Toggle del dropdown actual
-            parent.classList.toggle('active');
-            this.setAttribute('aria-expanded', parent.classList.contains('active'));
-          }
+          e.preventDefault(); // Prevenir la navegación predeterminada
+          const parent = this.closest('.ov-dropdown');
+          const wasActive = parent.classList.contains('active');
+          
+          // Cerrar otros dropdowns
+          dropdowns.forEach(dropdown => {
+            if (dropdown !== parent) {
+              dropdown.classList.remove('active');
+              const dropToggle = dropdown.querySelector('.ov-dropdown-toggle');
+              if (dropToggle) dropToggle.setAttribute('aria-expanded', 'false');
+            }
+          });
+          
+          // Toggle del dropdown actual (abrir si estaba cerrado, cerrar si estaba abierto)
+          parent.classList.toggle('active', !wasActive);
+          this.setAttribute('aria-expanded', !wasActive);
+          
+          // Quitar el enfoque (focus) después del clic para evitar el recuadro
+          this.blur();
         });
       });
       
-      // En desktop, comportamiento hover
+      // En desktop, mantener también comportamiento hover
       if (window.innerWidth > 1024) {
         dropdowns.forEach(dropdown => {
-          // Mouseenter
+          // Solo mouseenter (no mouseleave) para no interferir con el clic
           dropdown.addEventListener('mouseenter', function() {
             this.classList.add('active');
             const toggle = this.querySelector('.ov-dropdown-toggle');
             if (toggle) toggle.setAttribute('aria-expanded', 'true');
-          });
-          
-          // Mouseleave
-          dropdown.addEventListener('mouseleave', function() {
-            this.classList.remove('active');
-            const toggle = this.querySelector('.ov-dropdown-toggle');
-            if (toggle) toggle.setAttribute('aria-expanded', 'false');
           });
         });
       }
@@ -225,12 +221,15 @@ document.addEventListener('DOMContentLoaded', function() {
       }, { passive: true });
     }
     
-    // Cerrar menú al hacer clic en enlaces
+    // Cerrar menú al hacer clic en enlaces y quitar focus para evitar recuadros
     function setupCloseOnClick() {
-      const navLinks = document.querySelectorAll('.ov-nav-link:not(.ov-dropdown-toggle), .ov-service-card, .ov-mini-cta, .ov-cta-button');
+      const navLinks = document.querySelectorAll('.ov-nav-link:not(.ov-dropdown-toggle), .ov-service-card, .ov-cta-button');
       
       navLinks.forEach(link => {
         link.addEventListener('click', function() {
+          // Quitar focus para evitar recuadro
+          this.blur();
+          
           if (window.innerWidth <= 1024) {
             setTimeout(closeMobileMenu, 100);
           }
