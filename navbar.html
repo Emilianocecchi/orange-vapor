@@ -1,4 +1,4 @@
- <header id="header" class="ov-header">
+<header id="header" class="ov-header">
   <div class="container">
     <nav class="ov-navbar">
       <!-- Logo principal con transición OV en scroll -->
@@ -40,8 +40,8 @@
             <div class="ov-dropdown-menu">
               <div class="ov-mega-dropdown">
                 <div class="ov-services-grid">
-                  <!-- Meta Ads -->
-                  <a href="ads.html" class="ov-service-card ov-featured-item">
+                  <!-- Meta Ads (ya sin clase featured) -->
+                  <a href="ads.html" class="ov-service-card">
                     <div class="ov-service-icon">
                       <i class="fab fa-facebook" aria-hidden="true"></i>
                     </div>
@@ -89,13 +89,13 @@
                   </a>
                 </div>
                 
-                <!-- Call to action en dropdown -->
+                <!-- Call to action en dropdown con texto actualizado -->
                 <div class="ov-mega-dropdown-footer">
                   <div class="ov-mega-promo">
-                    <span class="ov-promo-badge">¡AHORRA 30%!</span>
+                    <span class="ov-promo-badge">¡AHORRÁ DESDE US$196!</span>
                     <p>Contrata el pack completo y obtén todos los servicios con descuento</p>
                   </div>
-                  <a href="#servicios" class="ov-mini-cta">Ver todos los servicios</a>
+                  <!-- Se eliminó el enlace "Ver todos los servicios" -->
                 </div>
               </div>
             </div>
@@ -119,3 +119,56 @@
     </nav>
   </div>
 </header>
+
+<!-- Añadir el JavaScript necesario para manejar el dropdown con clic -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Manejar el dropdown con clic
+  const dropdownToggles = document.querySelectorAll('.ov-dropdown-toggle');
+  
+  dropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      const dropdown = this.closest('.ov-dropdown');
+      const isActive = dropdown.classList.contains('active');
+      
+      // Cerrar todos los dropdowns activos
+      document.querySelectorAll('.ov-dropdown.active').forEach(activeDropdown => {
+        if (activeDropdown !== dropdown) {
+          activeDropdown.classList.remove('active');
+          activeDropdown.querySelector('.ov-dropdown-toggle').setAttribute('aria-expanded', 'false');
+        }
+      });
+      
+      // Alternar el estado del dropdown actual
+      dropdown.classList.toggle('active');
+      this.setAttribute('aria-expanded', isActive ? 'false' : 'true');
+    });
+  });
+  
+  // Manejar el botón de menú móvil
+  const mobileToggle = document.querySelector('.ov-mobile-toggle');
+  const navWrapper = document.querySelector('.ov-nav-wrapper');
+  const navMenu = document.querySelector('.ov-nav-menu');
+  
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', function() {
+      const isActive = this.classList.contains('active');
+      this.classList.toggle('active');
+      this.setAttribute('aria-expanded', isActive ? 'false' : 'true');
+      navWrapper.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+  }
+  
+  // Cerrar el dropdown al hacer clic fuera de él
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.ov-dropdown')) {
+      document.querySelectorAll('.ov-dropdown.active').forEach(dropdown => {
+        dropdown.classList.remove('active');
+        dropdown.querySelector('.ov-dropdown-toggle').setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+});
+</script>
