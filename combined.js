@@ -1,8 +1,8 @@
 /**
  * Orange Vapor - JavaScript para Navbar
  * Version optimizada: funcionalidades estrictamente de navbar
- * Con carga dinámica integrada
- * Actualizado 2025 - Interacciones mejoradas
+ * Con soporte de hoverIntent y toggle por clic
+ * Version: 3.3 - 2025
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupNavbar();
   }
   
-  // Función para configurar la navbar
+  // CONFIGURACIÓN PRINCIPAL DE LA NAVBAR
   function setupNavbar() {
     // Elementos principales de la navbar
     const header = document.getElementById('header');
@@ -61,10 +61,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const navWrapper = document.querySelector('.ov-nav-wrapper');
     const dropdowns = document.querySelectorAll('.ov-dropdown');
     const dropdownToggles = document.querySelectorAll('.ov-dropdown-toggle');
+    const navLinks = document.querySelectorAll('.ov-nav-link:not(.ov-dropdown-toggle), .ov-service-card, .ov-cta-button');
     
     // Variables de control
     let lastScrollTop = 0;
     let isScrolling = false;
+    let hoverIntentTimers = new Map(); // Mapa para los timers de hoverIntent
     
     // FUNCIÓN PRINCIPAL: Inicializa la navbar
     function initNavbar() {
@@ -118,7 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configura el menú móvil
     function setupMobileMenu() {
       if (mobileToggle) {
-        mobileToggle.addEventListener('click', function() {
+        mobileToggle.addEventListener('click', function(e) {
+          e.preventDefault();
           this.classList.toggle('active');
           navWrapper.classList.toggle('active');
           navMenu.classList.toggle('active');
@@ -129,6 +132,9 @@ document.addEventListener('DOMContentLoaded', function() {
           
           // Bloquear scroll del body cuando el menú está abierto
           document.body.style.overflow = isExpanded ? 'hidden' : '';
+          
+          // Quitar focus para evitar recuadro
+          this.blur();
         });
       }
     }
@@ -148,96 +154,177 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // Configura comportamiento de dropdowns
-    function setupDropdowns() {
-      // Manejar clics en toggles (para todos los tamaños de pantalla)
-      dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-          e.preventDefault(); // Prevenir la navegación predeterminada
-          const parent = this.closest('.ov-dropdown');
-          const wasActive = parent.classList.contains('active');
-          
-          // Cerrar otros dropdowns
-          dropdowns.forEach(dropdown => {
-            if (dropdown !== parent) {
-              dropdown.classList.remove('active');
-              const dropToggle = dropdown.querySelector('.ov-dropdown-toggle');
-              if (dropToggle) dropToggle.setAttribute('aria-expanded', 'false');
-            }
-          });
-          
-          // Toggle del dropdown actual (abrir si estaba cerrado, cerrar si estaba abierto)
-          parent.classList.toggle('active', !wasActive);
-          this.setAttribute('aria-expanded', !wasActive);
-          
-          // Quitar el enfoque (focus) después del clic para evitar el recuadro
-          this.blur();
-        });
+    // Implementación de hoverIntent para mejorar la interacción con el dropdown
+    function hoverIntent(element, enterCallback, leaveCallback, sensitivity = 100) {
+      const timerId = Symbol();
+      
+      // Al entrar con el mouse
+      element.addEventListener('mouseenter', function() {
+        // Si hay un timer de salida, cancelarlo
+        if (hoverIntentTimers.get(element)?.leave) {
+          clearTimeout(hoverIntentTimers.get(element).leave);
+          hoverIntentTimers.set(element, { enter: null, leave: null });
+        }
+        
+        // Crear timer de entrada
+        const enterTimer = setTimeout(() => {
+          enterCallback.call(element);
+          hoverIntentTimers.set(element, { enter: null, leave: null });
+        }, sensitivity);
+        
+        hoverIntentTimers.set(element, { enter: enterTimer, leave: null });
       });
       
-      // En desktop, mantener también comportamiento hover
+      // Al salir con el mouse
+      element.addEventListener('mouseleave', function() {
+        // Si hay un timer de entrada, cancelarlo
+        if (hoverIntentTimers.get(element)?.enter) {
+          clearTimeout(hoverIntentTimers.get(element).enter);
+          hoverIntentTimers.set(element, { enter: null, leave: null });
+        }
+        
+        // Crear timer de salida
+        const leaveTimer = setTimeout(() => {
+          leaveCallback.call(element);
+          hoverIntentTimers.set(element, { enter: null, leave: null });
+        }, sensitivity);
+        
+        hoverIntentTimers.set(element, { enter: null, leave: leaveTimer });
+      });
+    }
+    
+    // Configura el comportamiento avanzado de los dropdowns
+    function setupDropdowns() {
+      // Inicializar timers
+      dropdowns.forEach(dropdown => {
+        hoverIntentTimers.set(dropdown, { enter: null, leave: null });
+      });
+      
+      // COMPORTAMIENTO EN DESKTOP
       if (window.innerWidth > 1024) {
         dropdowns.forEach(dropdown => {
-          // Solo mouseenter (no mouseleave) para no interferir con el clic
-          dropdown.addEventListener('mouseenter', function() {
-            this.classList.add('active');
-            const toggle = this.querySelector('.ov-dropdown-toggle');
-            if (toggle) toggle.setAttribute('aria-expanded', 'true');
+          // Aplicar hoverIntent para interacción suave
+          hoverIntent(
+            dropdown,
+            // Callback para mouseenter
+            function() {
+              if (!this.classList.contains('clicked')) {
+                this.classList.add('active');
+                const toggle = this.querySelector('.ov-dropdown-toggle');
+                if (toggle) toggle.setAttribute('aria-expanded', 'true');
+              }
+            },
+            // Callback para mouseleave
+            function() {
+              if (!this.classList.contains('clicked')) {
+                this.classList.remove('active');
+                const toggle = this.querySelector('.ov-dropdown-toggle');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+              }
+            },
+            50 // Sensibilidad más baja para respuesta más rápida
+          );
+          
+          // Click en el toggle de dropdown
+          const toggle = dropdown.querySelector('.ov-dropdown-toggle');
+          if (toggle) {
+            toggle.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              // Si está activo por click, desactivar
+              if (dropdown.classList.contains('clicked')) {
+                dropdown.classList.remove('active', 'clicked');
+                this.setAttribute('aria-expanded', 'false');
+              } else {
+                // Cerrar otros dropdowns que estén abiertos por click
+                dropdowns.forEach(item => {
+                  if (item !== dropdown && item.classList.contains('clicked')) {
+                    item.classList.remove('active', 'clicked');
+                    const itemToggle = item.querySelector('.ov-dropdown-toggle');
+                    if (itemToggle) itemToggle.setAttribute('aria-expanded', 'false');
+                  }
+                });
+                
+                // Activar este dropdown y marcarlo como clickeado
+                dropdown.classList.add('active', 'clicked');
+                this.setAttribute('aria-expanded', 'true');
+              }
+              
+              // Quitar el focus para evitar recuadro
+              this.blur();
+            });
+          }
+        });
+        
+        // Cerrar dropdowns con clicked al hacer clic fuera
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.ov-dropdown')) {
+            dropdowns.forEach(dropdown => {
+              if (dropdown.classList.contains('clicked')) {
+                dropdown.classList.remove('active', 'clicked');
+                const toggle = dropdown.querySelector('.ov-dropdown-toggle');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+              }
+            });
+          }
+        });
+        
+      } else {
+        // COMPORTAMIENTO EN MÓVIL
+        dropdownToggles.forEach(toggle => {
+          toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const dropdown = this.closest('.ov-dropdown');
+            const isActive = dropdown.classList.contains('active');
+            
+            // Cerrar otros dropdowns
+            dropdowns.forEach(item => {
+              if (item !== dropdown && item.classList.contains('active')) {
+                item.classList.remove('active');
+                const itemToggle = item.querySelector('.ov-dropdown-toggle');
+                if (itemToggle) itemToggle.setAttribute('aria-expanded', 'false');
+              }
+            });
+            
+            // Toggle de este dropdown
+            dropdown.classList.toggle('active');
+            this.setAttribute('aria-expanded', !isActive);
+            
+            // Quitar el focus para evitar recuadro
+            this.blur();
           });
         });
       }
-      
-      // Cerrar dropdowns al hacer clic fuera
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('.ov-dropdown')) {
-          dropdowns.forEach(dropdown => {
-            dropdown.classList.remove('active');
-            const toggle = dropdown.querySelector('.ov-dropdown-toggle');
-            if (toggle) toggle.setAttribute('aria-expanded', 'false');
-          });
-        }
-        
-        // Cerrar menú móvil si click fuera
-        if (window.innerWidth <= 1024 && navMenu && navMenu.classList.contains('active') && 
-            !navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-          closeMobileMenu();
-        }
-      });
-      
-      // Ajustes al cambiar tamaño de ventana
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 1024) {
-          // Reset estados al pasar a desktop
-          document.body.style.overflow = '';
-          
-          if (mobileToggle) {
-            mobileToggle.classList.remove('active');
-            mobileToggle.setAttribute('aria-expanded', 'false');
-          }
-          
-          if (navWrapper) navWrapper.classList.remove('active');
-          if (navMenu) navMenu.classList.remove('active');
-        }
-      }, { passive: true });
     }
     
-    // Cerrar menú al hacer clic en enlaces y quitar focus para evitar recuadros
+    // Cerrar menú al hacer clic en enlaces
     function setupCloseOnClick() {
-      const navLinks = document.querySelectorAll('.ov-nav-link:not(.ov-dropdown-toggle), .ov-service-card, .ov-cta-button');
-      
       navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function(e) {
           // Quitar focus para evitar recuadro
           this.blur();
           
           if (window.innerWidth <= 1024) {
+            // En móvil, cerrar el menú al hacer clic en un enlace
             setTimeout(closeMobileMenu, 100);
+          } else {
+            // En desktop, cerrar dropdowns si están abiertos
+            dropdowns.forEach(dropdown => {
+              if (dropdown.classList.contains('clicked')) {
+                dropdown.classList.remove('active', 'clicked');
+                const toggle = dropdown.querySelector('.ov-dropdown-toggle');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+              }
+            });
           }
         });
       });
     }
     
-    // Determina qué enlaces deben estar activos
+    // Determina qué enlaces deben estar activos según la URL
     function highlightActiveLinks() {
       const currentUrl = window.location.pathname;
       const filename = currentUrl.split('/').pop();
@@ -285,7 +372,37 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // Exponer funciones públicas 
+    // Manejar cambios de tamaño de ventana
+    window.addEventListener('resize', function() {
+      const isDesktop = window.innerWidth > 1024;
+      
+      // Si pasamos de móvil a desktop
+      if (isDesktop) {
+        // Restablecer estados del menú móvil
+        document.body.style.overflow = '';
+        if (mobileToggle) {
+          mobileToggle.classList.remove('active');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+        }
+        if (navWrapper) navWrapper.classList.remove('active');
+        if (navMenu) navMenu.classList.remove('active');
+        
+        // Restablecer dropdowns
+        dropdowns.forEach(dropdown => {
+          dropdown.classList.remove('active', 'clicked');
+          const toggle = dropdown.querySelector('.ov-dropdown-toggle');
+          if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        });
+        
+        // Reinstalar comportamiento de desktop
+        setupDropdowns();
+      } else {
+        // Si pasamos de desktop a móvil, reinstalar comportamiento móvil
+        setupDropdowns();
+      }
+    }, { passive: true });
+    
+    // Exponer funciones públicas para uso externo
     window.OrangeVapor = {
       closeMobileMenu,
       highlightActiveLinks
