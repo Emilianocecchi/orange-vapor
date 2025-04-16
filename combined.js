@@ -412,3 +412,103 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavbar();
   }
 }); 
+
+// Manejo de tabs de servicios
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleccionar todos los botones de tabs de servicios
+    const servicioTabs = document.querySelectorAll('.servicio-tab');
+    const servicioPaneles = document.querySelectorAll('.servicio-panel');
+    
+    // Agregar evento de clic a cada tab
+    servicioTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Obtener el atributo data-servicio del tab clickeado
+            const servicio = this.getAttribute('data-servicio');
+            
+            // Desactivar todos los tabs activos
+            servicioTabs.forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            
+            // Activar el tab clickeado
+            this.classList.add('active');
+            this.setAttribute('aria-selected', 'true');
+            
+            // Desactivar todos los paneles
+            servicioPaneles.forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            // Activar el panel correspondiente al tab clickeado
+            const panelActivo = document.querySelector(`.servicio-panel[data-servicio="${servicio}"]`);
+            if (panelActivo) {
+                panelActivo.classList.add('active');
+            }
+        });
+    });
+    
+    // Manejo de tabs de plan (Starter, Pro, Elite)
+    const tierTabs = document.querySelectorAll('.tier-tab');
+    
+    tierTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tier = this.getAttribute('data-tier');
+            
+            // Desactivar todos los tabs
+            tierTabs.forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            
+            // Activar este tab
+            this.classList.add('active');
+            this.setAttribute('aria-selected', 'true');
+            
+            // Actualizar la información visible del tier
+            document.querySelectorAll('.tier-info').forEach(info => {
+                info.classList.remove('active');
+            });
+            const tierInfo = document.querySelector(`.tier-info.${tier}`);
+            if (tierInfo) tierInfo.classList.add('active');
+            
+            // Actualizar los detalles del tier para todos los servicios
+            document.querySelectorAll('.tier-detalle').forEach(detalle => {
+                detalle.classList.remove('active');
+            });
+            document.querySelectorAll(`.tier-detalle.${tier}`).forEach(detalle => {
+                detalle.classList.add('active');
+            });
+            
+            // Actualizar los precios
+            document.querySelectorAll('.tier-price').forEach(precio => {
+                precio.classList.remove('active');
+            });
+            document.querySelectorAll(`.tier-price.${tier}`).forEach(precio => {
+                precio.classList.add('active');
+            });
+        });
+    });
+
+    // Mini selector de tiers en sección "Elegí tu Solución"
+    const tierOptionsMini = document.querySelectorAll('.tier-option');
+    
+    if (tierOptionsMini.length > 0) {
+        tierOptionsMini.forEach(option => {
+            option.addEventListener('click', function() {
+                const tier = this.getAttribute('data-tier');
+                
+                // Actualizar opciones activas
+                tierOptionsMini.forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Actualizar precios mini activos
+                document.querySelectorAll('.tier-mini').forEach(mini => {
+                    mini.classList.remove('active');
+                });
+                const tierMini = document.querySelector(`.tier-mini.${tier}`);
+                if (tierMini) tierMini.classList.add('active');
+            });
+        });
+    }
+});
