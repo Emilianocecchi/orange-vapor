@@ -632,6 +632,30 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', function() {
         setupMobileEnhancements();
     });
+
+    // JavaScript para las pestañas de servicios
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remover clase active de todos los botones
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            // Agregar clase active al botón clickeado
+            button.classList.add('active');
+            
+            // Obtener el id del tab a mostrar
+            const tabId = button.getAttribute('data-tab');
+            
+            // Ocultar todos los tabs
+            tabPanes.forEach(pane => pane.classList.remove('active'));
+            
+            // Mostrar el tab seleccionado
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+});
     
     // =========================================================================
     // EXPORTAR FUNCIONES GLOBALES
