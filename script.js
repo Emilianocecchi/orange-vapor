@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
             '#optimizacion-express .fade-in',
             '.servicios-tabla-modern .fade-in',
             '.hero-content',
-            '.hero-image'
+            '.hero-image',
+            '.auditoria-card-redesign' // Añadida la nueva clase rediseñada
         ];
         
         elementosCriticos.forEach(selector => {
@@ -114,166 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.features-sequence > *').forEach((item, index) => {
             item.style.transitionDelay = `${index * 0.1}s`;
         });
-    }
-    
-    // =========================================================================
-    // CONTADOR REGRESIVO
-    // =========================================================================
-    
-    /**
-     * Inicializa y configura el contador regresivo con una fecha objetivo real
-     */
-    function initCountdown() {
-        // Verificar si existe el contador en la página
-        const countdownContainer = document.querySelector('.countdown-timer');
-        const countdownElements = {
-            days: document.querySelector('.countdown-item:nth-child(1) .countdown-number'),
-            hours: document.querySelector('.countdown-item:nth-child(2) .countdown-number'),
-            minutes: document.querySelector('.countdown-item:nth-child(3) .countdown-number'),
-            seconds: document.querySelector('.countdown-item:nth-child(4) .countdown-number')
-        };
-        
-        // Si no existen todos los elementos, no iniciar el contador
-        if (!countdownContainer || !countdownElements.days || !countdownElements.hours || 
-            !countdownElements.minutes || !countdownElements.seconds) {
-            return;
-        }
-        
-        // Establecer la fecha objetivo (15 días a partir de ahora) si no hay una guardada
-        let finalTargetDate;
-        const savedTargetDate = localStorage.getItem('ofertaTargetDate');
-        
-        if (savedTargetDate) {
-            finalTargetDate = new Date(parseInt(savedTargetDate));
-            
-            // Si la fecha guardada ya pasó, crear una nueva fecha objetivo
-            if (finalTargetDate < new Date()) {
-                finalTargetDate = new Date();
-                finalTargetDate.setDate(finalTargetDate.getDate() + 15);
-                localStorage.setItem('ofertaTargetDate', finalTargetDate.getTime().toString());
-            }
-        } else {
-            finalTargetDate = new Date();
-            finalTargetDate.setDate(finalTargetDate.getDate() + 15);
-            localStorage.setItem('ofertaTargetDate', finalTargetDate.getTime().toString());
-        }
-        
-        // Función para añadir urgencia visual basada en el tiempo restante
-        function addVisualUrgency(days) {
-            // Remover cualquier clase de urgencia existente
-            countdownContainer.classList.remove('urgent', 'very-urgent', 'extremely-urgent');
-            
-            // Remover pulse de todos los items
-            countdownContainer.querySelectorAll('.countdown-item').forEach(item => {
-                item.classList.remove('pulse');
-            });
-            
-            // Añadir clases según la urgencia
-            if (days <= 3) {
-                countdownContainer.classList.add('extremely-urgent');
-                // Hacer que el contador de días pulse
-                countdownElements.days.closest('.countdown-item').classList.add('pulse');
-            } else if (days <= 7) {
-                countdownContainer.classList.add('very-urgent');
-            } else if (days <= 10) {
-                countdownContainer.classList.add('urgent');
-            }
-            
-            // Actualizar el mensaje de urgencia
-            const urgencyMsg = countdownContainer.closest('.oferta-countdown')?.querySelector('.limited-offer');
-            if (urgencyMsg) {
-                if (days <= 3) {
-                    urgencyMsg.innerHTML = `<span class="urgency-text">¡ÚLTIMOS ${days} DÍAS!</span> Solo para los primeros 10 clientes`;
-                    urgencyMsg.classList.add('extreme-urgency');
-                    urgencyMsg.classList.remove('high-urgency');
-                } else if (days <= 7) {
-                    urgencyMsg.innerHTML = `<span class="urgency-text">¡Oferta por tiempo limitado!</span> Solo para los primeros 10 clientes`;
-                    urgencyMsg.classList.add('high-urgency');
-                    urgencyMsg.classList.remove('extreme-urgency');
-                } else {
-                    urgencyMsg.innerHTML = `Solo para los primeros 10 clientes`;
-                    urgencyMsg.classList.remove('high-urgency', 'extreme-urgency');
-                }
-            }
-        }
-        
-        // Función para actualizar el contador
-        function updateCountdown() {
-            // Obtener la fecha y hora actuales
-            const currentDate = new Date();
-            
-            // Calcular la diferencia en milisegundos
-            const difference = finalTargetDate - currentDate;
-            
-            // Si la diferencia es negativa, la fecha objetivo ya pasó
-            if (difference <= 0) {
-                // Establecer una nueva fecha objetivo (15 días más)
-                const newTargetDate = new Date();
-                newTargetDate.setDate(newTargetDate.getDate() + 15);
-                localStorage.setItem('ofertaTargetDate', newTargetDate.getTime().toString());
-                
-                // Actualizar la referencia a la fecha objetivo
-                finalTargetDate = newTargetDate;
-                
-                // Opcional: mostrar algún mensaje o realizar alguna acción
-                console.log('¡La oferta se ha renovado por 15 días más!');
-                
-                // Actualizar inmediatamente para evitar mostrar ceros
-                updateVisualCountdown(newTargetDate - currentDate);
-                return;
-            }
-            
-            // Actualizar visualmente el contador
-            updateVisualCountdown(difference);
-        }
-        
-        // Función para actualizar la visualización del contador
-        function updateVisualCountdown(timeRemaining) {
-            // Calcular días, horas, minutos y segundos
-            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-            
-            // Formatear valores para mostrar siempre dos dígitos
-            const formatNumber = num => num < 10 ? `0${num}` : num;
-            
-            // Actualizar los valores en el DOM con animación cuando cambian
-            updateElementWithAnimation(countdownElements.days, days);
-            updateElementWithAnimation(countdownElements.hours, formatNumber(hours));
-            updateElementWithAnimation(countdownElements.minutes, formatNumber(minutes));
-            updateElementWithAnimation(countdownElements.seconds, formatNumber(seconds));
-            
-            // Añadir urgencia visual basada en días restantes
-            addVisualUrgency(days);
-        }
-        
-        // Función para actualizar un elemento con animación cuando cambia su valor
-        function updateElementWithAnimation(element, newValue) {
-            // Si el valor no ha cambiado, no hacer nada
-            if (element.textContent === newValue.toString()) {
-                return;
-            }
-            
-            // Añadir clase para la animación
-            element.classList.add('flip-animation');
-            
-            // Actualizar el valor después de una pequeña pausa
-            setTimeout(() => {
-                element.textContent = newValue;
-                
-                // Remover la clase después de completar la animación
-                setTimeout(() => {
-                    element.classList.remove('flip-animation');
-                }, 300);
-            }, 100);
-        }
-        
-        // Ejecutar inmediatamente para mostrar los valores iniciales
-        updateCountdown();
-        
-        // Actualizar el contador cada segundo
-        return setInterval(updateCountdown, 1000);
     }
     
     // =========================================================================
@@ -486,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =========================================================================
-    // MÉTRICAS Y ANIMACIONES VISUALES
+    // MÉTRICAS Y ANIMACIONES VISUALES - ELIMINADAS REFERENCIAS A SECCIONES QUITADAS
     // =========================================================================
     
     /**
@@ -503,34 +344,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (targetValue) {
                 metric.textContent = targetValue;
             }
-        });
-        
-        // Configurar respaldo con IntersectionObserver
-        const metricObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const metric = entry.target;
-                    metric.classList.add('animated');
-                    metric.style.opacity = '1';
-                    
-                    // Obtener y mostrar el valor final
-                    const targetValue = metric.getAttribute('data-value');
-                    if (targetValue) {
-                        metric.textContent = targetValue;
-                    }
-                    
-                    // Dejar de observar
-                    metricObserver.unobserve(metric);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -10% 0px'
-        });
-        
-        // Observar solo métricas que aún no estén animadas
-        forEachElement('.metric-after:not(.animated)', metric => {
-            metricObserver.observe(metric);
         });
     }
     
@@ -588,7 +401,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar componentes principales de la página
     initScrollAnimations();
     initMetricAnimations();
-    initCountdown();
     initServiceTabs();
     initTierTabs();
     initTierSelectorMini();
@@ -634,28 +446,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // JavaScript para las pestañas de servicios
-document.addEventListener('DOMContentLoaded', function() {
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remover clase active de todos los botones
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            // Agregar clase active al botón clickeado
-            button.classList.add('active');
-            
-            // Obtener el id del tab a mostrar
-            const tabId = button.getAttribute('data-tab');
-            
-            // Ocultar todos los tabs
-            tabPanes.forEach(pane => pane.classList.remove('active'));
-            
-            // Mostrar el tab seleccionado
-            document.getElementById(tabId).classList.add('active');
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remover clase active de todos los botones
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                // Agregar clase active al botón clickeado
+                button.classList.add('active');
+                
+                // Obtener el id del tab a mostrar
+                const tabId = button.getAttribute('data-tab');
+                
+                // Ocultar todos los tabs
+                tabPanes.forEach(pane => pane.classList.remove('active'));
+                
+                // Mostrar el tab seleccionado
+                document.getElementById(tabId).classList.add('active');
+            });
         });
     });
-});
     
     // =========================================================================
     // EXPORTAR FUNCIONES GLOBALES
