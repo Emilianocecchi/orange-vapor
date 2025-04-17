@@ -2,7 +2,7 @@
  * Orange Vapor - JavaScript para Navbar
  * Version optimizada: funcionalidades estrictamente de navbar
  * Con soporte de hoverIntent y toggle por clic
- * Version: 3.3 - 2025
+ * Version: 3.4 - 2025
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -363,10 +363,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Activar dropdown de servicios
             const serviciosToggle = document.querySelector('.ov-dropdown-toggle');
             if (serviciosToggle) serviciosToggle.classList.add('active');
-          } else if (filename.includes('optimizacion-express')) {
-            document.querySelectorAll('a[href*="express"]').forEach(link => {
-              link.classList.add('active');
-            });
           }
         }
       }
@@ -513,40 +509,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Manejo de tabs de servicios
+// Manejo de tabs de servicios en la sección de planes
 document.addEventListener('DOMContentLoaded', function() {
-    // Seleccionar todos los botones de tabs de servicios
-    const servicioTabs = document.querySelectorAll('.servicio-tab');
-    const servicioPaneles = document.querySelectorAll('.servicio-panel');
+    // Seleccionar todos los botones de tab
+    const tabButtons = document.querySelectorAll('.tab-button');
     
-    // Agregar evento de clic a cada tab
-    servicioTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Obtener el atributo data-servicio del tab clickeado
-            const servicio = this.getAttribute('data-servicio');
-            
-            // Desactivar todos los tabs activos
-            servicioTabs.forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
+    // Verificar si hay tabs en la página
+    if (tabButtons.length > 0) {
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Obtener el ID del tab a mostrar
+                const tabId = this.getAttribute('data-tab');
+                
+                // Desactivar todos los botones de tab
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Activar este botón
+                this.classList.add('active');
+                
+                // Ocultar todos los contenidos de tab
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Mostrar el contenido correspondiente
+                const tabContent = document.getElementById(tabId);
+                if (tabContent) {
+                    tabContent.classList.add('active');
+                }
             });
-            
-            // Activar el tab clickeado
-            this.classList.add('active');
-            this.setAttribute('aria-selected', 'true');
-            
-            // Desactivar todos los paneles
-            servicioPaneles.forEach(panel => {
-                panel.classList.remove('active');
-            });
-            
-            // Activar el panel correspondiente al tab clickeado
-            const panelActivo = document.querySelector(`.servicio-panel[data-servicio="${servicio}"]`);
-            if (panelActivo) {
-                panelActivo.classList.add('active');
-            }
         });
-    });
+    }
     
     // Añadir atributos data-tier a las columnas para versión responsiva
     document.querySelectorAll('.col-starter').forEach(col => {
