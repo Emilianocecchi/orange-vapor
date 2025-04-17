@@ -1544,6 +1544,41 @@
     
     <script src="combined.js"></script>
 <script src="script.js"></script>
+    // JavaScript para las pestañas de servicios
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
     
+    if (tabButtons.length > 0) {
+        // Asegurarse de que hay pestañas a las que agregar listeners
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                console.log('Tab clicked:', button.getAttribute('data-tab'));
+                
+                // Remover clase active de todos los botones
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Agregar clase active al botón clickeado
+                button.classList.add('active');
+                
+                // Obtener el id del tab a mostrar
+                const tabId = button.getAttribute('data-tab');
+                
+                // Ocultar todos los tabs
+                tabPanes.forEach(pane => pane.classList.remove('active'));
+                
+                // Mostrar el tab seleccionado
+                const targetPane = document.getElementById(tabId);
+                if (targetPane) {
+                    targetPane.classList.add('active');
+                } else {
+                    console.error('Tab pane not found for ID:', tabId);
+                }
+            });
+        });
+    } else {
+        console.warn('No tab buttons found with class .tab-btn');
+    }
+});
 </body>
 </html>
