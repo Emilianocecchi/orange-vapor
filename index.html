@@ -179,8 +179,6 @@
         <i class="fas fa-chevron-down" aria-hidden="true"></i>
     </div>
 </section>
-    
-    
     <!-- Sección de Servicios Mejorada -->
 <section id="servicios" class="servicios">
     <div class="servicios-bg"></div>
@@ -308,23 +306,23 @@
         <!-- Servicios con tabs -->
         <div class="servicios-tabs-container fade-in visible">
             <div class="tabs-menu">
-                <button class="tab-btn active" data-tab="meta-ads">
+                <button class="tab-button active" data-tab="meta-ads">
                     <i class="fab fa-facebook"></i> Meta Ads
                 </button>
-                <button class="tab-btn" data-tab="google-ads">
+                <button class="tab-button" data-tab="google-ads">
                     <i class="fab fa-google"></i> Google Ads
                 </button>
-                <button class="tab-btn" data-tab="email-marketing">
+                <button class="tab-button" data-tab="email-marketing">
                     <i class="fas fa-envelope-open-text"></i> Email Marketing
                 </button>
-                <button class="tab-btn" data-tab="chatbot">
+                <button class="tab-button" data-tab="chatbot">
                     <i class="fas fa-robot"></i> Chatbot
                 </button>
             </div>
 
             <div class="tabs-content">
                 <!-- META ADS TAB -->
-                <div id="meta-ads" class="tab-pane active">
+                <div id="meta-ads" class="tab-content active">
                     <h3 class="tab-title">Meta Ads: Planes Mensuales</h3>
                     
                     <div class="planes-grid">
@@ -398,7 +396,7 @@
                 </div>
                 
                 <!-- GOOGLE ADS TAB -->
-                <div id="google-ads" class="tab-pane">
+                <div id="google-ads" class="tab-content">
                     <h3 class="tab-title">Google Ads: Planes Mensuales</h3>
                     
                     <div class="planes-grid">
@@ -472,7 +470,7 @@
                 </div>
                 
                 <!-- EMAIL MARKETING TAB -->
-                <div id="email-marketing" class="tab-pane">
+                <div id="email-marketing" class="tab-content">
                     <h3 class="tab-title">Email Marketing: Planes Mensuales</h3>
                     
                     <div class="planes-grid">
@@ -546,7 +544,7 @@
                 </div>
                 
                 <!-- CHATBOT TAB -->
-                <div id="chatbot" class="tab-pane">
+                <div id="chatbot" class="tab-content">
                     <h3 class="tab-title">Chatbot: Planes Mensuales</h3>
                     
                     <div class="planes-grid">
@@ -640,6 +638,37 @@
             </div>
         </div>
     </div>
+
+    <script>
+    // Código JavaScript inline para asegurar la funcionalidad de tabs
+    document.addEventListener('DOMContentLoaded', function() {
+        var tabButtons = document.querySelectorAll('.tab-button');
+        var tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Primero removemos la clase active de todos los botones
+                tabButtons.forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+                
+                // Añadimos la clase active al botón clickeado
+                this.classList.add('active');
+                
+                // Obtenemos el id del tab que hay que mostrar
+                var tabId = this.getAttribute('data-tab');
+                
+                // Ocultamos todos los tabs
+                tabContents.forEach(function(content) {
+                    content.classList.remove('active');
+                });
+                
+                // Mostramos el tab seleccionado
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    });
+    </script>
 </section>
     
     <!-- Sección Optimización Express -->
