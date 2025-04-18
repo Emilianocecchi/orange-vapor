@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateSpecialOffer() {
         // Calcular precio regular y ahorro
         const regularPrice = 299 * 4; // $1,196
-        const discountedPrice = 1000; // Precio con descuento
+        const discountedPrice = 999; // Precio con descuento actualizado
         const savings = regularPrice - discountedPrice;
         
         // Actualizar texto de oferta especial
