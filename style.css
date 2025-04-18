@@ -624,6 +624,10 @@ p {
     margin-top: 20px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     background-color: var(--naranja-principal);
+    position: absolute;
+    bottom: 20px;
+    left: 25px;
+    right: 25px;
 }
 
 .btn-plan:hover {
@@ -632,8 +636,20 @@ p {
     opacity: 0.95;
 }
 
-.btn-pro {
+.btn-meta {
     background-color: var(--color-ads);
+}
+
+.btn-google {
+    background-color: var(--color-google);
+}
+
+.btn-email {
+    background-color: var(--color-email);
+}
+
+.btn-chatbot {
+    background-color: var(--color-chatbot);
 }
 
 .btn-bundle {
@@ -1265,6 +1281,12 @@ p {
     border: 1px solid rgba(47, 133, 90, 0.15);
 }
 
+.title-badge.orange-badge {
+    background-color: rgba(255, 114, 0, 0.1);
+    color: var(--naranja-principal);
+    border: 1px solid rgba(255, 114, 0, 0.15);
+}
+
 .title-badge i {
     font-size: 1rem;
 }
@@ -1781,6 +1803,7 @@ p {
     border: 1px solid var(--gris-borde);
     transition: all 0.3s ease;
     position: relative;
+    padding-bottom: 80px; /* Espacio para el botón */
 }
 
 .plan-card:hover {
@@ -1788,37 +1811,11 @@ p {
     box-shadow: var(--sombra-fuerte);
 }
 
-.plan-card.popular {
-    transform: scale(1.05);
-    border-color: var(--naranja-principal);
-    z-index: 2;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-}
-
-.popular-badge {
-    position: absolute;
-    top: 12px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    background: var(--naranja-principal);
-    color: var(--blanco);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 5px 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
 .plan-header {
     padding: 30px 25px 20px;
     text-align: center;
     background: var(--fondo-claro);
     border-bottom: 1px solid var(--gris-borde);
-}
-
-.plan-card.popular .plan-header {
-    background: rgba(255, 114, 0, 0.05);
 }
 
 .plan-header h4 {
@@ -1860,7 +1857,7 @@ p {
 .plan-features {
     list-style: none;
     padding: 0;
-    margin: 0 0 25px;
+    margin: 0;
 }
 
 .plan-features li {
@@ -1977,6 +1974,48 @@ p {
     font-weight: 600;
 }
 
+/* Estilos para los tiers en el bundle */
+.bundle-tiers {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: rgba(255, 114, 0, 0.05);
+    border-radius: 10px;
+}
+
+.bundle-tiers p {
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+}
+
+.tier-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.tier-option {
+    padding: 8px 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tier-name {
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin-bottom: 5px;
+}
+
+.tier-price {
+    font-size: 0.9rem;
+    color: var(--naranja-principal);
+    font-weight: 600;
+}
+
 /* Responsive para la sección de servicios */
 @media (max-width: 992px) {
     .planes-grid {
@@ -1986,17 +2025,21 @@ p {
         margin-right: auto;
     }
     
-    .plan-card.popular {
+    .plan-card {
         transform: scale(1);
-        order: -1;
     }
     
-    .plan-card.popular:hover {
+    .plan-card:hover {
         transform: translateY(-8px);
     }
     
     .bundle-box {
         padding: 25px;
+    }
+    
+    .tier-options {
+        flex-direction: column;
+        gap: 10px;
     }
 }
 
@@ -2655,7 +2698,8 @@ p {
     line-height: 1.4;
 }
 
-/* Mini testimonial */
+/* Continuación del CSS desde donde se cortó */
+/* Mini testimonial - continuación */
 .testimonial-mini {
     background-color: #f6f9f8;
     border-radius: 10px;
