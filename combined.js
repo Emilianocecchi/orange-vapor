@@ -1,8 +1,7 @@
 /**
  * Orange Vapor - JavaScript para Navbar
- * Version optimizada: funcionalidades estrictamente de navbar
- * Con soporte de hoverIntent y toggle por clic
- * Version: 3.4 - 2025
+ * Version optimizada: navbar simplificada con servicios individuales
+ * Version: 4.0 - 2025
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -59,14 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileToggle = document.querySelector('.ov-mobile-toggle');
     const navMenu = document.querySelector('.ov-nav-menu');
     const navWrapper = document.querySelector('.ov-nav-wrapper');
-    const dropdowns = document.querySelectorAll('.ov-dropdown');
-    const dropdownToggles = document.querySelectorAll('.ov-dropdown-toggle');
-    const navLinks = document.querySelectorAll('.ov-nav-link:not(.ov-dropdown-toggle), .ov-service-card, .ov-cta-button');
+    const navLinks = document.querySelectorAll('.ov-nav-link, .ov-service-card, .ov-cta-button');
     
     // Variables de control
     let lastScrollTop = 0;
     let isScrolling = false;
-    let hoverIntentTimers = new Map(); // Mapa para los timers de hoverIntent
     
     // FUNCIÓN PRINCIPAL: Inicializa la navbar
     function initNavbar() {
@@ -75,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
       // Configuraciones iniciales
       setupScrollEvents();
       setupMobileMenu();
-      setupDropdowns();
       setupCloseOnClick();
       
       // Estado inicial de scroll
@@ -154,152 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // Implementación de hoverIntent para mejorar la interacción con el dropdown
-    function hoverIntent(element, enterCallback, leaveCallback, sensitivity = 100) {
-      const timerId = Symbol();
-      
-      // Al entrar con el mouse
-      element.addEventListener('mouseenter', function() {
-        // Si hay un timer de salida, cancelarlo
-        if (hoverIntentTimers.get(element)?.leave) {
-          clearTimeout(hoverIntentTimers.get(element).leave);
-          hoverIntentTimers.set(element, { enter: null, leave: null });
-        }
-        
-        // Crear timer de entrada
-        const enterTimer = setTimeout(() => {
-          enterCallback.call(element);
-          hoverIntentTimers.set(element, { enter: null, leave: null });
-        }, sensitivity);
-        
-        hoverIntentTimers.set(element, { enter: enterTimer, leave: null });
-      });
-      
-      // Al salir con el mouse
-      element.addEventListener('mouseleave', function() {
-        // Si hay un timer de entrada, cancelarlo
-        if (hoverIntentTimers.get(element)?.enter) {
-          clearTimeout(hoverIntentTimers.get(element).enter);
-          hoverIntentTimers.set(element, { enter: null, leave: null });
-        }
-        
-        // Crear timer de salida
-        const leaveTimer = setTimeout(() => {
-          leaveCallback.call(element);
-          hoverIntentTimers.set(element, { enter: null, leave: null });
-        }, sensitivity);
-        
-        hoverIntentTimers.set(element, { enter: null, leave: leaveTimer });
-      });
-    }
-    
-    // Configura el comportamiento avanzado de los dropdowns
-    function setupDropdowns() {
-      // Inicializar timers
-      dropdowns.forEach(dropdown => {
-        hoverIntentTimers.set(dropdown, { enter: null, leave: null });
-      });
-      
-      // COMPORTAMIENTO EN DESKTOP
-      if (window.innerWidth > 1024) {
-        dropdowns.forEach(dropdown => {
-          // Aplicar hoverIntent para interacción suave
-          hoverIntent(
-            dropdown,
-            // Callback para mouseenter
-            function() {
-              if (!this.classList.contains('clicked')) {
-                this.classList.add('active');
-                const toggle = this.querySelector('.ov-dropdown-toggle');
-                if (toggle) toggle.setAttribute('aria-expanded', 'true');
-              }
-            },
-            // Callback para mouseleave
-            function() {
-              if (!this.classList.contains('clicked')) {
-                this.classList.remove('active');
-                const toggle = this.querySelector('.ov-dropdown-toggle');
-                if (toggle) toggle.setAttribute('aria-expanded', 'false');
-              }
-            },
-            50 // Sensibilidad más baja para respuesta más rápida
-          );
-          
-          // Click en el toggle de dropdown
-          const toggle = dropdown.querySelector('.ov-dropdown-toggle');
-          if (toggle) {
-            toggle.addEventListener('click', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              
-              // Si está activo por click, desactivar
-              if (dropdown.classList.contains('clicked')) {
-                dropdown.classList.remove('active', 'clicked');
-                this.setAttribute('aria-expanded', 'false');
-              } else {
-                // Cerrar otros dropdowns que estén abiertos por click
-                dropdowns.forEach(item => {
-                  if (item !== dropdown && item.classList.contains('clicked')) {
-                    item.classList.remove('active', 'clicked');
-                    const itemToggle = item.querySelector('.ov-dropdown-toggle');
-                    if (itemToggle) itemToggle.setAttribute('aria-expanded', 'false');
-                  }
-                });
-                
-                // Activar este dropdown y marcarlo como clickeado
-                dropdown.classList.add('active', 'clicked');
-                this.setAttribute('aria-expanded', 'true');
-              }
-              
-              // Quitar el focus para evitar recuadro
-              this.blur();
-            });
-          }
-        });
-        
-        // Cerrar dropdowns con clicked al hacer clic fuera
-        document.addEventListener('click', function(e) {
-          if (!e.target.closest('.ov-dropdown')) {
-            dropdowns.forEach(dropdown => {
-              if (dropdown.classList.contains('clicked')) {
-                dropdown.classList.remove('active', 'clicked');
-                const toggle = dropdown.querySelector('.ov-dropdown-toggle');
-                if (toggle) toggle.setAttribute('aria-expanded', 'false');
-              }
-            });
-          }
-        });
-        
-      } else {
-        // COMPORTAMIENTO EN MÓVIL
-        dropdownToggles.forEach(toggle => {
-          toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const dropdown = this.closest('.ov-dropdown');
-            const isActive = dropdown.classList.contains('active');
-            
-            // Cerrar otros dropdowns
-            dropdowns.forEach(item => {
-              if (item !== dropdown && item.classList.contains('active')) {
-                item.classList.remove('active');
-                const itemToggle = item.querySelector('.ov-dropdown-toggle');
-                if (itemToggle) itemToggle.setAttribute('aria-expanded', 'false');
-              }
-            });
-            
-            // Toggle de este dropdown
-            dropdown.classList.toggle('active');
-            this.setAttribute('aria-expanded', !isActive);
-            
-            // Quitar el focus para evitar recuadro
-            this.blur();
-          });
-        });
-      }
-    }
-    
     // Cerrar menú al hacer clic en enlaces
     function setupCloseOnClick() {
       navLinks.forEach(link => {
@@ -310,15 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
           if (window.innerWidth <= 1024) {
             // En móvil, cerrar el menú al hacer clic en un enlace
             setTimeout(closeMobileMenu, 100);
-          } else {
-            // En desktop, cerrar dropdowns si están abiertos
-            dropdowns.forEach(dropdown => {
-              if (dropdown.classList.contains('clicked')) {
-                dropdown.classList.remove('active', 'clicked');
-                const toggle = dropdown.querySelector('.ov-dropdown-toggle');
-                if (toggle) toggle.setAttribute('aria-expanded', 'false');
-              }
-            });
           }
         });
       });
@@ -343,37 +183,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       } else {
         // En otras páginas, buscar coincidencias
-        let activated = false;
-        
         document.querySelectorAll('a[href*="' + filename + '"]').forEach(link => {
           link.classList.add('active');
-          activated = true;
-          
-          // Si es dropdown, activar también el toggle
-          const dropdown = link.closest('.ov-dropdown');
-          if (dropdown) {
-            const toggle = dropdown.querySelector('.ov-dropdown-toggle');
-            if (toggle) toggle.classList.add('active');
-          }
         });
         
-        // Activación por tipo de página 
-        if (!activated) {
-          if (filename.includes('ads') || filename.includes('google')) {
-            // Activar dropdown de servicios
-            const serviciosToggle = document.querySelector('.ov-dropdown-toggle');
-            if (serviciosToggle) serviciosToggle.classList.add('active');
-          }
+        // Activación por tipo de página para enlaces de servicio
+        if (filename.includes('ads') && filename.includes('facebook') || filename === 'ads.html') {
+          document.querySelector('.meta-ads-link')?.classList.add('active');
+        } else if (filename.includes('google') || filename.includes('google-ads')) {
+          document.querySelector('.google-ads-link')?.classList.add('active');
+        } else if (filename.includes('email') || filename.includes('email-marketing')) {
+          document.querySelector('.email-marketing-link')?.classList.add('active');
+        } else if (filename.includes('chatbot') || filename.includes('bot')) {
+          document.querySelector('.chatbot-link')?.classList.add('active');
         }
       }
     }
     
     // Manejar cambios de tamaño de ventana
     window.addEventListener('resize', function() {
-      const isDesktop = window.innerWidth > 1024;
-      
-      // Si pasamos de móvil a desktop
-      if (isDesktop) {
+      // Restablecer estados si cambiamos de móvil a desktop
+      if (window.innerWidth > 1024) {
         // Restablecer estados del menú móvil
         document.body.style.overflow = '';
         if (mobileToggle) {
@@ -382,19 +212,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if (navWrapper) navWrapper.classList.remove('active');
         if (navMenu) navMenu.classList.remove('active');
-        
-        // Restablecer dropdowns
-        dropdowns.forEach(dropdown => {
-          dropdown.classList.remove('active', 'clicked');
-          const toggle = dropdown.querySelector('.ov-dropdown-toggle');
-          if (toggle) toggle.setAttribute('aria-expanded', 'false');
-        });
-        
-        // Reinstalar comportamiento de desktop
-        setupDropdowns();
-      } else {
-        // Si pasamos de desktop a móvil, reinstalar comportamiento móvil
-        setupDropdowns();
       }
     }, { passive: true });
     
@@ -407,167 +224,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Iniciar navbar
     initNavbar();
   }
-}); 
-
-// Manejo de tabs de servicios
-document.addEventListener('DOMContentLoaded', function() {
-    // Seleccionar todos los botones de tabs de servicios
-    const servicioTabs = document.querySelectorAll('.servicio-tab');
-    const servicioPaneles = document.querySelectorAll('.servicio-panel');
-    
-    // Agregar evento de clic a cada tab
-    servicioTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Obtener el atributo data-servicio del tab clickeado
-            const servicio = this.getAttribute('data-servicio');
-            
-            // Desactivar todos los tabs activos
-            servicioTabs.forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
-            });
-            
-            // Activar el tab clickeado
-            this.classList.add('active');
-            this.setAttribute('aria-selected', 'true');
-            
-            // Desactivar todos los paneles
-            servicioPaneles.forEach(panel => {
-                panel.classList.remove('active');
-            });
-            
-            // Activar el panel correspondiente al tab clickeado
-            const panelActivo = document.querySelector(`.servicio-panel[data-servicio="${servicio}"]`);
-            if (panelActivo) {
-                panelActivo.classList.add('active');
-            }
-        });
-    });
-    
-    // Manejo de tabs de plan (Starter, Pro, Elite)
-    const tierTabs = document.querySelectorAll('.tier-tab');
-    
-    tierTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const tier = this.getAttribute('data-tier');
-            
-            // Desactivar todos los tabs
-            tierTabs.forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
-            });
-            
-            // Activar este tab
-            this.classList.add('active');
-            this.setAttribute('aria-selected', 'true');
-            
-            // Actualizar la información visible del tier
-            document.querySelectorAll('.tier-info').forEach(info => {
-                info.classList.remove('active');
-            });
-            const tierInfo = document.querySelector(`.tier-info.${tier}`);
-            if (tierInfo) tierInfo.classList.add('active');
-            
-            // Actualizar los detalles del tier para todos los servicios
-            document.querySelectorAll('.tier-detalle').forEach(detalle => {
-                detalle.classList.remove('active');
-            });
-            document.querySelectorAll(`.tier-detalle.${tier}`).forEach(detalle => {
-                detalle.classList.add('active');
-            });
-            
-            // Actualizar los precios
-            document.querySelectorAll('.tier-price').forEach(precio => {
-                precio.classList.remove('active');
-            });
-            document.querySelectorAll(`.tier-price.${tier}`).forEach(precio => {
-                precio.classList.add('active');
-            });
-        });
-    });
-
-    // Mini selector de tiers en sección "Elegí tu Solución"
-    const tierOptionsMini = document.querySelectorAll('.tier-option');
-    
-    if (tierOptionsMini.length > 0) {
-        tierOptionsMini.forEach(option => {
-            option.addEventListener('click', function() {
-                const tier = this.getAttribute('data-tier');
-                
-                // Actualizar opciones activas
-                tierOptionsMini.forEach(o => o.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Actualizar precios mini activos
-                document.querySelectorAll('.tier-mini').forEach(mini => {
-                    mini.classList.remove('active');
-                });
-                const tierMini = document.querySelector(`.tier-mini.${tier}`);
-                if (tierMini) tierMini.classList.add('active');
-            });
-        });
-    }
-});
-
-// Manejo de tabs de servicios en la sección de planes
-document.addEventListener('DOMContentLoaded', function() {
-    // Seleccionar todos los botones de tab
-    const tabButtons = document.querySelectorAll('.tab-button');
-    
-    // Verificar si hay tabs en la página
-    if (tabButtons.length > 0) {
-        tabButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Obtener el ID del tab a mostrar
-                const tabId = this.getAttribute('data-tab');
-                
-                // Desactivar todos los botones de tab
-                tabButtons.forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                // Activar este botón
-                this.classList.add('active');
-                
-                // Ocultar todos los contenidos de tab
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                // Mostrar el contenido correspondiente
-                const tabContent = document.getElementById(tabId);
-                if (tabContent) {
-                    tabContent.classList.add('active');
-                }
-            });
-        });
-    }
-    
-    // Añadir atributos data-tier a las columnas para versión responsiva
-    document.querySelectorAll('.col-starter').forEach(col => {
-        col.setAttribute('data-tier', 'Starter');
-    });
-    
-    document.querySelectorAll('.col-pro').forEach(col => {
-        col.setAttribute('data-tier', 'Pro');
-    });
-    
-    document.querySelectorAll('.col-elite').forEach(col => {
-        col.setAttribute('data-tier', 'Elite');
-    });
-    
-    // Hover mejorado para las características
-    document.querySelectorAll('.comparativa-row').forEach(row => {
-        const cols = row.querySelectorAll('.comparativa-col');
-        
-        cols.forEach(col => {
-            col.addEventListener('mouseenter', function() {
-                cols.forEach(c => c.classList.add('hover-effect'));
-            });
-            
-            col.addEventListener('mouseleave', function() {
-                cols.forEach(c => c.classList.remove('hover-effect'));
-            });
-        });
-    });
 });
