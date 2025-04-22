@@ -1199,7 +1199,6 @@ p {
         font-size: 18px;
     }
 }
-
 /* ==========================================================================
    9. SERVICIOS SECTION
    ========================================================================= */
@@ -1738,7 +1737,7 @@ p {
     background: transparent;
     padding: 12px 24px;
     border: none;
-    border-radius: 8px;
+    border-radius: 8px 8px 0 0;
     font-family: var(--fuente-principal);
     font-weight: 600;
     font-size: 1rem;
@@ -1748,6 +1747,7 @@ p {
     display: flex;
     align-items: center;
     gap: 8px;
+    border-bottom: 3px solid transparent;
 }
 
 .tab-button i {
@@ -1759,10 +1759,33 @@ p {
     color: var(--texto-oscuro);
 }
 
-.tab-button.active {
-    background-color: var(--fondo-claro);
-    color: var(--texto-oscuro);
-    box-shadow: var(--sombra-suave);
+/* Nuevos estilos para tabs activas con colores identitarios */
+.tab-button.active[data-tab="meta-ads"] {
+    background-color: rgba(66, 103, 178, 0.1);
+    color: var(--color-ads);
+    border-bottom: 3px solid var(--color-ads);
+    box-shadow: none;
+}
+
+.tab-button.active[data-tab="google-ads"] {
+    background-color: rgba(66, 133, 244, 0.1);
+    color: var(--color-google);
+    border-bottom: 3px solid var(--color-google);
+    box-shadow: none;
+}
+
+.tab-button.active[data-tab="email-marketing"] {
+    background-color: rgba(14, 118, 168, 0.1);
+    color: var(--color-email);
+    border-bottom: 3px solid var(--color-email);
+    box-shadow: none;
+}
+
+.tab-button.active[data-tab="chatbot"] {
+    background-color: rgba(107, 70, 193, 0.1);
+    color: var(--color-chatbot);
+    border-bottom: 3px solid var(--color-chatbot);
+    box-shadow: none;
 }
 
 .tabs-content {
@@ -1772,7 +1795,19 @@ p {
 
 .tab-content {
     display: none;
-    animation: fadeIn 0.4s ease;
+    animation: fadeInContent 0.4s ease-in-out;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes fadeInContent {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .tab-content.active {
@@ -1783,8 +1818,24 @@ p {
     text-align: center;
     margin-bottom: 30px;
     font-size: 1.8rem;
-    color: var(--texto-oscuro);
     font-weight: 700;
+}
+
+/* Estilos personalizados para títulos de tabs según servicio */
+#meta-ads .tab-title {
+    color: var(--color-ads);
+}
+
+#google-ads .tab-title {
+    color: var(--color-google);
+}
+
+#email-marketing .tab-title {
+    color: var(--color-email);
+}
+
+#chatbot .tab-title {
+    color: var(--color-chatbot);
 }
 
 /* Estilos para los planes */
@@ -1806,6 +1857,27 @@ p {
     padding-bottom: 80px; /* Espacio para el botón */
 }
 
+/* Estilos de fondos translúcidos para tarjetas según servicio */
+#meta-ads .plan-card {
+    background-color: rgba(66, 103, 178, 0.03);
+    border-top: 3px solid var(--color-ads);
+}
+
+#google-ads .plan-card {
+    background-color: rgba(66, 133, 244, 0.03);
+    border-top: 3px solid var(--color-google);
+}
+
+#email-marketing .plan-card {
+    background-color: rgba(14, 118, 168, 0.03);
+    border-top: 3px solid var(--color-email);
+}
+
+#chatbot .plan-card {
+    background-color: rgba(107, 70, 193, 0.03);
+    border-top: 3px solid var(--color-chatbot);
+}
+
 .plan-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--sombra-fuerte);
@@ -1816,6 +1888,23 @@ p {
     text-align: center;
     background: var(--fondo-claro);
     border-bottom: 1px solid var(--gris-borde);
+}
+
+/* Estilos para cabeceras de planes según servicio */
+#meta-ads .plan-header {
+    background-color: rgba(66, 103, 178, 0.08);
+}
+
+#google-ads .plan-header {
+    background-color: rgba(66, 133, 244, 0.08);
+}
+
+#email-marketing .plan-header {
+    background-color: rgba(14, 118, 168, 0.08);
+}
+
+#chatbot .plan-header {
+    background-color: rgba(107, 70, 193, 0.08);
 }
 
 .plan-header h4 {
@@ -1833,9 +1922,14 @@ p {
 }
 
 .price-amount {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     font-weight: 800;
     color: var(--texto-oscuro);
+    transition: transform 0.3s ease;
+}
+
+.plan-card:hover .price-amount {
+    transform: scale(1.05);
 }
 
 .price-period {
@@ -1877,20 +1971,67 @@ p {
     padding-bottom: 0;
 }
 
-.plan-features i {
-    color: #28a745;
-    font-size: 14px;
-    flex-shrink: 0;
-    margin-top: 3px;
+/* Iconos de check con color del servicio */
+#meta-ads .plan-features i {
+    color: var(--color-ads);
+}
+
+#google-ads .plan-features i {
+    color: var(--color-google);
+}
+
+#email-marketing .plan-features i {
+    color: var(--color-email);
+}
+
+#chatbot .plan-features i {
+    color: var(--color-chatbot);
+}
+
+/* Unificar botones CTA con naranja de Orange Vapor */
+.btn-plan {
+    width: 80%;
+    padding: 14px 20px;
+    border-radius: var(--borde-redondo-md);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    color: var(--blanco);
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    margin: 20px auto 0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--naranja-principal);
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+}
+
+.btn-plan:hover {
+    background-color: var(--naranja-oscuro);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 114, 0, 0.25);
+}
+
+/* Sobrescribir clases específicas para botones */
+.btn-meta, .btn-google, .btn-email, .btn-chatbot {
+    background-color: var(--naranja-principal);
+}
+
+.btn-meta:hover, .btn-google:hover, .btn-email:hover, .btn-chatbot:hover {
+    background-color: var(--naranja-oscuro);
 }
 
 .tab-info {
     text-align: center;
-    padding: 15px;
-    background-color: var(--fondo-claro);
-    border-radius: 8px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 30px auto 0;
 }
 
 .tab-info p {
@@ -1905,7 +2046,7 @@ p {
 }
 
 .bundle-box {
-    background: var(--blanco);
+    background: linear-gradient(145deg, rgba(255, 114, 0, 0.03), rgba(255, 114, 0, 0.08));
     border-radius: 16px;
     padding: 35px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
@@ -1913,13 +2054,13 @@ p {
     text-align: center;
     max-width: 700px;
     margin: 0 auto;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .bundle-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 114, 0, 0.02);
+    transform: translateY(-8px);
+    background: linear-gradient(145deg, rgba(255, 114, 0, 0.05), rgba(255, 114, 0, 0.12));
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .bundle-icon {
@@ -2014,6 +2155,25 @@ p {
     font-size: 0.9rem;
     color: var(--naranja-principal);
     font-weight: 600;
+}
+
+/* Mejorar el botón del bundle */
+.btn-bundle {
+    background-color: var(--naranja-principal);
+    color: var(--blanco);
+    font-weight: 700;
+    padding: 15px 30px;
+    border-radius: var(--borde-redondo-md);
+    display: inline-block;
+    min-width: 200px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-bundle:hover {
+    background-color: var(--naranja-oscuro);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 114, 0, 0.25);
 }
 
 /* Responsive para la sección de servicios */
