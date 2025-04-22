@@ -1,7 +1,7 @@
 /**
- * Orange Vapor - JavaScript para Home
- * Script para funcionalidades específicas de la página principal
- * Versión: 1.0.0
+ * Orange Vapor - JavaScript Optimizado
+ * Script para funcionalidades específicas con mejor rendimiento
+ * Versión: 2.0.0
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -26,6 +26,26 @@ document.addEventListener('DOMContentLoaded', function() {
         return false;
     };
     
+    /**
+     * Crea un trigger de evento personalizado
+     * @param {string} eventName - Nombre del evento
+     * @returns {Event} - Objeto de evento
+     */
+    const createEvent = (eventName) => {
+        return new Event(eventName, {
+            bubbles: true,
+            cancelable: true
+        });
+    };
+    
+    /**
+     * Detecta si está en modo de reducción de movimiento
+     * @returns {boolean} - Verdadero si prefiere reducción de movimiento
+     */
+    const prefersReducedMotion = () => {
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    };
+    
     // =========================================================================
     // ASEGURAR VISIBILIDAD DE ELEMENTOS CRÍTICOS
     // =========================================================================
@@ -35,19 +55,13 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function asegurarVisibilidadCritica() {
         const elementosCriticos = [
-            '#servicios .seccion-titulo',
-            '#servicios .servicios-tabs-container',
-            '#servicios .servicios-content-container',
-            '#servicios .oferta-especial',
-            '#servicios .servicios-garantia',
-            '#servicios .soluciones-card',
-            '#servicios .fade-in',
-            '#home .fade-in',
-            '#optimizacion-express .fade-in',
-            '.servicios-tabla-modern .fade-in',
-            '.hero-content',
+            '.hero-content', 
             '.hero-image',
-            '.auditoria-card-redesign' // Añadida la nueva clase rediseñada
+            '.auditoria-card-redesign',
+            '.seccion-titulo',
+            '.servicios-tabs-container',
+            '.tabs-content',
+            '.tab-content.active'
         ];
         
         elementosCriticos.forEach(selector => {
@@ -59,28 +73,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 elemento.style.visibility = 'visible';
             });
         });
-        
-        console.log('Elementos críticos asegurados como visibles');
     }
     
     // Llamar inmediatamente para asegurar visibilidad
     asegurarVisibilidadCritica();
     
-    // Respaldo adicional con setTimeout
-    setTimeout(asegurarVisibilidadCritica, 500);
+    // Respaldo adicional con setTimeout para asegurar visibilidad
+    setTimeout(asegurarVisibilidadCritica, 100);
     setTimeout(() => {
         forEachElement('.fade-in', elemento => {
             elemento.classList.add('visible');
         });
-        console.log('Todos los elementos fade-in asegurados como visibles');
-    }, 2000);
+    }, 500);
     
     // =========================================================================
-    // MICROINTERACCIONES Y ANIMACIONES
+    // MICROINTERACCIONES Y ANIMACIONES OPTIMIZADAS
     // =========================================================================
     
     function initScrollAnimations() {
-        // Microinteracciones optimizadas para el rendimiento
+        // Omitir si se prefiere reducción de movimiento
+        if (prefersReducedMotion()) {
+            forEachElement('.fade-in', el => el.classList.add('visible'));
+            return;
+        }
+        
+        // Usar Intersection Observer para animaciones más eficientes
         const fadeElements = document.querySelectorAll('.fade-in:not(.visible)');
         
         const observerOptions = {
@@ -93,15 +110,17 @@ document.addEventListener('DOMContentLoaded', function() {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    
+                    // Añadir clases de animación según tipo
                     if (entry.target.classList.contains('fade-left')) {
                         entry.target.classList.add('animate-fade-left');
                     } else if (entry.target.classList.contains('fade-right')) {
                         entry.target.classList.add('animate-fade-right');
                     } else if (entry.target.classList.contains('fade-up')) {
                         entry.target.classList.add('animate-fade-up');
-                    } else {
-                        entry.target.classList.add('animate-fade-in');
                     }
+                    
+                    // Dejar de observar después de animar
                     observer.unobserve(entry.target);
                 }
             });
@@ -118,145 +137,60 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =========================================================================
-    // TABS DE SERVICIOS Y TIERS
+    // TABS DE SERVICIOS - OPTIMIZADO
     // =========================================================================
     
     /**
-     * Inicializa las pestañas de servicios
+     * Inicializa las pestañas de servicios con mejor UX
      */
     function initServiceTabs() {
-        // Seleccionar todas las pestañas de servicios
-        const servicioTabs = document.querySelectorAll('.servicio-tab');
-        if (!servicioTabs.length) return;
+        const tabButtons = document.querySelectorAll('.tab-button');
+        if (!tabButtons.length) return;
         
-        servicioTabs.forEach(tab => {
+        tabButtons.forEach(tab => {
             tab.addEventListener('click', function() {
-                // Obtener el servicio seleccionado
-                const servicio = this.getAttribute('data-servicio');
+                // Obtener el tab seleccionado
+                const tabId = this.getAttribute('data-tab');
                 
-                // Remover clase 'active' de todas las pestañas
-                servicioTabs.forEach(t => t.classList.remove('active'));
-                
-                // Añadir clase 'active' a la pestaña seleccionada
-                this.classList.add('active');
-                
-                // Actualizar contenido visible
-                forEachElement('.servicio-content-wrapper', content => {
-                    content.classList.remove('active');
+                // Actualizar botones
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-selected', 'false');
                 });
                 
-                const targetContent = document.querySelector(`.servicio-content-wrapper[data-servicio="${servicio}"]`);
-                if (targetContent) {
-                    targetContent.classList.add('active');
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+                
+                // Actualizar contenido de tabs
+                const tabContents = document.querySelectorAll('.tab-content');
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    content.setAttribute('aria-hidden', 'true');
+                });
+                
+                const activeContent = document.getElementById(tabId);
+                if (activeContent) {
+                    activeContent.classList.add('active');
+                    activeContent.setAttribute('aria-hidden', 'false');
+                    
+                    // Scroll al contenido en móvil
+                    if (window.innerWidth < 768) {
+                        setTimeout(() => {
+                            activeContent.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start',
+                                inline: 'nearest'
+                            });
+                        }, 300);
+                    }
                 }
             });
         });
-        
-        // Inicializar mostrando el primer servicio
-        const firstTab = document.querySelector('.servicio-tab[data-servicio="meta"]');
-        if (firstTab) {
-            firstTab.classList.add('active');
-            const firstContent = document.querySelector('.servicio-content-wrapper[data-servicio="meta"]');
-            if (firstContent) {
-                firstContent.classList.add('active');
-            }
-        }
     }
     
-    /**
-     * Inicializa las pestañas de tiers (planes)
-     */
-    function initTierTabs() {
-        const tierTabs = document.querySelectorAll('.tier-tab');
-        if (!tierTabs.length) return;
-        
-        tierTabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                // Obtener el tier seleccionado
-                const tier = this.getAttribute('data-tier');
-                
-                // Remover clase 'active' de todas las pestañas
-                tierTabs.forEach(t => t.classList.remove('active'));
-                
-                // Añadir clase 'active' a la pestaña seleccionada
-                this.classList.add('active');
-                
-                // Actualizar descripciones
-                forEachElement('.tier-info', info => {
-                    info.classList.remove('active');
-                });
-                const tierInfo = document.querySelector(`.tier-info.${tier}`);
-                if (tierInfo) tierInfo.classList.add('active');
-                
-                // Actualizar precios
-                forEachElement('.precio-compacto', price => {
-                    price.classList.remove('active');
-                });
-                forEachElement(`.precio-compacto.tier-price.${tier}`, price => {
-                    price.classList.add('active');
-                });
-                
-                // Actualizar detalles (versiones de tabla normal y compacta)
-                updateTierDetails(tier);
-                
-                // Reiniciar la vista de servicios al primer servicio
-                resetServiceView();
-            });
-        });
-        
-        // Inicializar con el tier Starter
-        const starterTab = document.querySelector('.tier-tab[data-tier="starter"]');
-        if (starterTab) {
-            starterTab.classList.add('active');
-            const starterInfo = document.querySelector('.tier-info.starter');
-            if (starterInfo) starterInfo.classList.add('active');
-            updateTierDetails('starter');
-        }
-    }
-    
-    /**
-     * Actualiza los detalles de tier en todas las tablas
-     * @param {string} tier - Nombre del tier (starter, pro, elite)
-     */
-    function updateTierDetails(tier) {
-        // Para cada tabla de servicios (normal y compacta)
-        forEachElement('.servicios-tabla, .servicios-tabla-compacta, .servicios-tabla-modern', tabla => {
-            // Ocultar todos los detalles primero
-            forEachElement('.tier-detalle, .tier-detalle-compacto', detalle => {
-                detalle.style.display = 'none';
-                detalle.classList.remove('active');
-            }, tabla);
-            
-            // Mostrar solo los detalles del tier seleccionado
-            forEachElement(`.tier-detalle.${tier}, .tier-detalle-compacto.${tier}`, detalle => {
-                detalle.style.display = 'flex';
-                detalle.classList.add('active');
-                
-                // Añadir animación
-                detalle.style.animation = 'none';
-                setTimeout(() => {
-                    detalle.style.animation = 'fadeIn 0.3s ease-in-out forwards';
-                }, 10);
-            }, tabla);
-        });
-    }
-    
-    /**
-     * Reinicia la vista de servicios al primer servicio
-     */
-    function resetServiceView() {
-        forEachElement('.servicio-tab', tab => {
-            tab.classList.remove('active');
-        });
-        const firstTab = document.querySelector('.servicio-tab[data-servicio="meta"]');
-        if (firstTab) firstTab.classList.add('active');
-        
-        forEachElement('.servicio-content-wrapper', content => {
-            content.classList.remove('active');
-        });
-        const firstContent = document.querySelector('.servicio-content-wrapper[data-servicio="meta"]');
-        if (firstContent) firstContent.classList.add('active');
-    }
+    // =========================================================================
+    // TIER SELECTOR MINI
+    // =========================================================================
     
     /**
      * Inicializa el selector de tiers mini en la sección proceso
@@ -285,200 +219,267 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Inicializar con el primer tier activo
-        if (tierOptionsMini[0]) tierOptionsMini[0].classList.add('active');
-        const firstTierType = tierOptionsMini[0]?.getAttribute('data-tier');
-        if (firstTierType) {
-            const firstTierMini = document.querySelector(`.tier-mini.${firstTierType}`);
-            if (firstTierMini) firstTierMini.classList.add('active');
+        if (tierOptionsMini[0]) {
+            tierOptionsMini[0].classList.add('active');
+            const firstTierType = tierOptionsMini[0].getAttribute('data-tier');
+            if (firstTierType) {
+                const firstTierMini = document.querySelector(`.tier-mini.${firstTierType}`);
+                if (firstTierMini) firstTierMini.classList.add('active');
+            }
+        }
+    }
+
+    // =========================================================================
+    // FAQ ACCORDION - NUEVO
+    // =========================================================================
+    
+    /**
+     * Inicializa los acordeones para FAQs
+     */
+    function initFaqAccordion() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        if (!faqItems.length) return;
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const toggle = item.querySelector('.faq-toggle');
+            
+            if (!question || !answer || !toggle) return;
+            
+            // Configurar ARIA para accesibilidad
+            const id = `faq-${Math.random().toString(36).substring(2, 9)}`;
+            answer.id = id;
+            question.setAttribute('aria-controls', id);
+            question.setAttribute('aria-expanded', 'false');
+            answer.setAttribute('aria-hidden', 'true');
+            
+            question.addEventListener('click', () => {
+                // Obtener altura real para animación suave
+                const isActive = item.classList.contains('active');
+                
+                // Cerrar todos los demás elementos
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                        const otherQuestion = otherItem.querySelector('.faq-question');
+                        if (otherQuestion) otherQuestion.setAttribute('aria-expanded', 'false');
+                        const otherAnswer = otherItem.querySelector('.faq-answer');
+                        if (otherAnswer) otherAnswer.setAttribute('aria-hidden', 'true');
+                    }
+                });
+                
+                // Alternar estado actual
+                item.classList.toggle('active');
+                question.setAttribute('aria-expanded', !isActive);
+                answer.setAttribute('aria-hidden', isActive);
+                
+                // Cambiar icono
+                if (toggle) {
+                    toggle.innerHTML = item.classList.contains('active') ? 
+                        '<i class="fas fa-minus"></i>' : 
+                        '<i class="fas fa-plus"></i>';
+                }
+            });
+        });
+        
+        // Abrir primer elemento por defecto
+        if (faqItems[0]) {
+            setTimeout(() => {
+                const firstQuestion = faqItems[0].querySelector('.faq-question');
+                if (firstQuestion) firstQuestion.click();
+            }, 500);
         }
     }
     
     // =========================================================================
-    // TOOLTIPS
+    // NAVEGACIÓN SUAVE
     // =========================================================================
     
     /**
-     * Inicializa el comportamiento de los tooltips
+     * Inicializa navegación suave para enlaces internos
      */
-    function initTooltips() {
-        const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
-        if (!tooltipTriggers.length) return;
-        
-        tooltipTriggers.forEach(trigger => {
-            const tooltip = trigger.querySelector('.tooltip');
-            if (!tooltip) return;
-            
-            // Mostrar tooltip al entrar
-            trigger.addEventListener('mouseenter', () => {
-                tooltip.classList.add('visible');
-            });
-            
-            // Ocultar tooltip al salir
-            trigger.addEventListener('mouseleave', () => {
-                tooltip.classList.remove('visible');
-            });
-            
-            // Para dispositivos táctiles
-            trigger.addEventListener('touchstart', (e) => {
+    function initSmoothScrolling() {
+        document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                tooltip.classList.toggle('visible');
-            }, { passive: false });
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Cerrar menú móvil si está abierto
+                    const mobileToggle = document.querySelector('.mobile-toggle');
+                    const navMenu = document.querySelector('.nav-menu');
+                    
+                    if (mobileToggle && navMenu) {
+                        if (mobileToggle.classList.contains('active')) {
+                            mobileToggle.classList.remove('active');
+                            navMenu.classList.remove('active');
+                        }
+                    }
+                    
+                    // Calcular offset para header fijo
+                    const headerHeight = document.querySelector('header') ? 
+                        document.querySelector('header').offsetHeight : 70;
+                    
+                    const offsetTop = targetElement.getBoundingClientRect().top + 
+                        window.pageYOffset - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+                    });
+                }
+            });
         });
     }
     
     // =========================================================================
-    // MÉTRICAS Y ANIMACIONES VISUALES - ELIMINADAS REFERENCIAS A SECCIONES QUITADAS
+    // MEJORAS DE ACCESIBILIDAD
     // =========================================================================
     
     /**
-     * Inicializa las animaciones de métricas
+     * Mejora la accesibilidad de los elementos interactivos
      */
-    function initMetricAnimations() {
-        // Hacer visibles las métricas inmediatamente
-        forEachElement('.metric-after', metric => {
-            metric.classList.add('animated');
-            metric.style.opacity = '1';
+    function enhanceAccessibility() {
+        // Añadir roles y atributos ARIA a las pestañas
+        const tabContainers = document.querySelectorAll('.tabs-menu');
+        tabContainers.forEach((container, index) => {
+            const tablistId = `tablist-${index}`;
+            container.setAttribute('role', 'tablist');
+            container.id = tablistId;
             
-            // Obtener y mostrar el valor final
-            const targetValue = metric.getAttribute('data-value');
-            if (targetValue) {
-                metric.textContent = targetValue;
-            }
+            const tabs = container.querySelectorAll('.tab-button');
+            tabs.forEach((tab, tabIndex) => {
+                const tabId = tab.getAttribute('data-tab');
+                const contentId = tabId;
+                
+                tab.setAttribute('role', 'tab');
+                tab.setAttribute('aria-selected', tab.classList.contains('active') ? 'true' : 'false');
+                tab.id = `tab-${tabId}`;
+                tab.setAttribute('aria-controls', contentId);
+                tab.setAttribute('tabindex', tab.classList.contains('active') ? '0' : '-1');
+                
+                // Manejar navegación con teclado
+                tab.addEventListener('keydown', (e) => {
+                    let targetTab = null;
+                    
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                        targetTab = tabIndex === tabs.length - 1 ? tabs[0] : tabs[tabIndex + 1];
+                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                        targetTab = tabIndex === 0 ? tabs[tabs.length - 1] : tabs[tabIndex - 1];
+                    } else if (e.key === 'Home') {
+                        targetTab = tabs[0];
+                    } else if (e.key === 'End') {
+                        targetTab = tabs[tabs.length - 1];
+                    }
+                    
+                    if (targetTab) {
+                        e.preventDefault();
+                        targetTab.focus();
+                        targetTab.click();
+                    }
+                });
+            });
+            
+            // Configurar paneles de tabs
+            const tabPanels = document.querySelectorAll('.tab-content');
+            tabPanels.forEach(panel => {
+                const tabId = panel.id;
+                const controllingTab = document.querySelector(`[aria-controls="${tabId}"]`);
+                
+                panel.setAttribute('role', 'tabpanel');
+                panel.setAttribute('aria-labelledby', controllingTab ? controllingTab.id : '');
+                panel.setAttribute('tabindex', '0');
+                panel.setAttribute('aria-hidden', panel.classList.contains('active') ? 'false' : 'true');
+            });
+        });
+        
+        // Añadir focus-visible a elementos interactivos
+        const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        interactiveElements.forEach(el => {
+            el.classList.add('focus-visible');
         });
     }
     
     // =========================================================================
-    // FUNCIONES ADICIONALES
+    // INICIALIZACIÓN
     // =========================================================================
     
-    /**
-     * Actualiza el precio de la oferta especial
-     */
-    function updateSpecialOffer() {
-        // Calcular precio regular y ahorro
-        const regularPrice = 299 * 4; // $1,196
-        const discountedPrice = 999; // Precio con descuento actualizado
-        const savings = regularPrice - discountedPrice;
-        
-        // Actualizar texto de oferta especial
-        const ofertaEspecial = document.querySelector('.oferta-especial h3');
-        if (ofertaEspecial) {
-            ofertaEspecial.innerHTML = `Growth Accelerator: Meta + Google + Email + Chatbot por <span class="precio-destacado">US$${discountedPrice}/mes</span> <span class="precio-strike">$${regularPrice}</span>`;
-        }
-        
-        // Actualizar información de ahorro si existe
-        const bundleInfo = document.querySelector('.bundle-offer-price');
-        if (bundleInfo) {
-            bundleInfo.textContent = `Incluye: 1 consulta estratégica gratis al mes + Set up inicial bonificado. ¡Ahorrá $${savings}/mes!`;
-        }
-    }
-    
-    /**
-     * Configura mejoras para móvil
-     */
-    function setupMobileEnhancements() {
-        if (window.innerWidth <= 768) {
-            // En móvil, hacer los CTAs más accesibles
-            const mainCTA = document.querySelector('.hero-buttons .btn');
-            if (mainCTA) {
-                mainCTA.style.width = '100%';
-                mainCTA.style.padding = '16px 24px';
-                mainCTA.style.fontSize = '1.1rem';
-            }
-            
-            // Simplificar animaciones para mejor rendimiento
-            document.body.classList.add('mobile-optimized');
-        } else {
-            // En desktop, eliminar optimizaciones móviles
-            document.body.classList.remove('mobile-optimized');
-        }
-    }
-    
-    // =========================================================================
-    // INICIALIZACIÓN PRINCIPAL
-    // =========================================================================
-    
-    // Inicializar componentes principales de la página
+    // Iniciar componentes principales
     initScrollAnimations();
-    initMetricAnimations();
     initServiceTabs();
-    initTierTabs();
     initTierSelectorMini();
-    initTooltips();
-    updateSpecialOffer();
-    setupMobileEnhancements();
+    initFaqAccordion();
+    initSmoothScrolling();
+    enhanceAccessibility();
     
-    // Configuraciones al cargar completamente la página
-    window.addEventListener('load', function() {
-        // Eliminar cualquier clase de precarga
+    // Remover clase de precarga
+    setTimeout(() => {
         document.body.classList.remove('preload');
-        
-        // Iniciar animación de scroll
-        const scrollIndicator = document.querySelector('.scroll-indicator');
-        if (scrollIndicator) {
-            scrollIndicator.style.opacity = '1';
-        }
-        
-        // Último respaldo para asegurar visibilidad
-        asegurarVisibilidadCritica();
+    }, 100);
+    
+    // Evento de página cargada completamente
+    window.addEventListener('load', function() {
+        // Iniciar JS solo después de carga completa
+        document.body.classList.add('js-loaded');
         
         // Manejar navegación por hash
         if (window.location.hash) {
-            const targetElement = document.querySelector(window.location.hash);
-            if (targetElement) {
-                setTimeout(() => {
-                    const headerHeight = document.getElementById('header')?.offsetHeight || 0;
-                    const offset = headerHeight + 16;
-                    const targetPosition = targetElement.offsetTop - offset;
+            setTimeout(() => {
+                const targetElement = document.querySelector(window.location.hash);
+                if (targetElement) {
+                    const headerHeight = document.querySelector('header') ? 
+                        document.querySelector('header').offsetHeight : 70;
+                    
+                    const offsetTop = targetElement.getBoundingClientRect().top + 
+                        window.pageYOffset - headerHeight - 20;
                     
                     window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
+                        top: offsetTop,
+                        behavior: 'auto'
                     });
-                }, 500);
-            }
+                }
+            }, 300);
         }
     });
     
-    // Configurar event listener para resize
-    window.addEventListener('resize', function() {
-        setupMobileEnhancements();
-    });
-
-    // JavaScript para las pestañas de servicios
-    document.addEventListener('DOMContentLoaded', function() {
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabPanes = document.querySelectorAll('.tab-pane');
+    // =========================================================================
+    // RESPONSIVE ADJUSTMENTS
+    // =========================================================================
+    
+    /**
+     * Ajustes específicos para dispositivos móviles
+     */
+    function handleResponsiveAdjustments() {
+        const isMobile = window.innerWidth <= 768;
+        const isTablet = window.innerWidth <= 992 && window.innerWidth > 768;
         
-        tabButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Remover clase active de todos los botones
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                // Agregar clase active al botón clickeado
-                button.classList.add('active');
-                
-                // Obtener el id del tab a mostrar
-                const tabId = button.getAttribute('data-tab');
-                
-                // Ocultar todos los tabs
-                tabPanes.forEach(pane => pane.classList.remove('active'));
-                
-                // Mostrar el tab seleccionado
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-    });
+        // Ajustes específicos para móvil
+        if (isMobile) {
+            // Simplificar animaciones para mejor rendimiento
+            document.body.classList.add('mobile-optimized');
+            
+            // Ajustar CTA flotante en móvil
+            const ctaFlotante = document.querySelector('.cta-flotante');
+            if (ctaFlotante) {
+                ctaFlotante.style.bottom = '15px';
+                ctaFlotante.style.right = '15px';
+            }
+        } else {
+            document.body.classList.remove('mobile-optimized');
+        }
+        
+        // Ajustes específicos para tablet
+        if (isTablet) {
+            // Cualquier ajuste específico para tablets
+        }
+    }
     
-    // =========================================================================
-    // EXPORTAR FUNCIONES GLOBALES
-    // =========================================================================
+    // Iniciar configuración responsive
+    handleResponsiveAdjustments();
     
-    // Exponer funciones públicas para acceso desde otros scripts
-    window.OrangeVaporHome = {
-        asegurarVisibilidadCritica,
-        initServiceTabs,
-        initTierTabs,
-        initTooltips,
-        updateSpecialOffer
-    };
+    // Actualizar en resize de ventana
+    window.addEventListener('resize', handleResponsiveAdjustments);
 });
