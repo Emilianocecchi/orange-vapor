@@ -1304,9 +1304,10 @@ p {
     background: linear-gradient(to left, rgba(0,0,0,0.03), rgba(0,0,0,0.08));
 }
 
-/* Mejoras para el Paquete Completo */
+/* ESTILOS MEJORADOS PARA EL PAQUETE COMPLETO STARTER */
 .bundle-container {
     margin-top: 50px;
+    width: 100%;
     max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
@@ -1315,20 +1316,21 @@ p {
 .bundle-box {
     background: linear-gradient(145deg, rgba(255, 114, 0, 0.03), rgba(255, 114, 0, 0.08));
     border-radius: 16px;
-    padding: 40px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     border: 2px dashed var(--naranja-principal);
-    text-align: center;
-    width: 100%;
-    margin: 0 auto;
-    min-height: 500px;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%;
 }
 
-.bundle-top, .bundle-middle, .bundle-bottom {
-    width: 100%;
+.bundle-header {
+    background-color: rgba(255, 114, 0, 0.1);
+    padding: 35px 25px;
+    text-align: center;
+    border-bottom: 1px dashed rgba(255, 114, 0, 0.2);
 }
 
 .bundle-icon {
@@ -1346,19 +1348,30 @@ p {
 }
 
 .bundle-title {
-    margin: 5px 0 20px;
-    font-size: 2.2rem;
-    color: var(--naranja-principal);
+    font-size: 2.4rem;
     font-weight: 800;
+    color: var(--naranja-principal);
+    margin: 0 0 15px;
 }
 
 .bundle-desc {
     font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--texto-oscuro);
+    margin: 0;
     line-height: 1.5;
-    margin-bottom: 25px;
-    max-width: 800px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.bundle-content {
+    padding: 30px 25px;
+    text-align: center;
+}
+
+.bundle-pricing {
+    margin-bottom: 25px;
 }
 
 .bundle-price {
@@ -1369,46 +1382,158 @@ p {
 }
 
 .bundle-price .price-amount {
-    font-size: 2.8rem;
-    color: var(--naranja-principal);
+    font-size: 3.2rem;
     font-weight: 800;
+    color: var(--naranja-principal);
+}
+
+.bundle-price .price-period {
+    font-size: 1.2rem;
+    color: var(--texto-claro);
+    margin-left: 8px;
 }
 
 .bundle-save {
-    font-size: 1rem;
+    background-color: rgba(40, 167, 69, 0.1);
     color: #28a745;
-    font-weight: 600;
-    margin-bottom: 20px;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: inline-block;
+    font-size: 1.05rem;
 }
 
-.bundle-advantages {
+.bundle-features {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 25px;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    gap: 15px;
+    max-width: 550px;
+    margin: 0 auto;
 }
 
-.bundle-advantage {
+.bundle-feature {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 15px;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 8px;
+    gap: 12px;
+    padding: 12px 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
     transition: all 0.3s ease;
 }
 
-.bundle-advantage:hover {
+.bundle-feature:hover {
+    transform: translateX(8px);
     background-color: rgba(255, 255, 255, 0.9);
-    transform: translateX(5px);
 }
 
-.bundle-advantage i {
+.bundle-feature i {
     color: var(--naranja-principal);
+    font-size: 1.3rem;
+}
+
+.bundle-footer {
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-top: 1px dashed rgba(255, 114, 0, 0.2);
+    text-align: center;
+}
+
+/* NUEVO DISEÑO PARA SELECTOR DE TIERS */
+.tier-selector {
+    margin-bottom: 25px;
+}
+
+.tier-label {
+    font-weight: 700;
     font-size: 1.1rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.tier-label:after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background-color: var(--naranja-principal);
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tier-badges {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+    user-select: none; /* Hace que no sea seleccionable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.tier-badge {
+    padding: 0;
+    position: relative;
+    width: 130px;
+    height: 70px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 800px;
+}
+
+.tier-badge:hover {
+    transform: perspective(800px) rotateY(15deg);
+}
+
+.tier-badge:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 114, 0, 0.9), rgba(229, 103, 0, 0.8));
+    border-radius: 10px;
+    z-index: 1;
+    transform: translateZ(-1px);
+    box-shadow: 0 5px 15px rgba(255, 114, 0, 0.2);
+}
+
+.tier-badge-name, .tier-badge-price {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    pointer-events: none; /* Parte de hacer no seleccionable */
+}
+
+.tier-badge-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    padding-top: 15px;
+}
+
+.tier-badge-price {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.tier-badge:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+    z-index: 3;
+    pointer-events: none;
 }
 
 .btn-bundle {
@@ -1418,17 +1543,72 @@ p {
     padding: 16px 32px;
     border-radius: var(--borde-redondo-md);
     display: inline-block;
-    min-width: 250px;
+    min-width: 280px;
     font-size: 1.2rem;
     transition: all 0.3s ease;
     box-shadow: 0 5px 15px rgba(255, 114, 0, 0.2);
-    margin-top: 20px;
 }
 
 .btn-bundle:hover {
     background-color: var(--naranja-oscuro);
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(255, 114, 0, 0.3);
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .bundle-title {
+        font-size: 2rem;
+    }
+    
+    .bundle-desc {
+        font-size: 1.1rem;
+    }
+    
+    .bundle-price .price-amount {
+        font-size: 2.8rem;
+    }
+    
+    .bundle-feature {
+        font-size: 1rem;
+    }
+    
+    .tier-badges {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .bundle-box {
+        padding: 0;
+    }
+    
+    .bundle-header {
+        padding: 25px 20px;
+    }
+    
+    .bundle-content {
+        padding: 25px 20px;
+    }
+    
+    .bundle-title {
+        font-size: 1.8rem;
+    }
+    
+    .bundle-desc {
+        font-size: 1rem;
+    }
+    
+    .bundle-price .price-amount {
+        font-size: 2.5rem;
+    }
+    
+    .btn-bundle {
+        width: 100%;
+        min-width: unset;
+    }
 }
 
 /* Responsive adjustments */
@@ -1441,19 +1621,7 @@ p {
         font-size: 1.1rem;
     }
     
-    .bundle-box {
-        padding: 30px 20px;
-        min-height: auto;
-    }
-    
-    .bundle-title {
-        font-size: 1.8rem;
-    }
-    
-    .bundle-desc {
-        font-size: 1rem;
-    }
-}
+  
 
 @media (max-width: 576px) {
     .servicios-mensuales-titulo h2 {
@@ -1470,25 +1638,7 @@ p {
         font-size: 1.1rem;
     }
     
-    .bundle-box {
-        padding: 20px 15px;
-    }
-    
-    .bundle-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 24px;
-    }
-    
-    .bundle-title {
-        font-size: 1.5rem;
-    }
-    
-    .btn-bundle {
-        width: 100%;
-        min-width: unset;
-        padding: 14px 20px;
-    }
+  
 }
 
 
