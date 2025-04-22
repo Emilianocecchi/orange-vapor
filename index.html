@@ -1,16 +1,6 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
-    <!-- Add this in the head section, after the other CSS files -->
-<link rel="stylesheet" href="navbar.css">
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PBXS9H66');</script>
-    <!-- End Google Tag Manager -->
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -56,912 +46,931 @@
     <!-- Estilos Críticos Inline para garantizar carga visible -->
     <style>
         /* Estilos críticos para garantizar visibilidad */
-        #servicios .seccion-titulo,
-        #servicios .servicios-tabs-container,
-        #servicios .servicios-content-container,
-        #servicios .oferta-especial,
-        #servicios .servicios-garantia {
+        .fade-in {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
         
-        /* Fallback para mostrar contenido si JS falla */
-        .fade-in {
-            animation: forceVisibleFallback 5s forwards;
+        /* Mejora para skip-link accesibilidad */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #FF7200;
+            color: white;
+            padding: 8px;
+            z-index: 9999;
+            transition: top 0.2s ease;
         }
         
-        @keyframes forceVisibleFallback {
-            0%, 50% { /* Mantener valores actuales por un tiempo */ }
-            100% {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-            }
+        .skip-link:focus {
+            top: 0;
         }
     </style>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PBXS9H66');</script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- Script para habilitar la clase JS -->
+    <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body class="preload">
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBXS9H66" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBXS9H66" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-<!-- Carga de la navbar desde archivo externo -->
-<div id="navbar-container"></div>
+    <!-- Enlace de accesibilidad para saltar al contenido principal -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-<script>
-    // Función para cargar la navbar
-    fetch('navbar.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('No se pudo cargar la navbar');
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('navbar-container').innerHTML = data;
-            
-            // Ejecutar los scripts de la navbar después de cargarla
-            const navbarScripts = document.getElementById('navbar-container').getElementsByTagName('script');
-            for (let script of navbarScripts) {
-                const newScript = document.createElement('script');
-                if (script.src) {
-                    newScript.src = script.src;
-                } else {
-                    newScript.textContent = script.textContent;
-                }
-                document.body.appendChild(newScript);
-            }
-        })
-        .catch(error => {
-            console.error('Error al cargar la navbar:', error);
-            document.getElementById('navbar-container').innerHTML = '<p>Error al cargar la navegación. Por favor, recarga la página.</p>';
-        });
-</script>
-
-<!-- Sección Hero -->
-    
-   <!-- Sección Hero -->
-<section id="home" class="hero" aria-label="Sección principal">
-    <div class="hero-shape"></div>
-    <div class="hero-container container">
-        <div class="hero-content-wrapper">
-            <div class="hero-content fade-in visible">
-                <h1 class="hero-title">Estrategias Digitales con Resultados Garantizados</h1>
-                <p class="hero-subtitle">Agencia de marketing digital especializada en resultados medibles y conversiones reales</p>
-                <div class="hero-services">
-                    <div class="service-pill ads-pill">
-                        <i class="fas fa-ad" aria-hidden="true"></i>
-                        <span>Meta & Google Ads</span>
-                    </div>
-                    <div class="service-pill email-pill">
-                        <i class="fas fa-envelope" aria-hidden="true"></i>
-                        <span>Email Marketing</span>
-                    </div>
-                    <div class="service-pill chatbot-pill">
-                        <i class="fas fa-robot" aria-hidden="true"></i>
-                        <span>Chatbots</span>
-                    </div>
-                </div>
-                <div class="hero-cta">
-                    <a href="#contacto" class="btn btn-lg btn-primary pulse-animation">Auditoría Gratis</a>
-                </div>
-            </div>
-        </div>
-        <div class="hero-visual-wrapper">
-            <div class="hero-image fade-in visible">
-                <div class="audit-card">
-                    <div class="audit-card-header">
-                        <div class="audit-services">
-                            <div class="audit-service-icon google">
-                                <i class="fab fa-google" aria-hidden="true"></i>
-                            </div>
-                            <div class="audit-plus">+</div>
-                            <div class="audit-service-icon meta">
-                                <i class="fab fa-facebook-f" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="audit-card-body">
-                        <h3 class="audit-title">Auditoría Gratis</h3>
-                        <p class="audit-desc">Diagnóstico profesional de tus campañas de ads en 48hs</p>
-                        <div class="audit-time-container">
-                            <div class="audit-time gratis-badge">GRATIS</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="scroll-indicator">
-        <i class="fas fa-chevron-down" aria-hidden="true"></i>
-    </div>
-</section>
-  <!-- Sección de Servicios Mejorada -->
-<section id="servicios" class="servicios">
-    <div class="servicios-bg"></div>
-    <div class="container">
-        <!-- PARTE 1: AUDITORÍA GRATIS (REDISEÑADA) -->
-        <header class="seccion-header fade-in visible">
-            <div class="title-badge">
-                <i class="fas fa-search-dollar"></i>
-                <span>Auditoría Profesional</span>
-            </div>
-            <h2>Tu Auditoría <span class="highlight">GRATIS</span></h2>
-            <p class="subtitle-text">Descubrí exactamente dónde estás perdiendo dinero en tus campañas y qué hacer al respecto</p>
-        </header>
-
-        <!-- Card de Auditoría Rediseñada -->
-        <div class="auditoria-card-redesign fade-in visible">
-            <span class="auditoria-ribbon">GRATIS</span>
-            
-            <div class="auditoria-content-grid">
-                <div class="auditoria-left">
-                    <div class="auditoria-icon-wrapper">
-                        <div class="auditoria-icon pulse-slow">
-                            <i class="fas fa-search-dollar"></i>
-                        </div>
-                    </div>
-                    <h3>Auditoría Gratis</h3>
-                    <div class="auditoria-timer">
-                        <i class="fas fa-bolt"></i> Resultados en 24-48 horas
-                    </div>
-                    <p class="auditoria-description">Diagnóstico profesional de tus campañas digitales con soluciones claras y accionables.</p>
-                    
-                    <button class="btn-auditoria">
-                        <span>Solicitar Auditoría Gratis</span>
-                        <div class="btn-icon">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                    </button>
-                </div>
-                
-                <div class="auditoria-right">
-                    <!-- Grid de características con diseño simplificado -->
-                    <ul class="auditoria-features-redesign">
-                        <li class="auditoria-feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-exclamation-circle"></i>
-                            </div>
-                            <div class="feature-text">
-                                <span class="feature-title">3 Errores Críticos</span>
-                                <span class="feature-desc">Identificamos los problemas que están drenando tu presupuesto diariamente</span>
-                            </div>
-                        </li>
-                        
-                        <li class="auditoria-feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="feature-text">
-                                <span class="feature-title">Audiencia Desaprovechada</span>
-                                <span class="feature-desc">Descubrimos el segmento de alto potencial que no estás alcanzando</span>
-                            </div>
-                        </li>
-                        
-                        <li class="auditoria-feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-traffic-light"></i>
-                            </div>
-                            <div class="feature-text">
-                                <span class="feature-title">Semáforo Estratégico</span>
-                                <span class="feature-desc">Evaluación visual clara de tus campañas actuales</span>
-                            </div>
-                        </li>
-                        
-                        <li class="auditoria-feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="feature-text">
-                                <span class="feature-title">Benchmark Competitivo</span>
-                                <span class="feature-desc">Análisis de qué está funcionando para tu competencia directa</span>
-                            </div>
-                        </li>
-                        
-                        <li class="auditoria-feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-file-pdf"></i>
-                            </div>
-                            <div class="feature-text">
-                                <span class="feature-title">Reporte Ejecutivo</span>
-                                <span class="feature-desc">Documento PDF profesional con hallazgos y recomendaciones</span>
-                            </div>
-                        </li>
-                    </ul>
-                    
-                    <div class="trust-signals">
-                        <div class="trust-item">
-                            <i class="fas fa-lock"></i>
-                            <span>100% Confidencial</span>
-                        </div>
-                        <div class="trust-item">
-                            <i class="fas fa-clock"></i>
-                            <span>Solo toma 2 min solicitar</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PARTE 2: SERVICIOS MENSUALES -->
-        <div class="servicios-divider">
-            <div class="divider-line"></div>
-            <div class="divider-icon">
-                <i class="fas fa-chart-line"></i>
-            </div>
-            <div class="divider-line"></div>
-        </div>
-
-        <header class="seccion-header servicios-mensuales-titulo fade-in visible">
-            <div class="title-badge orange-badge">
-                <span>Servicios Mensuales</span>
-            </div>
-            <h2>Soluciones Profesionales para Resultados Continuos</h2>
-            <p class="subtitle-text">Elegí el servicio que necesita tu negocio o nuestro <strong>Paquete Completo Starter (Meta y Google Ads, Email Marketing y Chatbot)</strong> por solo <span class="price-highlight">US$999/mes</span></p>
-        </header>
-
-        <!-- Servicios con tabs -->
-        <div class="servicios-tabs-container fade-in visible">
-            <div class="tabs-menu">
-                <button class="tab-button active" data-tab="meta-ads">
-                    <i class="fab fa-facebook"></i> Meta Ads
-                </button>
-                <button class="tab-button" data-tab="google-ads">
-                    <i class="fab fa-google"></i> Google Ads
-                </button>
-                <button class="tab-button" data-tab="email-marketing">
-                    <i class="fas fa-envelope-open-text"></i> Email Marketing
-                </button>
-                <button class="tab-button" data-tab="chatbot">
-                    <i class="fas fa-robot"></i> Chatbot
-                </button>
-            </div>
-
-            <div class="tabs-content">
-                <!-- META ADS TAB -->
-                <div id="meta-ads" class="tab-content active">
-                    <h3 class="tab-title">Meta Ads: Planes Mensuales</h3>
-                    
-                    <div class="planes-grid">
-                        <!-- PLAN STARTER -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Starter</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$299</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $199</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> Segmentación inicial</li>
-                                    <li><i class="fas fa-check"></i> Audiencias detalladas</li>
-                                    <li><i class="fas fa-check"></i> Formatos visuales básicos</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Starter</a>
-                            </div>
-                        </div>
-                        
-                        <!-- PLAN PRO -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Pro</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$599</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $249</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> Segmentación avanzada</li>
-                                    <li><i class="fas fa-check"></i> Remarketing</li>
-                                    <li><i class="fas fa-check"></i> Audiencias personalizadas</li>
-                                    <li><i class="fas fa-check"></i> Formatos dinámicos</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Pro</a>
-                            </div>
-                        </div>
-                        
-                        <!-- PLAN ELITE -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Elite</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$999</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $299</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> Estrategia omnicanal</li>
-                                    <li><i class="fas fa-check"></i> Segmentación granular</li>
-                                    <li><i class="fas fa-check"></i> Formatos innovadores</li>
-                                    <li><i class="fas fa-check"></i> Optimización avanzada</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Elite</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-info">
-                        <p>Maximizá el alcance de tu marca con estrategias personalizadas y segmentación efectiva para impulsar ventas.</p>
-                    </div>
-                </div>
-                
-                <!-- GOOGLE ADS TAB -->
-                <div id="google-ads" class="tab-content">
-                    <h3 class="tab-title">Google Ads: Planes Mensuales</h3>
-                    
-                    <div class="planes-grid">
-                        <!-- PLAN STARTER -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Starter</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$299</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $199</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> Campañas de búsqueda con keywords</li>
-                                    <li><i class="fas fa-check"></i> Anuncios de texto optimizados</li>
-                                    <li><i class="fas fa-check"></i> Posicionamiento en fase de búsqueda</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Starter</a>
-                            </div>
-                        </div>
-                        
-                        <!-- PLAN PRO -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Pro</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$599</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $249</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> Diversificación de canales</li>
-                                    <li><i class="fas fa-check"></i> Optimización del performance</li>
-                                    <li><i class="fas fa-check"></i> Estrategia multicanal completa</li>
-                                    <li><i class="fas fa-check"></i> Display, remarketing y búsqueda</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Pro</a>
-                            </div>
-                        </div>
-                        
-                        <!-- PLAN ELITE -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Elite</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$999</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $299</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> Estrategia integral con Performance Max</li>
-                                    <li><i class="fas fa-check"></i> Estrategias de puja inteligente</li>
-                                    <li><i class="fas fa-check"></i> Datos avanzados y remarketing dinámico</li>
-                                    <li><i class="fas fa-check"></i> Machine learning avanzado</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Elite</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-info">
-                        <p>Captura la intención de compra con estrategias optimizadas para búsquedas que maximizan tu ROI.</p>
-                    </div>
-                </div>
-                
-                <!-- EMAIL MARKETING TAB -->
-                <div id="email-marketing" class="tab-content">
-                    <h3 class="tab-title">Email Marketing: Planes Mensuales</h3>
-                    
-                    <div class="planes-grid">
-                        <!-- PLAN STARTER -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Starter</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$299</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $199</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> 4 campañas mensuales básicas</li>
-                                    <li><i class="fas fa-check"></i> Segmentación básica (3 segmentos)</li>
-                                    <li><i class="fas fa-check"></i> 1 template básico por mes</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Starter</a>
-                            </div>
-                        </div>
-                        
-                        <!-- PLAN PRO -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Pro</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$599</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $249</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> 8 campañas + 2 flujos automatizados</li>
-                                    <li><i class="fas fa-check"></i> Segmentación por comportamiento</li>
-                                    <li><i class="fas fa-check"></i> 2 templates personalizados por mes</li>
-                                    <li><i class="fas fa-check"></i> Componentes interactivos</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Pro</a>
-                            </div>
-                        </div>
-                        
-                        <!-- PLAN ELITE -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Elite</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$999</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $299</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> Campañas ilimitadas + integración CRM</li>
-                                    <li><i class="fas fa-check"></i> Segmentación avanzada + Reengagement</li>
-                                    <li><i class="fas fa-check"></i> Templates ilimitados con diseño a medida</li>
-                                    <li><i class="fas fa-check"></i> Sistema de diseño completo para tu marca</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Elite</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-info">
-                        <p>Recuperá el 15% de tus carritos abandonados con flujos automáticos efectivos y personalización avanzada.</p>
-                    </div>
-                </div>
-                
-                <!-- CHATBOT TAB -->
-                <div id="chatbot" class="tab-content">
-                    <h3 class="tab-title">Chatbot: Planes Mensuales</h3>
-                    
-                    <div class="planes-grid">
-                        <!-- PLAN STARTER -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Starter</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$299</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $199</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> 5 flujos básicos de conversación</li>
-                                    <li><i class="fas fa-check"></i> 1 plataforma (WhatsApp o web)</li>
-                                    <li><i class="fas fa-check"></i> Personalización básica</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Starter</a>
-                            </div>
-                        </div>
-                        
-                        <!-- PLAN PRO -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Pro</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$599</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $249</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> 10 flujos con lógica condicional</li>
-                                    <li><i class="fas fa-check"></i> 3 plataformas (WhatsApp, web, Messenger)</li>
-                                    <li><i class="fas fa-check"></i> Variables dinámicas</li>
-                                    <li><i class="fas fa-check"></i> Calificación de leads</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Pro</a>
-                            </div>
-                        </div>
-                        
-                        <!-- PLAN ELITE -->
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Elite</h4>
-                                <div class="plan-price">
-                                    <span class="price-amount">US$999</span>
-                                    <span class="price-period">/mes</span>
-                                </div>
-                                <div class="plan-setup">Setup: $299</div>
-                            </div>
-                            <div class="plan-body">
-                                <ul class="plan-features">
-                                    <li><i class="fas fa-check"></i> Flujos ilimitados con IA avanzada</li>
-                                    <li><i class="fas fa-check"></i> Todas las plataformas + CRM</li>
-                                    <li><i class="fas fa-check"></i> Personalización avanzada con histórico</li>
-                                    <li><i class="fas fa-check"></i> Omnicanalidad completa</li>
-                                </ul>
-                                <a href="#contacto" class="btn-plan">Elegir Elite</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-info">
-                        <p>Convertí 24/7 con atención automática que responde y vende por ti. Ideal para negocios que no pueden atender consultas al instante.</p>
-                    </div>
-                </div>
+    <!-- Navegación Principal -->
+    <header id="header" class="navbar" role="banner">
+        <div class="container navbar-container">
+            <div class="logo-container">
+                <a href="/" class="logo" aria-label="Orange Vapor Home">Orange<span>Vapor</span></a>
             </div>
             
-            <!-- PAQUETE COMPLETO STARTER -->
-            <div class="bundle-container">
-                <div class="bundle-box">
-                    <div class="bundle-icon">
-                        <i class="fas fa-cubes"></i>
-                    </div>
-                    <h3 class="bundle-title">Paquete Completo Starter</h3>
-                    <p class="bundle-desc">Incluye Meta Ads + Google Ads + Email Marketing + Chatbot en nivel Starter</p>
-                    <div class="bundle-pricing">
-                        <div class="bundle-price">
-                            <span class="price-amount">US$999</span>
-                            <span class="price-period">/mes</span>
-                        </div>
-                        <div class="bundle-save">¡Setup Bonificado! Ahorrás US$196 por mes</div>
-                    </div>
-                    <div class="bundle-tiers">
-                        <p>También disponible en:</p>
-                        <div class="tier-options">
-                            <div class="tier-option">
-                                <span class="tier-name">Pro</span>
-                                <span class="tier-price">US$1995/mes</span>
-                            </div>
-                            <div class="tier-option">
-                                <span class="tier-name">Elite</span>
-                                <span class="tier-price">US$3299/mes</span>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#contacto" class="btn-bundle">Elegir Paquete Completo</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- Sección Proceso Mejorada -->
-    <section id="proceso" class="plan-section plan-mejorado">
-        <div class="container">
-            <div class="seccion-titulo fade-in">
-                <span class="subtitulo">Nuestro Plan</span>
-                <h2>La Solución: 3 Pasos para Transformar tu Marketing Digital</h2>
-                <p>Te ofrecemos un camino claro y probado que elimina la confusión y genera resultados medibles.</p>
-            </div>
+            <button class="mobile-toggle" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
             
-            <div class="proceso-timeline fade-in">
-                <!-- Paso 1 -->
-                <div class="proceso-paso" data-step="1">
-                    <div class="paso-numero">1</div>
-                    <div class="paso-contenido">
-                        <div class="paso-icono">
-                            <i class="fas fa-search-dollar" aria-hidden="true"></i>
-                        </div>
-                        <h3>Auditoría <span class="gratuito-highlight">GRATIS</span></h3>
-                        <p>Analizamos tus campañas de Google y Meta Ads sin costo. En 24-48 horas, te entregamos un diagnóstico profesional en PDF que revela los errores que te cuestan dinero y oportunidades de mejora inmediatas.</p>
-                    </div>
-                </div>
-                
-                <!-- Paso 2 Rediseñado -->
-                <div class="proceso-paso" data-step="2">
-                    <div class="paso-numero">2</div>
-                    <div class="paso-contenido">
-                        <div class="paso-icono">
-                            <i class="fas fa-chess" aria-hidden="true"></i>
-                        </div>
-                        <h3>Elegí tu Solución</h3>
-                        <p>Con el diagnóstico en mano, seleccioná el servicio mensual que mejor se adapte a tus necesidades y objetivos específicos, ya sea para un canal en particular o con nuestro Bundle Completo.</p>
-                    </div>
-                </div>
-                
-                <!-- Opciones del Paso 2 - Separadas para mejor visualización -->
-                <div class="opciones-container-rediseno fade-in">
-                    <div class="opcion-card mensual-opcion">
-                        <div class="opcion-header">
-                            <div class="opcion-icon">
-                                <i class="fas fa-calendar-check" aria-hidden="true"></i>
-                            </div>
-                            <h4>Servicio Mensual</h4>
-                        </div>
-                        <div class="opcion-body">
-                            <div class="tier-selector-mini">
-                                <span class="tier-option active" data-tier="starter">Starter</span>
-                                <span class="tier-option" data-tier="pro">Pro</span>
-                                <span class="tier-option" data-tier="elite">Elite</span>
-                            </div>
-                            <div class="opcion-precio tier-mini starter active">
-                                <span class="precio-setup">$199 setup inicial</span>
-                                <span class="precio-valor">US$299</span>
-                                <span class="precio-periodo">/mes por servicio</span>
-                            </div>
-                            <div class="opcion-precio tier-mini pro">
-                                <span class="precio-setup">$249 setup inicial</span>
-                                <span class="precio-valor">US$599</span>
-                                <span class="precio-periodo">/mes por servicio</span>
-                            </div>
-                            <div class="opcion-precio tier-mini elite">
-                                <span class="precio-setup">$299 setup inicial</span>
-                                <span class="precio-valor">US$999</span>
-                                <span class="precio-periodo">/mes por servicio</span>
-                            </div>
-                            <p>Optá por uno o varios servicios mensuales o elegí nuestro <strong>Paquete Completo</strong> por <span class="precio-destacado">US$999/mes</span> y ahorrá $196 al mes.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Paso 3 -->
-                <div class="proceso-paso" data-step="3">
-                    <div class="paso-numero">3</div>
-                    <div class="paso-contenido">
-                        <div class="paso-icono">
-                            <i class="fas fa-chart-line" aria-hidden="true"></i>
-                        </div>
-                        <h3>Resultados que Crecen</h3>
-                        <p>Implementamos, optimizamos y te mostramos el impacto. Con transparencia total, ves cómo tu inversión se traduce en más clientes y menos desperdicio. Te liberamos de la incertidumbre y convertimos tu marketing digital en una inversión predecible y rentable.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="proceso-cta fade-in">
-                <a href="#contacto" class="proceso-btn">
-                    <span>Solicitar Auditoría Gratis</span>
-                    <i class="fas fa-arrow-down" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección Equipo -->
-    <section id="equipo" class="equipo">
-        <div class="container">
-            <div class="seccion-titulo fade-in">
-                <h2>El Equipo: Experiencia Real Aplicada a Tu Negocio</h2>
-                <p>No somos teóricos del marketing. Emiliano lideró el crecimiento e-commerce de Hunter Douglas, mientras Yobanny dirigió equipos de compra de medios en una de las Big Four de Publicidad. 
-                Ahora aplicamos ese conocimiento insider para negocios como el tuyo, con un enfoque personalizado que las grandes agencias no pueden ofrecer.</p>
-            </div>
-            <div class="team-grid fade-in">
-                <div class="team-member">
-                    <div class="member-avatar">
-                        <img src="https://media.licdn.com/dms/image/v2/D4D03AQGMBstWC1OBlg/profile-displayphoto-shrink_200_200/B4DZThGN0VHYAY-/0/1738943291295?e=1746662400&v=beta&t=_FE9qOC8W-1ihM4a6-s8GrW3OfZwNLcVn0v46ZIIWhI" alt="Emiliano Cecchi" class="profile-image" loading="lazy">
-                    </div>
-                    <div class="member-info">
-                        <h3>Emiliano Cecchi</h3>
-                        <h4>Director de Estrategia Digital</h4>
-                        <p>8 años de Experiencia en Marketing Digital y E-commerce. Ex-líder del equipo de E-commerce de Hunter Douglas Argentina.</p>
-                        <div class="social-links">
-                            <a href="https://www.linkedin.com/in/mkt-ecommerce/" target="_blank" rel="noopener" aria-label="LinkedIn de Emiliano Cecchi">
-                                <i class="fab fa-linkedin" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="team-member">
-                    <div class="member-avatar">
-                        <img src="https://media.licdn.com/dms/image/v2/D4D03AQFzKVN_97EuCA/profile-displayphoto-shrink_800_800/B4DZUFiPEVHkAc-/0/1739554616070?e=1746662400&v=beta&t=mZQnzBWjAyvlnYM6Q_p0EZQVtc7f3a1UqbGrg-iqum8" alt="Yobanny Ortega" class="profile-image" loading="lazy">
-                    </div>
-                    <div class="member-info">
-                        <h3>Yobanny Ortega</h3>
-                        <h4>Director de Publicidad Digital</h4>
-                        <p>Ex-líder de equipos de compras de medios digitales en agencias internacionales como Publicis Media.</p>
-                        <div class="social-links">
-                            <a href="https://www.linkedin.com/in/yobanny-ortega/" target="_blank" rel="noopener" aria-label="LinkedIn de Yobanny Ortega">
-                                <i class="fab fa-linkedin" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
- <!-- Sección Contacto con Formulario Mailchimp Actualizado -->
-<section id="contacto" class="contacto">
-    <div class="container">
-        <div class="seccion-titulo fade-in">
-            <h2>Conseguí tu Auditoría Gratis</h2>
-            <p>Tus campañas de ads podrían estar perdiendo dinero mientras leés esto. En 24-48 horas, descubrí exactamente dónde y cómo mejorarlas con nuestra auditoría gratuita profesional.</p>
-        </div>
-        
-        <div class="contacto-wrapper fade-in">
-            <!-- Contenedor del formulario -->
-            <div class="contacto-form-container">
-                <div class="form-header">
-                    <div class="form-icon">
-                        <i class="fas fa-search-dollar"></i>
-                    </div>
-                    <h3>Solicitá tu auditoría ahora</h3>
-                    <p>Completá el formulario para recibir tu diagnóstico profesional en 48 horas</p>
-                </div>
-                
-                <!-- INICIO DEL NUEVO CÓDIGO DE MAILCHIMP -->
-                <div id="mc_embed_shell">
-                    <div id="mc_embed_signup">
-                        <form action="https://orangevapor.us17.list-manage.com/subscribe/post?u=386ca740d7cf02ec261f47f33&amp;id=5a55144e86&amp;f_id=0090eee3f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
-                            <div id="mc_embed_signup_scroll">
-                                <div class="indicates-required"><span class="asterisk">*</span> indica que es obligatorio</div>
-                                <div class="mc-field-group">
-                                    <label for="mce-EMAIL">Dirección de correo electrónico <span class="asterisk">*</span></label>
-                                    <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required="" value="">
-                                </div>
-                                <div class="mc-field-group">
-                                    <label for="mce-FNAME">Nombre </label>
-                                    <input type="text" name="FNAME" class="text" id="mce-FNAME" value="">
-                                </div>
-                                <div class="mc-field-group">
-                                    <label for="mce-PHONE">Número de WhatsApp <span class="asterisk">*</span></label>
-                                    <input type="text" name="PHONE" class="REQ_CSS" id="mce-PHONE" value="">
-                                </div>
-                                <div class="mc-field-group">
-                                    <label for="mce-COMPANY">Empresa </label>
-                                    <input type="text" name="COMPANY" class="text" id="mce-COMPANY" value="">
-                                </div>
-                                <div hidden="">
-                                    <input type="hidden" name="tags" value="8333844">
-                                </div>
-                                <div id="mce-responses" class="clear">
-                                    <div class="response" id="mce-error-response" style="display: none;"></div>
-                                    <div class="response" id="mce-success-response" style="display: none;"></div>
-                                </div>
-                                <div aria-hidden="true" style="position: absolute; left: -5000px;">
-                                    <input type="text" name="b_386ca740d7cf02ec261f47f33_5a55144e86" tabindex="-1" value="">
-                                </div>
-                                <div class="clear">
-                                    <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Solicitar Auditoría Gratis">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-                    <script type="text/javascript">
-                        (function($) {
-                            window.fnames = new Array(); 
-                            window.ftypes = new Array();
-                            fnames[0]='EMAIL';
-                            ftypes[0]='email';
-                            fnames[1]='FNAME';
-                            ftypes[1]='text';
-                            fnames[4]='PHONE';
-                            ftypes[4]='phone';
-                            fnames[6]='COMPANY';
-                            ftypes[6]='text';
-                            fnames[2]='LNAME';
-                            ftypes[2]='text';
-                            fnames[3]='ADDRESS';
-                            ftypes[3]='address';
-                            fnames[5]='BIRTHDAY';
-                            ftypes[5]='birthday';
-                        }(jQuery));
-                        var $mcj = jQuery.noConflict(true);
-                    </script>
-                </div>
-                <!-- FIN DEL NUEVO CÓDIGO DE MAILCHIMP -->
-
-                <!-- Script para redirección después del envío exitoso -->
-                <script>
-                    document.getElementById('mc-embedded-subscribe-form').addEventListener('submit', function(e) {
-                        // Esperar un momento para permitir que Mailchimp procese la solicitud
-                        setTimeout(function() {
-                            // Verifica si el mensaje de éxito se muestra
-                            var successMessage = document.getElementById('mce-success-response');
-                            if (successMessage && successMessage.style.display !== 'none') {
-                                window.location.href = "https://www.orangevapor.com/confirmado.html";
-                            }
-                        }, 1000); // Esperar 1 segundo después del submit
-                    });
-                </script>
-                
-                <div class="form-trust-signals">
-                    <div class="trust-item">
-                        <i class="fas fa-lock"></i>
-                        <span>Datos seguros</span>
-                    </div>
-                    <div class="trust-item">
-                        <i class="fas fa-ban"></i>
-                        <span>Sin spam</span>
-                    </div>
-                    <div class="trust-item">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Confidencial</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Lo que vas a recibir (diseño compacto) -->
-            <div class="beneficios-container">
-                <h4 class="beneficios-titulo">Lo que vas a recibir:</h4>
-                <ul class="beneficios-lista-compacta">
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Los 3 errores que te cuestan dinero con capturas de pantalla de tus propias campañas</span>
+            <nav class="nav-menu" role="navigation">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link">Inicio</a>
                     </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Un público valioso que no estás alcanzando y su potencial para tu negocio</span>
+                    <li class="nav-item">
+                        <a href="#servicios" class="nav-link">Servicios</a>
                     </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Semáforo de tus campañas con evaluación visual de áreas críticas vs. las que funcionan</span>
+                    <li class="nav-item">
+                        <a href="#proceso" class="nav-link">Proceso</a>
                     </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Comparativa con tu competencia incluyendo ejemplos de sus anuncios más efectivos</span>
+                    <li class="nav-item">
+                        <a href="#equipo" class="nav-link">Equipo</a>
                     </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Checklist de auto-revisión con 5 preguntas clave para evaluar tus campañas</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Todo entregado en PDF profesional de 2-3 páginas en 24-48 horas</span>
+                    <li class="nav-item">
+                        <a href="#contacto" class="nav-link">Contacto</a>
                     </li>
                 </ul>
-                <div class="beneficios-nota">
-                    <i class="fas fa-shield-alt"></i>
-                    <p>Sin tocar tu presupuesto, solo necesitamos acceso en modo lectura a tus cuentas</p>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main id="main-content">
+        <!-- Sección Hero -->
+        <section id="home" class="hero" aria-label="Sección principal">
+            <div class="hero-shape"></div>
+            <div class="hero-container container">
+                <div class="hero-content-wrapper">
+                    <div class="hero-content fade-in visible">
+                        <h1 class="hero-title">Estrategias Digitales con Resultados Garantizados</h1>
+                        <p class="hero-subtitle">Agencia de marketing digital especializada en resultados medibles y conversiones reales</p>
+                        <div class="hero-services">
+                            <div class="service-pill ads-pill">
+                                <i class="fas fa-ad" aria-hidden="true"></i>
+                                <span>Meta & Google Ads</span>
+                            </div>
+                            <div class="service-pill email-pill">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                                <span>Email Marketing</span>
+                            </div>
+                            <div class="service-pill chatbot-pill">
+                                <i class="fas fa-robot" aria-hidden="true"></i>
+                                <span>Chatbots</span>
+                            </div>
+                        </div>
+                        <div class="hero-cta">
+                            <a href="#contacto" class="btn btn-accent btn-lg pulse-animation">Auditoría Gratis</a>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="testimonial-mini">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i></div>
-                    <p class="quote-text">"La auditoría detectó errores que me estaban costando $850 por semana. Con los cambios sugeridos, mi ROAS aumentó un 187% en solo 14 días."</p>
-                    <div class="quote-author">
-                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Testimonio" class="author-image">
-                        <div class="author-info">
-                            <span class="author-name">Carlos L.</span>
-                            <span class="author-business">Tienda de decoración</span>
+                <div class="hero-visual-wrapper">
+                    <div class="hero-image fade-in visible">
+                        <div class="audit-card">
+                            <div class="audit-card-header">
+                                <div class="audit-services">
+                                    <div class="audit-service-icon google">
+                                        <i class="fab fa-google" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="audit-plus">+</div>
+                                    <div class="audit-service-icon meta">
+                                        <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="audit-card-body">
+                                <h3 class="audit-title">Auditoría Gratis</h3>
+                                <p class="audit-desc">Diagnóstico profesional de tus campañas de ads en 48hs</p>
+                                <div class="audit-time-container">
+                                    <div class="audit-time gratis-badge">GRATIS</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                <span class="sr-only">Deslizar para ver más</span>
+            </div>
+        </section>
+
+        <!-- Sección de Servicios Mejorada -->
+        <section id="servicios" class="servicios">
+            <div class="servicios-bg"></div>
+            <div class="container">
+                <!-- PARTE 1: AUDITORÍA GRATIS -->
+                <header class="seccion-header fade-in visible">
+                    <div class="title-badge">
+                        <i class="fas fa-search-dollar" aria-hidden="true"></i>
+                        <span>Auditoría Profesional</span>
+                    </div>
+                    <h2>Tu Auditoría <span class="highlight">GRATIS</span></h2>
+                    <p class="subtitle-text">Descubrí exactamente dónde estás perdiendo dinero en tus campañas y qué hacer al respecto</p>
+                </header>
+
+                <!-- Card de Auditoría Rediseñada -->
+                <div class="auditoria-card-redesign fade-in visible">
+                    <span class="auditoria-ribbon">GRATIS</span>
+                    
+                    <div class="auditoria-content-grid">
+                        <div class="auditoria-left">
+                            <div class="auditoria-icon-wrapper">
+                                <div class="auditoria-icon pulse-slow">
+                                    <i class="fas fa-search-dollar" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <h3>Auditoría Gratis</h3>
+                            <div class="auditoria-timer">
+                                <i class="fas fa-bolt" aria-hidden="true"></i> Resultados en 24-48 horas
+                            </div>
+                            <p class="auditoria-description">Diagnóstico profesional de tus campañas digitales con soluciones claras y accionables.</p>
+                            
+                            <a href="#contacto" class="btn-audit">
+                                <span>Solicitar Auditoría Gratis</span>
+                                <div class="btn-icon">
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="auditoria-right">
+                            <!-- Grid de características con diseño simplificado -->
+                            <ul class="auditoria-features-redesign">
+                                <li class="auditoria-feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <span class="feature-title">3 Errores Críticos</span>
+                                        <span class="feature-desc">Identificamos los problemas que están drenando tu presupuesto diariamente</span>
+                                    </div>
+                                </li>
+                                
+                                <li class="auditoria-feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-users" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <span class="feature-title">Audiencia Desaprovechada</span>
+                                        <span class="feature-desc">Descubrimos el segmento de alto potencial que no estás alcanzando</span>
+                                    </div>
+                                </li>
+                                
+                                <li class="auditoria-feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-traffic-light" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <span class="feature-title">Semáforo Estratégico</span>
+                                        <span class="feature-desc">Evaluación visual clara de tus campañas actuales</span>
+                                    </div>
+                                </li>
+                                
+                                <li class="auditoria-feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-chart-line" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <span class="feature-title">Benchmark Competitivo</span>
+                                        <span class="feature-desc">Análisis de qué está funcionando para tu competencia directa</span>
+                                    </div>
+                                </li>
+                                
+                                <li class="auditoria-feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <span class="feature-title">Reporte Ejecutivo</span>
+                                        <span class="feature-desc">Documento PDF profesional con hallazgos y recomendaciones</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <div class="trust-signals">
+                                <div class="trust-item">
+                                    <i class="fas fa-lock" aria-hidden="true"></i>
+                                    <span>100% Confidencial</span>
+                                </div>
+                                <div class="trust-item">
+                                    <i class="fas fa-clock" aria-hidden="true"></i>
+                                    <span>Solo toma 2 min solicitar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PARTE 2: SERVICIOS MENSUALES -->
+                <div class="servicios-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-icon">
+                        <i class="fas fa-chart-line" aria-hidden="true"></i>
+                    </div>
+                    <div class="divider-line"></div>
+                </div>
+
+                <header class="seccion-header servicios-mensuales-titulo fade-in visible">
+                    <div class="title-badge orange-badge">
+                        <span>Servicios Mensuales</span>
+                    </div>
+                    <h2>Soluciones Profesionales para Resultados Continuos</h2>
+                    <p class="subtitle-text">Elegí el servicio que necesita tu negocio o nuestro <strong>Paquete Completo Starter (Meta y Google Ads, Email Marketing y Chatbot)</strong> por solo <span class="price-highlight">US$999/mes</span></p>
+                </header>
+
+                <!-- Servicios con tabs -->
+                <div class="servicios-tabs-container fade-in visible">
+                    <div class="tabs-menu" role="tablist">
+                        <button class="tab-button active" data-tab="meta-ads" id="tab-meta-ads" role="tab" aria-selected="true" aria-controls="meta-ads">
+                            <i class="fab fa-facebook" aria-hidden="true"></i> Meta Ads
+                        </button>
+                        <button class="tab-button" data-tab="google-ads" id="tab-google-ads" role="tab" aria-selected="false" aria-controls="google-ads">
+                            <i class="fab fa-google" aria-hidden="true"></i> Google Ads
+                        </button>
+                        <button class="tab-button" data-tab="email-marketing" id="tab-email-marketing" role="tab" aria-selected="false" aria-controls="email-marketing">
+                            <i class="fas fa-envelope-open-text" aria-hidden="true"></i> Email Marketing
+                        </button>
+                        <button class="tab-button" data-tab="chatbot" id="tab-chatbot" role="tab" aria-selected="false" aria-controls="chatbot">
+                            <i class="fas fa-robot" aria-hidden="true"></i> Chatbot
+                        </button>
+                    </div>
+
+                    <div class="tabs-content">
+                        <!-- META ADS TAB -->
+                        <div id="meta-ads" class="tab-content active" role="tabpanel" aria-labelledby="tab-meta-ads">
+                            <h3 class="tab-title">Meta Ads: Planes Mensuales</h3>
+                            
+                            <div class="planes-grid">
+                                <!-- PLAN STARTER -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Starter</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$299</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $199</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Segmentación inicial</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Audiencias detalladas</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Formatos visuales básicos</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Starter</a>
+                                    </div>
+                                </article>
+                                
+                                <!-- PLAN PRO -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Pro</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$599</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $249</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Segmentación avanzada</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Remarketing</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Audiencias personalizadas</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Formatos dinámicos</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Pro</a>
+                                    </div>
+                                </article>
+                                
+                                <!-- PLAN ELITE -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Elite</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$999</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $299</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Estrategia omnicanal</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Segmentación granular</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Formatos innovadores</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Optimización avanzada</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Elite</a>
+                                    </div>
+                                </article>
+                            </div>
+                            
+                            <div class="tab-info">
+                                <p>Maximizá el alcance de tu marca con estrategias personalizadas y segmentación efectiva para impulsar ventas.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- GOOGLE ADS TAB -->
+                        <div id="google-ads" class="tab-content" role="tabpanel" aria-labelledby="tab-google-ads">
+                            <h3 class="tab-title">Google Ads: Planes Mensuales</h3>
+                            
+                            <div class="planes-grid">
+                                <!-- PLAN STARTER -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Starter</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$299</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $199</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Campañas de búsqueda con keywords</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Anuncios de texto optimizados</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Posicionamiento en fase de búsqueda</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Starter</a>
+                                    </div>
+                                </article>
+                                
+                                <!-- PLAN PRO -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Pro</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$599</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $249</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Diversificación de canales</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Optimización del performance</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Estrategia multicanal completa</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Display, remarketing y búsqueda</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Pro</a>
+                                    </div>
+                                </article>
+                                
+                                <!-- PLAN ELITE -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Elite</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$999</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $299</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Estrategia integral con Performance Max</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Estrategias de puja inteligente</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Datos avanzados y remarketing dinámico</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Machine learning avanzado</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Elite</a>
+                                    </div>
+                                </article>
+                            </div>
+                            
+                            <div class="tab-info">
+                                <p>Captura la intención de compra con estrategias optimizadas para búsquedas que maximizan tu ROI.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- EMAIL MARKETING TAB -->
+                        <div id="email-marketing" class="tab-content" role="tabpanel" aria-labelledby="tab-email-marketing">
+                            <h3 class="tab-title">Email Marketing: Planes Mensuales</h3>
+                            
+                            <div class="planes-grid">
+                                <!-- PLAN STARTER -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Starter</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$299</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $199</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 4 campañas mensuales básicas</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Segmentación básica (3 segmentos)</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 1 template básico por mes</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Starter</a>
+                                    </div>
+                                </article>
+                                
+                                <!-- PLAN PRO -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Pro</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$599</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $249</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 8 campañas + 2 flujos automatizados</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Segmentación por comportamiento</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 2 templates personalizados por mes</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Componentes interactivos</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Pro</a>
+                                    </div>
+                                </article>
+                                
+                                <!-- PLAN ELITE -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Elite</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$999</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $299</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Campañas ilimitadas + integración CRM</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Segmentación avanzada + Reengagement</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Templates ilimitados con diseño a medida</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Sistema de diseño completo para tu marca</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Elite</a>
+                                    </div>
+                                </article>
+                            </div>
+                            
+                            <div class="tab-info">
+                                <p>Recuperá el 15% de tus carritos abandonados con flujos automáticos efectivos y personalización avanzada.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- CHATBOT TAB -->
+                        <div id="chatbot" class="tab-content" role="tabpanel" aria-labelledby="tab-chatbot">
+                            <h3 class="tab-title">Chatbot: Planes Mensuales</h3>
+                            
+                            <div class="planes-grid">
+                                <!-- PLAN STARTER -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Starter</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$299</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $199</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 5 flujos básicos de conversación</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 1 plataforma (WhatsApp o web)</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Personalización básica</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Starter</a>
+                                    </div>
+                                </article>
+                                
+                                <!-- PLAN PRO -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Pro</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$599</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $249</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 10 flujos con lógica condicional</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 3 plataformas (WhatsApp, web, Messenger)</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Variables dinámicas</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Calificación de leads</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Pro</a>
+                                    </div>
+                                </article>
+                                
+                                <!-- PLAN ELITE -->
+                                <article class="plan-card">
+                                    <div class="plan-header">
+                                        <h4>Elite</h4>
+                                        <div class="plan-price">
+                                            <span class="price-amount">US$999</span>
+                                            <span class="price-period">/mes</span>
+                                        </div>
+                                        <div class="plan-setup">Setup: $299</div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <ul class="plan-features">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Flujos ilimitados con IA avanzada</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Todas las plataformas + CRM</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Personalización avanzada con histórico</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Omnicanalidad completa</li>
+                                        </ul>
+                                        <a href="#contacto" class="btn-plan">Elegir Elite</a>
+                                    </div>
+                                </article>
+                            </div>
+                            
+                            <div class="tab-info">
+                                <p>Convertí 24/7 con atención automática que responde y vende por ti. Ideal para negocios que no pueden atender consultas al instante.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PAQUETE COMPLETO STARTER -->
+                    <div class="bundle-container">
+                        <div class="bundle-box">
+                            <div class="bundle-icon">
+                                <i class="fas fa-cubes" aria-hidden="true"></i>
+                            </div>
+                            <h3 class="bundle-title">Paquete Completo Starter</h3>
+                            <p class="bundle-desc">Incluye Meta Ads + Google Ads + Email Marketing + Chatbot en nivel Starter</p>
+                            <div class="bundle-pricing">
+                                <div class="bundle-price">
+                                    <span class="price-amount">US$999</span>
+                                    <span class="price-period">/mes</span>
+                                </div>
+                                <div class="bundle-save">¡Setup Bonificado! Ahorrás US$196 por mes</div>
+                            </div>
+                            <div class="bundle-tiers">
+                                <p>También disponible en:</p>
+                                <div class="tier-options">
+                                    <div class="tier-option">
+                                        <span class="tier-name">Pro</span>
+                                        <span class="tier-price">US$1995/mes</span>
+                                    </div>
+                                    <div class="tier-option">
+                                        <span class="tier-name">Elite</span>
+                                        <span class="tier-price">US$3299/mes</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#contacto" class="btn-bundle">Elegir Paquete Completo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Proceso Mejorada -->
+        <section id="proceso" class="plan-mejorado">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <span class="subtitle-badge">Nuestro Plan</span>
+                    <h2>La Solución: 3 Pasos para Transformar tu Marketing Digital</h2>
+                    <p>Te ofrecemos un camino claro y probado que elimina la confusión y genera resultados medibles.</p>
+                </div>
+                
+                <div class="proceso-timeline fade-in">
+                    <!-- Paso 1 -->
+                    <div class="proceso-paso" data-step="1">
+                        <div class="paso-numero">1</div>
+                        <div class="paso-contenido">
+                            <div class="paso-icono">
+                                <i class="fas fa-search-dollar" aria-hidden="true"></i>
+                            </div>
+                            <h3>Auditoría <span class="gratuito-highlight">GRATIS</span></h3>
+                            <p>Analizamos tus campañas de Google y Meta Ads sin costo. En 24-48 horas, te entregamos un diagnóstico profesional en PDF que revela los errores que te cuestan dinero y oportunidades de mejora inmediatas.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Paso 2 Rediseñado -->
+                    <div class="proceso-paso" data-step="2">
+                        <div class="paso-numero">2</div>
+                        <div class="paso-contenido">
+                            <div class="paso-icono">
+                                <i class="fas fa-chess" aria-hidden="true"></i>
+                            </div>
+                            <h3>Elegí tu Solución</h3>
+                            <p>Con el diagnóstico en mano, seleccioná el servicio mensual que mejor se adapte a tus necesidades y objetivos específicos, ya sea para un canal en particular o con nuestro Bundle Completo.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Opciones del Paso 2 - Separadas para mejor visualización -->
+                    <div class="opciones-container-rediseno fade-in">
+                        <div class="opcion-card mensual-opcion">
+                            <div class="opcion-header">
+                                <div class="opcion-icon">
+                                    <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                                </div>
+                                <h4>Servicio Mensual</h4>
+                            </div>
+                            <div class="opcion-body">
+                                <div class="tier-selector-mini">
+                                    <span class="tier-option active" data-tier="starter">Starter</span>
+                                    <span class="tier-option" data-tier="pro">Pro</span>
+                                    <span class="tier-option" data-tier="elite">Elite</span>
+                                </div>
+                                <div class="opcion-precio tier-mini starter active">
+                                    <span class="precio-setup">$199 setup inicial</span>
+                                    <span class="precio-valor">US$299</span>
+                                    <span class="precio-periodo">/mes por servicio</span>
+                                </div>
+                                <div class="opcion-precio tier-mini pro">
+                                    <span class="precio-setup">$249 setup inicial</span>
+                                    <span class="precio-valor">US$599</span>
+                                    <span class="precio-periodo">/mes por servicio</span>
+                                </div>
+                                <div class="opcion-precio tier-mini elite">
+                                    <span class="precio-setup">$299 setup inicial</span>
+                                    <span class="precio-valor">US$999</span>
+                                    <span class="precio-periodo">/mes por servicio</span>
+                                </div>
+                                <p>Optá por uno o varios servicios mensuales o elegí nuestro <strong>Paquete Completo</strong> por <span class="precio-destacado">US$999/mes</span> y ahorrá $196 al mes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Paso 3 -->
+                    <div class="proceso-paso" data-step="3">
+                        <div class="paso-numero">3</div>
+                        <div class="paso-contenido">
+                            <div class="paso-icono">
+                                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                            </div>
+                            <h3>Resultados que Crecen</h3>
+                            <p>Implementamos, optimizamos y te mostramos el impacto. Con transparencia total, ves cómo tu inversión se traduce en más clientes y menos desperdicio. Te liberamos de la incertidumbre y convertimos tu marketing digital en una inversión predecible y rentable.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="proceso-cta fade-in">
+                    <a href="#contacto" class="process-btn">
+                        <span>Solicitar Auditoría Gratis</span>
+                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Equipo -->
+        <section id="equipo" class="equipo">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>El Equipo: Experiencia Real Aplicada a Tu Negocio</h2>
+                    <p>No somos teóricos del marketing. Emiliano lideró el crecimiento e-commerce de Hunter Douglas, mientras Yobanny dirigió equipos de compra de medios en una de las Big Four de Publicidad. 
+                    Ahora aplicamos ese conocimiento insider para negocios como el tuyo, con un enfoque personalizado que las grandes agencias no pueden ofrecer.</p>
+                </div>
+                <div class="team-grid fade-in">
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <img src="/img/team/emiliano-cecchi.jpg" alt="Emiliano Cecchi, Director de Estrategia Digital" class="profile-image" loading="lazy">
+                        </div>
+                        <div class="member-info">
+                            <h3>Emiliano Cecchi</h3>
+                            <h4>Director de Estrategia Digital</h4>
+                            <p>8 años de Experiencia en Marketing Digital y E-commerce. Ex-líder del equipo de E-commerce de Hunter Douglas Argentina.</p>
+                            <div class="social-links">
+                                <a href="https://www.linkedin.com/in/mkt-ecommerce/" target="_blank" rel="noopener" aria-label="LinkedIn de Emiliano Cecchi">
+                                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <img src="/img/team/yobanny-ortega.jpg" alt="Yobanny Ortega, Director de Publicidad Digital" class="profile-image" loading="lazy">
+                        </div>
+                        <div class="member-info">
+                            <h3>Yobanny Ortega</h3>
+                            <h4>Director de Publicidad Digital</h4>
+                            <p>Ex-líder de equipos de compras de medios digitales en agencias internacionales como Publicis Media.</p>
+                            <div class="social-links">
+                                <a href="https://www.linkedin.com/in/yobanny-ortega/" target="_blank" rel="noopener" aria-label="LinkedIn de Yobanny Ortega">
+                                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Contacto con Formulario Mailchimp Actualizado -->
+        <section id="contacto" class="contacto">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Conseguí tu Auditoría Gratis</h2>
+                    <p>Tus campañas de ads podrían estar perdiendo dinero mientras leés esto. En 24-48 horas, descubrí exactamente dónde y cómo mejorarlas con nuestra auditoría gratuita profesional.</p>
+                </div>
+                
+                <div class="contacto-wrapper fade-in">
+                    <!-- Contenedor del formulario -->
+                    <div class="contacto-form-container">
+                        <div class="form-header">
+                            <div class="form-icon">
+                                <i class="fas fa-search-dollar" aria-hidden="true"></i>
+                            </div>
+                            <h3>Solicitá tu auditoría ahora</h3>
+                            <p>Completá el formulario para recibir tu diagnóstico profesional en 48 horas</p>
+                        </div>
+                        
+                        <!-- FORMULARIO DE MAILCHIMP -->
+                        <div id="mc_embed_shell">
+                            <div id="mc_embed_signup">
+                                <form action="https://orangevapor.us17.list-manage.com/subscribe/post?u=386ca740d7cf02ec261f47f33&amp;id=5a55144e86&amp;f_id=0090eee3f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                                    <div id="mc_embed_signup_scroll">
+                                        <div class="indicates-required"><span class="asterisk">*</span> indica que es obligatorio</div>
+                                        <div class="mc-field-group">
+                                            <label for="mce-EMAIL">Dirección de correo electrónico <span class="asterisk">*</span></label>
+                                            <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required value="">
+                                        </div>
+                                        <div class="mc-field-group">
+                                            <label for="mce-FNAME">Nombre </label>
+                                            <input type="text" name="FNAME" class="text" id="mce-FNAME" value="">
+                                        </div>
+                                        <div class="mc-field-group">
+                                            <label for="mce-PHONE">Número de WhatsApp <span class="asterisk">*</span></label>
+                                            <input type="text" name="PHONE" class="REQ_CSS" id="mce-PHONE" value="">
+                                        </div>
+                                        <div class="mc-field-group">
+                                            <label for="mce-COMPANY">Empresa </label>
+                                            <input type="text" name="COMPANY" class="text" id="mce-COMPANY" value="">
+                                        </div>
+                                        <div hidden>
+                                            <input type="hidden" name="tags" value="8333844">
+                                        </div>
+                                        <div id="mce-responses" class="clear">
+                                            <div class="response" id="mce-error-response" style="display: none;"></div>
+                                            <div class="response" id="mce-success-response" style="display: none;"></div>
+                                        </div>
+                                        <div aria-hidden="true" style="position: absolute; left: -5000px;">
+                                            <input type="text" name="b_386ca740d7cf02ec261f47f33_5a55144e86" tabindex="-1" value="">
+                                        </div>
+                                        <div class="clear">
+                                            <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Solicitar Auditoría Gratis">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js" defer></script>
+                            <script type="text/javascript">
+                                (function($) {
+                                    window.fnames = new Array(); 
+                                    window.ftypes = new Array();
+                                    fnames[0]='EMAIL';
+                                    ftypes[0]='email';
+                                    fnames[1]='FNAME';
+                                    ftypes[1]='text';
+                                    fnames[4]='PHONE';
+                                    ftypes[4]='phone';
+                                    fnames[6]='COMPANY';
+                                    ftypes[6]='text';
+                                    fnames[2]='LNAME';
+                                    ftypes[2]='text';
+                                    fnames[3]='ADDRESS';
+                                    ftypes[3]='address';
+                                    fnames[5]='BIRTHDAY';
+                                    ftypes[5]='birthday';
+                                }(jQuery));
+                                var $mcj = jQuery.noConflict(true);
+                            </script>
+                        </div>
+                        <!-- FIN DE MAILCHIMP -->
+
+                        <!-- Script para redirección después del envío exitoso -->
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                document.getElementById('mc-embedded-subscribe-form').addEventListener('submit', function(e) {
+                                    // Esperar un momento para permitir que Mailchimp procese la solicitud
+                                    setTimeout(function() {
+                                        // Verifica si el mensaje de éxito se muestra
+                                        var successMessage = document.getElementById('mce-success-response');
+                                        if (successMessage && successMessage.style.display !== 'none') {
+                                            window.location.href = "https://www.orangevapor.com/confirmado.html";
+                                        }
+                                    }, 1000); // Esperar 1 segundo después del submit
+                                });
+                            });
+                        </script>
+                        
+                        <div class="form-trust-signals">
+                            <div class="trust-item">
+                                <i class="fas fa-lock" aria-hidden="true"></i>
+                                <span>Datos seguros</span>
+                            </div>
+                            <div class="trust-item">
+                                <i class="fas fa-ban" aria-hidden="true"></i>
+                                <span>Sin spam</span>
+                            </div>
+                            <div class="trust-item">
+                                <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                                <span>Confidencial</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lo que vas a recibir (diseño compacto) -->
+                    <div class="beneficios-container">
+                        <h4 class="beneficios-titulo">Lo que vas a recibir:</h4>
+                        <ul class="beneficios-lista-compacta">
+                            <li>
+                                <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                <span>Los 3 errores que te cuestan dinero con capturas de pantalla de tus propias campañas</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                <span>Un público valioso que no estás alcanzando y su potencial para tu negocio</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                <span>Semáforo de tus campañas con evaluación visual de áreas críticas vs. las que funcionan</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                <span>Comparativa con tu competencia incluyendo ejemplos de sus anuncios más efectivos</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                <span>Checklist de auto-revisión con 5 preguntas clave para evaluar tus campañas</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                <span>Todo entregado en PDF profesional de 2-3 páginas en 24-48 horas</span>
+                            </li>
+                        </ul>
+                        <div class="beneficios-nota">
+                            <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                            <p>Sin tocar tu presupuesto, solo necesitamos acceso en modo lectura a tus cuentas</p>
+                        </div>
+                        
+                        <div class="testimonial-mini">
+                            <div class="quote-icon">
+                                <i class="fas fa-quote-left" aria-hidden="true"></i>
+                            </div>
+                            <p class="quote-text">"La auditoría detectó errores que me estaban costando $850 por semana. Con los cambios sugeridos, mi ROAS aumentó un 187% en solo 14 días."</p>
+                            <div class="quote-author">
+                                <img src="/img/testimonials/carlos-l.jpg" alt="Testimonio de Carlos L., propietario de tienda de decoración" class="author-image" loading="lazy">
+                                <div class="author-info">
+                                    <span class="author-name">Carlos L.</span>
+                                    <span class="author-business">Tienda de decoración</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- CTA Flotante -->
-    <div class="cta-flotante">
-        <a href="#contacto" class="btn-flotante">
+    <div class="cta-floating">
+        <a href="#contacto" class="btn-floating">
             <i class="fas fa-bolt" aria-hidden="true"></i> Auditoría Gratis
         </a>
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-about">
-                    <a href="index.html" class="footer-logo">Orange<span>Vapor</span></a>
+                    <a href="index.html" class="footer-logo" aria-label="Orange Vapor Home">Orange<span>Vapor</span></a>
                     <p>Agencia de marketing digital especializada en Ads, Email Marketing y Chatbots para potenciar tu negocio.</p>
                     <div class="social-links">
-                        <a href="https://www.instagram.com/orangevapor.ar/" target="_blank" rel="noopener" aria-label="Instagram">
+                        <a href="https://www.instagram.com/orangevapor.ar/" target="_blank" rel="noopener" aria-label="Instagram de Orange Vapor">
                             <i class="fab fa-instagram" aria-hidden="true"></i>
                         </a>
-                        <a href="https://www.linkedin.com/company/106336169/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <a href="https://www.linkedin.com/company/106336169/" target="_blank" rel="noopener" aria-label="LinkedIn de Orange Vapor">
                             <i class="fab fa-linkedin-in" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -973,7 +982,7 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="index.html#servicios">Servicios</a></li>
                         <li><a href="index.html#equipo">Equipo</a></li>
-                        <li><a href="contacto.html">Contacto</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
                     </ul>
                 </div>
                 
@@ -994,270 +1003,6 @@
     </footer>
 
     <!-- Scripts -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Remover clase preload para permitir animaciones después de carga
-            setTimeout(function() {
-                document.body.classList.remove('preload');
-            }, 500);
-            
-            // Variables
-            const header = document.getElementById('header');
-            const navbar = document.querySelector('.navbar');
-            const logoContainer = document.querySelector('.logo-container');
-            const mobileToggle = document.querySelector('.mobile-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            const dropdown = document.querySelector('.dropdown');
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            const dropdownMenu = document.querySelector('.dropdown-menu');
-            
-            // Funcionalidad del menú móvil
-            if (mobileToggle && navMenu) {
-                mobileToggle.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    navMenu.classList.toggle('active');
-                    this.setAttribute('aria-expanded', this.classList.contains('active'));
-                });
-            }
-            
-            // Funcionalidad del dropdown en móvil
-            if (dropdownToggle && dropdownMenu) {
-                dropdownToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    this.classList.toggle('active');
-                    dropdownMenu.classList.toggle('active');
-                    this.setAttribute('aria-expanded', this.classList.contains('active'));
-                });
-            }
-            
-            // Funcionalidad de navbar sticky
-            let lastScrollTop = 0;
-            window.addEventListener('scroll', function() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
-                // Header sticky logic
-                if (header) {
-                    if (scrollTop > 100) {
-                        header.classList.add('sticky');
-                        if (logoContainer) logoContainer.classList.add('compact');
-                    } else {
-                        header.classList.remove('sticky');
-                        if (logoContainer) logoContainer.classList.remove('compact');
-                    }
-                    
-                    // Hide/show navbar on scroll
-                    if (scrollTop > lastScrollTop && scrollTop > 300) {
-                        header.classList.add('scrolled-down');
-                    } else {
-                        header.classList.remove('scrolled-down');
-                    }
-                }
-                
-                lastScrollTop = scrollTop;
-            });
-            
-            // Selección de tiers
-            const tierTabs = document.querySelectorAll('.tier-tab');
-            const tierInfo = document.querySelectorAll('.tier-info');
-            const tierDetalles = document.querySelectorAll('.tier-detalle');
-            const tierPrecios = document.querySelectorAll('.tier-price');
-            
-            tierTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tier = tab.getAttribute('data-tier');
-                    
-                    // Actualizar tabs activos
-                    tierTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    
-                    // Actualizar información de tier
-                    tierInfo.forEach(info => info.classList.remove('active'));
-                    document.querySelector(`.tier-info.${tier}`)?.classList.add('active');
-                    
-                    // Actualizar detalles visibles
-                    tierDetalles.forEach(detalle => detalle.classList.remove('active'));
-                    document.querySelectorAll(`.tier-detalle.${tier}`).forEach(
-                        detalle => detalle.classList.add('active')
-                    );
-                    
-                    // Actualizar precios visibles
-                    tierPrecios.forEach(precio => precio.classList.remove('active'));
-                    document.querySelectorAll(`.tier-price.${tier}`).forEach(
-                        precio => precio.classList.add('active')
-                    );
-                    
-                    // Actualizar ARIA
-                    tierTabs.forEach(t => t.setAttribute('aria-selected', 'false'));
-                    tab.setAttribute('aria-selected', 'true');
-                });
-            });
-            
-            // Manejo de tabs de servicios
-            const servicioTabs = document.querySelectorAll('.servicio-tab');
-            const servicioPaneles = document.querySelectorAll('.servicio-panel');
-            
-            servicioTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const servicio = tab.getAttribute('data-servicio');
-                    
-                    // Actualizar tabs activos
-                    servicioTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    
-                    // Actualizar paneles activos
-                    servicioPaneles.forEach(panel => {
-                        panel.classList.remove('active');
-                        if (panel.getAttribute('data-servicio') === servicio) {
-                            panel.classList.add('active');
-                        }
-                    });
-                    
-                    // Actualizar ARIA
-                    servicioTabs.forEach(t => t.setAttribute('aria-selected', 'false'));
-                    tab.setAttribute('aria-selected', 'true');
-                });
-            });
-            
-            // Mini selector de tiers
-            const tierOptions = document.querySelectorAll('.tier-option');
-            const tierMinis = document.querySelectorAll('.tier-mini');
-            
-            tierOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    const tier = option.getAttribute('data-tier');
-                    
-                    // Actualizar opciones activas
-                    tierOptions.forEach(o => o.classList.remove('active'));
-                    option.classList.add('active');
-                    
-                    // Actualizar precios mini activos
-                    tierMinis.forEach(mini => mini.classList.remove('active'));
-                    document.querySelector(`.tier-mini.${tier}`)?.classList.add('active');
-                });
-            });
-            
-            // Animación de métricas al hacer scroll
-            const animateMetrics = () => {
-                const metrics = document.querySelectorAll('.metric-after:not(.animated)');
-                
-                metrics.forEach(metric => {
-                    const rect = metric.getBoundingClientRect();
-                    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-                    
-                    if (rect.top <= windowHeight * 0.8) {
-                        metric.classList.add('animated');
-                    }
-                });
-            };
-            
-            // Inicializar animaciones de métricas
-            animateMetrics();
-            window.addEventListener('scroll', animateMetrics);
-            
-            // Animaciones al scroll para elementos fade-in
-            const fadeInElements = document.querySelectorAll('.fade-in:not(.visible)');
-            
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            
-            fadeInElements.forEach(element => {
-                observer.observe(element);
-            });
-            
-            // Manejo de tooltips
-            const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
-            
-            tooltipTriggers.forEach(trigger => {
-                // Mostrar tooltip en hover en desktop
-                trigger.addEventListener('mouseenter', () => {
-                    const tooltip = trigger.querySelector('.tooltip');
-                    if (tooltip) {
-                        tooltip.style.opacity = '1';
-                        tooltip.style.visibility = 'visible';
-                        tooltip.style.transform = 'translateY(0)';
-                    }
-                });
-                
-                trigger.addEventListener('mouseleave', () => {
-                    const tooltip = trigger.querySelector('.tooltip');
-                    if (tooltip) {
-                        tooltip.style.opacity = '0';
-                        tooltip.style.visibility = 'hidden';
-                        tooltip.style.transform = 'translateY(10px)';
-                    }
-                });
-                
-                // Toggle tooltip en click para móvil
-                trigger.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const tooltip = trigger.querySelector('.tooltip');
-                    if (tooltip) {
-                        if (tooltip.style.visibility === 'visible') {
-                            tooltip.style.opacity = '0';
-                            tooltip.style.visibility = 'hidden';
-                            tooltip.style.transform = 'translateY(10px)';
-                        } else {
-                            tooltip.style.opacity = '1';
-                            tooltip.style.visibility = 'visible';
-                            tooltip.style.transform = 'translateY(0)';
-                        }
-                    }
-                });
-            });
-            
-            // Scroll suave para enlaces internos
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const target = document.querySelector(this.getAttribute('href'));
-                    
-                    if (target) {
-                        // Cerrar menú móvil si está abierto
-                        if (mobileToggle && navMenu) {
-                            if (mobileToggle.classList.contains('active')) {
-                                mobileToggle.classList.remove('active');
-                                navMenu.classList.remove('active');
-                                mobileToggle.setAttribute('aria-expanded', 'false');
-                            }
-                        }
-                        
-                        // Calcular offset para header sticky
-                        const headerHeight = header ? header.offsetHeight : 0;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                        const offsetPosition = targetPosition - headerHeight;
-                        
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Efecto de animación de la barra de progreso
-            const progressBar = document.querySelector('.progress-bar');
-            if (progressBar) {
-                setTimeout(() => {
-                    progressBar.style.width = '85%';
-                }, 1000);
-            }
-        });
-    </script>
-    
-    <script src="combined.js"></script>
-    <script src="script.js"></script>
+    <script src="main.js" defer></script>
 </body>
 </html>
