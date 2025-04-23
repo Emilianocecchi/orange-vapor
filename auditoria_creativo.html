@@ -3,115 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anuncio Meta Ads - Auditoría Gratis (AIDA)</title>
+    <title>Anuncio Meta Ads - Auditoría Gratis (AIDA - Tipografía HD - Contenedor Rectangular)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Estilo para simular el tamaño 1080x1080 */
+        /* Estilo para simular el tamaño 1080x1080 (HD) */
         #ad-container {
             width: 1080px;
             height: 1080px;
             font-family: 'Inter', sans-serif;
             display: flex;
-            flex-direction: column; /* Cambiado a columna */
-            justify-content: space-between; /* Distribuir espacio */
-            align-items: center; /* Centrar horizontalmente */
-            text-align: center; /* Centrar texto por defecto */
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
             overflow: hidden;
-            position: relative; /* Para el banner */
+            position: relative;
+            background-color: white; /* Fondo blanco explícito */
+            border: 1px solid #e5e7eb; /* Borde sutil para visualizar el contenedor rectangular */
+            /* No se aplica border-radius aquí para mantenerlo rectangular */
         }
         /* Estilo para el banner superior "GRATIS" */
         .top-banner {
             background-color: #16a34a; /* Verde intenso */
             color: white;
             font-weight: 800; /* Extra Bold */
-            font-size: 2.5rem; /* 40px */
-            padding: 1rem 0; /* 16px vertical */
+            font-size: 2.8rem; /* 45px */
+            padding: 1.2rem 0; /* 19px vertical */
             width: 100%;
             text-transform: uppercase;
-            letter-spacing: 0.1em; /* Espaciado entre letras */
+            letter-spacing: 0.1em;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             z-index: 10;
         }
          /* Icono central grande */
         .central-icon-wrapper {
-             margin-top: 2rem; /* Espacio superior */
-             margin-bottom: 2rem; /* Espacio inferior */
-             padding: 2rem; /* Espacio interno */
-             background-color: #f3f4f6; /* Gris muy claro */
-             border-radius: 50%;
-             width: 200px; /* Tamaño del círculo */
-             height: 200px;
+             margin-top: 2.5rem; /* 40px */
+             margin-bottom: 2.5rem; /* 40px */
+             padding: 2.5rem; /* 40px */
+             background-color: #f3f4f6;
+             border-radius: 50%; /* Restaurado borde redondeado (círculo) */
+             width: 220px; /* 220px */
+             height: 220px; /* 220px */
              display: flex;
              align-items: center;
              justify-content: center;
-             box-shadow: 0 0 0 15px rgba(22, 163, 74, 0.1); /* Anillo exterior sutil */
-        }
+             box-shadow: 0 0 0 15px rgba(22, 163, 74, 0.1);
+         }
         .central-icon-wrapper i {
-             color: #16a34a; /* Verde */
-             font-size: 6rem; /* 96px - Icono grande */
+             color: #16a34a;
+             font-size: 7rem; /* 112px */
          }
          /* Estilo para los puntos de interés/deseo */
         .interest-point {
-            display: flex;
-            align-items: center;
-            justify-content: center; /* Centrar horizontalmente */
-            gap: 0.75rem; /* 12px */
-            font-size: 1.25rem; /* 20px */
-            color: #374151; /* Gris oscuro */
-            margin-bottom: 0.75rem; /* 12px */
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             gap: 0.8rem; /* 13px */
+             font-size: 1.5rem; /* 24px */
+             color: #374151;
+             margin-bottom: 1rem; /* 16px */
         }
         .interest-point i {
-            color: #16a34a; /* Verde */
-            width: 20px; /* Ancho fijo para alinear */
-            text-align: center;
+             color: #16a34a;
+             width: 24px;
+             text-align: center;
+             margin-top: 2px;
         }
         /* Botón CTA */
         .cta-button {
-            background-color: #16a34a; /* Verde */
-            color: white;
-            font-size: 2rem; /* 32px */
-            font-weight: 800; /* Extra Bold */
-            padding: 1.5rem 3rem; /* 24px 48px */
-            border-radius: 0.75rem; /* 12px */
-            box-shadow: 0 6px 12px rgba(22, 163, 74, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            display: inline-block; /* Para que no ocupe todo el ancho */
-            margin-top: 1.5rem; /* 24px */
+             background-color: #16a34a;
+             color: white;
+             font-size: 2.2rem; /* 35px */
+             font-weight: 800;
+             padding: 1.6rem 3.5rem; /* 26px 56px */
+             border-radius: 0.75rem; /* Restaurado borde redondeado */
+             box-shadow: 0 6px 12px rgba(22, 163, 74, 0.3);
+             transition: transform 0.2s ease, box-shadow 0.2s ease;
+             display: inline-block;
+             margin-top: 2rem; /* 32px */
+             cursor: pointer;
         }
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(22, 163, 74, 0.4);
+             transform: translateY(-3px);
+             box-shadow: 0 8px 16px rgba(22, 163, 74, 0.4);
         }
         /* Footer sutil */
         .ad-footer {
-            font-size: 0.875rem; /* 14px */
-            color: #6b7280; /* Gris medio */
-            padding-bottom: 1.5rem; /* 24px */
+             font-size: 1rem; /* 16px */
+             color: #6b7280;
+             padding-bottom: 2rem; /* 32px */
         }
 
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div id="ad-container" class="bg-white rounded-3xl shadow-xl p-0"> <div class="top-banner">
+    <div id="ad-container" class="shadow-xl p-0">
+
+        <div class="top-banner">
             Auditoría Gratis
         </div>
 
-        <div class="px-12 py-8 flex flex-col items-center flex-grow justify-center"> <h1 class="text-5xl font-black text-gray-800 mb-4 leading-tight max-w-3xl">
+        <div class="px-16 py-10 flex flex-col items-center flex-grow justify-center">
+            <h1 class="text-6xl font-black text-gray-800 mb-5 leading-tight max-w-4xl">
                 ¿Tu Inversión en Anuncios <span class="text-red-600">NO RINDE</span>?
             </h1>
-            <p class="text-2xl text-gray-600 mb-8 max-w-2xl">
+            <p class="text-3xl text-gray-600 mb-10 max-w-3xl">
                 Descubrí <span class="font-bold">GRATIS</span> cómo optimizar tus campañas y dejar de perder dinero.
             </p>
 
             <div class="central-icon-wrapper">
                 <i class="fas fa-search-dollar"></i>
-                </div>
+            </div>
 
-            <div class="mb-8">
+            <div class="mb-10">
                 <p class="interest-point">
                     <i class="fas fa-check"></i> Diagnóstico experto en <strong>24-48hs</strong>
                 </p>
