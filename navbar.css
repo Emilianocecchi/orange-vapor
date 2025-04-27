@@ -1,7 +1,7 @@
 /* ==========================================================================
-   NAVBAR PRINCIPAL - ORANGE VAPOR 2.0
-   Diseño minimalista optimizado con servicios en navbar
-   Versión: 4.0 - 2025
+   NAVBAR PRINCIPAL - ORANGE VAPOR 3.0
+   Diseño minimalista optimizado para PyMEs - Especializado en Meta Ads y Google Ads
+   Versión: 5.0 - 2025
    ========================================================================== */
 
 :root {
@@ -27,17 +27,15 @@
   --gris-borde: #E5E7EB;
   --gris-bg: #F9FAFB;
   
-  /* Colores servicios de style.css */
+  /* Colores servicios */
   --color-ads: #4267B2;       /* Meta Ads */
   --color-google: #4285F4;    /* Google Ads */
-  --color-email: #0E76A8;     /* Email Marketing */
-  --color-chatbot: #6B46C1;   /* Chatbot */
+  --color-pymes: #FF7200;     /* Para PyMEs - Nuevo */
   
   /* Backgrounds con alpha */
   --bg-ads: rgba(66, 103, 178, 0.08);
   --bg-google: rgba(66, 133, 244, 0.08);
-  --bg-email: rgba(14, 118, 168, 0.08);
-  --bg-chatbot: rgba(107, 70, 193, 0.08);
+  --bg-pymes: rgba(255, 114, 0, 0.08);  /* Para PyMEs - Nuevo */
   
   /* Sombras simplificadas */
   --sombra-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -303,38 +301,22 @@
   background-color: var(--color-google);
 }
 
-.email-marketing-link {
-  color: var(--color-email);
+/* Nuevo estilo para PyMEs */
+.pymes-link {
+  color: var(--color-pymes);
 }
 
-.email-marketing-link:hover {
-  color: var(--color-email);
-  background-color: var(--bg-email);
+.pymes-link:hover {
+  color: var(--color-pymes);
+  background-color: var(--bg-pymes);
 }
 
-.email-marketing-link.active {
-  color: var(--color-email);
+.pymes-link.active {
+  color: var(--color-pymes);
 }
 
-.email-marketing-link.active::after {
-  background-color: var(--color-email);
-}
-
-.chatbot-link {
-  color: var(--color-chatbot);
-}
-
-.chatbot-link:hover {
-  color: var(--color-chatbot);
-  background-color: var(--bg-chatbot);
-}
-
-.chatbot-link.active {
-  color: var(--color-chatbot);
-}
-
-.chatbot-link.active::after {
-  background-color: var(--color-chatbot);
+.pymes-link.active::after {
+  background-color: var(--color-pymes);
 }
 
 /* Indicador de enlace activo */
@@ -515,14 +497,9 @@
     border-left-color: var(--color-google);
   }
   
-  .email-marketing-link {
-    background-color: var(--bg-email);
-    border-left-color: var(--color-email);
-  }
-  
-  .chatbot-link {
-    background-color: var(--bg-chatbot);
-    border-left-color: var(--color-chatbot);
+  .pymes-link {
+    background-color: var(--bg-pymes);
+    border-left-color: var(--color-pymes);
   }
   
   .ov-nav-link:hover,
@@ -571,3 +548,85 @@
     text-align: center;
   }
 }
+
+/* Script para funcionalidad de la navbar */
+document.addEventListener('DOMContentLoaded', function() {
+  const mobileToggle = document.querySelector('.ov-mobile-toggle');
+  const navWrapper = document.querySelector('.ov-nav-wrapper');
+  const navMenu = document.querySelector('.ov-nav-menu');
+  const navLinks = document.querySelectorAll('.ov-nav-link');
+  const header = document.querySelector('.ov-header');
+  
+  // Manejar toggle del menú móvil
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', function() {
+      mobileToggle.classList.toggle('active');
+      navWrapper.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      
+      const expanded = mobileToggle.classList.contains('active');
+      mobileToggle.setAttribute('aria-expanded', expanded);
+    });
+  }
+  
+  // Cerrar menú móvil al hacer click en un enlace
+  navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      if (window.innerWidth <= 1024) {
+        mobileToggle.classList.remove('active');
+        navWrapper.classList.remove('active');
+        navMenu.classList.remove('active');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  
+  // Comportamiento sticky
+  let lastScrollTop = 0;
+  
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Añadir clase scrolled cuando se hace scroll
+    if (scrollTop > 10) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+    
+    // Ocultar navbar cuando se hace scroll hacia abajo
+    if (scrollTop > 100) {
+      if (scrollTop > lastScrollTop) {
+        header.classList.add('scrolled-down');
+      } else {
+        header.classList.remove('scrolled-down');
+      }
+    }
+    
+    lastScrollTop = scrollTop;
+  });
+  
+  // Detectar qué sección es visible y marcar el enlace correspondiente en la navbar
+  function highligtCurrentSection() {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPosition = window.scrollY + 100;
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute('id');
+      
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }
+  
+  window.addEventListener('scroll', highligtCurrentSection);
+  highligtCurrentSection(); // Ejecutar al cargar la página
+});
