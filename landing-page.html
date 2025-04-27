@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page Creator | Orange Vapor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Main colors */
+            --naranja-principal: #FF7200;
+            --naranja-secundario: #FF9340;
+            --naranja-claro: #FFF1E6;
+            --naranja-oscuro: #E56700;
+            
+            /* Neutral colors */
+            --blanco: #FFFFFF;
+            --negro: #1A1A1A;
+            --gris-oscuro: #2D2D2D;
+            --gris-medio: #666666;
+            --gris-claro: #F7F7F7;
+            --gris-borde: #E5E5E5;
+            
+            /* Text colors */
+            --fondo-claro: #FAFAFA;
+            --texto-oscuro: #2D2D2D;
+            --texto-claro: #555555;
+            --texto-ligero: #888888;
+            
+            /* Shadows */
+            --sombra-suave: 0 2px 5px rgba(0, 0, 0, 0.05);
+            --sombra-media: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --sombra-fuerte: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --sombra-card: 0 10px 30px rgba(0, 0, 0, 0.06);
+            
+            /* Borders */
+            --borde-fino: 1px;
+            --borde-medio: 2px;
+            --borde-redondo-xs: 3px;
+            --borde-redondo-sm: 5px;
+            --borde-redondo-md: 8px;
+            --borde-redondo-lg: 12px;
+            --borde-redondo-xl: 16px;
+            --borde-redondo-full: 9999px;
+            
+            /* Spacing */
+            --espaciado-xs: 0.5rem;
+            --espaciado-sm: 1rem;
+            --espaciado-md: 1.5rem;
+            --espaciado-lg: 3rem;
+            --espaciado-xl: 5rem;
+            
+            /* Typography */
+            --fuente-principal: 'Montserrat', sans-serif;
+            --fuente-secundaria: 'Open Sans', sans-serif;
+            
+            /* Theme Colors for Mini Sites */
+            --theme-clothing: #845EC2;
+            --theme-pets: #FF9671;
+            --theme-coffee: #B0A8B9;
+            --theme-massage: #4EADBE;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: var(--fuente-secundaria);
+            color: var(--texto-oscuro);
+            line-height: 1.6;
+            background-color: var(--blanco);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: var(--espaciado-md);
+            padding-right: var(--espaciado-md);
+            position: relative;
+        }
+
+        section {
+            padding: var(--espaciado-lg) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--fuente-principal);
+            line-height: 1.2;
+            margin-bottom: var(--espaciado-sm);
+            font-weight: 700;
+            color: var(--negro);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: var(--espaciado-md);
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--espaciado-md);
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--espaciado-sm);
+            color: var(--texto-claro);
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            color: var(--blanco);
+            font-family: var(--fuente-principal);
+            font-weight: 600;
+            border-radius: var(--borde-redondo-md);
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--sombra-suave);
+            background-color: var(--naranja-principal);
+            letter-spacing: 0.3px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--sombra-media);
+        }
+
+        .btn-lg {
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .btn-cta {
+            background-color: var(--naranja-principal);
+            box-shadow: 0 4px 12px rgba(255, 114, 0, 0.2);
+        }
+
+        .btn-cta:hover {
+            background-color: var(--naranja-oscuro);
+            box-shadow: 0 6px 16px rgba(255, 114, 0, 0.25);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .highlight {
+            color: var(--naranja-principal);
+            font-weight: 700;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: var(--naranja-claro);
+            color: var(--naranja-principal);
+            border-radius: var(--borde-redondo-full);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--blanco);
+            box-shadow: var(--sombra-suave);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-family: var(--fuente-principal);
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--negro);
+        }
+
+        .logo span {
+            color: var(--naranja-principal);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 120px;
+            padding-bottom: 80px;
+            background: linear-gradient(135deg, var(--naranja-principal), var(--naranja-oscuro));
+            color: var(--blanco);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--blanco);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--borde-redondo-full);
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-feature i {
+            font-size: 1.2rem;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 5rem 0;
+            background-color: var(--fondo-claro);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--texto-oscuro);
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondo-lg);
+            box-shadow: var(--sombra-card);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--sombra-fuerte);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--naranja-claro);
+            color: var(--naranja-principal);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card p {
+            color: var(--texto-claro);
+            font-size: 1rem;
+        }
+
+        /* Preview Showcase Section */
+        .showcase {
+            padding: 5rem 0;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .preview-card {
+            border-radius: var(--borde-redondo-lg);
+            overflow: hidden;
+            box-shadow: var(--sombra-card);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 450px;
+            position: relative;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--sombra-fuerte);
+        }
+
+        .preview-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .preview-card:hover .preview-img {
+            transform: scale(1.05);
+        }
+
+        .preview-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+            color: var(--blanco);
+            text-align: left;
+        }
+
+        .preview-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondo-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .preview-overlay h3 {
+            color: var(--blanco);
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-overlay p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Theme-specific styles */
+        .theme-clothing .preview-tag {
+            color: var(--theme-clothing);
+        }
+
+        .theme-pets .preview-tag {
+            color: var(--theme-pets);
+        }
+
+        .theme-coffee .preview-tag {
+            color: var(--theme-coffee);
+        }
+
+        .theme-massage .preview-tag {
+            color: var(--theme-massage);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--fondo-claro);
+            text-align: center;
+            padding: 5rem 0;
+        }
+
+        .cta-card {
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondo-lg);
+            box-shadow: var(--sombra-card);
+            padding: 3rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .price-tag {
+            position: absolute;
+            top: -25px;
+            right: 30px;
+            background-color: var(--naranja-principal);
+            color: var(--blanco);
+            padding: 10px 20px;
+            border-radius: var(--borde-redondo-md);
+            font-weight: 700;
+            font-size: 1.3rem;
+            box-shadow: var(--sombra-media);
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 5rem 0;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondo-lg);
+            box-shadow: var(--sombra-card);
+            padding: 3rem;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-title h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-title p {
+            color: var(--texto-claro);
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--texto-oscuro);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--gris-borde);
+            border-radius: var(--borde-redondo-md);
+            font-family: var(--fuente-secundaria);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--naranja-principal);
+            box-shadow: 0 0 0 3px rgba(255, 114, 0, 0.1);
+            outline: none;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-footer {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .form-footer .btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+        }
+
+        .form-note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--texto-ligero);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--negro);
+            color: var(--blanco);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-family: var(--fuente-principal);
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--blanco);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-logo span {
+            color: var(--naranja-principal);
+        }
+
+        .footer-info p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            max-width: 400px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--blanco);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--naranja-principal);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            color: var(--blanco);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--naranja-principal);
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--blanco);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Scroll-to-top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--naranja-principal);
+            color: var(--blanco);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background-color: var(--naranja-oscuro);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footer-links {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .benefit-card {
+                padding: 1.5rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Orange<span>Vapor</span></a>
+                <a href="#formulario" class="btn btn-cta">Obtener Preview Gratis</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-shape"></div>
+        <div class="container hero-container">
+            <span class="tag">Servicio Express</span>
+            <h1 class="hero-title">Crea Landing Pages impactantes en 24 horas</h1>
+            <p class="hero-subtitle">Perfectas para campañas de ads, lead magnets o mostrar los beneficios de tus productos y servicios</p>
+            
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <i class="fas fa-bolt"></i>
+                    <span>Creación en 24 horas</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-eye"></i>
+                    <span>Preview gratuita</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-tag"></i>
+                    <span>Solo US$99 final</span>
+                </div>
+            </div>
+            
+            <a href="#formulario" class="btn btn-lg btn-cta">Quiero mi Landing Page</a>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>¿Por qué necesitas una Landing Page?</h2>
+                <p>Maximiza tus conversiones con páginas diseñadas específicamente para convertir visitantes en clientes</p>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Mayor conversión</h3>
+                    <p>Páginas diseñadas específicamente para convertir visitas en leads o ventas, sin distracciones.</p>
+                </div>
+                
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Rápida implementación</h3>
+                    <p>Obtén tu landing page lista para usar en solo 24 horas, sin demoras ni complicaciones.</p>
+                </div>
+                
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>100% Responsive</h3>
+                    <p>Diseñadas para funcionar perfectamente en cualquier dispositivo, desde móviles hasta desktops.</p>
+                </div>
+                
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Diseño personalizado</h3>
+                    <p>Adaptamos la estética y colores a tu marca para una experiencia coherente con tu identidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preview Showcase Section -->
+    <section class="showcase">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ejemplos de Landing Pages</h2>
+                <p>Un sitio así puede ser tuyo. Obtén tu preview gratis en 24 horas.</p>
+            </div>
+            
+            <div class="showcase-grid">
+                <!-- Clothing Store Preview -->
+                <div class="preview-card theme-clothing fade-in">
+                    <img src="https://api.placeholder.com/600x900" alt="Tienda de ropa" class="preview-img">
+                    <div class="preview-overlay">
+                        <span class="preview-tag">Tienda de Ropa</span>
+                        <h3>ModaVanguardia</h3>
+                        <p>Landing page minimalista con enfoque en catálogo de productos y promociones estacionales.</p>
+                        <a href="#formulario" class="btn btn-cta">Quiero una así</a>
+                    </div>
+                </div>
+                
+                <!-- Pet Store Preview -->
+                <div class="preview-card theme-pets fade-in">
+                    <img src="https://api.placeholder.com/600x900" alt="Accesorios para mascotas" class="preview-img">
+                    <div class="preview-overlay">
+                        <span class="preview-tag">Accesorios para Mascotas</span>
+                        <h3>PetLover</h3>
+                        <p>Diseño divertido y colorido perfecto para destacar productos para mascotas y ofertas especiales.</p>
+                        <a href="#formulario" class="btn btn-cta">Quiero una así</a>
+                    </div>
+                </div>
+                
+                <!-- Coffee Shop Preview -->
+                <div class="preview-card theme-coffee fade-in">
+                    <img src="https://api.placeholder.com/600x900" alt="Cafetería" class="preview-img">
+                    <div class="preview-overlay">
+                        <span class="preview-tag">Cafetería</span>
+                        <h3>AromaCafé</h3>
+                        <p>Estética cálida y acogedora ideal para presentar productos, ubicación y promociones de café.</p>
+                        <a href="#formulario" class="btn btn-cta">Quiero una así</a>
+                    </div>
+                </div>
+                
+                <!-- Massage Service Preview -->
+                <div class="preview-card theme-massage fade-in">
+                    <img src="https://api.placeholder.com/600x900" alt="Servicio de masajes" class="preview-img">
+                    <div class="preview-overlay">
+                        <span class="preview-tag">Servicio de Masajes</span>
+                        <h3>ZenRelax</h3>
+                        <p>Diseño elegante y sereno enfocado en captar reservas y mostrar los beneficios de los tratamientos.</p>
+                        <a href="#formulario" class="btn btn-cta">Quiero una así</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card fade-in">
+                <div class="price-tag">US$99</div>
+                <h2 class="cta-title">¿Cómo funciona nuestro servicio?</h2>
+                <p class="cta-text">En solo tres simples pasos, tendrás tu Landing Page perfecta lista para convertir visitas en clientes.</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-wpforms"></i>
+                        </div>
+                        <h3>1. Completa el formulario</h3>
+                        <p>Responde 5 preguntas clave sobre tu marca, estética, colores y productos/servicios.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>2. Recibe tu preview gratis</h3>
+                        <p>En 24 horas recibirás una previsualización de tu landing page completamente funcional.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>3. Aprueba y listo</h3>
+                        <p>Si te gusta, realiza el pago de US$99 (o su equivalente en pesos) y recibe tu landing completa.</p>
+                    </div>
+                </div>
+                
+                <a href="#formulario" class="btn btn-lg btn-cta">Quiero mi Landing Page</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section" id="formulario">
+        <div class="container">
+            <div class="form-container fade-in">
+                <div class="form-title">
+                    <h2>Solicita tu preview gratuita</h2>
+                    <p>Completa este formulario y en 24 horas recibirás una visualización de tu landing page personalizada.</p>
+                </div>
+                
+                <form id="landingPageForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre y apellido</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefono">Teléfono o WhatsApp</label>
+                        <input type="text" id="telefono" name="telefono" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="marca">Nombre de tu marca o empresa</label>
+                        <input type="text" id="marca" name="marca" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="estetica">¿Qué estética te gustaría para tu landing page? (Minimalista, Elegante, Moderna, etc.)</label>
+                        <textarea id="estetica" name="estetica" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="transmitir">¿Qué mensaje principal quieres transmitir con tu landing page?</label>
+                        <textarea id="transmitir" name="transmitir" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="colores">¿Cuáles son los colores de tu marca? (Por favor, indicar los códigos hex si los conoces)</label>
+                        <input type="text" id="colores" name="colores" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productos">¿Qué productos o servicios ofreces que quieres destacar en la landing page?</label>
+                        <textarea id="productos" name="productos" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="submit" class="btn btn-lg btn-cta">Solicitar Preview Gratis</button>
+                        <p class="form-note">Al enviar este formulario, recibirás tu preview gratuita en 24 horas. No hay ningún compromiso de compra.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <a href="#" class="footer-logo">Orange<span>Vapor</span></a>
+                    <p>Expertos en marketing digital y creación de landing pages de alto impacto con resultados garantizados para tus campañas de ads.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#">Landing Pages</a></li>
+                        <li><a href="#">Meta & Google Ads</a></li>
+                        <li><a href="#">Email Marketing</a></li>
+                        <li><a href="#">Chatbots</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="mailto:info@orangevapor.com">info@orangevapor.com</a></li>
+                        <li><a href="tel:+541130011554">+54 11 3001-1554</a></li>
+                        <li><a href="#">Buenos Aires, Argentina</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Orange Vapor. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to top button -->
+    <div class="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form submission
+            const form = document.getElementById('landingPageForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Here you would normally send the form data to your server
+                    // For this example, we'll just show a success message
+                    alert('¡Gracias por tu solicitud! Recibirás tu preview gratuita en 24 horas.');
+                    form.reset();
+                });
+            }
+            
+            // Scroll to section
+            const scrollLinks = document.querySelectorAll('a[href^="#"]');
+            scrollLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Fade-in animations
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Scroll to top button
+            const scrollTopBtn = document.querySelector('.scroll-top');
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+            
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
