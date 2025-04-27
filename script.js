@@ -1,7 +1,8 @@
 /**
  * Orange Vapor - JavaScript Optimizado
  * Script para funcionalidades específicas con mejor rendimiento
- * Versión: 2.0.0
+ * Enfocado en Meta Ads y Google Ads para PyMEs y emprendedores
+ * Versión: 3.0.0
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -142,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     /**
      * Inicializa las pestañas de servicios con mejor UX
+     * Adaptado para Meta Ads y Google Ads
      */
     function initServiceTabs() {
         const tabButtons = document.querySelectorAll('.tab-button');
