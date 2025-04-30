@@ -8,24 +8,22 @@
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --verde-principal: #2F855A;
-            --verde-hover: #276749;
-            --verde-claro: #F0FFF4;
             --naranja: #FF7200;
+            --naranja-claro: #FFF1E6;
+            --verde: #2F855A;
+            --verde-claro: #F0FFF4;
             --blanco: #FFFFFF;
             --gris-oscuro: #333333;
+            --gris-medio: #666666;
             --gris-claro: #F5F5F5;
-            --sombra: 0 5px 15px rgba(0, 0, 0, 0.1);
-            --fuente-principal: 'Montserrat', sans-serif;
-            --fuente-secundaria: 'Open Sans', sans-serif;
+            --sombra: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --fuente-titulo: 'Montserrat', sans-serif;
+            --fuente-cuerpo: 'Open Sans', sans-serif;
         }
         
         * {
@@ -35,35 +33,40 @@
         }
         
         body {
-            font-family: var(--fuente-secundaria);
-            line-height: 1.6;
+            font-family: var(--fuente-cuerpo);
+            line-height: 1.5;
             background-color: #f9f9f9;
             color: var(--gris-oscuro);
         }
         
         .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 30px;
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 0;
             background-color: var(--blanco);
-            border-radius: 10px;
+            border-radius: 20px;
             box-shadow: var(--sombra);
+            overflow: hidden;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--verde-claro);
-            padding-bottom: 20px;
+            background: linear-gradient(135deg, var(--verde), #276749);
+            color: white;
+            padding: 30px 20px;
         }
 
         .logo {
             margin-bottom: 20px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 50px;
         }
 
         .logo-text {
-            font-family: var(--fuente-principal);
-            font-size: 32px;
+            font-family: var(--fuente-titulo);
+            font-size: 28px;
             font-weight: 700;
         }
 
@@ -72,114 +75,206 @@
         }
         
         .check-icon {
-            font-size: 60px;
-            color: var(--verde-principal);
+            font-size: 50px;
             margin-bottom: 15px;
+            background: white;
+            color: var(--verde);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            display: inline-block;
         }
         
         h1 {
-            font-family: var(--fuente-principal);
+            font-family: var(--fuente-titulo);
             font-size: 28px;
-            margin-bottom: 10px;
-            color: var(--verde-principal);
+            margin-bottom: 15px;
         }
         
         h2 {
             font-size: 18px;
             font-weight: normal;
-            color: #666;
-            margin-bottom: 20px;
+            opacity: 0.9;
         }
         
-        .steps-section {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
+        .content {
+            padding: 30px;
         }
         
         .steps-title {
-            font-family: var(--fuente-principal);
+            font-family: var(--fuente-titulo);
             font-size: 20px;
-            color: var(--verde-principal);
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .platform {
+            color: var(--gris-oscuro);
             margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #ccc;
+            text-align: center;
+            position: relative;
         }
         
-        .platform:last-child {
-            border-bottom: none;
+        .steps-title:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--naranja);
+            margin: 10px auto 0;
+        }
+        
+        .platform-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .platform-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+        }
+        
+        .platform-header {
+            background: var(--naranja);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .meta-header {
+            background: #1877F2; /* Facebook blue */
+        }
+        
+        .google-header {
+            background: #4285F4; /* Google blue */
+        }
+        
+        .platform-icon {
+            font-size: 24px;
         }
         
         .platform-title {
             font-weight: bold;
-            margin-bottom: 10px;
-            color: var(--naranja);
+            font-size: 18px;
+            flex: 1;
         }
-
+        
         .platform-subtitle {
-            font-style: italic;
-            margin-bottom: 15px;
-            font-size: 14px;
+            font-size: 12px;
+            opacity: 0.8;
+            margin-left: auto;
+        }
+        
+        .platform-steps {
+            padding: 20px;
         }
         
         .step {
-            margin-bottom: 12px;
             display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .step:last-child {
+            border-bottom: none;
         }
         
         .step-number {
-            background-color: var(--verde-principal);
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
-            flex-shrink: 0;
-        }
-        
-        .step-text {
-            flex: 1;
-        }
-
-        .step-text strong {
-            color: var(--naranja);
-        }
-        
-        .highlighted {
-            background-color: rgba(255, 114, 0, 0.1);
-            padding: 2px 4px;
-            border-radius: 3px;
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 50%;
             font-weight: bold;
+            color: white;
+        }
+        
+        .step-meta .step-number {
+            background-color: #1877F2;
+        }
+        
+        .step-google .step-number {
+            background-color: #4285F4;
+        }
+        
+        .step-content {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .step-description {
+            color: var(--gris-medio);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            background-color: #FFF1E6;
+            border: 1px solid rgba(255, 114, 0, 0.3);
+            color: var(--naranja);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-block;
         }
         
         .contact {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 10px;
             text-align: center;
-            margin-top: 20px;
         }
         
-        .contact a {
-            color: var(--naranja);
+        .contact-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .contact-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .contact-option {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            color: var(--gris-oscuro);
             text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
         }
         
-        .contact a:hover {
-            text-decoration: underline;
+        .contact-option:hover {
+            transform: translateY(-2px);
+        }
+        
+        .contact-option i {
+            margin-right: 8px;
+            color: var(--naranja);
         }
         
         .footer {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+            padding: 20px;
+            background-color: #333;
+            color: rgba(255,255,255,0.7);
             font-size: 14px;
         }
     </style>
@@ -192,89 +287,146 @@
             </div>
             <i class="fas fa-check-circle check-icon"></i>
             <h1>¡Tu Auditoría Gratuita está Reservada!</h1>
-            <h2>Para continuar, necesitamos que sigas estos pasos para darnos acceso de solo lectura a tus cuentas</h2>
+            <h2>Seguí estos pasos para completar el proceso</h2>
         </div>
         
-        <div class="steps-section">
-            <h3 class="steps-title">PASOS PARA CONFIRMAR TU AUDITORÍA GRATUITA</h3>
+        <div class="content">
+            <h3 class="steps-title">PASOS SIMPLES PARA DARNOS ACCESO</h3>
             
-            <div class="platform">
-                <p class="platform-title">✅ Meta Ads (Facebook/Instagram) – Acceso como Persona (Solo Lectura)</p>
-                <p class="platform-subtitle">Ideal para una auditoría temporal.</p>
-                
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-text"><strong>Accedé a Meta Business Suite</strong>: Ingresá a business.facebook.com y seleccioná tu cuenta comercial.</div>
+            <div class="platform-cards">
+                <div class="platform-card">
+                    <div class="platform-header meta-header">
+                        <i class="fab fa-facebook platform-icon"></i>
+                        <div class="platform-title">Meta Ads (Facebook/Instagram)</div>
+                        <div class="platform-subtitle">Solo lectura</div>
+                    </div>
+                    
+                    <div class="platform-steps">
+                        <div class="step step-meta">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Accedé a Meta Business Suite</div>
+                                <div class="step-description">Ingresá a business.facebook.com y seleccioná tu cuenta comercial.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="step step-meta">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Ir a "Configuración del negocio"</div>
+                                <div class="step-description">En el menú lateral izquierdo, hacé clic en "Configuración del negocio".</div>
+                            </div>
+                        </div>
+                        
+                        <div class="step step-meta">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Seleccionar "Personas"</div>
+                                <div class="step-description">Dentro de la sección "Usuarios", seleccioná "Personas".</div>
+                            </div>
+                        </div>
+                        
+                        <div class="step step-meta">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Agregar nueva persona</div>
+                                <div class="step-description">Hacé clic en el botón "Agregar" y escribí el correo: <span class="highlight">emiliano@orangevapor.com</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="step step-meta">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-title">Asignar permisos</div>
+                                <div class="step-description">Seleccioná el rol de "Acceso básico" y asigná los activos con permisos "Ver rendimiento".</div>
+                            </div>
+                        </div>
+                        
+                        <div class="step step-meta">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <div class="step-title">Enviar invitación</div>
+                                <div class="step-description">Hacé clic en "Siguiente" y luego en "Invitar".</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-text"><strong>Ir a "Configuración del negocio"</strong>: En el menú lateral izquierdo, hacé clic en "Configuración del negocio".</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-text"><strong>Seleccionar "Personas"</strong>: Dentro de la sección "Usuarios", seleccioná "Personas".</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-text"><strong>Agregar nueva persona</strong>: Hacé clic en el botón "Agregar" y escribí la dirección de correo electrónico: <span class="highlighted">emiliano@orangevapor.com</span>.</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <div class="step-text"><strong>Asignar permisos</strong>: Seleccioná el rol de "Acceso básico" y asigná los activos correspondientes (como cuentas publicitarias, páginas, píxeles, etc.) con permisos de solo lectura, como "Ver rendimiento".</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">6</div>
-                    <div class="step-text"><strong>Enviar invitación</strong>: Hacé clic en "Siguiente" y luego en "Invitar".</div>
+                <div class="platform-card">
+                    <div class="platform-header google-header">
+                        <i class="fab fa-google platform-icon"></i>
+                        <div class="platform-title">Google Ads</div>
+                        <div class="platform-subtitle">Solo lectura</div>
+                    </div>
+                    
+                    <div class="platform-steps">
+                        <div class="step step-google">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Accedé a tu cuenta de Google Ads</div>
+                                <div class="step-description">Ingresá a ads.google.com con tu cuenta de Google.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="step step-google">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Ir a "Acceso y seguridad"</div>
+                                <div class="step-description">En la esquina superior derecha, hacé clic en el ícono de herramientas y seleccioná "Acceso y seguridad".</div>
+                            </div>
+                        </div>
+                        
+                        <div class="step step-google">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Agregar nuevo usuario</div>
+                                <div class="step-description">Dentro de la pestaña "Usuarios", hacé clic en el botón de signo más (+).</div>
+                            </div>
+                        </div>
+                        
+                        <div class="step step-google">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Ingresar el correo electrónico</div>
+                                <div class="step-description">Introducí el correo: <span class="highlight">emiliano@orangevapor.com</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="step step-google">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-title">Seleccionar nivel de acceso</div>
+                                <div class="step-description">Elegí la opción "Solo lectura" para permitir ver campañas sin poder hacer cambios.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="step step-google">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <div class="step-title">Enviar invitación</div>
+                                <div class="step-description">Hacé clic en "Enviar invitación".</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="platform">
-                <p class="platform-title">✅ Google Ads – Acceso Solo Lectura</p>
-                
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-text"><strong>Accedé a tu cuenta de Google Ads</strong>: Ingresá a ads.google.com con tu cuenta de Google.</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-text"><strong>Ir a "Acceso y seguridad"</strong>: En la esquina superior derecha, hacé clic en el ícono de herramientas (parece una llave inglesa) y seleccioná "Acceso y seguridad".</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-text"><strong>Agregar nuevo usuario</strong>: Dentro de la pestaña "Usuarios", hacé clic en el botón de signo más (+) para añadir un nuevo usuario.</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-text"><strong>Ingresar el correo electrónico</strong>: Introducí la dirección de correo electrónico: <span class="highlighted">emiliano@orangevapor.com</span>.</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <div class="step-text"><strong>Seleccionar nivel de acceso</strong>: Elegí la opción "Solo lectura". Este nivel permite visualizar campañas y configuraciones sin posibilidad de realizar cambios.</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">6</div>
-                    <div class="step-text"><strong>Enviar invitación</strong>: Hacé clic en "Enviar invitación".</div>
+            <div class="contact">
+                <div class="contact-title">¿Necesitás ayuda?</div>
+                <p>Contactanos por cualquiera de estos medios:</p>
+                <div class="contact-options">
+                    <a href="mailto:emiliano@orangevapor.com" class="contact-option">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="https://wa.me/541130011554" class="contact-option">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
                 </div>
             </div>
-        </div>
-        
-        <div class="contact">
-            <p>¿Necesitás ayuda? Contactanos por:</p>
-            <p>Email: <a href="mailto:emiliano@orangevapor.com">emiliano@orangevapor.com</a> o WhatsApp: <a href="https://wa.me/541130011554">11 3001-1554</a></p>
         </div>
         
         <div class="footer">
-            <p>© Orange Vapor. Todos los derechos reservados.</p>
+            © Orange Vapor. Todos los derechos reservados.
         </div>
     </div>
 </body>
