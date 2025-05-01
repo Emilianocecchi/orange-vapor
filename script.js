@@ -1,8 +1,12 @@
 /**
- * Orange Vapor - JavaScript Optimizado
- * Script para funcionalidades específicas con mejor rendimiento
- * Enfocado en Meta Ads y Google Ads para PyMEs y emprendedores
- * Versión: 3.0.0
+ * Orange Vapor - JavaScript Optimizado (Sistema 5S)
+ * 
+ * Implementa los principios 5S de Toyota:
+ * 1. SEIRI (Clasificar): Código organizado en funciones específicas
+ * 2. SEITON (Ordenar): Estructura modular y predecible
+ * 3. SEISO (Limpiar): Código optimizado sin redundancias
+ * 4. SEIKETSU (Estandarizar): Patrones consistentes
+ * 5. SHITSUKE (Mantener): Comentarios claros y mantenibilidad
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -15,28 +19,17 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * Selecciona elementos del DOM y ejecuta una función para cada uno
      * @param {string} selector - Selector CSS
-     * @param {Function} fn - Función a ejecutar para cada elemento
+     * @param {Function} callback - Función a ejecutar para cada elemento
      * @param {HTMLElement} [parent=document] - Elemento padre donde buscar
+     * @returns {boolean} - Verdadero si hay elementos encontrados
      */
-    const forEachElement = (selector, fn, parent = document) => {
+    const forEachElement = (selector, callback, parent = document) => {
         const elements = parent.querySelectorAll(selector);
         if (elements.length > 0) {
-            elements.forEach(fn);
+            elements.forEach(callback);
             return true;
         }
         return false;
-    };
-    
-    /**
-     * Crea un trigger de evento personalizado
-     * @param {string} eventName - Nombre del evento
-     * @returns {Event} - Objeto de evento
-     */
-    const createEvent = (eventName) => {
-        return new Event(eventName, {
-            bubbles: true,
-            cancelable: true
-        });
     };
     
     /**
@@ -47,105 +40,122 @@ document.addEventListener('DOMContentLoaded', function() {
         return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     };
     
+    /**
+     * Agrega o quita una clase basado en una condición
+     * @param {HTMLElement} element - Elemento del DOM
+     * @param {string} className - Nombre de la clase a modificar
+     * @param {boolean} condition - Condición para agregar (true) o quitar (false)
+     */
+    const toggleClass = (element, className, condition) => {
+        if (condition) {
+            element.classList.add(className);
+        } else {
+            element.classList.remove(className);
+        }
+    };
+
+    /**
+     * Detecta si un elemento está visible en el viewport
+     * @param {HTMLElement} element - Elemento a comprobar
+     * @param {number} offset - Offset opcional
+     * @returns {boolean} - Verdadero si el elemento está visible
+     */
+    const isInViewport = (element, offset = 0) => {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight - offset) &&
+            rect.bottom >= offset
+        );
+    };
+
     // =========================================================================
-    // ASEGURAR VISIBILIDAD DE ELEMENTOS CRÍTICOS
+    // NAVBAR Y NAVEGACIÓN
     // =========================================================================
     
     /**
-     * Asegura que los elementos críticos estén visibles de inmediato
+     * Inicializa el comportamiento de la navbar
      */
-    function asegurarVisibilidadCritica() {
-        const elementosCriticos = [
-            '.hero-content', 
-            '.hero-image',
-            '.auditoria-card-redesign',
-            '.seccion-titulo',
-            '.servicios-tabs-container',
-            '.tabs-content',
-            '.tab-content.active'
-        ];
+    const initNavbar = () => {
+        const navbar = document.querySelector('.navbar');
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navMenu = document.querySelector('.nav-menu');
         
-        elementosCriticos.forEach(selector => {
-            forEachElement(selector, elemento => {
-                // Añadir clase visible y forzar estilos
-                elemento.classList.add('visible');
-                elemento.style.opacity = '1';
-                elemento.style.transform = 'translateY(0)';
-                elemento.style.visibility = 'visible';
-            });
+        // Manejar cambio de color de navbar al hacer scroll
+        window.addEventListener('scroll', () => {
+            toggleClass(navbar, 'scrolled', window.scrollY > 10);
         });
-    }
-    
-    // Llamar inmediatamente para asegurar visibilidad
-    asegurarVisibilidadCritica();
-    
-    // Respaldo adicional con setTimeout para asegurar visibilidad
-    setTimeout(asegurarVisibilidadCritica, 100);
-    setTimeout(() => {
-        forEachElement('.fade-in', elemento => {
-            elemento.classList.add('visible');
-        });
-    }, 500);
-    
-    // =========================================================================
-    // MICROINTERACCIONES Y ANIMACIONES OPTIMIZADAS
-    // =========================================================================
-    
-    function initScrollAnimations() {
-        // Omitir si se prefiere reducción de movimiento
-        if (prefersReducedMotion()) {
-            forEachElement('.fade-in', el => el.classList.add('visible'));
-            return;
-        }
         
-        // Usar Intersection Observer para animaciones más eficientes
-        const fadeElements = document.querySelectorAll('.fade-in:not(.visible)');
-        
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    
-                    // Añadir clases de animación según tipo
-                    if (entry.target.classList.contains('fade-left')) {
-                        entry.target.classList.add('animate-fade-left');
-                    } else if (entry.target.classList.contains('fade-right')) {
-                        entry.target.classList.add('animate-fade-right');
-                    } else if (entry.target.classList.contains('fade-up')) {
-                        entry.target.classList.add('animate-fade-up');
-                    }
-                    
-                    // Dejar de observar después de animar
-                    observer.unobserve(entry.target);
+        // Menú móvil toggle
+        if (mobileToggle && navMenu) {
+            mobileToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                
+                const isExpanded = navMenu.classList.contains('active');
+                mobileToggle.setAttribute('aria-expanded', isExpanded);
+                
+                // Cambiar icono
+                const icon = mobileToggle.querySelector('i');
+                if (isExpanded) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
                 }
             });
-        }, observerOptions);
+        }
         
-        fadeElements.forEach(element => {
-            observer.observe(element);
+        // Cerrar menú al hacer clic en links
+        forEachElement('.nav-link', link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 991 && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    mobileToggle.setAttribute('aria-expanded', false);
+                    
+                    const icon = mobileToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
         });
-
-        // Añadir delay personalizado a elementos en secuencia
-        document.querySelectorAll('.features-sequence > *').forEach((item, index) => {
-            item.style.transitionDelay = `${index * 0.1}s`;
-        });
-    }
+    };
     
+    /**
+     * Inicializa navegación suave para enlaces internos
+     */
+    const initSmoothScrolling = () => {
+        document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Calcular offset para header fijo
+                    const navbarHeight = document.querySelector('.navbar') ? 
+                        document.querySelector('.navbar').offsetHeight : 70;
+                    
+                    const offsetTop = targetElement.getBoundingClientRect().top + 
+                        window.pageYOffset - navbarHeight;
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+                    });
+                }
+            });
+        });
+    };
+
     // =========================================================================
-    // TABS DE SERVICIOS - OPTIMIZADO
+    // TABS DE SERVICIOS
     // =========================================================================
     
     /**
-     * Inicializa las pestañas de servicios con mejor UX
-     * Adaptado para Meta Ads y Google Ads
+     * Inicializa las pestañas de servicios
      */
-    function initServiceTabs() {
+    const initServiceTabs = () => {
         const tabButtons = document.querySelectorAll('.tab-button');
         if (!tabButtons.length) return;
         
@@ -174,75 +184,69 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (activeContent) {
                     activeContent.classList.add('active');
                     activeContent.setAttribute('aria-hidden', 'false');
-                    
-                    // Scroll al contenido en móvil
-                    if (window.innerWidth < 768) {
-                        setTimeout(() => {
-                            activeContent.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start',
-                                inline: 'nearest'
-                            });
-                        }, 300);
-                    }
                 }
             });
         });
-    }
-    
-    // =========================================================================
-    // TIER SELECTOR MINI
-    // =========================================================================
-    
-    /**
-     * Inicializa el selector de tiers mini en la sección proceso
-     */
-    function initTierSelectorMini() {
-        const tierOptionsMini = document.querySelectorAll('.tier-option');
-        if (!tierOptionsMini.length) return;
-        
-        tierOptionsMini.forEach(option => {
-            option.addEventListener('click', function() {
-                // Actualizar estado visual de opciones
-                tierOptionsMini.forEach(o => o.classList.remove('active'));
-                this.classList.add('active');
+
+        // Configurar roles ARIA para las pestañas
+        const tabsContainer = document.querySelector('.tabs-nav');
+        if (tabsContainer) {
+            tabsContainer.setAttribute('role', 'tablist');
+            
+            tabButtons.forEach((button, index) => {
+                const tabId = button.getAttribute('data-tab');
+                button.setAttribute('role', 'tab');
+                button.setAttribute('id', `tab-${tabId}`);
+                button.setAttribute('aria-controls', tabId);
+                button.setAttribute('aria-selected', button.classList.contains('active') ? 'true' : 'false');
                 
-                // Obtener tier seleccionado
-                const tier = this.getAttribute('data-tier');
+                const tabPanel = document.getElementById(tabId);
+                if (tabPanel) {
+                    tabPanel.setAttribute('role', 'tabpanel');
+                    tabPanel.setAttribute('aria-labelledby', `tab-${tabId}`);
+                    tabPanel.setAttribute('tabindex', '0');
+                    tabPanel.setAttribute('aria-hidden', !button.classList.contains('active'));
+                }
                 
-                // Actualizar precios mini
-                forEachElement('.tier-mini', price => {
-                    price.classList.remove('active');
+                // Navegación con teclado
+                button.addEventListener('keydown', (e) => {
+                    // Array de todas las pestañas para la navegación
+                    const tabs = Array.from(tabButtons);
+                    const maxIndex = tabs.length - 1;
+                    let targetIndex;
+                    
+                    if (e.key === 'ArrowRight') {
+                        targetIndex = index < maxIndex ? index + 1 : 0;
+                    } else if (e.key === 'ArrowLeft') {
+                        targetIndex = index > 0 ? index - 1 : maxIndex;
+                    } else if (e.key === 'Home') {
+                        targetIndex = 0;
+                    } else if (e.key === 'End') {
+                        targetIndex = maxIndex;
+                    } else {
+                        return; // Salir si no es una tecla de navegación
+                    }
+                    
+                    e.preventDefault();
+                    tabs[targetIndex].click();
+                    tabs[targetIndex].focus();
                 });
-                
-                const activeTierMini = document.querySelector(`.tier-mini.${tier}`);
-                if (activeTierMini) activeTierMini.classList.add('active');
             });
-        });
-        
-        // Inicializar con el primer tier activo
-        if (tierOptionsMini[0]) {
-            tierOptionsMini[0].classList.add('active');
-            const firstTierType = tierOptionsMini[0].getAttribute('data-tier');
-            if (firstTierType) {
-                const firstTierMini = document.querySelector(`.tier-mini.${firstTierType}`);
-                if (firstTierMini) firstTierMini.classList.add('active');
-            }
         }
-    }
+    };
 
     // =========================================================================
-    // FAQ ACCORDION - NUEVO
+    // ACCORDION FAQ
     // =========================================================================
     
     /**
      * Inicializa los acordeones para FAQs
      */
-    function initFaqAccordion() {
+    const initFaqAccordion = () => {
         const faqItems = document.querySelectorAll('.faq-item');
         if (!faqItems.length) return;
         
-        faqItems.forEach(item => {
+        faqItems.forEach((item, index) => {
             const question = item.querySelector('.faq-question');
             const answer = item.querySelector('.faq-answer');
             const toggle = item.querySelector('.faq-toggle');
@@ -250,193 +254,208 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!question || !answer || !toggle) return;
             
             // Configurar ARIA para accesibilidad
-            const id = `faq-${Math.random().toString(36).substring(2, 9)}`;
+            const id = `faq-answer-${index}`;
             answer.id = id;
             question.setAttribute('aria-controls', id);
             question.setAttribute('aria-expanded', 'false');
             answer.setAttribute('aria-hidden', 'true');
             
             question.addEventListener('click', () => {
-                // Obtener altura real para animación suave
-                const isActive = item.classList.contains('active');
+                // Obtener estado actual
+                const isExpanded = question.getAttribute('aria-expanded') === 'true';
                 
-                // Cerrar todos los demás elementos
+                // Cerrar todos los demás acordeones
                 faqItems.forEach(otherItem => {
-                    if (otherItem !== item && otherItem.classList.contains('active')) {
-                        otherItem.classList.remove('active');
+                    if (otherItem !== item) {
                         const otherQuestion = otherItem.querySelector('.faq-question');
-                        if (otherQuestion) otherQuestion.setAttribute('aria-expanded', 'false');
                         const otherAnswer = otherItem.querySelector('.faq-answer');
-                        if (otherAnswer) otherAnswer.setAttribute('aria-hidden', 'true');
+                        const otherToggle = otherItem.querySelector('.faq-toggle');
+                        
+                        if (otherQuestion && otherAnswer && otherToggle) {
+                            otherItem.classList.remove('active');
+                            otherQuestion.setAttribute('aria-expanded', 'false');
+                            otherAnswer.setAttribute('aria-hidden', 'true');
+                            otherToggle.innerHTML = '<i class="fas fa-plus"></i>';
+                        }
                     }
                 });
                 
-                // Alternar estado actual
-                item.classList.toggle('active');
-                question.setAttribute('aria-expanded', !isActive);
-                answer.setAttribute('aria-hidden', isActive);
+                // Alternar estado del acordeón actual
+                item.classList.toggle('active', !isExpanded);
+                question.setAttribute('aria-expanded', !isExpanded);
+                answer.setAttribute('aria-hidden', isExpanded);
                 
                 // Cambiar icono
-                if (toggle) {
-                    toggle.innerHTML = item.classList.contains('active') ? 
-                        '<i class="fas fa-minus"></i>' : 
-                        '<i class="fas fa-plus"></i>';
-                }
+                toggle.innerHTML = !isExpanded ? 
+                    '<i class="fas fa-minus"></i>' : 
+                    '<i class="fas fa-plus"></i>';
             });
         });
         
-        // Abrir primer elemento por defecto
-        if (faqItems[0]) {
-            setTimeout(() => {
-                const firstQuestion = faqItems[0].querySelector('.faq-question');
-                if (firstQuestion) firstQuestion.click();
-            }, 500);
-        }
-    }
-    
+        // Abrir primer elemento por defecto tras un breve retraso
+        setTimeout(() => {
+            const firstItem = faqItems[0];
+            if (firstItem) {
+                const firstQuestion = firstItem.querySelector('.faq-question');
+                if (firstQuestion) {
+                    firstQuestion.click();
+                }
+            }
+        }, 500);
+    };
+
     // =========================================================================
-    // NAVEGACIÓN SUAVE
+    // ANIMACIONES DE SCROLL
     // =========================================================================
     
     /**
-     * Inicializa navegación suave para enlaces internos
+     * Inicializa animaciones basadas en scroll
      */
-    function initSmoothScrolling() {
-        document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    // Cerrar menú móvil si está abierto
-                    const mobileToggle = document.querySelector('.mobile-toggle');
-                    const navMenu = document.querySelector('.nav-menu');
-                    
-                    if (mobileToggle && navMenu) {
-                        if (mobileToggle.classList.contains('active')) {
-                            mobileToggle.classList.remove('active');
-                            navMenu.classList.remove('active');
-                        }
-                    }
-                    
-                    // Calcular offset para header fijo
-                    const headerHeight = document.querySelector('header') ? 
-                        document.querySelector('header').offsetHeight : 70;
-                    
-                    const offsetTop = targetElement.getBoundingClientRect().top + 
-                        window.pageYOffset - headerHeight - 20;
-                    
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: prefersReducedMotion() ? 'auto' : 'smooth'
-                    });
+    const initScrollAnimations = () => {
+        // Omitir si se prefiere reducción de movimiento
+        if (prefersReducedMotion()) return;
+        
+        // Elementos a animar durante el scroll
+        const animateElements = document.querySelectorAll('.audit-card-container, .plan-card, .process-step, .team-member, .value-card, .testimonial-card');
+        
+        // Función para verificar y animar elementos
+        const checkScrollPosition = () => {
+            animateElements.forEach(element => {
+                if (isInViewport(element, 100) && !element.classList.contains('animated')) {
+                    element.classList.add('animated');
+                    element.style.animation = 'fadeInUp 0.6s ease forwards';
                 }
             });
+        };
+        
+        // Asociamos la función al evento scroll, con debounce para mejor rendimiento
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                window.cancelAnimationFrame(scrollTimeout);
+            }
+            
+            scrollTimeout = window.requestAnimationFrame(checkScrollPosition);
         });
-    }
-    
+        
+        // Verificar posición inicial tras carga
+        window.addEventListener('load', checkScrollPosition);
+        
+        // Agregar keyframes de animación si no están disponibles en el CSS
+        if (!document.querySelector('#animation-keyframes')) {
+            const style = document.createElement('style');
+            style.id = 'animation-keyframes';
+            style.textContent = `
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    };
+
     // =========================================================================
     // MEJORAS DE ACCESIBILIDAD
     // =========================================================================
     
     /**
-     * Mejora la accesibilidad de los elementos interactivos
+     * Mejora la accesibilidad de elementos interactivos
      */
-    function enhanceAccessibility() {
-        // Añadir roles y atributos ARIA a las pestañas
-        const tabContainers = document.querySelectorAll('.tabs-menu');
-        tabContainers.forEach((container, index) => {
-            const tablistId = `tablist-${index}`;
-            container.setAttribute('role', 'tablist');
-            container.id = tablistId;
-            
-            const tabs = container.querySelectorAll('.tab-button');
-            tabs.forEach((tab, tabIndex) => {
-                const tabId = tab.getAttribute('data-tab');
-                const contentId = tabId;
-                
-                tab.setAttribute('role', 'tab');
-                tab.setAttribute('aria-selected', tab.classList.contains('active') ? 'true' : 'false');
-                tab.id = `tab-${tabId}`;
-                tab.setAttribute('aria-controls', contentId);
-                tab.setAttribute('tabindex', tab.classList.contains('active') ? '0' : '-1');
-                
-                // Manejar navegación con teclado
-                tab.addEventListener('keydown', (e) => {
-                    let targetTab = null;
-                    
-                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                        targetTab = tabIndex === tabs.length - 1 ? tabs[0] : tabs[tabIndex + 1];
-                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                        targetTab = tabIndex === 0 ? tabs[tabs.length - 1] : tabs[tabIndex - 1];
-                    } else if (e.key === 'Home') {
-                        targetTab = tabs[0];
-                    } else if (e.key === 'End') {
-                        targetTab = tabs[tabs.length - 1];
-                    }
-                    
-                    if (targetTab) {
-                        e.preventDefault();
-                        targetTab.focus();
-                        targetTab.click();
-                    }
-                });
-            });
-            
-            // Configurar paneles de tabs
-            const tabPanels = document.querySelectorAll('.tab-content');
-            tabPanels.forEach(panel => {
-                const tabId = panel.id;
-                const controllingTab = document.querySelector(`[aria-controls="${tabId}"]`);
-                
-                panel.setAttribute('role', 'tabpanel');
-                panel.setAttribute('aria-labelledby', controllingTab ? controllingTab.id : '');
-                panel.setAttribute('tabindex', '0');
-                panel.setAttribute('aria-hidden', panel.classList.contains('active') ? 'false' : 'true');
-            });
+    const enhanceAccessibility = () => {
+        // Agregar roles ARIA y atributos a elementos interactivos
+        const interactiveElements = document.querySelectorAll('button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        
+        interactiveElements.forEach(element => {
+            // Asegurar que todos los elementos interactivos sean detectables por teclado
+            if (!element.hasAttribute('tabindex') && element.tagName.toLowerCase() !== 'a' && element.tagName.toLowerCase() !== 'button') {
+                element.setAttribute('tabindex', '0');
+            }
         });
         
-        // Añadir focus-visible a elementos interactivos
-        const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        interactiveElements.forEach(el => {
-            el.classList.add('focus-visible');
+        // Asegurar que los iconos decorativos sean ignorados por lectores de pantalla
+        forEachElement('.fas, .fab, .far', icon => {
+            if (!icon.getAttribute('aria-hidden')) {
+                icon.setAttribute('aria-hidden', 'true');
+            }
         });
+        
+        // Mejorar elementos para lectores de pantalla
+        if (document.querySelector('.gratis-badge')) {
+            document.querySelector('.gratis-badge').setAttribute('aria-label', 'Gratis');
+        }
+        
+        if (document.querySelector('.ribbon')) {
+            document.querySelector('.ribbon').setAttribute('aria-label', 'Gratis');
+        }
+    };
+
+    // =========================================================================
+    // OPTIMIZACIONES PARA MÓVILES
+    // =========================================================================
+    
+    /**
+     * Ajustes específicos para dispositivos móviles
+     */
+    const handleResponsiveAdjustments = () => {
+        const isMobile = window.innerWidth <= 767;
+        
+        // Simplificar animaciones en móviles para mejor rendimiento
+        if (isMobile) {
+            document.body.classList.add('mobile-view');
+            
+            // Ajustar CTA flotante en móvil
+            const floatingCta = document.querySelector('.floating-cta');
+            if (floatingCta) {
+                floatingCta.style.bottom = '15px';
+                floatingCta.style.right = '15px';
+            }
+        } else {
+            document.body.classList.remove('mobile-view');
+        }
+    };
+
+    // =========================================================================
+    // INICIALIZACIÓN DEL SITIO
+    // =========================================================================
+    
+    // Iniciar componentes 
+    initNavbar();
+    initSmoothScrolling();
+    initServiceTabs();
+    initFaqAccordion();
+    enhanceAccessibility();
+    handleResponsiveAdjustments();
+    
+    // Iniciar animaciones solo si no hay preferencia de reducción de movimiento
+    if (!prefersReducedMotion()) {
+        initScrollAnimations();
     }
     
-    // =========================================================================
-    // INICIALIZACIÓN
-    // =========================================================================
-    
-    // Iniciar componentes principales
-    initScrollAnimations();
-    initServiceTabs();
-    initTierSelectorMini();
-    initFaqAccordion();
-    initSmoothScrolling();
-    enhanceAccessibility();
-    
-    // Remover clase de precarga
-    setTimeout(() => {
-        document.body.classList.remove('preload');
-    }, 100);
+    // Evento de resize para ajustes responsivos
+    window.addEventListener('resize', handleResponsiveAdjustments);
     
     // Evento de página cargada completamente
     window.addEventListener('load', function() {
-        // Iniciar JS solo después de carga completa
-        document.body.classList.add('js-loaded');
+        // Marcar como cargado para permitir transiciones
+        document.body.classList.add('loaded');
         
-        // Manejar navegación por hash
+        // Manejar navegación por hash al cargar la página
         if (window.location.hash) {
             setTimeout(() => {
                 const targetElement = document.querySelector(window.location.hash);
                 if (targetElement) {
-                    const headerHeight = document.querySelector('header') ? 
-                        document.querySelector('header').offsetHeight : 70;
+                    const navbarHeight = document.querySelector('.navbar') ? 
+                        document.querySelector('.navbar').offsetHeight : 70;
                     
                     const offsetTop = targetElement.getBoundingClientRect().top + 
-                        window.pageYOffset - headerHeight - 20;
+                        window.scrollY - navbarHeight - 20;
                     
                     window.scrollTo({
                         top: offsetTop,
@@ -446,42 +465,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }
     });
-    
-    // =========================================================================
-    // RESPONSIVE ADJUSTMENTS
-    // =========================================================================
-    
-    /**
-     * Ajustes específicos para dispositivos móviles
-     */
-    function handleResponsiveAdjustments() {
-        const isMobile = window.innerWidth <= 768;
-        const isTablet = window.innerWidth <= 992 && window.innerWidth > 768;
-        
-        // Ajustes específicos para móvil
-        if (isMobile) {
-            // Simplificar animaciones para mejor rendimiento
-            document.body.classList.add('mobile-optimized');
-            
-            // Ajustar CTA flotante en móvil
-            const ctaFlotante = document.querySelector('.cta-flotante');
-            if (ctaFlotante) {
-                ctaFlotante.style.bottom = '15px';
-                ctaFlotante.style.right = '15px';
-            }
-        } else {
-            document.body.classList.remove('mobile-optimized');
-        }
-        
-        // Ajustes específicos para tablet
-        if (isTablet) {
-            // Cualquier ajuste específico para tablets
-        }
-    }
-    
-    // Iniciar configuración responsive
-    handleResponsiveAdjustments();
-    
-    // Actualizar en resize de ventana
-    window.addEventListener('resize', handleResponsiveAdjustments);
 });
