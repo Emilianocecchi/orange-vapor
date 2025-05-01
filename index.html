@@ -1,1756 +1,913 @@
-/* ==========================================================================
-   ORANGE VAPOR - REDISEÑO 5S
-   Basado en el método Toyota: Seiri (Clasificar), Seiton (Ordenar),
-   Seiso (Limpiar), Seiketsu (Estandarizar), Shitsuke (Mantener)
-   ========================================================================== */
-
-/* ==========================================================================
-   1. RESET Y ESTILOS BASE (SEISO - LIMPIAR)
-   ========================================================================== */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    font-size: 16px;
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--fuente-texto);
-    color: var(--negro);
-    line-height: 1.6;
-    overflow-x: hidden;
-    background-color: var(--blanco);
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-ul, ol {
-    list-style: none;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
-}
-
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--espacio-m);
-}
-
-section {
-    padding: var(--espacio-xl) 0;
-    position: relative;
-}
-
-/* ==========================================================================
-   2. TIPOGRAFÍA ESTANDARIZADA (SEIKETSU - ESTANDARIZAR)
-   ========================================================================== */
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--fuente-titulo);
-    line-height: 1.2;
-    margin-bottom: var(--espacio-m);
-    color: var(--negro);
-}
-
-h1 {
-    font-size: 2.75rem;
-    font-weight: 800;
-    margin-bottom: var(--espacio-m);
-}
-
-h2 {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-bottom: var(--espacio-s);
-}
-
-h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: var(--espacio-s);
-}
-
-h4 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: var(--espacio-xs);
-}
-
-p {
-    margin-bottom: var(--espacio-m);
-    font-size: 1rem;
-    color: var(--gris-medio);
-}
-
-.section-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto var(--espacio-l);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-}
-
-.section-header.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.tag {
-    display: inline-block;
-    background-color: rgba(255, 114, 0, 0.1);
-    color: var(--naranja-principal);
-    font-size: 0.875rem;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radio-pill);
-    margin-bottom: var(--espacio-s);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.section-header h2 {
-    margin-bottom: var(--espacio-s);
-    position: relative;
-    padding-bottom: var(--espacio-s);
-}
-
-.section-header h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: var(--naranja-principal);
-    border-radius: 10px;
-}
-
-.section-header p {
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* ==========================================================================
-   3. COMPONENTES ESTANDARIZADOS (SEIKETSU - ESTANDARIZAR)
-   ========================================================================== */
-/* Botones */
-.btn-primary, .btn-secondary, .btn-flotante {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-family: var(--fuente-titulo);
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.875rem 1.5rem;
-    border-radius: var(--radio-m);
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.btn-primary {
-    background-color: var(--verde-accion);
-    color: var(--blanco);
-    box-shadow: 0 4px 10px rgba(47, 133, 90, 0.2);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(47, 133, 90, 0.3);
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: var(--naranja-principal);
-    border: 2px solid var(--naranja-principal);
-}
-
-.btn-secondary:hover {
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-    transform: translateY(-3px);
-}
-
-.btn-flotante {
-    background-color: var(--verde-accion);
-    color: var(--blanco);
-    border-radius: var(--radio-pill);
-    box-shadow: 0 4px 12px rgba(47, 133, 90, 0.25);
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 100;
-}
-
-.btn-flotante:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(47, 133, 90, 0.35);
-}
-
-/* Badges */
-.gratis-badge {
-    background-color: rgba(47, 133, 90, 0.1);
-    color: var(--verde-accion);
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--radio-s);
-}
-
-/* ==========================================================================
-   4. HEADER (SEITON - ORDENAR)
-   ========================================================================== */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: transparent;
-    transition: all 0.3s ease;
-    padding: 1rem 0;
-}
-
-.header.scrolled {
-    background-color: var(--blanco);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 0.75rem 0;
-}
-
-.header-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-family: var(--fuente-titulo);
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: var(--blanco);
-    transition: color 0.3s ease;
-}
-
-.scrolled .logo {
-    color: var(--negro);
-}
-
-.logo span {
-    color: var(--naranja-principal);
-}
-
-.nav-menu {
-    display: flex;
-    align-items: center;
-}
-
-.nav-menu ul {
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-menu a {
-    color: var(--blanco);
-    font-weight: 600;
-    position: relative;
-}
-
-.scrolled .nav-menu a {
-    color: var(--negro);
-}
-
-.nav-menu a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--naranja-principal);
-    transition: width 0.3s ease;
-}
-
-.nav-menu a:hover::after {
-    width: 100%;
-}
-
-.nav-menu a:hover {
-    color: var(--naranja-principal);
-}
-
-.btn-header {
-    font-size: 0.875rem;
-    padding: 0.625rem 1.25rem;
-}
-
-.mobile-toggle {
-    display: none;
-    color: var(--blanco);
-    font-size: 1.5rem;
-}
-
-.scrolled .mobile-toggle {
-    color: var(--negro);
-}
-
-/* ==========================================================================
-   5. HERO (SEIRI - CLASIFICAR, VISIBILIDAD INICIAL)
-   ========================================================================== */
-.hero {
-    padding: 10rem 0 6rem;
-    background: linear-gradient(135deg, #FF7200, #E56700);
-    color: var(--blanco);
-    position: relative;
-    overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
-    opacity: 0.15;
-}
-
-.hero .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 4rem;
-}
-
-.hero-content {
-    flex: 1;
-    max-width: 600px;
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-.hero-cta {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.hero-stat {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.stat-number {
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: var(--blanco);
-}
-
-.stat-text {
-    font-size: 0.875rem;
-    opacity: 0.9;
-}
-
-.hero-image {
-    flex: 1;
-    max-width: 450px;
-    position: relative;
-}
-
-.audit-card {
-    background-color: var(--blanco);
-    border-radius: var(--radio-l);
-    overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-    transform: perspective(800px) rotateY(-5deg) rotateX(5deg);
-    transition: all 0.3s ease;
-}
-
-.audit-card:hover {
-    transform: perspective(800px) rotateY(0) rotateX(0) translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
-
-.audit-header {
-    padding: 1.5rem;
-    background-color: rgba(47, 133, 90, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.audit-logo {
-    width: 64px;
-    height: 64px;
-    background-color: var(--verde-accion);
-    color: var(--blanco);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.audit-header h3 {
-    color: var(--verde-accion);
-    margin-bottom: 0;
-}
-
-.audit-content {
-    padding: 1.5rem;
-}
-
-.audit-features {
-    margin-bottom: 1.5rem;
-}
-
-.audit-features li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 0.75rem;
-    color: var(--negro);
-}
-
-.audit-features i {
-    color: var(--verde-accion);
-    margin-right: 0.75rem;
-    margin-top: 0.25rem;
-}
-
-.audit-price {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--verde-accion);
-    color: var(--blanco);
-    padding: 1rem;
-    border-radius: var(--radio-m);
-    margin-top: 1rem;
-}
-
-.price-tag {
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin-bottom: 0.25rem;
-}
-
-.price-note {
-    font-size: 0.75rem;
-    opacity: 0.8;
-}
-
-/* ==========================================================================
-   6. PROBLEMAS (NUEVO BLOQUE - SEITON - ORDENAR)
-   ========================================================================== */
-.problema {
-    padding: var(--espacio-xl) 0;
-    background-color: var(--gris-claro);
-}
-
-.problemas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: var(--espacio-l);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-}
-
-.problemas-grid.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.problema-card {
-    background-color: var(--blanco);
-    border-radius: var(--radio-m);
-    padding: 2rem;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.problema-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-.problema-icon {
-    width: 70px;
-    height: 70px;
-    background-color: rgba(255, 114, 0, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: var(--naranja-principal);
-    margin: 0 auto 1.5rem;
-}
-
-.problema-card h3 {
-    margin-bottom: 1rem;
-}
-
-.problema-card p {
-    margin-bottom: 0;
-    color: var(--gris-medio);
-}
-
-/* ==========================================================================
-   7. SERVICIOS (SEIKETSU - ESTANDARIZAR)
-   ========================================================================== */
-.servicios {
-    padding: var(--espacio-xl) 0;
-    background-color: var(--blanco);
-}
-
-/* Tabs */
-.servicios-tabs {
-    margin-bottom: 3rem;
-}
-
-.tabs-header {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--gris-claro);
-}
-
-.tab-btn {
-    font-family: var(--fuente-titulo);
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--gris-medio);
-    padding: 1rem 2rem;
-    background-color: transparent;
-    border-bottom: 3px solid transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.tab-btn:hover {
-    color: var(--naranja-principal);
-}
-
-.tab-btn.active {
-    color: var(--naranja-principal);
-    border-bottom-color: var(--naranja-principal);
-}
-
-.tab-content {
-    display: none;
-    animation: fadeIn 0.4s ease;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.service-intro {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 2rem;
-}
-
-.service-intro h3 {
-    margin-bottom: 1rem;
-    color: var(--naranja-principal);
-}
-
-/* Tabla comparativa (Mejora respecto a tarjetas) */
-.planes-tabla {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.tabla-comparativa {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-}
-
-.tabla-comparativa th, 
-.tabla-comparativa td {
-    padding: 1rem;
-    text-align: center;
-    border-bottom: 1px solid var(--gris-claro);
-}
-
-.tabla-comparativa th {
-    background-color: var(--gris-claro);
-    font-weight: 700;
-    position: relative;
-    border-top-left-radius: var(--radio-m);
-    border-top-right-radius: var(--radio-m);
-}
-
-.tabla-comparativa th:first-child {
-    text-align: left;
-    background-color: transparent;
-}
-
-.tabla-comparativa td:first-child {
-    text-align: left;
-    font-weight: 600;
-}
-
-.tabla-comparativa th.destacado,
-.tabla-comparativa td.destacado {
-    background-color: rgba(255, 114, 0, 0.05);
-    border-left: 1px solid rgba(255, 114, 0, 0.1);
-    border-right: 1px solid rgba(255, 114, 0, 0.1);
-}
-
-.tabla-comparativa th.destacado {
-    box-shadow: 0 -3px 0 var(--naranja-principal);
-}
-
-.precio {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 400;
-    margin-top: 0.5rem;
-    color: var(--gris-medio);
-}
-
-.tabla-comparativa i.fas.fa-check {
-    color: var(--verde-accion);
-}
-
-.tabla-comparativa i.fas.fa-times {
-    color: var(--gris-medio);
-}
-
-.row-cta td {
-    padding-top: 1.5rem;
-    border-bottom: none;
-}
-
-.row-cta .btn-secondary, 
-.row-cta .btn-primary {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 0.875rem;
-}
-
-/* Paquete completo */
-.paquete-completo {
-    background: linear-gradient(135deg, rgba(255, 114, 0, 0.05), rgba(255, 114, 0, 0.1));
-    border-radius: var(--radio-l);
-    overflow: hidden;
-    border: 2px dashed var(--naranja-principal);
-    position: relative;
-    max-width: 900px;
-    margin: 3rem auto 0;
-}
-
-.paquete-tag {
-    position: absolute;
-    top: 0;
-    right: 2rem;
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.5rem 1rem;
-    border-radius: 0 0 var(--radio-m) var(--radio-m);
-}
-
-.paquete-header {
-    padding: 2rem;
-    text-align: center;
-    border-bottom: 1px dashed rgba(255, 114, 0, 0.2);
-}
-
-.paquete-header h3 {
-    font-size: 1.75rem;
-    color: var(--naranja-principal);
-    margin-bottom: 1rem;
-}
-
-.paquete-content {
-    padding: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.paquete-precio {
-    flex: 1;
-    min-width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.precio-cantidad {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--naranja-principal);
-}
-
-.precio-periodo {
-    font-size: 1rem;
-    color: var(--gris-medio);
-}
-
-.precio-ahorro {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-    color: var(--verde-accion);
-    font-weight: 600;
-    background-color: rgba(47, 133, 90, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: var(--radio-pill);
-}
-
-.paquete-features {
-    flex: 2;
-    min-width: 300px;
-}
-
-.paquete-features li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.paquete-features i {
-    color: var(--naranja-principal);
-    margin-right: 1rem;
-}
-
-.btn-paquete {
-    flex: 1;
-    min-width: 200px;
-    text-align: center;
-}
-
-/* ==========================================================================
-   8. PROCESO (SEITON - ORDENAR)
-   ========================================================================== */
-.proceso {
-    padding: var(--espacio-xl) 0;
-    background-color: var(--gris-claro);
-}
-
-.proceso-timeline {
-    max-width: 900px;
-    margin: 3rem auto;
-    display: flex;
-    position: relative;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-}
-
-.proceso-timeline.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.proceso-timeline::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: rgba(255, 114, 0, 0.1);
-    z-index: 0;
-}
-
-.paso {
-    flex: 1;
-    text-align: center;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 1;
-}
-
-.paso-numero {
-    width: 80px;
-    height: 80px;
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.75rem;
-    font-weight: 800;
-    margin: 0 auto 1.5rem;
-    position: relative;
-    border: 5px solid var(--blanco);
-    box-shadow: 0 5px 15px rgba(255, 114, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-.paso:hover .paso-numero {
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(255, 114, 0, 0.3);
-}
-
-.paso-contenido {
-    background-color: var(--blanco);
-    border-radius: var(--radio-m);
-    padding: 1.5rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.paso:hover .paso-contenido {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-.paso-contenido h3 {
-    margin-bottom: 1rem;
-}
-
-.paso-testimonio {
-    margin-top: 1rem;
-    padding: 1rem;
-    background-color: rgba(255, 114, 0, 0.05);
-    border-radius: var(--radio-s);
-    border-left: 3px solid var(--naranja-principal);
-}
-
-.paso-testimonio p {
-    font-style: italic;
-    font-size: 0.875rem;
-    color: var(--gris-medio);
-    margin-bottom: 0;
-}
-
-.proceso-garantia {
-    display: flex;
-    align-items: center;
-    max-width: 700px;
-    margin: 3rem auto 0;
-    padding: 1.5rem;
-    background-color: var(--blanco);
-    border-radius: var(--radio-m);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.garantia-icon {
-    flex-shrink: 0;
-    width: 60px;
-    height: 60px;
-    background-color: rgba(47, 133, 90, 0.1);
-    color: var(--verde-accion);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-right: 1.5rem;
-}
-
-.garantia-content h4 {
-    margin-bottom: 0.5rem;
-    color: var(--verde-accion);
-}
-
-.garantia-content p {
-    margin-bottom: 0;
-    font-size: 0.9375rem;
-}
-
-/* ==========================================================================
-   9. EQUIPO (SEIRI - CLASIFICAR)
-   ========================================================================== */
-.equipo {
-    padding: var(--espacio-xl) 0;
-    background-color: var(--blanco);
-}
-
-.equipo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    margin: 0 auto;
-    max-width: 900px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-}
-
-.equipo-grid.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.miembro {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--gris-claro);
-    border-radius: var(--radio-m);
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.miembro:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-}
-
-.miembro-foto {
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-    border-bottom: 3px solid var(--naranja-principal);
-}
-
-.miembro-foto img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all 0.3s ease;
-}
-
-.miembro:hover .miembro-foto img {
-    transform: scale(1.05);
-}
-
-.miembro-info {
-    padding: 1.5rem;
-    text-align: center;
-}
-
-.miembro-cargo {
-    color: var(--naranja-principal);
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-.miembro-bio {
-    font-size: 0.9375rem;
-    margin-bottom: 1.5rem;
-}
-
-.miembro-social {
-    display: flex;
-    justify-content: center;
-}
-
-.miembro-social a {
-    width: 40px;
-    height: 40px;
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.miembro-social a:hover {
-    background-color: var(--negro);
-    transform: translateY(-3px);
-}
-
-/* ==========================================================================
-   10. TESTIMONIOS (SEITON - ORDENAR)
-   ========================================================================== */
-.testimonios {
-    padding: var(--espacio-xl) 0;
-    background-color: var(--gris-claro);
-}
-
-/* Slider */
-.testimonios-slider {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-}
-
-.testimonios-track {
-    display: flex;
-    transition: transform 0.5s ease;
-    width: 100%;
-    overflow: hidden;
-}
-
-.testimonio-card {
-    flex: 0 0 100%;
-    padding: 2rem;
-    background-color: var(--blanco);
-    border-radius: var(--radio-m);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    width: 100%;
-}
-
-.testimonio-resultado {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    background-color: rgba(255, 114, 0, 0.1);
-    padding: 0.75rem 1rem;
-    border-radius: var(--radio-m);
-    margin-bottom: 1rem;
-}
-
-.resultado-numero {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--naranja-principal);
-}
-
-.resultado-texto {
-    font-size: 0.875rem;
-    color: var(--gris-medio);
-}
-
-.testimonio-texto {
-    font-style: italic;
-    margin-bottom: 1.5rem;
-}
-
-.testimonio-autor {
-    display: flex;
-    align-items: center;
-}
-
-.testimonio-autor img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 1rem;
-}
-
-.autor-info h4 {
-    margin-bottom: 0.25rem;
-}
-
-.autor-info p {
-    margin-bottom: 0;
-    font-size: 0.875rem;
-    color: var(--gris-medio);
-}
-
-.slider-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
-}
-
-.slider-prev, .slider-next {
-    width: 40px;
-    height: 40px;
-    background-color: var(--blanco);
-    color: var(--naranja-principal);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.slider-prev:hover, .slider-next:hover {
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-}
-
-.slider-dots {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0 1rem;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: var(--gris-medio);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.dot.active {
-    background-color: var(--naranja-principal);
-    transform: scale(1.3);
-}
-
-/* Logos de clientes */
-.clientes-logos {
-    margin-top: 4rem;
-    padding: 2rem 0;
-    background-color: var(--blanco);
-    border-radius: var(--radio-m);
-}
-
-.logos-track {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-.logo-cliente {
-    opacity: 0.7;
-    transition: all 0.3s ease;
-}
-
-.logo-cliente:hover {
-    opacity: 1;
-    transform: translateY(-5px);
-}
-
-/* ==========================================================================
-   11. FAQ (SEISO - LIMPIAR)
-   ========================================================================== */
-.faq {
-    padding: var(--espacio-xl) 0;
-    background-color: var(--blanco);
-}
-
-.faq-contenedor {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.faq-item {
-    background-color: var(--gris-claro);
-    border-radius: var(--radio-m);
-    margin-bottom: 1rem;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.faq-item:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.faq-pregunta {
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-}
-
-.faq-pregunta h3 {
-    margin-bottom: 0;
-    font-size: 1.125rem;
-    padding-right: 2rem;
-}
-
-.faq-toggle {
-    color: var(--naranja-principal);
-    transition: all 0.3s ease;
-}
-
-.faq-item.active .faq-toggle {
-    transform: rotate(45deg);
-}
-
-.faq-respuesta {
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.faq-item.active .faq-respuesta {
-    max-height: 200px;
-    padding: 0 1.5rem 1.5rem;
-}
-
-.faq-respuesta p {
-    margin-bottom: 0;
-}
-
-/* ==========================================================================
-   12. CONTACTO (SEIKETSU - ESTANDARIZAR)
-   ========================================================================== */
-.contacto {
-    padding: var(--espacio-xl) 0;
-    background-color: var(--gris-claro);
-}
-
-.contacto-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-}
-
-.contacto-grid.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.contacto-form {
-    background-color: var(--blanco);
-    border-radius: var(--radio-m);
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-}
-
-.form-header {
-    padding: 2rem;
-    background-color: rgba(47, 133, 90, 0.1);
-    text-align: center;
-    border-bottom: 1px solid rgba(47, 133, 90, 0.1);
-}
-
-.form-icon {
-    width: 70px;
-    height: 70px;
-    background-color: var(--verde-accion);
-    color: var(--blanco);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 5px 15px rgba(47, 133, 90, 0.2);
-}
-
-.form-header h3 {
-    margin-bottom: 0.5rem;
-    color: var(--verde-accion);
-}
-
-.form-urgencia {
-    display: inline-block;
-    background-color: var(--verde-accion);
-    color: var(--blanco);
-    font-size: 0.875rem;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radio-pill);
-    margin-top: 1rem;
-}
-
-#auditoria-form {
-    padding: 2rem;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    border: 1px solid var(--gris-claro);
-    border-radius: var(--radio-s);
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus {
-    border-color: var(--verde-accion);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.1);
-}
-
-.btn-form {
-    width: 100%;
-    margin-top: 1rem;
-}
-
-.form-seguridad {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-    font-size: 0.875rem;
-    color: var(--gris-medio);
-}
-
-.form-seguridad i {
-    color: var(--verde-accion);
-    margin-right: 0.5rem;
-}
-
-.contacto-beneficios {
-    padding: 2rem;
-    background-color: var(--blanco);
-    border-radius: var(--radio-m);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.contacto-beneficios h3 {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--naranja-principal);
-    display: inline-block;
-}
-
-.timeline {
-    margin-bottom: 2rem;
-}
-
-.timeline-step {
-    display: flex;
-    margin-bottom: 1.5rem;
-}
-
-.timeline-icon {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    background-color: var(--naranja-principal);
-    color: var(--blanco);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    margin-right: 1rem;
-}
-
-.timeline-content h4 {
-    margin-bottom: 0.25rem;
-}
-
-.timeline-content p {
-    margin-bottom: 0;
-    font-size: 0.9375rem;
-}
-
-.mini-testimonio {
-    background-color: var(--gris-claro);
-    padding: 1.5rem;
-    border-radius: var(--radio-m);
-    position: relative;
-}
-
-.mini-testimonio p {
-    font-style: italic;
-    font-size: 0.9375rem;
-    color: var(--gris-medio);
-    margin-bottom: 1rem;
-}
-
-.mini-autor {
-    display: flex;
-    align-items: center;
-}
-
-.mini-autor img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 0.75rem;
-}
-
-.mini-autor span {
-    font-size: 0.875rem;
-    font-weight: 600;
-}
-
-/* ==========================================================================
-   13. FOOTER (SEISO - LIMPIAR)
-   ========================================================================== */
-.footer {
-    padding: 5rem 0 2rem;
-    background-color: var(--negro);
-    color: var(--blanco);
-}
-
-.footer-top {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 3rem;
-    margin-bottom: 2rem;
-}
-
-.footer-info {
-    max-width: 400px;
-}
-
-.footer-logo {
-    font-family: var(--fuente-titulo);
-    font-size: 1.75rem;
-    font-weight: 800;
-    display: inline-block;
-    margin-bottom: 1.5rem;
-}
-
-.footer-logo span {
-    color: var(--naranja-principal);
-}
-
-.footer-info p {
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 1.5rem;
-}
-
-.footer-social {
-    display: flex;
-    gap: 1rem;
-}
-
-.footer-social a {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    color: var(--blanco);
-    transition: all 0.3s ease;
-}
-
-.footer-social a:hover {
-    background-color: var(--naranja-principal);
-    transform: translateY(-3px);
-}
-
-.footer-contacto h4 {
-    margin-bottom: 1.5rem;
-    color: var(--blanco);
-    position: relative;
-    padding-bottom: 0.75rem;
-}
-
-.footer-contacto h4::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background-color: var(--naranja-principal);
-}
-
-.footer-contacto ul {
-    margin-bottom: 1.5rem;
-}
-
-.footer-contacto li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 1rem;
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.footer-contacto li i {
-    margin-right: 1rem;
-    color: var(--naranja-principal);
-}
-
-.btn-whatsapp {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    background-color: #25D366;
-    color: var(--blanco);
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radio-pill);
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-whatsapp:hover {
-    background-color: #1DA856;
-    transform: translateY(-3px);
-}
-
-.footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.footer-bottom p {
-    margin-bottom: 0;
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.footer-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-}
-
-.footer-links a {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.5);
-    transition: all 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: var(--blanco);
-}
-
-.separador {
-    color: rgba(255, 255, 255, 0.3);
-}
-
-.whatsapp-flotante {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    width: 60px;
-    height: 60px;
-    background-color: #25D366;
-    color: var(--blanco);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    z-index: 100;
-}
-
-.whatsapp-flotante:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* ==========================================================================
-   14. MEDIA QUERIES (SHITSUKE - MANTENER)
-   ========================================================================== */
-@media (max-width: 992px) {
-    h1 {
-        font-size: 2.25rem;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Orange Vapor | Meta & Google Ads que generan ventas para PyMEs</title>
     
-    h2 {
-        font-size: 1.75rem;
-    }
+    <!-- Meta información optimizada -->
+    <meta name="description" content="Orange Vapor: Especialistas en Meta & Google Ads para PyMEs con resultados medibles. Convertimos tu inversión publicitaria en ventas reales.">
+    <meta name="keywords" content="meta ads, google ads, publicidad digital, pymes, emprendedores, roi">
     
-    .section-header {
-        margin-bottom: 2rem;
-    }
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.orangevapor.com/">
+    <meta property="og:title" content="Orange Vapor | Meta & Google Ads para PyMEs">
+    <meta property="og:description" content="Convertimos tu inversión publicitaria en ventas reales para tu pequeño negocio. Sin presupuestos enormes, sin falsas promesas.">
+    <meta property="og:image" content="https://www.orangevapor.com/img/og-image.jpg">
     
-    .mobile-toggle {
-        display: block;
-    }
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -300px;
-        width: 300px;
-        height: 100vh;
-        background-color: var(--blanco);
-        z-index: 1001;
-        padding: 6rem 1.5rem 1.5rem;
-        transition: all 0.3s ease;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    }
+    <!-- Fuentes optimizadas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     
-    .nav-menu.active {
-        right: 0;
-    }
+    <!-- Font Awesome (con carga diferida) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    .nav-menu ul {
-        flex-direction: column;
-        gap: 1rem;
-    }
+    <!-- CSS inline crítico -->
+    <style>
+        :root {
+            /* Paleta reducida - Principio Seiso */
+            --naranja-principal: #FF7200;
+            --naranja-claro: #FF9340;
+            --verde-accion: #2F855A;
+            --negro: #2D2D2D;
+            --gris-medio: #666666;
+            --gris-claro: #F7F7F7;
+            --blanco: #FFFFFF;
+            
+            /* Espaciados estandarizados - Principio Seiketsu */
+            --espacio-xs: 0.5rem;
+            --espacio-s: 1rem;
+            --espacio-m: 1.5rem;
+            --espacio-l: 3rem;
+            --espacio-xl: 5rem;
+            
+            /* Tipografía estandarizada */
+            --fuente-titulo: 'Montserrat', sans-serif;
+            --fuente-texto: 'Open Sans', sans-serif;
+            
+            /* Bordes y radios */
+            --radio-s: 4px;
+            --radio-m: 8px;
+            --radio-l: 12px;
+            --radio-xl: 16px;
+            --radio-pill: 100px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--fuente-texto);
+            color: var(--negro);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--espacio-m);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--fuente-titulo);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Botón CTA principal - Estandarizado */
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--verde-accion);
+            color: var(--blanco);
+            font-family: var(--fuente-titulo);
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: var(--radio-m);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(47, 133, 90, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(47, 133, 90, 0.3);
+        }
+        
+        .btn-secondary {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--naranja-principal);
+            border: 2px solid var(--naranja-principal);
+            font-family: var(--fuente-titulo);
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: var(--radio-m);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--naranja-principal);
+            color: var(--blanco);
+        }
+        
+        /* Visibilidad de contenido inicial de carga */
+        .header, .hero {
+            opacity: 1 !important;
+            transform: none !important;
+            visibility: visible !important;
+        }
+    </style>
     
-    .nav-menu a {
-        color: var(--negro);
-        display: block;
-        padding: 0.5rem 0;
-    }
-    
-    .btn-header {
-        display: none;
-    }
-    
-    .hero .container {
-        flex-direction: column;
-        gap: 3rem;
-    }
-    
-    .hero-content, .hero-image {
-        max-width: 100%;
-    }
-    
-    .hero-cta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1.5rem;
-    }
-    
-    .proceso-timeline {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .proceso-timeline::before {
-        display: none;
-    }
-    
-    .paso-numero {
-        margin-bottom: 1rem;
-    }
-    
-    .footer-top {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-}
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="style.css">
+</head>
 
-@media (max-width: 768px) {
-    section {
-        padding: var(--espacio-l) 0;
-    }
-    
-    h1 {
-        font-size: 2rem;
-    }
-    
-    h2 {
-        font-size: 1.5rem;
-    }
-    
-    .problemas-grid, .equipo-grid, .contacto-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .paquete-content {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .paquete-features {
-        align-items: flex-start;
-    }
-    
-    .btn-paquete {
-        width: 100%;
-    }
-    
-    .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .btn-flotante, .whatsapp-flotante {
-        width: 50px;
-        height: 50px;
-        font-size: 1.25rem;
-    }
-}
+<body>
+    <!-- HEADER - Simplificado (Principio Seiri) -->
+    <header class="header">
+        <div class="container">
+            <div class="header-wrapper">
+                <a href="/" class="logo">
+                    Orange<span>Vapor</span>
+                </a>
+                
+                <nav class="nav-menu">
+                    <ul>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#proceso">Metodología</a></li>
+                        <li><a href="#testimonios">Resultados</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+                
+                <a href="#contacto" class="btn-primary btn-header">Auditoría Gratis</a>
+                
+                <button class="mobile-toggle" aria-label="Menú">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
-@media (max-width: 576px) {
-    h1 {
-        font-size: 1.75rem;
-    }
-    
-    .hero {
-        padding: 8rem 0 4rem;
-    }
-    
-    .tabs-header {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    .tab-btn {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .tabla-comparativa {
-        font-size: 0.875rem;
-    }
-    
-    .tabla-comparativa th, .tabla-comparativa td {
-        padding: 0.75rem 0.5rem;
-    }
-    
-    .timeline-icon {
-        width: 30px;
-        height: 30px;
-        font-size: 0.875rem;
-    }
-    
-    .timeline-content h4 {
-        font-size: 1rem;
-    }
-    
-    .footer-links {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .separador {
-        display: none;
-    }
-    
-    .btn-flotante {
-        right: 15px;
-        bottom: 15px;
-    }
-    
-    .whatsapp-flotante {
-        left: 15px;
-        bottom: 15px;
-    }
-}
+    <!-- HERO - Enfocado en propuesta de valor (Principio Seiton) -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Meta & Google Ads que generan ventas para tu PyME</h1>
+                <p class="hero-subtitle">Convertimos tu inversión publicitaria en clientes reales. Sin presupuestos enormes, sin falsas promesas.</p>
+                
+                <div class="hero-cta">
+                    <a href="#contacto" class="btn-primary btn-hero">Obtener Auditoría Gratis</a>
+                    <div class="hero-stat">
+                        <span class="stat-number">+57%</span>
+                        <span class="stat-text">aumento promedio de ROAS para nuestros clientes</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <div class="audit-card">
+                    <div class="audit-header">
+                        <div class="audit-logo">
+                            <i class="fas fa-search-dollar"></i>
+                        </div>
+                        <h3>Auditoría Profesional</h3>
+                    </div>
+                    <div class="audit-content">
+                        <ul class="audit-features">
+                            <li><i class="fas fa-check-circle"></i> Análisis completo de campañas</li>
+                            <li><i class="fas fa-check-circle"></i> Problemas críticos identificados</li>
+                            <li><i class="fas fa-check-circle"></i> Plan de acción claro</li>
+                            <li><i class="fas fa-check-circle"></i> Entrega en 48 horas</li>
+                        </ul>
+                        <div class="audit-price">
+                            <span class="price-tag">GRATIS</span>
+                            <span class="price-note">Valor real: $100 USD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMA - Nuevo bloque para establecer dolor (Principio Seiton) -->
+    <section id="problema" class="problema">
+        <div class="container">
+            <div class="section-header">
+                <h2>¿Tu PyME está perdiendo dinero en publicidad digital?</h2>
+                <p>La mayoría de pequeños negocios enfrentan estos 3 problemas críticos:</p>
+            </div>
+            
+            <div class="problemas-grid">
+                <div class="problema-card">
+                    <div class="problema-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Presupuesto desperdiciado</h3>
+                    <p>Tu dinero se gasta en clics que no se convierten en ventas reales para tu pequeño negocio.</p>
+                </div>
+                
+                <div class="problema-card">
+                    <div class="problema-icon">
+                        <i class="fas fa-users-slash"></i>
+                    </div>
+                    <h3>Audiencia equivocada</h3>
+                    <p>Tus anuncios llegan a personas que nunca comprarán tus productos o servicios.</p>
+                </div>
+                
+                <div class="problema-card">
+                    <div class="problema-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Resultados confusos</h3>
+                    <p>Recibes informes con métricas que no se traducen en beneficios concretos para tu PyME.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS - Simplificado (Principio Seiri) -->
+    <section id="servicios" class="servicios">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Nuestras Soluciones</span>
+                <h2>Servicios de Publicidad Digital para Pequeños Negocios</h2>
+                <p>Elegí la solución que mejor se adapte a los objetivos y presupuesto de tu PyME</p>
+            </div>
+            
+            <!-- Tabla comparativa en lugar de tarjetas (Principio Seiton) -->
+            <div class="servicios-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="meta">Meta Ads</button>
+                    <button class="tab-btn" data-tab="google">Google Ads</button>
+                </div>
+                
+                <div class="tabs-content">
+                    <!-- META ADS TAB -->
+                    <div id="meta-tab" class="tab-content active">
+                        <div class="service-intro">
+                            <h3>Meta Ads: Conversiones Directas para PyMEs</h3>
+                            <p>Campañas en Facebook e Instagram que captan la atención de tu audiencia ideal y la convierten en clientes reales.</p>
+                        </div>
+                        
+                        <div class="planes-tabla">
+                            <table class="tabla-comparativa">
+                                <thead>
+                                    <tr>
+                                        <th>Características</th>
+                                        <th>Starter <span class="precio">US$299/mes</span></th>
+                                        <th class="destacado">Pro <span class="precio">US$599/mes</span></th>
+                                        <th>Elite <span class="precio">US$999/mes</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Frecuencia de optimización</td>
+                                        <td>Quincenal</td>
+                                        <td class="destacado">Semanal</td>
+                                        <td>Diaria</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Anuncios incluidos</td>
+                                        <td>3 estáticos</td>
+                                        <td class="destacado">6 dinámicos + test A/B</td>
+                                        <td>20 premium + A/B avanzado</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Audiencias</td>
+                                        <td>2 básicas</td>
+                                        <td class="destacado">5 avanzadas</td>
+                                        <td>Ilimitadas + predictivas</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Reportes</td>
+                                        <td>Mensual</td>
+                                        <td class="destacado">Quincenal</td>
+                                        <td>Semanal + dashboard</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Remarketing</td>
+                                        <td><i class="fas fa-times"></i></td>
+                                        <td class="destacado"><i class="fas fa-check"></i></td>
+                                        <td><i class="fas fa-check"></i></td>
+                                    </tr>
+                                    <tr class="row-cta">
+                                        <td></td>
+                                        <td><a href="#contacto" class="btn-secondary">Elegir Starter</a></td>
+                                        <td class="destacado"><a href="#contacto" class="btn-primary">Elegir Pro</a></td>
+                                        <td><a href="#contacto" class="btn-secondary">Elegir Elite</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- GOOGLE ADS TAB -->
+                    <div id="google-tab" class="tab-content">
+                        <div class="service-intro">
+                            <h3>Google Ads: Captura la Intención de Compra</h3>
+                            <p>Posicionamos tu pequeño negocio en el momento exacto en que tus clientes potenciales buscan tus productos o servicios.</p>
+                        </div>
+                        
+                        <div class="planes-tabla">
+                            <table class="tabla-comparativa">
+                                <thead>
+                                    <tr>
+                                        <th>Características</th>
+                                        <th>Starter <span class="precio">US$299/mes</span></th>
+                                        <th class="destacado">Pro <span class="precio">US$599/mes</span></th>
+                                        <th>Elite <span class="precio">US$999/mes</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Frecuencia de optimización</td>
+                                        <td>Quincenal</td>
+                                        <td class="destacado">Semanal</td>
+                                        <td>Diaria</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Anuncios incluidos</td>
+                                        <td>3 de texto</td>
+                                        <td class="destacado">6 (texto + display)</td>
+                                        <td>20 premium (todos los formatos)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo de campañas</td>
+                                        <td>Búsqueda</td>
+                                        <td class="destacado">Búsqueda + Display + Remarketing</td>
+                                        <td>Performance Max completo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Reportes</td>
+                                        <td>Mensual</td>
+                                        <td class="destacado">Quincenal + análisis</td>
+                                        <td>Semanal + dashboard</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Machine Learning</td>
+                                        <td><i class="fas fa-times"></i></td>
+                                        <td class="destacado"><i class="fas fa-check"></i></td>
+                                        <td><i class="fas fa-check"></i></td>
+                                    </tr>
+                                    <tr class="row-cta">
+                                        <td></td>
+                                        <td><a href="#contacto" class="btn-secondary">Elegir Starter</a></td>
+                                        <td class="destacado"><a href="#contacto" class="btn-primary">Elegir Pro</a></td>
+                                        <td><a href="#contacto" class="btn-secondary">Elegir Elite</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PAQUETE COMPLETO - Destacado -->
+            <div class="paquete-completo">
+                <div class="paquete-header">
+                    <div class="paquete-tag">Recomendado</div>
+                    <h3>Paquete Completo para PyMEs</h3>
+                    <p>La solución integral: Meta Ads + Google Ads con precio accesible para pequeños negocios</p>
+                </div>
+                <div class="paquete-content">
+                    <div class="paquete-precio">
+                        <span class="precio-cantidad">US$499</span>
+                        <span class="precio-periodo">/mes</span>
+                        <span class="precio-ahorro">Ahorrás US$99 mensual vs contratar servicios individuales</span>
+                    </div>
+                    <ul class="paquete-features">
+                        <li><i class="fas fa-check-circle"></i> Estrategia integrada en ambas plataformas</li>
+                        <li><i class="fas fa-check-circle"></i> Un solo equipo para todas tus campañas</li>
+                        <li><i class="fas fa-check-circle"></i> Reporte unificado de resultados</li>
+                    </ul>
+                    <a href="#contacto" class="btn-primary btn-paquete">Elegir Paquete Completo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESO - Visualización simplificada (Principio Seiso) -->
+    <section id="proceso" class="proceso">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Metodología Probada</span>
+                <h2>3 Pasos para Transformar tu Publicidad Digital</h2>
+                <p>Un camino claro y efectivo que genera resultados medibles con presupuestos ajustados a emprendedores</p>
+            </div>
+            
+            <div class="proceso-timeline">
+                <div class="paso">
+                    <div class="paso-numero">1</div>
+                    <div class="paso-contenido">
+                        <h3>Auditoría <span class="gratis-badge">GRATIS</span></h3>
+                        <p>Analizamos tus campañas y detectamos problemas críticos en 48 horas.</p>
+                        <div class="paso-testimonio">
+                            <p>"La auditoría detectó errores que me costaban $850 semanales" — Carlos L.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="paso">
+                    <div class="paso-numero">2</div>
+                    <div class="paso-contenido">
+                        <h3>Estrategia Personalizada</h3>
+                        <p>Desarrollamos un plan adaptado al presupuesto y objetivos específicos de tu PyME.</p>
+                        <div class="paso-testimonio">
+                            <p>"Por fin tenemos una estrategia coherente entre plataformas" — Federico M.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="paso">
+                    <div class="paso-numero">3</div>
+                    <div class="paso-contenido">
+                        <h3>Resultados Garantizados</h3>
+                        <p>Implementamos, optimizamos y mostramos el impacto real en tu negocio.</p>
+                        <div class="paso-testimonio">
+                            <p>"El ROI fue positivo desde el primer mes" — María G.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="proceso-garantia">
+                <div class="garantia-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="garantia-content">
+                    <h4>Garantía de Satisfacción para PyMEs</h4>
+                    <p>Si no vemos mejoras en tu rendimiento en 30 días, realizamos un ajuste estratégico completo sin costo adicional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EQUIPO - Enfocado en credibilidad (Principio Seiketsu) -->
+    <section id="equipo" class="equipo">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Quiénes Somos</span>
+                <h2>Expertos en Publicidad Digital para PyMEs</h2>
+                <p>Profesionales con experiencia real en pequeños negocios</p>
+            </div>
+            
+            <div class="equipo-grid">
+                <div class="miembro">
+                    <div class="miembro-foto">
+                        <img src="https://media.licdn.com/dms/image/v2/D4D03AQGMBstWC1OBlg/profile-displayphoto-shrink_200_200/B4DZThGN0VHYAY-/0/1738943291295?e=1746662400&v=beta&t=_FE9qOC8W-1ihM4a6-s8GrW3OfZwNLcVn0v46ZIIWhI" alt="Emiliano Cecchi">
+                    </div>
+                    <div class="miembro-info">
+                        <h3>Emiliano Cecchi</h3>
+                        <p class="miembro-cargo">Director de Estrategia Digital</p>
+                        <p class="miembro-bio">Ex-líder del equipo de E-commerce de Hunter Douglas Argentina, especialista en estrategias digitales para PyMEs.</p>
+                        <div class="miembro-social">
+                            <a href="https://www.linkedin.com/in/mkt-ecommerce/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="miembro">
+                    <div class="miembro-foto">
+                        <img src="https://media.licdn.com/dms/image/v2/D4D03AQFzKVN_97EuCA/profile-displayphoto-shrink_800_800/B4DZUFiPEVHkAc-/0/1739554616070?e=1746662400&v=beta&t=mZQnzBWjAyvlnYM6Q_p0EZQVtc7f3a1UqbGrg-iqum8" alt="Yobanny Ortega">
+                    </div>
+                    <div class="miembro-info">
+                        <h3>Yobanny Ortega</h3>
+                        <p class="miembro-cargo">Director de Publicidad Digital</p>
+                        <p class="miembro-bio">Experto en campañas digitales para pequeños negocios. Ex-líder de equipos de compras de medios en Publicis Media.</p>
+                        <div class="miembro-social">
+                            <a href="https://www.linkedin.com/in/yobanny-ortega/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS - Formato carrusel (Principio Seiton) -->
+    <section id="testimonios" class="testimonios">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Resultados Reales</span>
+                <h2>Lo Que Dicen Otros Emprendedores</h2>
+                <p>PyMEs y pequeños negocios que ya obtienen resultados concretos</p>
+            </div>
+            
+            <div class="testimonios-slider">
+                <div class="testimonios-track">
+                    <div class="testimonio-card">
+                        <div class="testimonio-resultado">
+                            <span class="resultado-numero">+187%</span>
+                            <span class="resultado-texto">aumento en ROAS</span>
+                        </div>
+                        <p class="testimonio-texto">"La auditoría detectó errores críticos en mis campañas que me estaban costando $850 por semana. Con los cambios sugeridos, mi PyME aumentó su ROAS un 187% en solo 14 días."</p>
+                        <div class="testimonio-autor">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Carlos L.">
+                            <div class="autor-info">
+                                <h4>Carlos L.</h4>
+                                <p>Tienda de decoración</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonio-card">
+                        <div class="testimonio-resultado">
+                            <span class="resultado-numero">+62%</span>
+                            <span class="resultado-texto">consultas convertidas</span>
+                        </div>
+                        <p class="testimonio-texto">"Como emprendedor con presupuesto limitado, nunca pensé que podría competir con grandes empresas. Google Ads me ha permitido aparecer en búsquedas relevantes y el ROI fue positivo desde el primer mes."</p>
+                        <div class="testimonio-autor">
+                            <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="María G.">
+                            <div class="autor-info">
+                                <h4>María G.</h4>
+                                <p>Academia online</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonio-card">
+                        <div class="testimonio-resultado">
+                            <span class="resultado-numero">-28%</span>
+                            <span class="resultado-texto">costo por cliente</span>
+                        </div>
+                        <p class="testimonio-texto">"Contratamos el Paquete Completo y finalmente tenemos una estrategia coherente entre Meta y Google Ads. El equipo entiende perfectamente las limitaciones de presupuesto de las PyMEs."</p>
+                        <div class="testimonio-autor">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Federico M.">
+                            <div class="autor-info">
+                                <h4>Federico M.</h4>
+                                <p>Servicios profesionales</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-controls">
+                    <button class="slider-prev" aria-label="Anterior testimonio">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="slider-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <button class="slider-next" aria-label="Siguiente testimonio">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Logos de clientes -->
+            <div class="clientes-logos">
+                <div class="logos-track">
+                    <div class="logo-cliente"><img src="https://via.placeholder.com/120x60" alt="Cliente 1"></div>
+                    <div class="logo-cliente"><img src="https://via.placeholder.com/120x60" alt="Cliente 2"></div>
+                    <div class="logo-cliente"><img src="https://via.placeholder.com/120x60" alt="Cliente 3"></div>
+                    <div class="logo-cliente"><img src="https://via.placeholder.com/120x60" alt="Cliente 4"></div>
+                    <div class="logo-cliente"><img src="https://via.placeholder.com/120x60" alt="Cliente 5"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ - Simplificado -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Preguntas Frecuentes</span>
+                <h2>Todo lo que Necesitás Saber</h2>
+            </div>
+            
+            <div class="faq-contenedor">
+                <div class="faq-item">
+                    <div class="faq-pregunta">
+                        <h3>¿Cómo funciona exactamente la auditoría gratuita?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-respuesta">
+                        <p>Solicitás acceso en modo lectura a tus cuentas, analizamos tus campañas actuales, identificamos problemas específicos y oportunidades, y te entregamos un reporte profesional en 48 horas. No realizamos cambios sin tu aprobación.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-pregunta">
+                        <h3>¿Existe un tiempo mínimo de permanencia?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-respuesta">
+                        <p>No exigimos un tiempo mínimo. Podés cancelar nuestros servicios en cualquier momento, aunque recomendamos mantener las estrategias por al menos 3 meses para ver resultados significativos.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-pregunta">
+                        <h3>¿Requieren un presupuesto mínimo de publicidad?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-respuesta">
+                        <p>No tenemos un presupuesto mínimo requerido, entendemos la realidad de los emprendedores. Adaptamos nuestras estrategias al presupuesto que tengas disponible para maximizar tus resultados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO - Formulario simplificado (Principio Seiri) -->
+    <section id="contacto" class="contacto">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Tu Primer Paso</span>
+                <h2>Solicitá tu Auditoría Gratis</h2>
+                <p>Descubrí exactamente dónde están fallando tus campañas y recibí un plan concreto en 48 horas</p>
+            </div>
+            
+            <div class="contacto-grid">
+                <!-- Formulario simplificado -->
+                <div class="contacto-form">
+                    <div class="form-header">
+                        <div class="form-icon">
+                            <i class="fas fa-search-dollar"></i>
+                        </div>
+                        <h3>Completá tus datos</h3>
+                        <p class="form-urgencia">Solo 5 auditorías disponibles esta semana</p>
+                    </div>
+                    
+                    <form id="auditoria-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" required>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary btn-form">Solicitar Auditoría Gratis</button>
+                        
+                        <div class="form-seguridad">
+                            <span><i class="fas fa-lock"></i> Datos seguros</span>
+                            <span><i class="fas fa-shield-alt"></i> Confidencial</span>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Qué vas a recibir -->
+                <div class="contacto-beneficios">
+                    <h3>Lo que recibirás en 48 horas:</h3>
+                    
+                    <div class="timeline">
+                        <div class="timeline-step">
+                            <div class="timeline-icon">1</div>
+                            <div class="timeline-content">
+                                <h4>Diagnóstico Visual</h4>
+                                <p>Identificación de problemas críticos con capturas explicativas</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-step">
+                            <div class="timeline-icon">2</div>
+                            <div class="timeline-content">
+                                <h4>Análisis de Audiencia</h4>
+                                <p>Segmentos de alto potencial que no estás alcanzando actualmente</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-step">
+                            <div class="timeline-icon">3</div>
+                            <div class="timeline-content">
+                                <h4>Plan de Acción</h4>
+                                <p>Recomendaciones concretas que puedes implementar inmediatamente</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mini-testimonio">
+                        <p>"Como PyME, la auditoría detectó errores que me estaban costando $850 por semana. Con los cambios sugeridos, mi ROAS aumentó un 187% en solo 14 días."</p>
+                        <div class="mini-autor">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Carlos L.">
+                            <span>Carlos L., Tienda de decoración</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER - Minimalista (Principio Seiso) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <a href="/" class="footer-logo">Orange<span>Vapor</span></a>
+                    <p>Agencia especializada en estrategias de Meta & Google Ads con resultados garantizados para PyMEs y emprendedores.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/orangevapor.ar/" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/106336169/" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-contacto">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</li>
+                        <li><i class="fas fa-phone"></i> +54 1130011554</li>
+                        <li><i class="fas fa-envelope"></i> emiliano@orangevapor.com</li>
+                    </ul>
+                    <a href="https://wa.me/541130011554" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Orange Vapor. Todos los derechos reservados.</p>
+                <div class="footer-links">
+                    <a href="#">Política de Privacidad</a>
+                    <span class="separador">|</span>
+                    <a href="#">Términos y Condiciones</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/541130011554" class="whatsapp-flotante" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- CTA Flotante -->
+    <div class="cta-flotante">
+        <a href="#contacto" class="btn-flotante">
+            <i class="fas fa-bolt"></i> Auditoría Gratis
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Quitamos clase preload después de la carga
+        window.addEventListener('load', function() {
+            document.body.classList.remove('preload');
+            
+            // Inicialización de elementos interactivos
+            initTabs();
+            initFaq();
+            initSlider();
+            
+            // Animaciones al hacer scroll
+            const elementsToAnimate = document.querySelectorAll('.section-header, .problemas-grid, .proceso-timeline, .equipo-grid, .contacto-grid');
+            observeElements(elementsToAnimate);
+        });
+        
+        // Inicialización de tabs
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Eliminar clase activa de todos los botones
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Añadir clase activa al botón clicado
+                    button.classList.add('active');
+                    
+                    // Mostrar contenido correspondiente
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    document.querySelectorAll('.tab-content').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    
+                    document.getElementById(tabId + '-tab').classList.add('active');
+                });
+            });
+        }
+        
+        // Inicialización del FAQ
+        function initFaq() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-pregunta');
+                
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Cerrar todos los items
+                    faqItems.forEach(faqItem => {
+                        faqItem.classList.remove('active');
+                    });
+                    
+                    // Si no estaba activo, abrirlo
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        }
+        
+        // Inicialización del slider de testimonios
+        function initSlider() {
+            const track = document.querySelector('.testimonios-track');
+            const slides = document.querySelectorAll('.testimonio-card');
+            const dots = document.querySelectorAll('.dot');
+            const prevButton = document.querySelector('.slider-prev');
+            const nextButton = document.querySelector('.slider-next');
+            
+            let currentSlide = 0;
+            
+            function goToSlide(index) {
+                if (index < 0) index = slides.length - 1;
+                if (index >= slides.length) index = 0;
+                
+                currentSlide = index;
+                
+                // Actualizar posición del track
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Actualizar dots
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentSlide);
+                });
+            }
+            
+            // Event listeners
+            prevButton.addEventListener('click', () => {
+                goToSlide(currentSlide - 1);
+            });
+            
+            nextButton.addEventListener('click', () => {
+                goToSlide(currentSlide + 1);
+            });
+            
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(i);
+                });
+            });
+            
+            // Autoplay
+            setInterval(() => {
+                goToSlide(currentSlide + 1);
+            }, 5000);
+        }
+        
+        // Observer para animaciones al hacer scroll
+        function observeElements(elements) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+            
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+    </script>
+</body>
+</html>
