@@ -57,25 +57,36 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBXS9H66" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <!-- Navbar simplificada -->
-    <header class="navbar">
-        <div class="container navbar-container">
-            <a href="#home" class="logo">Orange<span>Vapor</span></a>
-            <nav class="nav-menu" aria-label="Navegación principal">
-                <ul>
-                    <li><a href="#home" class="nav-link">Inicio</a></li>
-                    <li><a href="#servicios" class="nav-link">Servicios</a></li>
-                    <li><a href="#proceso" class="nav-link">Metodología</a></li>
-                    <li><a href="#equipo" class="nav-link">Equipo</a></li>
-                    <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
-                    <li><a href="#contacto" class="nav-link cta-nav">Auditoría Gratis</a></li>
-                </ul>
-            </nav>
-            <button class="mobile-toggle" aria-label="Menú" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
+<!-- Navbar -->
+<div id="navbar-container"></div>
+
+<script>
+    fetch('navbar.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('No se pudo cargar la navbar');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+            
+            const navbarScripts = document.getElementById('navbar-container').getElementsByTagName('script');
+            for (let script of navbarScripts) {
+                const newScript = document.createElement('script');
+                if (script.src) {
+                    newScript.src = script.src;
+                } else {
+                    newScript.textContent = script.textContent;
+                }
+                document.body.appendChild(newScript);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('navbar-container').innerHTML = '<p>Error al cargar la navegación. Por favor, recarga la página.</p>';
+        });
+</script>
 
     <!-- Sección Hero (rediseñada) -->
     <section id="home" class="hero" aria-label="Sección principal">
