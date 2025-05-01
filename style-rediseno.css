@@ -92,10 +92,7 @@
     --container-width: 1200px;
     --container-padding: var(--space-4);
     
-    /* Altura navbar */
-    --navbar-height: 70px;
-    --navbar-height-mobile: 60px;
-}
+   
 
 /* ==========================================================================
    2. RESET Y NORMALIZACION
@@ -326,151 +323,7 @@ p {
     box-shadow: var(--shadow-md);
 }
 
-/* ==========================================================================
-   6. LAYOUT - NAVBAR
-   ========================================================================== */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: transparent;
-    transition: all var(--transition-normal);
-}
 
-.navbar.scrolled {
-    background-color: var(--color-white);
-    box-shadow: var(--shadow-sm);
-}
-
-.navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: var(--navbar-height);
-}
-
-.logo {
-    font-family: var(--font-primary);
-    font-weight: 800;
-    font-size: 1.75rem;
-    color: var(--color-white);
-}
-
-.navbar.scrolled .logo {
-    color: var(--color-gray-900);
-}
-
-.logo span {
-    color: var(--color-primary);
-}
-
-.nav-menu ul {
-    display: flex;
-    gap: var(--space-4);
-}
-
-.nav-link {
-    color: var(--color-white);
-    font-weight: 600;
-    padding: 0.25rem 0.5rem;
-    position: relative;
-}
-
-.navbar.scrolled .nav-link {
-    color: var(--color-gray-900);
-}
-
-.nav-link:hover {
-    color: var(--color-primary);
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-primary);
-    transition: width var(--transition-normal);
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-.cta-nav {
-    background-color: var(--color-secondary);
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-full);
-    color: var(--color-white);
-}
-
-.cta-nav:hover {
-    background-color: var(--color-secondary-dark);
-    color: var(--color-white);
-}
-
-.cta-nav::after {
-    display: none;
-}
-
-.mobile-toggle {
-    display: none;
-    font-size: 1.5rem;
-    color: var(--color-white);
-}
-
-.navbar.scrolled .mobile-toggle {
-    color: var(--color-gray-900);
-}
-
-@media (max-width: 991px) {
-    .navbar-container {
-        height: var(--navbar-height-mobile);
-    }
-    
-    .mobile-toggle {
-        display: block;
-    }
-    
-    .nav-menu {
-        position: fixed;
-        top: var(--navbar-height-mobile);
-        left: 0;
-        width: 100%;
-        height: calc(100vh - var(--navbar-height-mobile));
-        background-color: var(--color-gray-900);
-        padding: var(--space-6);
-        transform: translateX(100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: all var(--transition-normal);
-    }
-    
-    .nav-menu.active {
-        transform: translateX(0);
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .nav-menu ul {
-        flex-direction: column;
-        gap: var(--space-4);
-    }
-    
-    .nav-link {
-        display: block;
-        padding: var(--space-3);
-    }
-    
-    .cta-nav {
-        display: inline-block;
-        margin-top: var(--space-3);
-    }
-}
 
 /* ==========================================================================
    7. HERO SECTION
@@ -2577,14 +2430,7 @@ p {
         background: white !important;
     }
     
-    .navbar,
-    .floating-cta,
-    .scroll-down,
-    .hero-shape,
-    .footer {
-        display: none !important;
-    }
-    
+  
     .container {
         width: 100% !important;
         max-width: 100% !important;
