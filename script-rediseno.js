@@ -72,18 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // NAVBAR Y NAVEGACIÓN
     // =========================================================================
     
-    /**
-     * Inicializa el comportamiento de la navbar
-     */
-    const initNavbar = () => {
-        const navbar = document.querySelector('.navbar');
-        const mobileToggle = document.querySelector('.mobile-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        // Manejar cambio de color de navbar al hacer scroll
-        window.addEventListener('scroll', () => {
-            toggleClass(navbar, 'scrolled', window.scrollY > 10);
-        });
+    
         
         // Menú móvil toggle
         if (mobileToggle && navMenu) {
