@@ -72,7 +72,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // NAVBAR Y NAVEGACIÓN
     // =========================================================================
     
-    
+    /**
+     * Inicializa la barra de navegación
+     */
+    const initNavbar = () => {
+        const header = document.querySelector('.navbar');
+        const mobileToggle = document.querySelector('.navbar-toggler');
+        const navMenu = document.querySelector('.navbar-collapse');
+        
+        if (!header) return;
+        
+        // Manejo del scroll 
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Añadir clase scrolled al header cuando se hace scroll
+            toggleClass(header, 'scrolled', scrollTop > 10);
+            
+            // Ocultar header en scroll down, mostrar en scroll up
+            if (scrollTop > 100) {
+                toggleClass(header, 'scrolled-down', scrollTop > lastScrollTop);
+            }
+            
+            lastScrollTop = scrollTop;
+        });
         
         // Menú móvil toggle
         if (mobileToggle && navMenu) {
@@ -84,12 +108,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Cambiar icono
                 const icon = mobileToggle.querySelector('i');
-                if (isExpanded) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
+                if (icon) {
+                    if (isExpanded) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
                 }
             });
         }
@@ -97,13 +123,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Cerrar menú al hacer clic en links
         forEachElement('.nav-link', link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth <= 991 && navMenu.classList.contains('active')) {
+                if (window.innerWidth <= 991 && navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
-                    mobileToggle.setAttribute('aria-expanded', false);
-                    
-                    const icon = mobileToggle.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
+                    if (mobileToggle) {
+                        mobileToggle.setAttribute('aria-expanded', false);
+                        
+                        const icon = mobileToggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        }
+                    }
                 }
             });
         });
