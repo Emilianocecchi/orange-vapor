@@ -1,98 +1,623 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moodboard Visual – momoed8</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #0d0d0d;
-      color: #f8f8f8;
-    }
-
-    header {
-      text-align: center;
-      padding: 2rem;
-      background-color: #1a1a1a;
-    }
-
-    h1 {
-      margin: 0;
-      color: #e63946;
-      font-size: 2.5rem;
-    }
-
-    section {
-      padding: 2rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-
-    .grid img {
-      width: 100%;
-      border: 4px solid #333;
-      transition: transform 0.3s ease;
-    }
-
-    .grid img:hover {
-      transform: scale(1.05);
-      border-color: #00bfff;
-    }
-
-    .caption {
-      text-align: center;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      color: #ccc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Board: Estética Surrealista Provocativa</title>
+    <style>
+        /* Fuentes */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@300;400&display=swap');
+        
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+            font-family: 'Roboto Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+            color: #f0f0f0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #ff2e4a, #6b0035, #ff2e4a);
+            animation: gradientShift 6s ease infinite;
+            background-size: 200% 200%;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #8a8a8a;
+            margin-bottom: 20px;
+        }
+        
+        /* Secciones */
+        section {
+            margin: 60px 0;
+            position: relative;
+        }
+        
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            display: inline-block;
+            position: relative;
+            color: #f0f0f0;
+        }
+        
+        h2::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: -30px;
+            width: 20px;
+            height: 1px;
+            background-color: #ff2e4a;
+        }
+        
+        /* Paleta de colores */
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .color-swatch {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .color-swatch:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .color-info {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            background: rgba(0,0,0,0.7);
+        }
+        
+        .color-swatch:hover .color-info {
+            opacity: 1;
+        }
+        
+        .color-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        /* Temáticas */
+        .tematicas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .tema-card {
+            background-color: rgba(20, 20, 20, 0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tema-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background-color: #ff2e4a;
+            transition: height 0.3s ease;
+        }
+        
+        .tema-card:hover::before {
+            height: 100%;
+        }
+        
+        .tema-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .tema-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #f0f0f0;
+        }
+        
+        .tema-descripcion {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+        
+        /* Técnicas */
+        .tecnicas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .tecnica-tag {
+            background-color: rgba(30, 30, 30, 0.6);
+            padding: 8px 15px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .tecnica-tag:hover {
+            background-color: #ff2e4a;
+            color: #ffffff;
+        }
+        
+        /* Conceptos visuales */
+        .visual-concepts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .concept-card {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background-color: #151515;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .concept-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .concept-content {
+            padding: 20px;
+            text-align: center;
+            z-index: 2;
+        }
+        
+        .concept-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #f0f0f0;
+        }
+        
+        .concept-description {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        
+        .concept-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.5s ease;
+        }
+        
+        .concept-card:hover .concept-bg {
+            opacity: 0.3;
+            transform: scale(1.1);
+        }
+        
+        /* Aplicaciones */
+        .aplicaciones {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .aplicacion-card {
+            background-color: rgba(20, 20, 20, 0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .aplicacion-card:hover {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-color: rgba(255,255,255,0.1);
+        }
+        
+        .aplicacion-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #f0f0f0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+        
+        .aplicacion-lista {
+            list-style-type: none;
+        }
+        
+        .aplicacion-item {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .aplicacion-item::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #ff2e4a;
+        }
+        
+        /* Animaciones */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .separator {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 60px 0;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #8a8a8a;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Moodboard Visual</h1>
-    <p>Inspiración para el portfolio y tienda de momoed8</p>
-  </header>
-
-  <section>
-    <h2>Colores & Texturas</h2>
-    <div class="grid">
-      <img src="https://via.placeholder.com/300x300/0d0d0d/ffffff?text=Negro+Profundo" alt="Negro profundo">
-      <img src="https://via.placeholder.com/300x300/e63946/ffffff?text=Rojo+Intenso" alt="Rojo intenso">
-      <img src="https://via.placeholder.com/300x300/00bfff/ffffff?text=Azul+Eléctrico" alt="Azul eléctrico">
-      <img src="https://via.placeholder.com/300x300/f5f5dc/000000?text=Beige+Sucio" alt="Beige sucio">
-      <img src="https://via.placeholder.com/300x300/f8f8f8/000000?text=Blanco+Hueso" alt="Blanco hueso">
-      <img src="https://via.placeholder.com/300x300/222/eee?text=Textura+Urbana" alt="Textura urbana">
+    <div class="container">
+        <header>
+            <div class="subtitle">PORTFOLIO ARTÍSTICO</div>
+            <h1>ESTÉTICA SURREALISTA PROVOCATIVA</h1>
+        </header>
+        
+        <section>
+            <h2>PALETA DE COLORES</h2>
+            <div class="color-palette">
+                <div class="color-swatch" style="background-color: #0a0a0a;">
+                    <div class="color-info">
+                        <div class="color-name">Negro Profundo</div>
+                        <div class="color-hex">#0a0a0a</div>
+                    </div>
+                </div>
+                <div class="color-swatch" style="background-color: #ff2e4a;">
+                    <div class="color-info">
+                        <div class="color-name">Rojo Sangre</div>
+                        <div class="color-hex">#ff2e4a</div>
+                    </div>
+                </div>
+                <div class="color-swatch" style="background-color: #3d85c6;">
+                    <div class="color-info">
+                        <div class="color-name">Azul Etéreo</div>
+                        <div class="color-hex">#3d85c6</div>
+                    </div>
+                </div>
+                <div class="color-swatch" style="background-color: #00b050;">
+                    <div class="color-info">
+                        <div class="color-name">Verde Tóxico</div>
+                        <div class="color-hex">#00b050</div>
+                    </div>
+                </div>
+                <div class="color-swatch" style="background-color: #ffd966;">
+                    <div class="color-info">
+                        <div class="color-name">Amarillo Saturado</div>
+                        <div class="color-hex">#ffd966</div>
+                    </div>
+                </div>
+                <div class="color-swatch" style="background-color: #ff80ab;">
+                    <div class="color-info">
+                        <div class="color-name">Rosa Chicle</div>
+                        <div class="color-hex">#ff80ab</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="separator"></div>
+        
+        <section>
+            <h2>TEMÁTICAS</h2>
+            <div class="tematicas">
+                <div class="tema-card">
+                    <h3 class="tema-titulo">Cuerpo como lienzo</h3>
+                    <p class="tema-descripcion">Exploración del cuerpo humano como espacio de transformación, modificación y expresión artística.</p>
+                </div>
+                <div class="tema-card">
+                    <h3 class="tema-titulo">Dualidad y metamorfosis</h3>
+                    <p class="tema-descripcion">Figuras que oscilan entre lo humano y lo monstruoso, en constante transformación.</p>
+                </div>
+                <div class="tema-card">
+                    <h3 class="tema-titulo">Identidad fragmentada</h3>
+                    <p class="tema-descripcion">Rostros distorsionados, máscaras y alteraciones faciales que cuestionan la identidad.</p>
+                </div>
+                <div class="tema-card">
+                    <h3 class="tema-titulo">Erotismo subversivo</h3>
+                    <p class="tema-descripcion">Sexualidad presentada de forma inquietante y no convencional, desafiando tabúes.</p>
+                </div>
+                <div class="tema-card">
+                    <h3 class="tema-titulo">Iconografía religiosa</h3>
+                    <p class="tema-descripcion">Símbolos sagrados reinterpretados en contextos provocativos y transgresores.</p>
+                </div>
+                <div class="tema-card">
+                    <h3 class="tema-titulo">Fauna simbólica</h3>
+                    <p class="tema-descripcion">Insectos, aves y animales como metáforas visuales de estados emocionales o conceptos.</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="separator"></div>
+        
+        <section>
+            <h2>TÉCNICAS Y TEXTURAS</h2>
+            <div class="tecnicas">
+                <div class="tecnica-tag">Pinceladas expresivas</div>
+                <div class="tecnica-tag">Deformación deliberada</div>
+                <div class="tecnica-tag">Yuxtaposición</div>
+                <div class="tecnica-tag">Collage conceptual</div>
+                <div class="tecnica-tag">Efectos de luz dramáticos</div>
+                <div class="tecnica-tag">Transparencias y capas</div>
+                <div class="tecnica-tag">Distorsión cromática</div>
+                <div class="tecnica-tag">Texturas táctiles</div>
+                <div class="tecnica-tag">Contraste extremo</div>
+                <div class="tecnica-tag">Técnica mixta</div>
+                <div class="tecnica-tag">Fotografía intervenida</div>
+                <div class="tecnica-tag">Maquillaje artístico</div>
+            </div>
+        </section>
+        
+        <div class="separator"></div>
+        
+        <section>
+            <h2>CONCEPTOS VISUALES</h2>
+            <div class="visual-concepts">
+                <div class="concept-card">
+                    <div class="concept-bg" style="background-color: #151515;"></div>
+                    <div class="concept-content">
+                        <h3 class="concept-title">Lo grotesco hermoso</h3>
+                        <p class="concept-description">Encontrar belleza en lo convencionalmente repulsivo</p>
+                    </div>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-bg" style="background-color: #201520;"></div>
+                    <div class="concept-content">
+                        <h3 class="concept-title">Intimidad incómoda</h3>
+                        <p class="concept-description">Cercanía que genera desasosiego en el espectador</p>
+                    </div>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-bg" style="background-color: #152025;"></div>
+                    <div class="concept-content">
+                        <h3 class="concept-title">Inocencia corrompida</h3>
+                        <p class="concept-description">Elementos infantiles en contextos adultos perturbadores</p>
+                    </div>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-bg" style="background-color: #251515;"></div>
+                    <div class="concept-content">
+                        <h3 class="concept-title">Naturaleza artificial</h3>
+                        <p class="concept-description">Flora y fauna representada de forma sintética o antinatural</p>
+                    </div>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-bg" style="background-color: #152015;"></div>
+                    <div class="concept-content">
+                        <h3 class="concept-title">Lo sagrado profanado</h3>
+                        <p class="concept-description">Elementos religiosos en contextos transgresores</p>
+                    </div>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-bg" style="background-color: #252025;"></div>
+                    <div class="concept-content">
+                        <h3 class="concept-title">Voyeurismo</h3>
+                        <p class="concept-description">La mirada como elemento activo y cómplice</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="separator"></div>
+        
+        <section>
+            <h2>APLICACIONES</h2>
+            <div class="aplicaciones">
+                <div class="aplicacion-card">
+                    <h3 class="aplicacion-titulo">Diseño de personajes</h3>
+                    <ul class="aplicacion-lista">
+                        <li class="aplicacion-item">Figuras con extremidades elongadas</li>
+                        <li class="aplicacion-item">Rostros con proporciones alteradas</li>
+                        <li class="aplicacion-item">Fusión de elementos humanos y no humanos</li>
+                        <li class="aplicacion-item">Vestimenta que combina fetichismo y elementos tradicionales</li>
+                    </ul>
+                </div>
+                <div class="aplicacion-card">
+                    <h3 class="aplicacion-titulo">Espacios y ambientes</h3>
+                    <ul class="aplicacion-lista">
+                        <li class="aplicacion-item">Interiores claustrofóbicos</li>
+                        <li class="aplicacion-item">Escenarios teatrales con iluminación dramática</li>
+                        <li class="aplicacion-item">Naturaleza muerta con elementos simbólicos</li>
+                        <li class="aplicacion-item">Contrastes entre espacios vacíos y sobrecargados</li>
+                    </ul>
+                </div>
+                <div class="aplicacion-card">
+                    <h3 class="aplicacion-titulo">Narrativas visuales</h3>
+                    <ul class="aplicacion-lista">
+                        <li class="aplicacion-item">Secuencias de transformación física o psicológica</li>
+                        <li class="aplicacion-item">Momentos de revelación perturbadora</li>
+                        <li class="aplicacion-item">Rituales contemporáneos con elementos arcaicos</li>
+                        <li class="aplicacion-item">Encuentros íntimos como actos ceremoniales</li>
+                    </ul>
+                </div>
+                <div class="aplicacion-card">
+                    <h3 class="aplicacion-titulo">Elementos gráficos</h3>
+                    <ul class="aplicacion-lista">
+                        <li class="aplicacion-item">Letras manchadas y distorsionadas</li>
+                        <li class="aplicacion-item">Símbolos alquímicos y ocultistas</li>
+                        <li class="aplicacion-item">Diagramas anatómicos vintage</li>
+                        <li class="aplicacion-item">Collages de textos e imágenes encontradas</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>MOOD BOARD BASADO EN PORTFOLIO ARTÍSTICO</p>
+        </footer>
     </div>
-  </section>
 
-  <section>
-    <h2>Inspiración Artística</h2>
-    <div class="grid">
-      <img src="https://upload.wikimedia.org/wikipedia/en/8/81/Jean-Michel_Basquiat%2C_Untitled%2C_1981.jpg" alt="Basquiat">
-      <img src="https://upload.wikimedia.org/wikipedia/en/d/d1/Keith_Haring_Artwork.jpg" alt="Haring">
-      <img src="https://via.placeholder.com/300x300?text=Os+Gemeos" alt="Os Gemeos">
-      <img src="https://via.placeholder.com/300x300?text=Sticker+Art" alt="Sticker Art">
-    </div>
-  </section>
-
-  <section>
-    <h2>Tipografía & UI</h2>
-    <div class="grid">
-      <img src="https://via.placeholder.com/300x100?text=Poppins+Regular" alt="Poppins">
-      <img src="https://via.placeholder.com/300x100?text=Permanent+Marker" alt="Graffiti font">
-      <img src="https://via.placeholder.com/300x200/1a1a1a/e63946?text=Product+Card+Dark+Mode" alt="UI card">
-      <img src="https://via.placeholder.com/300x200/111/ccc?text=Portfolio+Grid" alt="Portfolio layout">
-    </div>
-  </section>
-
-  <footer style="text-align:center; padding: 2rem; background: #1a1a1a; font-size: 0.8rem;">
-    © 2025 Moodboard Visual – momoed8
-  </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animación de entrada para las secciones
+            const sections = document.querySelectorAll('section');
+            const options = {
+                threshold: 0.2,
+                rootMargin: "0px 0px -100px 0px"
+            };
+            
+            const sectionObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
+            
+            sections.forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                sectionObserver.observe(section);
+            });
+            
+            // Interactividad de las tarjetas de técnicas
+            const tecnicaTags = document.querySelectorAll('.tecnica-tag');
+            tecnicaTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    if (this.classList.contains('active')) {
+                        this.style.backgroundColor = '#ff2e4a';
+                        this.style.color = '#ffffff';
+                    } else {
+                        this.style.backgroundColor = 'rgba(30, 30, 30, 0.6)';
+                        this.style.color = '#f0f0f0';
+                    }
+                });
+            });
+            
+            // Efectos hover para las tarjetas de conceptos
+            const conceptCards = document.querySelectorAll('.concept-card');
+            conceptCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const randomColor = getRandomDarkColor();
+                    this.querySelector('.concept-bg').style.backgroundColor = randomColor;
+                });
+            });
+            
+            function getRandomDarkColor() {
+                const colors = [
+                    '#1a0a0a', '#0a1a0a', '#0a0a1a', 
+                    '#1a0a1a', '#0a1a1a', '#1a1a0a',
+                    '#2d0a15', '#0a2d15', '#150a2d'
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            // Interactividad con la paleta de colores
+            const colorSwatches = document.querySelectorAll('.color-swatch');
+            colorSwatches.forEach(swatch => {
+                swatch.addEventListener('click', function() {
+                    const color = this.style.backgroundColor;
+                    document.documentElement.style.setProperty('--highlight-color', color);
+                    
+                    // Efecto visual de selección
+                    colorSwatches.forEach(s => s.style.transform = 'translateY(0)');
+                    this.style.transform = 'translateY(-10px)';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
