@@ -1,4 +1,81 @@
-<!DOCTYPE html>
+        /* Productos destacados */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: var(--fondo-card);
+            border: 1px solid var(--borde-card);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .product-img {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-mockup {
+            height: 100%;
+        }
+        
+        .product-mockup .mockup-icon {
+            height: 80%;
+            width: 80%;
+            background-color: rgba(30, 30, 30, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 12px;
+            background-color: var(--rojo);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 5;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gris-medio);
+            margin-bottom: 8px;
+        }
+        
+        .product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--gris-claro);
+        }
+        
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--rojo);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -257,8 +334,23 @@
             width: 60%;
             height: 100%;
             opacity: 0.6;
-            background: linear-gradient(to right, var(--negro) 0%, transparent 100%), url('/api/placeholder/800/600') no-repeat center center;
-            background-size: cover;
+            background: linear-gradient(to right, var(--negro) 0%, transparent 100%);
+        }
+        
+        .hero-mockup {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero-mockup-icon {
+            width: 70%;
+            height: 60%;
+            background-color: rgba(30, 30, 30, 0.8);
+            border: 3px solid rgba(255, 46, 74, 0.3);
+            box-shadow: 0 0 50px rgba(255, 46, 74, 0.3);
         }
         
         /* Secciones */
@@ -352,17 +444,79 @@
             height: 350px;
             overflow: hidden;
             cursor: pointer;
+            background-color: rgba(30, 30, 30, 0.5);
+            border: 1px solid var(--borde-card);
         }
         
-        .portfolio-item img {
+        .mockup-container {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--gris-medio);
             transition: all 0.6s ease;
+            padding: 20px;
+            text-align: center;
+            position: relative;
         }
         
-        .portfolio-item:hover img {
+        .mockup-icon {
+            background-color: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 80%;
+            height: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            border-radius: 3px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .mockup-icon::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(to bottom, rgba(40, 40, 40, 0.8), rgba(20, 20, 20, 0.1));
+            border-radius: 3px 3px 0 0;
+        }
+        
+        .mockup-icon::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--rojo);
+            border-radius: 50%;
+            box-shadow: 20px 0 0 rgba(255, 255, 255, 0.3), 40px 0 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .mockup-icon i {
+            font-size: 2.5rem;
+            color: var(--rojo);
+            opacity: 0.8;
+        }
+        
+        .mockup-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            position: relative;
+            padding: 5px 15px;
+            background-color: rgba(20, 20, 20, 0.6);
+            border-radius: 3px;
+        }
+        
+        .portfolio-item:hover .mockup-container {
             transform: scale(1.1);
+            opacity: 0.2;
         }
         
         .portfolio-overlay {
@@ -576,12 +730,10 @@
             border-radius: 50%;
             overflow: hidden;
             margin-bottom: 15px;
-        }
-        
-        .author-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(20, 20, 20, 0.5);
         }
         
         .author-name {
@@ -829,12 +981,21 @@
             width: 80px;
             height: 80px;
             margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .cart-item-img img {
+        .cart-mockup {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background-color: rgba(30, 30, 30, 0.5);
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: var(--rojo);
         }
         
         .cart-item-details {
@@ -1069,7 +1230,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">MoMo ED<span> </span></a>
+                <a href="#" class="logo">MoMo<span> ED</span></a>
                 
                 <div class="burger-menu">
                     <span></span>
@@ -1099,7 +1260,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-subtitle">ARTE SURREALISTA PROVOCATIVO</div>
-                <h1 class="hero-title">Transgresión  <br> y Estética Perturbadora</h1>
+                <h1 class="hero-title">Transgresión ED <br> y Estética Perturbadora</h1>
                 <p class="hero-description">Explorando los límites de la percepción a través de imágenes surrealistas y provocadoras que desafían los convencionalismos estéticos y emocionales.</p>
                 <div class="hero-buttons">
                     <a href="#portfolio" class="btn">Descubrir Portfolio</a>
@@ -1107,7 +1268,13 @@
                 </div>
             </div>
         </div>
-        <div class="hero-bg"></div>
+        <div class="hero-bg">
+            <div class="mockup-container hero-mockup">
+                <div class="mockup-icon hero-mockup-icon">
+                    <i class="fas fa-eye fa-4x"></i>
+                </div>
+            </div>
+        </div>
     </section>
     
     <!-- Portfolio Section -->
@@ -1115,12 +1282,12 @@
         <div class="container">
             <div class="section-header">
                 <div class="section-subtitle">TRABAJO ARTÍSTICO</div>
-                <h2 class="section-title">Portfolio </h2>
+                <h2 class="section-title">Portfolio ED</h2>
             </div>
             
             <div class="portfolio-filter">
                 <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="audio">Audio</button>
+                <button class="filter-btn" data-filter="audioED">AudioED</button>
                 <button class="filter-btn" data-filter="urbano">Intervención Urbana</button>
                 <button class="filter-btn" data-filter="comercial">Espacios Comerciales</button>
                 <button class="filter-btn" data-filter="conceptual">Arte Conceptual</button>
@@ -1128,10 +1295,16 @@
             
             <div class="portfolio-grid">
                 <!-- Item 1 -->
-                <div class="portfolio-item" data-category="audio">
-                    <img src="/api/placeholder/400/500" alt="Diseño para película de terror">
+    <!-- Item 1 -->
+                <div class="portfolio-item" data-category="audioED">
+                    <div class="mockup-container">
+                        <div class="mockup-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <span class="mockup-label">Diseño para película de terror</span>
+                    </div>
                     <div class="portfolio-overlay">
-                        <div class="portfolio-category">AUDIO</div>
+                        <div class="portfolio-category">AUDIOED</div>
                         <h3 class="portfolio-title">Diseño de Criatura para "El Abismo"</h3>
                         <a href="#" class="btn">Ver Proyecto</a>
                     </div>
@@ -1139,7 +1312,12 @@
                 
                 <!-- Item 2 -->
                 <div class="portfolio-item" data-category="urbano">
-                    <img src="/api/placeholder/400/500" alt="Intervención urbana">
+                    <div class="mockup-container">
+                        <div class="mockup-icon">
+                            <i class="fas fa-spray-can"></i>
+                        </div>
+                        <span class="mockup-label">Intervención urbana</span>
+                    </div>
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">INTERVENCIÓN URBANA</div>
                         <h3 class="portfolio-title">Fragmentación Identitaria</h3>
@@ -1149,7 +1327,12 @@
                 
                 <!-- Item 3 -->
                 <div class="portfolio-item" data-category="comercial">
-                    <img src="/api/placeholder/400/500" alt="Diseño para bar">
+                    <div class="mockup-container">
+                        <div class="mockup-icon">
+                            <i class="fas fa-glass-martini-alt"></i>
+                        </div>
+                        <span class="mockup-label">Diseño para bar</span>
+                    </div>
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">ESPACIOS COMERCIALES</div>
                         <h3 class="portfolio-title">Decoración Bar "Infierno"</h3>
@@ -1159,7 +1342,12 @@
                 
                 <!-- Item 4 -->
                 <div class="portfolio-item" data-category="conceptual">
-                    <img src="/api/placeholder/400/500" alt="Arte conceptual">
+                    <div class="mockup-container">
+                        <div class="mockup-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <span class="mockup-label">Arte conceptual</span>
+                    </div>
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">ARTE CONCEPTUAL</div>
                         <h3 class="portfolio-title">Metamorfosis Introspectiva</h3>
@@ -1168,10 +1356,15 @@
                 </div>
                 
                 <!-- Item 5 -->
-                <div class="portfolio-item" data-category="audio">
-                    <img src="/api/placeholder/400/500" alt="Escenografía para cortometraje">
+                <div class="portfolio-item" data-category="audioED">
+                    <div class="mockup-container">
+                        <div class="mockup-icon">
+                            <i class="fas fa-theater-masks"></i>
+                        </div>
+                        <span class="mockup-label">Escenografía para cortometraje</span>
+                    </div>
                     <div class="portfolio-overlay">
-                        <div class="portfolio-category">AUDIO</div>
+                        <div class="portfolio-category">AUDIOED</div>
                         <h3 class="portfolio-title">Escenografía "Pesadilla Lúcida"</h3>
                         <a href="#" class="btn">Ver Proyecto</a>
                     </div>
@@ -1179,7 +1372,12 @@
                 
                 <!-- Item 6 -->
                 <div class="portfolio-item" data-category="comercial">
-                    <img src="/api/placeholder/400/500" alt="Diseño para restaurante">
+                    <div class="mockup-container">
+                        <div class="mockup-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <span class="mockup-label">Diseño para restaurante</span>
+                    </div>
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">ESPACIOS COMERCIALES</div>
                         <h3 class="portfolio-title">Instalación Restaurante "Carne"</h3>
@@ -1206,7 +1404,12 @@
                 <!-- Producto 1 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="/api/placeholder/400/500" alt="Camiseta diseño exclusivo">
+                        <div class="mockup-container product-mockup">
+                            <div class="mockup-icon">
+                                <i class="fas fa-tshirt"></i>
+                            </div>
+                            <span class="mockup-label">Camiseta diseño exclusivo</span>
+                        </div>
                         <div class="product-badge">Nuevo</div>
                     </div>
                     <div class="product-info">
@@ -1214,7 +1417,7 @@
                         <h3 class="product-title">Camiseta "Ojo Fragmentado"</h3>
                         <div class="product-price">$2.800 ARS</div>
                         <div class="product-actions">
-                            <button class="btn add-to-cart" data-id="1" data-name="Camiseta Ojo Fragmentado" data-price="2800" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                            <button class="btn add-to-cart" data-id="1" data-name="Camiseta Ojo Fragmentado" data-price="2800" data-image="">Añadir al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -1222,14 +1425,19 @@
                 <!-- Producto 2 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="/api/placeholder/400/500" alt="Sudadera con capucha">
+                        <div class="mockup-container product-mockup">
+                            <div class="mockup-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <span class="mockup-label">Sudadera con capucha</span>
+                        </div>
                     </div>
                     <div class="product-info">
                         <div class="product-category">ROPA</div>
                         <h3 class="product-title">Sudadera "Pesadilla Nocturna"</h3>
                         <div class="product-price">$5.000 ARS</div>
                         <div class="product-actions">
-                            <button class="btn add-to-cart" data-id="2" data-name="Sudadera Pesadilla Nocturna" data-price="5000" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                            <button class="btn add-to-cart" data-id="2" data-name="Sudadera Pesadilla Nocturna" data-price="5000" data-image="">Añadir al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -1237,7 +1445,12 @@
                 <!-- Producto 3 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="/api/placeholder/400/500" alt="Tote bag">
+                        <div class="mockup-container product-mockup">
+                            <div class="mockup-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <span class="mockup-label">Tote bag</span>
+                        </div>
                         <div class="product-badge">Popular</div>
                     </div>
                     <div class="product-info">
@@ -1245,7 +1458,7 @@
                         <h3 class="product-title">Tote Bag "Sangre y Hueso"</h3>
                         <div class="product-price">$1.800 ARS</div>
                         <div class="product-actions">
-                            <button class="btn add-to-cart" data-id="3" data-name="Tote Bag Sangre y Hueso" data-price="1800" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                            <button class="btn add-to-cart" data-id="3" data-name="Tote Bag Sangre y Hueso" data-price="1800" data-image="">Añadir al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -1253,14 +1466,19 @@
                 <!-- Producto 4 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="/api/placeholder/400/500" alt="Póster impreso">
+                        <div class="mockup-container product-mockup">
+                            <div class="mockup-icon">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <span class="mockup-label">Póster impreso</span>
+                        </div>
                     </div>
                     <div class="product-info">
                         <div class="product-category">IMPRESIONES</div>
                         <h3 class="product-title">Póster "Dualidad Grotesca"</h3>
                         <div class="product-price">$1.200 ARS</div>
                         <div class="product-actions">
-                            <button class="btn add-to-cart" data-id="4" data-name="Póster Dualidad Grotesca" data-price="1200" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                            <button class="btn add-to-cart" data-id="4" data-name="Póster Dualidad Grotesca" data-price="1200" data-image="">Añadir al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -1268,14 +1486,19 @@
                 <!-- Producto 5 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="/api/placeholder/400/500" alt="Pin esmaltado">
+                        <div class="mockup-container product-mockup">
+                            <div class="mockup-icon">
+                                <i class="fas fa-thumbtack"></i>
+                            </div>
+                            <span class="mockup-label">Pin esmaltado</span>
+                        </div>
                     </div>
                     <div class="product-info">
                         <div class="product-category">ACCESORIOS</div>
                         <h3 class="product-title">Pin Esmaltado "Tercer Ojo"</h3>
                         <div class="product-price">$800 ARS</div>
                         <div class="product-actions">
-                            <button class="btn add-to-cart" data-id="5" data-name="Pin Esmaltado Tercer Ojo" data-price="800" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                            <button class="btn add-to-cart" data-id="5" data-name="Pin Esmaltado Tercer Ojo" data-price="800" data-image="">Añadir al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -1283,7 +1506,12 @@
                 <!-- Producto 6 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="/api/placeholder/400/500" alt="Libro de arte">
+                        <div class="mockup-container product-mockup">
+                            <div class="mockup-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <span class="mockup-label">Libro de arte</span>
+                        </div>
                         <div class="product-badge">Edición Limitada</div>
                     </div>
                     <div class="product-info">
@@ -1291,7 +1519,7 @@
                         <h3 class="product-title">Libro "Anatomía Distorsionada"</h3>
                         <div class="product-price">$3.500 ARS</div>
                         <div class="product-actions">
-                            <button class="btn add-to-cart" data-id="6" data-name="Libro Anatomía Distorsionada" data-price="3500" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                            <button class="btn add-to-cart" data-id="6" data-name="Libro Anatomía Distorsionada" data-price="3500" data-image="">Añadir al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -1299,14 +1527,19 @@
                 <!-- Producto 7 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="/api/placeholder/400/500" alt="Máscara decorativa">
+                        <div class="mockup-container product-mockup">
+                            <div class="mockup-icon">
+                                <i class="fas fa-mask"></i>
+                            </div>
+                            <span class="mockup-label">Máscara decorativa</span>
+                        </div>
                     </div>
                     <div class="product-info">
                         <div class="product-category">DECORACIÓN</div>
                         <h3 class="product-title">Máscara "Identidad Fragmentada"</h3>
                         <div class="product-price">$4.200 ARS</div>
                         <div class="product-actions">
-                            <button class="btn add-to-cart" data-id="7" data-name="Máscara Identidad Fragmentada" data-price="4200" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                            <button class="btn add-to-cart" data-id="7" data-name="Máscara Identidad Fragmentada" data-price="4200" data-image="">Añadir al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -1314,14 +1547,85 @@
                 <!-- Producto 8 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="/api/placeholder/400/500" alt="Gorra bordada">
+                        <div class="mockup-container product-mockup">
+                            <div class="mockup-icon">
+                                <i class="fas fa-hat-cowboy"></i>
+                            </div>
+                            <span class="mockup-label">Gorra bordada</span>
+                        </div>
                     </div>
                     <div class="product-info">
                         <div class="product-category">ROPA</div>
                         <h3 class="product-title">Gorra "Símbolo Oculto"</h3>
                         <div class="product-price">$2.000 ARS</div>
                         <div class="product-actions">
-                            <button class="btn add-to-cart" data-id="8" data-name="Gorra Símbolo Oculto" data-price="2000" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                            <button class="btn add-to-cart" data-id="8" data-name="Gorra Símbolo Oculto" data-price="2000" data-image="">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>text">Pin esmaltado</div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">ACCESORIOS</div>
+                        <h3 class="product-title">Pin Esmaltado "Tercer Ojo"</h3>
+                        <div class="product-price">$800 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="5" data-name="Pin Esmaltado Tercer Ojo" data-price="800" data-image="">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 6 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <div class="image-placeholder">
+                            <i class="fas fa-book fa-3x"></i>
+                            <div class="placeholder-text">Libro de arte</div>
+                        </div>
+                        <div class="product-badge">Edición Limitada</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">LIBROS</div>
+                        <h3 class="product-title">Libro "Anatomía Distorsionada"</h3>
+                        <div class="product-price">$3.500 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="6" data-name="Libro Anatomía Distorsionada" data-price="3500" data-image="">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 7 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <div class="image-placeholder">
+                            <i class="fas fa-mask fa-3x"></i>
+                            <div class="placeholder-text">Máscara decorativa</div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">DECORACIÓN</div>
+                        <h3 class="product-title">Máscara "Identidad Fragmentada"</h3>
+                        <div class="product-price">$4.200 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="7" data-name="Máscara Identidad Fragmentada" data-price="4200" data-image="">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 8 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <div class="image-placeholder">
+                            <i class="fas fa-hat-cowboy fa-3x"></i>
+                            <div class="placeholder-text">Gorra bordada</div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">ROPA</div>
+                        <h3 class="product-title">Gorra "Símbolo Oculto"</h3>
+                        <div class="product-price">$2.000 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="8" data-name="Gorra Símbolo Oculto" data-price="2000" data-image="">Añadir al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -1343,8 +1647,8 @@
                     <div class="aplicacion-icon">
                         <i class="fas fa-film"></i>
                     </div>
-                    <h3 class="aplicacion-titulo">Industria Audio</h3>
-                    <p class="aplicacion-descripcion">Diseño de criaturas, conceptualización  y dirección artística para producciones de terror, películas de género y cortometrajes independientes. Especialización en atmósferas perturbadoras y estética surrealista.</p>
+                    <h3 class="aplicacion-titulo">Industria AudioED</h3>
+                    <p class="aplicacion-descripcion">Diseño de criaturas, conceptualización ED y dirección artística para producciones de terror, películas de género y cortometrajes independientes. Especialización en atmósferas perturbadoras y estética surrealista.</p>
                     <a href="#contacto" class="btn">Consultar</a>
                 </div>
                 
@@ -1354,7 +1658,7 @@
                         <i class="fas fa-paint-brush"></i>
                     </div>
                     <h3 class="aplicacion-titulo">Intervenciones Urbanas</h3>
-                    <p class="aplicacion-descripcion">Transformación de espacios públicos con murales, instalaciones y arte urbano de carácter provocativo. Proyectos que desafían la percepción cotidiana y generan experiencias es impactantes.</p>
+                    <p class="aplicacion-descripcion">Transformación de espacios públicos con murales, instalaciones y arte urbano de carácter provocativo. Proyectos que desafían la percepción cotidiana y generan experiencias EDes impactantes.</p>
                     <a href="#contacto" class="btn">Consultar</a>
                 </div>
                 
@@ -1383,10 +1687,10 @@
                 <div class="testimonial-track">
                     <!-- Testimonio 1 -->
                     <div class="testimonial-slide">
-                        <div class="testimonial-quote">"La estética perturbadora y provocativa que aporta este artista fue clave para crear la atmósfera única de nuestro festival de cine independiente. Su trabajo  definió la identidad de todo el evento."</div>
+                        <div class="testimonial-quote">"La estética perturbadora y provocativa que aporta este artista fue clave para crear la atmósfera única de nuestro festival de cine independiente. Su trabajo ED definió la identidad de todo el evento."</div>
                         <div class="testimonial-author">
                             <div class="author-img">
-                                <img src="/api/placeholder/100/100" alt="Director de festival">
+                                <i class="fas fa-user-circle fa-3x" style="color: var(--rojo);"></i>
                             </div>
                             <div class="author-name">Martín Rodríguez</div>
                             <div class="author-title">Director, Festival de Cine de Terror de Buenos Aires</div>
@@ -1398,7 +1702,7 @@
                         <div class="testimonial-quote">"La intervención artística que realizó en nuestro bar transformó completamente el lugar. Los clientes vienen específicamente para experimentar el ambiente único que sus obras han creado."</div>
                         <div class="testimonial-author">
                             <div class="author-img">
-                                <img src="/api/placeholder/100/100" alt="Dueña de bar">
+                                <i class="fas fa-user-circle fa-3x" style="color: var(--rojo);"></i>
                             </div>
                             <div class="author-name">Laura Vázquez</div>
                             <div class="author-title">Propietaria, Bar 'Sótano Oscuro'</div>
@@ -1407,10 +1711,10 @@
                     
                     <!-- Testimonio 3 -->
                     <div class="testimonial-slide">
-                        <div class="testimonial-quote">"Colaborar en el diseño de personajes para nuestra producción fue una experiencia reveladora. Su visión surrealista aportó una dimensión inquietante que elevó significativamente la calidad  del proyecto."</div>
+                        <div class="testimonial-quote">"Colaborar en el diseño de personajes para nuestra producción fue una experiencia reveladora. Su visión surrealista aportó una dimensión inquietante que elevó significativamente la calidad ED del proyecto."</div>
                         <div class="testimonial-author">
                             <div class="author-img">
-                                <img src="/api/placeholder/100/100" alt="Directora de cine">
+                                <i class="fas fa-user-circle fa-3x" style="color: var(--rojo);"></i>
                             </div>
                             <div class="author-name">Carolina Menéndez</div>
                             <div class="author-title">Directora, 'Pesadillas Tangibles'</div>
@@ -1474,7 +1778,7 @@
                         </li>
                         <li>
                             <i class="fas fa-envelope"></i>
-                            <span>contacto@MoMo ED.com</span>
+                            <span>contacto@MoMoED.com</span>
                         </li>
                         <li>
                             <i class="fas fa-phone"></i>
@@ -1492,12 +1796,12 @@
                         <a href="#" class="social-icon"><i class="fab fa-behance"></i></a>
                     </div>
                     <p style="margin-top: 20px; font-size: 0.9rem; color: var(--gris-medio);">Comparte tu experiencia con:</p>
-                    <p style="font-size: 0.9rem; color: var(--rojo);">#MoMo ED</p>
+                    <p style="font-size: 0.9rem; color: var(--rojo);">#MoMoED</p>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 MoMo ED . Todos los derechos reservados.</p>
+                <p>&copy; 2025 MoMo ED. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
@@ -1701,7 +2005,7 @@
                             id,
                             name,
                             price,
-                            image,
+                            image: '',
                             quantity: 1
                         });
                     }
