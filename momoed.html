@@ -3,10 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mood Board: Estética Surrealista Provocativa</title>
+    <title>NECROFILIA VISUAL | Arte & Tienda</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         /* Fuentes */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@300;400&display=swap');
+        
+        /* Variables */
+        :root {
+            --negro: #0a0a0a;
+            --rojo: #ff2e4a;
+            --azul: #3d85c6;
+            --verde: #00b050;
+            --amarillo: #ffd966;
+            --rosa: #ff80ab;
+            --gris-claro: #f0f0f0;
+            --gris-medio: #8a8a8a;
+            --gris-oscuro: #333333;
+            --fondo-card: rgba(20, 20, 20, 0.5);
+            --borde-card: rgba(255,255,255,0.05);
+        }
         
         /* Estilos generales */
         * {
@@ -16,608 +32,1664 @@
         }
         
         body {
-            background-color: #0a0a0a;
-            color: #f0f0f0;
+            background-color: var(--negro);
+            color: var(--gris-claro);
             font-family: 'Roboto Mono', monospace;
             line-height: 1.6;
             overflow-x: hidden;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
         
-        /* Header */
-        header {
-            text-align: center;
-            padding: 40px 0;
-            position: relative;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
-            color: #f0f0f0;
-            position: relative;
+        /* Botones */
+        .btn {
             display: inline-block;
+            padding: 12px 25px;
+            background-color: transparent;
+            border: 1px solid var(--rojo);
+            color: var(--gris-claro);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
         }
         
-        h1::after {
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: var(--rojo);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 0;
+        }
+        
+        .btn:hover {
+            color: var(--negro);
+        }
+        
+        .btn-primary {
+            background-color: var(--rojo);
+            color: var(--negro);
+        }
+        
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--gris-claro);
+        }
+        
+        /* Header y Navegación */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            background-color: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gris-claro);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+        
+        .logo span {
+            color: var(--rojo);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style-type: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--gris-claro);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a::after {
             content: "";
             position: absolute;
             bottom: -5px;
             left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, #ff2e4a, #6b0035, #ff2e4a);
-            animation: gradientShift 6s ease infinite;
-            background-size: 200% 200%;
+            width: 0;
+            height: 1px;
+            background-color: var(--rojo);
+            transition: all 0.3s ease;
         }
         
-        .subtitle {
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover {
+            color: var(--rojo);
+        }
+        
+        .cart-icon {
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--rojo);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .burger-menu span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: var(--gris-claro);
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 80px;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        
+        .hero-subtitle {
             font-size: 1rem;
             font-weight: 300;
             text-transform: uppercase;
             letter-spacing: 3px;
-            color: #8a8a8a;
+            color: var(--gris-medio);
             margin-bottom: 20px;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--gris-medio);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            opacity: 0.6;
+            background: linear-gradient(to right, var(--negro) 0%, transparent 100%), url('/api/placeholder/800/600') no-repeat center center;
+            background-size: cover;
         }
         
         /* Secciones */
         section {
-            margin: 60px 0;
+            margin: 100px 0;
             position: relative;
         }
         
-        h2 {
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--rojo);
+            margin-bottom: 10px;
+        }
+        
+        .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 30px;
-            display: inline-block;
+            font-size: 3rem;
             position: relative;
-            color: #f0f0f0;
+            display: inline-block;
         }
         
-        h2::before {
+        .section-title::after {
             content: "";
             position: absolute;
-            top: 50%;
-            left: -30px;
-            width: 20px;
-            height: 1px;
-            background-color: #ff2e4a;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background-color: var(--rojo);
         }
         
-        /* Paleta de colores */
-        .color-palette {
+        /* Portfolio Grid */
+        .portfolio-filter {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            justify-content: center;
             margin-bottom: 40px;
+            flex-wrap: wrap;
         }
         
-        .color-swatch {
-            width: 100px;
-            height: 100px;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: transparent;
+            border: none;
+            color: var(--gris-medio);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 5px;
             position: relative;
+        }
+        
+        .filter-btn::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background-color: var(--rojo);
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            color: var(--rojo);
+        }
+        
+        .filter-btn.active::after,
+        .filter-btn:hover::after {
+            width: 80%;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            height: 350px;
             overflow: hidden;
+            cursor: pointer;
         }
         
-        .color-swatch:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        
-        .color-info {
-            height: 100%;
+        .portfolio-item img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s ease;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 10px;
-            font-size: 0.8rem;
             opacity: 0;
-            transition: opacity 0.3s ease;
-            position: absolute;
-            background: rgba(0,0,0,0.7);
+            transition: all 0.3s ease;
+            padding: 20px;
+            text-align: center;
         }
         
-        .color-swatch:hover .color-info {
+        .portfolio-item:hover .portfolio-overlay {
             opacity: 1;
         }
         
-        .color-name {
-            font-weight: bold;
-            margin-bottom: 5px;
+        .portfolio-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--rojo);
+            margin-bottom: 10px;
         }
         
-        /* Temáticas */
-        .tematicas {
+        .portfolio-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--gris-claro);
+        }
+        
+        /* Productos destacados */
+        .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 30px;
-            margin-bottom: 40px;
         }
         
-        .tema-card {
-            background-color: rgba(20, 20, 20, 0.5);
-            border: 1px solid rgba(255,255,255,0.05);
+        .product-card {
+            background-color: var(--fondo-card);
+            border: 1px solid var(--borde-card);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .product-img {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s ease;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 12px;
+            background-color: var(--rojo);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .product-info {
             padding: 20px;
+        }
+        
+        .product-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gris-medio);
+            margin-bottom: 8px;
+        }
+        
+        .product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--gris-claro);
+        }
+        
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--rojo);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* Aplicaciones */
+        .aplicaciones {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .aplicacion-card {
+            background-color: var(--fondo-card);
+            border: 1px solid var(--borde-card);
+            padding: 30px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
         
-        .tema-card::before {
+        .aplicacion-card::before {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 4px;
             height: 0;
-            background-color: #ff2e4a;
+            background-color: var(--rojo);
             transition: height 0.3s ease;
         }
         
-        .tema-card:hover::before {
+        .aplicacion-card:hover::before {
             height: 100%;
-        }
-        
-        .tema-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        
-        .tema-titulo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #f0f0f0;
-        }
-        
-        .tema-descripcion {
-            font-size: 0.9rem;
-            color: #b0b0b0;
-        }
-        
-        /* Técnicas */
-        .tecnicas {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-        
-        .tecnica-tag {
-            background-color: rgba(30, 30, 30, 0.6);
-            padding: 8px 15px;
-            border-radius: 3px;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .tecnica-tag:hover {
-            background-color: #ff2e4a;
-            color: #ffffff;
-        }
-        
-        /* Conceptos visuales */
-        .visual-concepts {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .concept-card {
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-            background-color: #151515;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .concept-card:hover {
-            transform: scale(1.03);
-        }
-        
-        .concept-content {
-            padding: 20px;
-            text-align: center;
-            z-index: 2;
-        }
-        
-        .concept-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #f0f0f0;
-        }
-        
-        .concept-description {
-            font-size: 0.9rem;
-            color: #b0b0b0;
-            max-width: 80%;
-            margin: 0 auto;
-        }
-        
-        .concept-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.15;
-            background-size: cover;
-            background-position: center;
-            transition: all 0.5s ease;
-        }
-        
-        .concept-card:hover .concept-bg {
-            opacity: 0.3;
-            transform: scale(1.1);
-        }
-        
-        /* Aplicaciones */
-        .aplicaciones {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        
-        .aplicacion-card {
-            background-color: rgba(20, 20, 20, 0.5);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 20px;
-            transition: all 0.3s ease;
         }
         
         .aplicacion-card:hover {
-            background-color: rgba(30, 30, 30, 0.7);
-            border-color: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .aplicacion-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--rojo);
         }
         
         .aplicacion-titulo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #f0f0f0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--gris-claro);
         }
         
-        .aplicacion-lista {
-            list-style-type: none;
-        }
-        
-        .aplicacion-item {
-            margin-bottom: 10px;
+        .aplicacion-descripcion {
             font-size: 0.9rem;
-            color: #b0b0b0;
+            color: var(--gris-medio);
+            margin-bottom: 25px;
+        }
+        
+        /* Testimonios/Colaboraciones */
+        .testimonial-slider {
             position: relative;
-            padding-left: 20px;
+            overflow: hidden;
+            padding: 40px 0;
         }
         
-        .aplicacion-item::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #ff2e4a;
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease;
         }
         
-        /* Animaciones */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 0 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         
-        .separator {
+        .testimonial-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .author-img img {
             width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            margin: 60px 0;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-name {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--gris-claro);
+        }
+        
+        .author-title {
+            font-size: 0.9rem;
+            color: var(--gris-medio);
+        }
+        
+        .testimonial-nav {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+        }
+        
+        .testimonial-btn {
+            width: 50px;
+            height: 50px;
+            background-color: transparent;
+            border: 1px solid var(--rojo);
+            color: var(--rojo);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-btn:hover {
+            background-color: var(--rojo);
+            color: var(--negro);
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 0;
+            background-color: rgba(30, 30, 30, 0.5);
+            text-align: center;
+        }
+        
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-description {
+            font-size: 1rem;
+            color: var(--gris-medio);
+            margin-bottom: 30px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .newsletter-input {
+            flex-grow: 1;
+            min-width: 300px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--borde-card);
+            color: var(--gris-claro);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--rojo);
         }
         
         /* Footer */
         footer {
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--borde-card);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-column h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--rojo);
+        }
+        
+        .footer-links {
+            list-style-type: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: var(--gris-medio);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--rojo);
+            padding-left: 5px;
+        }
+        
+        .contact-info {
+            list-style-type: none;
+        }
+        
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.9rem;
+            color: var(--gris-medio);
+        }
+        
+        .contact-info i {
+            margin-right: 15px;
+            color: var(--rojo);
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gris-claro);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--rojo);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.8rem;
+            color: var(--gris-medio);
+        }
+        
+        /* Carrito flotante */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background-color: var(--negro);
+            z-index: 1001;
+            padding: 30px;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            border-left: 1px solid var(--borde-card);
+        }
+        
+        .cart-sidebar.active {
+            right: 0;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .cart-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+        
+        .close-cart {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-cart:hover {
+            color: var(--rojo);
+        }
+        
+        .cart-items {
+            margin-bottom: 30px;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--borde-card);
+        }
+        
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+        }
+        
+        .cart-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-details {
+            flex-grow: 1;
+            padding-right: 10px;
+        }
+        
+        .cart-item-title {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            font-size: 0.9rem;
+            color: var(--rojo);
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            background-color: var(--fondo-card);
+            border: 1px solid var(--borde-card);
+            color: var(--gris-claro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            height: 25px;
+            text-align: center;
+            margin: 0 5px;
+            background-color: var(--fondo-card);
+            border: 1px solid var(--borde-card);
+            color: var(--gris-claro);
+            font-size: 0.8rem;
+        }
+        
+        .remove-item {
+            color: var(--gris-medio);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            align-self: flex-start;
+        }
+        
+        .remove-item:hover {
+            color: var(--rojo);
+        }
+        
+        .cart-total {
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-top: 1px solid var(--borde-card);
+            border-bottom: 1px solid var(--borde-card);
+        }
+        
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .cart-total-label {
+            font-size: 0.9rem;
+            color: var(--gris-medio);
+        }
+        
+        .cart-total-value {
+            font-size: 0.9rem;
+        }
+        
+        .cart-total-row.final {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 15px;
+            color: var(--gris-claro);
+        }
+        
+        .cart-actions .btn {
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .cart-empty {
             text-align: center;
             padding: 40px 0;
-            color: #8a8a8a;
-            font-size: 0.8rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .cart-empty i {
+            font-size: 3rem;
+            color: var(--gris-medio);
+            margin-bottom: 20px;
+        }
+        
+        .cart-empty p {
+            font-size: 1rem;
+            color: var(--gris-medio);
+            margin-bottom: 30px;
+        }
+        
+        /* Overlay del carrito */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .portfolio-grid,
+            .products-grid,
+            .aplicaciones {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--negro);
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+                flex-direction: column;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .burger-menu {
+                display: flex;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-bg {
+                width: 100%;
+                opacity: 0.3;
+            }
+            
+            .testimonial-slide {
+                padding: 0 50px;
+            }
+            
+            .testimonial-quote {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-content {
+                text-align: center;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .portfolio-grid,
+            .products-grid,
+            .aplicaciones {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="subtitle">PORTFOLIO ARTÍSTICO</div>
-            <h1>ESTÉTICA SURREALISTA PROVOCATIVA</h1>
-        </header>
-        
-        <section>
-            <h2>PALETA DE COLORES</h2>
-            <div class="color-palette">
-                <div class="color-swatch" style="background-color: #0a0a0a;">
-                    <div class="color-info">
-                        <div class="color-name">Negro Profundo</div>
-                        <div class="color-hex">#0a0a0a</div>
-                    </div>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">NECROFILIA<span> VISUAL</span></a>
+                
+                <div class="burger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-                <div class="color-swatch" style="background-color: #ff2e4a;">
-                    <div class="color-info">
-                        <div class="color-name">Rojo Sangre</div>
-                        <div class="color-hex">#ff2e4a</div>
-                    </div>
-                </div>
-                <div class="color-swatch" style="background-color: #3d85c6;">
-                    <div class="color-info">
-                        <div class="color-name">Azul Etéreo</div>
-                        <div class="color-hex">#3d85c6</div>
-                    </div>
-                </div>
-                <div class="color-swatch" style="background-color: #00b050;">
-                    <div class="color-info">
-                        <div class="color-name">Verde Tóxico</div>
-                        <div class="color-hex">#00b050</div>
-                    </div>
-                </div>
-                <div class="color-swatch" style="background-color: #ffd966;">
-                    <div class="color-info">
-                        <div class="color-name">Amarillo Saturado</div>
-                        <div class="color-hex">#ffd966</div>
-                    </div>
-                </div>
-                <div class="color-swatch" style="background-color: #ff80ab;">
-                    <div class="color-info">
-                        <div class="color-name">Rosa Chicle</div>
-                        <div class="color-hex">#ff80ab</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="separator"></div>
-        
-        <section>
-            <h2>TEMÁTICAS</h2>
-            <div class="tematicas">
-                <div class="tema-card">
-                    <h3 class="tema-titulo">Cuerpo como lienzo</h3>
-                    <p class="tema-descripcion">Exploración del cuerpo humano como espacio de transformación, modificación y expresión artística.</p>
-                </div>
-                <div class="tema-card">
-                    <h3 class="tema-titulo">Dualidad y metamorfosis</h3>
-                    <p class="tema-descripcion">Figuras que oscilan entre lo humano y lo monstruoso, en constante transformación.</p>
-                </div>
-                <div class="tema-card">
-                    <h3 class="tema-titulo">Identidad fragmentada</h3>
-                    <p class="tema-descripcion">Rostros distorsionados, máscaras y alteraciones faciales que cuestionan la identidad.</p>
-                </div>
-                <div class="tema-card">
-                    <h3 class="tema-titulo">Erotismo subversivo</h3>
-                    <p class="tema-descripcion">Sexualidad presentada de forma inquietante y no convencional, desafiando tabúes.</p>
-                </div>
-                <div class="tema-card">
-                    <h3 class="tema-titulo">Iconografía religiosa</h3>
-                    <p class="tema-descripcion">Símbolos sagrados reinterpretados en contextos provocativos y transgresores.</p>
-                </div>
-                <div class="tema-card">
-                    <h3 class="tema-titulo">Fauna simbólica</h3>
-                    <p class="tema-descripcion">Insectos, aves y animales como metáforas visuales de estados emocionales o conceptos.</p>
-                </div>
-            </div>
-        </section>
-        
-        <div class="separator"></div>
-        
-        <section>
-            <h2>TÉCNICAS Y TEXTURAS</h2>
-            <div class="tecnicas">
-                <div class="tecnica-tag">Pinceladas expresivas</div>
-                <div class="tecnica-tag">Deformación deliberada</div>
-                <div class="tecnica-tag">Yuxtaposición</div>
-                <div class="tecnica-tag">Collage conceptual</div>
-                <div class="tecnica-tag">Efectos de luz dramáticos</div>
-                <div class="tecnica-tag">Transparencias y capas</div>
-                <div class="tecnica-tag">Distorsión cromática</div>
-                <div class="tecnica-tag">Texturas táctiles</div>
-                <div class="tecnica-tag">Contraste extremo</div>
-                <div class="tecnica-tag">Técnica mixta</div>
-                <div class="tecnica-tag">Fotografía intervenida</div>
-                <div class="tecnica-tag">Maquillaje artístico</div>
-            </div>
-        </section>
-        
-        <div class="separator"></div>
-        
-        <section>
-            <h2>CONCEPTOS VISUALES</h2>
-            <div class="visual-concepts">
-                <div class="concept-card">
-                    <div class="concept-bg" style="background-color: #151515;"></div>
-                    <div class="concept-content">
-                        <h3 class="concept-title">Lo grotesco hermoso</h3>
-                        <p class="concept-description">Encontrar belleza en lo convencionalmente repulsivo</p>
-                    </div>
-                </div>
-                <div class="concept-card">
-                    <div class="concept-bg" style="background-color: #201520;"></div>
-                    <div class="concept-content">
-                        <h3 class="concept-title">Intimidad incómoda</h3>
-                        <p class="concept-description">Cercanía que genera desasosiego en el espectador</p>
-                    </div>
-                </div>
-                <div class="concept-card">
-                    <div class="concept-bg" style="background-color: #152025;"></div>
-                    <div class="concept-content">
-                        <h3 class="concept-title">Inocencia corrompida</h3>
-                        <p class="concept-description">Elementos infantiles en contextos adultos perturbadores</p>
-                    </div>
-                </div>
-                <div class="concept-card">
-                    <div class="concept-bg" style="background-color: #251515;"></div>
-                    <div class="concept-content">
-                        <h3 class="concept-title">Naturaleza artificial</h3>
-                        <p class="concept-description">Flora y fauna representada de forma sintética o antinatural</p>
-                    </div>
-                </div>
-                <div class="concept-card">
-                    <div class="concept-bg" style="background-color: #152015;"></div>
-                    <div class="concept-content">
-                        <h3 class="concept-title">Lo sagrado profanado</h3>
-                        <p class="concept-description">Elementos religiosos en contextos transgresores</p>
-                    </div>
-                </div>
-                <div class="concept-card">
-                    <div class="concept-bg" style="background-color: #252025;"></div>
-                    <div class="concept-content">
-                        <h3 class="concept-title">Voyeurismo</h3>
-                        <p class="concept-description">La mirada como elemento activo y cómplice</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="separator"></div>
-        
-        <section>
-            <h2>APLICACIONES</h2>
-            <div class="aplicaciones">
-                <div class="aplicacion-card">
-                    <h3 class="aplicacion-titulo">Diseño de personajes</h3>
-                    <ul class="aplicacion-lista">
-                        <li class="aplicacion-item">Figuras con extremidades elongadas</li>
-                        <li class="aplicacion-item">Rostros con proporciones alteradas</li>
-                        <li class="aplicacion-item">Fusión de elementos humanos y no humanos</li>
-                        <li class="aplicacion-item">Vestimenta que combina fetichismo y elementos tradicionales</li>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#tienda">Tienda</a></li>
+                        <li><a href="#aplicaciones">Aplicaciones</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
                     </ul>
-                </div>
-                <div class="aplicacion-card">
-                    <h3 class="aplicacion-titulo">Espacios y ambientes</h3>
-                    <ul class="aplicacion-lista">
-                        <li class="aplicacion-item">Interiores claustrofóbicos</li>
-                        <li class="aplicacion-item">Escenarios teatrales con iluminación dramática</li>
-                        <li class="aplicacion-item">Naturaleza muerta con elementos simbólicos</li>
-                        <li class="aplicacion-item">Contrastes entre espacios vacíos y sobrecargados</li>
-                    </ul>
-                </div>
-                <div class="aplicacion-card">
-                    <h3 class="aplicacion-titulo">Narrativas visuales</h3>
-                    <ul class="aplicacion-lista">
-                        <li class="aplicacion-item">Secuencias de transformación física o psicológica</li>
-                        <li class="aplicacion-item">Momentos de revelación perturbadora</li>
-                        <li class="aplicacion-item">Rituales contemporáneos con elementos arcaicos</li>
-                        <li class="aplicacion-item">Encuentros íntimos como actos ceremoniales</li>
-                    </ul>
-                </div>
-                <div class="aplicacion-card">
-                    <h3 class="aplicacion-titulo">Elementos gráficos</h3>
-                    <ul class="aplicacion-lista">
-                        <li class="aplicacion-item">Letras manchadas y distorsionadas</li>
-                        <li class="aplicacion-item">Símbolos alquímicos y ocultistas</li>
-                        <li class="aplicacion-item">Diagramas anatómicos vintage</li>
-                        <li class="aplicacion-item">Collages de textos e imágenes encontradas</li>
-                    </ul>
+                </nav>
+                
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
                 </div>
             </div>
-        </section>
-        
-        <footer>
-            <p>MOOD BOARD BASADO EN PORTFOLIO ARTÍSTICO</p>
-        </footer>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animación de entrada para las secciones
-            const sections = document.querySelectorAll('section');
-            const options = {
-                threshold: 0.2,
-                rootMargin: "0px 0px -100px 0px"
-            };
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-subtitle">ARTE SURREALISTA PROVOCATIVO</div>
+                <h1 class="hero-title">Transgresión Visual <br> y Estética Perturbadora</h1>
+                <p class="hero-description">Explorando los límites de la percepción a través de imágenes surrealistas y provocadoras que desafían los convencionalismos estéticos y emocionales.</p>
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="btn">Descubrir Portfolio</a>
+                    <a href="#tienda" class="btn btn-primary">Comprar Productos</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bg"></div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">TRABAJO ARTÍSTICO</div>
+                <h2 class="section-title">Portfolio Visual</h2>
+            </div>
             
-            const sectionObserver = new IntersectionObserver(function(entries, observer) {
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="audiovisual">Audiovisual</button>
+                <button class="filter-btn" data-filter="urbano">Intervención Urbana</button>
+                <button class="filter-btn" data-filter="comercial">Espacios Comerciales</button>
+                <button class="filter-btn" data-filter="conceptual">Arte Conceptual</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Item 1 -->
+                <div class="portfolio-item" data-category="audiovisual">
+                    <img src="/api/placeholder/400/500" alt="Diseño para película de terror">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">AUDIOVISUAL</div>
+                        <h3 class="portfolio-title">Diseño de Criatura para "El Abismo"</h3>
+                        <a href="#" class="btn">Ver Proyecto</a>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="portfolio-item" data-category="urbano">
+                    <img src="/api/placeholder/400/500" alt="Intervención urbana">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">INTERVENCIÓN URBANA</div>
+                        <h3 class="portfolio-title">Fragmentación Identitaria</h3>
+                        <a href="#" class="btn">Ver Proyecto</a>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="portfolio-item" data-category="comercial">
+                    <img src="/api/placeholder/400/500" alt="Diseño para bar">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">ESPACIOS COMERCIALES</div>
+                        <h3 class="portfolio-title">Decoración Bar "Infierno"</h3>
+                        <a href="#" class="btn">Ver Proyecto</a>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="portfolio-item" data-category="conceptual">
+                    <img src="/api/placeholder/400/500" alt="Arte conceptual">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">ARTE CONCEPTUAL</div>
+                        <h3 class="portfolio-title">Metamorfosis Introspectiva</h3>
+                        <a href="#" class="btn">Ver Proyecto</a>
+                    </div>
+                </div>
+                
+                <!-- Item 5 -->
+                <div class="portfolio-item" data-category="audiovisual">
+                    <img src="/api/placeholder/400/500" alt="Escenografía para cortometraje">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">AUDIOVISUAL</div>
+                        <h3 class="portfolio-title">Escenografía "Pesadilla Lúcida"</h3>
+                        <a href="#" class="btn">Ver Proyecto</a>
+                    </div>
+                </div>
+                
+                <!-- Item 6 -->
+                <div class="portfolio-item" data-category="comercial">
+                    <img src="/api/placeholder/400/500" alt="Diseño para restaurante">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">ESPACIOS COMERCIALES</div>
+                        <h3 class="portfolio-title">Instalación Restaurante "Carne"</h3>
+                        <a href="#" class="btn">Ver Proyecto</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <a href="#contacto" class="btn">Contactar para Proyectos</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Tienda Section -->
+    <section id="tienda">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">PRODUCTOS EXCLUSIVOS</div>
+                <h2 class="section-title">Tienda de Arte</h2>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Producto 1 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="/api/placeholder/400/500" alt="Camiseta diseño exclusivo">
+                        <div class="product-badge">Nuevo</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">ROPA</div>
+                        <h3 class="product-title">Camiseta "Ojo Fragmentado"</h3>
+                        <div class="product-price">$2.800 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="1" data-name="Camiseta Ojo Fragmentado" data-price="2800" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 2 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="/api/placeholder/400/500" alt="Sudadera con capucha">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">ROPA</div>
+                        <h3 class="product-title">Sudadera "Pesadilla Nocturna"</h3>
+                        <div class="product-price">$5.000 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="2" data-name="Sudadera Pesadilla Nocturna" data-price="5000" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 3 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="/api/placeholder/400/500" alt="Tote bag">
+                        <div class="product-badge">Popular</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">ACCESORIOS</div>
+                        <h3 class="product-title">Tote Bag "Sangre y Hueso"</h3>
+                        <div class="product-price">$1.800 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="3" data-name="Tote Bag Sangre y Hueso" data-price="1800" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 4 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="/api/placeholder/400/500" alt="Póster impreso">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">IMPRESIONES</div>
+                        <h3 class="product-title">Póster "Dualidad Grotesca"</h3>
+                        <div class="product-price">$1.200 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="4" data-name="Póster Dualidad Grotesca" data-price="1200" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 5 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="/api/placeholder/400/500" alt="Pin esmaltado">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">ACCESORIOS</div>
+                        <h3 class="product-title">Pin Esmaltado "Tercer Ojo"</h3>
+                        <div class="product-price">$800 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="5" data-name="Pin Esmaltado Tercer Ojo" data-price="800" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 6 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="/api/placeholder/400/500" alt="Libro de arte">
+                        <div class="product-badge">Edición Limitada</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">LIBROS</div>
+                        <h3 class="product-title">Libro "Anatomía Distorsionada"</h3>
+                        <div class="product-price">$3.500 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="6" data-name="Libro Anatomía Distorsionada" data-price="3500" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 7 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="/api/placeholder/400/500" alt="Máscara decorativa">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">DECORACIÓN</div>
+                        <h3 class="product-title">Máscara "Identidad Fragmentada"</h3>
+                        <div class="product-price">$4.200 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="7" data-name="Máscara Identidad Fragmentada" data-price="4200" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 8 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="/api/placeholder/400/500" alt="Gorra bordada">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">ROPA</div>
+                        <h3 class="product-title">Gorra "Símbolo Oculto"</h3>
+                        <div class="product-price">$2.000 ARS</div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="8" data-name="Gorra Símbolo Oculto" data-price="2000" data-image="/api/placeholder/100/100">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Aplicaciones Section -->
+    <section id="aplicaciones">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">SERVICIOS CREATIVOS</div>
+                <h2 class="section-title">Aplicaciones Artísticas</h2>
+            </div>
+            
+            <div class="aplicaciones">
+                <!-- Aplicación 1 -->
+                <div class="aplicacion-card">
+                    <div class="aplicacion-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3 class="aplicacion-titulo">Industria Audiovisual</h3>
+                    <p class="aplicacion-descripcion">Diseño de criaturas, conceptualización visual y dirección artística para producciones de terror, películas de género y cortometrajes independientes. Especialización en atmósferas perturbadoras y estética surrealista.</p>
+                    <a href="#contacto" class="btn">Consultar</a>
+                </div>
+                
+                <!-- Aplicación 2 -->
+                <div class="aplicacion-card">
+                    <div class="aplicacion-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="aplicacion-titulo">Intervenciones Urbanas</h3>
+                    <p class="aplicacion-descripcion">Transformación de espacios públicos con murales, instalaciones y arte urbano de carácter provocativo. Proyectos que desafían la percepción cotidiana y generan experiencias visuales impactantes.</p>
+                    <a href="#contacto" class="btn">Consultar</a>
+                </div>
+                
+                <!-- Aplicación 3 -->
+                <div class="aplicacion-card">
+                    <div class="aplicacion-icon">
+                        <i class="fas fa-cocktail"></i>
+                    </div>
+                    <h3 class="aplicacion-titulo">Espacios Comerciales</h3>
+                    <p class="aplicacion-descripcion">Diseño y ambientación de bares temáticos, restaurantes conceptuales y espacios comerciales que buscan una estética distintiva. Creación de atmósferas inmersivas con personalidad única.</p>
+                    <a href="#contacto" class="btn">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonios/Colaboraciones -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">TESTIMONIOS</div>
+                <h2 class="section-title">Colaboraciones Destacadas</h2>
+            </div>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-track">
+                    <!-- Testimonio 1 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-quote">"La estética perturbadora y provocativa que aporta este artista fue clave para crear la atmósfera única de nuestro festival de cine independiente. Su trabajo visual definió la identidad de todo el evento."</div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="/api/placeholder/100/100" alt="Director de festival">
+                            </div>
+                            <div class="author-name">Martín Rodríguez</div>
+                            <div class="author-title">Director, Festival de Cine de Terror de Buenos Aires</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonio 2 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-quote">"La intervención artística que realizó en nuestro bar transformó completamente el lugar. Los clientes vienen específicamente para experimentar el ambiente único que sus obras han creado."</div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="/api/placeholder/100/100" alt="Dueña de bar">
+                            </div>
+                            <div class="author-name">Laura Vázquez</div>
+                            <div class="author-title">Propietaria, Bar 'Sótano Oscuro'</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonio 3 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-quote">"Colaborar en el diseño de personajes para nuestra producción fue una experiencia reveladora. Su visión surrealista aportó una dimensión inquietante que elevó significativamente la calidad visual del proyecto."</div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="/api/placeholder/100/100" alt="Directora de cine">
+                            </div>
+                            <div class="author-name">Carolina Menéndez</div>
+                            <div class="author-title">Directora, 'Pesadillas Tangibles'</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <button class="testimonial-btn prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="testimonial-btn next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Únete al Submundo</h2>
+                <p class="newsletter-description">Suscríbete para recibir novedades sobre lanzamientos exclusivos, descuentos especiales e invitaciones a eventos.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Tu correo electrónico" required>
+                    <button type="submit" class="btn btn-primary">Suscribirse</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Navegación</h3>
+                    <ul class="footer-links">
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#tienda">Tienda</a></li>
+                        <li><a href="#aplicaciones">Aplicaciones</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Categorías de Productos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#tienda">Ropa</a></li>
+                        <li><a href="#tienda">Accesorios</a></li>
+                        <li><a href="#tienda">Impresiones</a></li>
+                        <li><a href="#tienda">Decoración</a></li>
+                        <li><a href="#tienda">Libros</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Estudio: Calle Oscura 666, CABA, Argentina</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>contacto@necrofiliavisual.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+54 11 5555-6666</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-behance"></i></a>
+                    </div>
+                    <p style="margin-top: 20px; font-size: 0.9rem; color: var(--gris-medio);">Comparte tu experiencia con:</p>
+                    <p style="font-size: 0.9rem; color: var(--rojo);">#NecrofiliaVisual</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Necrofilia Visual. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Carrito flotante -->
+    <div class="cart-overlay"></div>
+    
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3 class="cart-title">Tu Carrito</h3>
+            <div class="close-cart"><i class="fas fa-times"></i></div>
+        </div>
+        
+        <div class="cart-items">
+            <!-- Los items del carrito se cargarán dinámicamente con JS -->
+        </div>
+        
+        <div class="cart-total">
+            <div class="cart-total-row">
+                <span class="cart-total-label">Subtotal</span>
+                <span class="cart-total-value subtotal">$0</span>
+            </div>
+            <div class="cart-total-row">
+                <span class="cart-total-label">Envío</span>
+                <span class="cart-total-value shipping">Calculado en checkout</span>
+            </div>
+            <div class="cart-total-row final">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-value total">$0</span>
+            </div>
+        </div>
+        
+        <div class="cart-actions">
+            <a href="#" class="btn btn-primary">Finalizar Compra</a>
+            <a href="#" class="btn close-cart">Seguir Comprando</a>
+        </div>
+    </div>
+    
+    <script>
+        // Navegación y Header
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navMenu = document.querySelector('nav ul');
+            
+            // Cambiar header al hacer scroll
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Toggle menu en móvil
+            burgerMenu.addEventListener('click', function() {
+                navMenu.classList.toggle('show');
+                
+                // Animar las barras del menú
+                const spans = this.querySelectorAll('span');
+                if (navMenu.classList.contains('show')) {
+                    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    spans[1].style.opacity = '0';
+                    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+                } else {
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                }
+            });
+            
+            // Cerrar menú al hacer clic en un enlace
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('show');
+                    const spans = burgerMenu.querySelectorAll('span');
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                });
+            });
+            
+            // Animación de entrada para secciones
+            const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.classList.add('fade-in');
                         observer.unobserve(entry.target);
                     }
                 });
-            }, options);
+            }, { threshold: 0.1 });
             
-            sections.forEach(section => {
-                section.style.opacity = 0;
-                section.style.transform = 'translateY(30px)';
-                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                sectionObserver.observe(section);
+            document.querySelectorAll('section > .container').forEach(section => {
+                section.style.opacity = '0';
+                observer.observe(section);
             });
             
-            // Interactividad de las tarjetas de técnicas
-            const tecnicaTags = document.querySelectorAll('.tecnica-tag');
-            tecnicaTags.forEach(tag => {
-                tag.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    if (this.classList.contains('active')) {
-                        this.style.backgroundColor = '#ff2e4a';
-                        this.style.color = '#ffffff';
-                    } else {
-                        this.style.backgroundColor = 'rgba(30, 30, 30, 0.6)';
-                        this.style.color = '#f0f0f0';
-                    }
+            // Filtros de Portfolio
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Actualizar botón activo
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filtrar elementos
+                    const filter = this.getAttribute('data-filter');
+                    
+                    portfolioItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
                 });
             });
             
-            // Efectos hover para las tarjetas de conceptos
-            const conceptCards = document.querySelectorAll('.concept-card');
-            conceptCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    const randomColor = getRandomDarkColor();
-                    this.querySelector('.concept-bg').style.backgroundColor = randomColor;
-                });
-            });
+            // Testimonial Slider
+            const track = document.querySelector('.testimonial-track');
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const prevBtn = document.querySelector('.testimonial-btn.prev');
+            const nextBtn = document.querySelector('.testimonial-btn.next');
             
-            function getRandomDarkColor() {
-                const colors = [
-                    '#1a0a0a', '#0a1a0a', '#0a0a1a', 
-                    '#1a0a1a', '#0a1a1a', '#1a1a0a',
-                    '#2d0a15', '#0a2d15', '#150a2d'
-                ];
-                return colors[Math.floor(Math.random() * colors.length)];
+            let currentIndex = 0;
+            const slideWidth = 100; // porcentaje
+            
+            function updateSlider() {
+                track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
             }
             
-            // Interactividad con la paleta de colores
-            const colorSwatches = document.querySelectorAll('.color-swatch');
-            colorSwatches.forEach(swatch => {
-                swatch.addEventListener('click', function() {
-                    const color = this.style.backgroundColor;
-                    document.documentElement.style.setProperty('--highlight-color', color);
-                    
-                    // Efecto visual de selección
-                    colorSwatches.forEach(s => s.style.transform = 'translateY(0)');
-                    this.style.transform = 'translateY(-10px)';
-                });
+            prevBtn.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                }
             });
-        });
-    </script>
-</body>
-</html>
+            
+            nextBtn.addEventListener('click', function() {
+                if (currentIndex < slides.length - 1) {
+                    currentIndex++;
+                    updateSlider();
+                }
+            });
+            
+            // Funcionalidad del carrito
+            const cartIcon = document.querySelector('.cart-icon');
+            const cartSidebar = document.querySelector('.cart-sidebar');
+            const cartOverlay = document.querySelector('.cart-overlay');
+            const closeCartButtons = document.querySelectorAll('.close-cart');
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const subtotalElement = document.querySelector('.subtotal');
+            const totalElement = document.querySelector('.total');
+            const cartCountElement = document.querySelector('.cart-count');
+            
+            let cart = [];
+            
+            // Cargar carrito desde localStorage si existe
+            if (localStorage.getItem('cart')) {
+                cart = JSON.parse(localStorage.getItem('cart'));
+                updateCartUI();
+            }
+            
+            // Abrir carrito
+            cartIcon.addEventListener('click', function() {
+                cartSidebar.classList.add('active');
+                cartOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Cerrar carrito
+            function closeCart() {
+                cartSidebar.classList.remove('active');
+                cartOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            closeCartButtons.forEach(btn => {
+                btn.addEventListener('click', closeCart);
+            });
+            
+            cartOverlay.addEventListener('click', closeCart);
+            
+            // Añadir producto al carrito
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    const image = this.getAttribute('data-image');
+                    
+                    // Verificar si el producto ya está en el carrito
+                    const existingItem = cart.find(item =>
