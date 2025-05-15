@@ -1042,6 +1042,143 @@
             text-decoration: underline;
         }
 
+        /* Estilos para la galería de anuncios competidores */
+        .competencia-ejemplos {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px dashed var(--gris-borde);
+        }
+
+        .competencia-ejemplos h4 {
+            font-family: var(--fuente-principal);
+            font-size: var(--texto-lg);
+            font-weight: 700;
+            color: var(--color-ads);
+            margin-bottom: 15px;
+        }
+
+        .competencia-ejemplos p {
+            margin-bottom: 20px;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .gallery-item {
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondo-md);
+            box-shadow: var(--sombra-suave);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--sombra-media);
+        }
+
+        .gallery-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+
+        .gallery-image-container {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background-color: var(--fondo-claro);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-zoom {
+            color: var(--blanco);
+            background-color: rgba(66, 103, 178, 0.8);
+            padding: 10px 20px;
+            border-radius: var(--borde-redondo-full);
+            font-weight: 600;
+            font-size: var(--texto-sm);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-zoom:hover {
+            background-color: rgba(66, 103, 178, 1);
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            padding: 15px;
+            background-color: var(--blanco);
+        }
+
+        .gallery-caption p {
+            margin: 0;
+            font-weight: 600;
+            font-size: var(--texto-sm);
+            color: var(--texto-oscuro);
+        }
+
+        .gallery-caption i {
+            color: var(--color-ads);
+            margin-right: 8px;
+        }
+
+        .gallery-insight {
+            background-color: var(--bg-ads);
+            border-radius: var(--borde-redondo-md);
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            border-left: 3px solid var(--color-ads);
+        }
+
+        .gallery-insight i {
+            color: var(--color-ads);
+            font-size: 24px;
+            margin-top: 3px;
+        }
+
+        .gallery-insight p {
+            margin: 0;
+            color: var(--texto-claro);
+            font-size: var(--texto-sm);
+        }
+
         @media (max-width: 768px) {
             .hallazgos-key {
                 grid-template-columns: 1fr;
@@ -1063,6 +1200,10 @@
             .cta-included {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .gallery-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -1554,9 +1695,129 @@
                 </div>
             </div>
 
+            <div class="competencia-section">
+                <div class="section-title blue">
+                    <span>6</span>Análisis de competidores
+                </div>
+
+                <div class="competencia-card">
+                    <div class="competencia-header">
+                        <h3>Estrategias destacadas de la competencia</h3>
+                    </div>
+
+                    <div class="competencia-ejemplos">
+                        <h4>Ejemplos de anuncios de competidores:</h4>
+                        <p>Analizamos los anuncios más efectivos de la competencia en el sector de marketplaces y tiendas de motos:</p>
+                        
+                        <div class="gallery-container">
+                            <div class="gallery-item">
+                                <a href="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/3fa49a6e-fbaa-ca71-7e13-218fa9d44c14.png" target="_blank" class="gallery-link">
+                                    <div class="gallery-image-container">
+                                        <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/3fa49a6e-fbaa-ca71-7e13-218fa9d44c14.png" alt="Anuncio competidor 1" class="gallery-image">
+                                        <div class="gallery-overlay">
+                                            <span class="gallery-zoom"><i class="fas fa-search-plus"></i> Ver imagen completa</span>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-caption">
+                                        <p><i class="fas fa-chart-line"></i> Uso de imágenes de producto con contexto</p>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="gallery-item">
+                                <a href="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/9905f9e8-8c3f-5d38-33ed-b5fe9b2c9128.png" target="_blank" class="gallery-link">
+                                    <div class="gallery-image-container">
+                                        <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/9905f9e8-8c3f-5d38-33ed-b5fe9b2c9128.png" alt="Anuncio competidor 2" class="gallery-image">
+                                        <div class="gallery-overlay">
+                                            <span class="gallery-zoom"><i class="fas fa-search-plus"></i> Ver imagen completa</span>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-caption">
+                                        <p><i class="fas fa-bullseye"></i> Oferta específica con llamada a la acción clara</p>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="gallery-item">
+                                <a href="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/699d0305-e3b6-dcc2-aeea-30ed57182338.png" target="_blank" class="gallery-link">
+                                    <div class="gallery-image-container">
+                                        <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/699d0305-e3b6-dcc2-aeea-30ed57182338.png" alt="Anuncio competidor 3" class="gallery-image">
+                                        <div class="gallery-overlay">
+                                            <span class="gallery-zoom"><i class="fas fa-search-plus"></i> Ver imagen completa</span>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-caption">
+                                        <p><i class="fas fa-tags"></i> Destacando beneficios para vendedores</p>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="gallery-item">
+                                <a href="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/18eebf5d-03e1-720e-07eb-3111c8cf8465.png" target="_blank" class="gallery-link">
+                                    <div class="gallery-image-container">
+                                        <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/18eebf5d-03e1-720e-07eb-3111c8cf8465.png" alt="Anuncio competidor 4" class="gallery-image">
+                                        <div class="gallery-overlay">
+                                            <span class="gallery-zoom"><i class="fas fa-search-plus"></i> Ver imagen completa</span>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-caption">
+                                        <p><i class="fas fa-users"></i> Testimonios de usuarios para generar confianza</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="gallery-insight">
+                            <i class="fas fa-lightbulb"></i>
+                            <p><strong>Insights clave:</strong> Los competidores están destacando beneficios específicos con testimonios reales, imágenes de productos en uso y ofertas con límites temporales claros. Utilizan colores contrastantes para los CTAs y mensajes más orientados a resolver problemas específicos de cada segmento (vendedores, compradores, talleres).</p>
+                        </div>
+                    </div>
+
+                    <div class="competencia-ejemplos">
+                        <h4>Creatividades recomendadas para mejorar resultados:</h4>
+                        <p>Basándonos en el análisis de competidores y las mejores prácticas del sector, recomendamos los siguientes enfoques creativos:</p>
+                        
+                        <div class="gallery-container">
+                            <div class="gallery-item">
+                                <a href="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/2ecc07c6-d5ed-7b2d-7db2-905d1224cdf3.png" target="_blank" class="gallery-link">
+                                    <div class="gallery-image-container">
+                                        <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/2ecc07c6-d5ed-7b2d-7db2-905d1224cdf3.png" alt="Creatividad recomendada 1" class="gallery-image">
+                                        <div class="gallery-overlay">
+                                            <span class="gallery-zoom"><i class="fas fa-search-plus"></i> Ver imagen completa</span>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-caption">
+                                        <p><i class="fas fa-star"></i> Estilo visual recomendado para anuncios</p>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="gallery-item">
+                                <a href="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/2e53e021-e47c-b827-e226-4c95301efde1.png" target="_blank" class="gallery-link">
+                                    <div class="gallery-image-container">
+                                        <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/2e53e021-e47c-b827-e226-4c95301efde1.png" alt="Creatividad recomendada 2" class="gallery-image">
+                                        <div class="gallery-overlay">
+                                            <span class="gallery-zoom"><i class="fas fa-search-plus"></i> Ver imagen completa</span>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-caption">
+                                        <p><i class="fas fa-bullhorn"></i> Formato de carrusel optimizado</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="gallery-insight">
+                            <i class="fas fa-lightbulb"></i>
+                            <p><strong>Aplicación a su estrategia:</strong> Recomendamos implementar estos formatos para los conjuntos de anuncios de mejor rendimiento (Accesorios, Indumentaria), con un enfoque en destacar beneficios específicos por categoría y testimonios de vendedores actuales que estén teniendo éxito en la plataforma.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="recomendaciones-section">
                 <div class="section-title green">
-                    <span>6</span>Plan de acción inmediato
+                    <span>7</span>Plan de acción inmediato
                 </div>
 
                 <div class="recomendaciones-card">
