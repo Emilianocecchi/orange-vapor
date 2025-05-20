@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Moto Latino - Vendé sin comisiones</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Color Palette */
+            --primary: #FF7200;
+            --primary-light: #FF9340;
+            --primary-dark: #E56700;
+            --secondary: #2C2C2C;
+            --accent: #62C9C3;
+            --light: #FFFFFF;
+            --dark: #1A1A1A;
+            --gray: #7D7D7D;
+            --light-gray: #F5F5F5;
+            --success: #2F855A;
+            
+            /* Typography */
+            --heading-font: 'Montserrat', sans-serif;
+            --body-font: 'Poppins', sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 8rem;
+            
+            /* Borders */
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 20px;
+        }
+        
+        /* Keyframes animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 10px 25px rgba(255, 114, 0, 0.3);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--secondary);
+            background-color: var(--light);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-sm);
+            color: var(--dark);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+        }
+        
+        p {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-family: var(--heading-font);
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-dark));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary-light);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-lg {
+            padding: 18px 40px;
+            font-size: 1.1rem;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-primary {
+            color: var(--primary);
+        }
+        
+        .mb-1 {
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .mb-2 {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .mb-3 {
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .mb-4 {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .mt-1 {
+            margin-top: var(--spacing-xs);
+        }
+        
+        .mt-2 {
+            margin-top: var(--spacing-sm);
+        }
+        
+        .mt-3 {
+            margin-top: var(--spacing-md);
+        }
+        
+        .mt-4 {
+            margin-top: var(--spacing-lg);
+        }
+        
+        /* Header */
+        .header {
+            padding: 1.5rem 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .header-action {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-phone {
+            margin-right: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .header-phone i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.8)), url('https://source.unsplash.com/random/1600x900/?motorcycle,shop');
+            background-size: cover;
+            background-position: center;
+            padding: var(--spacing-xl) 0;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(255, 114, 0, 0.1);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .hero-title {
+            margin-bottom: var(--spacing-md);
+            font-size: 3.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero-title span {
+            color: var(--primary);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-title span::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: rgba(255, 114, 0, 0.2);
+            z-index: -1;
+            border-radius: 4px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .hero-text {
+            margin-bottom: var(--spacing-md);
+            font-size: 1.1rem;
+            color: var(--secondary);
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 40%;
+            z-index: 1;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            padding: var(--spacing-xl) 0;
+            background-color: var(--light);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+        }
+        
+        .section-title h2 {
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .benefit-card {
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-md);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 114, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .benefit-title {
+            font-size: 1.4rem;
+            margin-bottom: var(--spacing-xs);
+            color: var(--dark);
+        }
+        
+        .benefit-text {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+        
+        /* Plans Section */
+        .plans {
+            padding: var(--spacing-xl) 0;
+            background-color: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plans::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 114, 0, 0.1), transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .plans::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(98, 201, 195, 0.1), transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .plan-card {
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plan-header {
+            padding: var(--spacing-md);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+        }
+        
+        .plan-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing-xs);
+            color: white;
+        }
+        
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+        
+        .plan-discount {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: line-through;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .plan-badge {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: var(--spacing-xs);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 3;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plan-features {
+            padding: var(--spacing-md);
+            flex-grow: 1;
+        }
+        
+        .plan-feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .plan-feature i {
+            color: var(--success);
+            margin-right: 10px;
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+        
+        .plan-feature p {
+            margin: 0;
+            color: var(--secondary);
+        }
+        
+        .plan-action {
+            padding: 0 var(--spacing-md) var(--spacing-md);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: var(--spacing-xl) 0;
+            background-color: white;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .testimonial-card {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-md);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: var(--spacing-sm);
+            color: var(--secondary);
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary);
+            line-height: 0;
+            position: relative;
+            top: 15px;
+            left: -5px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .testimonial-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+        
+        .testimonial-info p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0;
+        }
+        
+        /* Brands Section */
+        .brands {
+            padding: var(--spacing-lg) 0;
+            background-color: var(--light-gray);
+        }
+        
+        .brands-title {
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            font-size: 1.5rem;
+            color: var(--gray);
+        }
+        
+        .brands-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .brand-item {
+            height: 60px;
+            filter: grayscale(1);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .brand-item:hover {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: var(--spacing-xl) 0;
+            background-color: white;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .faq-item {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .faq-question {
+            background-color: var(--light-gray);
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            color: var(--dark);
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(255, 114, 0, 0.1);
+        }
+        
+        .faq-question i {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .faq-answer {
+            padding: 15px 20px;
+            color: var(--gray);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: var(--spacing-xl) 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: white;
+        }
+        
+        .cta-text {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-md);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Form Section */
+        .form-section {
+            padding: var(--spacing-xl) 0;
+            background-color: var(--light);
+        }
+        
+        .form-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            padding: var(--spacing-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-container::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 114, 0, 0.1), transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .form-title h3 {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .form-title p {
+            color: var(--gray);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: var(--body-font);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 114, 0, 0.1);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: var(--body-font);
+            font-size: 1rem;
+            appearance: none;
+            background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") right 15px center/16px no-repeat;
+            transition: all 0.3s ease;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 114, 0, 0.1);
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .form-check input {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .form-check label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .form-check a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        .form-note {
+            margin-top: var(--spacing-sm);
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        /* Fixed CTA Button */
+        .fixed-cta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            animation: pulse 2s infinite;
+            display: none;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: var(--spacing-lg) 0;
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .footer-logo {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .footer-text {
+            margin-bottom: var(--spacing-sm);
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-title {
+            font-size: 1.3rem;
+            margin-bottom: var(--spacing-sm);
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-contact {
+            list-style: none;
+        }
+        
+        .footer-contact li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+        
+        .copyright {
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 992px) {
+            h1, .hero-title {
+                font-size: 3rem;
+            }
+            
+            h2, .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .fixed-cta {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1, .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            h2, .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hero {
+                padding: var(--spacing-lg) 0;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+            }
+            
+            .header-phone {
+                display: none;
+            }
+            
+            .benefits-grid, .plans-grid, .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: var(--spacing-md);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            h1, .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-lg {
+                padding: 15px 30px;
+                font-size: 1rem;
+            }
+            
+            .benefit-card, .plan-card, .testimonial-card {
+                padding: var(--spacing-sm);
+            }
+            
+            .form-container {
+                padding: var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <img src="https://portalmotolatino.com.ar/wp-content/uploads/2022/12/cropped-logo-pml.png" alt="Portal Moto Latino">
+                </a>
+                <div class="header-action">
+                    <a href="tel:+5491130011554" class="header-phone">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+54 9 11 3001 1554</span>
+                    </a>
+                    <a href="#contact-form" class="btn btn-primary">Quiero vender</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge">El primer shopping multi comercios de la moto online</span>
+                <h1 class="hero-title">Vendé tus <span>motos, repuestos o servicios</span> en todo el país desde un solo lugar</h1>
+                <p class="hero-subtitle">Creá tu tienda en el portal de motos líder sin pagar comisiones por venta</p>
+                <p class="hero-text">Portal Moto Latino te ofrece la posibilidad de tener tu propio espacio de venta online con todas las herramientas necesarias para hacer crecer tu negocio, sin cobrar comisión por cada venta que realizás.</p>
+                <div class="hero-cta">
+                    <a href="#plans" class="btn btn-primary btn-lg">Ver nuestros planes</a>
+                    <a href="#contact-form" class="btn btn-secondary btn-lg">Empezar ahora - 30 días gratis</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>¿Por qué vender en Portal Moto Latino?</h2>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h3 class="benefit-title">Sin comisión por venta</h3>
+                    <p class="benefit-text">Olvidate de pagar un porcentaje por cada venta. Con Portal Moto Latino, pagás una suscripción mensual fija y todo lo que vendés es 100% tuyo.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3 class="benefit-title">Tu propia tienda online</h3>
+                    <p class="benefit-text">Tené tu tienda completa en minutos con carrito de compras, sistema de envíos y medios de pago integrados. Fácil de administrar sin conocimientos técnicos.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="benefit-title">Mayor visibilidad</h3>
+                    <p class="benefit-text">Aparecé en Google, Facebook e Instagram. Nuestro marketplace te ayuda a llegar a más clientes potenciales interesados en el mundo de las motos.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="benefit-title">Geolocalización</h3>
+                    <p class="benefit-text">Tu negocio aparecerá en búsquedas por zona, permitiendo que compradores cercanos te encuentren fácilmente. Idealmente posicionado en provincias clave.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="benefit-title">Contacto directo</h3>
+                    <p class="benefit-text">Tus datos de contacto quedan visibles para que converses libremente con tus clientes. Las consultas llegan directo a tu email o WhatsApp.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="benefit-title">Datos y métricas</h3>
+                    <p class="benefit-text">Tendrás acceso a todos los datos de tus clientes y ventas para trabajar en estrategias que incrementen tu conversión y fidelización.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section id="plans" class="plans">
+        <div class="container">
+            <div class="section-title">
+                <h2>Elegí el plan ideal para tu negocio</h2>
+            </div>
+            
+            <div class="plans-grid">
+                <!-- Plan 1 -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Tus Servicios en el Shopping</h3>
+                        <div class="plan-price">$29.700 <span>/mes</span></div>
+                        <div class="plan-discount">$33.000</div>
+                        <div class="plan-badge">10% de descuento</div>
+                    </div>
+                    <div class="plan-features">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Promocioná tus servicios sin límite y sin pagar comisión por venta</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Presencia de tu marca en el primer Shopping de la moto Online</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Tus datos de contacto visibles para conversar directamente con clientes</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Consultas y reservas que llegan a tu Email o WhatsApp</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Promoción 24/7 los 365 días del año</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Aparecés en búsquedas por geolocalización, rubro y zona</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Promoción en Google, Facebook e Instagram</p>
+                        </div>
+                    </div>
+                    <div class="plan-action">
+                        <a href="#contact-form" class="btn btn-primary btn-block">Elegir este plan</a>
+                    </div>
+                </div>
+                
+                <!-- Plan 2 -->
+                <div class="plan-card">
+                    <div class="popular-badge">Más popular</div>
+                    <div class="plan-header">
+                        <h3>Tu Local en el Shopping</h3>
+                        <div class="plan-price">$40.500 <span>/mes</span></div>
+                        <div class="plan-discount">$45.000</div>
+                        <div class="plan-badge">10% de descuento</div>
+                    </div>
+                    <div class="plan-features">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Todo solucionado para vender online, con Carrito de Compras</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Vendé sin límite y sin pagar comisión por cada venta</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Presencia de tu Marca en el Shopping, Google y RRSS</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Tus datos de Contacto Visibles para tus clientes</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Consultas directas a tu Mail o WhatsApp</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Tu Negocio puede vender 24/7 los 365 días</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Acceso a datos de Clientes y Ventas</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Ofertas destacadas en la Página Principal</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Sistema de valoración de 5 estrellas para tu negocio</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Carrito de Compras integrado</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Cobrás directamente en tu Cuenta de MercadoPago</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Calculador de Envíos de Correo Argentino Integrado</p>
+                        </div>
+                    </div>
+                    <div class="plan-action">
+                        <a href="#contact-form" class="btn btn-primary btn-block">Elegir este plan</a>
+                    </div>
+                </div>
+                
+                <!-- Plan 3 -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Tu Concesionaria en el Shopping</h3>
+                        <div class="plan-price">$45.000 <span>/mes</span></div>
+                        <div class="plan-discount">$50.000</div>
+                        <div class="plan-badge">10% de descuento</div>
+                    </div>
+                    <div class="plan-features">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Publicá todas tus motos, productos y servicios en todo el país</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Carrito de Compra, Medios de Pago y Envío incluidos</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Vendé sin límite y sin pagar comisión por cada venta</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Sin paquetes de publicaciones limitados</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Presencia en Google, Facebook e Instagram</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Consultas directas a tu e-Mail o WhatsApp</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Tu Negocio puede vender 24/7 los 365 días</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Aparecés en búsquedas por geolocalización y rubro</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Todos los datos de tus Clientes y Ventas</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Participación en Ofertas en Página Principal</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Valoración de 5 Estrellas para tu negocio</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Cobrás directo en tu Cuenta de Mercado Pago</p>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Calculador de Envíos integrado</p>
+                        </div>
+                    </div>
+                    <div class="plan-action">
+                        <a href="#contact-form" class="btn btn-primary btn-block">Elegir este plan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Lo que dicen nuestros vendedores</h2>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Desde que empecé a vender en Portal Moto Latino mis ventas aumentaron un 40%. La posibilidad de no pagar comisiones hizo que mi rentabilidad mejorara considerablemente.</p>
+                    <div class="testimonial-author">
+                        <img src="https://source.unsplash.com/random/100x100/?man" alt="Juan Pérez">
+                        <div class="testimonial-info">
+                            <h4>Juan Pérez</h4>
+                            <p>Concesionaria de Motos - Buenos Aires</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">El sistema de carrito de compras y el calculador de envíos me facilitan muchísimo la operatoria diaria. Los clientes encuentran mis repuestos gracias al buen posicionamiento en Google.</p>
+                    <div class="testimonial-author">
+                        <img src="https://source.unsplash.com/random/100x100/?woman" alt="Laura Gómez">
+                        <div class="testimonial-info">
+                            <h4>Laura Gómez</h4>
+                            <p>Tienda de Repuestos - Córdoba</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Como taller, me resultaba complicado tener presencia online. Portal Moto Latino me dio visibilidad y ahora recibo consultas de toda la provincia gracias a la geolocalización.</p>
+                    <div class="testimonial-author">
+                        <img src="https://source.unsplash.com/random/100x100/?mechanic" alt="Carlos Rodríguez">
+                        <div class="testimonial-info">
+                            <h4>Carlos Rodríguez</h4>
+                            <p>Taller Mecánico - Santa Fe</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="brands">
+        <div class="container">
+            <h3 class="brands-title">Marcas que confían en nosotros</h3>
+            <div class="brands-grid">
+                <img src="https://source.unsplash.com/random/150x80/?logo,motorcycle,honda" alt="Marca 1" class="brand-item">
+                <img src="https://source.unsplash.com/random/150x80/?logo,motorcycle,yamaha" alt="Marca 2" class="brand-item">
+                <img src="https://source.unsplash.com/random/150x80/?logo,motorcycle,suzuki" alt="Marca 3" class="brand-item">
+                <img src="https://source.unsplash.com/random/150x80/?logo,motorcycle,kawasaki" alt="Marca 4" class="brand-item">
+                <img src="https://source.unsplash.com/random/150x80/?logo,motorcycle,ducati" alt="Marca 5" class="brand-item">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Preguntas frecuentes</h2>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Cómo funciona el sistema de suscripción?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>El sistema funciona mediante una suscripción mensual fija según el plan que elijas. Todos los planes incluyen 30 días de prueba gratuita. Durante ese período podés probar todas las funcionalidades sin compromiso.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Realmente no cobran comisión por venta?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Así es, a diferencia de otros marketplaces, nuestro modelo se basa en la suscripción mensual. Todo lo que vendas es 100% tuyo, sin importar el volumen o monto de tus ventas. Esto hace que tu inversión sea fija y predecible.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Ya vendo por redes sociales, ¿por qué debería sumarme al portal?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Portal Moto Latino no reemplaza tus redes sociales, las potencia. Mientras las redes son excelentes para captar atención, nuestro portal te brinda una tienda profesional con carrito de compras, sistema de pagos y envíos. Además, tu contenido se indexa en Google, lo que te da visibilidad con potenciales clientes que tienen intención de compra.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Cuánto tiempo lleva configurar mi tienda?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Podés tener tu tienda operativa en minutos. Nuestro sistema está diseñado para ser intuitivo y no requiere conocimientos técnicos. Simplemente cargás tus datos, productos o servicios, conectás tu cuenta de MercadoPago y ¡listo! Estás listo para vender.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Cómo recibo los pagos de mis ventas?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Los pagos se acreditan directamente en tu cuenta de MercadoPago. No intermediamos en las transacciones, por lo que el dinero va directamente a tu cuenta sin demoras adicionales.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Qué pasa si quiero cancelar mi suscripción?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Podés cancelar tu suscripción en cualquier momento. No hay contratos de permanencia ni penalizaciones por cancelación. Tu tienda permanecerá activa hasta el final del período pagado.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿En qué provincias tiene presencia Portal Moto Latino?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Tenemos presencia en toda Argentina, con especial foco en Buenos Aires, Córdoba, Santa Fe, Mendoza y Tucumán. Nuestro sistema de geolocalización permite que los compradores encuentren comercios en su zona.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Ofrecen soporte técnico?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, contamos con soporte técnico para todos nuestros vendedores. Te ayudamos en la configuración inicial y estamos disponibles para resolver cualquier consulta durante tu experiencia en el portal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">¿Ya vendés por redes sociales o marketplaces?</h2>
+            <p class="cta-text">El Portal Moto Latino no reemplaza tus canales actuales: los potencia. Sumá tu propia tienda online, control total de tus ventas, presencia en Google y una experiencia profesional para tus clientes.</p>
+            <a href="#contact-form" class="btn btn-secondary btn-lg">Prueba gratis por 30 días</a>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section id="contact-form" class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-title">
+                    <h3>Comenzá a vender hoy mismo</h3>
+                    <p>Completá el formulario y un asesor te contactará para configurar tu tienda</p>
+                </div>
+                
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="negocio" class="form-label">Nombre de tu negocio</label>
+                        <input type="text" id="negocio" class="form-control" placeholder="Ej: Moto Shop Buenos Aires" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rubro" class="form-label">Rubro principal</label>
+                        <select id="rubro" class="form-select" required>
+                            <option value="" selected disabled>Seleccioná una opción</option>
+                            <option value="concesionaria">Concesionaria de motos</option>
+                            <option value="repuestos">Tienda de repuestos</option>
+                            <option value="accesorios">Accesorios para motos</option>
+                            <option value="indumentaria">Indumentaria para motociclistas</option>
+                            <option value="taller">Taller mecánico</option>
+                            <option value="servicios">Otros servicios</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="provincia" class="form-label">Provincia</label>
+                        <select id="provincia" class="form-select" required>
+                            <option value="" selected disabled>Seleccioná una opción</option>
+                            <option value="buenosaires">Buenos Aires</option>
+                            <option value="caba">Ciudad de Buenos Aires</option>
+                            <option value="cordoba">Córdoba</option>
+                            <option value="santafe">Santa Fe</option>
+                            <option value="mendoza">Mendoza</option>
+                            <option value="tucuman">Tucumán</option>
+                            <option value="otro">Otra provincia</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="whatsapp" class="form-label">WhatsApp de contacto</label>
+                        <input type="tel" id="whatsapp" class="form-control" placeholder="Ej: +5491112345678" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Ej: tunegocio@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="plan" class="form-label">Plan de interés</label>
+                        <select id="plan" class="form-select" required>
+                            <option value="" selected disabled>Seleccioná una opción</option>
+                            <option value="servicios">Tus Servicios en el Shopping ($29.700/mes)</option>
+                            <option value="local">Tu Local en el Shopping ($40.500/mes)</option>
+                            <option value="concesionaria">Tu Concesionaria en el Shopping ($45.000/mes)</option>
+                            <option value="asesoramiento">Quiero asesoramiento para elegir</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">Acepto los <a href="#">términos y condiciones</a> y la <a href="#">política de privacidad</a>.</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Quiero vender en el portal</button>
+                    
+                    <p class="form-note">Al enviar este formulario, aceptás recibir comunicaciones de Portal Moto Latino.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fixed CTA Button -->
+    <div class="fixed-cta">
+        <a href="#contact-form" class="btn btn-primary">Empezar ahora</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <img src="https://portalmotolatino.com.ar/wp-content/uploads/2022/12/cropped-logo-pml.png" alt="Portal Moto Latino">
+                    </div>
+                    <p class="footer-text">El primer shopping multi comercios de la moto online. Conectamos vendedores con compradores en toda Argentina.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Enlaces rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Planes</a></li>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Para compradores</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Explorar categorías</a></li>
+                        <li><a href="#">Cómo comprar</a></li>
+                        <li><a href="#">Medios de pago</a></li>
+                        <li><a href="#">Envíos</a></li>
+                        <li><a href="#">Garantías</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Contacto</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Buenos Aires, Argentina</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+54 9 11 3001 1554</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@portalmotolatino.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Portal Moto Latino Marketplace. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Script para manejar el comportamiento de las preguntas frecuentes
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('i');
+                    
+                    // Toggle answer visibility
+                    if (answer.style.maxHeight) {
+                        answer.style.maxHeight = null;
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    } else {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    }
+                });
+            });
+            
+            // Script para mostrar/ocultar el botón CTA fijo al scrollear
+            const fixedCta = document.querySelector('.fixed-cta');
+            const heroSection = document.querySelector('.hero');
+            const contactForm = document.getElementById('contact-form');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > heroSection.offsetHeight && window.scrollY < contactForm.offsetTop - 300) {
+                    fixedCta.style.display = 'block';
+                } else {
+                    fixedCta.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
