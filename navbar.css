@@ -179,6 +179,58 @@
   color: var(--naranja-hover);
 }
 
+/* ======== TAGLINE ESTILOS ======== */
+.ov-logo .ov-tagline {
+  display: block; /* Ensures it takes its own line */
+  font-family: var(--fuente-secundaria, 'Open Sans', sans-serif); /* Or --fuente-principal if preferred */
+  font-size: 0.7rem; /* Smaller than logo */
+  font-weight: 500;
+  color: var(--gris-medio, #6B7280); /* Subtle color */
+  text-align: left; /* Align with logo text if logo is left-aligned */
+  margin-top: -2px; /* Adjust as needed for spacing below logo container */
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+  transition: opacity var(--transicion-media);
+  /* Prevent text selection if desired, but generally not recommended for accessibility */
+  /* user-select: none; */ 
+}
+
+/* Hide tagline when navbar is scrolled and logo becomes short, if desired */
+/* Consider if this is the desired behavior or if it should always be visible */
+/* .ov-header.scrolled .ov-logo .ov-tagline {
+  opacity: 0;
+  visibility: hidden;
+} */
+
+/* Responsive adjustments for tagline in navbar */
+@media (max-width: 1200px) {
+  .ov-logo .ov-tagline {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* When menu is mobile, the main logo is typically still visible */
+  /* Adjust if tagline needs to be hidden or styled differently with mobile menu */
+  .ov-logo .ov-tagline {
+    /* Example: could be made smaller or hidden if space is an issue */
+    /* font-size: 0.6rem; */
+    /* display: none; */ /* If it should be hidden on mobile */
+    /* Centering if the logo itself centers on mobile, adjust as per actual logo alignment */
+    text-align: center; 
+    margin-left: 0; /* Reset any desktop specific margins */
+    margin-right: 0; /* Reset any desktop specific margins */
+    width: 100%; /* Make it full width of the logo link area if logo centers */
+  }
+}
+
+@media (max-width: 576px) {
+  .ov-logo .ov-tagline {
+    font-size: 0.6rem;
+    /* Further adjustments if needed for very small screens */
+  }
+}
+
 /* ======== TOGGLE MÓVIL MEJORADO ======== */
 .ov-mobile-toggle {
   display: none;
