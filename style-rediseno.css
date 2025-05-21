@@ -280,8 +280,18 @@ p {
 }
 
 .cta-button {
-    background-color: var(--color-secondary);
+    background: linear-gradient(145deg, var(--color-secondary-dark), var(--color-secondary));
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Default more pronounced shadow */
     animation: gentle-pulse 2.5s infinite ease-in-out;
+    /* Text color, padding, border-radius etc. are inherited from .btn-primary */
+}
+
+.cta-button:hover,
+.cta-button:focus {
+    background: linear-gradient(145deg, var(--color-secondary), var(--color-secondary-dark)); /* Inverted gradient */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3); /* Enhanced shadow */
+    transform: translateY(-3px); /* Slightly more lift */
+    /* This will override .btn-primary:hover styles for elements with .cta-button */
 }
 
 @keyframes gentle-pulse {
@@ -400,8 +410,9 @@ hero-subtitle {
 }
 
 .service-pill:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.05); /* Added scale */
     background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* Added subtle shadow */
 }
 
 .service-pill i {
@@ -441,6 +452,7 @@ hero-subtitle {
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     transition: all var(--transition-normal);
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Added border */
 }
 
 .audit-card:hover {
