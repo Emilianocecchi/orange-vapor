@@ -1,3 +1,11 @@
+/*
+ * This script appears to be an alternative or older version of the navbar logic.
+ * The primary navbar functionality for index.html is currently handled by
+ * the inline script in index.html (for loading navbar.html) and
+ * script-rediseno.js (for interactivity).
+ * This file (combined.js) is likely not actively used for index.html's navbar.
+ * Please verify its purpose before making modifications or integrating it.
+ */
 /**
  * Orange Vapor - JavaScript para Navbar
  * Version optimizada: navbar simplificada con servicios individuales

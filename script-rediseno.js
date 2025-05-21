@@ -76,9 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
      * Inicializa la barra de navegación
      */
     const initNavbar = () => {
-        const header = document.querySelector('.navbar');
-        const mobileToggle = document.querySelector('.navbar-toggler');
-        const navMenu = document.querySelector('.navbar-collapse');
+        const header = document.querySelector('#header');
+        const mobileToggle = document.querySelector('.ov-mobile-toggle');
+        const navMenu = document.querySelector('.ov-nav-menu');
         
         if (!header) return;
         
@@ -152,8 +152,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (targetElement) {
                     // Calcular offset para header fijo
-                    const navbarHeight = document.querySelector('.navbar') ? 
-                        document.querySelector('.navbar').offsetHeight : 70;
+                    const navbarHeight = document.querySelector('#header') ? 
+                        document.querySelector('#header').offsetHeight : 70;
                     
                     const offsetTop = targetElement.getBoundingClientRect().top + 
                         window.pageYOffset - navbarHeight;
@@ -470,8 +470,8 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 const targetElement = document.querySelector(window.location.hash);
                 if (targetElement) {
-                    const navbarHeight = document.querySelector('.navbar') ? 
-                        document.querySelector('.navbar').offsetHeight : 70;
+                    const navbarHeight = document.querySelector('#header') ? 
+                        document.querySelector('#header').offsetHeight : 70;
                     
                     const offsetTop = targetElement.getBoundingClientRect().top + 
                         window.scrollY - navbarHeight - 20;
