@@ -290,6 +290,23 @@
             box-shadow: var(--sombra-suave);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid var(--gris-borde);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hallazgo-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--naranja-gradiente);
+            transition: width 0.3s ease;
+        }
+
+        .hallazgo-item:hover::before {
+            width: 8px;
         }
 
         .hallazgo-item:hover {
@@ -328,6 +345,19 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--naranja-gradiente);
+            border-radius: var(--borde-redondo-full);
         }
 
         .section-title span {
@@ -336,6 +366,7 @@
             font-size: var(--texto-sm);
             padding: 5px 12px;
             border-radius: var(--borde-redondo-full);
+            box-shadow: var(--sombra-suave);
         }
 
         .section-title.green span {
@@ -363,6 +394,18 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid var(--gris-borde);
             border-top: 3px solid var(--express-rojo);
+            position: relative;
+        }
+
+        .error-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(229, 62, 62, 0.02) 100%);
+            pointer-events: none;
         }
 
         .error-card:hover {
@@ -377,6 +420,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            position: relative;
         }
 
         .error-icon {
@@ -390,6 +434,7 @@
             justify-content: center;
             font-size: 20px;
             flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(229, 62, 62, 0.3);
         }
 
         .error-title {
@@ -402,6 +447,7 @@
 
         .error-content {
             padding: 20px;
+            position: relative;
         }
 
         .error-content p {
@@ -414,6 +460,7 @@
             padding: 15px;
             border-radius: var(--borde-redondo-md);
             margin-bottom: 15px;
+            border-left: 3px solid var(--express-rojo);
         }
 
         .error-impact strong {
@@ -466,6 +513,7 @@
 
         .metrics-table tbody tr:hover {
             background-color: rgba(255, 114, 0, 0.05);
+            transition: background-color 0.3s ease;
         }
 
         .metrics-table .positive {
@@ -526,6 +574,19 @@
             height: 24px;
             border-radius: 50%;
             flex-shrink: 0;
+            position: relative;
+        }
+
+        .semaforo-status::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: inherit;
         }
 
         .status-green {
@@ -653,6 +714,12 @@
             border-radius: var(--borde-redondo-md);
             padding: 15px;
             border-left: 3px solid var(--color-google);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .segmentacion-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--sombra-suave);
         }
 
         .segmentacion-title {
@@ -713,6 +780,7 @@
             align-items: center;
             gap: 10px;
             border-bottom: 1px solid var(--gris-borde);
+            background-color: var(--fondo-claro);
         }
 
         .creatividad-header i {
@@ -860,6 +928,24 @@
             margin-bottom: 15px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: var(--sombra-suave);
+            border-left: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accion-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--auditoria-verde), var(--auditoria-verde-hover));
+            transition: width 0.3s ease;
+        }
+
+        .accion-item:hover::before {
+            width: 5px;
         }
 
         .accion-item:hover {
@@ -879,6 +965,7 @@
             font-weight: 700;
             flex-shrink: 0;
             font-size: var(--texto-sm);
+            box-shadow: 0 3px 8px rgba(47, 133, 90, 0.3);
         }
 
         .accion-content h4 {
@@ -909,11 +996,12 @@
         .cta-section {
             background-color: var(--blanco);
             margin-top: 60px;
-            padding: 40px;
+            padding: 50px 40px;
             border-radius: var(--borde-redondo-lg);
             box-shadow: var(--sombra-media);
             text-align: center;
             position: relative;
+            background: linear-gradient(135deg, var(--blanco) 0%, rgba(255, 114, 0, 0.02) 100%);
         }
 
         .cta-section::before {
@@ -965,6 +1053,12 @@
             gap: 10px;
             color: var(--texto-oscuro);
             font-weight: 500;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .included-item:hover {
+            transform: translateY(-2px);
+            background-color: var(--auditoria-verde-claro);
         }
 
         .included-item i {
@@ -987,6 +1081,26 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn-cta:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-cta:hover {
@@ -996,6 +1110,11 @@
 
         .btn-cta i {
             font-size: 18px;
+            position: relative;
+        }
+
+        .btn-cta span {
+            position: relative;
         }
 
         .contacto-info {
@@ -1036,10 +1155,52 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: color 0.3s ease;
         }
 
         .footer-info a:hover {
+            color: var(--naranja-oscuro);
             text-decoration: underline;
+        }
+
+        /* Mejoras visuales adicionales */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--naranja-claro) 0%, rgba(255, 114, 0, 0.05) 100%);
+            border-left: 4px solid var(--naranja-principal);
+            padding: 20px;
+            border-radius: var(--borde-redondo-md);
+            margin: 20px 0;
+        }
+
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            background-color: var(--naranja-principal);
+            color: var(--blanco);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            width: 60px;
+            height: 2px;
+            background-color: var(--gris-borde);
+            transform: translateY(-50%);
         }
 
         @media (max-width: 768px) {
@@ -1349,7 +1510,7 @@
 
                             <h4 class="caracteristicas-title">Recomendaciones:</h4>
                             <ul class="optimizar-list">
-                                <li class="optimizar-item">Migrar a campañas Search y Shopping personalizadas</li>
+                                <li class="optimizar-item">Migrar a campañas Search, Performance Max y Demand Gen</li>
                                 <li class="optimizar-item">Agregar palabras clave negativas y separar por intención</li>
                                 <li class="optimizar-item">Activar extensiones de anuncio manualmente</li>
                                 <li class="optimizar-item">Usar ajustes de puja por dispositivo</li>
@@ -1632,52 +1793,56 @@
                         <li class="accion-item">
                             <div class="accion-number">1</div>
                             <div class="accion-content">
-                                <h4>Corregir y depurar el seguimiento de conversiones en GA4</h4>
-                                <p>Es fundamental contar con datos precisos para tomar decisiones informadas:</p>
+                                <h4>Revisar y optimizar el seguimiento de conversiones</h4>
+                                <p>Es fundamental contar con datos precisos para poder atribuir correctamente las conversiones según el estadio del funnel y calcular el ROAS:</p>
                                 <ul>
-                                    <li>Instalar correctamente el código de seguimiento de Google Analytics</li>
-                                    <li>Configurar los eventos clave: compra, checkout iniciado, formulario enviado</li>
-                                    <li>Asignar valor monetario a las conversiones para calcular ROI</li>
-                                    <li>Implementar Google Tag Manager para simplificar la gestión de etiquetas</li>
+                                    <li>Instalar correctamente el código de seguimiento de Google Analytics 4</li>
+                                    <li>Configurar eventos por etapa del funnel: vista de producto, agregar al carrito, inicio de checkout, compra completada</li>
+                                    <li>Asignar valor monetario a cada conversión para calcular el ROAS real</li>
+                                    <li>Implementar Google Tag Manager para simplificar la gestión y crear conversiones de micro y macro objetivos</li>
+                                    <li>Configurar importación de conversiones offline si corresponde</li>
                                 </ul>
                             </div>
                         </li>
                         <li class="accion-item">
                             <div class="accion-number">2</div>
                             <div class="accion-content">
-                                <h4>Migrar a campañas Search y Shopping personalizadas</h4>
-                                <p>Las campañas Smart limitan significativamente las posibilidades de optimización:</p>
+                                <h4>Eliminar campañas Smart y migrar a Search, Performance Max y Demand Gen</h4>
+                                <p>Las campañas Smart limitan significativamente las posibilidades de optimización. Es necesario migrar a formatos más avanzados:</p>
                                 <ul>
-                                    <li>Crear campañas Search con palabras clave específicas, agrupadas por tema</li>
-                                    <li>Añadir campañas Shopping para productos específicos (accesorios, repuestos)</li>
-                                    <li>Implementar una campaña específica de marca ("Portal Moto Latino") para proteger tráfico propio</li>
-                                    <li>Incluir extensiones de anuncio manualmente (sitio, llamada, destacado, precios)</li>
+                                    <li>Crear campañas Search con estructura granular por categorías de productos</li>
+                                    <li>Implementar Performance Max para aprovechar el inventario completo de Google con control sobre creatividades</li>
+                                    <li>Añadir campañas Demand Gen para generar demanda con formatos visuales atractivos</li>
+                                    <li>Crear una campaña específica de marca para proteger términos de "Portal Moto Latino"</li>
+                                    <li>Configurar todas las extensiones manualmente: sitelinks, llamadas, ubicación, promociones</li>
                                 </ul>
                             </div>
                         </li>
                         <li class="accion-item">
                             <div class="accion-number">3</div>
                             <div class="accion-content">
-                                <h4>Optimizar selección de palabras clave</h4>
-                                <p>Refinar las palabras clave utilizadas para aumentar la calidad del tráfico:</p>
+                                <h4>Control avanzado de términos de búsqueda</h4>
+                                <p>Con la activación de campañas de búsqueda tendremos control total sobre los términos y podremos optimizar la calidad del tráfico:</p>
                                 <ul>
-                                    <li>Agregar palabras clave negativas para términos genéricos sin intención de compra</li>
-                                    <li>Separar campañas por intención de búsqueda (informativa vs comercial)</li>
-                                    <li>Añadir términos específicos de productos y marcas populares de motos</li>
-                                    <li>Crear grupos de anuncios específicos para accesorios, repuestos y servicios</li>
+                                    <li>Negativizar términos sin intención comercial como "usadas", "gratis", "segunda mano"</li>
+                                    <li>Crear listas de palabras clave negativas por categoría y aplicarlas estratégicamente</li>
+                                    <li>Separar campañas por intención: investigación vs compra inmediata</li>
+                                    <li>Implementar concordancias de frase y exacta para términos de alto valor</li>
+                                    <li>Monitorear semanalmente el informe de términos de búsqueda para refinamiento continuo</li>
                                 </ul>
                             </div>
                         </li>
                         <li class="accion-item">
                             <div class="accion-number">4</div>
                             <div class="accion-content">
-                                <h4>Implementar segmentación estratégica</h4>
-                                <p>Aplicar segmentación para optimizar el presupuesto:</p>
+                                <h4>Implementar segmentación estratégica avanzada</h4>
+                                <p>Aplicar segmentación para optimizar el presupuesto y mejorar el rendimiento:</p>
                                 <ul>
-                                    <li>Aplicar segmentación geográfica selectiva por provincias</li>
-                                    <li>Usar ajustes de puja por dispositivo (aumentar en computadoras y tablets)</li>
+                                    <li>Aplicar segmentación geográfica con ajustes de puja por provincia</li>
+                                    <li>Configurar ajustes de puja por dispositivo (+30% computadoras, +50% tablets)</li>
                                     <li>Segmentar por horario según patrones de conversión</li>
-                                    <li>Considerar Performance Max solo si se configura correctamente</li>
+                                    <li>Crear audiencias personalizadas basadas en comportamiento del sitio</li>
+                                    <li>Implementar remarketing dinámico para recuperar carritos abandonados</li>
                                 </ul>
                             </div>
                         </li>
@@ -1693,23 +1858,23 @@
                         <div class="cta-included">
                             <div class="included-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Campañas Search personalizadas</span>
+                                <span>Campañas Search avanzadas</span>
                             </div>
                             <div class="included-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Configuración de conversiones</span>
+                                <span>Performance Max optimizado</span>
                             </div>
                             <div class="included-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Optimización de palabras clave</span>
+                                <span>Demand Gen para branding</span>
                             </div>
                             <div class="included-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Segmentación estratégica</span>
+                                <span>Seguimiento de conversiones</span>
                             </div>
                             <div class="included-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Informes detallados semanales</span>
+                                <span>Reportes ROAS semanales</span>
                             </div>
                         </div>
                         
