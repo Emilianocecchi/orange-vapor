@@ -28,6 +28,7 @@ class MailchimpManager {
             enableAutoComplete: true,
             enableSpamProtection: true,
             enableAnalytics: true,
+            enableVisualEnhancements: true, // Nueva opción para desactivar mejoras visuales
             animationDuration: 300,
             toastDuration: 5000
         };
@@ -37,6 +38,9 @@ class MailchimpManager {
     
     init() {
         console.log('📧 Mailchimp Manager 2025 - Iniciando integración futurista...');
+        
+        // Detectar posibles conflictos
+        this.detectConflicts();
         
         // Encontrar y configurar todos los formularios de Mailchimp
         this.setupMailchimpForms();
@@ -50,6 +54,26 @@ class MailchimpManager {
         }
         
         console.log('✉️ Mailchimp Manager 2025 - Listo para capturar leads!');
+    }
+    
+    detectConflicts() {
+        // Detectar si hay múltiples labels o elementos duplicados
+        const forms = document.querySelectorAll('#mc-embedded-subscribe-form');
+        
+        forms.forEach(form => {
+            const labels = form.querySelectorAll('label');
+            labels.forEach(label => {
+                const field = form.querySelector(`#${label.getAttribute('for')}`);
+                if (field) {
+                    // Si ya hay elementos flotantes o duplicados, desactivar mejoras visuales
+                    const existingFloating = field.parentNode.querySelector('.floating-label');
+                    if (existingFloating) {
+                        this.config.enableVisualEnhancements = false;
+                        console.warn('⚠️ Conflictos detectados - Desactivando mejoras visuales');
+                    }
+                }
+            });
+        });
     }
     
     /**
@@ -66,6 +90,11 @@ class MailchimpManager {
     }
     
     enhanceMailchimpForm(form, formId) {
+        // Verificar que es realmente un formulario de Mailchimp
+        if (!form.action.includes('list-manage.com')) {
+            return;
+        }
+        
         // Registrar formulario
         this.forms.set(formId, {
             element: form,
@@ -74,7 +103,10 @@ class MailchimpManager {
             lastSubmission: null
         });
         
-        // Mejorar campos del formulario
+        // Preservar elementos existentes del formulario (incluyendo captcha)
+        this.preserveMailchimpElements(form);
+        
+        // Mejorar campos del formulario de forma no invasiva
         this.enhanceFormFields(form);
         
         // Configurar validación en tiempo real
@@ -96,25 +128,87 @@ class MailchimpManager {
         }
     }
     
-    enhanceFormFields(form) {
-        const fields = form.querySelectorAll('input, textarea');
+    preserveMailchimpElements(form) {
+        // Marcar elementos especiales de Mailchimp para no modificarlos
+        const specialSelectors = [
+            'div[style*="position: absolute"]', // Honeypot típico
+            'input[tabindex="-1"]', // Campos ocultos
+            '.g-recaptcha', // Google reCAPTCHA
+            '.h-captcha', // hCaptcha
+            '.indicates-required', // Texto de campos requeridos
+            '#mce-responses', // Contenedor de respuestas
+            '.response' // Mensajes de respuesta
+        ];
         
-        fields.forEach(field => {
-            this.enhanceField(field);
+        specialSelectors.forEach(selector => {
+            const elements = form.querySelectorAll(selector);
+            elements.forEach(el => {
+                el.dataset.mailchimpOriginal = 'true';
+            });
         });
     }
     
+    enhanceFormFields(form) {
+        const fields = form.querySelectorAll('input[type="email"], input[type="text"], textarea');
+        
+        fields.forEach(field => {
+            // Solo mejorar campos que no sean del sistema (captcha, honeypot, etc.)
+            if (this.shouldEnhanceField(field)) {
+                this.enhanceField(field);
+            }
+        });
+    }
+    
+    shouldEnhanceField(field) {
+        // No mejorar elementos marcados como originales de Mailchimp
+        if (field.dataset.mailchimpOriginal === 'true' || 
+            field.parentNode.dataset.mailchimpOriginal === 'true') {
+            return false;
+        }
+        
+        // No mejorar campos ocultos, honeypot, o del sistema de Mailchimp
+        const skipNames = ['b_386ca740d7cf02ec261f47f33_5a55144e86', 'g-recaptcha-response'];
+        const skipTypes = ['hidden', 'submit', 'button'];
+        
+        if (skipNames.includes(field.name) || skipTypes.includes(field.type)) {
+            return false;
+        }
+        
+        // No mejorar si está oculto
+        const styles = window.getComputedStyle(field);
+        if (styles.display === 'none' || styles.visibility === 'hidden') {
+            return false;
+        }
+        
+        // No mejorar si es parte del captcha
+        if (field.closest('.g-recaptcha') || field.closest('.h-captcha')) {
+            return false;
+        }
+        
+        return true;
+    }
+    
     enhanceField(field) {
-        // Añadir contenedor de validación visual
-        this.createValidationContainer(field);
+        // Solo añadir mejoras visuales si están habilitadas
+        if (this.config.enableVisualEnhancements) {
+            // Solo añadir contenedor de validación si no existe
+            if (!field.parentNode.querySelector('.field-validation-container')) {
+                this.createValidationContainer(field);
+            }
+            
+            // Solo mejorar placeholder para campos de texto principales
+            if (field.type === 'email' || field.type === 'text' || field.tagName === 'TEXTAREA') {
+                this.enhancePlaceholder(field);
+            }
+        }
         
-        // Mejorar placeholder con animación
-        this.enhancePlaceholder(field);
-        
-        // Configurar eventos de validación
-        field.addEventListener('input', (e) => this.handleFieldInput(e));
-        field.addEventListener('blur', (e) => this.handleFieldBlur(e));
-        field.addEventListener('focus', (e) => this.handleFieldFocus(e));
+        // Configurar eventos de validación (una sola vez)
+        if (!field.dataset.enhanced) {
+            field.addEventListener('input', (e) => this.handleFieldInput(e));
+            field.addEventListener('blur', (e) => this.handleFieldBlur(e));
+            field.addEventListener('focus', (e) => this.handleFieldFocus(e));
+            field.dataset.enhanced = 'true';
+        }
     }
     
     createValidationContainer(field) {
@@ -221,7 +315,7 @@ class MailchimpManager {
                 to { transform: rotate(360deg); }
             }
             
-            /* Placeholder flotante futurista */
+            /* Placeholder flotante futurista - mejorado */
             .mc-field-group {
                 position: relative;
             }
@@ -229,8 +323,7 @@ class MailchimpManager {
             .floating-label {
                 position: absolute;
                 left: 16px;
-                top: 50%;
-                transform: translateY(-50%);
+                top: 16px;
                 color: #999;
                 font-size: 1rem;
                 pointer-events: none;
@@ -239,13 +332,17 @@ class MailchimpManager {
                 padding: 0 4px;
                 border-radius: 4px;
                 backdrop-filter: blur(10px);
+                z-index: 1;
+                transform-origin: left top;
             }
             
             .floating-label.active {
-                top: 0;
+                top: -8px;
                 font-size: 0.75rem;
                 color: #FF6B35;
                 font-weight: 600;
+                transform: scale(0.9);
+                background: rgba(255, 255, 255, 0.95);
             }
             
             /* Botón de envío mejorado */
@@ -299,7 +396,10 @@ class MailchimpManager {
         const label = field.previousElementSibling;
         if (!label || label.tagName !== 'LABEL') return;
         
-        // Crear placeholder flotante
+        // Solo aplicar efecto flotante si no existe ya
+        if (field.parentNode.querySelector('.floating-label')) return;
+        
+        // Crear placeholder flotante pero mantener el original oculto cuando esté activo
         const floatingLabel = document.createElement('div');
         floatingLabel.className = 'floating-label';
         floatingLabel.textContent = label.textContent.replace('*', '').trim();
@@ -310,10 +410,17 @@ class MailchimpManager {
         const updatePlaceholder = () => {
             if (field.value || field === document.activeElement) {
                 floatingLabel.classList.add('active');
+                // Ocultar label original cuando el flotante esté activo
+                label.style.opacity = '0';
             } else {
                 floatingLabel.classList.remove('active');
+                // Mostrar label original cuando el flotante no esté activo
+                label.style.opacity = '1';
             }
         };
+        
+        // Estilo inicial para el label original
+        label.style.transition = 'opacity 0.3s ease';
         
         field.addEventListener('focus', updatePlaceholder);
         field.addEventListener('blur', updatePlaceholder);
@@ -1112,6 +1219,19 @@ class MailchimpManager {
     cleanup() {
         this.forms.clear();
         
+        // Restaurar labels originales
+        document.querySelectorAll('.floating-label').forEach(label => {
+            const field = label.nextElementSibling;
+            if (field) {
+                const originalLabel = field.previousElementSibling?.previousElementSibling;
+                if (originalLabel && originalLabel.tagName === 'LABEL') {
+                    originalLabel.style.opacity = '1';
+                    originalLabel.style.transition = '';
+                }
+            }
+            label.remove();
+        });
+        
         // Remover toasts
         const toastContainer = document.getElementById('toast-container');
         if (toastContainer) {
@@ -1123,6 +1243,8 @@ class MailchimpManager {
         if (styles) {
             styles.remove();
         }
+        
+        console.log('🧹 Mailchimp Manager - Limpieza completada');
     }
 }
 
