@@ -764,7 +764,9 @@ class MailchimpManager {
         
         try {
             // Envío a Mailchimp
-            const result = await this.submitToMailchimp(form);
+const token = await grecaptcha.execute('6LcWwUcrAAAAABe-kYHQZ0mg6dqjYmz8IRWYAMIZ', {action: 'submit'});
+form.querySelector('input[name="token"]')?.value = token;
+const result = await this.submitToMailchimp(form);
             
             if (result.success) {
                 this.handleSuccessfulSubmission(form, formId, result);
@@ -1103,7 +1105,7 @@ class MailchimpManager {
             }
         }, 400);
     }
-    
+
     /**
      * ========================================================================
      * ANALYTICS Y TRACKING
