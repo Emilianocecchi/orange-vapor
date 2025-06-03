@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejemplo de Auditoría Gratuita de Google Ads - OrangeVapor</title>
+    <title>¿Qué es una Auditoría Profesional de Publicidad Digital? - OrangeVapor</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,6 +15,7 @@
             --naranja-hover: #FF5722;
             --naranja-light: #FFE5DB;
             --naranja-dark: #E55100;
+            --naranja-gradient: linear-gradient(135deg, #FF6B35 0%, #FF5722 100%);
             
             /* Semantic colors */
             --success-green: #22C55E;
@@ -35,16 +36,16 @@
             
             /* Neutral palette */
             --white: #FFFFFF;
-            --gray-50: #F9FAFB;
-            --gray-100: #F3F4F6;
-            --gray-200: #E5E7EB;
-            --gray-300: #D1D5DB;
-            --gray-400: #9CA3AF;
-            --gray-500: #6B7280;
-            --gray-600: #4B5563;
-            --gray-700: #374151;
-            --gray-800: #1F2937;
-            --gray-900: #111827;
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F5;
+            --gray-200: #E5E5E5;
+            --gray-300: #D4D4D4;
+            --gray-400: #A3A3A3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
             
             /* Typography */
             --font-primary: 'Plus Jakarta Sans', sans-serif;
@@ -65,11 +66,6 @@
             --radius-xl: 1rem;
             --radius-2xl: 1.5rem;
             --radius-full: 9999px;
-            
-            /* Transitions */
-            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -82,13 +78,13 @@
             font-family: var(--font-secondary);
             color: var(--gray-900);
             line-height: 1.6;
-            background-color: var(--gray-50);
+            background-color: var(--white);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -135,57 +131,20 @@
             }
         }
 
-        /* Sample Banner */
-        .sample-banner {
-            background: linear-gradient(135deg, var(--info-blue) 0%, var(--info-blue) 100%);
-            color: var(--white);
-            padding: 1rem;
-            text-align: center;
-            font-weight: 600;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow-lg);
-            animation: slideDown 0.5s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        .sample-banner i {
-            margin-right: 0.5rem;
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* Header Styles */
+        /* Header */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--white);
             box-shadow: var(--shadow-sm);
             position: sticky;
-            top: 50px;
+            top: 0;
             z-index: 100;
-            transition: all var(--transition-base);
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.25rem 0;
+            padding: 1rem 0;
         }
 
         .logo {
@@ -211,7 +170,7 @@
         }
 
         .cta-badge {
-            background: linear-gradient(135deg, var(--naranja-principal) 0%, var(--naranja-hover) 100%);
+            background: var(--naranja-gradient);
             color: var(--white);
             padding: 0.75rem 1.5rem;
             border-radius: var(--radius-full);
@@ -221,27 +180,8 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            transition: transform var(--transition-base);
+            transition: all 0.2s ease;
             animation: glow 2s ease-in-out infinite alternate;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-badge::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .cta-badge:hover {
@@ -255,98 +195,46 @@
 
         /* Hero Section */
         .hero-section {
-            background: linear-gradient(135deg, var(--naranja-principal) 0%, var(--naranja-hover) 100%);
-            color: var(--white);
-            padding: 5rem 0 3rem;
-            position: relative;
-            overflow: hidden;
-            margin-top: 50px;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotateHero 20s linear infinite;
-        }
-
-        @keyframes rotateHero {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
+            background: var(--gray-50);
+            padding: 4rem 0;
             text-align: center;
         }
 
-        .hero-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1.5rem;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 0.875rem;
+        .hero-content h1 {
+            font-family: var(--font-primary);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
             margin-bottom: 1.5rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            line-height: 1.2;
         }
 
-        .hero-title {
-            font-family: var(--font-primary);
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.1;
+        .hero-content .highlight {
+            color: var(--naranja-principal);
         }
 
         .hero-description {
             font-size: 1.25rem;
+            color: var(--gray-600);
             max-width: 800px;
             margin: 0 auto 2rem;
-            opacity: 0.95;
+            line-height: 1.8;
         }
 
         .hero-cta {
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
-            background: var(--white);
-            color: var(--naranja-principal);
+            background: var(--naranja-gradient);
+            color: var(--white);
             padding: 1rem 2.5rem;
             border-radius: var(--radius-lg);
             font-family: var(--font-primary);
             font-weight: 700;
-            font-size: 1.25rem;
+            font-size: 1.125rem;
             text-decoration: none;
-            box-shadow: var(--shadow-xl);
-            transition: all var(--transition-base);
-            margin-bottom: 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-cta::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: var(--naranja-light);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-        }
-
-        .hero-cta:hover::before {
-            width: 300px;
-            height: 300px;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.2s ease;
         }
 
         .hero-cta:hover {
@@ -354,442 +242,288 @@
             box-shadow: var(--shadow-2xl);
         }
 
-        /* Preview Notice */
-        .preview-notice {
-            background: linear-gradient(135deg, var(--warning-bg) 0%, var(--white) 100%);
-            border: 2px solid var(--warning-border);
-            border-radius: var(--radius-xl);
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 900px;
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .preview-notice::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%);
-            animation: pulse 15s ease-in-out infinite;
-        }
-
-        .preview-notice-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .preview-notice h3 {
-            color: var(--warning-yellow);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .preview-notice p {
-            color: var(--gray-700);
-            font-size: 1.125rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .preview-notice strong {
-            color: var(--gray-900);
-            font-weight: 700;
-        }
-
-        /* Executive Summary Card */
-        .summary-card {
+        /* What is Section */
+        .what-is-section {
+            padding: 5rem 0;
             background: var(--white);
-            border-radius: var(--radius-2xl);
-            box-shadow: var(--shadow-xl);
-            margin: -3rem auto 3rem;
-            padding: 3rem;
-            position: relative;
-            z-index: 10;
-            max-width: 1100px;
-            border: 3px solid var(--gray-200);
         }
 
-        .summary-card::before {
-            content: 'EJEMPLO';
-            position: absolute;
-            top: -15px;
-            right: 30px;
-            background: var(--warning-yellow);
-            color: var(--white);
-            padding: 0.5rem 2rem;
-            border-radius: var(--radius-lg);
-            font-weight: 700;
-            font-size: 0.875rem;
-            transform: rotate(3deg);
-            box-shadow: var(--shadow-md);
-        }
-
-        .summary-header {
+        .section-header {
             text-align: center;
             margin-bottom: 3rem;
         }
 
-        .summary-title {
+        .section-header h2 {
             font-family: var(--font-primary);
             font-size: 2rem;
             font-weight: 700;
             color: var(--gray-900);
             margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
         }
 
-        .summary-title::after {
-            content: '';
-            position: absolute;
-            bottom: -0.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--naranja-principal);
-            border-radius: var(--radius-full);
-        }
-
-        .summary-description {
-            color: var(--gray-600);
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        .summary-description strong {
-            color: var(--gray-900);
-            font-weight: 600;
-        }
-
-        .client-placeholder {
-            background: var(--info-bg);
-            color: var(--info-blue);
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-md);
-            display: inline-block;
-            font-weight: 600;
-            border: 1px solid var(--info-border);
-        }
-
-        /* KPI Grid */
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .kpi-card {
-            background: var(--gray-50);
-            padding: 1.75rem;
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--gray-200);
-            position: relative;
-            overflow: hidden;
-            transition: all var(--transition-base);
-        }
-
-        .kpi-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--naranja-principal);
-            transform: translateX(-100%);
-            transition: transform var(--transition-slow);
-        }
-
-        .kpi-card:hover::before {
-            transform: translateX(0);
-        }
-
-        .kpi-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            background: var(--white);
-        }
-
-        .kpi-label {
-            font-size: 0.875rem;
-            color: var(--gray-500);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .kpi-value {
-            font-family: var(--font-primary);
-            font-size: 1.875rem;
-            font-weight: 700;
-            color: var(--naranja-principal);
-        }
-
-        /* Section Styles */
-        .section {
-            margin: 4rem 0;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--gray-100);
-        }
-
-        .section-number {
-            background: var(--naranja-principal);
-            color: var(--white);
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
+        .section-header p {
             font-size: 1.125rem;
-            flex-shrink: 0;
+            color: var(--gray-600);
+            max-width: 700px;
+            margin: 0 auto;
         }
 
-        .section-title {
+        .definition-card {
+            background: var(--gray-50);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        .definition-title {
             font-family: var(--font-primary);
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--gray-900);
-            margin: 0;
-        }
-
-        /* Metrics Table */
-        .metrics-table-wrapper {
-            background: var(--white);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
-            margin: 2rem 0;
-            position: relative;
-        }
-
-        .table-watermark {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--warning-yellow);
-            color: var(--white);
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-md);
-            font-size: 0.75rem;
-            font-weight: 600;
-            opacity: 0.9;
-        }
-
-        .metrics-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .metrics-table thead {
-            background: var(--gray-50);
-            border-bottom: 2px solid var(--gray-200);
-        }
-
-        .metrics-table th {
-            padding: 1rem 1.5rem;
-            text-align: left;
-            font-weight: 600;
-            color: var(--gray-700);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .metrics-table tbody tr {
-            border-bottom: 1px solid var(--gray-100);
-            transition: background-color var(--transition-fast);
-        }
-
-        .metrics-table tbody tr:hover {
-            background-color: var(--gray-50);
-        }
-
-        .metrics-table td {
-            padding: 1rem 1.5rem;
-            color: var(--gray-700);
-        }
-
-        .metrics-table .positive {
-            color: var(--success-green);
-            font-weight: 600;
-        }
-
-        .metrics-table .negative {
-            color: var(--danger-red);
-            font-weight: 600;
-        }
-
-        /* Problem Cards */
-        .problems-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .problem-card {
-            background: var(--white);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
-            transition: all var(--transition-base);
-            border: 1px solid var(--danger-border);
-        }
-
-        .problem-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .problem-header {
-            background: var(--danger-bg);
-            padding: 1.5rem;
-            border-bottom: 2px solid var(--danger-border);
-        }
-
-        .problem-icon-wrapper {
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 1rem;
         }
 
-        .problem-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--danger-red);
-            color: var(--white);
+        .definition-title i {
+            color: var(--naranja-principal);
+        }
+
+        .definition-content {
+            font-size: 1.125rem;
+            color: var(--gray-700);
+            line-height: 1.8;
+        }
+
+        .definition-content strong {
+            color: var(--gray-900);
+        }
+
+        /* Includes Section */
+        .includes-section {
+            padding: 5rem 0;
+            background: var(--gray-50);
+        }
+
+        .includes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .include-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .include-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--naranja-principal);
+        }
+
+        .include-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--naranja-light);
+            color: var(--naranja-principal);
             border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
-            flex-shrink: 0;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        .problem-title {
+        .include-title {
             font-family: var(--font-primary);
-            font-size: 1.125rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .include-description {
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .include-features {
+            list-style: none;
+            padding: 0;
             margin: 0;
         }
 
-        .problem-content {
-            padding: 1.5rem;
-        }
-
-        .problem-description {
-            color: var(--gray-600);
-            margin-bottom: 1rem;
-            line-height: 1.7;
-        }
-
-        .impact-box {
-            background: var(--danger-bg);
-            border-left: 3px solid var(--danger-red);
-            padding: 1rem;
-            border-radius: var(--radius-md);
-            margin-bottom: 1rem;
-        }
-
-        .impact-label {
-            font-weight: 600;
-            color: var(--danger-red);
-            margin-bottom: 0.25rem;
-            display: block;
-        }
-
-        .impact-text {
-            color: var(--gray-700);
-            font-size: 0.875rem;
-        }
-
-        .example-box {
-            background: var(--gray-50);
-            padding: 1rem;
-            border-radius: var(--radius-md);
-            border-left: 3px solid var(--gray-400);
-        }
-
-        .example-label {
-            font-weight: 600;
-            color: var(--gray-700);
-            margin-bottom: 0.25rem;
-            display: block;
-        }
-
-        .example-text {
+        .include-features li {
+            padding: 0.5rem 0;
             color: var(--gray-600);
             font-size: 0.875rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
 
-        /* CTA Sections */
-        .cta-section {
-            background: linear-gradient(135deg, var(--white) 0%, var(--naranja-light) 100%);
-            border-radius: var(--radius-2xl);
-            box-shadow: var(--shadow-xl);
-            padding: 4rem 3rem;
-            margin: 4rem 0;
+        .include-features i {
+            color: var(--success-green);
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        /* Process Section */
+        .process-section {
+            padding: 5rem 0;
+            background: var(--white);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid var(--naranja-principal);
+            padding: 2rem;
         }
 
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,107,53,0.05) 0%, transparent 70%);
-            animation: pulse 20s ease-in-out infinite;
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--naranja-gradient);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow-lg);
         }
 
-        .cta-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .cta-title {
+        .step-title {
             font-family: var(--font-primary);
-            font-size: 2.25rem;
-            font-weight: 800;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: var(--gray-900);
             margin-bottom: 1rem;
-            line-height: 1.2;
         }
 
-        .cta-description {
-            font-size: 1.125rem;
+        .step-description {
             color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        /* Sample Section */
+        .sample-section {
+            padding: 5rem 0;
+            background: var(--gray-50);
+        }
+
+        .sample-preview {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            margin-top: 3rem;
+            border: 3px solid var(--gray-200);
+            position: relative;
+        }
+
+        .sample-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--warning-yellow);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 0.875rem;
+            z-index: 10;
+        }
+
+        .sample-header {
+            background: var(--naranja-gradient);
+            color: var(--white);
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .sample-header h3 {
+            font-family: var(--font-primary);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .sample-header p {
+            opacity: 0.9;
+        }
+
+        .sample-content {
+            padding: 3rem;
+        }
+
+        .sample-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-family: var(--font-primary);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--naranja-principal);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: var(--naranja-gradient);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-family: var(--font-primary);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.25rem;
             max-width: 700px;
             margin: 0 auto 2rem;
-            line-height: 1.7;
+            opacity: 0.95;
         }
 
         .cta-features {
@@ -801,62 +535,35 @@
         }
 
         .cta-feature {
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 0.75rem 1.5rem;
             border-radius: var(--radius-full);
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-weight: 500;
-            color: var(--gray-700);
-            box-shadow: var(--shadow-sm);
-            transition: all var(--transition-base);
         }
 
-        .cta-feature:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .cta-feature-icon {
-            color: var(--success-green);
+        .cta-feature i {
+            color: var(--white);
         }
 
         .cta-button {
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
-            background: linear-gradient(135deg, var(--naranja-principal) 0%, var(--naranja-hover) 100%);
-            color: var(--white);
+            background: var(--white);
+            color: var(--naranja-principal);
             padding: 1.25rem 3rem;
             border-radius: var(--radius-lg);
             font-family: var(--font-primary);
             font-weight: 700;
             font-size: 1.25rem;
             text-decoration: none;
-            box-shadow: var(--shadow-lg);
-            transition: all var(--transition-base);
-            position: relative;
-            overflow: hidden;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-        }
-
-        .cta-button:hover::before {
-            width: 400px;
-            height: 400px;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.2s ease;
         }
 
         .cta-button:hover {
@@ -865,14 +572,13 @@
         }
 
         .contact-info {
-            margin-top: 1.5rem;
-            color: var(--gray-500);
+            margin-top: 2rem;
             font-size: 0.875rem;
+            opacity: 0.9;
         }
 
         /* Footer */
         footer {
-            margin-top: 6rem;
             padding: 3rem 0;
             text-align: center;
             border-top: 1px solid var(--gray-200);
@@ -888,29 +594,24 @@
 
         .footer-tagline {
             color: var(--gray-500);
-            margin-bottom: 1.5rem;
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
-            .sample-banner {
-                font-size: 0.875rem;
-            }
-            
-            .hero-title {
+            .hero-content h1 {
                 font-size: 2rem;
             }
             
-            .hero-description {
-                font-size: 1.125rem;
-            }
-            
-            .kpi-grid {
+            .includes-grid {
                 grid-template-columns: 1fr;
             }
             
-            .problems-grid {
+            .process-steps {
                 grid-template-columns: 1fr;
+            }
+            
+            .sample-metrics {
+                grid-template-columns: 1fr 1fr;
             }
             
             .cta-features {
@@ -922,21 +623,6 @@
                 width: 60px;
                 height: 60px;
                 font-size: 30px;
-                bottom: 20px;
-                right: 20px;
-            }
-            
-            .metrics-table-wrapper {
-                overflow-x: auto;
-            }
-            
-            .summary-card {
-                padding: 2rem 1.5rem;
-            }
-            
-            .cta-button {
-                padding: 1rem 2rem;
-                font-size: 1.125rem;
             }
         }
 
@@ -952,7 +638,45 @@
             transform: translateY(0);
         }
 
-        /* Focus glow effect */
+        /* Example visual blocks */
+        .example-block {
+            background: var(--gray-100);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px dashed var(--gray-300);
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        .example-table {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-collapse: collapse;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .example-table th {
+            background: var(--gray-100);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--gray-700);
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .example-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .example-table tr:last-child td {
+            border-bottom: none;
+        }
+
         .focus-glow {
             animation: focusGlow 2s ease-in-out infinite;
         }
@@ -968,14 +692,8 @@
     </style>
 </head>
 <body>
-    <!-- Sample Banner -->
-    <div class="sample-banner">
-        <i class="fas fa-eye"></i>
-        ESTA ES UNA MUESTRA DE CÓMO SE VERÍA TU AUDITORÍA PROFESIONAL GRATUITA
-    </div>
-
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/5491130011554?text=Hola!%20Vi%20el%20ejemplo%20de%20auditoría%20y%20quiero%20obtener%20la%20mía%20GRATIS" 
+    <a href="https://wa.me/5491130011554?text=Hola!%20Quiero%20mi%20auditoría%20GRATIS%20de%20publicidad%20digital" 
        class="whatsapp-float" 
        target="_blank" 
        title="¡Obtén tu auditoría GRATIS!">
@@ -989,11 +707,11 @@
                     <span class="orange-text">Orange</span>
                     <span class="vapor-text">Vapor</span>
                 </a>
-                <a href="https://wa.me/5491130011554?text=Hola!%20Vi%20el%20ejemplo%20de%20auditoría%20y%20quiero%20obtener%20la%20mía%20GRATIS" 
+                <a href="https://wa.me/5491130011554?text=Hola!%20Quiero%20mi%20auditoría%20GRATIS%20de%20publicidad%20digital" 
                    class="cta-badge" 
                    target="_blank">
                     <i class="fab fa-whatsapp"></i>
-                    <span>Quiero mi auditoría GRATIS</span>
+                    <span>Auditoría GRATIS</span>
                 </a>
             </div>
         </div>
@@ -1002,257 +720,328 @@
     <section class="hero-section">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <i class="fas fa-chart-line"></i> Ejemplo de Informe de Auditoría
-                </div>
-                <h1 class="hero-title">Así se ve una Auditoría Profesional de Google Ads</h1>
+                <h1>
+                    ¿Sabés cuánto dinero estás <span class="highlight">perdiendo</span> en publicidad?
+                </h1>
                 <p class="hero-description">
-                    Este es un ejemplo real de cómo recibirás tu análisis completo y detallado de campañas, 
-                    con datos específicos, problemas identificados y soluciones concretas.
+                    Descubrí exactamente qué está fallando en tus campañas de Google Ads y Meta Ads 
+                    con una auditoría profesional <strong>100% GRATUITA</strong> y sin compromiso.
                 </p>
-                <a href="https://wa.me/5491130011554?text=Hola!%20Vi%20el%20ejemplo%20de%20auditoría%20y%20quiero%20obtener%20la%20mía%20GRATIS" 
+                <a href="https://wa.me/5491130011554?text=Hola!%20Quiero%20mi%20auditoría%20GRATIS%20de%20publicidad%20digital" 
                    class="hero-cta" 
                    target="_blank">
                     <i class="fab fa-whatsapp"></i>
-                    <span>Obtener MI auditoría personalizada</span>
+                    <span>Quiero mi auditoría GRATIS</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <div class="container">
-        <div class="preview-notice fade-in">
-            <div class="preview-notice-content">
-                <h3>
-                    <i class="fas fa-gift"></i>
-                    ¿Por qué es GRATIS?
+    <section class="what-is-section fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>¿Qué es una auditoría de publicidad digital?</h2>
+                <p>
+                    Es un análisis exhaustivo y profesional de todas tus campañas activas para identificar 
+                    exactamente qué está funcionando, qué está fallando y cómo optimizarlo.
+                </p>
+            </div>
+
+            <div class="definition-card">
+                <h3 class="definition-title">
+                    <i class="fas fa-search"></i>
+                    En términos simples:
                 </h3>
-                <p>
-                    Creemos que <strong>toda empresa merece saber exactamente qué está pasando con su inversión publicitaria</strong>. 
-                    Por eso ofrecemos auditorías profesionales completas sin costo, para que puedas tomar decisiones informadas 
-                    sobre tu marketing digital.
-                </p>
-                <p>
-                    <strong>Solo necesitas darnos acceso de lectura a tu cuenta</strong> (sin riesgos, no podemos hacer cambios) 
-                    y en 48-72 horas tendrás un informe como este, pero con TUS datos reales.
-                </p>
-            </div>
-        </div>
-
-        <div class="summary-card fade-in">
-            <div class="summary-header">
-                <h2 class="summary-title">Resumen Ejecutivo</h2>
-                <p class="summary-description">
-                    Tras analizar las campañas de Google Ads de <span class="client-placeholder">[TU EMPRESA]</span> durante los últimos 90 días, 
-                    hemos identificado varias áreas de mejora que podrían optimizar significativamente su inversión publicitaria.
-                </p>
-                <p class="summary-description" style="margin-top: 1rem;">
-                    <span class="client-placeholder">[TU EMPRESA]</span> opera en el sector <span class="client-placeholder">[TU INDUSTRIA]</span> 
-                    y busca <span class="client-placeholder">[TUS OBJETIVOS DE NEGOCIO]</span>.
-                </p>
-            </div>
-            
-            <div class="kpi-grid">
-                <div class="kpi-card">
-                    <div class="kpi-label">Inversión Total Analizada</div>
-                    <div class="kpi-value">ARS 84.888</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-label">Clics Totales</div>
-                    <div class="kpi-value">2.364</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-label">Conversiones Detectadas</div>
-                    <div class="kpi-value">1.006</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-label">Costo por Conversión</div>
-                    <div class="kpi-value">ARS 84,36</div>
+                <div class="definition-content">
+                    <p>
+                        Imaginate que tu publicidad es como un auto. Si gasta mucha nafta pero no anda bien, 
+                        necesitás que un mecánico experto lo revise, ¿verdad?
+                    </p>
+                    <p style="margin-top: 1rem;">
+                        <strong>Eso es exactamente lo que hacemos:</strong> revisamos cada parte de tus campañas 
+                        (configuración, presupuestos, anuncios, palabras clave, audiencias) para encontrar las 
+                        "fallas" que te están haciendo perder dinero y mostrarte cómo arreglarlas.
+                    </p>
                 </div>
             </div>
         </div>
+    </section>
 
-        <section class="section fade-in">
+    <section class="includes-section fade-in">
+        <div class="container">
             <div class="section-header">
-                <div class="section-number">1</div>
-                <h3 class="section-title">Métricas detalladas por campaña</h3>
+                <h2>¿Qué incluye tu auditoría GRATUITA?</h2>
+                <p>Un análisis completo y detallado de todos estos aspectos:</p>
             </div>
-            
-            <div class="metrics-table-wrapper">
-                <span class="table-watermark">DATOS DE EJEMPLO</span>
-                <table class="metrics-table">
-                    <thead>
-                        <tr>
-                            <th>Campaña</th>
-                            <th>Impresiones</th>
-                            <th>Clics</th>
-                            <th>CTR</th>
-                            <th>Costo</th>
-                            <th>CPC</th>
-                            <th>Conversiones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>[Campaña Principal]</td>
-                            <td>55.595</td>
-                            <td>1.495</td>
-                            <td class="positive">2,69%</td>
-                            <td>ARS 46.818</td>
-                            <td>ARS 31,32</td>
-                            <td>488,63</td>
-                        </tr>
-                        <tr>
-                            <td>[Campaña Secundaria]</td>
-                            <td>49.325</td>
-                            <td>869</td>
-                            <td>1,76%</td>
-                            <td>ARS 38.070</td>
-                            <td class="negative">ARS 43,81</td>
-                            <td>517,66</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
 
-        <section class="section fade-in">
+            <div class="includes-grid">
+                <div class="include-card">
+                    <div class="include-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="include-title">1. Análisis de Métricas Clave</h3>
+                    <p class="include-description">
+                        Evaluamos el rendimiento real de cada campaña y conjunto de anuncios.
+                    </p>
+                    <ul class="include-features">
+                        <li><i class="fas fa-check"></i> Costo por conversión (CPA)</li>
+                        <li><i class="fas fa-check"></i> Retorno de inversión (ROAS)</li>
+                        <li><i class="fas fa-check"></i> Tasa de clics (CTR)</li>
+                        <li><i class="fas fa-check"></i> Costo por clic (CPC)</li>
+                        <li><i class="fas fa-check"></i> Tasa de conversión</li>
+                    </ul>
+                </div>
+
+                <div class="include-card">
+                    <div class="include-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="include-title">2. Identificación de Problemas</h3>
+                    <p class="include-description">
+                        Detectamos los errores específicos que están afectando tu rendimiento.
+                    </p>
+                    <ul class="include-features">
+                        <li><i class="fas fa-check"></i> Configuraciones incorrectas</li>
+                        <li><i class="fas fa-check"></i> Presupuesto mal distribuido</li>
+                        <li><i class="fas fa-check"></i> Palabras clave ineficientes</li>
+                        <li><i class="fas fa-check"></i> Audiencias mal segmentadas</li>
+                        <li><i class="fas fa-check"></i> Creatividades de bajo rendimiento</li>
+                    </ul>
+                </div>
+
+                <div class="include-card">
+                    <div class="include-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3 class="include-title">3. Semáforo de Rendimiento</h3>
+                    <p class="include-description">
+                        Clasificamos tus campañas según su eficiencia para priorizar acciones.
+                    </p>
+                    <ul class="include-features">
+                        <li><i class="fas fa-check"></i> Campañas de alto rendimiento (verde)</li>
+                        <li><i class="fas fa-check"></i> Campañas mejorables (amarillo)</li>
+                        <li><i class="fas fa-check"></i> Campañas críticas (rojo)</li>
+                        <li><i class="fas fa-check"></i> Recomendaciones específicas</li>
+                    </ul>
+                </div>
+
+                <div class="include-card">
+                    <div class="include-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="include-title">4. Análisis de Competencia</h3>
+                    <p class="include-description">
+                        Comparamos tus anuncios con los de tu competencia directa.
+                    </p>
+                    <ul class="include-features">
+                        <li><i class="fas fa-check"></i> Estrategias exitosas del sector</li>
+                        <li><i class="fas fa-check"></i> Creatividades que funcionan</li>
+                        <li><i class="fas fa-check"></i> Oportunidades no aprovechadas</li>
+                        <li><i class="fas fa-check"></i> Ventajas competitivas</li>
+                    </ul>
+                </div>
+
+                <div class="include-card">
+                    <div class="include-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="include-title">5. Segmentación Detallada</h3>
+                    <p class="include-description">
+                        Analizamos el rendimiento por dispositivo, ubicación y horario.
+                    </p>
+                    <ul class="include-features">
+                        <li><i class="fas fa-check"></i> Rendimiento móvil vs desktop</li>
+                        <li><i class="fas fa-check"></i> Mejores ubicaciones geográficas</li>
+                        <li><i class="fas fa-check"></i> Horarios más rentables</li>
+                        <li><i class="fas fa-check"></i> Audiencias más valiosas</li>
+                    </ul>
+                </div>
+
+                <div class="include-card">
+                    <div class="include-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="include-title">6. Plan de Acción Prioritario</h3>
+                    <p class="include-description">
+                        Roadmap detallado con acciones ordenadas por impacto y facilidad.
+                    </p>
+                    <ul class="include-features">
+                        <li><i class="fas fa-check"></i> Acciones inmediatas (7 días)</li>
+                        <li><i class="fas fa-check"></i> Optimizaciones a 30 días</li>
+                        <li><i class="fas fa-check"></i> Estrategia a 90 días</li>
+                        <li><i class="fas fa-check"></i> Proyección de resultados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process-section fade-in">
+        <div class="container">
             <div class="section-header">
-                <div class="section-number">2</div>
-                <h3 class="section-title">Los 3 problemas más comunes que encontramos</h3>
+                <h2>¿Cómo funciona el proceso?</h2>
+                <p>Simple, rápido y 100% seguro</p>
             </div>
-            
-            <div class="problems-grid">
-                <div class="problem-card">
-                    <div class="problem-header">
-                        <div class="problem-icon-wrapper">
-                            <div class="problem-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <h4 class="problem-title">Seguimiento de conversiones defectuoso</h4>
-                        </div>
-                    </div>
-                    <div class="problem-content">
-                        <p class="problem-description">
-                            El 87% de las cuentas que auditamos tienen problemas con el seguimiento. 
-                            Múltiples eventos duplicados, conversiones inactivas y configuraciones incorrectas.
-                        </p>
-                        <div class="impact-box">
-                            <span class="impact-label">Impacto en tu negocio:</span>
-                            <p class="impact-text">
-                                No puedes calcular el retorno real de tu inversión. Tomas decisiones basadas en datos 
-                                incorrectos o incompletos, perdiendo oportunidades de optimización.
-                            </p>
-                        </div>
-                        <div class="example-box">
-                            <span class="example-label">Lo que verás en TU auditoría:</span>
-                            <p class="example-text">
-                                Análisis específico de cada evento de conversión, cuáles están activos, 
-                                cuáles faltan y cómo configurarlos correctamente.
-                            </p>
-                        </div>
-                    </div>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Contactanos</h3>
+                    <p class="step-description">
+                        Escribinos por WhatsApp y coordinamos todo en minutos
+                    </p>
                 </div>
 
-                <div class="problem-card">
-                    <div class="problem-header">
-                        <div class="problem-icon-wrapper">
-                            <div class="problem-icon">
-                                <i class="fas fa-cogs"></i>
-                            </div>
-                            <h4 class="problem-title">Campañas con configuración básica</h4>
-                        </div>
-                    </div>
-                    <div class="problem-content">
-                        <p class="problem-description">
-                            Campañas Smart o configuraciones automáticas que limitan el control y la capacidad 
-                            de optimización. Sin segmentación avanzada ni ajustes personalizados.
-                        </p>
-                        <div class="impact-box">
-                            <span class="impact-label">Impacto en tu negocio:</span>
-                            <p class="impact-text">
-                                Pierdes control sobre dónde y cómo se muestra tu publicidad. 
-                                No puedes optimizar para los segmentos más rentables de tu audiencia.
-                            </p>
-                        </div>
-                        <div class="example-box">
-                            <span class="example-label">Lo que verás en TU auditoría:</span>
-                            <p class="example-text">
-                                Recomendaciones específicas de qué tipos de campañas usar, cómo estructurarlas 
-                                y qué configuraciones avanzadas activar para tu industria.
-                            </p>
-                        </div>
-                    </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Acceso seguro</h3>
+                    <p class="step-description">
+                        Te guiamos para dar acceso de solo lectura (sin riesgos)
+                    </p>
                 </div>
 
-                <div class="problem-card">
-                    <div class="problem-header">
-                        <div class="problem-icon-wrapper">
-                            <div class="problem-icon">
-                                <i class="fas fa-search"></i>
-                            </div>
-                            <h4 class="problem-title">Palabras clave sin optimizar</h4>
-                        </div>
-                    </div>
-                    <div class="problem-content">
-                        <p class="problem-description">
-                            Términos genéricos que consumen presupuesto sin generar conversiones. 
-                            Falta de palabras negativas y concordancias mal configuradas.
-                        </p>
-                        <div class="impact-box">
-                            <span class="impact-label">Impacto en tu negocio:</span>
-                            <p class="impact-text">
-                                Hasta el 40% de tu presupuesto puede estar desperdiciándose en búsquedas 
-                                irrelevantes o usuarios sin intención de compra.
-                            </p>
-                        </div>
-                        <div class="example-box">
-                            <span class="example-label">Lo que verás en TU auditoría:</span>
-                            <p class="example-text">
-                                Lista de términos que están consumiendo presupuesto sin resultados, 
-                                y palabras clave de alto valor que deberías estar usando.
-                            </p>
-                        </div>
-                    </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Análisis profundo</h3>
+                    <p class="step-description">
+                        Nuestros expertos analizan cada detalle de tus campañas
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Tu informe listo</h3>
+                    <p class="step-description">
+                        En 48-72hs recibís tu auditoría completa y personalizada
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <div class="cta-section fade-in focus-glow">
+    <section class="sample-section fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ejemplo de cómo se ve tu auditoría</h2>
+                <p>Este es el tipo de análisis profesional que recibirás</p>
+            </div>
+
+            <div class="sample-preview">
+                <span class="sample-badge">EJEMPLO</span>
+                <div class="sample-header">
+                    <h3>Auditoría de Campañas Publicitarias</h3>
+                    <p>[TU EMPRESA] - Análisis completo de Google Ads y Meta Ads</p>
+                </div>
+                
+                <div class="sample-content">
+                    <div class="sample-metrics">
+                        <div class="metric-item">
+                            <div class="metric-label">Inversión Total</div>
+                            <div class="metric-value">$696.012</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Conversiones</div>
+                            <div class="metric-value">76</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">CPA Promedio</div>
+                            <div class="metric-value">$9.158</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">CTR Promedio</div>
+                            <div class="metric-value">2.58%</div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 2rem 0 1rem; font-family: var(--font-primary); color: var(--gray-900);">
+                        Ejemplo de tabla de análisis por campaña:
+                    </h4>
+                    <table class="example-table">
+                        <thead>
+                            <tr>
+                                <th>Campaña</th>
+                                <th>Conversiones</th>
+                                <th>Gasto</th>
+                                <th>CPA</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>[Campaña Alta Performance]</td>
+                                <td>30</td>
+                                <td>$108.084</td>
+                                <td style="color: var(--success-green); font-weight: 600;">$3.602</td>
+                                <td>✅ Óptimo</td>
+                            </tr>
+                            <tr>
+                                <td>[Campaña Mejorable]</td>
+                                <td>10</td>
+                                <td>$106.775</td>
+                                <td style="color: var(--warning-yellow); font-weight: 600;">$10.677</td>
+                                <td>⚠️ Optimizar</td>
+                            </tr>
+                            <tr>
+                                <td>[Campaña Crítica]</td>
+                                <td>2</td>
+                                <td>$107.349</td>
+                                <td style="color: var(--danger-red); font-weight: 600;">$53.674</td>
+                                <td>🔴 Urgente</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="example-block">
+                        <i class="fas fa-chart-bar" style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--gray-400);"></i>
+                        <p>+ Gráficos detallados de rendimiento</p>
+                    </div>
+
+                    <div class="example-block">
+                        <i class="fas fa-lightbulb" style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--gray-400);"></i>
+                        <p>+ Recomendaciones específicas para cada problema</p>
+                    </div>
+
+                    <div class="example-block">
+                        <i class="fas fa-list-check" style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--gray-400);"></i>
+                        <p>+ Plan de acción paso a paso</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section focus-glow">
+        <div class="container">
             <div class="cta-content">
-                <h2 class="cta-title">¿Te gustaría recibir TU auditoría personalizada?</h2>
-                <p class="cta-description">
-                    Este es solo un ejemplo. Tu auditoría incluirá análisis específico de TUS campañas, 
-                    con datos reales y recomendaciones personalizadas para tu negocio.
+                <h2>¿Listo para dejar de perder dinero?</h2>
+                <p>
+                    Obtené tu auditoría profesional completa en solo 48-72 horas. 
+                    Sin costo, sin compromisos, sin letra chica.
                 </p>
                 
                 <div class="cta-features">
                     <div class="cta-feature">
-                        <i class="fas fa-check-circle cta-feature-icon"></i>
-                        <span>Análisis de todas tus campañas activas</span>
+                        <i class="fas fa-check-circle"></i>
+                        <span>100% Gratis</span>
                     </div>
                     <div class="cta-feature">
-                        <i class="fas fa-check-circle cta-feature-icon"></i>
-                        <span>Identificación de problemas específicos</span>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Sin compromiso</span>
                     </div>
                     <div class="cta-feature">
-                        <i class="fas fa-check-circle cta-feature-icon"></i>
-                        <span>Plan de acción prioritizado</span>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Análisis profesional</span>
                     </div>
                     <div class="cta-feature">
-                        <i class="fas fa-check-circle cta-feature-icon"></i>
-                        <span>Consulta gratuita de 30 minutos</span>
-                    </div>
-                    <div class="cta-feature">
-                        <i class="fas fa-check-circle cta-feature-icon"></i>
-                        <span>Sin compromiso de contratación</span>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Plan de acción incluido</span>
                     </div>
                 </div>
                 
-                <a href="https://wa.me/5491130011554?text=Hola!%20Vi%20el%20ejemplo%20de%20auditoría%20y%20quiero%20obtener%20la%20mía%20GRATIS" 
+                <a href="https://wa.me/5491130011554?text=Hola!%20Quiero%20mi%20auditoría%20GRATIS%20de%20publicidad%20digital" 
                    class="cta-button" 
                    target="_blank">
-                    <span>SÍ, quiero mi auditoría GRATIS</span>
+                    <span>Quiero mi auditoría GRATIS ahora</span>
                     <i class="fab fa-whatsapp"></i>
                 </a>
                 
@@ -1263,122 +1052,7 @@
                 </div>
             </div>
         </div>
-
-        <section class="section fade-in">
-            <div class="section-header">
-                <div class="section-number">3</div>
-                <h3 class="section-title">¿Qué más incluye tu auditoría completa?</h3>
-            </div>
-            
-            <div class="problems-grid">
-                <div class="problem-card" style="border-color: var(--success-border);">
-                    <div class="problem-header" style="background: var(--success-bg); border-color: var(--success-border);">
-                        <div class="problem-icon-wrapper">
-                            <div class="problem-icon" style="background: var(--success-green);">
-                                <i class="fas fa-tachometer-alt"></i>
-                            </div>
-                            <h4 class="problem-title">Análisis de rendimiento por dispositivo</h4>
-                        </div>
-                    </div>
-                    <div class="problem-content">
-                        <p style="color: var(--gray-600); margin-bottom: 1rem;">
-                            Descubrirás exactamente qué dispositivos generan más conversiones y cuáles están 
-                            desperdiciando tu presupuesto, con recomendaciones específicas de ajustes.
-                        </p>
-                        <ul style="list-style: none; padding: 0; color: var(--gray-600); font-size: 0.875rem;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-green); margin-right: 0.5rem;"></i>Análisis móvil vs desktop vs tablet</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-green); margin-right: 0.5rem;"></i>Ajustes de puja recomendados</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-green); margin-right: 0.5rem;"></i>Oportunidades de optimización</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="problem-card" style="border-color: var(--info-border);">
-                    <div class="problem-header" style="background: var(--info-bg); border-color: var(--info-border);">
-                        <div class="problem-icon-wrapper">
-                            <div class="problem-icon" style="background: var(--info-blue);">
-                                <i class="fas fa-map-marked-alt"></i>
-                            </div>
-                            <h4 class="problem-title">Segmentación geográfica y horaria</h4>
-                        </div>
-                    </div>
-                    <div class="problem-content">
-                        <p style="color: var(--gray-600); margin-bottom: 1rem;">
-                            Identificaremos las ubicaciones y horarios más rentables para tu negocio, 
-                            para que inviertas donde realmente hay oportunidades.
-                        </p>
-                        <ul style="list-style: none; padding: 0; color: var(--gray-600); font-size: 0.875rem;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--info-blue); margin-right: 0.5rem;"></i>Mapa de calor por ubicación</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--info-blue); margin-right: 0.5rem;"></i>Análisis de horarios pico</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--info-blue); margin-right: 0.5rem;"></i>Estrategia de programación</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="problem-card" style="border-color: var(--warning-border);">
-                    <div class="problem-header" style="background: var(--warning-bg); border-color: var(--warning-border);">
-                        <div class="problem-icon-wrapper">
-                            <div class="problem-icon" style="background: var(--warning-yellow);">
-                                <i class="fas fa-rocket"></i>
-                            </div>
-                            <h4 class="problem-title">Plan de acción de 90 días</h4>
-                        </div>
-                    </div>
-                    <div class="problem-content">
-                        <p style="color: var(--gray-600); margin-bottom: 1rem;">
-                            Recibirás un roadmap detallado con acciones priorizadas por impacto y facilidad 
-                            de implementación, para que sepas exactamente qué hacer.
-                        </p>
-                        <ul style="list-style: none; padding: 0; color: var(--gray-600); font-size: 0.875rem;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--warning-yellow); margin-right: 0.5rem;"></i>Acciones para los primeros 30 días</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--warning-yellow); margin-right: 0.5rem;"></i>Optimizaciones de mediano plazo</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--warning-yellow); margin-right: 0.5rem;"></i>Proyección de resultados esperados</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="cta-section fade-in" style="background: var(--gray-900); color: var(--white);">
-            <div class="cta-content">
-                <h2 class="cta-title" style="color: var(--white);">El proceso es simple y seguro</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin: 3rem 0; max-width: 800px; margin-left: auto; margin-right: auto;">
-                    <div style="text-align: center;">
-                        <div style="background: var(--naranja-principal); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">1</div>
-                        <h4 style="margin-bottom: 0.5rem;">Contactanos</h4>
-                        <p style="font-size: 0.875rem; opacity: 0.9;">Escribinos por WhatsApp para coordinar</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="background: var(--naranja-principal); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">2</div>
-                        <h4 style="margin-bottom: 0.5rem;">Acceso seguro</h4>
-                        <p style="font-size: 0.875rem; opacity: 0.9;">Te guiamos para dar acceso de solo lectura</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="background: var(--naranja-principal); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">3</div>
-                        <h4 style="margin-bottom: 0.5rem;">Análisis profundo</h4>
-                        <p style="font-size: 0.875rem; opacity: 0.9;">Analizamos cada aspecto de tus campañas</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="background: var(--naranja-principal); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">4</div>
-                        <h4 style="margin-bottom: 0.5rem;">Tu informe</h4>
-                        <p style="font-size: 0.875rem; opacity: 0.9;">En 48-72hs tenés tu auditoría completa</p>
-                    </div>
-                </div>
-                
-                <a href="https://wa.me/5491130011554?text=Hola!%20Vi%20el%20ejemplo%20de%20auditoría%20y%20quiero%20obtener%20la%20mía%20GRATIS" 
-                   class="cta-button" 
-                   target="_blank"
-                   style="background: var(--white); color: var(--naranja-principal);">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>Empezar ahora por WhatsApp</span>
-                </a>
-                
-                <div class="contact-info" style="color: var(--gray-300); margin-top: 2rem;">
-                    <p><strong>100% GRATIS</strong> • <strong>Sin compromisos</strong> • <strong>Resultados en 48-72hs</strong></p>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 
     <footer>
         <div class="container">
@@ -1390,7 +1064,7 @@
     </footer>
 
     <script>
-        // Smooth scroll animation on page load
+        // Smooth scroll animation
         function animateOnScroll() {
             const elements = document.querySelectorAll('.fade-in');
             
@@ -1413,7 +1087,6 @@
         // Enhanced WhatsApp button
         function enhanceWhatsAppButton() {
             const whatsappButton = document.querySelector('.whatsapp-float');
-            let messageCount = 0;
             
             // Create notification badge
             const badge = document.createElement('span');
@@ -1435,10 +1108,10 @@
             `;
             badge.textContent = '1';
             
-            // Show badge after 5 seconds
+            // Show badge after 3 seconds
             setTimeout(() => {
                 whatsappButton.appendChild(badge);
-            }, 5000);
+            }, 3000);
             
             // Create tooltip
             const tooltip = document.createElement('div');
@@ -1471,75 +1144,17 @@
             }, 10000);
         }
 
-        // Highlight CTA sections
-        function highlightCTAs() {
-            const ctaSections = document.querySelectorAll('.cta-section');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('focus-glow');
-                        setTimeout(() => {
-                            entry.target.classList.remove('focus-glow');
-                        }, 3000);
-                    }
-                });
-            }, {
-                threshold: 0.5
-            });
-            
-            ctaSections.forEach(section => {
-                observer.observe(section);
-            });
-        }
-
-        // Track time on page and show exit intent
-        function trackEngagement() {
-            let timeOnPage = 0;
-            setInterval(() => {
-                timeOnPage++;
-                
-                // After 30 seconds, make WhatsApp button bigger
-                if (timeOnPage === 30) {
-                    const whatsappButton = document.querySelector('.whatsapp-float');
-                    whatsappButton.style.transform = 'scale(1.2)';
-                    setTimeout(() => {
-                        whatsappButton.style.transform = 'scale(1)';
-                    }, 2000);
-                }
-            }, 1000);
-        }
-
-        // Initialize all functions
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             animateOnScroll();
             enhanceWhatsAppButton();
-            highlightCTAs();
-            trackEngagement();
             
-            // Add click tracking
+            // Track clicks
             document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
                 link.addEventListener('click', function() {
-                    console.log('WhatsApp link clicked:', this.textContent.trim());
+                    console.log('WhatsApp clicked:', this.textContent.trim());
                 });
             });
-        });
-
-        // Exit intent popup
-        document.addEventListener('mouseleave', function(e) {
-            if (e.clientY <= 0 && !localStorage.getItem('exitIntentShown')) {
-                localStorage.setItem('exitIntentShown', 'true');
-                
-                // Make WhatsApp button pulse more intensely
-                const whatsappButton = document.querySelector('.whatsapp-float');
-                whatsappButton.style.animation = 'pulse 0.5s infinite';
-                whatsappButton.style.transform = 'scale(1.3)';
-                
-                setTimeout(() => {
-                    whatsappButton.style.animation = 'pulse 2s infinite';
-                    whatsappButton.style.transform = 'scale(1)';
-                }, 5000);
-            }
         });
     </script>
 </body>
