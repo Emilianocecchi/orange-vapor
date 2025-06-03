@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Mental OrangeVapor - Simple</title>
+    <title>Mapa Mental Estratégico - OrangeVapor</title>
     <style>
         * {
             margin: 0;
@@ -28,32 +28,57 @@
 
         .mindmap {
             position: relative;
-            width: 1800px;
-            height: 1600px;
+            width: 1600px;
+            height: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
             box-shadow: 0 10px 50px rgba(0,0,0,0.1);
-            padding: 80px;
+            padding: 60px;
         }
 
-        /* Nodo Central */
+        /* Título Principal */
+        .main-title {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 100%;
+        }
+
+        .main-title h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .main-title .subtitle {
+            font-size: 18px;
+            color: #ff6b35;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* Nodo Central - ORANGEVAPOR */
         .central-node {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
             color: white;
-            width: 280px;
-            height: 140px;
+            width: 320px;
+            height: 180px;
             border-radius: 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
             z-index: 10;
+            border: 4px solid white;
         }
 
         .central-node .brand {
@@ -64,8 +89,8 @@
 
         .central-node .tagline {
             font-size: 12px;
-            opacity: 0.9;
             text-align: center;
+            opacity: 0.9;
             margin-bottom: 8px;
         }
 
@@ -76,72 +101,27 @@
             border-radius: 12px;
         }
 
-        /* Propósito Box */
-        .purpose-box {
-            position: absolute;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border: 2px solid #ff6b35;
-            padding: 20px;
-            border-radius: 15px;
-            width: 400px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .purpose-box h3 {
-            color: #ff6b35;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .purpose-box .real-data {
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            text-align: left;
-            font-size: 13px;
-            line-height: 1.5;
-            border-left: 3px solid #ff6b35;
-        }
-
-        .purpose-box ul {
-            list-style: none;
-            font-size: 13px;
-            line-height: 1.6;
-            text-align: left;
-        }
-
-        .purpose-box li::before {
-            content: "• ";
-            color: #ff6b35;
-            margin-right: 8px;
-        }
-
-        /* Ramas - Layout en Grid */
+        /* Ramas principales */
         .branch {
             position: absolute;
             background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 320px;
-            min-height: 120px;
-            border-top: 4px solid;
+            width: 380px;
+            min-height: 160px;
+            border-top: 6px solid;
         }
 
         .branch:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
         }
 
         .branch.expanded {
-            width: 420px;
+            width: 480px;
             min-height: auto;
             z-index: 5;
         }
@@ -150,54 +130,44 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .branch h3 {
-            font-size: 16px;
+            font-size: 18px;
             margin: 0;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .branch .toggle {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             opacity: 0.6;
         }
 
-        .branch-current {
-            background: #f8f9fa;
-            padding: 12px;
+        .branch-summary {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .branch-summary .highlight {
+            background: rgba(0,0,0,0.05);
+            padding: 8px 12px;
             border-radius: 8px;
-            margin-bottom: 10px;
+            margin: 6px 0;
+            border-left: 3px solid;
             font-size: 13px;
-        }
-
-        .branch-current h5 {
-            color: #666;
-            margin-bottom: 8px;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .real-data-highlight {
-            background: rgba(52, 152, 219, 0.1);
-            padding: 6px 10px;
-            border-radius: 6px;
-            margin: 4px 0;
-            font-size: 12px;
-            border-left: 3px solid #3498db;
         }
 
         /* Sub Items */
         .sub-items {
-            margin-top: 15px;
+            margin-top: 20px;
             display: none;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
+            border-top: 2px solid rgba(0,0,0,0.05);
+            padding-top: 20px;
         }
 
         .sub-items.show {
@@ -205,113 +175,91 @@
         }
 
         .sub-section {
-            margin-bottom: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 3px solid;
+            margin-bottom: 18px;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid;
         }
 
         .sub-section h4 {
-            font-size: 13px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin-bottom: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .sub-section ul {
             list-style: none;
-            font-size: 12px;
-            line-height: 1.6;
+            font-size: 13px;
+            line-height: 1.7;
         }
 
         .sub-section li {
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             padding-left: 15px;
             position: relative;
         }
 
         .sub-section li::before {
-            content: "→";
+            content: "•";
             position: absolute;
             left: 0;
             color: #666;
-            font-size: 10px;
+            font-weight: bold;
         }
 
-        /* Colores de subsecciones */
+        .strong-point {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* Tipos de subsecciones */
         .current-state { 
-            background: rgba(52, 152, 219, 0.05); 
+            background: rgba(52, 152, 219, 0.08); 
             border-left-color: #3498db;
         }
-        .strengths { 
-            background: rgba(46, 204, 113, 0.05); 
-            border-left-color: #2ecc71;
-        }
         .gaps { 
-            background: rgba(231, 76, 60, 0.05); 
+            background: rgba(231, 76, 60, 0.08); 
             border-left-color: #e74c3c;
         }
         .opportunities { 
-            background: rgba(155, 89, 182, 0.05); 
+            background: rgba(155, 89, 182, 0.08); 
             border-left-color: #9b59b6;
         }
         .frameworks { 
-            background: rgba(241, 196, 15, 0.05); 
+            background: rgba(241, 196, 15, 0.08); 
             border-left-color: #f1c40f;
         }
         .actions { 
-            background: rgba(230, 126, 34, 0.05); 
+            background: rgba(230, 126, 34, 0.08); 
             border-left-color: #e67e22;
         }
 
-        /* Colores de ramas */
-        .acquisition { border-top-color: #e74c3c; }
-        .acquisition h3 { color: #e74c3c; }
+        /* Colores de ramas por tipo */
+        .cliente { border-top-color: #ff6b35; }
+        .cliente h3 { color: #ff6b35; }
 
-        .delivery { border-top-color: #3498db; }
-        .delivery h3 { color: #3498db; }
+        .producto { border-top-color: #2ecc71; }
+        .producto h3 { color: #2ecc71; }
 
-        .optimization { border-top-color: #f39c12; }
-        .optimization h3 { color: #f39c12; }
+        .sistemas { border-top-color: #3498db; }
+        .sistemas h3 { color: #3498db; }
 
-        .branding { border-top-color: #9b59b6; }
-        .branding h3 { color: #9b59b6; }
+        .resultados { border-top-color: #9b59b6; }
+        .resultados h3 { color: #9b59b6; }
 
-        .scalability { border-top-color: #2ecc71; }
-        .scalability h3 { color: #2ecc71; }
+        .crecimiento { border-top-color: #f1c40f; }
+        .crecimiento h3 { color: #f1c40f; }
 
-        .wellness { border-top-color: #1abc9c; }
-        .wellness h3 { color: #1abc9c; }
-
-        /* Posicionamiento Grid Organizado con más espacio */
-        .branch-1 { top: 300px; left: 80px; }    /* Arriba izquierda */
-        .branch-2 { top: 300px; right: 80px; }   /* Arriba derecha */
-        .branch-3 { top: 580px; left: 80px; }    /* Medio izquierda */
-        .branch-4 { top: 580px; right: 80px; }   /* Medio derecha */
-        .branch-5 { top: 860px; left: 80px; }    /* Abajo izquierda */
-        .branch-6 { top: 860px; right: 80px; }   /* Abajo derecha */
-
-        /* Líneas conectoras simples */
-        .connector {
-            position: absolute;
-            background: #ddd;
-            z-index: 1;
-            border-radius: 1px;
-        }
-
-        .line-1 { top: 480px; left: 350px; width: 200px; height: 2px; }      /* Central a rama 1 */
-        .line-2 { top: 480px; right: 350px; width: 200px; height: 2px; }     /* Central a rama 2 */
-        .line-3 { top: 600px; left: 380px; width: 150px; height: 2px; }      /* Central a rama 3 */
-        .line-4 { top: 600px; right: 380px; width: 150px; height: 2px; }     /* Central a rama 4 */
-        .line-5 { top: 720px; left: 410px; width: 120px; height: 2px; }       /* Central a rama 5 */
-        .line-6 { top: 720px; right: 410px; width: 120px; height: 2px; }      /* Central a rama 6 */
-
-        /* Líneas verticales */
-        .line-v1 { top: 600px; left: 50%; width: 2px; height: 80px; transform: translateX(-50%); }
-        .line-v2 { top: 720px; left: 50%; width: 2px; height: 80px; transform: translateX(-50%); }
+        /* Posicionamiento en pentágono */
+        .branch-1 { top: 150px; left: 50%; transform: translateX(-50%); }  /* Arriba centro */
+        .branch-2 { top: 300px; left: 80px; }     /* Izquierda arriba */
+        .branch-3 { top: 300px; right: 80px; }    /* Derecha arriba */
+        .branch-4 { bottom: 200px; left: 150px; }  /* Izquierda abajo */
+        .branch-5 { bottom: 200px; right: 150px; } /* Derecha abajo */
 
         /* Controles */
         .controls {
@@ -344,12 +292,33 @@
         .framework-box {
             background: #fffbf0;
             border: 1px dashed #f1c40f;
-            padding: 10px;
-            border-radius: 6px;
-            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
             font-style: italic;
-            font-size: 11px;
+            font-size: 12px;
             color: #7f8c8d;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .metric-card {
+            background: rgba(0,0,0,0.02);
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .metric-card strong {
+            display: block;
+            font-size: 12px;
+            color: #2c3e50;
         }
 
         /* Checklist styles */
@@ -359,8 +328,8 @@
 
         .checklist li {
             position: relative;
-            padding-left: 20px;
-            margin-bottom: 6px;
+            padding-left: 25px;
+            margin-bottom: 8px;
             cursor: pointer;
             font-size: 12px;
         }
@@ -370,7 +339,7 @@
             position: absolute;
             left: 0;
             color: #bdc3c7;
-            font-size: 12px;
+            font-size: 14px;
         }
 
         .checklist li.checked::before {
@@ -393,19 +362,12 @@
                 margin-bottom: 30px;
             }
             
-            .branch-1, .branch-2, .branch-3, .branch-4, .branch-5, .branch-6 {
+            .branch-1, .branch-2, .branch-3, .branch-4, .branch-5 {
                 position: relative;
                 top: auto;
                 left: auto;
                 right: auto;
-            }
-            
-            .purpose-box {
-                position: relative;
-                left: 0;
-                transform: none;
-                width: 100%;
-                margin-bottom: 30px;
+                bottom: auto;
             }
             
             .central-node {
@@ -415,10 +377,6 @@
                 transform: none;
                 margin: 20px auto;
             }
-            
-            .connector {
-                display: none;
-            }
         }
 
         @media (max-width: 768px) {
@@ -427,22 +385,21 @@
             }
             
             .central-node {
-                width: 240px;
-                height: 120px;
+                width: 280px;
+                height: 160px;
             }
             
-            .central-node .brand {
-                font-size: 20px;
+            .main-title h1 {
+                font-size: 22px;
             }
             
-            .purpose-box {
-                width: 100%;
-                padding: 15px;
+            .main-title .subtitle {
+                font-size: 16px;
             }
             
             .branch {
                 width: 100%;
-                padding: 15px;
+                padding: 20px;
             }
             
             .branch.expanded {
@@ -454,412 +411,410 @@
 <body>
     <div class="mindmap-container">
         <div class="mindmap">
-            <!-- Nodo Central -->
+            <!-- Título Principal -->
+            <div class="main-title">
+                <h1>🧠 Mapa Mental Estratégico de OrangeVapor</h1>
+                <div class="subtitle">"Liberamos el tiempo de los emprendedores para que crezcan sin aprender marketing digital"</div>
+            </div>
+
+            <!-- Nodo Central - ORANGEVAPOR -->
             <div class="central-node">
                 <div class="brand">🧠 OrangeVapor</div>
                 <div class="tagline">Agencia Minimalista de Performance Ads</div>
                 <div class="founders">Emiliano & Yobanny</div>
             </div>
 
-            <!-- Propósito -->
-            <div class="purpose-box">
-                <h3>🎯 PROPÓSITO & POSICIONAMIENTO</h3>
-                <div class="real-data">
-                    <strong>Lo que sabemos del sitio actual:</strong><br>
-                    • USP: "No tenés que saber marketing"<br>
-                    • Target: PyMEs que pierden tiempo/dinero en ads<br>
-                    • Credenciales: Google Partner & Meta Business Partner<br>
-                    • Modelo: Sin contratos largos, experto dedicado
-                </div>
-                <ul>
-                    <li>Liberar tiempo a emprendedores para que se enfoquen en su negocio</li>
-                    <li>Solucionar: "campañas cuestan 3x más y venden 70% menos"</li>
-                    <li>Ser la opción simple vs complejidad del marketing digital</li>
-                </ul>
-            </div>
-
-            <!-- Líneas conectoras -->
-            <div class="connector line-1"></div>
-            <div class="connector line-2"></div>
-            <div class="connector line-3"></div>
-            <div class="connector line-4"></div>
-            <div class="connector line-5"></div>
-            <div class="connector line-6"></div>
-            <div class="connector line-v1"></div>
-            <div class="connector line-v2"></div>
-
-            <!-- Rama 1: Adquisición -->
-            <div class="branch branch-1 acquisition" onclick="toggleBranch(this)">
+            <!-- Rama 1: CLIENTE -->
+            <div class="branch branch-1 cliente" onclick="toggleBranch(this)">
                 <div class="branch-header">
-                    <h3>🎯 Adquisición de Clientes</h3>
+                    <h3>🟠 1. CLIENTE</h3>
                     <span class="toggle">+</span>
                 </div>
                 
-                <div class="branch-current">
-                    <h5>Estado Actual Conocido</h5>
-                    <div class="real-data-highlight">✅ Auditoría GRATIS como lead magnet</div>
-                    <div class="real-data-highlight">✅ Entrega en 24-48 horas</div>
-                    <div class="real-data-highlight">✅ Acceso modo lectura</div>
+                <div class="branch-summary">
+                    <strong>Centro de gravedad</strong>
+                    <div class="highlight" style="border-left-color: #ff6b35;">
+                        👥 Emprendedores / PYMEs que venden online
+                    </div>
+                    <div class="highlight" style="border-left-color: #ff6b35;">
+                        😰 Dolor: No saben marketing, pierden tiempo
+                    </div>
                 </div>
 
                 <div class="sub-items">
-                    <div class="sub-section strengths">
-                        <h4>💪 Fortalezas</h4>
+                    <div class="sub-section current-state">
+                        <h4>👥 Cliente Ideal Actual</h4>
                         <ul>
-                            <li>Propuesta clara y específica</li>
-                            <li>Credenciales oficiales visibles</li>
-                            <li>Mensaje diferenciado: simplicidad</li>
-                            <li>Sin compromiso inicial</li>
-                            <li>Testimonios con datos concretos</li>
+                            <li><span class="strong-point">Quién es:</span> Emprendedores / PYMEs que venden online</li>
+                            <li><span class="strong-point">Dolor principal:</span> No saben marketing, pierden tiempo, no logran resultados</li>
+                            <li><span class="strong-point">Sueño:</span> Vender más, enfocarse en su negocio, tener equipo experto</li>
+                            <li><span class="strong-point">Presupuesto:</span> Pueden invertir en marketing pero quieren ROI claro</li>
                         </ul>
                     </div>
 
                     <div class="sub-section gaps">
-                        <h4>🔍 Gaps a Investigar</h4>
+                        <h4>🔍 Gaps Cliente</h4>
                         <ul class="checklist">
-                            <li>¿Cuántos leads generamos mensualmente?</li>
-                            <li>¿Cuál es nuestro CPL actual?</li>
-                            <li>¿Qué % auditorías → clientes?</li>
-                            <li>¿Tenemos nurturing automatizado?</li>
-                            <li>¿Hacemos retargeting efectivo?</li>
+                            <li>¿Tenemos buyer personas documentadas?</li>
+                            <li>¿Conocemos el customer journey completo?</li>
+                            <li>¿Segmentamos por industria/tamaño?</li>
+                            <li>¿Entendemos sus objeciones principales?</li>
+                            <li>¿Sabemos su lifetime value?</li>
+                            <li>¿Tenemos feedback sistemático?</li>
                         </ul>
                     </div>
 
                     <div class="sub-section frameworks">
-                        <h4>📊 Framework Medición</h4>
+                        <h4>📊 Framework Cliente</h4>
                         <div class="framework-box">
-                            Métricas a completar:<br>
-                            • Leads mensuales: ___<br>
-                            • CPL promedio: $___<br>
-                            • Conversión auditoría→cliente: ___%<br>
-                            • CAC vs LTV: 1:___
+                            <strong>Buyer Persona Primario:</strong><br>
+                            • Industria: ___<br>
+                            • Tamaño empresa: ___ empleados<br>
+                            • Revenue anual: $___<br>
+                            • Presupuesto marketing: $___/mes<br>
+                            • Dolor principal: ___<br>
+                            • Trigger de compra: ___
                         </div>
                     </div>
 
                     <div class="sub-section opportunities">
-                        <h4>🚀 Oportunidades</h4>
+                        <h4>🚀 Oportunidades Cliente</h4>
                         <ul>
-                            <li>Diversificar lead magnets</li>
-                            <li>Automatizar follow-up</li>
-                            <li>Retargeting inteligente</li>
-                            <li>Testimonios en video</li>
-                            <li>Chat en vivo</li>
+                            <li><span class="strong-point">Segmentación vertical:</span> Educación, salud, turismo</li>
+                            <li><span class="strong-point">Expansión geográfica:</span> Latam, España</li>
+                            <li><span class="strong-point">Sizing evolution:</span> Startups → Scale-ups</li>
+                            <li><span class="strong-point">Referral program:</span> Clientes satisfechos</li>
+                            <li><span class="strong-point">Community building:</span> Network emprendedores</li>
                         </ul>
                     </div>
 
                     <div class="sub-section actions">
-                        <h4>🎯 Próximos Pasos</h4>
+                        <h4>🎯 Plan Cliente</h4>
                         <ul>
-                            <li>Auditar métricas actuales</li>
-                            <li>Identificar biggest bottleneck</li>
-                            <li>Test 1 optimización</li>
-                            <li>Setup tracking dashboard</li>
+                            <li>Documentar 3 buyer personas principales</li>
+                            <li>Mapear customer journey completo</li>
+                            <li>Survey satisfacción sistemático</li>
+                            <li>Analizar churn y retention patterns</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Rama 2: Entrega -->
-            <div class="branch branch-2 delivery" onclick="toggleBranch(this)">
+            <!-- Rama 2: PRODUCTO/SERVICIOS -->
+            <div class="branch branch-2 producto" onclick="toggleBranch(this)">
                 <div class="branch-header">
-                    <h3>🚀 Entrega de Servicio</h3>
+                    <h3>🟢 2. PRODUCTO / SERVICIOS</h3>
                     <span class="toggle">+</span>
                 </div>
                 
-                <div class="branch-current">
-                    <h5>Estado Actual</h5>
-                    <div class="real-data-highlight">✅ Experto dedicado por cliente</div>
-                    <div class="real-data-highlight">✅ Reportes simples ROI</div>
-                    <div class="real-data-highlight">✅ Mejoras automáticas</div>
+                <div class="branch-summary">
+                    <strong>Tu máquina de valor</strong>
+                    <div class="highlight" style="border-left-color: #2ecc71;">
+                        ✅ Auditoría Gratuita (puerta de entrada)
+                    </div>
+                    <div class="highlight" style="border-left-color: #2ecc71;">
+                        📦 Planes mensuales claros (Essential / Premium)
+                    </div>
                 </div>
 
                 <div class="sub-items">
-                    <div class="sub-section strengths">
-                        <h4>💪 Fortalezas</h4>
+                    <div class="sub-section current-state">
+                        <h4>📋 Servicios Actuales</h4>
                         <ul>
-                            <li>Propuesta simple y clara</li>
-                            <li>Reportes enfocados en ROI</li>
-                            <li>Atención personalizada</li>
-                            <li>Flexibilidad contractual</li>
-                            <li>Credibilidad establecida</li>
+                            <li><span class="strong-point">Auditoría Gratuita:</span> Diagnóstico en 24-48h</li>
+                            <li><span class="strong-point">Meta Ads & Google Ads:</span> Gestión completa</li>
+                            <li><span class="strong-point">Email marketing:</span> Automatizaciones</li>
+                            <li><span class="strong-point">Landing pages:</span> + branding exprés</li>
+                            <li><span class="strong-point">Reportes simples:</span> Inversión vs ganancia</li>
                         </ul>
                     </div>
 
                     <div class="sub-section gaps">
-                        <h4>🔍 Gaps a Investigar</h4>
+                        <h4>🔍 Gaps a Evaluar</h4>
                         <ul class="checklist">
-                            <li>¿ROAS promedio actual?</li>
-                            <li>¿% retención >6 meses?</li>
-                            <li>¿SOPs documentados?</li>
-                            <li>¿Tiempo setup campaña?</li>
-                            <li>¿Proceso QA definido?</li>
+                            <li>¿Tenemos paquetes claramente definidos?</li>
+                            <li>¿Precios por tiers documentados?</li>
+                            <li>¿Onboarding estandarizado?</li>
+                            <li>¿Deliverables específicos por plan?</li>
+                            <li>¿Add-ons o servicios complementarios?</li>
                         </ul>
                     </div>
 
                     <div class="sub-section frameworks">
-                        <h4>📊 Framework Servicio</h4>
+                        <h4>📊 Framework Producto</h4>
                         <div class="framework-box">
-                            Métricas a medir:<br>
-                            • ROAS promedio: ___x<br>
-                            • Retention 6m: ___%<br>
-                            • Time to results: ___ días<br>
-                            • NPS score: ___/10
+                            <strong>Estructura de Servicios a Definir:</strong><br>
+                            • Plan Essential: $___/mes (incluye: ___)<br>
+                            • Plan Premium: $___/mes (incluye: ___)<br>
+                            • Add-ons disponibles: ___<br>
+                            • Tiempo setup: ___ días<br>
+                            • Resultados garantizados: ___
                         </div>
                     </div>
 
                     <div class="sub-section opportunities">
-                        <h4>🚀 Mejoras</h4>
+                        <h4>🚀 Oportunidades Producto</h4>
                         <ul>
-                            <li>Dashboard cliente tiempo real</li>
-                            <li>Onboarding automatizado</li>
-                            <li>Alertas proactivas</li>
-                            <li>Video reportes mensuales</li>
-                            <li>Escalation matrix</li>
+                            <li><span class="strong-point">Paquetes escalables:</span> Starter → Growth → Premium</li>
+                            <li><span class="strong-point">Productización:</span> Templates y procesos replicables</li>
+                            <li><span class="strong-point">Especialización vertical:</span> Educación, salud, turismo</li>
+                            <li><span class="strong-point">Productos digitales:</span> Cursos, auditorías DIY</li>
+                            <li><span class="strong-point">Consulting premium:</span> Estrategia C-level</li>
                         </ul>
                     </div>
 
                     <div class="sub-section actions">
-                        <h4>🎯 Plan Mejora</h4>
+                        <h4>🎯 Plan Producto</h4>
                         <ul>
-                            <li>Documentar proceso actual</li>
-                            <li>Identificar friction points</li>
-                            <li>Estandarizar deliverables</li>
-                            <li>Feedback loop clientes</li>
+                            <li>Definir 3 paquetes claros con precios</li>
+                            <li>Documentar deliverables específicos</li>
+                            <li>Crear proceso onboarding estándar</li>
+                            <li>Desarrollar primer producto digital</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Rama 3: Optimización -->
-            <div class="branch branch-3 optimization" onclick="toggleBranch(this)">
+            <!-- Rama 3: SISTEMAS/OPERACIONES -->
+            <div class="branch branch-3 sistemas" onclick="toggleBranch(this)">
                 <div class="branch-header">
-                    <h3>⚙️ Optimización Interna</h3>
+                    <h3>🔵 3. SISTEMAS / OPERACIONES</h3>
                     <span class="toggle">+</span>
                 </div>
                 
-                <div class="branch-current">
-                    <h5>Estado Actual</h5>
-                    <div>Necesitamos auditar sistemas internos</div>
+                <div class="branch-summary">
+                    <strong>Tu backend silencioso</strong>
+                    <div class="highlight" style="border-left-color: #3498db;">
+                        ⚙️ Estandarización de entregables
+                    </div>
+                    <div class="highlight" style="border-left-color: #3498db;">
+                        📋 Asana / Notion para flujo de trabajo
+                    </div>
                 </div>
 
                 <div class="sub-items">
+                    <div class="sub-section current-state">
+                        <h4>📋 Sistemas Actuales</h4>
+                        <ul>
+                            <li><span class="strong-point">Plantillas:</span> Campañas, informes, copies</li>
+                            <li><span class="strong-point">Automatización:</span> Formularios → CRM → Seguimiento</li>
+                            <li><span class="strong-point">Revisión mensual:</span> Performance (KPI internos)</li>
+                            <li><span class="strong-point">Tools:</span> Asana/Notion para workflow</li>
+                        </ul>
+                    </div>
+
                     <div class="sub-section gaps">
-                        <h4>🔍 Diagnóstico Necesario</h4>
+                        <h4>🔍 Gaps Operativos</h4>
                         <ul class="checklist">
-                            <li>¿Dashboard consolidado?</li>
-                            <li>¿Reviews sistemáticas?</li>
-                            <li>¿Alertas automáticas?</li>
-                            <li>¿Documentamos learnings?</li>
-                            <li>¿Backup estrategias?</li>
-                            <li>¿Proceso postmortem?</li>
+                            <li>¿SOPs documentados para cada proceso?</li>
+                            <li>¿Sistema CRM completamente implementado?</li>
+                            <li>¿Automatizaciones funcionando al 100%?</li>
+                            <li>¿Backup de datos y seguridad?</li>
+                            <li>¿Métricas operativas trackeadas?</li>
+                            <li>¿Proceso escalable sin fundadores?</li>
                         </ul>
                     </div>
 
                     <div class="sub-section frameworks">
                         <h4>📊 Framework Operativo</h4>
                         <div class="framework-box">
-                            Métricas operativas:<br>
-                            • % tiempo estratégico: ___%<br>
-                            • Procesos documentados: ___%<br>
-                            • Time to detect issues: ___ hrs<br>
-                            • Error rate: ___%
-                        </div>
-                    </div>
-
-                    <div class="sub-section opportunities">
-                        <h4>🚀 Oportunidades</h4>
-                        <ul>
-                            <li>Unified dashboard</li>
-                            <li>Automated alerts</li>
-                            <li>Weekly business review</li>
-                            <li>SOPs documentation</li>
-                            <li>Knowledge base</li>
-                        </ul>
-                    </div>
-
-                    <div class="sub-section actions">
-                        <h4>🎯 Plan Sistematización</h4>
-                        <ul>
-                            <li>Audit current state</li>
-                            <li>Priority matrix</li>
-                            <li>Quick wins first</li>
-                            <li>Build dashboard</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Rama 4: Marca -->
-            <div class="branch branch-4 branding" onclick="toggleBranch(this)">
-                <div class="branch-header">
-                    <h3>🎨 Posicionamiento y Marca</h3>
-                    <span class="toggle">+</span>
-                </div>
-                
-                <div class="branch-current">
-                    <h5>Estado Actual</h5>
-                    <div class="real-data-highlight">✅ USP clara definida</div>
-                    <div class="real-data-highlight">✅ Sitio enfocado conversión</div>
-                    <div class="real-data-highlight">✅ Credenciales visibles</div>
-                </div>
-
-                <div class="sub-items">
-                    <div class="sub-section strengths">
-                        <h4>💪 Fortalezas</h4>
-                        <ul>
-                            <li>Mensaje claro para PyMEs</li>
-                            <li>Diferenciación: simplicidad</li>
-                            <li>Credibilidad establecida</li>
-                            <li>Copy empático</li>
-                            <li>Promesas específicas</li>
-                        </ul>
-                    </div>
-
-                    <div class="sub-section gaps">
-                        <h4>🔍 Gaps a Investigar</h4>
-                        <ul class="checklist">
-                            <li>¿Presencia activa redes?</li>
-                            <li>¿Consistencia visual?</li>
-                            <li>¿Casos estudio detallados?</li>
-                            <li>¿Aparecemos en búsquedas?</li>
-                            <li>¿Content strategy?</li>
-                        </ul>
-                    </div>
-
-                    <div class="sub-section opportunities">
-                        <h4>🚀 Oportunidades</h4>
-                        <ul>
-                            <li>Casos de estudio completos</li>
-                            <li>Content educativo</li>
-                            <li>LinkedIn thought leadership</li>
-                            <li>Testimonios video</li>
-                            <li>SEO content strategy</li>
-                        </ul>
-                    </div>
-
-                    <div class="sub-section actions">
-                        <h4>🎯 Plan Branding</h4>
-                        <ul>
-                            <li>Brand audit completo</li>
-                            <li>Competitor analysis</li>
-                            <li>Content calendar 3 meses</li>
-                            <li>Documentar 3 casos éxito</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Rama 5: Escalabilidad -->
-            <div class="branch branch-5 scalability" onclick="toggleBranch(this)">
-                <div class="branch-header">
-                    <h3>📈 Escalabilidad</h3>
-                    <span class="toggle">+</span>
-                </div>
-                
-                <div class="branch-current">
-                    <h5>Estado Actual</h5>
-                    <div>Modelo: Fundadores + expertos dedicados</div>
-                </div>
-
-                <div class="sub-items">
-                    <div class="sub-section gaps">
-                        <h4>🔍 Diagnóstico</h4>
-                        <ul class="checklist">
-                            <li>¿Cuántos clientes capacidad actual?</li>
-                            <li>¿% decisiones dependen fundadores?</li>
-                            <li>¿SOPs documentados?</li>
-                            <li>¿Training program expertos?</li>
-                            <li>¿Roles claros definidos?</li>
-                        </ul>
-                    </div>
-
-                    <div class="sub-section frameworks">
-                        <h4>📊 Framework Escala</h4>
-                        <div class="framework-box">
-                            Métricas escala:<br>
-                            • Clientes por empleado: ___<br>
+                            <strong>KPIs Operativos a Medir:</strong><br>
                             • % procesos automatizados: ___%<br>
-                            • Dependencia fundadores: ___%<br>
-                            • Margen por cliente: ___%
+                            • Tiempo setup cliente: ___ hrs<br>
+                            • Error rate mensual: ___%<br>
+                            • Capacidad actual: ___ clientes simultáneos<br>
+                            • Dependencia fundadores: ___%
                         </div>
                     </div>
 
                     <div class="sub-section opportunities">
-                        <h4>🚀 Palancas</h4>
+                        <h4>🚀 Mejoras Sistema</h4>
                         <ul>
-                            <li>SOPs completos</li>
-                            <li>Training academy</li>
-                            <li>Template library</li>
-                            <li>Automation tools</li>
-                            <li>Tier system expertos</li>
+                            <li><span class="strong-point">Full automation:</span> Onboarding → Reporting</li>
+                            <li><span class="strong-point">AI Integration:</span> Copy generation, insights</li>
+                            <li><span class="strong-point">Quality control:</span> Checklists automáticos</li>
+                            <li><span class="strong-point">Escalabilidad:</span> Procesos independientes</li>
+                            <li><span class="strong-point">Data centralization:</span> Single source of truth</li>
                         </ul>
                     </div>
 
                     <div class="sub-section actions">
-                        <h4>🎯 Roadmap</h4>
+                        <h4>🎯 Plan Sistemas</h4>
                         <ul>
-                            <li>Documentar todo</li>
-                            <li>Hire primer specialist</li>
-                            <li>Build templates</li>
-                            <li>Test delegation</li>
+                            <li>Documentar todos los SOPs</li>
+                            <li>Implementar CRM completamente</li>
+                            <li>Automatizar reporting mensual</li>
+                            <li>Setup dashboard operativo</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Rama 6: Bienestar -->
-            <div class="branch branch-6 wellness" onclick="toggleBranch(this)">
+            <!-- Rama 4: RESULTADOS Y MÉTRICAS -->
+            <div class="branch branch-4 resultados" onclick="toggleBranch(this)">
                 <div class="branch-header">
-                    <h3>🧘 Bienestar Fundador</h3>
+                    <h3>🟣 4. RESULTADOS Y MÉTRICAS</h3>
                     <span class="toggle">+</span>
                 </div>
                 
-                <div class="branch-current">
-                    <h5>Estado Actual</h5>
-                    <div>Necesario para sostenibilidad largo plazo</div>
+                <div class="branch-summary">
+                    <strong>Lo que justifica todo</strong>
+                    <div class="highlight" style="border-left-color: #9b59b6;">
+                        📈 CPL (Costo por lead) y CAC (Costo de adquisición)
+                    </div>
+                    <div class="highlight" style="border-left-color: #9b59b6;">
+                        💰 ROI por campaña
+                    </div>
                 </div>
 
                 <div class="sub-items">
+                    <div class="sub-section current-state">
+                        <h4>📊 Métricas Actuales</h4>
+                        <ul>
+                            <li><span class="strong-point">CPL y CAC:</span> Por cliente y campaña</li>
+                            <li><span class="strong-point">ROI por campaña:</span> Performance tracking</li>
+                            <li><span class="strong-point">Tiempo ahorrado:</span> Al cliente</li>
+                            <li><span class="strong-point">Retención mensual:</span> % permanencia</li>
+                            <li><span class="strong-point">Testimonios:</span> Casos de éxito documentados</li>
+                        </ul>
+                    </div>
+
                     <div class="sub-section gaps">
-                        <h4>🔍 Diagnóstico Personal</h4>
+                        <h4>🔍 Gaps Métricas</h4>
                         <ul class="checklist">
-                            <li>¿Horas trabajo semanal?</li>
-                            <li>¿Podemos desconectar weekend?</li>
-                            <li>¿Tiempo pensar estratégico?</li>
-                            <li>¿Actividades recharge?</li>
-                            <li>¿Separación personal/business?</li>
+                            <li>¿Tenemos benchmarks por industria?</li>
+                            <li>¿Medimos LTV real de clientes?</li>
+                            <li>¿Tracking attribution completo?</li>
+                            <li>¿Reportes automatizados listos?</li>
+                            <li>¿Métricas predictivas implementadas?</li>
+                            <li>¿NPS y satisfacción sistemática?</li>
                         </ul>
                     </div>
 
                     <div class="sub-section frameworks">
-                        <h4>📊 Framework Bienestar</h4>
+                        <h4>📊 Dashboard Métricas</h4>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <strong>ROAS Promedio</strong>
+                                ___x
+                            </div>
+                            <div class="metric-card">
+                                <strong>CAC Promedio</strong>
+                                $___
+                            </div>
+                            <div class="metric-card">
+                                <strong>LTV Cliente</strong>
+                                $___
+                            </div>
+                            <div class="metric-card">
+                                <strong>Retention Rate</strong>
+                                ___%
+                            </div>
+                        </div>
                         <div class="framework-box">
-                            Métricas personales:<br>
-                            • Horas trabajo/semana: ___<br>
-                            • Días libres/mes: ___<br>
-                            • Stress level (1-10): ___<br>
-                            • Tiempo reflexión: ___ hrs/semana
+                            <strong>Métricas por Cliente:</strong><br>
+                            • Tiempo ahorro mensual: ___ hrs<br>
+                            • Incremento ventas: ___%<br>
+                            • NPS Score: ___/10
                         </div>
                     </div>
 
                     <div class="sub-section opportunities">
-                        <h4>🚀 Estrategias</h4>
+                        <h4>🚀 Mejoras Tracking</h4>
                         <ul>
-                            <li>Time blocking</li>
-                            <li>Delegation matrix</li>
-                            <li>Boundaries digitales</li>
-                            <li>Weekly thinking time</li>
-                            <li>Exercise routine</li>
+                            <li><span class="strong-point">Predictive analytics:</span> Churn prevention</li>
+                            <li><span class="strong-point">Attribution modeling:</span> Customer journey</li>
+                            <li><span class="strong-point">Competitive benchmarking:</span> Industry standards</li>
+                            <li><span class="strong-point">Real-time dashboards:</span> Cliente + interno</li>
+                            <li><span class="strong-point">Success scoring:</span> Early warning system</li>
                         </ul>
                     </div>
 
                     <div class="sub-section actions">
-                        <h4>🎯 Plan Sostenibilidad</h4>
+                        <h4>🎯 Plan Métricas</h4>
                         <ul>
-                            <li>Audit tiempo actual</li>
-                            <li>Identify biggest drains</li>
-                            <li>Delegate 1 área</li>
-                            <li>Block thinking time</li>
+                            <li>Setup dashboard tiempo real</li>
+                            <li>Implementar NPS sistemático</li>
+                            <li>Documentar casos de éxito</li>
+                            <li>Crear reporting automático</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rama 5: CRECIMIENTO/VISIÓN -->
+            <div class="branch branch-5 crecimiento" onclick="toggleBranch(this)">
+                <div class="branch-header">
+                    <h3>🟡 5. CRECIMIENTO / VISIÓN A FUTURO</h3>
+                    <span class="toggle">+</span>
+                </div>
+                
+                <div class="branch-summary">
+                    <strong>Tu roadmap estratégico</strong>
+                    <div class="highlight" style="border-left-color: #f1c40f;">
+                        🎯 Escalar sin perder personalización
+                    </div>
+                    <div class="highlight" style="border-left-color: #f1c40f;">
+                        📚 Cursos / productos digitales escalables
+                    </div>
+                </div>
+
+                <div class="sub-items">
+                    <div class="sub-section current-state">
+                        <h4>🎯 Visión Actual</h4>
+                        <ul>
+                            <li><span class="strong-point">Escalar sin perder personalización</span></li>
+                            <li><span class="strong-point">Productos digitales escalables:</span> Cursos</li>
+                            <li><span class="strong-point">Delegación inteligente:</span> Colaboradores, IA</li>
+                            <li><span class="strong-point">Posicionamiento:</span> Referente boutique</li>
+                            <li><span class="strong-point">Nuevas industrias:</span> Educación, turismo, salud</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section gaps">
+                        <h4>🔍 Gaps Crecimiento</h4>
+                        <ul class="checklist">
+                            <li>¿Plan estratégico 3 años definido?</li>
+                            <li>¿Modelo de escalabilidad claro?</li>
+                            <li>¿Pipeline de productos digitales?</li>
+                            <li>¿Estrategia de hiring definida?</li>
+                            <li>¿Métricas de crecimiento trackeadas?</li>
+                            <li>¿Funding o reinversión planificada?</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section frameworks">
+                        <h4>📊 Framework Crecimiento</h4>
+                        <div class="framework-box">
+                            <strong>Targets 2025-2027:</strong><br>
+                            • Clientes objetivo: ___ (vs ___ actual)<br>
+                            • Revenue target: $___/año<br>
+                            • Team size: ___ personas<br>
+                            • Productos digitales: ___ lanzados<br>
+                            • Market share objetivo: ___%<br>
+                            • Margen operativo: ___%
+                        </div>
+                    </div>
+
+                    <div class="sub-section opportunities">
+                        <h4>🚀 Palancas Crecimiento</h4>
+                        <ul>
+                            <li><span class="strong-point">Vertical expansion:</span> Nichos específicos</li>
+                            <li><span class="strong-point">Product diversification:</span> Cursos, SaaS, consulting</li>
+                            <li><span class="strong-point">Geographic expansion:</span> Latam, España</li>
+                            <li><span class="strong-point">Partnership strategy:</span> Agencies, consultores</li>
+                            <li><span class="strong-point">Thought leadership:</span> Conferencias, contenido</li>
+                            <li><span class="strong-point">Technology edge:</span> AI, automation, proptech</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section actions">
+                        <h4>🎯 Roadmap 2025</h4>
+                        <ul>
+                            <li><strong>Q1:</strong> Definir plan estratégico 3 años</li>
+                            <li><strong>Q2:</strong> Lanzar primer producto digital</li>
+                            <li><strong>Q3:</strong> Hire primer specialist senior</li>
+                            <li><strong>Q4:</strong> Expansión a 2do vertical</li>
                         </ul>
                     </div>
                 </div>
@@ -926,11 +881,21 @@
                 branch.style.opacity = '0';
                 branch.style.transform = 'translateY(20px)';
                 setTimeout(() => {
-                    branch.style.transition = 'all 0.5s ease';
+                    branch.style.transition = 'all 0.6s ease';
                     branch.style.opacity = '1';
                     branch.style.transform = 'translateY(0)';
-                }, index * 150);
+                }, index * 200 + 500);
             });
+
+            // Central node animation
+            const centralNode = document.querySelector('.central-node');
+            centralNode.style.opacity = '0';
+            centralNode.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            setTimeout(() => {
+                centralNode.style.transition = 'all 0.8s ease';
+                centralNode.style.opacity = '1';
+                centralNode.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 200);
         });
     </script>
 </body>
