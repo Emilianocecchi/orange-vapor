@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Mental Ejecutivo - OrangeVapor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .mindmap-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: auto;
+            cursor: grab;
+        }
+
+        .mindmap-container:active {
+            cursor: grabbing;
+        }
+
+        .mindmap {
+            position: relative;
+            width: 4000px;
+            height: 3000px;
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+
+        .central-node {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            width: 320px;
+            height: 160px;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 100;
+            border: 5px solid white;
+        }
+
+        .central-node .brand {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .central-node .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .central-node .founders {
+            font-size: 12px;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 15px;
+        }
+
+        .purpose-box {
+            position: absolute;
+            top: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            width: 500px;
+            text-align: center;
+        }
+
+        .purpose-box h3 {
+            color: #ff6b35;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .purpose-box .real-data {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .purpose-box ul {
+            list-style: none;
+            font-size: 15px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .purpose-box li::before {
+            content: "🎯 ";
+            margin-right: 10px;
+        }
+
+        .branch {
+            position: absolute;
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 8px solid;
+            width: 450px;
+            min-height: 140px;
+        }
+
+        .branch:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.25);
+        }
+
+        .branch.expanded {
+            width: 650px;
+            min-height: auto;
+        }
+
+        .branch-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .branch h3 {
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+        }
+
+        .branch .toggle {
+            font-size: 16px;
+            opacity: 0.7;
+            font-weight: bold;
+        }
+
+        .branch-current {
+            background: rgba(0,0,0,0.03);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+
+        .branch-current h5 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .branch ul {
+            list-style: none;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .branch li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .branch li::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: inherit;
+            font-size: 10px;
+        }
+
+        .sub-items {
+            margin-top: 20px;
+            display: none;
+            padding-top: 20px;
+            border-top: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .sub-items.show {
+            display: block;
+        }
+
+        .sub-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid;
+        }
+
+        .sub-section h4 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sub-section ul {
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .sub-section li {
+            margin-bottom: 6px;
+            padding-left: 15px;
+        }
+
+        /* Tipos de subsecciones */
+        .current-state { 
+            background: rgba(52, 152, 219, 0.08); 
+            border-left-color: #3498db;
+        }
+        .strengths { 
+            background: rgba(46, 204, 113, 0.08); 
+            border-left-color: #2ecc71;
+        }
+        .gaps { 
+            background: rgba(231, 76, 60, 0.08); 
+            border-left-color: #e74c3c;
+        }
+        .opportunities { 
+            background: rgba(155, 89, 182, 0.08); 
+            border-left-color: #9b59b6;
+        }
+        .frameworks { 
+            background: rgba(241, 196, 15, 0.08); 
+            border-left-color: #f1c40f;
+        }
+        .benchmarks { 
+            background: rgba(52, 73, 94, 0.08); 
+            border-left-color: #34495e;
+        }
+        .actions { 
+            background: rgba(230, 126, 34, 0.08); 
+            border-left-color: #e67e22;
+        }
+
+        /* Colores de ramas principales */
+        .acquisition { border-left-color: #e74c3c; }
+        .acquisition h3 { color: #e74c3c; }
+
+        .delivery { border-left-color: #3498db; }
+        .delivery h3 { color: #3498db; }
+
+        .optimization { border-left-color: #f39c12; }
+        .optimization h3 { color: #f39c12; }
+
+        .branding { border-left-color: #9b59b6; }
+        .branding h3 { color: #9b59b6; }
+
+        .scalability { border-left-color: #2ecc71; }
+        .scalability h3 { color: #2ecc71; }
+
+        .wellness { border-left-color: #1abc9c; }
+        .wellness h3 { color: #1abc9c; }
+
+        /* Posicionamiento optimizado */
+        .branch-1 { top: 25%; left: 8%; }
+        .branch-2 { top: 10%; right: 8%; }
+        .branch-3 { top: 60%; right: 12%; }
+        .branch-4 { top: 80%; left: 20%; }
+        .branch-5 { bottom: 8%; left: 50%; transform: translateX(-50%); }
+        .branch-6 { top: 40%; left: 2%; }
+
+        /* Líneas conectoras mejoradas */
+        .connector {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            z-index: 1;
+            border-radius: 2px;
+        }
+
+        .line-1 { top: 46%; left: 32%; width: 250px; height: 3px; transform: rotate(-18deg); }
+        .line-2 { top: 32%; right: 32%; width: 220px; height: 3px; transform: rotate(28deg); }
+        .line-3 { top: 62%; right: 36%; width: 180px; height: 3px; transform: rotate(-28deg); }
+        .line-4 { top: 74%; left: 40%; width: 160px; height: 3px; transform: rotate(18deg); }
+        .line-5 { bottom: 28%; left: 50%; width: 3px; height: 140px; transform: translateX(-50%); }
+        .line-6 { top: 48%; left: 22%; width: 180px; height: 3px; }
+
+        /* Controles mejorados */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .control-btn:hover {
+            background: white;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Framework boxes */
+        .framework-box {
+            background: rgba(241, 196, 15, 0.1);
+            border: 2px dashed #f1c40f;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-style: italic;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        /* Checklist styles */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+        }
+
+        .checklist li::before {
+            content: "□";
+            position: absolute;
+            left: 0;
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+
+        .real-data-highlight {
+            background: linear-gradient(120deg, rgba(52, 152, 219, 0.1) 0%, transparent 50%);
+            padding: 8px;
+            border-radius: 6px;
+            border-left: 3px solid #3498db;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .branch {
+                width: 350px;
+                padding: 20px;
+            }
+            
+            .branch.expanded {
+                width: 420px;
+            }
+            
+            .purpose-box {
+                width: 320px;
+                top: 8%;
+            }
+            
+            .central-node {
+                width: 280px;
+                height: 130px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mindmap-container" id="container">
+        <div class="mindmap" id="mindmap">
+            <!-- Nodo Central -->
+            <div class="central-node">
+                <div class="brand">🧠 OrangeVapor</div>
+                <div class="tagline">Agencia Minimalista de Performance Ads</div>
+                <div class="founders">Emiliano & Yobanny</div>
+            </div>
+
+            <!-- Propósito -->
+            <div class="purpose-box">
+                <h3>🎯 PROPÓSITO & POSICIONAMIENTO</h3>
+                <div class="real-data">
+                    <strong>Lo que sabemos (del sitio actual):</strong><br>
+                    • USP: "No tenés que saber marketing"<br>
+                    • Target: PyMEs que pierden tiempo/dinero en ads<br>
+                    • Credenciales: Google Partner & Meta Business Partner<br>
+                    • Modelo: Sin contratos largos, experto dedicado<br>
+                    • Promesa: Reportes simples (inversión vs ganancia)
+                </div>
+                <ul>
+                    <li>Liberar tiempo a emprendedores para que se enfoquen en su negocio</li>
+                    <li>Solucionar el problema: "campañas cuestan 3x más y venden 70% menos"</li>
+                    <li>Ser la opción simple vs complejidad del marketing digital</li>
+                </ul>
+            </div>
+
+            <!-- Líneas conectoras -->
+            <div class="connector line-1"></div>
+            <div class="connector line-2"></div>
+            <div class="connector line-3"></div>
+            <div class="connector line-4"></div>
+            <div class="connector line-5"></div>
+            <div class="connector line-6"></div>
+
+            <!-- Rama 1: Adquisición de Clientes -->
+            <div class="branch branch-1 acquisition" onclick="toggleBranch(this)">
+                <div class="branch-header">
+                    <h3>🎯 Adquisición de Clientes</h3>
+                    <span class="toggle">+</span>
+                </div>
+                
+                <div class="branch-current">
+                    <h5>Estado Actual Conocido</h5>
+                    <div class="real-data-highlight">✅ Auditoría GRATIS como lead magnet principal</div>
+                    <div class="real-data-highlight">✅ Promesa: Entrega en 24-48 horas</div>
+                    <div class="real-data-highlight">✅ Acceso en modo lectura (no tocan presupuesto)</div>
+                    <div class="real-data-highlight">✅ Formulario en web para diagnóstico</div>
+                </div>
+
+                <div class="sub-items">
+                    <div class="sub-section strengths">
+                        <h4>💪 Fortalezas Identificadas</h4>
+                        <ul>
+                            <li>Propuesta clara y específica (auditoría gratis)</li>
+                            <li>Credenciales oficiales (Google Partner + Meta Business)</li>
+                            <li>Mensaje diferenciado: simplicidad vs complejidad</li>
+                            <li>Sin compromiso inicial (modo lectura)</li>
+                            <li>Timeline específico (24-48h)</li>
+                            <li>Testimonios con datos concretos ("ROAS +187%")</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section gaps">
+                        <h4>🔍 Gaps a Investigar</h4>
+                        <ul class="checklist">
+                            <li>¿Cuántos leads generamos mensualmente?</li>
+                            <li>¿Cuál es nuestro costo por lead actual?</li>
+                            <li>¿Qué % de auditorías se convierten en clientes?</li>
+                            <li>¿Tenemos nurturing sequence automatizada?</li>
+                            <li>¿Hacemos retargeting de visitantes?</li>
+                            <li>¿Tenemos sistema de seguimiento leads perdidos?</li>
+                            <li>¿Qué canales funcionan mejor para generar leads?</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section frameworks">
+                        <h4>📊 Framework de Medición</h4>
+                        <div class="framework-box">
+                            <strong>Métricas Clave a Trackear:</strong><br>
+                            • Leads mensuales: ___<br>
+                            • CPL promedio: $___<br>
+                            • Conversion rate auditoría→cliente: ___%<br>
+                            • CAC vs LTV ratio: 1:___<br>
+                            • Show rate auditorías: ___%<br>
+                            • Tiempo respuesta leads: ___ hrs
+                        </div>
+                    </div>
+
+                    <div class="sub-section opportunities">
+                        <h4>🚀 Oportunidades de Optimización</h4>
+                        <ul>
+                            <li><strong>Diversificar lead magnets:</strong> Calculadora ROI, mini-curso, checklist</li>
+                            <li><strong>Automatizar follow-up:</strong> Sequence 7 días post-auditoría</li>
+                            <li><strong>Retargeting inteligente:</strong> Segmentar por tiempo en página</li>
+                            <li><strong>Testimonios en video:</strong> Casos antes/después</li>
+                            <li><strong>Chat en vivo:</strong> Respuestas inmediatas horario comercial</li>
+                            <li><strong>LinkedIn outreach:</strong> Complementar inbound</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section benchmarks">
+                        <h4>📈 Benchmarks Industria</h4>
+                        <ul>
+                            <li><strong>CPL B2B services:</strong> $15-30 (varía por industria)</li>
+                            <li><strong>Conversion rate landing B2B:</strong> 3-8%</li>
+                            <li><strong>Lead→customer agencies:</strong> 15-30%</li>
+                            <li><strong>Response time expectation:</strong> <2 horas</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section actions">
+                        <h4>🎯 Próximos Pasos</h4>
+                        <ul>
+                            <li><strong>Auditar sistema actual:</strong> Medir todas las métricas del framework</li>
+                            <li><strong>Identificar biggest bottleneck:</strong> ¿Tráfico, conversión o follow-up?</li>
+                            <li><strong>Test 1 optimización:</strong> Elegir la de mayor impacto potencial</li>
+                            <li><strong>Setup tracking:</strong> Dashboard simple con métricas clave</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rama 2: Entrega de Servicio -->
+            <div class="branch branch-2 delivery" onclick="toggleBranch(this)">
+                <div class="branch-header">
+                    <h3>🚀 Entrega de Servicio</h3>
+                    <span class="toggle">+</span>
+                </div>
+                
+                <div class="branch-current">
+                    <h5>Estado Actual Conocido</h5>
+                    <div class="real-data-highlight">✅ Proceso: Auditoría → Estrategia → Gestión</div>
+                    <div class="real-data-highlight">✅ Reportes simples: inversión vs ganancia</div>
+                    <div class="real-data-highlight">✅ Experto dedicado por cliente</div>
+                    <div class="real-data-highlight">✅ Mejoras automáticas "mientras dormís"</div>
+                </div>
+
+                <div class="sub-items">
+                    <div class="sub-section strengths">
+                        <h4>💪 Fortalezas del Modelo</h4>
+                        <ul>
+                            <li>Propuesta simple: "olvidate del marketing para siempre"</li>
+                            <li>Reportes enfocados en ROI, no vanity metrics</li>
+                            <li>Atención personalizada (experto dedicado)</li>
+                            <li>Flexibilidad contractual (sin contratos largos)</li>
+                            <li>Credibilidad: Google Partner + Meta Business</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section gaps">
+                        <h4>🔍 Gaps a Investigar</h4>
+                        <ul class="checklist">
+                            <li>¿Cuál es nuestro ROAS promedio actual?</li>
+                            <li>¿Qué % de clientes retienen >6 meses?</li>
+                            <li>¿Tenemos SOP documentado para onboarding?</li>
+                            <li>¿Cuánto tiempo toma setup inicial campaña?</li>
+                            <li>¿Tenemos proceso QA pre-launch?</li>
+                            <li>¿Cómo medimos satisfacción del cliente?</li>
+                            <li>¿Cuántos clientes maneja cada experto?</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section frameworks">
+                        <h4>📊 Framework de Medición</h4>
+                        <div class="framework-box">
+                            <strong>Métricas de Servicio:</strong><br>
+                            • ROAS promedio: ___x<br>
+                            • Retention rate 6 meses: ___%<br>
+                            • Time to first results: ___ días<br>
+                            • NPS score: ___/10<br>
+                            • Clientes por experto: ___<br>
+                            • Response time: ___ hrs
+                        </div>
+                    </div>
+
+                    <div class="sub-section opportunities">
+                        <h4>🚀 Mejoras de Proceso</h4>
+                        <ul>
+                            <li><strong>Dashboard cliente tiempo real:</strong> Métricas 24/7</li>
+                            <li><strong>Onboarding automatizado:</strong> Checklist + templates</li>
+                            <li><strong>Alertas proactivas:</strong> Performance drops + acciones</li>
+                            <li><strong>Video reportes:</strong> Explicación personal mensual</li>
+                            <li><strong>Escalation matrix:</strong> Cuándo intervenir senior</li>
+                            <li><strong>Client success scoring:</strong> Predictive analytics</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section benchmarks">
+                        <h4>📈 Standards Industria</h4>
+                        <ul>
+                            <li><strong>ROAS agencies:</strong> 3-6x (depende industria)</li>
+                            <li><strong>Client retention:</strong> 70-85%</li>
+                            <li><strong>Setup time:</strong> 1-5 días</li>
+                            <li><strong>NPS agencies:</strong> 7+ es excelente</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section actions">
+                        <h4>🎯 Plan de Mejora</h4>
+                        <ul>
+                            <li><strong>Documentar proceso actual:</strong> Mapear cada paso del customer journey</li>
+                            <li><strong>Identificar friction points:</strong> ¿Dónde se pierden clientes?</li>
+                            <li><strong>Estandarizar deliverables:</strong> Templates + checklists</li>
+                            <li><strong>Implementar feedback loop:</strong> Survey post-entrega</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rama 3: Optimización Interna -->
+            <div class="branch branch-3 optimization" onclick="toggleBranch(this)">
+                <div class="branch-header">
+                    <h3>⚙️ Optimización Interna</h3>
+                    <span class="toggle">+</span>
+                </div>
+                
+                <div class="branch-current">
+                    <h5>Estado Actual</h5>
+                    <div>Necesitamos auditar sistemas internos para identificar estado real</div>
+                </div>
+
+                <div class="sub-items">
+                    <div class="sub-section gaps">
+                        <h4>🔍 Diagnóstico Necesario</h4>
+                        <ul class="checklist">
+                            <li>¿Tenemos dashboard consolidado métricas?</li>
+                            <li>¿Hacemos reviews sistemáticas performance?</li>
+                            <li>¿Hay alertas automáticas problemas?</li>
+                            <li>¿Documentamos decisiones y learnings?</li>
+                            <li>¿Tenemos backup de estrategias ganadoras?</li>
+                            <li>¿Existe proceso postmortem para fallos?</li>
+                            <li>¿Cuánto tiempo dedicamos a estrategia vs operaciones?</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section frameworks">
+                        <h4>📊 Framework Optimización</h4>
+                        <div class="framework-box">
+                            <strong>Métricas Operativas:</strong><br>
+                            • % tiempo estratégico vs operativo: ___:___<br>
+                            • Procesos documentados: ___%<br>
+                            • Time to detect issues: ___ hrs<br>
+                            • Recovery time: ___ hrs<br>
+                            • Error rate campaigns: ___%<br>
+                            • Decisiones data-driven: ___%
+                        </div>
+                    </div>
+
+                    <div class="sub-section opportunities">
+                        <h4>🚀 Oportunidades Sistema</h4>
+                        <ul>
+                            <li><strong>Unified dashboard:</strong> Todas las métricas en un lugar</li>
+                            <li><strong>Automated alerts:</strong> Performance drops, budget issues</li>
+                            <li><strong>Weekly business review:</strong> Estrategia + datos</li>
+                            <li><strong>SOPs documentation:</strong> Cada proceso estandarizado</li>
+                            <li><strong>Predictive analytics:</strong> Anticipar problemas</li>
+                            <li><strong>Knowledge base:</strong> Repository learnings</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section actions">
+                        <h4>🎯 Plan Sistematización</h4>
+                        <ul>
+                            <li><strong>Audit current state:</strong> Completar checklist diagnóstico</li>
+                            <li><strong>Priority matrix:</strong> Impact vs effort optimizaciones</li>
+                            <li><strong>Quick wins first:</strong> Implementar alertas básicas</li>
+                            <li><strong>Build dashboard:</strong> Métricas clave centralizadas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rama 4: Posicionamiento y Marca -->
+            <div class="branch branch-4 branding" onclick="toggleBranch(this)">
+                <div class="branch-header">
+                    <h3>🎨 Posicionamiento y Marca</h3>
+                    <span class="toggle">+</span>
+                </div>
+                
+                <div class="branch-current">
+                    <h5>Estado Actual Conocido</h5>
+                    <div class="real-data-highlight">✅ USP clara: "No tenés que saber marketing"</div>
+                    <div class="real-data-highlight">✅ Sitio limpio y enfocado en conversión</div>
+                    <div class="real-data-highlight">✅ Testimonios con datos específicos</div>
+                    <div class="real-data-highlight">✅ Credenciales visibles (Partners)</div>
+                </div>
+
+                <div class="sub-items">
+                    <div class="sub-section strengths">
+                        <h4>💪 Fortalezas Marca</h4>
+                        <ul>
+                            <li>Mensaje claro y específico para PyMEs</li>
+                            <li>Diferenciación: simplicidad vs complejidad</li>
+                            <li>Credibilidad establecida (Google + Meta Partner)</li>
+                            <li>Copy empático ("entendemos tu frustración")</li>
+                            <li>Promesas específicas y medibles</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section gaps">
+                        <h4>🔍 Gaps a Investigar</h4>
+                        <ul class="checklist">
+                            <li>¿Tenemos presencia activa en redes sociales?</li>
+                            <li>¿Hay consistencia visual en todos los touchpoints?</li>
+                            <li>¿Tenemos casos de estudio detallados?</li>
+                            <li>¿Aparecemos en búsquedas relevantes?</li>
+                            <li>¿Tenemos content marketing strategy?</li>
+                            <li>¿Qué dice la competencia de nosotros?</li>
+                            <li>¿Tenemos brand guidelines documentadas?</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section opportunities">
+                        <h4>🚀 Oportunidades Marca</h4>
+                        <ul>
+                            <li><strong>Casos de estudio:</strong> Documentar transformaciones clientes</li>
+                            <li><strong>Content educativo:</strong> "Errores comunes en Ads"</li>
+                            <li><strong>LinkedIn thought leadership:</strong> Fundadores como expertos</li>
+                            <li><strong>Testimonios video:</strong> Casos antes/después</li>
+                            <li><strong>SEO content:</strong> Artículos problemas específicos</li>
+                            <li><strong>Partnerships:</strong> Colaboraciones con consultores</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section actions">
+                        <h4>🎯 Plan Branding</h4>
+                        <ul>
+                            <li><strong>Brand audit:</strong> Evaluar presencia actual completa</li>
+                            <li><strong>Competitor analysis:</strong> ¿Cómo nos diferenciamos?</li>
+                            <li><strong>Content calendar:</strong> Plan educativo 3 meses</li>
+                            <li><strong>Case studies:</strong> Documentar 3 éxitos principales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rama 5: Escalabilidad -->
+            <div class="branch branch-5 scalability" onclick="toggleBranch(this)">
+                <div class="branch-header">
+                    <h3>📈 Escalabilidad</h3>
+                    <span class="toggle">+</span>
+                </div>
+                
+                <div class="branch-current">
+                    <h5>Estado Actual</h5>
+                    <div>Modelo actual: Fundadores + expertos dedicados - necesita sistematización</div>
+                </div>
+
+                <div class="sub-items">
+                    <div class="sub-section gaps">
+                        <h4>🔍 Diagnóstico Escalabilidad</h4>
+                        <ul class="checklist">
+                            <li>¿Cuántos clientes podemos manejar actualmente?</li>
+                            <li>¿Qué % de decisiones dependen de fundadores?</li>
+                            <li>¿Tenemos SOPs documentados para cada proceso?</li>
+                            <li>¿Existe training program para nuevos expertos?</li>
+                            <li>¿Tenemos herramientas de project management?</li>
+                            <li>¿Hay separación clara de roles y responsabilidades?</li>
+                            <li>¿Podemos tomar vacaciones sin afectar operaciones?</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section frameworks">
+                        <h4>📊 Framework Escalabilidad</h4>
+                        <div class="framework-box">
+                            <strong>Métricas Escala:</strong><br>
+                            • Clientes por empleado: ___<br>
+                            • Revenue per employee: $___<br>
+                            • % procesos automatizados: ___%<br>
+                            • Time to onboard new expert: ___ días<br>
+                            • Dependencia fundadores: ___%<br>
+                            • Margen por cliente: ___%
+                        </div>
+                    </div>
+
+                    <div class="sub-section opportunities">
+                        <h4>🚀 Palancas de Escala</h4>
+                        <ul>
+                            <li><strong>SOPs completos:</strong> Cada proceso documentado</li>
+                            <li><strong>Training academy:</strong> Onboarding nuevos expertos</li>
+                            <li><strong>Template library:</strong> Recursos reutilizables</li>
+                            <li><strong>Automation tools:</strong> Tareas repetitivas</li>
+                            <li><strong>Tier system:</strong> Junior → Senior → Lead experts</li>
+                            <li><strong>Specialized roles:</strong> Strategy, execution, account mgmt</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section actions">
+                        <h4>🎯 Roadmap Escala</h4>
+                        <ul>
+                            <li><strong>Documentar todo:</strong> Cada proceso en Notion/Confluence</li>
+                            <li><strong>Hire primer specialist:</strong> Reduce dependencia fundadores</li>
+                            <li><strong>Build templates:</strong> Accelerate delivery</li>
+                            <li><strong>Test delegation:</strong> Assign complete clients to experts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rama 6: Bienestar del Fundador -->
+            <div class="branch branch-6 wellness" onclick="toggleBranch(this)">
+                <div class="branch-header">
+                    <h3>🧘 Bienestar del Fundador</h3>
+                    <span class="toggle">+</span>
+                </div>
+                
+                <div class="branch-current">
+                    <h5>Estado Actual</h5>
+                    <div>Necesario para sostenibilidad a largo plazo y claridad estratégica</div>
+                </div>
+
+                <div class="sub-items">
+                    <div class="sub-section gaps">
+                        <h4>🔍 Diagnóstico Personal</h4>
+                        <ul class="checklist">
+                            <li>¿Cuántas horas trabajamos por semana?</li>
+                            <li>¿Podemos desconectar fin de semana?</li>
+                            <li>¿Tenemos tiempo para pensar estratégicamente?</li>
+                            <li>¿Hay actividades de recharge programadas?</li>
+                            <li>¿Separamos tiempo personal vs business?</li>
+                            <li>¿Tenemos hobbies/actividades fuera del trabajo?</li>
+                            <li>¿Nivel de stress es sostenible?</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section frameworks">
+                        <h4>📊 Framework Bienestar</h4>
+                        <div class="framework-box">
+                            <strong>Métricas Personales:</strong><br>
+                            • Horas trabajo/semana: ___<br>
+                            • Días libres/mes: ___<br>
+                            • Horas ejercicio/semana: ___<br>
+                            • Stress level (1-10): ___<br>
+                            • Tiempo reflexión/semana: ___ hrs<br>
+                            • Satisfacción personal (1-10): ___
+                        </div>
+                    </div>
+
+                    <div class="sub-section opportunities">
+                        <h4>🚀 Estrategias Bienestar</h4>
+                        <ul>
+                            <li><strong>Time blocking:</strong> Calendario con tiempo protegido</li>
+                            <li><strong>Delegation matrix:</strong> Qué puede hacer el equipo</li>
+                            <li><strong>Boundaries digitales:</strong> Horarios sin email/Slack</li>
+                            <li><strong>Weekly thinking time:</strong> Estrategia sin distracciones</li>
+                            <li><strong>Exercise routine:</strong> Energía física = mental</li>
+                            <li><strong>Vacation protocol:</strong> Business funciona sin vos</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section actions">
+                        <h4>🎯 Plan Sostenibilidad</h4>
+                        <ul>
+                            <li><strong>Audit tiempo actual:</strong> Track 1 semana completa</li>
+                            <li><strong>Identify biggest drains:</strong> ¿Qué agota más energía?</li>
+                            <li><strong>Delegate 1 area:</strong> Empezar por la más operativa</li>
+                            <li><strong>Block thinking time:</strong> 4 horas/semana mínimo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="control-btn" onclick="resetZoom()">🏠 Centro</button>
+        <button class="control-btn" onclick="zoomIn()">🔍 Zoom +</button>
+        <button class="control-btn" onclick="zoomOut()">🔍 Zoom -</button>
+        <button class="control-btn" onclick="expandAll()">📖 Expandir Todo</button>
+        <button class="control-btn" onclick="collapseAll()">📕 Contraer Todo</button>
+    </div>
+
+    <script>
+        let scale = 0.5;
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        const container = document.getElementById('container');
+        const mindmap = document.getElementById('mindmap');
+
+        // Inicializar posición centrada
+        resetZoom();
+
+        // Funciones de zoom y navegación
+        function resetZoom() {
+            scale = 0.5;
+            mindmap.style.transform = `scale(${scale})`;
+            container.scrollLeft = (mindmap.offsetWidth * scale - container.offsetWidth) / 2;
+            container.scrollTop = (mindmap.offsetHeight * scale - container.offsetHeight) / 2;
+        }
+
+        function zoomIn() {
+            scale = Math.min(scale + 0.1, 2);
+            mindmap.style.transform = `scale(${scale})`;
+        }
+
+        function zoomOut() {
+            scale = Math.max(scale - 0.1, 0.3);
+            mindmap.style.transform = `scale(${scale})`;
+        }
+
+        // Función para expandir/contraer ramas
+        function toggleBranch(element) {
+            const subItems = element.querySelector('.sub-items');
+            const toggle = element.querySelector('.toggle');
+            
+            if (subItems.classList.contains('show')) {
+                subItems.classList.remove('show');
+                element.classList.remove('expanded');
+                toggle.textContent = '+';
+            } else {
+                subItems.classList.add('show');
+                element.classList.add('expanded');
+                toggle.textContent = '−';
+            }
+        }
+
+        function expandAll() {
+            const branches = document.querySelectorAll('.branch');
+            branches.forEach(branch => {
+                const subItems = branch.querySelector('.sub-items');
+                const toggle = branch.querySelector('.toggle');
+                subItems.classList.add('show');
+                branch.classList.add('expanded');
+                toggle.textContent = '−';
+            });
+        }
+
+        function collapseAll() {
+            const branches = document.querySelectorAll('.branch');
+            branches.forEach(branch => {
+                const subItems = branch.querySelector('.sub-items');
+                const toggle = branch.querySelector('.toggle');
+                subItems.classList.remove('show');
+                branch.classList.remove('expanded');
+                toggle.textContent = '+';
+            });
+        }
+
+        // Drag and pan functionality
+        container.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.branch') || e.target.closest('.control-btn')) return;
+            
+            isDragging = true;
+            startX = e.pageX - container.offsetLeft;
+            startY = e.pageY - container.offsetTop;
+            scrollLeft = container.scrollLeft;
+            scrollTop = container.scrollTop;
+            container.style.cursor = 'grabbing';
+        });
+
+        container.addEventListener('mouseleave', () => {
+            isDragging = false;
+            container.style.cursor = 'grab';
+        });
+
+        container.addEventListener('mouseup', () => {
+            isDragging = false;
+            container.style.cursor = 'grab';
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const y = e.pageY - container.offsetTop;
+            const walkX = (x - startX) * 2;
+            const walkY = (y - startY) * 2;
+            container.scrollLeft = scrollLeft - walkX;
+            container.scrollTop = scrollTop - walkY;
+        });
+
+        // Zoom con scroll del mouse
+        container.addEventListener('wheel', (e) => {
+            if (e.ctrlKey) {
+                e.preventDefault();
+                if (e.deltaY < 0) {
+                    zoomIn();
+                } else {
+                    zoomOut();
+                }
+            }
+        });
+
+        // Touch support para móviles
+        let touchStartX, touchStartY;
+
+        container.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                startX = touchStartX - container.offsetLeft;
+                startY = touchStartY - container.offsetTop;
+                scrollLeft = container.scrollLeft;
+                scrollTop = container.scrollTop;
+            }
+        });
+
+        container.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 1) {
+                e.preventDefault();
+                const touchX = e.touches[0].clientX;
+                const touchY = e.touches[0].clientY;
+                const walkX = (touchX - touchStartX);
+                const walkY = (touchY - touchStartY);
+                container.scrollLeft = scrollLeft - walkX;
+                container.scrollTop = scrollTop - walkY;
+            }
+        });
+
+        // Animación de entrada
+        window.addEventListener('load', () => {
+            const branches = document.querySelectorAll('.branch');
+            branches.forEach((branch, index) => {
+                branch.style.opacity = '0';
+                branch.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    branch.style.transition = 'all 0.5s ease';
+                    branch.style.opacity = '1';
+                    branch.style.transform = 'scale(1)';
+                }, index * 200);
+            });
+        });
+
+        // Toggle checklist items
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'LI' && e.target.parentElement.classList.contains('checklist')) {
+                e.target.classList.toggle('checked');
+            }
+        });
+    </script>
+</body>
+</html>
