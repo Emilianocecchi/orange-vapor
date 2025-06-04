@@ -109,8 +109,9 @@ class OrangeVaporApp {
                 ticking = true;
             }
         };
-        
-        window.addEventListener('scroll', onScroll, { passive: true });
+
+        this.onScroll = onScroll;
+        window.addEventListener('scroll', this.onScroll, { passive: true });
         
         // Smooth scroll para enlaces del navbar
         this.setupSmoothScroll();
@@ -593,8 +594,9 @@ class OrangeVaporApp {
                 ticking = true;
             }
         };
-        
-        window.addEventListener('scroll', onScroll, { passive: true });
+
+        this.parallaxScroll = onScroll;
+        window.addEventListener('scroll', this.parallaxScroll, { passive: true });
     }
     
     /**
@@ -666,12 +668,15 @@ class OrangeVaporApp {
     setupEventThrottling() {
         // Throttle para eventos de resize
         let resizeTimeout;
-        window.addEventListener('resize', () => {
+        const onResize = () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 this.handleResize();
             }, this.config.debounceDelay);
-        });
+        };
+
+        this.onResize = onResize;
+        window.addEventListener('resize', this.onResize);
     }
     
     handleResize() {
@@ -840,8 +845,15 @@ class OrangeVaporApp {
         this.animations.clear();
         
         // Remover event listeners
-        window.removeEventListener('scroll', this.onScroll);
-        window.removeEventListener('resize', this.onResize);
+        if (this.onScroll) {
+            window.removeEventListener('scroll', this.onScroll);
+        }
+        if (this.parallaxScroll) {
+            window.removeEventListener('scroll', this.parallaxScroll);
+        }
+        if (this.onResize) {
+            window.removeEventListener('resize', this.onResize);
+        }
     }
 }
 
