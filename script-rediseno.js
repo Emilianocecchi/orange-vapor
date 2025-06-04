@@ -330,6 +330,7 @@ class OrangeVaporApp {
         
         // Crear cursor personalizado
         const cursor = this.createCustomCursor();
+        document.body.classList.add('hide-default-cursor');
         
         // Elementos interactivos
         const interactiveElements = document.querySelectorAll(`
@@ -403,6 +404,10 @@ class OrangeVaporApp {
             .custom-cursor.active .cursor-outer {
                 transform: translate(-50%, -50%) scale(1.5);
                 border-color: rgba(0, 200, 83, 0.5);
+            }
+
+            .hide-default-cursor {
+                cursor: none;
             }
         `;
         
@@ -698,12 +703,14 @@ class OrangeVaporApp {
         // Desactivar cursor personalizado en móvil
         const cursor = document.querySelector('.custom-cursor');
         if (cursor) cursor.style.display = 'none';
+        document.body.classList.remove('hide-default-cursor');
     }
-    
+
     enableDesktopEffects() {
         // Reactivar efectos de desktop
         const cursor = document.querySelector('.custom-cursor');
         if (cursor) cursor.style.display = 'block';
+        document.body.classList.add('hide-default-cursor');
     }
     
     preloadCriticalResources() {
