@@ -1,18 +1,4 @@
-/**
- * ORANGE VAPOR 2025 - JAVASCRIPT FUTURISTA
- * 
- * Funcionalidades implementadas:
- * 1. Navbar glassmórfico con scroll effects
- * 2. Animaciones de intersección avanzadas
- * 3. Efectos de cursor modernos
- * 4. Smooth scrolling mejorado
- * 5. Parallax sutil y performante
- * 6. Micro-interacciones
- * 7. Formularios con validación visual
- * 8. Efectos de typing
- * 9. Performance optimizado
- * 10. Lazy loading de animaciones
- */
+
 
 class OrangeVaporApp {
     constructor() {
