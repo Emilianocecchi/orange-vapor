@@ -41,6 +41,7 @@ class OrangeVaporApp {
         this.setupCursorEffects();
         this.setupPerformanceOptimizations();
         this.setupAccessibility();
+        this.setupThemeToggle();
         
         // Animaciones de entrada
         if (this.config.enableAnimations) {
@@ -793,6 +794,28 @@ class OrangeVaporApp {
             `;
             document.head.appendChild(style);
         }
+    }
+
+    setupThemeToggle() {
+        const toggleBtn = document.getElementById('theme-toggle');
+        if (!toggleBtn) return;
+
+        const applyMode = (dark) => {
+            document.body.classList.toggle('dark-mode', dark);
+            toggleBtn.innerHTML = dark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            toggleBtn.setAttribute('aria-label', dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+        };
+
+        const stored = localStorage.getItem('ov-dark-mode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = stored ? stored === 'true' : prefersDark;
+        applyMode(isDark);
+
+        toggleBtn.addEventListener('click', () => {
+            const newState = !document.body.classList.contains('dark-mode');
+            applyMode(newState);
+            localStorage.setItem('ov-dark-mode', newState);
+        });
     }
     
     /**
