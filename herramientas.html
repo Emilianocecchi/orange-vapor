@@ -452,6 +452,27 @@
             font-size: 12px;
             color: #6b7280;
         }
+
+        .ad-preview {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9fafb;
+        }
+
+        .char-counter {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .char-counter.warning {
+            color: #f59e0b;
+        }
+
+        .char-counter.error {
+            color: #ef4444;
+        }
     </style>
 </head>
 <body>
@@ -483,6 +504,8 @@
                     <button class="tab-button active" data-tab="roi">Calculadora ROI</button>
                     <button class="tab-button" data-tab="lead-value">Valor del Lead</button>
                     <button class="tab-button" data-tab="platform-comparison">Comparador de Plataformas</button>
+                    <button class="tab-button" data-tab="ad-generator">Generador de Anuncios</button>
+                    <button class="tab-button" data-tab="ltv-calculator">Calculadora LTV</button>
                 </nav>
             </div>
         </div>
@@ -754,6 +777,114 @@
                     </div>
                 </div>
             </div>
+            <!-- Ad Generator Tab -->
+            <div id="ad-generator" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Generador de Textos para Anuncios</h2>
+                        <p class="card-description">Crea textos para tus campañas</p>
+                    </div>
+                    <form id="ad-form">
+                        <div class="grid grid-2">
+                            <div class="form-group">
+                                <label for="business-type">Tipo de negocio</label>
+                                <select id="business-type">
+                                    <option value="ecommerce">E-commerce</option>
+                                    <option value="servicios">Servicios</option>
+                                    <option value="saas">SaaS</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="platform-type">Plataforma</label>
+                                <select id="platform-type">
+                                    <option value="google">Google Ads</option>
+                                    <option value="facebook">Facebook Ads</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-name">Nombre del producto/servicio</label>
+                                <input type="text" id="product-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="unique-value">Propuesta de valor</label>
+                                <input type="text" id="unique-value">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="keywords">Palabras clave</label>
+                            <input type="text" id="keywords">
+                        </div>
+                        <button type="button" class="button button-primary" onclick="generateAds()">Generar Anuncios</button>
+                    </form>
+
+                    <div id="ad-results" style="display:none; margin-top:24px;">
+                        <h3 style="font-size:18px; margin-bottom:16px;">Anuncios Generados</h3>
+                        <div class="ad-preview">
+                            <p id="ad-title1" contenteditable="true">Título 1</p>
+                            <div class="char-counter" id="title1-counter">0/30</div>
+                            <p id="ad-title2" contenteditable="true">Título 2</p>
+                            <div class="char-counter" id="title2-counter">0/30</div>
+                            <p id="ad-description" contenteditable="true">Descripción</p>
+                            <div class="char-counter" id="description-counter">0/90</div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="button button-secondary" onclick="copyAds()">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LTV Calculator Tab -->
+            <div id="ltv-calculator" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Calculadora de LTV</h2>
+                        <p class="card-description">Calcula el valor de vida de tus clientes</p>
+                    </div>
+                    <form id="ltv-form">
+                        <div class="grid grid-2">
+                            <div class="form-group">
+                                <label for="avg-purchase-value">Valor promedio de compra</label>
+                                <div class="input-group">
+                                    <span class="input-prefix">$</span>
+                                    <input type="number" id="avg-purchase-value" class="input-with-prefix" value="100" min="0" step="10">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="purchase-frequency">Frecuencia de compra (por año)</label>
+                                <input type="number" id="purchase-frequency" value="4" min="0" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-lifespan">Duración del cliente (años)</label>
+                                <input type="number" id="customer-lifespan" value="3" min="0" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="profit-margin">Margen de ganancia (%)</label>
+                                <input type="number" id="profit-margin" value="30" min="0" max="100" step="5">
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-label">LTV Bruto</div>
+                            <div class="result-value" id="ltv-gross">$0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">LTV Neto</div>
+                            <div class="result-value result-positive" id="ltv-net">$0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">CAC Máximo</div>
+                            <div class="result-value" id="max-cac">$0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Ratio LTV:CAC</div>
+                            <div class="result-value" id="ltv-cac-ratio">3:1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -881,6 +1012,62 @@
                 recommendationElement.textContent = 'Ingresa todos los datos para obtener una recomendación personalizada.';
             }
         };
+
+        const generateAds = () => {
+            const business = document.getElementById('business-type').value;
+            const platform = document.getElementById('platform-type').value;
+            const product = document.getElementById('product-name').value || 'Producto';
+            const value = document.getElementById('unique-value').value || 'Oferta';
+            const templates = {
+                google: {
+                    ecommerce: { t1: `${product} - ${value}`, t2: 'Compra online', d: `Aprovecha ${value} en ${product}` },
+                    servicios: { t1: `${product} Profesional`, t2: value, d: `Contrata ${product} - ${value}` },
+                    saas: { t1: `${product} Gratis`, t2: value, d: `Prueba ${product} hoy` }
+                },
+                facebook: {
+                    ecommerce: { t1: `${product} con ${value}`, t2: 'Solo Hoy', d: `Compra ${product} con ${value}` },
+                    servicios: { t1: `${product} de Calidad`, t2: value, d: `Mejora con ${product}` },
+                    saas: { t1: `${product} para tu negocio`, t2: value, d: `Usa ${product} y crece` }
+                }
+            };
+            const t = templates[platform][business];
+            document.getElementById('ad-title1').textContent = t.t1;
+            document.getElementById('ad-title2').textContent = t.t2;
+            document.getElementById('ad-description').textContent = t.d;
+            document.getElementById('ad-results').style.display = 'block';
+            updateCharCounter('ad-title1','title1-counter',30);
+            updateCharCounter('ad-title2','title2-counter',30);
+            updateCharCounter('ad-description','description-counter',90);
+        };
+
+        const updateCharCounter = (id,counterId,limit) => {
+            const len = document.getElementById(id).textContent.length;
+            const el = document.getElementById(counterId);
+            el.textContent = `${len}/${limit}`;
+            el.className = 'char-counter';
+            if(len>limit) el.classList.add('error');
+            else if(len>limit*0.9) el.classList.add('warning');
+        };
+
+        const copyAds = () => {
+            const text = `Título 1: ${document.getElementById('ad-title1').textContent}\nTítulo 2: ${document.getElementById('ad-title2').textContent}\nDescripción: ${document.getElementById('ad-description').textContent}`;
+            navigator.clipboard.writeText(text);
+        };
+
+        const updateLTVCalculations = () => {
+            const avg = parseFloat(document.getElementById('avg-purchase-value').value) || 0;
+            const freq = parseFloat(document.getElementById('purchase-frequency').value) || 0;
+            const life = parseFloat(document.getElementById('customer-lifespan').value) || 0;
+            const margin = parseFloat(document.getElementById('profit-margin').value) || 0;
+            const gross = avg * freq * life;
+            const net = gross * (margin / 100);
+            const max = net / 3;
+            document.getElementById('ltv-gross').textContent = formatCurrency(gross);
+            document.getElementById('ltv-net').textContent = formatCurrency(net);
+            document.getElementById('max-cac').textContent = formatCurrency(max);
+            document.getElementById('ltv-cac-ratio').textContent = '3:1';
+        };
+
         document.getElementById('investment').addEventListener('input', updateROICalculations);
         document.getElementById('revenue').addEventListener('input', updateROICalculations);
         document.getElementById('clicks').addEventListener('input', updateROICalculations);
@@ -889,6 +1076,13 @@
         document.getElementById('close-rate').addEventListener('input', updateLeadCalculations);
         document.getElementById('monthly-leads').addEventListener('input', updateLeadCalculations);
         document.getElementById('lead-cost').addEventListener('input', updateLeadCalculations);
+        document.getElementById('avg-purchase-value').addEventListener('input', updateLTVCalculations);
+        document.getElementById('purchase-frequency').addEventListener('input', updateLTVCalculations);
+        document.getElementById('customer-lifespan').addEventListener('input', updateLTVCalculations);
+        document.getElementById('profit-margin').addEventListener('input', updateLTVCalculations);
+        document.getElementById('ad-title1').addEventListener('input', () => updateCharCounter('ad-title1','title1-counter',30));
+        document.getElementById('ad-title2').addEventListener('input', () => updateCharCounter('ad-title2','title2-counter',30));
+        document.getElementById('ad-description').addEventListener('input', () => updateCharCounter('ad-description','description-counter',90));
         document.getElementById('total-budget').addEventListener('input', updatePlatformComparison);
         document.getElementById('budget-split').addEventListener('input', updatePlatformComparison);
         document.getElementById('google-cpc').addEventListener('input', updatePlatformComparison);
@@ -900,6 +1094,7 @@
         updateROICalculations();
         updateLeadCalculations();
         updatePlatformComparison();
+        updateLTVCalculations();
     </script>
     <script src="script-rediseno.js" defer></script>
 </body>
