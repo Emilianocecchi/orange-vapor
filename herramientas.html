@@ -79,7 +79,7 @@
         }
 
         .tab-button.active {
-            color: #3b82f6;
+            color: var(--naranja);
         }
 
         .tab-button.active::after {
@@ -89,7 +89,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background-color: #3b82f6;
+            background-color: var(--naranja);
         }
 
         /* Main Content */
@@ -243,12 +243,12 @@
         }
 
         .button-primary {
-            background-color: #3b82f6;
+            background-color: var(--naranja);
             color: white;
         }
 
         .button-primary:hover {
-            background-color: #2563eb;
+            background-color: var(--naranja-hover);
         }
 
         .button-secondary {
@@ -453,26 +453,6 @@
             color: #6b7280;
         }
 
-        .ad-preview {
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 20px;
-            background: #f9fafb;
-        }
-
-        .char-counter {
-            font-size: 12px;
-            color: #6b7280;
-            margin-top: 4px;
-        }
-
-        .char-counter.warning {
-            color: #f59e0b;
-        }
-
-        .char-counter.error {
-            color: #ef4444;
-        }
     </style>
 </head>
 <body>
@@ -504,7 +484,6 @@
                     <button class="tab-button active" data-tab="roi">Calculadora ROI</button>
                     <button class="tab-button" data-tab="lead-value">Valor del Lead</button>
                     <button class="tab-button" data-tab="platform-comparison">Comparador de Plataformas</button>
-                    <button class="tab-button" data-tab="ad-generator">Generador de Anuncios</button>
                     <button class="tab-button" data-tab="ltv-calculator">Calculadora LTV</button>
                 </nav>
             </div>
@@ -548,7 +527,7 @@
                     </form>
                     <div class="results-grid">
                         <div class="result-card">
-                            <div class="result-label">ROI</div>
+                            <div class="result-label"><abbr title="Retorno sobre la inversión">ROI</abbr></div>
                             <div class="result-value result-positive" id="roi-result">200%</div>
                         </div>
                         <div class="result-card">
@@ -556,11 +535,11 @@
                             <div class="result-value result-positive" id="profit-result">$2,000</div>
                         </div>
                         <div class="result-card">
-                            <div class="result-label">CPC</div>
+                            <div class="result-label"><abbr title="Costo por clic">CPC</abbr></div>
                             <div class="result-value" id="cpc-result">$2.00</div>
                         </div>
                         <div class="result-card">
-                            <div class="result-label">Tasa de Conversión</div>
+                            <div class="result-label"><abbr title="Porcentaje de clics que generan ventas o leads">Tasa de Conversión</abbr></div>
                             <div class="result-value" id="conversion-rate-result">5%</div>
                         </div>
                     </div>
@@ -627,7 +606,7 @@
                             <div class="result-value result-positive" id="lead-value-result">$100</div>
                         </div>
                         <div class="result-card">
-                            <div class="result-label">ROI por Lead</div>
+                            <div class="result-label"><abbr title="Retorno sobre la inversión por cada contacto">ROI por Lead</abbr></div>
                             <div class="result-value result-positive" id="lead-roi-result">900%</div>
                         </div>
                         <div class="result-card">
@@ -693,18 +672,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="google-cpc">CPC promedio</label>
+                                    <label for="google-cpc"><abbr title="Costo por clic">CPC promedio</abbr></label>
                                     <div class="input-group">
                                         <span class="input-prefix">$</span>
                                         <input type="number" id="google-cpc" class="input-with-prefix" value="2.5" min="0" step="0.1">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="google-ctr">CTR (%)</label>
+                                    <label for="google-ctr"><abbr title="Porcentaje de clics respecto a impresiones">CTR (%)</abbr></label>
                                     <input type="number" id="google-ctr" value="3.5" min="0" max="100" step="0.1">
                                 </div>
                                 <div class="form-group">
-                                    <label for="google-conversion">Tasa de conversión (%)</label>
+                                    <label for="google-conversion"><abbr title="Porcentaje de clics que generan ventas o leads">Tasa de conversión (%)</abbr></label>
                                     <input type="number" id="google-conversion" value="4" min="0" max="100" step="0.1">
                                 </div>
                             </div>
@@ -717,18 +696,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="facebook-cpc">CPC promedio</label>
+                                    <label for="facebook-cpc"><abbr title="Costo por clic">CPC promedio</abbr></label>
                                     <div class="input-group">
                                         <span class="input-prefix">$</span>
                                         <input type="number" id="facebook-cpc" class="input-with-prefix" value="1.8" min="0" step="0.1">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="facebook-ctr">CTR (%)</label>
+                                    <label for="facebook-ctr"><abbr title="Porcentaje de clics respecto a impresiones">CTR (%)</abbr></label>
                                     <input type="number" id="facebook-ctr" value="1.5" min="0" max="100" step="0.1">
                                 </div>
                                 <div class="form-group">
-                                    <label for="facebook-conversion">Tasa de conversión (%)</label>
+                                    <label for="facebook-conversion"><abbr title="Porcentaje de clics que generan ventas o leads">Tasa de conversión (%)</abbr></label>
                                     <input type="number" id="facebook-conversion" value="2.5" min="0" max="100" step="0.1">
                                 </div>
                             </div>
@@ -777,62 +756,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Ad Generator Tab -->
-            <div id="ad-generator" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Generador de Textos para Anuncios</h2>
-                        <p class="card-description">Crea textos para tus campañas</p>
-                    </div>
-                    <form id="ad-form">
-                        <div class="grid grid-2">
-                            <div class="form-group">
-                                <label for="business-type">Tipo de negocio</label>
-                                <select id="business-type">
-                                    <option value="ecommerce">E-commerce</option>
-                                    <option value="servicios">Servicios</option>
-                                    <option value="saas">SaaS</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="platform-type">Plataforma</label>
-                                <select id="platform-type">
-                                    <option value="google">Google Ads</option>
-                                    <option value="facebook">Facebook Ads</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="product-name">Nombre del producto/servicio</label>
-                                <input type="text" id="product-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="unique-value">Propuesta de valor</label>
-                                <input type="text" id="unique-value">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="keywords">Palabras clave</label>
-                            <input type="text" id="keywords">
-                        </div>
-                        <button type="button" class="button button-primary" onclick="generateAds()">Generar Anuncios</button>
-                    </form>
-
-                    <div id="ad-results" style="display:none; margin-top:24px;">
-                        <h3 style="font-size:18px; margin-bottom:16px;">Anuncios Generados</h3>
-                        <div class="ad-preview">
-                            <p id="ad-title1" contenteditable="true">Título 1</p>
-                            <div class="char-counter" id="title1-counter">0/30</div>
-                            <p id="ad-title2" contenteditable="true">Título 2</p>
-                            <div class="char-counter" id="title2-counter">0/30</div>
-                            <p id="ad-description" contenteditable="true">Descripción</p>
-                            <div class="char-counter" id="description-counter">0/90</div>
-                        </div>
-                        <div class="action-buttons">
-                            <button class="button button-secondary" onclick="copyAds()">Copiar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- LTV Calculator Tab -->
             <div id="ltv-calculator" class="tab-content">
@@ -867,19 +790,19 @@
 
                     <div class="results-grid">
                         <div class="result-card">
-                            <div class="result-label">LTV Bruto</div>
+                            <div class="result-label"><abbr title="Valor total que genera un cliente">LTV Bruto</abbr></div>
                             <div class="result-value" id="ltv-gross">$0</div>
                         </div>
                         <div class="result-card">
-                            <div class="result-label">LTV Neto</div>
+                            <div class="result-label"><abbr title="Valor del cliente descontando costos">LTV Neto</abbr></div>
                             <div class="result-value result-positive" id="ltv-net">$0</div>
                         </div>
                         <div class="result-card">
-                            <div class="result-label">CAC Máximo</div>
+                            <div class="result-label"><abbr title="Costo de adquisición de cliente aceptable">CAC Máximo</abbr></div>
                             <div class="result-value" id="max-cac">$0</div>
                         </div>
                         <div class="result-card">
-                            <div class="result-label">Ratio LTV:CAC</div>
+                            <div class="result-label"><abbr title="Relación entre valor de cliente y costo de adquirirlo">Ratio LTV:CAC</abbr></div>
                             <div class="result-value" id="ltv-cac-ratio">3:1</div>
                         </div>
                     </div>
@@ -894,6 +817,7 @@
                 <h3 class="footer-title">Herramientas para PyMEs</h3>
                 <p class="footer-description">Optimiza tus campañas de Google Ads y Facebook Ads con estas calculadoras gratuitas</p>
                 <p class="footer-note">Desarrollado para ayudar a pequeñas y medianas empresas a maximizar su ROI en publicidad digital</p>
+                <p class="footer-note">Cualquier duda contáctame por WhatsApp al <a href="https://wa.me/541130011554">+54 11 3001-1554</a></p>
             </div>
         </div>
     </footer>
@@ -1013,46 +937,6 @@
             }
         };
 
-        const generateAds = () => {
-            const business = document.getElementById('business-type').value;
-            const platform = document.getElementById('platform-type').value;
-            const product = document.getElementById('product-name').value || 'Producto';
-            const value = document.getElementById('unique-value').value || 'Oferta';
-            const templates = {
-                google: {
-                    ecommerce: { t1: `${product} - ${value}`, t2: 'Compra online', d: `Aprovecha ${value} en ${product}` },
-                    servicios: { t1: `${product} Profesional`, t2: value, d: `Contrata ${product} - ${value}` },
-                    saas: { t1: `${product} Gratis`, t2: value, d: `Prueba ${product} hoy` }
-                },
-                facebook: {
-                    ecommerce: { t1: `${product} con ${value}`, t2: 'Solo Hoy', d: `Compra ${product} con ${value}` },
-                    servicios: { t1: `${product} de Calidad`, t2: value, d: `Mejora con ${product}` },
-                    saas: { t1: `${product} para tu negocio`, t2: value, d: `Usa ${product} y crece` }
-                }
-            };
-            const t = templates[platform][business];
-            document.getElementById('ad-title1').textContent = t.t1;
-            document.getElementById('ad-title2').textContent = t.t2;
-            document.getElementById('ad-description').textContent = t.d;
-            document.getElementById('ad-results').style.display = 'block';
-            updateCharCounter('ad-title1','title1-counter',30);
-            updateCharCounter('ad-title2','title2-counter',30);
-            updateCharCounter('ad-description','description-counter',90);
-        };
-
-        const updateCharCounter = (id,counterId,limit) => {
-            const len = document.getElementById(id).textContent.length;
-            const el = document.getElementById(counterId);
-            el.textContent = `${len}/${limit}`;
-            el.className = 'char-counter';
-            if(len>limit) el.classList.add('error');
-            else if(len>limit*0.9) el.classList.add('warning');
-        };
-
-        const copyAds = () => {
-            const text = `Título 1: ${document.getElementById('ad-title1').textContent}\nTítulo 2: ${document.getElementById('ad-title2').textContent}\nDescripción: ${document.getElementById('ad-description').textContent}`;
-            navigator.clipboard.writeText(text);
-        };
 
         const updateLTVCalculations = () => {
             const avg = parseFloat(document.getElementById('avg-purchase-value').value) || 0;
@@ -1080,9 +964,6 @@
         document.getElementById('purchase-frequency').addEventListener('input', updateLTVCalculations);
         document.getElementById('customer-lifespan').addEventListener('input', updateLTVCalculations);
         document.getElementById('profit-margin').addEventListener('input', updateLTVCalculations);
-        document.getElementById('ad-title1').addEventListener('input', () => updateCharCounter('ad-title1','title1-counter',30));
-        document.getElementById('ad-title2').addEventListener('input', () => updateCharCounter('ad-title2','title2-counter',30));
-        document.getElementById('ad-description').addEventListener('input', () => updateCharCounter('ad-description','description-counter',90));
         document.getElementById('total-budget').addEventListener('input', updatePlatformComparison);
         document.getElementById('budget-split').addEventListener('input', updatePlatformComparison);
         document.getElementById('google-cpc').addEventListener('input', updatePlatformComparison);
