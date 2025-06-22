@@ -453,6 +453,129 @@
             color: #6b7280;
         }
 
+        /* Meta Ads Guide Styles */
+        .meta-guide-wrapper {
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .meta-guide-wrapper h2 {
+            color: var(--naranja);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .meta-guide-wrapper .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .meta-guide-wrapper .highlight-box {
+            background: var(--naranja-gradient);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .meta-guide-wrapper details {
+            margin-bottom: 15px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        .meta-guide-wrapper details:hover {
+            border-color: var(--naranja);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,53,0.1);
+        }
+        .meta-guide-wrapper details[open] {
+            background: #fff3e0;
+            border-color: var(--naranja);
+        }
+        .meta-guide-wrapper summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--naranja);
+            font-size: 18px;
+            padding: 10px 0;
+        }
+        .meta-guide-wrapper summary::marker {
+            color: var(--naranja);
+        }
+        .meta-guide-wrapper .step-content {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+        .meta-guide-wrapper .tag {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .meta-guide-wrapper .tag.budget { background: #17a2b8; }
+        .meta-guide-wrapper .tag.time { background: #ffc107; color: #000; }
+        .meta-guide-wrapper .tag.new { background: #dc3545; }
+        .meta-guide-wrapper .metric {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .meta-guide-wrapper .warning {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .meta-guide-wrapper .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .meta-guide-wrapper a {
+            color: var(--naranja);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .meta-guide-wrapper a:hover {
+            text-decoration: underline;
+        }
+        .meta-guide-wrapper .cta-button {
+            display: block;
+            background: var(--naranja-gradient);
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            border-radius: 25px;
+            text-decoration: none;
+            margin: 20px auto;
+            max-width: 300px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255,107,53,0.3);
+            transition: transform 0.3s ease;
+        }
+        .meta-guide-wrapper .cta-button:hover {
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -484,7 +607,7 @@
                     <button class="tab-button active" data-tab="roi">Calculadora ROI</button>
                     <button class="tab-button" data-tab="lead-value">Valor del Lead</button>
                     <button class="tab-button" data-tab="platform-comparison">Comparador de Plataformas</button>
-                    <button class="tab-button" data-tab="ltv-calculator">Calculadora LTV</button>
+                    <button class="tab-button" data-tab="meta-guide">Guía Meta Ads 2025</button>
                 </nav>
             </div>
         </div>
@@ -757,55 +880,153 @@
                 </div>
             </div>
 
-            <!-- LTV Calculator Tab -->
-            <div id="ltv-calculator" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Calculadora de LTV</h2>
-                        <p class="card-description">Calcula el valor de vida de tus clientes</p>
-                    </div>
-                    <form id="ltv-form">
-                        <div class="grid grid-2">
-                            <div class="form-group">
-                                <label for="avg-purchase-value">Valor promedio de compra</label>
-                                <div class="input-group">
-                                    <span class="input-prefix">$</span>
-                                    <input type="number" id="avg-purchase-value" class="input-with-prefix" value="100" min="0" step="10">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="purchase-frequency">Frecuencia de compra (por año)</label>
-                                <input type="number" id="purchase-frequency" value="4" min="0" step="0.5">
-                            </div>
-                            <div class="form-group">
-                                <label for="customer-lifespan">Duración del cliente (años)</label>
-                                <input type="number" id="customer-lifespan" value="3" min="0" step="0.5">
-                            </div>
-                            <div class="form-group">
-                                <label for="profit-margin">Margen de ganancia (%)</label>
-                                <input type="number" id="profit-margin" value="30" min="0" max="100" step="5">
-                            </div>
-                        </div>
-                    </form>
+            <!-- Meta Ads Guide Tab -->
+            <div id="meta-guide" class="tab-content">
+                <div class="card meta-guide-wrapper">
+                    <h2>🚀 Meta Ads para PyMEs 2025</h2>
+                    <p class="subtitle">Guía simplificada basada en automatización y audiencias amplias</p>
 
-                    <div class="results-grid">
-                        <div class="result-card">
-                            <div class="result-label"><abbr title="Valor total que genera un cliente">LTV Bruto</abbr></div>
-                            <div class="result-value" id="ltv-gross">$0</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-label"><abbr title="Valor del cliente descontando costos">LTV Neto</abbr></div>
-                            <div class="result-value result-positive" id="ltv-net">$0</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-label"><abbr title="Costo de adquisición de cliente aceptable">CAC Máximo</abbr></div>
-                            <div class="result-value" id="max-cac">$0</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-label"><abbr title="Relación entre valor de cliente y costo de adquirirlo">Ratio LTV:CAC</abbr></div>
-                            <div class="result-value" id="ltv-cac-ratio">3:1</div>
-                        </div>
+                    <div class="highlight-box">
+                      💡 <strong>Cambio clave 2025:</strong> Advantage+ Audience supera al targeting manual por 12% menor CPA. 
+                      Las creatividades auténticas obtienen 4x mejor rendimiento que contenido corporativo.
                     </div>
+
+                    <details>
+                      <summary>🔧 1. Setup técnico simplificado (30 min)</summary>
+                      <div class="step-content">
+                        <span class="tag">AUTOMÁTICO</span><span class="tag budget">$0</span><span class="tag time">30 min</span>
+                        
+                        <p><strong>Meta Pixel + Conversions API:</strong> Instala el Pixel vía partner (Shopify/WordPress). Activa Advanced Matching automáticamente.</p>
+                        
+                        <p><strong>Eventos esenciales:</strong></p>
+                        <ul>
+                          <li>PageView (automático)</li>
+                          <li>ViewContent (páginas productos)</li>
+                          <li>Purchase/Lead (objetivo final)</li>
+                        </ul>
+
+                        <div class="metric">
+                          <strong>Meta 2025:</strong> Los socios oficiales (Shopify, WooCommerce) configuran el 90% automáticamente. 
+                          No necesitas instalar código manualmente.
+                        </div>
+
+                        <p><strong>Verificación:</strong> Meta Pixel Helper (extensión Chrome) debe mostrar eventos disparándose correctamente.</p>
+                      </div>
+                    </details>
+
+                    <details>
+                      <summary>💰 2. Presupuesto mínimo viable</summary>
+                      <div class="step-content">
+                        <span class="tag budget">$300-500/mes</span><span class="tag new">CRÍTICO</span>
+                        
+                        <p><strong>Distribución 70-20-10:</strong></p>
+                        <ul>
+                          <li><strong>70% Prospección:</strong> Audiencias frías amplias ($20-30/día)</li>
+                          <li><strong>20% Retargeting:</strong> Visitantes web ($10-15/día)</li>
+                          <li><strong>10% Testing:</strong> Nuevas creatividades ($5-10/día)</li>
+                        </ul>
+
+                        <div class="metric">
+                          <strong>¿Por qué $300 mínimo?</strong> Meta necesita 50 conversiones en 14 días para completar el machine learning. 
+                          Con menos presupuesto, nunca sales de la "fase de aprendizaje".
+                        </div>
+
+                        <p><strong>Escalado gradual:</strong> Incrementa 10-20% cada 2-3 días si ROAS se mantiene estable.</p>
+                      </div>
+                    </details>
+
+                    <details>
+                      <summary>🎯 3. Advantage+ Audience (no más targeting manual)</summary>
+                      <div class="step-content">
+                        <span class="tag">AUTOMÁTICO</span><span class="tag new">2025</span>
+                        
+                        <p><strong>Setup simple:</strong> Ubicación geográfica + rango de edad + datos demográficos básicos. Meta encuentra automáticamente tu audiencia ideal.</p>
+                        
+                        <p><strong>Tamaños recomendados:</strong></p>
+                        <ul>
+                          <li>Testing inicial: 100K-500K personas</li>
+                          <li>Escalado: 1M-10M personas</li>
+                          <li>Negocio local: 25 millas de radio (40km)</li>
+                        </ul>
+
+                        <div class="metric">
+                          <strong>Datos 2025:</strong> Advantage+ Audience reduce CPA promedio 12% vs targeting manual detallado. 
+                          El micro-targeting está obsoleto.
+                        </div>
+
+                        <p><strong>Para retargeting:</strong> Audiencias personalizadas (visitantes web 30 días, viewers video 75%) + exclusión de compradores previos.</p>
+                      </div>
+                    </details>
+
+                    <details>
+                      <summary>📱 4. Creatividades auténticas que funcionan</summary>
+                      <div class="step-content">
+                        <span class="tag">UGC</span><span class="tag time">2 horas</span>
+                        
+                        <p><strong>Formatos ganadores 2025:</strong></p>
+                        <ul>
+                          <li><strong>Video vertical 15-30 seg:</strong> Hook fuerte primeros 3 segundos</li>
+                          <li><strong>Imágenes smartphone:</strong> Luz natural, personas reales usando producto</li>
+                          <li><strong>Testimonios clientes:</strong> Videos caseros superan producciones costosas</li>
+                        </ul>
+
+                        <p><strong>Copy framework PAS:</strong></p>
+                        <div class="metric">
+                          "¿Cansado de [problema específico]? [Tu producto] resuelve esto mediante [mecanismo único] 
+                          para que obtengas [resultado emocional]. [CTA claro]"
+                        </div>
+
+                        <p><strong>Herramientas gratuitas:</strong> Canva (templates), CapCut (video), GIMP (edición)</p>
+                        
+                        <p><strong>Rotación:</strong> Cambia creatividades cada 7-14 días cuando CTR < 1% y frequency > 3.</p>
+                      </div>
+                    </details>
+
+                    <details>
+                      <summary>📊 5. Métricas que realmente importan</summary>
+                      <div class="step-content">
+                        <span class="tag">MER</span><span class="tag new">MEJOR QUE ROAS</span>
+                        
+                        <p><strong>MER (Marketing Efficiency Ratio):</strong> Ingresos totales ÷ Gasto publicitario total</p>
+                        
+                        <div class="metric">
+                          <strong>Benchmarks PyMEs:</strong><br>
+                          • MER mínimo: 3:1<br>
+                          • MER óptimo: 4-5:1<br>
+                          • CTR objetivo: >1% (promedio industria 0.94%)<br>
+                          • CPC objetivo: <$0.60<br>
+                          • Frequency límite: <2.5 antes de refresh
+                        </div>
+
+                        <p><strong>Señales para escalar:</strong></p>
+                        <ul>
+                          <li>ROAS estable >3:1 durante 3-5 días</li>
+                          <li>Fase de aprendizaje completada (50+ conversiones)</li>
+                          <li>Frequency <2.5 en audiencias frías</li>
+                        </ul>
+
+                        <p><strong>Señales para pausar:</strong> CPA >150% del objetivo por 7 días consecutivos</p>
+                      </div>
+                    </details>
+
+                    <div class="warning">
+                      <strong>⚠️ Errores que destrozan presupuestos:</strong><br>
+                      • Presupuesto insuficiente para fase de aprendizaje<br>
+                      • 50% del presupuesto en retargeting (correcto: 20%)<br>
+                      • Overlapping de audiencias sin exclusiones<br>
+                      • No rotar creatividades (fatiga de anuncios)
+                    </div>
+
+                    <div class="success">
+                      <strong>✅ Plan de implementación 30 días:</strong><br>
+                      <strong>Semana 1-2:</strong> Setup técnico + primera campaña prospección ($25/día)<br>
+                      <strong>Semana 3-4:</strong> Agregar retargeting + optimizar ganadores ($40/día)<br>
+                      <strong>Mes 2+:</strong> Escalado gradual basado en performance ($50-100/día)
+                    </div>
+
+                    <a href="https://wa.me/541130011554" class="cta-button">
+                      🎯 Auditoría gratuita de tu cuenta Meta Ads
+                    </a>
                 </div>
             </div>
         </div>
@@ -938,19 +1159,6 @@
         };
 
 
-        const updateLTVCalculations = () => {
-            const avg = parseFloat(document.getElementById('avg-purchase-value').value) || 0;
-            const freq = parseFloat(document.getElementById('purchase-frequency').value) || 0;
-            const life = parseFloat(document.getElementById('customer-lifespan').value) || 0;
-            const margin = parseFloat(document.getElementById('profit-margin').value) || 0;
-            const gross = avg * freq * life;
-            const net = gross * (margin / 100);
-            const max = net / 3;
-            document.getElementById('ltv-gross').textContent = formatCurrency(gross);
-            document.getElementById('ltv-net').textContent = formatCurrency(net);
-            document.getElementById('max-cac').textContent = formatCurrency(max);
-            document.getElementById('ltv-cac-ratio').textContent = '3:1';
-        };
 
         document.getElementById('investment').addEventListener('input', updateROICalculations);
         document.getElementById('revenue').addEventListener('input', updateROICalculations);
@@ -960,10 +1168,6 @@
         document.getElementById('close-rate').addEventListener('input', updateLeadCalculations);
         document.getElementById('monthly-leads').addEventListener('input', updateLeadCalculations);
         document.getElementById('lead-cost').addEventListener('input', updateLeadCalculations);
-        document.getElementById('avg-purchase-value').addEventListener('input', updateLTVCalculations);
-        document.getElementById('purchase-frequency').addEventListener('input', updateLTVCalculations);
-        document.getElementById('customer-lifespan').addEventListener('input', updateLTVCalculations);
-        document.getElementById('profit-margin').addEventListener('input', updateLTVCalculations);
         document.getElementById('total-budget').addEventListener('input', updatePlatformComparison);
         document.getElementById('budget-split').addEventListener('input', updatePlatformComparison);
         document.getElementById('google-cpc').addEventListener('input', updatePlatformComparison);
@@ -975,7 +1179,6 @@
         updateROICalculations();
         updateLeadCalculations();
         updatePlatformComparison();
-        updateLTVCalculations();
     </script>
     <script src="script-rediseno.js" defer></script>
 </body>
