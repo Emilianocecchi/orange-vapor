@@ -10,11 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @page {
-            size: A4;
-            margin: 0;
-        }
-        
         :root {
             /* Paleta actualizada Orange Vapor */
             --naranja-vibrante: #FF6B35;
@@ -60,61 +55,74 @@
 
         body {
             font-family: var(--fuente-texto);
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.6;
             color: var(--gris-oscuro);
             background-color: var(--blanco);
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-            color-adjust: exact !important;
-        }
-
-        /* Para impresión mejorada */
-        @media print {
-            html, body {
-                width: 210mm;
-                height: 297mm;
-                margin: 0;
-                padding: 0;
-            }
-            
-            .page {
-                page-break-after: always;
-                position: relative;
-                width: 210mm;
-                min-height: 297mm;
-                padding: 0;
-                margin: 0;
-            }
-            
-            .no-print {
-                display: none !important;
-            }
-            
-            * {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-                color-adjust: exact !important;
-            }
         }
 
         /* Estructura principal */
-        .brochure {
-            max-width: 210mm;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             background-color: var(--blanco);
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
         }
 
-        .page {
-            width: 210mm;
-            min-height: 297mm;
-            position: relative;
-            overflow: hidden;
+        .section {
+            padding: 80px 20px;
         }
 
-        /* Portada rediseñada */
-        .cover {
+        /* Header fijo */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--gris-borde);
+        }
+
+        .header-logo {
+            font-family: var(--fuente-titulos);
+            font-weight: 800;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gris-oscuro);
+        }
+
+        .header-logo .vapor {
+            color: var(--naranja-vibrante);
+            margin-left: 5px;
+        }
+
+        .header-contact {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            font-size: 14px;
+            color: var(--gris-texto);
+        }
+
+        .header-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-contact i {
+            color: var(--naranja-vibrante);
+        }
+
+        /* Hero Section rediseñada */
+        .hero {
             background: linear-gradient(135deg, var(--naranja-vibrante) 0%, var(--naranja-hover) 100%);
             color: white;
             display: flex;
@@ -124,11 +132,12 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            padding: 40px;
+            min-height: 100vh;
+            padding: 120px 20px 80px;
         }
 
         /* Patrón geométrico de fondo */
-        .cover::before {
+        .hero::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -152,7 +161,7 @@
         }
 
         /* Círculos decorativos */
-        .cover::after {
+        .hero::after {
             content: '';
             position: absolute;
             bottom: -100px;
@@ -164,7 +173,7 @@
             animation: pulse 4s ease-in-out infinite;
         }
 
-        .cover-decoration {
+        .hero-decoration {
             position: absolute;
             top: -150px;
             right: -150px;
@@ -179,10 +188,10 @@
             50% { transform: scale(1.05); opacity: 0.15; }
         }
 
-        .cover-content {
+        .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 90%;
+            max-width: 900px;
             animation: fadeInUp 1s ease-out;
         }
 
@@ -197,9 +206,9 @@
             }
         }
 
-        .cover-logo {
+        .hero-logo {
             font-family: var(--fuente-titulos);
-            font-size: 72px;
+            font-size: 80px;
             font-weight: 900;
             margin-bottom: 10px;
             letter-spacing: -2px;
@@ -229,40 +238,41 @@
             border-radius: 2px;
         }
 
-        .cover-tagline {
+        .hero-tagline {
             font-family: var(--fuente-texto);
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 400;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             opacity: 0.95;
             letter-spacing: 0.5px;
         }
 
-        .cover-main-message {
-            margin-bottom: 50px;
+        .hero-main-message {
+            margin-bottom: 60px;
         }
 
-        .cover-main-message h1 {
+        .hero-main-message h1 {
             font-family: var(--fuente-titulos);
-            font-size: 36px;
+            font-size: 48px;
             font-weight: 800;
             line-height: 1.2;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .cover-main-message p {
-            font-size: 18px;
+        .hero-main-message p {
+            font-size: 20px;
             opacity: 0.9;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             line-height: 1.6;
         }
 
-        .cover-stats {
+        .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin-bottom: 50px;
+            gap: 60px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
         }
 
         .stat-item {
@@ -271,114 +281,75 @@
 
         .stat-number {
             font-family: var(--fuente-titulos);
-            font-size: 42px;
+            font-size: 56px;
             font-weight: 800;
             display: block;
             line-height: 1;
         }
 
         .stat-label {
-            font-size: 14px;
+            font-size: 16px;
             opacity: 0.8;
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
-        .cover-badges {
+        .hero-badges {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             flex-wrap: wrap;
         }
 
         .badge {
             background: rgba(255,255,255,0.2);
             backdrop-filter: blur(10px);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 30px;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .cover-cta {
+        .hero-cta {
             background: white;
             color: var(--naranja-vibrante);
-            padding: 18px 40px;
+            padding: 20px 50px;
             border-radius: 50px;
             font-family: var(--fuente-titulos);
             font-weight: 700;
-            font-size: 18px;
+            font-size: 20px;
             text-transform: uppercase;
             letter-spacing: 1px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
             display: inline-block;
-        }
-
-        /* Header mejorado */
-        .header {
-            padding: 20px 30mm;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            position: relative;
-            z-index: 10;
-        }
-
-        .header-logo {
-            font-family: var(--fuente-titulos);
-            font-weight: 800;
-            font-size: 32px;
-            display: flex;
-            align-items: center;
             text-decoration: none;
-            color: var(--gris-oscuro);
         }
 
-        .header-logo .vapor {
-            color: var(--naranja-vibrante);
-            margin-left: 5px;
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
-        .header-info {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-            font-size: 13px;
-            color: var(--gris-texto);
+        /* Contenido de secciones */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .header-info-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .header-info i {
-            color: var(--naranja-vibrante);
-        }
-
-        /* Contenido de páginas */
-        .page-content {
-            padding: 30mm 25mm 40mm 25mm;
-            position: relative;
-        }
-
-        /* Sección Hero para páginas internas */
-        .page-hero {
-            margin: -30mm -25mm 30px -25mm;
-            padding: 40px 25mm;
+        /* Sección problema */
+        .problema-section {
             background: var(--gris-claro);
             position: relative;
             overflow: hidden;
         }
 
-        .page-hero::before {
+        .problema-section::before {
             content: '';
             position: absolute;
             top: 0;
@@ -390,73 +361,85 @@
             opacity: 0.5;
         }
 
-        .page-hero-content {
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
             position: relative;
             z-index: 1;
         }
 
-        .page-title {
+        .section-title {
             font-family: var(--fuente-titulos);
             font-weight: 800;
-            font-size: 36px;
+            font-size: 42px;
             color: var(--gris-oscuro);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             line-height: 1.2;
         }
 
-        .page-subtitle {
-            font-size: 18px;
+        .section-subtitle {
+            font-size: 20px;
             color: var(--gris-texto);
-            max-width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* Secciones */
-        .section {
-            margin-bottom: 40px;
+        .problema-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
         }
 
-        .section-header {
-            margin-bottom: 25px;
-            position: relative;
-            padding-left: 20px;
+        .problema-item {
+            text-align: center;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--sombra-suave);
+            transition: all 0.3s ease;
         }
 
-        .section-header::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 30px;
-            background: var(--naranja-vibrante);
-            border-radius: 2px;
+        .problema-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-media);
         }
 
-        .section-title {
+        .problema-icon {
+            font-size: 64px;
+            color: var(--naranja-vibrante);
+            margin-bottom: 20px;
+        }
+
+        .problema-item h3 {
             font-family: var(--fuente-titulos);
             font-weight: 700;
-            font-size: 28px;
+            font-size: 24px;
+            margin-bottom: 15px;
             color: var(--gris-oscuro);
-            margin-bottom: 8px;
         }
 
-        .section-subtitle {
+        .problema-item p {
             font-size: 16px;
             color: var(--gris-texto);
+            line-height: 1.6;
         }
 
         /* Cards de servicio rediseñadas */
+        .servicios-section {
+            background: white;
+        }
+
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
         }
 
         .service-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
             position: relative;
             transition: all 0.3s ease;
@@ -467,28 +450,31 @@
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--sombra-fuerte);
         }
 
         .service-card-header {
-            padding: 25px;
+            padding: 30px;
             position: relative;
             background: var(--gris-claro);
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .service-icon-wrapper {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
-            font-size: 24px;
+            font-size: 28px;
             color: white;
             position: relative;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
         /* Gradientes para cada servicio */
@@ -531,21 +517,25 @@
             transform: rotate(45deg);
         }
 
+        .service-header-text {
+            flex-grow: 1;
+        }
+
         .service-name {
             font-family: var(--fuente-titulos);
             font-weight: 700;
-            font-size: 20px;
+            font-size: 24px;
             color: var(--gris-oscuro);
             margin-bottom: 5px;
         }
 
         .service-tagline {
-            font-size: 14px;
+            font-size: 16px;
             color: var(--gris-texto);
         }
 
         .service-card-body {
-            padding: 25px;
+            padding: 30px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -553,78 +543,79 @@
 
         .service-description {
             color: var(--gris-texto);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             flex-grow: 1;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
         .service-features {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .service-features-title {
             font-weight: 600;
             color: var(--gris-oscuro);
-            margin-bottom: 10px;
-            font-size: 14px;
+            margin-bottom: 15px;
+            font-size: 16px;
         }
 
         .feature-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 8px;
-            font-size: 13px;
+            margin-bottom: 10px;
+            font-size: 15px;
         }
 
         .feature-icon {
             color: var(--naranja-vibrante);
-            margin-right: 10px;
-            margin-top: 2px;
-            font-size: 12px;
+            margin-right: 12px;
+            margin-top: 3px;
+            font-size: 14px;
         }
 
         .service-pricing {
-            padding-top: 20px;
+            padding-top: 25px;
             border-top: 1px solid var(--gris-borde);
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
+            align-items: center;
         }
 
         .pricing-main {
             display: flex;
             align-items: baseline;
-            gap: 5px;
+            gap: 8px;
         }
 
         .price {
             font-family: var(--fuente-titulos);
             font-weight: 700;
-            font-size: 28px;
+            font-size: 32px;
             color: var(--naranja-vibrante);
         }
 
         .price-period {
             color: var(--gris-texto);
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .pricing-tiers {
             display: flex;
-            gap: 5px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .tier-pill {
-            padding: 4px 10px;
+            padding: 6px 12px;
             background: var(--gris-claro);
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 12px;
             color: var(--gris-texto);
         }
 
         /* Card especial de auditoría */
         .audit-card {
-            grid-column: 1 / -1;
             background: linear-gradient(135deg, var(--audit-green) 0%, #00A040 100%);
             color: white;
             position: relative;
@@ -660,17 +651,78 @@
             right: 20px;
             background: white;
             color: var(--audit-green);
-            padding: 8px 20px;
+            padding: 10px 24px;
             border-radius: 30px;
             font-weight: 800;
-            font-size: 14px;
+            font-size: 16px;
             box-shadow: var(--sombra-media);
+        }
+
+        /* Servicio Express mejorado */
+        .express-section {
+            background: var(--gris-claro);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .express-card {
+            background: linear-gradient(135deg, var(--express-red) 0%, #D50000 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--sombra-fuerte);
+        }
+
+        .express-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .express-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .express-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .express-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .express-text h3 {
+            font-family: var(--fuente-titulos);
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .express-text p {
+            font-size: 18px;
+            opacity: 0.9;
         }
 
         /* Paquete completo mejorado */
         .package-section {
-            margin: 40px -25mm;
-            padding: 50px 25mm;
             background: linear-gradient(135deg, var(--naranja-suave) 0%, #FFF5F0 100%);
             position: relative;
             overflow: hidden;
@@ -694,51 +746,51 @@
 
         .package-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
         .package-badge {
             display: inline-block;
             background: var(--naranja-vibrante);
             color: white;
-            padding: 8px 24px;
+            padding: 12px 30px;
             border-radius: 30px;
             font-weight: 700;
-            font-size: 14px;
-            margin-bottom: 20px;
+            font-size: 16px;
+            margin-bottom: 25px;
         }
 
         .package-title {
             font-family: var(--fuente-titulos);
             font-weight: 800;
-            font-size: 36px;
+            font-size: 42px;
             color: var(--gris-oscuro);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .package-subtitle {
-            font-size: 18px;
+            font-size: 20px;
             color: var(--gris-texto);
         }
 
         .package-body {
             display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 40px;
+            grid-template-columns: 1fr 400px;
+            gap: 60px;
             align-items: center;
         }
 
         .package-services {
             background: white;
-            padding: 30px;
-            border-radius: 16px;
+            padding: 40px;
+            border-radius: 20px;
             box-shadow: var(--sombra-media);
         }
 
         .package-service-item {
             display: flex;
             align-items: center;
-            padding: 15px 0;
+            padding: 20px 0;
             border-bottom: 1px solid var(--gris-borde);
         }
 
@@ -747,21 +799,37 @@
         }
 
         .package-service-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            margin-right: 15px;
+            margin-right: 20px;
+            font-size: 20px;
+        }
+
+        .package-service-text {
+            flex-grow: 1;
+        }
+
+        .package-service-text strong {
+            display: block;
             font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .package-service-text span {
+            color: var(--gris-texto);
+            font-size: 14px;
         }
 
         .package-pricing-card {
             background: white;
-            border-radius: 16px;
-            padding: 40px;
+            border-radius: 20px;
+            padding: 50px;
             box-shadow: var(--sombra-fuerte);
             text-align: center;
             position: relative;
@@ -774,74 +842,73 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
+            height: 6px;
             background: linear-gradient(90deg, var(--naranja-vibrante), var(--naranja-hover));
         }
 
         .package-original-price {
-            font-size: 18px;
+            font-size: 20px;
             color: var(--gris-texto);
             text-decoration: line-through;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .package-price {
             font-family: var(--fuente-titulos);
             font-weight: 800;
-            font-size: 48px;
+            font-size: 56px;
             color: var(--naranja-vibrante);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .package-price-period {
-            font-size: 16px;
+            font-size: 18px;
             color: var(--gris-texto);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .package-save {
             background: var(--naranja-suave);
             color: var(--naranja-vibrante);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 30px;
             font-weight: 700;
             display: inline-block;
+            margin-bottom: 20px;
         }
 
         /* Proceso mejorado */
-        .process-section {
-            margin: 60px 0;
+        .proceso-section {
+            background: white;
         }
 
         .process-steps {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
             position: relative;
-        }
-
-        .process-steps::before {
-            content: '';
-            position: absolute;
-            top: 35px;
-            left: 25%;
-            right: 25%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--naranja-vibrante), var(--naranja-medio), var(--naranja-vibrante));
-            z-index: 0;
         }
 
         .process-step {
             text-align: center;
             position: relative;
             z-index: 1;
+            background: var(--gris-claro);
+            padding: 40px 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-media);
         }
 
         .step-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 20px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
             background: white;
             border-radius: 50%;
             display: flex;
@@ -854,7 +921,7 @@
         .step-icon::before {
             content: '';
             position: absolute;
-            inset: -3px;
+            inset: -4px;
             background: linear-gradient(135deg, var(--naranja-vibrante), var(--naranja-hover));
             border-radius: 50%;
             z-index: -1;
@@ -863,36 +930,39 @@
         .step-number {
             font-family: var(--fuente-titulos);
             font-weight: 800;
-            font-size: 24px;
+            font-size: 28px;
             color: var(--naranja-vibrante);
         }
 
         .step-title {
             font-family: var(--fuente-titulos);
             font-weight: 700;
-            font-size: 18px;
+            font-size: 22px;
             color: var(--gris-oscuro);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .step-description {
-            font-size: 14px;
+            font-size: 16px;
             color: var(--gris-texto);
             line-height: 1.6;
         }
 
         /* Garantía mejorada */
         .guarantee-section {
+            background: var(--gris-claro);
+        }
+
+        .guarantee-card {
             background: linear-gradient(135deg, var(--gris-oscuro), #2A2A2A);
             color: white;
-            padding: 40px;
-            border-radius: 16px;
-            margin: 40px 0;
+            padding: 50px;
+            border-radius: 20px;
             position: relative;
             overflow: hidden;
         }
 
-        .guarantee-section::before {
+        .guarantee-card::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -909,84 +979,141 @@
             z-index: 1;
             display: grid;
             grid-template-columns: auto 1fr;
-            gap: 30px;
+            gap: 40px;
             align-items: center;
         }
 
         .guarantee-icon {
-            font-size: 60px;
+            font-size: 80px;
             color: var(--naranja-vibrante);
         }
 
         .guarantee-text h3 {
             font-family: var(--fuente-titulos);
             font-weight: 700;
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 28px;
+            margin-bottom: 15px;
         }
 
-        /* Testimonios */
-        .testimonial-card {
+        .guarantee-text p {
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Equipo mejorado */
+        .equipo-section {
             background: white;
-            border-radius: 16px;
-            padding: 30px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            margin-top: 60px;
+        }
+
+        .team-member {
+            text-align: center;
+            background: var(--gris-claro);
+            padding: 40px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
             box-shadow: var(--sombra-media);
-            position: relative;
-            margin: 30px 0;
         }
 
-        .testimonial-quote {
-            font-size: 16px;
-            color: var(--gris-texto);
-            line-height: 1.8;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        .testimonial-author {
+        .member-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--naranja-vibrante), var(--naranja-hover));
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
         }
 
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .author-info {
-            flex-grow: 1;
-        }
-
-        .author-name {
+        .member-name {
+            font-family: var(--fuente-titulos);
             font-weight: 700;
+            font-size: 24px;
             color: var(--gris-oscuro);
-            margin-bottom: 2px;
+            margin-bottom: 8px;
         }
 
-        .author-role {
-            font-size: 14px;
+        .member-role {
+            color: var(--naranja-vibrante);
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .member-bio {
+            font-size: 16px;
             color: var(--gris-texto);
+            line-height: 1.6;
         }
 
-        .testimonial-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 40px;
-            color: var(--naranja-suave);
+        /* Por qué elegirnos */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .why-item {
+            display: flex;
+            gap: 20px;
+            background: var(--gris-claro);
+            padding: 30px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .why-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--sombra-media);
+        }
+
+        .why-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--naranja-suave);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--naranja-vibrante);
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .why-content h4 {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--gris-oscuro);
+        }
+
+        .why-content p {
+            font-size: 15px;
+            color: var(--gris-texto);
+            line-height: 1.6;
         }
 
         /* CTA final mejorado */
         .final-cta {
             background: linear-gradient(135deg, var(--naranja-vibrante), var(--naranja-hover));
             color: white;
-            padding: 60px;
-            border-radius: 20px;
+            padding: 80px 20px;
             text-align: center;
-            margin-top: 40px;
             position: relative;
             overflow: hidden;
         }
@@ -1016,103 +1143,121 @@
         .final-cta-content {
             position: relative;
             z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .final-cta h2 {
             font-family: var(--fuente-titulos);
             font-weight: 800;
-            font-size: 36px;
-            margin-bottom: 20px;
+            font-size: 42px;
+            margin-bottom: 25px;
         }
 
         .final-cta p {
-            font-size: 18px;
-            margin-bottom: 30px;
+            font-size: 20px;
+            margin-bottom: 40px;
             opacity: 0.95;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            line-height: 1.6;
         }
 
         .contact-methods {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin-top: 30px;
+            gap: 50px;
+            margin: 40px 0;
+            flex-wrap: wrap;
         }
 
         .contact-method {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 18px;
+            gap: 12px;
+            font-size: 20px;
             font-weight: 600;
+            background: rgba(255,255,255,0.1);
+            padding: 15px 25px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
         }
 
-        /* Footer mejorado */
-        .footer {
-            position: absolute;
-            bottom: 20mm;
-            left: 25mm;
-            right: 25mm;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 20px;
-            border-top: 1px solid var(--gris-borde);
-        }
-
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .footer-logo {
-            font-family: var(--fuente-titulos);
+        .cta-highlight {
+            font-size: 24px;
             font-weight: 700;
+            margin: 30px 0 15px;
+        }
+
+        .cta-details {
             font-size: 18px;
-            color: var(--gris-oscuro);
+            opacity: 0.9;
         }
 
-        .footer-logo .vapor {
-            color: var(--naranja-vibrante);
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-contact {
+                display: none;
+            }
+
+            .hero-logo {
+                font-size: 60px;
+            }
+
+            .hero-main-message h1 {
+                font-size: 36px;
+            }
+
+            .hero-stats {
+                gap: 30px;
+            }
+
+            .stat-number {
+                font-size: 42px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .package-body {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .guarantee-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 25px;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .footer-info {
-            font-size: 12px;
-            color: var(--gris-texto);
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
         }
 
-        .page-indicator {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .page-number {
-            width: 30px;
-            height: 30px;
-            background: var(--naranja-vibrante);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-
-        /* Botones de acción */
-        .action-buttons {
-            margin: 40px 0;
-            text-align: center;
-        }
-
+        /* Botones */
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 16px 32px;
+            padding: 18px 36px;
             background: var(--naranja-vibrante);
             color: white;
             text-decoration: none;
@@ -1123,7 +1268,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             border: none;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .btn:hover {
@@ -1132,94 +1277,53 @@
             box-shadow: 0 12px 40px rgba(255,107,53,0.35);
         }
 
-        /* Equipo mejorado */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .team-member {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .member-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .member-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .member-photo::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(255,107,53,0.2) 100%);
-        }
-
-        .member-info {
-            flex-grow: 1;
-        }
-
-        .member-name {
-            font-family: var(--fuente-titulos);
-            font-weight: 700;
-            font-size: 20px;
-            color: var(--gris-oscuro);
-            margin-bottom: 5px;
-        }
-
-        .member-role {
+        .btn-secondary {
+            background: white;
             color: var(--naranja-vibrante);
-            font-weight: 600;
-            margin-bottom: 10px;
+            border: 2px solid var(--naranja-vibrante);
         }
 
-        .member-bio {
-            font-size: 14px;
-            color: var(--gris-texto);
-            line-height: 1.6;
-        }
-
-        /* Efectos de hover para elementos interactivos */
-        .interactive-element {
-            transition: all 0.3s ease;
-        }
-
-        .interactive-element:hover {
-            transform: translateY(-2px);
+        .btn-secondary:hover {
+            background: var(--naranja-vibrante);
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="brochure">
-        <!-- Portada -->
-        <div class="page cover">
-            <div class="cover-decoration"></div>
-            <div class="cover-content">
-                <div class="cover-logo">
+    <!-- Header fijo -->
+    <header class="header">
+        <a href="#" class="header-logo">
+            Orange<span class="vapor">Vapor</span>
+        </a>
+        <div class="header-contact">
+            <div class="header-contact-item">
+                <i class="fas fa-phone"></i>
+                <span>+54 1130011554</span>
+            </div>
+            <div class="header-contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>emiliano@orangevapor.com</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-decoration"></div>
+            <div class="hero-content">
+                <div class="hero-logo">
                     <span class="logo-orange">Orange</span>
                     <span class="logo-vapor">Vapor</span>
                 </div>
-                <p class="cover-tagline">Marketing Digital que funciona mientras vos trabajás</p>
+                <p class="hero-tagline">Marketing Digital que funciona mientras vos trabajás</p>
                 
-                <div class="cover-main-message">
+                <div class="hero-main-message">
                     <h1>¿Cuántas horas perdés<br>intentando entender<br>Facebook y Google Ads?</h1>
                     <p>Tu tiempo vale más haciendo crecer tu negocio que aprendiendo algoritmos. Nosotros nos encargamos del marketing, vos enfocate en lo que sabés hacer mejor.</p>
                 </div>
 
-                <div class="cover-stats">
+                <div class="hero-stats">
                     <div class="stat-item">
                         <span class="stat-number">20h</span>
                         <span class="stat-label">Promedio semanal<br>perdido en marketing</span>
@@ -1234,7 +1338,7 @@
                     </div>
                 </div>
 
-                <div class="cover-badges">
+                <div class="hero-badges">
                     <div class="badge">
                         <i class="fab fa-google"></i>
                         <span>Google Partner</span>
@@ -1249,507 +1353,480 @@
                     </div>
                 </div>
 
-                <div class="cover-cta">
+                <a href="#contacto" class="hero-cta">
                     Auditoría GRATIS de tus campañas
-                </div>
-            </div>
-        </div>
-
-        <!-- Página 1: Problema y Servicios -->
-        <div class="page">
-            <div class="page-hero">
-                <div class="page-hero-content">
-                    <h1 class="page-title">Dejá de perder tiempo y dinero en marketing</h1>
-                    <p class="page-subtitle">Transformamos tu frustración en resultados medibles. Sin que tengas que aprender nada.</p>
-                </div>
-            </div>
-
-            <div class="page-content">
-                <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">El problema real de las PyMEs</h2>
-                        <p class="section-subtitle">No es falta de esfuerzo. Es que el marketing digital requiere años de experiencia.</p>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px;">
-                        <div style="text-align: center;">
-                            <div style="font-size: 48px; color: var(--naranja-vibrante); margin-bottom: 10px;">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <h3 style="font-weight: 600; margin-bottom: 10px;">Tiempo perdido</h3>
-                            <p style="font-size: 14px; color: var(--gris-texto);">Horas estudiando tutoriales en vez de atender tu negocio</p>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 48px; color: var(--naranja-vibrante); margin-bottom: 10px;">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <h3 style="font-weight: 600; margin-bottom: 10px;">Métricas confusas</h3>
-                            <p style="font-size: 14px; color: var(--gris-texto);">CTR, CPC, ROAS... ¿Qué significa todo esto?</p>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 48px; color: var(--naranja-vibrante); margin-bottom: 10px;">
-                                <i class="fas fa-fire-alt"></i>
-                            </div>
-                            <h3 style="font-weight: 600; margin-bottom: 10px;">Dinero quemado</h3>
-                            <p style="font-size: 14px; color: var(--gris-texto);">Campañas mal configuradas que no convierten</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">La solución: delegá y crecé</h2>
-                        <p class="section-subtitle">Servicios diseñados para que olvides el marketing y te enfoques en tu negocio</p>
-                    </div>
-
-                    <div class="services-grid">
-                        <!-- Auditoría GRATIS -->
-                        <div class="service-card audit-card">
-                            <div class="audit-badge">GRATIS</div>
-                            <div class="service-card-header">
-                                <div class="service-icon-wrapper">
-                                    <i class="fas fa-search-dollar"></i>
-                                </div>
-                                <div>
-                                    <h3 class="service-name">Auditoría Profesional</h3>
-                                    <p class="service-tagline">Descubrí dónde perdés dinero</p>
-                                </div>
-                            </div>
-                            <div class="service-card-body">
-                                <p class="service-description">
-                                    En 24-48 horas, analizamos tus campañas y te mostramos exactamente dónde estás perdiendo presupuesto. Sin compromisos, sin costos ocultos.
-                                </p>
-                                <div class="service-features">
-                                    <p class="service-features-title">Incluye:</p>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Análisis completo con capturas de pantalla de errores críticos</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Comparativa con tu competencia y sus anuncios exitosos</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Plan de acción concreto entregado en PDF profesional</span>
-                                    </div>
-                                </div>
-                                <div class="service-pricing">
-                                    <div class="pricing-main">
-                                        <span class="price">GRATIS</span>
-                                    </div>
-                                    <span style="color: white; font-size: 14px;">Valor real: US$199</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Meta Ads -->
-                        <div class="service-card service-meta">
-                            <div class="service-card-header">
-                                <div class="service-icon-wrapper">
-                                    <i class="fab fa-facebook-f"></i>
-                                </div>
-                                <div>
-                                    <h3 class="service-name">Meta Ads</h3>
-                                    <p class="service-tagline">Facebook e Instagram que vende</p>
-                                </div>
-                            </div>
-                            <div class="service-card-body">
-                                <p class="service-description">
-                                    Olvidate de perder tiempo configurando audiencias. Nosotros encontramos a tus clientes ideales mientras vos atendés tu negocio.
-                                </p>
-                                <div class="service-features">
-                                    <p class="service-features-title">Starter incluye:</p>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Segmentación profesional</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Creatividades que convierten</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Optimización semanal</span>
-                                    </div>
-                                </div>
-                                <div class="service-pricing">
-                                    <div class="pricing-main">
-                                        <span class="price">US$299</span>
-                                        <span class="price-period">/mes</span>
-                                    </div>
-                                    <div class="pricing-tiers">
-                                        <span class="tier-pill">Pro: $599</span>
-                                        <span class="tier-pill">Elite: $999</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Google Ads -->
-                        <div class="service-card service-google">
-                            <div class="service-card-header">
-                                <div class="service-icon-wrapper">
-                                    <i class="fab fa-google"></i>
-                                </div>
-                                <div>
-                                    <h3 class="service-name">Google Ads</h3>
-                                    <p class="service-tagline">Aparecé cuando te buscan</p>
-                                </div>
-                            </div>
-                            <div class="service-card-body">
-                                <p class="service-description">
-                                    Tus clientes te están buscando ahora mismo. Nosotros nos aseguramos de que te encuentren primero que a tu competencia.
-                                </p>
-                                <div class="service-features">
-                                    <p class="service-features-title">Starter incluye:</p>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Keywords de alta conversión</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Anuncios persuasivos</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Presupuesto optimizado</span>
-                                    </div>
-                                </div>
-                                <div class="service-pricing">
-                                    <div class="pricing-main">
-                                        <span class="price">US$299</span>
-                                        <span class="price-period">/mes</span>
-                                    </div>
-                                    <div class="pricing-tiers">
-                                        <span class="tier-pill">Pro: $599</span>
-                                        <span class="tier-pill">Elite: $999</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Email Marketing -->
-                        <div class="service-card service-email">
-                            <div class="service-card-header">
-                                <div class="service-icon-wrapper">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div>
-                                    <h3 class="service-name">Email Marketing</h3>
-                                    <p class="service-tagline">Ventas en piloto automático</p>
-                                </div>
-                            </div>
-                            <div class="service-card-body">
-                                <p class="service-description">
-                                    Convertí visitantes en clientes fieles con emails que se envían solos. Tu negocio vende mientras dormís.
-                                </p>
-                                <div class="service-features">
-                                    <p class="service-features-title">Starter incluye:</p>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Campañas automatizadas</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Diseños profesionales</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Segmentación inteligente</span>
-                                    </div>
-                                </div>
-                                <div class="service-pricing">
-                                    <div class="pricing-main">
-                                        <span class="price">US$299</span>
-                                        <span class="price-period">/mes</span>
-                                    </div>
-                                    <div class="pricing-tiers">
-                                        <span class="tier-pill">Pro: $599</span>
-                                        <span class="tier-pill">Elite: $999</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Chatbot -->
-                        <div class="service-card service-chatbot">
-                            <div class="service-card-header">
-                                <div class="service-icon-wrapper">
-                                    <i class="fas fa-robot"></i>
-                                </div>
-                                <div>
-                                    <h3 class="service-name">Chatbot 24/7</h3>
-                                    <p class="service-tagline">Tu vendedor que nunca duerme</p>
-                                </div>
-                            </div>
-                            <div class="service-card-body">
-                                <p class="service-description">
-                                    Atención instantánea las 24 horas. Capturá leads y cerrá ventas incluso cuando estás descansando.
-                                </p>
-                                <div class="service-features">
-                                    <p class="service-features-title">Starter incluye:</p>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>WhatsApp Business</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Respuestas personalizadas</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Captura automática de leads</span>
-                                    </div>
-                                </div>
-                                <div class="service-pricing">
-                                    <div class="pricing-main">
-                                        <span class="price">US$299</span>
-                                        <span class="price-period">/mes</span>
-                                    </div>
-                                    <div class="pricing-tiers">
-                                        <span class="tier-pill">Pro: $599</span>
-                                        <span class="tier-pill">Elite: $999</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Redes Sociales -->
-                        <div class="service-card service-social">
-                            <div class="service-card-header">
-                                <div class="service-icon-wrapper">
-                                    <i class="fas fa-share-alt"></i>
-                                </div>
-                                <div>
-                                    <h3 class="service-name">Redes Sociales</h3>
-                                    <p class="service-tagline">Presencia que genera ventas</p>
-                                </div>
-                            </div>
-                            <div class="service-card-body">
-                                <p class="service-description">
-                                    Dejá de preocuparte por qué publicar. Nosotros creamos contenido que conecta y convierte seguidores en clientes.
-                                </p>
-                                <div class="service-features">
-                                    <p class="service-features-title">Starter incluye:</p>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Calendario de contenidos</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Diseños profesionales</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check feature-icon"></i>
-                                        <span>Gestión de comunidad</span>
-                                    </div>
-                                </div>
-                                <div class="service-pricing">
-                                    <div class="pricing-main">
-                                        <span class="price">US$299</span>
-                                        <span class="price-period">/mes</span>
-                                    </div>
-                                    <div class="pricing-tiers">
-                                        <span class="tier-pill">Pro: $599</span>
-                                        <span class="tier-pill">Elite: $999</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer">
-                <div class="footer-brand">
-                    <span class="footer-logo">Orange<span class="vapor">Vapor</span></span>
-                    <span class="footer-info">© 2025 | Tu tiempo vale más</span>
-                </div>
-                <div class="page-indicator">
-                    <span class="page-number">1</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Página 2: Paquete y Proceso -->
-        <div class="page">
-            <header class="header">
-                <a href="#" class="header-logo">
-                    Orange<span class="vapor">Vapor</span>
                 </a>
-                <div class="header-info">
-                    <div class="header-info-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+54 1130011554</span>
+            </div>
+        </section>
+
+        <!-- Sección Problema -->
+        <section class="section problema-section">
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <h2 class="section-title">Dejá de perder tiempo y dinero en marketing</h2>
+                    <p class="section-subtitle">Transformamos tu frustración en resultados medibles. Sin que tengas que aprender nada.</p>
+                </div>
+                
+                <div class="problema-grid">
+                    <div class="problema-item">
+                        <div class="problema-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Tiempo perdido</h3>
+                        <p>Horas estudiando tutoriales en vez de atender tu negocio</p>
                     </div>
-                    <div class="header-info-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>emiliano@orangevapor.com</span>
+                    <div class="problema-item">
+                        <div class="problema-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Métricas confusas</h3>
+                        <p>CTR, CPC, ROAS... ¿Qué significa todo esto?</p>
+                    </div>
+                    <div class="problema-item">
+                        <div class="problema-icon">
+                            <i class="fas fa-fire-alt"></i>
+                        </div>
+                        <h3>Dinero quemado</h3>
+                        <p>Campañas mal configuradas que no convierten</p>
                     </div>
                 </div>
-            </header>
+            </div>
+        </section>
 
-            <div class="page-content">
-                <!-- Servicio Express -->
-                <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">¿Necesitás resultados YA?</h2>
-                        <p class="section-subtitle">Optimización Express: mejorá tus campañas en solo 48 horas</p>
-                    </div>
+        <!-- Servicios -->
+        <section class="section servicios-section">
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <h2 class="section-title">La solución: delegá y crecé</h2>
+                    <p class="section-subtitle">Servicios diseñados para que olvides el marketing y te enfoques en tu negocio</p>
+                </div>
 
-                    <div class="service-card service-express" style="grid-column: 1 / -1;">
+                <div class="services-grid">
+                    <!-- Auditoría GRATIS -->
+                    <div class="service-card audit-card">
+                        <div class="audit-badge">GRATIS</div>
                         <div class="service-card-header">
                             <div class="service-icon-wrapper">
-                                <i class="fas fa-bolt"></i>
+                                <i class="fas fa-search-dollar"></i>
                             </div>
-                            <div>
-                                <h3 class="service-name">Optimización Express</h3>
-                                <p class="service-tagline">Rescatamos tus campañas en 48 horas</p>
+                            <div class="service-header-text">
+                                <h3 class="service-name">Auditoría Profesional</h3>
+                                <p class="service-tagline">Descubrí dónde perdés dinero</p>
                             </div>
                         </div>
                         <div class="service-card-body">
                             <p class="service-description">
-                                La semana pasada, una tienda online descubrió que el 63% de su presupuesto se desperdiciaba en una configuración incorrecta. En solo 48 horas, aplicamos nuestro sistema de Detección de Fugas™ y transformamos ese desperdicio en ventas reales.
+                                En 24-48 horas, analizamos tus campañas y te mostramos exactamente dónde estás perdiendo presupuesto. Sin compromisos, sin costos ocultos.
                             </p>
                             <div class="service-features">
-                                <p class="service-features-title">Qué hacemos por vos:</p>
+                                <p class="service-features-title">Incluye:</p>
                                 <div class="feature-item">
                                     <i class="fas fa-check feature-icon"></i>
-                                    <span>Análisis profundo y corrección de errores críticos</span>
+                                    <span>Análisis completo con capturas de pantalla de errores críticos</span>
                                 </div>
                                 <div class="feature-item">
                                     <i class="fas fa-check feature-icon"></i>
-                                    <span>Nueva estrategia basada en datos reales de tu negocio</span>
+                                    <span>Comparativa con tu competencia y sus anuncios exitosos</span>
                                 </div>
                                 <div class="feature-item">
                                     <i class="fas fa-check feature-icon"></i>
-                                    <span>Pack completo de anuncios optimizados listos para usar</span>
+                                    <span>Plan de acción concreto entregado en PDF profesional</span>
+                                </div>
+                            </div>
+                            <div class="service-pricing">
+                                <div class="pricing-main">
+                                    <span class="price">GRATIS</span>
+                                </div>
+                                <span style="color: white; font-size: 16px;">Valor real: US$199</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Meta Ads -->
+                    <div class="service-card service-meta">
+                        <div class="service-card-header">
+                            <div class="service-icon-wrapper">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div class="service-header-text">
+                                <h3 class="service-name">Meta Ads</h3>
+                                <p class="service-tagline">Facebook e Instagram que vende</p>
+                            </div>
+                        </div>
+                        <div class="service-card-body">
+                            <p class="service-description">
+                                Olvidate de perder tiempo configurando audiencias. Nosotros encontramos a tus clientes ideales mientras vos atendés tu negocio.
+                            </p>
+                            <div class="service-features">
+                                <p class="service-features-title">Starter incluye:</p>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Segmentación profesional</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Creatividades que convierten</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Optimización semanal</span>
                                 </div>
                             </div>
                             <div class="service-pricing">
                                 <div class="pricing-main">
                                     <span class="price">US$299</span>
-                                    <span class="price-period">único pago</span>
+                                    <span class="price-period">/mes</span>
                                 </div>
-                                <span style="color: var(--gris-texto); font-size: 14px;">Implementación inmediata</span>
+                                <div class="pricing-tiers">
+                                    <span class="tier-pill">Pro: $599</span>
+                                    <span class="tier-pill">Elite: $999</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Google Ads -->
+                    <div class="service-card service-google">
+                        <div class="service-card-header">
+                            <div class="service-icon-wrapper">
+                                <i class="fab fa-google"></i>
+                            </div>
+                            <div class="service-header-text">
+                                <h3 class="service-name">Google Ads</h3>
+                                <p class="service-tagline">Aparecé cuando te buscan</p>
+                            </div>
+                        </div>
+                        <div class="service-card-body">
+                            <p class="service-description">
+                                Tus clientes te están buscando ahora mismo. Nosotros nos aseguramos de que te encuentren primero que a tu competencia.
+                            </p>
+                            <div class="service-features">
+                                <p class="service-features-title">Starter incluye:</p>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Keywords de alta conversión</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Anuncios persuasivos</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Presupuesto optimizado</span>
+                                </div>
+                            </div>
+                            <div class="service-pricing">
+                                <div class="pricing-main">
+                                    <span class="price">US$299</span>
+                                    <span class="price-period">/mes</span>
+                                </div>
+                                <div class="pricing-tiers">
+                                    <span class="tier-pill">Pro: $599</span>
+                                    <span class="tier-pill">Elite: $999</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email Marketing -->
+                    <div class="service-card service-email">
+                        <div class="service-card-header">
+                            <div class="service-icon-wrapper">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="service-header-text">
+                                <h3 class="service-name">Email Marketing</h3>
+                                <p class="service-tagline">Ventas en piloto automático</p>
+                            </div>
+                        </div>
+                        <div class="service-card-body">
+                            <p class="service-description">
+                                Convertí visitantes en clientes fieles con emails que se envían solos. Tu negocio vende mientras dormís.
+                            </p>
+                            <div class="service-features">
+                                <p class="service-features-title">Starter incluye:</p>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Campañas automatizadas</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Diseños profesionales</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Segmentación inteligente</span>
+                                </div>
+                            </div>
+                            <div class="service-pricing">
+                                <div class="pricing-main">
+                                    <span class="price">US$299</span>
+                                    <span class="price-period">/mes</span>
+                                </div>
+                                <div class="pricing-tiers">
+                                    <span class="tier-pill">Pro: $599</span>
+                                    <span class="tier-pill">Elite: $999</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chatbot -->
+                    <div class="service-card service-chatbot">
+                        <div class="service-card-header">
+                            <div class="service-icon-wrapper">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="service-header-text">
+                                <h3 class="service-name">Chatbot 24/7</h3>
+                                <p class="service-tagline">Tu vendedor que nunca duerme</p>
+                            </div>
+                        </div>
+                        <div class="service-card-body">
+                            <p class="service-description">
+                                Atención instantánea las 24 horas. Capturá leads y cerrá ventas incluso cuando estás descansando.
+                            </p>
+                            <div class="service-features">
+                                <p class="service-features-title">Starter incluye:</p>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>WhatsApp Business</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Respuestas personalizadas</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Captura automática de leads</span>
+                                </div>
+                            </div>
+                            <div class="service-pricing">
+                                <div class="pricing-main">
+                                    <span class="price">US$299</span>
+                                    <span class="price-period">/mes</span>
+                                </div>
+                                <div class="pricing-tiers">
+                                    <span class="tier-pill">Pro: $599</span>
+                                    <span class="tier-pill">Elite: $999</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Redes Sociales -->
+                    <div class="service-card service-social">
+                        <div class="service-card-header">
+                            <div class="service-icon-wrapper">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <div class="service-header-text">
+                                <h3 class="service-name">Redes Sociales</h3>
+                                <p class="service-tagline">Presencia que genera ventas</p>
+                            </div>
+                        </div>
+                        <div class="service-card-body">
+                            <p class="service-description">
+                                Dejá de preocuparte por qué publicar. Nosotros creamos contenido que conecta y convierte seguidores en clientes.
+                            </p>
+                            <div class="service-features">
+                                <p class="service-features-title">Starter incluye:</p>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Calendario de contenidos</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Diseños profesionales</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Gestión de comunidad</span>
+                                </div>
+                            </div>
+                            <div class="service-pricing">
+                                <div class="pricing-main">
+                                    <span class="price">US$299</span>
+                                    <span class="price-period">/mes</span>
+                                </div>
+                                <div class="pricing-tiers">
+                                    <span class="tier-pill">Pro: $599</span>
+                                    <span class="tier-pill">Elite: $999</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Paquete Completo -->
-                <div class="package-section">
-                    <div class="package-decoration"></div>
-                    <div class="package-content">
-                        <div class="package-header">
-                            <span class="package-badge">AHORRÁ US$196 POR MES</span>
-                            <h2 class="package-title">Paquete Marketing Completo</h2>
-                            <p class="package-subtitle">Todo lo que necesitás para dejar de preocuparte por el marketing</p>
+        <!-- Servicio Express -->
+        <section class="section express-section">
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <h2 class="section-title">¿Necesitás resultados YA?</h2>
+                    <p class="section-subtitle">Optimización Express: mejorá tus campañas en solo 48 horas</p>
+                </div>
+
+                <div class="express-card">
+                    <div class="express-content">
+                        <div class="express-header">
+                            <div class="express-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="express-text">
+                                <h3>Optimización Express</h3>
+                                <p>Rescatamos tus campañas en 48 horas</p>
+                            </div>
                         </div>
-
-                        <div class="package-body">
-                            <div class="package-services">
-                                <div class="package-service-item">
-                                    <div class="package-service-icon" style="background: linear-gradient(135deg, #1877F2, #1A54B8);">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </div>
-                                    <div>
-                                        <strong>Meta Ads</strong>
-                                        <span style="color: var(--gris-texto); margin-left: 10px;">Facebook e Instagram optimizados</span>
-                                    </div>
-                                </div>
-                                <div class="package-service-item">
-                                    <div class="package-service-icon" style="background: linear-gradient(135deg, #4285F4, #2A5DB0);">
-                                        <i class="fab fa-google"></i>
-                                    </div>
-                                    <div>
-                                        <strong>Google Ads</strong>
-                                        <span style="color: var(--gris-texto); margin-left: 10px;">Búsquedas y YouTube</span>
-                                    </div>
-                                </div>
-                                <div class="package-service-item">
-                                    <div class="package-service-icon" style="background: linear-gradient(135deg, #00BFA5, #00897B);">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <div>
-                                        <strong>Email Marketing</strong>
-                                        <span style="color: var(--gris-texto); margin-left: 10px;">Automatización completa</span>
-                                    </div>
-                                </div>
-                                <div class="package-service-item">
-                                    <div class="package-service-icon" style="background: linear-gradient(135deg, #7C4DFF, #5E35B1);">
-                                        <i class="fas fa-robot"></i>
-                                    </div>
-                                    <div>
-                                        <strong>Chatbot 24/7</strong>
-                                        <span style="color: var(--gris-texto); margin-left: 10px;">WhatsApp Business</span>
-                                    </div>
-                                </div>
-                                <div class="package-service-item">
-                                    <div class="package-service-icon" style="background: linear-gradient(45deg, #833AB4, #E1306C);">
-                                        <i class="fas fa-share-alt"></i>
-                                    </div>
-                                    <div>
-                                        <strong>Redes Sociales</strong>
-                                        <span style="color: var(--gris-texto); margin-left: 10px;">Contenido y comunidad</span>
-                                    </div>
-                                </div>
+                        <p style="font-size: 18px; margin-bottom: 25px; line-height: 1.6; opacity: 0.9;">
+                            La semana pasada, una tienda online descubrió que el 63% de su presupuesto se desperdiciaba en una configuración incorrecta. En solo 48 horas, aplicamos nuestro sistema de Detección de Fugas™ y transformamos ese desperdicio en ventas reales.
+                        </p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <i class="fas fa-check" style="color: white; font-size: 18px;"></i>
+                                <span>Análisis profundo y corrección de errores críticos</span>
                             </div>
-
-                            <div class="package-pricing-card">
-                                <div class="package-original-price">US$1,495 /mes</div>
-                                <div class="package-price">US$999</div>
-                                <div class="package-price-period">por mes</div>
-                                <div class="package-save">Ahorrás US$196 mensual</div>
-                                <p style="margin-top: 20px; font-size: 14px; color: var(--gris-texto);">
-                                    Setup bonificado • Sin contratos largos<br>
-                                    Pagá en USD o ARS al cambio oficial
-                                </p>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <i class="fas fa-check" style="color: white; font-size: 18px;"></i>
+                                <span>Nueva estrategia basada en datos reales de tu negocio</span>
                             </div>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <i class="fas fa-check" style="color: white; font-size: 18px;"></i>
+                                <span>Pack completo de anuncios optimizados listos para usar</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                            <div>
+                                <span style="font-family: var(--fuente-titulos); font-size: 36px; font-weight: 800;">US$299</span>
+                                <span style="font-size: 18px; margin-left: 10px; opacity: 0.8;">único pago</span>
+                            </div>
+                            <span style="font-size: 16px; opacity: 0.8;">Implementación inmediata</span>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Proceso -->
-                <div class="process-section">
-                    <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                        <h2 class="section-title" style="display: inline-block;">Empezá hoy, sin complicaciones</h2>
+        <!-- Paquete Completo -->
+        <section class="section package-section">
+            <div class="package-decoration"></div>
+            <div class="content-wrapper">
+                <div class="package-content">
+                    <div class="package-header">
+                        <span class="package-badge">AHORRÁ US$196 POR MES</span>
+                        <h2 class="package-title">Paquete Marketing Completo</h2>
+                        <p class="package-subtitle">Todo lo que necesitás para dejar de preocuparte por el marketing</p>
                     </div>
 
-                    <div class="process-steps">
-                        <div class="process-step">
-                            <div class="step-icon">
-                                <span class="step-number">1</span>
+                    <div class="package-body">
+                        <div class="package-services">
+                            <div class="package-service-item">
+                                <div class="package-service-icon" style="background: linear-gradient(135deg, #1877F2, #1A54B8);">
+                                    <i class="fab fa-facebook-f"></i>
+                                </div>
+                                <div class="package-service-text">
+                                    <strong>Meta Ads</strong>
+                                    <span>Facebook e Instagram optimizados</span>
+                                </div>
                             </div>
-                            <h3 class="step-title">Auditoría GRATIS</h3>
-                            <p class="step-description">
-                                Completás un formulario simple. En 24-48hs recibís un diagnóstico profesional sin costo.
-                            </p>
+                            <div class="package-service-item">
+                                <div class="package-service-icon" style="background: linear-gradient(135deg, #4285F4, #2A5DB0);">
+                                    <i class="fab fa-google"></i>
+                                </div>
+                                <div class="package-service-text">
+                                    <strong>Google Ads</strong>
+                                    <span>Búsquedas y YouTube</span>
+                                </div>
+                            </div>
+                            <div class="package-service-item">
+                                <div class="package-service-icon" style="background: linear-gradient(135deg, #00BFA5, #00897B);">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="package-service-text">
+                                    <strong>Email Marketing</strong>
+                                    <span>Automatización completa</span>
+                                </div>
+                            </div>
+                            <div class="package-service-item">
+                                <div class="package-service-icon" style="background: linear-gradient(135deg, #7C4DFF, #5E35B1);">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="package-service-text">
+                                    <strong>Chatbot 24/7</strong>
+                                    <span>WhatsApp Business</span>
+                                </div>
+                            </div>
+                            <div class="package-service-item">
+                                <div class="package-service-icon" style="background: linear-gradient(45deg, #833AB4, #E1306C);">
+                                    <i class="fas fa-share-alt"></i>
+                                </div>
+                                <div class="package-service-text">
+                                    <strong>Redes Sociales</strong>
+                                    <span>Contenido y comunidad</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="process-step">
-                            <div class="step-icon">
-                                <span class="step-number">2</span>
-                            </div>
-                            <h3 class="step-title">Elegís tu plan</h3>
-                            <p class="step-description">
-                                Con el diagnóstico en mano, sabés exactamente qué necesitás. Sin sorpresas, sin ventas agresivas.
-                            </p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-icon">
-                                <span class="step-number">3</span>
-                            </div>
-                            <h3 class="step-title">Nosotros trabajamos</h3>
-                            <p class="step-description">
-                                Te olvidás del marketing. Recibís reportes simples: cuánto invertiste, cuánto ganaste.
+
+                        <div class="package-pricing-card">
+                            <div class="package-original-price">US$1,495 /mes</div>
+                            <div class="package-price">US$999</div>
+                            <div class="package-price-period">por mes</div>
+                            <div class="package-save">Ahorrás US$196 mensual</div>
+                            <p style="margin-top: 25px; font-size: 16px; color: var(--gris-texto); line-height: 1.5;">
+                                Setup bonificado • Sin contratos largos<br>
+                                Pagá en USD o ARS al cambio oficial
                             </p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Garantía -->
-                <div class="guarantee-section">
+        <!-- Proceso -->
+        <section class="section proceso-section">
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <h2 class="section-title">Empezá hoy, sin complicaciones</h2>
+                    <p class="section-subtitle">Desde la auditoría hasta ver resultados, todo es simple y transparente</p>
+                </div>
+
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <span class="step-number">1</span>
+                        </div>
+                        <h3 class="step-title">Auditoría GRATIS</h3>
+                        <p class="step-description">
+                            Completás un formulario simple. En 24-48hs recibís un diagnóstico profesional sin costo.
+                        </p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <span class="step-number">2</span>
+                        </div>
+                        <h3 class="step-title">Elegís tu plan</h3>
+                        <p class="step-description">
+                            Con el diagnóstico en mano, sabés exactamente qué necesitás. Sin sorpresas, sin ventas agresivas.
+                        </p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <span class="step-number">3</span>
+                        </div>
+                        <h3 class="step-title">Nosotros trabajamos</h3>
+                        <p class="step-description">
+                            Te olvidás del marketing. Recibís reportes simples: cuánto invertiste, cuánto ganaste.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Garantía -->
+        <section class="section guarantee-section">
+            <div class="content-wrapper">
+                <div class="guarantee-card">
                     <div class="guarantee-content">
                         <div class="guarantee-icon">
                             <i class="fas fa-shield-alt"></i>
@@ -1760,194 +1837,118 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Testimonio -->
-                <div class="testimonial-card">
-                    <i class="fas fa-quote-right testimonial-icon"></i>
-                    <p class="testimonial-quote">
-                        "Antes perdía 20 horas por semana en Facebook Ads sin entender nada. La auditoría detectó errores que me costaban $850 semanales. Con los cambios, mi ROAS aumentó 187% en solo 14 días. Ahora uso ese tiempo para abrir mi segunda sucursal."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Carlos L.">
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">Carlos L.</div>
-                            <div class="author-role">Dueño de tienda de decoración</div>
-                        </div>
-                    </div>
-                </div>
             </div>
+        </section>
 
-            <div class="footer">
-                <div class="footer-brand">
-                    <span class="footer-logo">Orange<span class="vapor">Vapor</span></span>
-                    <span class="footer-info">© 2025 | Tu tiempo vale más</span>
+        <!-- Equipo -->
+        <section class="section equipo-section">
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <h2 class="section-title">Experiencia real, resultados reales</h2>
+                    <p class="section-subtitle">No somos teóricos. Aplicamos lo que funcionó en grandes empresas, adaptado a tu PyME.</p>
                 </div>
-                <div class="page-indicator">
-                    <span class="page-number">2</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- Página 3: Equipo y CTA -->
-        <div class="page">
-            <header class="header">
-                <a href="#" class="header-logo">
-                    Orange<span class="vapor">Vapor</span>
-                </a>
-                <div class="header-info">
-                    <div class="header-info-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+54 1130011554</span>
-                    </div>
-                    <div class="header-info-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>emiliano@orangevapor.com</span>
-                    </div>
-                </div>
-            </header>
-
-            <div class="page-content">
-                <!-- Equipo -->
-                <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">Experiencia real, resultados reales</h2>
-                        <p class="section-subtitle">No somos teóricos. Aplicamos lo que funcionó en grandes empresas, adaptado a tu PyME.</p>
-                    </div>
-
-                    <div class="team-grid">
-                        <div class="team-member">
-                            <div class="member-photo">
-                                <img src="https://media.licdn.com/dms/image/v2/D4D03AQGMBstWC1OBlg/profile-displayphoto-shrink_200_200/B4DZThGN0VHYAY-/0/1738943291295?e=1746662400&v=beta&t=_FE9qOC8W-1ihM4a6-s8GrW3OfZwNLcVn0v46ZIIWhI" alt="Emiliano Cecchi">
-                            </div>
-                            <div class="member-info">
-                                <h3 class="member-name">Emiliano Cecchi</h3>
-                                <p class="member-role">Director de Estrategia Digital</p>
-                                <p class="member-bio">
-                                    8 años transformando PyMEs. Ex-líder de E-commerce en Hunter Douglas Argentina. Sabe exactamente qué funciona y qué no en el mercado local.
-                                </p>
-                            </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-icon">
+                            <i class="fas fa-chart-line"></i>
                         </div>
-                        
-                        <div class="team-member">
-                            <div class="member-photo">
-                                <img src="https://media.licdn.com/dms/image/v2/D4D03AQFzKVN_97EuCA/profile-displayphoto-shrink_800_800/B4DZUFiPEVHkAc-/0/1739554616070?e=1746662400&v=beta&t=mZQnzBWjAyvlnYM6Q_p0EZQVtc7f3a1UqbGrg-iqum8" alt="Yobanny Ortega">
-                            </div>
-                            <div class="member-info">
-                                <h3 class="member-name">Yobanny Ortega</h3>
-                                <p class="member-role">Director de Publicidad Digital</p>
-                                <p class="member-bio">
-                                    Ex-director de equipos en Publicis Media. Manejó presupuestos millonarios. Ahora usa esa experiencia para hacer crecer negocios como el tuyo.
-                                </p>
-                            </div>
+                        <h3 class="member-name">Emiliano Cecchi</h3>
+                        <p class="member-role">Director de Estrategia Digital</p>
+                        <p class="member-bio">
+                            8 años transformando PyMEs. Ex-líder de E-commerce en Hunter Douglas Argentina. Sabe exactamente qué funciona y qué no en el mercado local.
+                        </p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-icon">
+                            <i class="fas fa-bullhorn"></i>
                         </div>
+                        <h3 class="member-name">Yobanny Ortega</h3>
+                        <p class="member-role">Director de Publicidad Digital</p>
+                        <p class="member-bio">
+                            Ex-director de equipos en Publicis Media. Manejó presupuestos millonarios. Ahora usa esa experiencia para hacer crecer negocios como el tuyo.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Por qué elegirnos -->
-                <div class="section">
+                <div style="margin-top: 80px;">
                     <div class="section-header">
                         <h2 class="section-title">¿Por qué Orange Vapor?</h2>
                         <p class="section-subtitle">La diferencia entre nosotros y "tu primo que sabe de redes"</p>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 30px;">
-                        <div style="display: flex; gap: 15px;">
-                            <div style="flex-shrink: 0;">
-                                <div style="width: 50px; height: 50px; background: var(--naranja-suave); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--naranja-vibrante); font-size: 20px;">
-                                    <i class="fas fa-user-tie"></i>
-                                </div>
+                    <div class="why-grid">
+                        <div class="why-item">
+                            <div class="why-icon">
+                                <i class="fas fa-user-tie"></i>
                             </div>
-                            <div>
-                                <h4 style="font-weight: 600; margin-bottom: 8px;">Un experto dedicado</h4>
-                                <p style="font-size: 14px; color: var(--gris-texto);">No un bot, no un tutorial. Un profesional que conoce tu negocio y trabaja para vos.</p>
+                            <div class="why-content">
+                                <h4>Un experto dedicado</h4>
+                                <p>No un bot, no un tutorial. Un profesional que conoce tu negocio y trabaja para vos.</p>
                             </div>
                         </div>
 
-                        <div style="display: flex; gap: 15px;">
-                            <div style="flex-shrink: 0;">
-                                <div style="width: 50px; height: 50px; background: var(--naranja-suave); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--naranja-vibrante); font-size: 20px;">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
+                        <div class="why-item">
+                            <div class="why-icon">
+                                <i class="fas fa-chart-line"></i>
                             </div>
-                            <div>
-                                <h4 style="font-weight: 600; margin-bottom: 8px;">Reportes que entendés</h4>
-                                <p style="font-size: 14px; color: var(--gris-texto);">Sin jerga técnica. Solo cuánto invertiste y cuánto ganaste. Simple y claro.</p>
+                            <div class="why-content">
+                                <h4>Reportes que entendés</h4>
+                                <p>Sin jerga técnica. Solo cuánto invertiste y cuánto ganaste. Simple y claro.</p>
                             </div>
                         </div>
 
-                        <div style="display: flex; gap: 15px;">
-                            <div style="flex-shrink: 0;">
-                                <div style="width: 50px; height: 50px; background: var(--naranja-suave); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--naranja-vibrante); font-size: 20px;">
-                                    <i class="fas fa-handshake"></i>
-                                </div>
+                        <div class="why-item">
+                            <div class="why-icon">
+                                <i class="fas fa-handshake"></i>
                             </div>
-                            <div>
-                                <h4 style="font-weight: 600; margin-bottom: 8px;">Sin contratos largos</h4>
-                                <p style="font-size: 14px; color: var(--gris-texto);">Mes a mes. Si no estás conforme, cancelás cuando quieras. Así de simple.</p>
+                            <div class="why-content">
+                                <h4>Sin contratos largos</h4>
+                                <p>Mes a mes. Si no estás conforme, cancelás cuando quieras. Así de simple.</p>
                             </div>
                         </div>
 
-                        <div style="display: flex; gap: 15px;">
-                            <div style="flex-shrink: 0;">
-                                <div style="width: 50px; height: 50px; background: var(--naranja-suave); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--naranja-vibrante); font-size: 20px;">
-                                    <i class="fas fa-rocket"></i>
-                                </div>
+                        <div class="why-item">
+                            <div class="why-icon">
+                                <i class="fas fa-rocket"></i>
                             </div>
-                            <div>
-                                <h4 style="font-weight: 600; margin-bottom: 8px;">Resultados desde el día 1</h4>
-                                <p style="font-size: 14px; color: var(--gris-texto);">No esperamos 3 meses para "analizar". Optimizamos desde la primera semana.</p>
+                            <div class="why-content">
+                                <h4>Resultados desde el día 1</h4>
+                                <p>No esperamos 3 meses para "analizar". Optimizamos desde la primera semana.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- CTA Final -->
-                <div class="final-cta">
-                    <div class="final-cta-content">
-                        <h2>Tu negocio te necesita enfocado en lo importante</h2>
-                        <p>
-                            Cada hora que perdés en marketing es una hora menos vendiendo, mejorando tu producto o atendiendo clientes. Es hora de delegar y crecer.
-                        </p>
-                        <div class="contact-methods">
-                            <div class="contact-method">
-                                <i class="fas fa-phone"></i>
-                                <span>+54 1130011554</span>
-                            </div>
-                            <div class="contact-method">
-                                <i class="fas fa-envelope"></i>
-                                <span>emiliano@orangevapor.com</span>
-                            </div>
-                        </div>
-                        <p style="margin-top: 30px; font-size: 20px; font-weight: 700;">
-                            Pedí tu auditoría GRATIS hoy
-                        </p>
-                        <p style="font-size: 16px; opacity: 0.9;">
-                            Sin compromiso • Resultados en 24-48hs • 100% profesional
-                        </p>
+        <!-- CTA Final -->
+        <section class="final-cta" id="contacto">
+            <div class="final-cta-content">
+                <h2>Tu negocio te necesita enfocado en lo importante</h2>
+                <p>
+                    Cada hora que perdés en marketing es una hora menos vendiendo, mejorando tu producto o atendiendo clientes. Es hora de delegar y crecer.
+                </p>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-phone"></i>
+                        <span>+54 1130011554</span>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <span>emiliano@orangevapor.com</span>
                     </div>
                 </div>
+                <p class="cta-highlight">
+                    Pedí tu auditoría GRATIS hoy
+                </p>
+                <p class="cta-details">
+                    Sin compromiso • Resultados en 24-48hs • 100% profesional
+                </p>
             </div>
-
-            <div class="footer">
-                <div class="footer-brand">
-                    <span class="footer-logo">Orange<span class="vapor">Vapor</span></span>
-                    <span class="footer-info">© 2025 | Tu tiempo vale más</span>
-                </div>
-                <div class="page-indicator">
-                    <span class="page-number">3</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Botones de acción (solo visibles en la versión web) -->
-        <div class="action-buttons no-print">
-            <button class="btn" onclick="window.print()">
-                <i class="fas fa-file-pdf"></i>
-                Descargar como PDF
-            </button>
-        </div>
+        </section>
     </div>
 </body>
 </html>
