@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orange Vapor - Servicios de Marketing Digital</title>
-    <!-- Fuentes unificadas con el resto del sitio -->
+    <title>Orange Vapor - Tu Tiempo Vale Más</title>
+    <!-- Fuentes modernas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @page {
@@ -16,42 +16,42 @@
         }
         
         :root {
-            /* Paleta de colores principal */
-            /* Colores acorde al rediseño del sitio */
-            --naranja-principal: #ff6b35;
-            --naranja-secundario: #ff8a50;
-            --naranja-claro: #fff3e0;
-            --naranja-oscuro: #ff5722;
+            /* Paleta actualizada Orange Vapor */
+            --naranja-vibrante: #FF6B35;
+            --naranja-hover: #FF5722;
+            --naranja-suave: #FFF5F0;
+            --naranja-medio: #FFAB91;
             
-            /* Colores complementarios */
+            /* Grises modernos */
+            --negro-puro: #000000;
+            --gris-oscuro: #1A1A1A;
+            --gris-medio: #4A4A4A;
+            --gris-texto: #6B6B6B;
+            --gris-claro: #F8F8F8;
+            --gris-borde: #E8E8E8;
             --blanco: #FFFFFF;
-            --negro: #222222;
-            --gris-oscuro: #333333;
-            --gris-medio: #666666;
-            --gris-claro: #F5F5F5;
-            --gris-borde: #E0E0E0;
             
-            /* Variables adicionales */
-            --fondo-claro: #F9F9F9;
-            --texto-oscuro: #333333;
-            --texto-claro: #666666;
+            /* Colores de servicios */
+            --meta-blue: #1877F2;
+            --google-blue: #4285F4;
+            --email-teal: #00BFA5;
+            --chatbot-purple: #7C4DFF;
+            --social-gradient: linear-gradient(45deg, #833AB4, #E1306C);
+            --express-red: #FF1744;
+            --audit-green: #00C853;
             
-            /* Colores específicos de servicios */
-            --color-ads: #4267B2;
-            --color-google: #4285F4;
-            --color-email: #0E76A8;
-            --color-chatbot: #6B46C1;
-            --color-social: #1DA1F2;
-            --color-express: #dc3545;
-            --auditoria-verde: #2F855A;
-            --auditoria-verde-hover: #276749;
-
             /* Fuentes */
-            --fuente-principal: 'Inter', sans-serif;
-            --fuente-secundaria: 'Inter', sans-serif;
+            --fuente-titulos: 'Poppins', sans-serif;
+            --fuente-texto: 'Inter', sans-serif;
+            
+            /* Sombras */
+            --sombra-suave: 0 2px 8px rgba(0,0,0,0.08);
+            --sombra-media: 0 4px 16px rgba(0,0,0,0.12);
+            --sombra-fuerte: 0 8px 32px rgba(0,0,0,0.16);
+            --sombra-naranja: 0 8px 32px rgba(255,107,53,0.25);
         }
 
-        /* Reset */
+        /* Reset mejorado */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -59,19 +59,17 @@
         }
 
         body {
-            font-family: var(--fuente-secundaria);
+            font-family: var(--fuente-texto);
             font-size: 14px;
             line-height: 1.6;
-            color: var(--texto-oscuro);
+            color: var(--gris-oscuro);
             background-color: var(--blanco);
-            margin: 0;
-            padding: 0;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
         }
 
-        /* Para impresión */
+        /* Para impresión mejorada */
         @media print {
             html, body {
                 width: 210mm;
@@ -85,85 +83,18 @@
                 position: relative;
                 width: 210mm;
                 min-height: 297mm;
+                padding: 0;
+                margin: 0;
             }
             
             .no-print {
                 display: none !important;
             }
             
-            /* Asegurar que se impriman los colores */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
                 color-adjust: exact !important;
-            }
-            
-            /* Garantizar que se impriman fondos */
-            body, .page, .cover, .service-card, .package-section, .guarantee-section, .contact-cta {
-                background-color: white !important;
-                color: black !important;
-            }
-            
-            /* Establecer colores explícitos para la portada */
-            .cover {
-                background-color: #ff6b35 !important;
-                color: white !important;
-            }
-            
-            .cover::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: #ff6b35 !important;
-                z-index: -1;
-            }
-            
-            /* Colores para servicios */
-            .service-ads { border-top-color: #4267B2 !important; }
-            .service-google { border-top-color: #4285F4 !important; }
-            .service-email { border-top-color: #0E76A8 !important; }
-            .service-chatbot { border-top-color: #6B46C1 !important; }
-            .service-social { border-top-color: #1DA1F2 !important; }
-            .service-express { border-top-color: #dc3545 !important; }
-            .service-audit { border-top-color: #2F855A !important; }
-            
-            .service-ads .service-icon { background-color: #4267B2 !important; }
-            .service-google .service-icon { background-color: #4285F4 !important; }
-            .service-email .service-icon { background-color: #0E76A8 !important; }
-            .service-chatbot .service-icon { background-color: #6B46C1 !important; }
-            .service-social .service-icon { background-color: #1DA1F2 !important; }
-            .service-express .service-icon { background-color: #dc3545 !important; }
-            .service-audit .service-icon { background-color: #2F855A !important; }
-            
-            /* Fondos de color para secciones especiales */
-            .package-section {
-                background-color: #fff3e0 !important;
-            }
-            
-            .package-badge {
-                background-color: #ff6b35 !important;
-                color: white !important;
-            }
-            
-            .package-price {
-                background-color: white !important;
-            }
-            
-            .contact-cta {
-                background-color: #ff6b35 !important;
-                color: white !important;
-            }
-            
-            .guarantee-section {
-                background-color: #F9F9F9 !important;
-            }
-            
-            .audit-ribbon {
-                background-color: #2F855A !important;
-                color: white !important;
             }
         }
 
@@ -172,20 +103,19 @@
             max-width: 210mm;
             margin: 0 auto;
             background-color: var(--blanco);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
         }
 
         .page {
             width: 210mm;
             min-height: 297mm;
-            padding: 15mm;
             position: relative;
             overflow: hidden;
         }
 
-        /* Portada */
+        /* Portada rediseñada */
         .cover {
-            background-color: var(--naranja-principal);
+            background: linear-gradient(135deg, var(--naranja-vibrante) 0%, var(--naranja-hover) 100%);
             color: white;
             display: flex;
             flex-direction: column;
@@ -194,1239 +124,1829 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            padding: 40px;
         }
 
+        /* Patrón geométrico de fondo */
         .cover::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><rect width="5" height="5" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.2;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            transform: rotate(-15deg);
+            animation: floatPattern 20s ease-in-out infinite;
+        }
+
+        @keyframes floatPattern {
+            0%, 100% { transform: rotate(-15deg) translateY(0); }
+            50% { transform: rotate(-15deg) translateY(-20px); }
+        }
+
+        /* Círculos decorativos */
+        .cover::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .cover-decoration {
+            position: absolute;
+            top: -150px;
+            right: -150px;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.05); opacity: 0.15; }
         }
 
         .cover-content {
             position: relative;
             z-index: 2;
-            max-width: 80%;
+            max-width: 90%;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .cover-logo {
-            font-family: var(--fuente-principal);
-            font-size: 64px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
+            font-family: var(--fuente-titulos);
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .cover-logo span.vapor {
+        .logo-orange {
             color: white;
+        }
+
+        .logo-vapor {
+            color: white;
+            position: relative;
+            margin-left: 10px;
+        }
+
+        .logo-vapor::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: white;
+            border-radius: 2px;
         }
 
         .cover-tagline {
-            font-family: var(--fuente-principal);
-            font-size: 24px;
-            font-weight: 600;
+            font-family: var(--fuente-texto);
+            font-size: 20px;
+            font-weight: 400;
             margin-bottom: 40px;
+            opacity: 0.95;
+            letter-spacing: 0.5px;
         }
 
-        .cover-description {
+        .cover-main-message {
+            margin-bottom: 50px;
+        }
+
+        .cover-main-message h1 {
+            font-family: var(--fuente-titulos);
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .cover-main-message p {
             font-size: 18px;
-            margin-bottom: 60px;
-            max-width: 80%;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
-        .cover-services {
+        .cover-stats {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 40px;
+            gap: 40px;
+            margin-bottom: 50px;
         }
 
-        .cover-service {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 12px 20px;
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--fuente-titulos);
+            font-size: 42px;
+            font-weight: 800;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .cover-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
             border-radius: 30px;
             display: flex;
             align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .cover-service i {
-            margin-right: 10px;
-        }
-
-        .cover-action {
-            margin-top: 40px;
-            padding: 15px 30px;
-            background-color: white;
-            color: var(--naranja-principal);
-            font-family: var(--fuente-principal);
+        .cover-cta {
+            background: white;
+            color: var(--naranja-vibrante);
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-family: var(--fuente-titulos);
             font-weight: 700;
             font-size: 18px;
-            border-radius: 8px;
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        .cover-footer {
-            position: absolute;
-            bottom: 15mm;
-            text-align: center;
-            width: calc(100% - 30mm);
-        }
-
-        .cover-footer p {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-
-        /* Encabezado y pie de página */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            font-family: var(--fuente-principal);
-            font-weight: 800;
-            font-size: 28px;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo .vapor {
-            color: var(--naranja-principal);
-            margin-left: 3px;
-        }
-
-        .header-contact {
-            font-size: 12px;
-            color: var(--texto-claro);
-            text-align: right;
-        }
-
-        .header-contact p {
-            margin: 3px 0;
-        }
-
-        .header-contact i {
-            color: var(--naranja-principal);
-            width: 16px;
-            margin-right: 5px;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 15mm;
-            left: 15mm;
-            right: 15mm;
-            display: flex;
-            justify-content: space-between;
-            padding-top: 10px;
-            border-top: 1px solid var(--naranja-claro);
-            font-size: 12px;
-            color: var(--texto-claro);
-        }
-
-        .footer-links a {
-            color: var(--naranja-principal);
-            text-decoration: none;
-            margin-left: 15px;
-        }
-
-        .page-number {
-            color: var(--naranja-principal);
-            font-weight: 600;
-        }
-
-        /* Contenido */
-        .page-title {
-            font-family: var(--fuente-principal);
-            font-weight: 700;
-            font-size: 28px;
-            color: var(--naranja-principal);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-family: var(--fuente-principal);
-            font-weight: 700;
-            font-size: 24px;
-            color: var(--texto-oscuro);
-            margin-bottom: 20px;
-            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
             display: inline-block;
         }
 
-        .section-title::after {
+        /* Header mejorado */
+        .header {
+            padding: 20px 30mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-logo {
+            font-family: var(--fuente-titulos);
+            font-weight: 800;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gris-oscuro);
+        }
+
+        .header-logo .vapor {
+            color: var(--naranja-vibrante);
+            margin-left: 5px;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            font-size: 13px;
+            color: var(--gris-texto);
+        }
+
+        .header-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-info i {
+            color: var(--naranja-vibrante);
+        }
+
+        /* Contenido de páginas */
+        .page-content {
+            padding: 30mm 25mm 40mm 25mm;
+            position: relative;
+        }
+
+        /* Sección Hero para páginas internas */
+        .page-hero {
+            margin: -30mm -25mm 30px -25mm;
+            padding: 40px 25mm;
+            background: var(--gris-claro);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
             content: '';
             position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60%;
-            height: 3px;
-            background-color: var(--naranja-principal);
+            top: 0;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: var(--naranja-suave);
+            border-radius: 50%;
+            opacity: 0.5;
         }
 
-        .intro-text {
-            font-size: 16px;
-            line-height: 1.7;
-            margin-bottom: 30px;
-            max-width: 90%;
+        .page-hero-content {
+            position: relative;
+            z-index: 1;
         }
 
-        .service-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
+        .page-title {
+            font-family: var(--fuente-titulos);
+            font-weight: 800;
+            font-size: 36px;
+            color: var(--gris-oscuro);
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            color: var(--gris-texto);
+            max-width: 80%;
+        }
+
+        /* Secciones */
+        .section {
             margin-bottom: 40px;
         }
 
+        .section-header {
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 30px;
+            background: var(--naranja-vibrante);
+            border-radius: 2px;
+        }
+
+        .section-title {
+            font-family: var(--fuente-titulos);
+            font-weight: 700;
+            font-size: 28px;
+            color: var(--gris-oscuro);
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--gris-texto);
+        }
+
+        /* Cards de servicio rediseñadas */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
         .service-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            background: white;
+            border-radius: 16px;
             overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: var(--sombra-suave);
+            height: 100%;
             display: flex;
             flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-fuerte);
+        }
+
+        .service-card-header {
+            padding: 25px;
             position: relative;
-            height: 100%;
-            border-top: 5px solid var(--naranja-principal);
+            background: var(--gris-claro);
         }
 
-        .service-ads { border-top-color: var(--color-ads); }
-        .service-google { border-top-color: var(--color-google); }
-        .service-email { border-top-color: var(--color-email); }
-        .service-chatbot { border-top-color: var(--color-chatbot); }
-        .service-social { border-top-color: var(--color-social); }
-        .service-express { border-top-color: var(--color-express); }
-        .service-audit { border-top-color: var(--auditoria-verde); }
-
-        .service-header {
-            padding: 20px;
+        .service-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid var(--gris-claro);
-        }
-
-        .service-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
             justify-content: center;
-            align-items: center;
-            margin-right: 15px;
+            margin-bottom: 15px;
+            font-size: 24px;
             color: white;
-            font-size: 20px;
-            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        .service-ads .service-icon { background-color: var(--color-ads); }
-        .service-google .service-icon { background-color: var(--color-google); }
-        .service-email .service-icon { background-color: var(--color-email); }
-        .service-chatbot .service-icon { background-color: var(--color-chatbot); }
-        .service-social .service-icon { background-color: var(--color-social); }
-        .service-express .service-icon { background-color: var(--color-express); }
-        .service-audit .service-icon { background-color: var(--auditoria-verde); }
+        /* Gradientes para cada servicio */
+        .service-meta .service-icon-wrapper {
+            background: linear-gradient(135deg, #1877F2, #1A54B8);
+        }
 
-        .service-title {
-            font-family: var(--fuente-principal);
+        .service-google .service-icon-wrapper {
+            background: linear-gradient(135deg, #4285F4, #2A5DB0);
+        }
+
+        .service-email .service-icon-wrapper {
+            background: linear-gradient(135deg, #00BFA5, #00897B);
+        }
+
+        .service-chatbot .service-icon-wrapper {
+            background: linear-gradient(135deg, #7C4DFF, #5E35B1);
+        }
+
+        .service-social .service-icon-wrapper {
+            background: linear-gradient(45deg, #833AB4, #E1306C);
+        }
+
+        .service-express .service-icon-wrapper {
+            background: linear-gradient(135deg, #FF1744, #D50000);
+        }
+
+        .service-audit .service-icon-wrapper {
+            background: linear-gradient(135deg, #00C853, #00A040);
+        }
+
+        .service-icon-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+        }
+
+        .service-name {
+            font-family: var(--fuente-titulos);
             font-weight: 700;
-            font-size: 18px;
-            margin: 0;
+            font-size: 20px;
+            color: var(--gris-oscuro);
+            margin-bottom: 5px;
         }
 
-        .service-ads .service-title { color: var(--color-ads); }
-        .service-google .service-title { color: var(--color-google); }
-        .service-email .service-title { color: var(--color-email); }
-        .service-chatbot .service-title { color: var(--color-chatbot); }
-        .service-social .service-title { color: var(--color-social); }
-        .service-express .service-title { color: var(--color-express); }
-        .service-audit .service-title { color: var(--auditoria-verde); }
+        .service-tagline {
+            font-size: 14px;
+            color: var(--gris-texto);
+        }
 
-        .service-content {
-            padding: 20px;
+        .service-card-body {
+            padding: 25px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
         .service-description {
+            color: var(--gris-texto);
             margin-bottom: 20px;
             flex-grow: 1;
         }
 
-        .service-benefits {
+        .service-features {
             margin-bottom: 20px;
         }
 
-        .benefit-list {
-            list-style: none;
+        .service-features-title {
+            font-weight: 600;
+            color: var(--gris-oscuro);
+            margin-bottom: 10px;
+            font-size: 14px;
         }
 
-        .benefit-list li {
-            position: relative;
-            padding-left: 25px;
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
             margin-bottom: 8px;
+            font-size: 13px;
         }
 
-        .benefit-list li:before {
-            content: '\f00c';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            color: var(--naranja-principal);
+        .feature-icon {
+            color: var(--naranja-vibrante);
+            margin-right: 10px;
+            margin-top: 2px;
+            font-size: 12px;
         }
 
-        .service-ads .benefit-list li:before { color: var(--color-ads); }
-        .service-google .benefit-list li:before { color: var(--color-google); }
-        .service-email .benefit-list li:before { color: var(--color-email); }
-        .service-chatbot .benefit-list li:before { color: var(--color-chatbot); }
-        .service-social .benefit-list li:before { color: var(--color-social); }
-        .service-express .benefit-list li:before { color: var(--color-express); }
-        .service-audit .benefit-list li:before { color: var(--auditoria-verde); }
-
-        .service-price {
-            text-align: right;
-            border-top: 1px solid var(--gris-claro);
-            padding-top: 15px;
+        .service-pricing {
+            padding-top: 20px;
+            border-top: 1px solid var(--gris-borde);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
         }
 
-        .price-amount {
-            font-family: var(--fuente-principal);
+        .pricing-main {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+        }
+
+        .price {
+            font-family: var(--fuente-titulos);
             font-weight: 700;
-            font-size: 24px;
-            color: var(--naranja-principal);
+            font-size: 28px;
+            color: var(--naranja-vibrante);
         }
 
         .price-period {
+            color: var(--gris-texto);
             font-size: 14px;
-            color: var(--texto-claro);
         }
 
-        .price-tiers {
+        .pricing-tiers {
             display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 5px;
-            font-size: 12px;
+            gap: 5px;
+            flex-wrap: wrap;
         }
 
         .tier-pill {
-            padding: 4px 8px;
-            border-radius: 12px;
-            background-color: var(--fondo-claro);
-            color: var(--texto-claro);
+            padding: 4px 10px;
+            background: var(--gris-claro);
+            border-radius: 20px;
+            font-size: 11px;
+            color: var(--gris-texto);
         }
 
-        /* Nuevo componente Auditoría */
-        .service-audit {
+        /* Card especial de auditoría */
+        .audit-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--audit-green) 0%, #00A040 100%);
+            color: white;
             position: relative;
             overflow: hidden;
         }
 
-        .audit-ribbon {
-            position: absolute;
-            top: 15px;
-            right: -30px;
-            transform: rotate(45deg);
-            width: 120px;
-            background: var(--auditoria-verde);
-            text-align: center;
-            padding: 5px 0;
-            color: white;
-            font-weight: 800;
-            font-size: 12px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-            letter-spacing: 1.5px;
+        .audit-card .service-card-header {
+            background: rgba(255,255,255,0.1);
         }
 
-        /* Paquete completo */
-        .package-section {
-            background-color: var(--naranja-claro);
-            padding: 30px;
-            border-radius: 10px;
-            margin-top: 40px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        .audit-card .service-name,
+        .audit-card .service-tagline,
+        .audit-card .service-description,
+        .audit-card .service-features-title {
+            color: white;
         }
 
-        .package-badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background-color: var(--naranja-principal);
+        .audit-card .feature-item {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .audit-card .feature-icon {
             color: white;
+        }
+
+        .audit-card .service-pricing {
+            border-top-color: rgba(255,255,255,0.2);
+        }
+
+        .audit-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: var(--audit-green);
             padding: 8px 20px;
-            font-weight: 600;
-            transform: translateY(-0%) translateX(0%) rotate(0deg);
-            transform-origin: top right;
+            border-radius: 30px;
+            font-weight: 800;
             font-size: 14px;
-            z-index: 1;
-            box-shadow: -2px 3px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--sombra-media);
         }
 
-        .package-title {
-            font-family: var(--fuente-principal);
-            font-weight: 700;
-            font-size: 24px;
-            color: var(--naranja-oscuro);
-            margin-bottom: 20px;
-            text-align: center;
+        /* Paquete completo mejorado */
+        .package-section {
+            margin: 40px -25mm;
+            padding: 50px 25mm;
+            background: linear-gradient(135deg, var(--naranja-suave) 0%, #FFF5F0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .package-decoration {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: var(--naranja-vibrante);
+            opacity: 0.1;
+            border-radius: 50%;
         }
 
         .package-content {
-            display: flex;
-            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .package-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .package-badge {
+            display: inline-block;
+            background: var(--naranja-vibrante);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .package-title {
+            font-family: var(--fuente-titulos);
+            font-weight: 800;
+            font-size: 36px;
+            color: var(--gris-oscuro);
+            margin-bottom: 10px;
+        }
+
+        .package-subtitle {
+            font-size: 18px;
+            color: var(--gris-texto);
+        }
+
+        .package-body {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
             align-items: center;
         }
 
-        .package-description {
-            flex: 1;
-        }
-
-        .package-description p {
-            margin-bottom: 15px;
-            font-size: 15px;
-        }
-
         .package-services {
-            margin-bottom: 20px;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--sombra-media);
         }
 
         .package-service-item {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gris-borde);
+        }
+
+        .package-service-item:last-child {
+            border-bottom: none;
         }
 
         .package-service-icon {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 10px;
-            color: white;
-            font-size: 12px;
-        }
-
-        .package-price {
-            flex: 0 0 250px;
-            background-color: white;
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+            font-size: 18px;
         }
 
-        .package-price-regular {
+        .package-pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--sombra-fuerte);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .package-pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--naranja-vibrante), var(--naranja-hover));
+        }
+
+        .package-original-price {
+            font-size: 18px;
+            color: var(--gris-texto);
             text-decoration: line-through;
-            color: var(--texto-claro);
-            font-size: 16px;
             margin-bottom: 10px;
         }
 
-        .package-price-amount {
-            font-family: var(--fuente-principal);
+        .package-price {
+            font-family: var(--fuente-titulos);
             font-weight: 800;
-            font-size: 36px;
-            color: var(--naranja-principal);
+            font-size: 48px;
+            color: var(--naranja-vibrante);
             margin-bottom: 5px;
         }
 
         .package-price-period {
             font-size: 16px;
-            color: var(--texto-claro);
-            margin-bottom: 15px;
-        }
-
-        .package-price-save {
-            display: inline-block;
-            background-color: var(--naranja-principal);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        /* Proceso Simplificado */
-        .process-section {
-            margin-top: 40px;
-            margin-bottom: 30px;
-        }
-
-        .process-title {
-            font-family: var(--fuente-principal);
-            font-weight: 700;
-            font-size: 24px;
-            color: var(--texto-oscuro);
+            color: var(--gris-texto);
             margin-bottom: 20px;
-            text-align: center;
-            position: relative;
         }
 
-        .process-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background-color: var(--naranja-principal);
+        .package-save {
+            background: var(--naranja-suave);
+            color: var(--naranja-vibrante);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        /* Proceso mejorado */
+        .process-section {
+            margin: 60px 0;
         }
 
         .process-steps {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 25%;
+            right: 25%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--naranja-vibrante), var(--naranja-medio), var(--naranja-vibrante));
+            z-index: 0;
         }
 
         .process-step {
-            flex: 1;
             text-align: center;
             position: relative;
-            padding: 0 15px;
+            z-index: 1;
         }
 
-        .process-step:not(:last-child)::after {
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--sombra-media);
+            position: relative;
+        }
+
+        .step-icon::before {
             content: '';
             position: absolute;
-            top: 25px;
-            right: -10px;
-            width: 20px;
-            height: 2px;
-            background-color: var(--naranja-claro);
+            inset: -3px;
+            background: linear-gradient(135deg, var(--naranja-vibrante), var(--naranja-hover));
+            border-radius: 50%;
+            z-index: -1;
         }
 
         .step-number {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--naranja-principal);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 15px;
-            font-weight: 700;
-            font-size: 20px;
-            box-shadow: 0 4px 10px rgba(255, 114, 0, 0.2);
+            font-family: var(--fuente-titulos);
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--naranja-vibrante);
         }
 
         .step-title {
+            font-family: var(--fuente-titulos);
             font-weight: 700;
+            font-size: 18px;
+            color: var(--gris-oscuro);
             margin-bottom: 10px;
-            font-size: 16px;
-            color: var(--texto-oscuro);
         }
 
-        .step-desc {
-            font-size: 13px;
-            color: var(--texto-claro);
-            line-height: 1.5;
+        .step-description {
+            font-size: 14px;
+            color: var(--gris-texto);
+            line-height: 1.6;
         }
 
-        /* Garantía */
+        /* Garantía mejorada */
         .guarantee-section {
-            margin-top: 40px;
-            background-color: var(--fondo-claro);
-            padding: 20px;
-            border-radius: 10px;
-            display: flex;
+            background: linear-gradient(135deg, var(--gris-oscuro), #2A2A2A);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guarantee-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: var(--naranja-vibrante);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .guarantee-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 30px;
             align-items: center;
-            gap: 20px;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
         }
 
         .guarantee-icon {
-            font-size: 40px;
-            color: var(--naranja-principal);
-            flex-shrink: 0;
+            font-size: 60px;
+            color: var(--naranja-vibrante);
         }
 
-        .guarantee-content h3 {
-            font-family: var(--fuente-principal);
+        .guarantee-text h3 {
+            font-family: var(--fuente-titulos);
+            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* Testimonios */
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--sombra-media);
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .testimonial-quote {
+            font-size: 16px;
+            color: var(--gris-texto);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .author-info {
+            flex-grow: 1;
+        }
+
+        .author-name {
+            font-weight: 700;
+            color: var(--gris-oscuro);
+            margin-bottom: 2px;
+        }
+
+        .author-role {
+            font-size: 14px;
+            color: var(--gris-texto);
+        }
+
+        .testimonial-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: var(--naranja-suave);
+        }
+
+        /* CTA final mejorado */
+        .final-cta {
+            background: linear-gradient(135deg, var(--naranja-vibrante), var(--naranja-hover));
+            color: white;
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(255,255,255,0.05) 20px,
+                rgba(255,255,255,0.05) 40px
+            );
+            animation: slidePattern 10s linear infinite;
+        }
+
+        @keyframes slidePattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        .final-cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-cta h2 {
+            font-family: var(--fuente-titulos);
+            font-weight: 800;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .final-cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Footer mejorado */
+        .footer {
+            position: absolute;
+            bottom: 20mm;
+            left: 25mm;
+            right: 25mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--gris-borde);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-family: var(--fuente-titulos);
             font-weight: 700;
             font-size: 18px;
-            color: var(--naranja-oscuro);
-            margin-bottom: 5px;
+            color: var(--gris-oscuro);
         }
 
-        .guarantee-content p {
-            margin: 0;
-            font-size: 15px;
-            line-height: 1.5;
+        .footer-logo .vapor {
+            color: var(--naranja-vibrante);
         }
 
-        /* Equipo */
-        .team-section {
-            margin-top: 40px;
+        .footer-info {
+            font-size: 12px;
+            color: var(--gris-texto);
         }
 
-        .team-members {
+        .page-indicator {
             display: flex;
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .team-member {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
             align-items: center;
+            gap: 10px;
+        }
+
+        .page-number {
+            width: 30px;
+            height: 30px;
+            background: var(--naranja-vibrante);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* Botones de acción */
+        .action-buttons {
+            margin: 40px 0;
             text-align: center;
         }
 
-        .team-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 4px solid var(--naranja-claro);
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: var(--naranja-vibrante);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-family: var(--fuente-titulos);
+            font-weight: 600;
+            box-shadow: var(--sombra-naranja);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
         }
 
-        .team-photo img {
+        .btn:hover {
+            background: var(--naranja-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(255,107,53,0.35);
+        }
+
+        /* Equipo mejorado */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .member-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .team-name {
-            font-family: var(--fuente-principal);
-            font-weight: 600;
-            font-size: 18px;
+        .member-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,107,53,0.2) 100%);
+        }
+
+        .member-info {
+            flex-grow: 1;
+        }
+
+        .member-name {
+            font-family: var(--fuente-titulos);
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--gris-oscuro);
             margin-bottom: 5px;
         }
 
-        .team-role {
-            color: var(--naranja-principal);
+        .member-role {
+            color: var(--naranja-vibrante);
             font-weight: 600;
             margin-bottom: 10px;
+        }
+
+        .member-bio {
             font-size: 14px;
+            color: var(--gris-texto);
+            line-height: 1.6;
         }
 
-        .team-bio {
-            font-size: 13px;
-            color: var(--texto-claro);
-        }
-
-        /* CTA Final */
-        .contact-cta {
-            background-color: var(--naranja-principal);
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 40px;
-            box-shadow: 0 5px 20px rgba(255, 114, 0, 0.2);
-        }
-
-        .contact-cta h3 {
-            font-family: var(--fuente-principal);
-            font-weight: 700;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .contact-cta p {
-            font-size: 16px;
-            margin-bottom: 25px;
-            max-width: 80%;
-            margin-left: auto;
-            margin-right: auto;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .contact-info {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .contact-info i {
-            margin-right: 10px;
-        }
-
-        /* Botones de acción */
-        .action-buttons {
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: var(--naranja-principal);
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-family: var(--fuente-principal);
-            font-weight: 600;
-            box-shadow: 0 3px 10px rgba(255, 114, 0, 0.2);
+        /* Efectos de hover para elementos interactivos */
+        .interactive-element {
             transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 16px;
-            margin: 0 10px;
         }
 
-        .btn:hover {
-            background-color: var(--naranja-oscuro);
+        .interactive-element:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 114, 0, 0.3);
-        }
-        
-        /* Background overlay para CSS cuando se quiera imprimir */
-        .bg-orange {
-            background-color: var(--naranja-principal) !important;
-            color: white !important;
-        }
-        
-        .bg-orange-light {
-            background-color: var(--naranja-claro) !important;
-        }
-        
-        .text-orange {
-            color: var(--naranja-principal) !important;
-        }
-        
-        .text-green {
-            color: var(--auditoria-verde) !important;
-        }
-        
-        .gratis-badge {
-            background-color: var(--auditoria-verde);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 12px;
-            display: inline-block;
-            margin-left: 5px;
         }
     </style>
 </head>
 <body>
     <div class="brochure">
         <!-- Portada -->
-        <div class="page cover bg-orange">
+        <div class="page cover">
+            <div class="cover-decoration"></div>
             <div class="cover-content">
                 <div class="cover-logo">
-                    Orange<span class="vapor">Vapor</span>
+                    <span class="logo-orange">Orange</span>
+                    <span class="logo-vapor">Vapor</span>
                 </div>
-                <div class="cover-tagline">
-                    Estrategias Digitales con Resultados Garantizados
+                <p class="cover-tagline">Marketing Digital que funciona mientras vos trabajás</p>
+                
+                <div class="cover-main-message">
+                    <h1>¿Cuántas horas perdés<br>intentando entender<br>Facebook y Google Ads?</h1>
+                    <p>Tu tiempo vale más haciendo crecer tu negocio que aprendiendo algoritmos. Nosotros nos encargamos del marketing, vos enfocate en lo que sabés hacer mejor.</p>
                 </div>
-                <div class="cover-description">
-                    Agencia especializada en Ads, Email Marketing y Chatbots para multiplicar tu ROI y convertir clics en ventas reales.
-                </div>
-                <div class="cover-services">
-                    <div class="cover-service">
-                        <i class="fas fa-ad"></i>
-                        <span>Meta & Google Ads</span>
+
+                <div class="cover-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">20h</span>
+                        <span class="stat-label">Promedio semanal<br>perdido en marketing</span>
                     </div>
-                    <div class="cover-service">
-                        <i class="fas fa-envelope"></i>
-                        <span>Email Marketing</span>
+                    <div class="stat-item">
+                        <span class="stat-number">3x</span>
+                        <span class="stat-label">Más caro sin<br>experiencia</span>
                     </div>
-                    <div class="cover-service">
-                        <i class="fas fa-robot"></i>
-                        <span>Chatbots</span>
-                    </div>
-                    <div class="cover-service">
-                        <i class="fas fa-search-dollar"></i>
-                        <span>Auditoría Gratis</span>
+                    <div class="stat-item">
+                        <span class="stat-number">70%</span>
+                        <span class="stat-label">Menos ventas<br>sin estrategia</span>
                     </div>
                 </div>
-                <div class="cover-action">
-                    Catálogo de Servicios 2025
+
+                <div class="cover-badges">
+                    <div class="badge">
+                        <i class="fab fa-google"></i>
+                        <span>Google Partner</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fab fa-facebook"></i>
+                        <span>Meta Business Partner</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Garantía de Resultados</span>
+                    </div>
                 </div>
-            </div>
-            <div class="cover-footer">
-                <p>Si no alcanzamos los KPIs acordados, solo pagás la mitad.</p>
+
+                <div class="cover-cta">
+                    Auditoría GRATIS de tus campañas
+                </div>
             </div>
         </div>
 
-        <!-- Introducción -->
+        <!-- Página 1: Problema y Servicios -->
         <div class="page">
-            <header class="header">
-                <a href="/index.html" class="logo">
-                    Orange<span class="vapor text-orange">Vapor</span>
-                </a>
-                <div class="header-contact">
-                    <p><i class="fas fa-map-marker-alt text-orange"></i> Buenos Aires, Argentina</p>
-                    <p><i class="fas fa-phone text-orange"></i> +54 1130011554</p>
-                    <p><i class="fas fa-envelope text-orange"></i> emiliano@orangevapor.com</p>
-                </div>
-            </header>
-
-            <div class="page-title text-orange">
-                La diferencia entre invertir y gastar en marketing digital
-            </div>
-
-            <p class="intro-text">
-                En Orange Vapor no creemos en el marketing digital como un gasto, sino como una inversión que debe generar retornos medibles. Nuestro método ROI First™ convierte cada peso invertido en resultados que impactan directamente tu cuenta bancaria.
-            </p>
-
-            <!-- Auditoría Gratis (nueva) -->
-            <div class="section-title">Auditoría Profesional <span class="gratis-badge">GRATIS</span></div>
-            
-            <div class="service-card service-audit">
-                <div class="audit-ribbon">GRATIS</div>
-                <div class="service-header">
-                    <div class="service-icon">
-                        <i class="fas fa-search-dollar"></i>
-                    </div>
-                    <h3 class="service-title">Auditoría de Campañas</h3>
-                </div>
-                <div class="service-content">
-                    <div class="service-description">
-                        <p>Diagnóstico profesional de tus campañas digitales con soluciones claras y accionables. En solo 24-48 horas, descubrí exactamente dónde estás perdiendo dinero en tus campañas y qué hacer al respecto.</p>
-                    </div>
-                    <div class="service-benefits">
-                        <h4>¿Qué incluye?</h4>
-                        <ul class="benefit-list">
-                            <li>Errores críticos que te cuestan dinero con capturas de pantalla</li>
-                            <li>Un público valioso que no estás alcanzando y su potencial</li>
-                            <li>Semáforo estratégico de tus campañas actuales</li>
-                            <li>Comparativa con tu competencia incluyendo ejemplos de sus anuncios más efectivos</li>
-                            <li>Checklist de auto-revisión con preguntas clave</li>
-                            <li>Todo entregado en PDF profesional en 24-48 horas</li>
-                        </ul>
-                    </div>
-                    <div class="service-price">
-                        <span class="price-amount text-green">GRATIS</span>
-                        <span class="price-period">Valor real: US$199</span>
-                    </div>
+            <div class="page-hero">
+                <div class="page-hero-content">
+                    <h1 class="page-title">Dejá de perder tiempo y dinero en marketing</h1>
+                    <p class="page-subtitle">Transformamos tu frustración en resultados medibles. Sin que tengas que aprender nada.</p>
                 </div>
             </div>
 
-            <div class="section-title" style="margin-top: 40px;">Nuestros servicios mensuales</div>
-
-            <div class="service-grid">
-                <!-- Meta Ads -->
-                <div class="service-card service-ads">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fab fa-facebook-f"></i>
-                        </div>
-                        <h3 class="service-title">Meta Ads</h3>
+            <div class="page-content">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">El problema real de las PyMEs</h2>
+                        <p class="section-subtitle">No es falta de esfuerzo. Es que el marketing digital requiere años de experiencia.</p>
                     </div>
-                    <div class="service-content">
-                        <div class="service-description">
-                            <p>Maximizá tu ROI con nuestra metodología de Audiencias de Alto Valor, que identifica exactamente dónde están los clientes que realmente compran (no solo los que hacen clic).</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; color: var(--naranja-vibrante); margin-bottom: 10px;">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3 style="font-weight: 600; margin-bottom: 10px;">Tiempo perdido</h3>
+                            <p style="font-size: 14px; color: var(--gris-texto);">Horas estudiando tutoriales en vez de atender tu negocio</p>
                         </div>
-                        <div class="service-benefits">
-                            <h4>Plan Starter incluye:</h4>
-                            <ul class="benefit-list">
-                                <li>Segmentación inicial</li>
-                                <li>Audiencias detalladas</li>
-                                <li>Formatos visuales básicos</li>
-                            </ul>
-                            <h4>Planes superiores ofrecen:</h4>
-                            <ul class="benefit-list">
-                                <li>Pro: Segmentación avanzada, remarketing, audiencias personalizadas</li>
-                                <li>Elite: Estrategia omnicanal, segmentación granular, optimización avanzada</li>
-                            </ul>
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; color: var(--naranja-vibrante); margin-bottom: 10px;">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 style="font-weight: 600; margin-bottom: 10px;">Métricas confusas</h3>
+                            <p style="font-size: 14px; color: var(--gris-texto);">CTR, CPC, ROAS... ¿Qué significa todo esto?</p>
                         </div>
-                        <div class="service-price">
-                            <span class="price-amount text-orange">US$299</span>
-                            <span class="price-period">/mes (setup: $199)</span>
-                            <div class="price-tiers">
-                                <span class="tier-pill">Pro: US$599</span>
-                                <span class="tier-pill">Elite: US$999</span>
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; color: var(--naranja-vibrante); margin-bottom: 10px;">
+                                <i class="fas fa-fire-alt"></i>
+                            </div>
+                            <h3 style="font-weight: 600; margin-bottom: 10px;">Dinero quemado</h3>
+                            <p style="font-size: 14px; color: var(--gris-texto);">Campañas mal configuradas que no convierten</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">La solución: delegá y crecé</h2>
+                        <p class="section-subtitle">Servicios diseñados para que olvides el marketing y te enfoques en tu negocio</p>
+                    </div>
+
+                    <div class="services-grid">
+                        <!-- Auditoría GRATIS -->
+                        <div class="service-card audit-card">
+                            <div class="audit-badge">GRATIS</div>
+                            <div class="service-card-header">
+                                <div class="service-icon-wrapper">
+                                    <i class="fas fa-search-dollar"></i>
+                                </div>
+                                <div>
+                                    <h3 class="service-name">Auditoría Profesional</h3>
+                                    <p class="service-tagline">Descubrí dónde perdés dinero</p>
+                                </div>
+                            </div>
+                            <div class="service-card-body">
+                                <p class="service-description">
+                                    En 24-48 horas, analizamos tus campañas y te mostramos exactamente dónde estás perdiendo presupuesto. Sin compromisos, sin costos ocultos.
+                                </p>
+                                <div class="service-features">
+                                    <p class="service-features-title">Incluye:</p>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Análisis completo con capturas de pantalla de errores críticos</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Comparativa con tu competencia y sus anuncios exitosos</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Plan de acción concreto entregado en PDF profesional</span>
+                                    </div>
+                                </div>
+                                <div class="service-pricing">
+                                    <div class="pricing-main">
+                                        <span class="price">GRATIS</span>
+                                    </div>
+                                    <span style="color: white; font-size: 14px;">Valor real: US$199</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Google Ads -->
-                <div class="service-card service-google">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fab fa-google"></i>
-                        </div>
-                        <h3 class="service-title">Google Ads</h3>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-description">
-                            <p>Posicionamiento estratégico en búsquedas con alto potencial de conversión. Capturamos clientes en el momento exacto en que están buscando lo que ofreces.</p>
-                        </div>
-                        <div class="service-benefits">
-                            <h4>Plan Starter incluye:</h4>
-                            <ul class="benefit-list">
-                                <li>Campañas de búsqueda con keywords</li>
-                                <li>Anuncios de texto optimizados</li>
-                                <li>Posicionamiento en fase de búsqueda</li>
-                            </ul>
-                            <h4>Planes superiores ofrecen:</h4>
-                            <ul class="benefit-list">
-                                <li>Pro: Diversificación de canales, estrategia multicanal, display y remarketing</li>
-                                <li>Elite: Performance Max, pujas inteligentes, machine learning avanzado</li>
-                            </ul>
-                        </div>
-                        <div class="service-price">
-                            <span class="price-amount text-orange">US$299</span>
-                            <span class="price-period">/mes (setup: $199)</span>
-                            <div class="price-tiers">
-                                <span class="tier-pill">Pro: US$599</span>
-                                <span class="tier-pill">Elite: US$999</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Email Marketing -->
-                <div class="service-card service-email">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3 class="service-title">Email Marketing</h3>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-description">
-                            <p>Nurturing automatizado que convierte prospectos en clientes leales y mantiene a tu audiencia conectada, generando ingresos recurrentes sin depender solo de la publicidad.</p>
-                        </div>
-                        <div class="service-benefits">
-                            <h4>Plan Starter incluye:</h4>
-                            <ul class="benefit-list">
-                                <li>Campañas mensuales básicas</li>
-                                <li>Segmentación básica</li>
-                                <li>Plantillas básicas</li>
-                            </ul>
-                            <h4>Planes superiores ofrecen:</h4>
-                            <ul class="benefit-list">
-                                <li>Pro: Más campañas y flujos automatizados, componentes interactivos</li>
-                                <li>Elite: Campañas avanzadas + CRM, sistema de diseño completo para tu marca</li>
-                            </ul>
-                        </div>
-                        <div class="service-price">
-                            <span class="price-amount text-orange">US$299</span>
-                            <span class="price-period">/mes (setup: $199)</span>
-                            <div class="price-tiers">
-                                <span class="tier-pill">Pro: US$599</span>
-                                <span class="tier-pill">Elite: US$999</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Redes Sociales -->
-                <div class="service-card service-social">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-share-alt"></i>
-                        </div>
-                        <h3 class="service-title">Redes Sociales</h3>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-description">
-                            <p>Manejo integral de tus perfiles para construir comunidad y generar interacción continua.</p>
-                        </div>
-                        <div class="service-benefits">
-                            <h4>Plan Starter incluye:</h4>
-                            <ul class="benefit-list">
-                                <li>Calendario y diseño de contenidos</li>
-                                <li>Respuesta básica a comentarios</li>
-                            </ul>
-                            <h4>Planes superiores ofrecen:</h4>
-                            <ul class="benefit-list">
-                                <li>Pro: Estrategia multicanal y contenido avanzado</li>
-                                <li>Elite: Gestión integral y reportes detallados</li>
-                            </ul>
-                        </div>
-                        <div class="service-price">
-                            <span class="price-amount text-orange">US$299</span>
-                            <span class="price-period">/mes (setup: $199)</span>
-                            <div class="price-tiers">
-                                <span class="tier-pill">Pro: US$599</span>
-                                <span class="tier-pill">Elite: US$999</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chatbot -->
-                <div class="service-card service-chatbot">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h3 class="service-title">Chatbot</h3>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-description">
-                            <p>Atención 24/7 que humaniza tu marca y mejora la experiencia del cliente, capturando leads constantemente incluso cuando tu equipo no está disponible.</p>
-                        </div>
-                        <div class="service-benefits">
-                            <h4>Plan Starter incluye:</h4>
-                            <ul class="benefit-list">
-                                <li>Flujos básicos de conversación</li>
-                                <li>Plataforma a elección (WhatsApp o web)</li>
-                                <li>Personalización básica</li>
-                            </ul>
-                            <h4>Planes superiores ofrecen:</h4>
-                            <ul class="benefit-list">
-                                <li>Pro: Flujos con lógica condicional, variables dinámicas, varias plataformas</li>
-                                <li>Elite: Flujos ilimitados con IA avanzada, todas las plataformas + CRM</li>
-                            </ul>
-                        </div>
-                        <div class="service-price">
-                            <span class="price-amount text-orange">US$299</span>
-                            <span class="price-period">/mes (setup: $199)</span>
-                            <div class="price-tiers">
-                                <span class="tier-pill">Pro: US$599</span>
-                                <span class="tier-pill">Elite: US$999</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <footer class="footer">
-                <div>Orange Vapor © 2025</div>
-                <div class="footer-links">
-                    <span class="page-number text-orange">1</span>
-                </div>
-            </footer>
-        </div>
-
-        <!-- Optimización Express y Paquete -->
-        <div class="page">
-            <header class="header">
-                <a href="/index.html" class="logo">
-                    Orange<span class="vapor text-orange">Vapor</span>
-                </div>
-                <div class="header-contact">
-                    <p><i class="fas fa-map-marker-alt text-orange"></i> Buenos Aires, Argentina</p>
-                    <p><i class="fas fa-phone text-orange"></i> +54 1130011554</p>
-                    <p><i class="fas fa-envelope text-orange"></i> emiliano@orangevapor.com</p>
-                </div>
-            </header>
-
-            <!-- Optimización Express -->
-            <div class="section-title">Servicio Express</div>
-
-            <div class="service-card service-express" style="max-width: 100%; margin-bottom: 40px;">
-                <div class="service-header">
-                    <div class="service-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="service-title">Optimización Express</h3>
-                </div>
-                <div class="service-content">
-                    <div class="service-description">
-                        <p>En solo 48 horas, aplicamos nuestro sistema de Detección de Fugas™ para identificar dónde estás perdiendo presupuesto y lo transformamos en oportunidades de venta. La semana pasada, una tienda online descubrió que el 63% de su presupuesto se desperdiciaba en una configuración incorrecta que nadie había notado.</p>
-                    </div>
-                    <div class="service-benefits">
-                        <h4>¿Qué incluye?</h4>
-                        <ul class="benefit-list">
-                            <li>Análisis completo de tus campañas actuales y detección de fugas presupuestarias</li>
-                            <li>Estrategia personalizada para Meta y Google Ads basada en tu audiencia real</li>
-                            <li>Estructura optimizada de campañas con segmentación de alto rendimiento</li>
-                            <li>Configuración técnica de píxeles, conversiones y seguimiento</li>
-                            <li>Pack de anuncios visuales y textos persuasivos listos para usar</li>
-                        </ul>
-                    </div>
-                    <div class="service-price">
-                        <span class="price-amount text-orange">US$299</span>
-                        <span class="price-period">servicio único</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Paquete Completo -->
-            <div class="package-section bg-orange-light">
-                <div class="package-badge bg-orange">¡OFERTA ESPECIAL!</div>
-                <div class="package-title">Paquete Completo Starter</div>
-                <div class="package-content">
-                    <div class="package-description">
-                        <p>Contratá nuestros servicios principales por un precio especial y ahorrá casi $200 mensuales. Este paquete integral te brinda una solución completa de marketing digital, maximizando sinergias entre canales:</p>
-                        
-                        <div class="package-services">
-                            <div class="package-service-item">
-                                <div class="package-service-icon" style="background-color: var(--color-ads);">
+                        <!-- Meta Ads -->
+                        <div class="service-card service-meta">
+                            <div class="service-card-header">
+                                <div class="service-icon-wrapper">
                                     <i class="fab fa-facebook-f"></i>
                                 </div>
-                                <span>Meta Ads</span>
-                            </div>
-                            <div class="package-service-item">
-                                <div class="package-service-icon" style="background-color: var(--color-google);">
-                                    <i class="fab fa-google"></i>
+                                <div>
+                                    <h3 class="service-name">Meta Ads</h3>
+                                    <p class="service-tagline">Facebook e Instagram que vende</p>
                                 </div>
-                                <span>Google Ads</span>
                             </div>
-                            <div class="package-service-item">
-                                <div class="package-service-icon" style="background-color: var(--color-email);">
-                                    <i class="fas fa-envelope"></i>
+                            <div class="service-card-body">
+                                <p class="service-description">
+                                    Olvidate de perder tiempo configurando audiencias. Nosotros encontramos a tus clientes ideales mientras vos atendés tu negocio.
+                                </p>
+                                <div class="service-features">
+                                    <p class="service-features-title">Starter incluye:</p>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Segmentación profesional</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Creatividades que convierten</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Optimización semanal</span>
+                                    </div>
                                 </div>
-                                <span>Email Marketing</span>
-                            </div>
-                            <div class="package-service-item">
-                                <div class="package-service-icon" style="background-color: var(--color-chatbot);">
-                                    <i class="fas fa-robot"></i>
+                                <div class="service-pricing">
+                                    <div class="pricing-main">
+                                        <span class="price">US$299</span>
+                                        <span class="price-period">/mes</span>
+                                    </div>
+                                    <div class="pricing-tiers">
+                                        <span class="tier-pill">Pro: $599</span>
+                                        <span class="tier-pill">Elite: $999</span>
+                                    </div>
                                 </div>
-                                <span>Chatbot</span>
-                            </div>
-                            <div class="package-service-item">
-                                <div class="package-service-icon" style="background-color: var(--color-social);">
-                                    <i class="fas fa-share-alt"></i>
-                                </div>
-                                <span>Redes Sociales</span>
                             </div>
                         </div>
-                        
-                        <p>Los pagos pueden realizarse en dólares estadounidenses (USD) o en pesos argentinos (ARS) al tipo de cambio de dólar oficial del día del pago.</p>
-                        <p><strong>¡Setup bonificado!</strong> Ahorrás US$196 mensuales y el costo de setup.</p>
-                        <p>También disponible en niveles Pro (US$1995/mes) y Elite (US$3299/mes) para empresas con necesidades más avanzadas.</p>
-                    </div>
-                    
-                    <div class="package-price">
-                        <div class="package-price-regular">US$1,196 /mes</div>
-                        <div class="package-price-amount text-orange">US$999</div>
-                        <div class="package-price-period">/mes</div>
-                        <div class="package-price-save bg-orange">¡Ahorrás US$196!</div>
+
+                        <!-- Google Ads -->
+                        <div class="service-card service-google">
+                            <div class="service-card-header">
+                                <div class="service-icon-wrapper">
+                                    <i class="fab fa-google"></i>
+                                </div>
+                                <div>
+                                    <h3 class="service-name">Google Ads</h3>
+                                    <p class="service-tagline">Aparecé cuando te buscan</p>
+                                </div>
+                            </div>
+                            <div class="service-card-body">
+                                <p class="service-description">
+                                    Tus clientes te están buscando ahora mismo. Nosotros nos aseguramos de que te encuentren primero que a tu competencia.
+                                </p>
+                                <div class="service-features">
+                                    <p class="service-features-title">Starter incluye:</p>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Keywords de alta conversión</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Anuncios persuasivos</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Presupuesto optimizado</span>
+                                    </div>
+                                </div>
+                                <div class="service-pricing">
+                                    <div class="pricing-main">
+                                        <span class="price">US$299</span>
+                                        <span class="price-period">/mes</span>
+                                    </div>
+                                    <div class="pricing-tiers">
+                                        <span class="tier-pill">Pro: $599</span>
+                                        <span class="tier-pill">Elite: $999</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Email Marketing -->
+                        <div class="service-card service-email">
+                            <div class="service-card-header">
+                                <div class="service-icon-wrapper">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h3 class="service-name">Email Marketing</h3>
+                                    <p class="service-tagline">Ventas en piloto automático</p>
+                                </div>
+                            </div>
+                            <div class="service-card-body">
+                                <p class="service-description">
+                                    Convertí visitantes en clientes fieles con emails que se envían solos. Tu negocio vende mientras dormís.
+                                </p>
+                                <div class="service-features">
+                                    <p class="service-features-title">Starter incluye:</p>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Campañas automatizadas</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Diseños profesionales</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Segmentación inteligente</span>
+                                    </div>
+                                </div>
+                                <div class="service-pricing">
+                                    <div class="pricing-main">
+                                        <span class="price">US$299</span>
+                                        <span class="price-period">/mes</span>
+                                    </div>
+                                    <div class="pricing-tiers">
+                                        <span class="tier-pill">Pro: $599</span>
+                                        <span class="tier-pill">Elite: $999</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chatbot -->
+                        <div class="service-card service-chatbot">
+                            <div class="service-card-header">
+                                <div class="service-icon-wrapper">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div>
+                                    <h3 class="service-name">Chatbot 24/7</h3>
+                                    <p class="service-tagline">Tu vendedor que nunca duerme</p>
+                                </div>
+                            </div>
+                            <div class="service-card-body">
+                                <p class="service-description">
+                                    Atención instantánea las 24 horas. Capturá leads y cerrá ventas incluso cuando estás descansando.
+                                </p>
+                                <div class="service-features">
+                                    <p class="service-features-title">Starter incluye:</p>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>WhatsApp Business</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Respuestas personalizadas</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Captura automática de leads</span>
+                                    </div>
+                                </div>
+                                <div class="service-pricing">
+                                    <div class="pricing-main">
+                                        <span class="price">US$299</span>
+                                        <span class="price-period">/mes</span>
+                                    </div>
+                                    <div class="pricing-tiers">
+                                        <span class="tier-pill">Pro: $599</span>
+                                        <span class="tier-pill">Elite: $999</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Redes Sociales -->
+                        <div class="service-card service-social">
+                            <div class="service-card-header">
+                                <div class="service-icon-wrapper">
+                                    <i class="fas fa-share-alt"></i>
+                                </div>
+                                <div>
+                                    <h3 class="service-name">Redes Sociales</h3>
+                                    <p class="service-tagline">Presencia que genera ventas</p>
+                                </div>
+                            </div>
+                            <div class="service-card-body">
+                                <p class="service-description">
+                                    Dejá de preocuparte por qué publicar. Nosotros creamos contenido que conecta y convierte seguidores en clientes.
+                                </p>
+                                <div class="service-features">
+                                    <p class="service-features-title">Starter incluye:</p>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Calendario de contenidos</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Diseños profesionales</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check feature-icon"></i>
+                                        <span>Gestión de comunidad</span>
+                                    </div>
+                                </div>
+                                <div class="service-pricing">
+                                    <div class="pricing-main">
+                                        <span class="price">US$299</span>
+                                        <span class="price-period">/mes</span>
+                                    </div>
+                                    <div class="pricing-tiers">
+                                        <span class="tier-pill">Pro: $599</span>
+                                        <span class="tier-pill">Elite: $999</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Proceso Simplificado -->
-            <div class="process-section">
-                <div class="process-title">La Solución: 3 Pasos para Transformar tu Marketing Digital</div>
-                <div class="process-steps">
-                    <div class="process-step">
-                        <div class="step-number">1</div>
-                        <div class="step-title">Auditoría GRATIS</div>
-                        <div class="step-desc">Analizamos tus campañas sin costo. En 24-48 horas, te entregamos un diagnóstico profesional con soluciones concretas.</div>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">2</div>
-                        <div class="step-title">Elegí tu Solución</div>
-                        <div class="step-desc">Con el diagnóstico en mano, seleccioná el servicio mensual que mejor se adapte a tus necesidades específicas.</div>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">3</div>
-                        <div class="step-title">Resultados que Crecen</div>
-                        <div class="step-desc">Implementamos, optimizamos y convertimos tu marketing digital en una inversión predecible y rentable.</div>
-                    </div>
+            <div class="footer">
+                <div class="footer-brand">
+                    <span class="footer-logo">Orange<span class="vapor">Vapor</span></span>
+                    <span class="footer-info">© 2025 | Tu tiempo vale más</span>
+                </div>
+                <div class="page-indicator">
+                    <span class="page-number">1</span>
                 </div>
             </div>
-
-            <!-- Garantía -->
-            <div class="guarantee-section">
-                <div class="guarantee-icon text-orange">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <div class="guarantee-content">
-                    <h3>Nuestro compromiso de resultados</h3>
-                    <p>Si no alcanzamos los KPIs acordados, solo pagás la mitad. Este modelo único de riesgo compartido demuestra nuestra confianza en los resultados que entregamos.</p>
-                </div>
-            </div>
-
-            <footer class="footer">
-                <div>Orange Vapor © 2025</div>
-                <div class="footer-links">
-                    <span class="page-number text-orange">2</span>
-                </div>
-            </footer>
         </div>
 
-        <!-- Equipo y Contacto -->
+        <!-- Página 2: Paquete y Proceso -->
         <div class="page">
             <header class="header">
-                <a href="/index.html" class="logo">
-                    Orange<span class="vapor text-orange">Vapor</span>
-                </div>
-                <div class="header-contact">
-                    <p><i class="fas fa-map-marker-alt text-orange"></i> Buenos Aires, Argentina</p>
-                    <p><i class="fas fa-phone text-orange"></i> +54 1130011554</p>
-                    <p><i class="fas fa-envelope text-orange"></i> emiliano@orangevapor.com</p>
+                <a href="#" class="header-logo">
+                    Orange<span class="vapor">Vapor</span>
+                </a>
+                <div class="header-info">
+                    <div class="header-info-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+54 1130011554</span>
+                    </div>
+                    <div class="header-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>emiliano@orangevapor.com</span>
+                    </div>
                 </div>
             </header>
 
-            <!-- Equipo -->
-            <div class="section-title">El Equipo: Experiencia Real Aplicada a Tu Negocio</div>
-            
-            <p class="intro-text">
-                No somos teóricos del marketing. Emiliano lideró el crecimiento e-commerce de Hunter Douglas, mientras Yobanny dirigió equipos de compra de medios en una de las Big Four de Publicidad. Ahora aplicamos ese conocimiento insider para negocios como el tuyo, con un enfoque personalizado que las grandes agencias no pueden ofrecer.
-            </p>
+            <div class="page-content">
+                <!-- Servicio Express -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">¿Necesitás resultados YA?</h2>
+                        <p class="section-subtitle">Optimización Express: mejorá tus campañas en solo 48 horas</p>
+                    </div>
 
-            <div class="team-section">
-                <div class="team-members">
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="https://media.licdn.com/dms/image/v2/D4D03AQGMBstWC1OBlg/profile-displayphoto-shrink_200_200/B4DZThGN0VHYAY-/0/1738943291295?e=1746662400&v=beta&t=_FE9qOC8W-1ihM4a6-s8GrW3OfZwNLcVn0v46ZIIWhI" alt="Emiliano Cecchi">
+                    <div class="service-card service-express" style="grid-column: 1 / -1;">
+                        <div class="service-card-header">
+                            <div class="service-icon-wrapper">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div>
+                                <h3 class="service-name">Optimización Express</h3>
+                                <p class="service-tagline">Rescatamos tus campañas en 48 horas</p>
+                            </div>
                         </div>
-                        <h3 class="team-name">Emiliano Cecchi</h3>
-                        <div class="team-role text-orange">Director de Estrategia Digital</div>
-                        <p class="team-bio">8 años de Experiencia en Marketing Digital y E-commerce. Ex-líder del equipo de E-commerce de Hunter Douglas Argentina.</p>
-                    </div>
-                    
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="https://media.licdn.com/dms/image/v2/D4D03AQFzKVN_97EuCA/profile-displayphoto-shrink_800_800/B4DZUFiPEVHkAc-/0/1739554616070?e=1746662400&v=beta&t=mZQnzBWjAyvlnYM6Q_p0EZQVtc7f3a1UqbGrg-iqum8" alt="Yobanny Ortega">
+                        <div class="service-card-body">
+                            <p class="service-description">
+                                La semana pasada, una tienda online descubrió que el 63% de su presupuesto se desperdiciaba en una configuración incorrecta. En solo 48 horas, aplicamos nuestro sistema de Detección de Fugas™ y transformamos ese desperdicio en ventas reales.
+                            </p>
+                            <div class="service-features">
+                                <p class="service-features-title">Qué hacemos por vos:</p>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Análisis profundo y corrección de errores críticos</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Nueva estrategia basada en datos reales de tu negocio</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check feature-icon"></i>
+                                    <span>Pack completo de anuncios optimizados listos para usar</span>
+                                </div>
+                            </div>
+                            <div class="service-pricing">
+                                <div class="pricing-main">
+                                    <span class="price">US$299</span>
+                                    <span class="price-period">único pago</span>
+                                </div>
+                                <span style="color: var(--gris-texto); font-size: 14px;">Implementación inmediata</span>
+                            </div>
                         </div>
-                        <h3 class="team-name">Yobanny Ortega</h3>
-                        <div class="team-role text-orange">Director de Publicidad Digital</div>
-                        <p class="team-bio">Ex-líder de equipos de compras de medios digitales en agencias internacionales como Publicis Media.</p>
+                    </div>
+                </div>
+
+                <!-- Paquete Completo -->
+                <div class="package-section">
+                    <div class="package-decoration"></div>
+                    <div class="package-content">
+                        <div class="package-header">
+                            <span class="package-badge">AHORRÁ US$196 POR MES</span>
+                            <h2 class="package-title">Paquete Marketing Completo</h2>
+                            <p class="package-subtitle">Todo lo que necesitás para dejar de preocuparte por el marketing</p>
+                        </div>
+
+                        <div class="package-body">
+                            <div class="package-services">
+                                <div class="package-service-item">
+                                    <div class="package-service-icon" style="background: linear-gradient(135deg, #1877F2, #1A54B8);">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Meta Ads</strong>
+                                        <span style="color: var(--gris-texto); margin-left: 10px;">Facebook e Instagram optimizados</span>
+                                    </div>
+                                </div>
+                                <div class="package-service-item">
+                                    <div class="package-service-icon" style="background: linear-gradient(135deg, #4285F4, #2A5DB0);">
+                                        <i class="fab fa-google"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Google Ads</strong>
+                                        <span style="color: var(--gris-texto); margin-left: 10px;">Búsquedas y YouTube</span>
+                                    </div>
+                                </div>
+                                <div class="package-service-item">
+                                    <div class="package-service-icon" style="background: linear-gradient(135deg, #00BFA5, #00897B);">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Email Marketing</strong>
+                                        <span style="color: var(--gris-texto); margin-left: 10px;">Automatización completa</span>
+                                    </div>
+                                </div>
+                                <div class="package-service-item">
+                                    <div class="package-service-icon" style="background: linear-gradient(135deg, #7C4DFF, #5E35B1);">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Chatbot 24/7</strong>
+                                        <span style="color: var(--gris-texto); margin-left: 10px;">WhatsApp Business</span>
+                                    </div>
+                                </div>
+                                <div class="package-service-item">
+                                    <div class="package-service-icon" style="background: linear-gradient(45deg, #833AB4, #E1306C);">
+                                        <i class="fas fa-share-alt"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Redes Sociales</strong>
+                                        <span style="color: var(--gris-texto); margin-left: 10px;">Contenido y comunidad</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="package-pricing-card">
+                                <div class="package-original-price">US$1,495 /mes</div>
+                                <div class="package-price">US$999</div>
+                                <div class="package-price-period">por mes</div>
+                                <div class="package-save">Ahorrás US$196 mensual</div>
+                                <p style="margin-top: 20px; font-size: 14px; color: var(--gris-texto);">
+                                    Setup bonificado • Sin contratos largos<br>
+                                    Pagá en USD o ARS al cambio oficial
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proceso -->
+                <div class="process-section">
+                    <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                        <h2 class="section-title" style="display: inline-block;">Empezá hoy, sin complicaciones</h2>
+                    </div>
+
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-icon">
+                                <span class="step-number">1</span>
+                            </div>
+                            <h3 class="step-title">Auditoría GRATIS</h3>
+                            <p class="step-description">
+                                Completás un formulario simple. En 24-48hs recibís un diagnóstico profesional sin costo.
+                            </p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-icon">
+                                <span class="step-number">2</span>
+                            </div>
+                            <h3 class="step-title">Elegís tu plan</h3>
+                            <p class="step-description">
+                                Con el diagnóstico en mano, sabés exactamente qué necesitás. Sin sorpresas, sin ventas agresivas.
+                            </p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-icon">
+                                <span class="step-number">3</span>
+                            </div>
+                            <h3 class="step-title">Nosotros trabajamos</h3>
+                            <p class="step-description">
+                                Te olvidás del marketing. Recibís reportes simples: cuánto invertiste, cuánto ganaste.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Garantía -->
+                <div class="guarantee-section">
+                    <div class="guarantee-content">
+                        <div class="guarantee-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="guarantee-text">
+                            <h3>Garantía única en el mercado</h3>
+                            <p>Si no alcanzamos los KPIs acordados, solo pagás la mitad del servicio. Este modelo de riesgo compartido existe porque confiamos 100% en nuestros resultados. Tu éxito es nuestro éxito.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio -->
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right testimonial-icon"></i>
+                    <p class="testimonial-quote">
+                        "Antes perdía 20 horas por semana en Facebook Ads sin entender nada. La auditoría detectó errores que me costaban $850 semanales. Con los cambios, mi ROAS aumentó 187% en solo 14 días. Ahora uso ese tiempo para abrir mi segunda sucursal."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Carlos L.">
+                        </div>
+                        <div class="author-info">
+                            <div class="author-name">Carlos L.</div>
+                            <div class="author-role">Dueño de tienda de decoración</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Testimonio cliente -->
-            <div style="background-color: #f6f9f8; border-radius: 10px; padding: 20px; margin-top: 30px; position: relative; border: 1px solid rgba(255, 114, 0, 0.1);">
-                <div style="position: absolute; top: -15px; left: 20px; width: 30px; height: 30px; background-color: var(--naranja-principal); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                    <i class="fas fa-quote-left"></i>
+            <div class="footer">
+                <div class="footer-brand">
+                    <span class="footer-logo">Orange<span class="vapor">Vapor</span></span>
+                    <span class="footer-info">© 2025 | Tu tiempo vale más</span>
                 </div>
-                <p style="font-style: italic; font-size: 15px; color: #444; margin-bottom: 15px; line-height: 1.5;">
-                    "La auditoría detectó errores que me estaban costando $850 por semana. Con los cambios sugeridos, mi ROAS aumentó un 187% en solo 14 días. El equipo de Orange Vapor transformó por completo mi visión del marketing digital."
-                </p>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Testimonio" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--naranja-principal);">
-                    <div>
-                        <strong style="font-size: 14px; color: #333;">Carlos L.</strong><br>
-                        <span style="font-size: 12px; color: #666;">Tienda de decoración</span>
+                <div class="page-indicator">
+                    <span class="page-number">2</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página 3: Equipo y CTA -->
+        <div class="page">
+            <header class="header">
+                <a href="#" class="header-logo">
+                    Orange<span class="vapor">Vapor</span>
+                </a>
+                <div class="header-info">
+                    <div class="header-info-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+54 1130011554</span>
+                    </div>
+                    <div class="header-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>emiliano@orangevapor.com</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <!-- Equipo -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Experiencia real, resultados reales</h2>
+                        <p class="section-subtitle">No somos teóricos. Aplicamos lo que funcionó en grandes empresas, adaptado a tu PyME.</p>
+                    </div>
+
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="https://media.licdn.com/dms/image/v2/D4D03AQGMBstWC1OBlg/profile-displayphoto-shrink_200_200/B4DZThGN0VHYAY-/0/1738943291295?e=1746662400&v=beta&t=_FE9qOC8W-1ihM4a6-s8GrW3OfZwNLcVn0v46ZIIWhI" alt="Emiliano Cecchi">
+                            </div>
+                            <div class="member-info">
+                                <h3 class="member-name">Emiliano Cecchi</h3>
+                                <p class="member-role">Director de Estrategia Digital</p>
+                                <p class="member-bio">
+                                    8 años transformando PyMEs. Ex-líder de E-commerce en Hunter Douglas Argentina. Sabe exactamente qué funciona y qué no en el mercado local.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="https://media.licdn.com/dms/image/v2/D4D03AQFzKVN_97EuCA/profile-displayphoto-shrink_800_800/B4DZUFiPEVHkAc-/0/1739554616070?e=1746662400&v=beta&t=mZQnzBWjAyvlnYM6Q_p0EZQVtc7f3a1UqbGrg-iqum8" alt="Yobanny Ortega">
+                            </div>
+                            <div class="member-info">
+                                <h3 class="member-name">Yobanny Ortega</h3>
+                                <p class="member-role">Director de Publicidad Digital</p>
+                                <p class="member-bio">
+                                    Ex-director de equipos en Publicis Media. Manejó presupuestos millonarios. Ahora usa esa experiencia para hacer crecer negocios como el tuyo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Por qué elegirnos -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">¿Por qué Orange Vapor?</h2>
+                        <p class="section-subtitle">La diferencia entre nosotros y "tu primo que sabe de redes"</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 30px;">
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex-shrink: 0;">
+                                <div style="width: 50px; height: 50px; background: var(--naranja-suave); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--naranja-vibrante); font-size: 20px;">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 600; margin-bottom: 8px;">Un experto dedicado</h4>
+                                <p style="font-size: 14px; color: var(--gris-texto);">No un bot, no un tutorial. Un profesional que conoce tu negocio y trabaja para vos.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex-shrink: 0;">
+                                <div style="width: 50px; height: 50px; background: var(--naranja-suave); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--naranja-vibrante); font-size: 20px;">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 600; margin-bottom: 8px;">Reportes que entendés</h4>
+                                <p style="font-size: 14px; color: var(--gris-texto);">Sin jerga técnica. Solo cuánto invertiste y cuánto ganaste. Simple y claro.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex-shrink: 0;">
+                                <div style="width: 50px; height: 50px; background: var(--naranja-suave); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--naranja-vibrante); font-size: 20px;">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 600; margin-bottom: 8px;">Sin contratos largos</h4>
+                                <p style="font-size: 14px; color: var(--gris-texto);">Mes a mes. Si no estás conforme, cancelás cuando quieras. Así de simple.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex-shrink: 0;">
+                                <div style="width: 50px; height: 50px; background: var(--naranja-suave); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--naranja-vibrante); font-size: 20px;">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 600; margin-bottom: 8px;">Resultados desde el día 1</h4>
+                                <p style="font-size: 14px; color: var(--gris-texto);">No esperamos 3 meses para "analizar". Optimizamos desde la primera semana.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Final -->
+                <div class="final-cta">
+                    <div class="final-cta-content">
+                        <h2>Tu negocio te necesita enfocado en lo importante</h2>
+                        <p>
+                            Cada hora que perdés en marketing es una hora menos vendiendo, mejorando tu producto o atendiendo clientes. Es hora de delegar y crecer.
+                        </p>
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <span>+54 1130011554</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>emiliano@orangevapor.com</span>
+                            </div>
+                        </div>
+                        <p style="margin-top: 30px; font-size: 20px; font-weight: 700;">
+                            Pedí tu auditoría GRATIS hoy
+                        </p>
+                        <p style="font-size: 16px; opacity: 0.9;">
+                            Sin compromiso • Resultados en 24-48hs • 100% profesional
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Información de contacto -->
-            <div class="contact-cta bg-orange">
-                <h3>¿Listo para potenciar tu negocio?</h3>
-                <p>Agendá una auditoría gratuita de tus campañas actuales y descubre el potencial oculto de tu presupuesto de marketing.</p>
-                <div class="contact-info">
-                    <i class="fas fa-phone"></i> +54 1130011554 &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fas fa-envelope"></i> emiliano@orangevapor.com
+            <div class="footer">
+                <div class="footer-brand">
+                    <span class="footer-logo">Orange<span class="vapor">Vapor</span></span>
+                    <span class="footer-info">© 2025 | Tu tiempo vale más</span>
+                </div>
+                <div class="page-indicator">
+                    <span class="page-number">3</span>
                 </div>
             </div>
-
-            <footer class="footer">
-                <div>Orange Vapor © 2025</div>
-                <div class="footer-links">
-                    <span class="page-number text-orange">3</span>
-                </div>
-            </footer>
         </div>
 
         <!-- Botones de acción (solo visibles en la versión web) -->
         <div class="action-buttons no-print">
-            <button class="btn bg-orange" onclick="window.print()"><i class="fas fa-file-pdf"></i> Descargar como PDF</button>
+            <button class="btn" onclick="window.print()">
+                <i class="fas fa-file-pdf"></i>
+                Descargar como PDF
+            </button>
         </div>
     </div>
 </body>
