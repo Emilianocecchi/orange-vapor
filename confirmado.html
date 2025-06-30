@@ -19,6 +19,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style-rediseno.css">
     
     <style>
         :root {
@@ -55,7 +56,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             min-height: 100vh;
         }
         
-        .container {
+        .confirm-container {
             max-width: 900px;
             margin: 0 auto;
             padding: var(--espacio);
@@ -84,7 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             opacity: 0.1;
         }
 
-        .logo {
+        .hero-logo {
             display: inline-block;
             margin-bottom: 2rem;
             background: rgba(255,255,255,0.15);
@@ -468,30 +469,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             font-weight: 800;
             color: var(--naranja);
         }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            background: var(--gris-oscuro);
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
-            border-radius: var(--radio);
-        }
-        
-        .footer strong {
-            color: white;
-            font-weight: 600;
-        }
-        
-        .footer a {
-            color: var(--naranja);
-            text-decoration: none;
-        }
-        
         /* Responsive */
         @media (max-width: 768px) {
-            .container {
+            .confirm-container {
                 padding: 1rem;
             }
             
@@ -526,11 +506,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBXS9H66"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-    
+
+<nav class="navbar" role="navigation" aria-label="Navegación principal">
     <div class="container">
+        <a href="/index.html" class="logo">
+            <span class="logo-orange">Orange</span><span class="logo-vapor">Vapor</span>
+        </a>
+        <div class="nav-actions">
+            <a href="https://wa.me/541130011554" class="nav-phone">
+                <i class="fab fa-whatsapp"></i>
+                <span class="hide-mobile">11 3001-1554</span>
+            </a>
+            <a href="blog.html" class="nav-link hide-mobile">Blog</a>
+            <a href="herramientas.html" class="nav-link hide-mobile">Herramientas</a>
+            <a href="#contacto" class="btn-nav">Auditoría Gratis</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar a modo oscuro">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+    
+    <div class="confirm-container">
         <!-- Hero Header -->
         <div class="hero-header">
-            <a href="/index.html" class="logo">OrangeVapor</a>
+            <a href="/index.html" class="hero-logo">OrangeVapor</a>
             <div class="celebration-icon">🎉</div>
             <h1 class="hero-title">¡Excelente! Ya no vas a perder tiempo en marketing</h1>
             <p class="hero-subtitle">Acabás de dar el primer paso para recuperar tu tiempo</p>
@@ -660,14 +660,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="timeline-text">Tendrás tu auditoría completa en:</div>
             <div class="timeline-highlight">24-48 horas</div>
         </div>
-        
-        <div class="footer">
-            <strong>OrangeVapor</strong> - Tu equipo de marketing para que vos te enfoques en crecer<br>
-            WhatsApp: <a href="https://wa.me/541130011554">+54 11 3001-1554</a> | <a href="mailto:emiliano@orangevapor.com">emiliano@orangevapor.com</a>
-        </div>
     </div>
-    
-    <script>
+<footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-orange">Orange</span><span class="logo-vapor">Vapor</span>
+                    </div>
+                    <p>Tu equipo de marketing para que vos te enfoques en crecer.</p>
+                </div>
+                <div class="footer-contact">
+                    <a href="https://wa.me/541130011554" class="footer-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp: 11 3001-1554
+                    </a>
+                    <a href="mailto:emiliano@orangevapor.com">
+                        emiliano@orangevapor.com
+                    </a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/orangevapor.ar/" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/company/106336169/" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Orange Vapor. Marketing que trabaja mientras vos descansás.</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
         function toggleSteps() {
             const content = document.getElementById('stepsContent');
             const button = document.querySelector('.toggle-steps');
@@ -681,5 +708,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
         }
     </script>
+    <script src="script-rediseno.js" defer></script>
 </body>
 </html>
