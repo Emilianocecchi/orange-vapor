@@ -312,13 +312,31 @@ class VideoController {
 
   playVideo(e) {
     e.preventDefault();
-    // Aquí podrías abrir un modal con el video
-    // Por ahora, solo animamos el botón
     const button = e.currentTarget;
     button.classList.add('playing');
     
-    // Simular apertura de video
-    console.log('Video playing...');
+    // Si es el video testimonial de Mónica, podrías abrir un modal o redirigir
+    // Por ahora solo mostramos un mensaje
+    console.log('Reproducir testimonio en video...');
+    
+    // Opcional: mostrar alert temporal
+    const message = document.createElement('div');
+    message.className = 'video-message';
+    message.textContent = 'Video testimonial próximamente';
+    message.style.cssText = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+      z-index: 9999;
+    `;
+    document.body.appendChild(message);
+    
+    setTimeout(() => message.remove(), 2000);
   }
 }
 
