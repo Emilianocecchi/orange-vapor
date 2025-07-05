@@ -2,9 +2,11 @@
    VARIABLES CSS OPTIMIZADAS
    =================================== */
 :root {
-  /* Colores principales - Paleta optimizada para conversión */
+  /* Colores principales - Paleta optimizada basada en el logo */
+  --primary-pink: #C7658C;
+  --primary-pink-dark: #A54B71;
+  --primary-pink-light: #E29AB8;
   --primary-blue: #2563eb;
-  --primary-pink: #f63572;
   --success-green: #10b981;
   --accent-orange: #f97316;
   --warning-yellow: #fbbf24;
@@ -230,7 +232,7 @@ strong {
 }
 
 .btn-header:hover {
-  background: #d42960;
+  background: var(--primary-pink-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
@@ -261,7 +263,7 @@ strong {
   right: 0;
   bottom: 0;
   background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(246, 53, 114, 0.05) 0%, transparent 50%);
+              radial-gradient(circle at 80% 80%, rgba(199, 101, 140, 0.05) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -473,13 +475,13 @@ strong {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, var(--primary-pink) 0%, #d42960 100%);
+  background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-pink-dark) 100%);
   color: white;
   padding: 1.25rem 3rem;
   border-radius: var(--radius-full);
   font-weight: 700;
   transition: all var(--transition-normal);
-  box-shadow: 0 10px 30px rgba(246, 53, 114, 0.3);
+  box-shadow: 0 10px 30px rgba(199, 101, 140, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -501,7 +503,7 @@ strong {
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(246, 53, 114, 0.4);
+  box-shadow: 0 15px 40px rgba(199, 101, 140, 0.4);
 }
 
 .btn-main {
@@ -634,6 +636,66 @@ strong {
 }
 
 /* ===================================
+   COURSE BADGE SECTION
+   =================================== */
+.course-badge-section {
+  padding: var(--spacing-2xl) 0;
+  background: linear-gradient(135deg, var(--bg-white) 0%, rgba(199, 101, 140, 0.05) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.course-badge-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(199, 101, 140, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.badge-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xl);
+  position: relative;
+  z-index: 1;
+}
+
+.course-badge-image {
+  width: 200px;
+  height: auto;
+  filter: drop-shadow(0 10px 30px rgba(199, 101, 140, 0.2));
+  animation: floatBadge 6s ease-in-out infinite;
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.badge-text {
+  flex: 1;
+}
+
+.badge-title {
+  font-family: var(--font-secondary);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.2;
+}
+
+.badge-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-medium);
+  line-height: 1.5;
+}
+
+/* ===================================
    PROBLEMS & SOLUTIONS SECTION
    =================================== */
 .problems-solutions {
@@ -743,7 +805,7 @@ strong {
 }
 
 .benefit-card.featured {
-  background: linear-gradient(135deg, var(--bg-white) 0%, rgba(246, 53, 114, 0.05) 100%);
+  background: linear-gradient(135deg, var(--bg-white) 0%, rgba(199, 101, 140, 0.05) 100%);
   border-color: var(--primary-pink);
 }
 
@@ -1571,14 +1633,14 @@ input:checked + .slider:before {
 }
 
 .btn-plan.ultra {
-  background: linear-gradient(135deg, var(--primary-pink) 0%, #d42960 100%);
+  background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-pink-dark) 100%);
   color: white;
-  box-shadow: 0 10px 30px rgba(246, 53, 114, 0.3);
+  box-shadow: 0 10px 30px rgba(199, 101, 140, 0.3);
 }
 
 .btn-plan.ultra:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(246, 53, 114, 0.4);
+  box-shadow: 0 15px 40px rgba(199, 101, 140, 0.4);
 }
 
 .plan-guarantee {
@@ -1879,7 +1941,7 @@ input:checked + .slider:before {
   font-weight: 900;
   color: var(--primary-pink);
   line-height: 1;
-  text-shadow: 0 0 20px rgba(246, 53, 114, 0.5);
+  text-shadow: 0 0 20px rgba(199, 101, 140, 0.5);
 }
 
 .countdown-text {
@@ -1921,14 +1983,14 @@ input:checked + .slider:before {
 }
 
 .btn-cta.ultra {
-  background: linear-gradient(135deg, var(--primary-pink) 0%, #d42960 100%);
+  background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-pink-dark) 100%);
   color: white;
-  box-shadow: 0 10px 30px rgba(246, 53, 114, 0.5);
+  box-shadow: 0 10px 30px rgba(199, 101, 140, 0.5);
 }
 
 .btn-cta.ultra:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 15px 40px rgba(246, 53, 114, 0.6);
+  box-shadow: 0 15px 40px rgba(199, 101, 140, 0.6);
 }
 
 .btn-plan-name {
@@ -2151,7 +2213,7 @@ input:checked + .slider:before {
 }
 
 .sticky-button:hover {
-  background: #d42960;
+  background: var(--primary-pink-dark);
 }
 
 /* ===================================
@@ -2232,6 +2294,20 @@ input:checked + .slider:before {
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
+  }
+  
+  .badge-content {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-lg);
+  }
+  
+  .course-badge-image {
+    width: 150px;
+  }
+  
+  .badge-title {
+    font-size: 1.5rem;
   }
   
   .benefits-grid {
@@ -2342,6 +2418,19 @@ input:checked + .slider:before {
   .payment-methods svg {
     width: 45px;
     height: 28px;
+  }
+  
+  
+  .course-badge-image {
+    width: 120px;
+  }
+  
+  .badge-title {
+    font-size: 1.25rem;
+  }
+  
+  .badge-subtitle {
+    font-size: 1rem;
   }
   
   .problems-grid {
@@ -2510,7 +2599,7 @@ textarea:focus {
 /* High contrast mode */
 @media (prefers-contrast: high) {
   :root {
-    --primary-pink: #ff0066;
+    --primary-pink: #D7719C;
     --primary-blue: #0066ff;
     --text-dark: #000000;
     --text-medium: #333333;
