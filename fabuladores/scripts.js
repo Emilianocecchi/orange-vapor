@@ -143,14 +143,38 @@ class FAQAccordion {
   }
 
   init() {
-    this.questions.forEach(question => {
-      question.addEventListener('click', (e) => this.toggleAnswer(e));
+    if (!this.questions.length) {
+      console.log('No FAQ questions found');
+      return;
+    }
+    
+    console.log(`Found ${this.questions.length} FAQ questions`);
+    
+    this.questions.forEach((question, index) => {
+      // Configurar estado inicial
+      question.setAttribute('aria-expanded', 'false');
+      const answer = question.nextElementSibling;
+      if (answer && answer.classList.contains('faq-answer')) {
+        answer.classList.remove('active');
+      }
+      
+      // Añadir event listener
+      question.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.toggleAnswer(e);
+      });
     });
   }
 
   toggleAnswer(e) {
     const question = e.currentTarget;
     const answer = question.nextElementSibling;
+    
+    if (!answer || !answer.classList.contains('faq-answer')) {
+      console.error('Answer element not found');
+      return;
+    }
+    
     const isOpen = question.getAttribute('aria-expanded') === 'true';
     
     // Cerrar todas las respuestas
@@ -161,17 +185,35 @@ class FAQAccordion {
       question.setAttribute('aria-expanded', 'true');
       answer.classList.add('active');
       
+      // Actualizar el ícono
+      const icon = question.querySelector('.faq-icon');
+      if (icon) {
+        icon.textContent = '−';
+      }
+      
       // Scroll suave a la pregunta
       setTimeout(() => {
-        question.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 300);
+        const rect = question.getBoundingClientRect();
+        const offset = 100;
+        window.scrollTo({
+          top: window.pageYOffset + rect.top - offset,
+          behavior: 'smooth'
+        });
+      }, 100);
     }
   }
 
   closeAll() {
     this.questions.forEach(q => {
       q.setAttribute('aria-expanded', 'false');
-      q.nextElementSibling.classList.remove('active');
+      const answer = q.nextElementSibling;
+      if (answer && answer.classList.contains('faq-answer')) {
+        answer.classList.remove('active');
+      }
+      const icon = q.querySelector('.faq-icon');
+      if (icon) {
+        icon.textContent = '+';
+      }
     });
   }
 }
@@ -624,6 +666,8 @@ class App {
   }
 
   init() {
+    console.log('Initializing app...');
+    
     // Inicializar countdown
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + 3); // 3 días desde ahora
@@ -633,9 +677,14 @@ class App {
     // Inicializar otros módulos
     Object.keys(this.modules).forEach(key => {
       if (key !== 'countdown') {
-        const module = new this.modules[key]();
-        if (typeof module.init === 'function') {
-          module.init();
+        try {
+          const module = new this.modules[key]();
+          if (typeof module.init === 'function') {
+            console.log(`Initializing module: ${key}`);
+            module.init();
+          }
+        } catch (error) {
+          console.error(`Error initializing module ${key}:`, error);
         }
       }
     });
