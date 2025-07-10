@@ -558,9 +558,14 @@
         <h2 class="section-title fade-in">Nuestras Categorías</h2>
         <div class="category-grid">
             <div class="category-card fade-in" onclick="filterProducts('aros')">
-                <div class="category-icon">💍</div>
+                <div class="category-icon">👂</div>
                 <h3>Aros</h3>
                 <p>Diseños únicos y elegantes</p>
+            </div>
+            <div class="category-card fade-in" onclick="filterProducts('anillos')">
+                <div class="category-icon">💍</div>
+                <h3>Anillos</h3>
+                <p>Elegancia en cada dedo</p>
             </div>
             <div class="category-card fade-in" onclick="filterProducts('conjuntos')">
                 <div class="category-icon">💎</div>
@@ -676,27 +681,30 @@
         const products = [
             {
                 id: 1,
-                name: "Aros Flor de Cristal",
-                category: "aros",
-                price: "$12.500",
-                description: "Hermosos aros con diseño de flor en cristales",
-                featured: true
+                name: "Anillo de Plata 925",
+                category: "anillos",
+                price: "$15.000",
+                description: "Anillo clasico de plata 925",
+                featured: true,
+                image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/91557983-f763-3186-394a-86b688a9aebb.png"
             },
             {
                 id: 2,
-                name: "Conjunto Rainbow",
-                category: "conjuntos",
+                name: "Cadena y Dije",
+                category: "collares",
                 price: "$28.900",
-                description: "Conjunto de aros con piedras multicolor",
-                featured: true
+                description: "Cadena de plata 925 con dije a juego",
+                featured: true,
+                image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/d90856e9-cb74-2c8b-88c8-5920376a53a6.png"
             },
             {
                 id: 3,
-                name: "Brazalete Texturizado",
-                category: "brazaletes",
+                name: "Aros de Plata",
+                category: "aros",
                 price: "$18.700",
-                description: "Brazalete de plata 925 con textura única",
-                featured: true
+                description: "Aros elegantes de plata 925",
+                featured: true,
+                image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/4165370b-6fcc-b78d-947a-057f2acc67bf.png"
             },
             {
                 id: 4,
@@ -736,8 +744,9 @@
             filteredProducts.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card fade-in';
+                const imgStyle = product.image ? `style="background-image: url('${product.image}'); background-size: cover; background-position: center;"` : '';
                 card.innerHTML = `
-                    <div class="product-image"></div>
+                    <div class="product-image" ${imgStyle}></div>
                     ${product.featured ? '<div class="product-badge">DESTACADO</div>' : ''}
                     <div class="product-info">
                         <h3>${product.name}</h3>
@@ -766,7 +775,7 @@
             
             modalContent.innerHTML = `
                 <h2>${product.name}</h2>
-                <div style="background: #f0f0f0; height: 300px; margin: 1rem 0; border-radius: 10px;"></div>
+                <img src="${product.image || ''}" alt="${product.name}" style="width:100%; height:300px; object-fit:cover; margin:1rem 0; border-radius:10px;" />
                 <p class="product-price" style="font-size: 2rem; color: var(--secondary-color); margin: 1rem 0;">${product.price}</p>
                 <p>${product.description}</p>
                 <p><strong>Material:</strong> Plata 925</p>
