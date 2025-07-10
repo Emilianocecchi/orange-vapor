@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="T.H Joyas - Joyas de Plata 925 por mayor y menor. Envíos a todo el país. Córdoba, Argentina">
+    <title>T.H Joyas - Plata 925 | Córdoba</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>💎</text></svg>">
+    
+    <style>
+        :root {
+            --primary-color: #8B7355;
+            --secondary-color: #D4AF37;
+            --dark-color: #2C2C2C;
+            --light-color: #F8F8F8;
+            --text-color: #333;
+            --whatsapp-green: #25D366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+
+        /* Header y Navegación */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-circle {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            padding: 3rem 5%;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23D4AF37" stroke-width="0.5" opacity="0.1"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: normal;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #6B5A44;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Sección de Categorías */
+        .categories {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 100px;
+            height: 3px;
+            background: var(--secondary-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Productos Destacados */
+        .featured-products {
+            background: white;
+            padding: 4rem 5%;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--light-color);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0),
+                        linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .about-content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-icon {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--primary-color);
+            color: white;
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--whatsapp-green);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 999;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 5%;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Modal para productos */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animaciones */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-circle">TH</div>
+                T.H Joyas
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#categorias">Categorías</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content fade-in">
+            <h1>Joyas de Plata 925</h1>
+            <p>Elegancia y calidad en cada pieza. Venta por mayor y menor.</p>
+            <div class="cta-buttons">
+                <a href="#productos" class="btn btn-primary">Ver Catálogo</a>
+                <a href="https://wa.me/549XXXXXXXXX" class="btn btn-secondary" target="_blank">Contactar Ahora</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categorías -->
+    <section class="categories" id="categorias">
+        <h2 class="section-title fade-in">Nuestras Categorías</h2>
+        <div class="category-grid">
+            <div class="category-card fade-in" onclick="filterProducts('aros')">
+                <div class="category-icon">💍</div>
+                <h3>Aros</h3>
+                <p>Diseños únicos y elegantes</p>
+            </div>
+            <div class="category-card fade-in" onclick="filterProducts('conjuntos')">
+                <div class="category-icon">💎</div>
+                <h3>Conjuntos</h3>
+                <p>Combinaciones perfectas</p>
+            </div>
+            <div class="category-card fade-in" onclick="filterProducts('brazaletes')">
+                <div class="category-icon">⭐</div>
+                <h3>Brazaletes</h3>
+                <p>Estilo y sofisticación</p>
+            </div>
+            <div class="category-card fade-in" onclick="filterProducts('collares')">
+                <div class="category-icon">✨</div>
+                <h3>Collares</h3>
+                <p>Para cada ocasión</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos Destacados -->
+    <section class="featured-products" id="productos">
+        <div class="section-title fade-in">
+            <h2>Productos Destacados</h2>
+        </div>
+        <div class="product-grid" id="productGrid">
+            <!-- Los productos se cargarán dinámicamente aquí -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="nosotros">
+        <div class="about-content fade-in">
+            <h2>Sobre T.H Joyas</h2>
+            <p>Somos una empresa familiar dedicada a la venta de joyas de plata 925 de la más alta calidad. Con años de experiencia en el rubro, nos especializamos en ofrecer diseños únicos y elegantes para cada ocasión.</p>
+            <p>Trabajamos tanto con clientes minoristas como mayoristas, garantizando siempre el mejor precio y servicio.</p>
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Plata 925 genuina</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Envíos a todo el país</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Precios mayoristas</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Garantía de calidad</span>
+                </div>
+            </div>
+        </div>
+        <div class="about-image fade-in">
+            <div style="background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); height: 400px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--primary-color);">
+                💎
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+        <h2 class="fade-in">¡Contáctanos!</h2>
+        <div class="contact-info fade-in">
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <h3>Ubicación</h3>
+                <p>Córdoba Capital<br>Salsacate</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <h3>WhatsApp</h3>
+                <p>+54 9 XXX XXX-XXXX</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📦</div>
+                <h3>Envíos</h3>
+                <p>Correo Argentino<br>A todo el país</p>
+            </div>
+        </div>
+        <a href="#" class="btn btn-secondary fade-in">Solicitar Catálogo Completo</a>
+    </section>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/549XXXXXXXXX" class="whatsapp-float" target="_blank">
+        📱
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://instagram.com/ialisagristani" target="_blank">📷</a>
+            <a href="https://facebook.com/thjoyas" target="_blank">📘</a>
+            <a href="mailto:info@thjoyas.com">✉️</a>
+        </div>
+        <p>&copy; 2025 T.H Joyas - Todos los derechos reservados</p>
+        <p>Diseñado con 💎 en Córdoba, Argentina</p>
+    </footer>
+
+    <!-- Modal para producto detallado -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalContent">
+                <!-- Contenido del modal se cargará dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Productos de ejemplo
+        const products = [
+            {
+                id: 1,
+                name: "Aros Flor de Cristal",
+                category: "aros",
+                price: "$12.500",
+                description: "Hermosos aros con diseño de flor en cristales",
+                featured: true
+            },
+            {
+                id: 2,
+                name: "Conjunto Rainbow",
+                category: "conjuntos",
+                price: "$28.900",
+                description: "Conjunto de aros con piedras multicolor",
+                featured: true
+            },
+            {
+                id: 3,
+                name: "Brazalete Texturizado",
+                category: "brazaletes",
+                price: "$18.700",
+                description: "Brazalete de plata 925 con textura única",
+                featured: true
+            },
+            {
+                id: 4,
+                name: "Collar Cubo Cristal",
+                category: "collares",
+                price: "$15.400",
+                description: "Collar con dije de cubo en cristal",
+                featured: true
+            },
+            {
+                id: 5,
+                name: "Aros Colgantes",
+                category: "aros",
+                price: "$9.800",
+                description: "Aros colgantes con perlas",
+                featured: false
+            },
+            {
+                id: 6,
+                name: "Pulsera Múltiple",
+                category: "brazaletes",
+                price: "$22.300",
+                description: "Set de pulseras negras texturizadas",
+                featured: true
+            }
+        ];
+
+        // Cargar productos
+        function loadProducts(category = 'all') {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            const filteredProducts = category === 'all' 
+                ? products 
+                : products.filter(p => p.category === category);
+            
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card fade-in';
+                card.innerHTML = `
+                    <div class="product-image"></div>
+                    ${product.featured ? '<div class="product-badge">DESTACADO</div>' : ''}
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p class="product-price">${product.price}</p>
+                        <a href="#" class="btn btn-primary" onclick="showProduct(${product.id}); return false;">Ver Detalles</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            
+            // Trigger animations
+            setTimeout(() => {
+                document.querySelectorAll('.product-card').forEach(card => {
+                    card.classList.add('visible');
+                });
+            }, 100);
+        }
+
+        // Mostrar producto individual
+        function showProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const modal = document.getElementById('productModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <h2>${product.name}</h2>
+                <div style="background: #f0f0f0; height: 300px; margin: 1rem 0; border-radius: 10px;"></div>
+                <p class="product-price" style="font-size: 2rem; color: var(--secondary-color); margin: 1rem 0;">${product.price}</p>
+                <p>${product.description}</p>
+                <p><strong>Material:</strong> Plata 925</p>
+                <p><strong>Disponibilidad:</strong> En stock</p>
+                <div style="margin-top: 2rem;">
+                    <a href="https://wa.me/549XXXXXXXXX?text=Hola! Me interesa el producto: ${product.name}" 
+                       class="btn btn-primary" target="_blank">Consultar por WhatsApp</a>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Filtrar productos
+        function filterProducts(category) {
+            loadProducts(category);
+            document.getElementById('productos').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer click en un link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Intersection Observer para animaciones
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos con fade-in
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Cargar productos iniciales
+            loadProducts();
+        });
+
+        // Cerrar modal al hacer click fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Smooth scrolling para links de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
