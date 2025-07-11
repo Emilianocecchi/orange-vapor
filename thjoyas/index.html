@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="T.H Joyas - Joyas de Plata 925 por mayor y menor. Envíos a todo el país. Córdoba, Argentina">
+    <meta name="keywords" content="joyas, plata 925, anillos, aros, collares, brazaletes, córdoba, argentina">
     <title>T.H Joyas - Plata 925 | Córdoba</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>💎</text></svg>">
     
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         :root {
             --primary-color: #8B7355;
             --secondary-color: #D4AF37;
+            --accent-color: #C9B037;
             --dark-color: #2C2C2C;
             --light-color: #F8F8F8;
             --text-color: #333;
             --whatsapp-green: #25D366;
+            --mercadopago-blue: #009EE3;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
         }
 
         * {
@@ -26,20 +35,55 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--light-color);
         }
 
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--light-color);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* Header y Navegación */
         header {
             background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
         }
 
         nav {
@@ -47,7 +91,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 5%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -59,12 +103,17 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .logo img {
             height: 40px;
+            width: auto;
         }
-
 
         .nav-links {
             display: flex;
@@ -76,18 +125,58 @@
         .nav-links a {
             text-decoration: none;
             color: var(--text-color);
-            transition: color 0.3s;
+            transition: all 0.3s;
             font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: var(--primary-color);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
         }
 
+        .cart-icon {
+            position: relative;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
         .menu-toggle {
             display: none;
             flex-direction: column;
             cursor: pointer;
+            transition: all 0.3s;
         }
 
         .menu-toggle span {
@@ -96,15 +185,28 @@
             background: var(--text-color);
             margin: 3px 0;
             transition: 0.3s;
+            transform-origin: center;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
         }
 
         /* Hero Section */
         .hero {
             margin-top: 80px;
             background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-            padding: 3rem 5%;
+            padding: 4rem 5%;
             text-align: center;
-            min-height: 400px;
+            min-height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -127,22 +229,40 @@
         }
 
         .hero-content {
-            max-width: 800px;
+            max-width: 900px;
             position: relative;
             z-index: 1;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--primary-color);
             margin-bottom: 1rem;
-            font-weight: normal;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
-        .hero p {
-            font-size: 1.3rem;
+        .hero-subtitle {
+            font-size: 1.4rem;
             color: var(--text-color);
             margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
         }
 
         .cta-buttons {
@@ -153,92 +273,224 @@
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 15px 35px;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 50px;
             transition: all 0.3s;
-            display: inline-block;
-            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
         .btn-primary {
-            background: var(--primary-color);
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
             color: white;
+            box-shadow: 0 4px 15px rgba(139, 115, 85, 0.3);
         }
 
         .btn-primary:hover {
-            background: #6B5A44;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 115, 85, 0.4);
         }
 
         .btn-secondary {
             background: white;
             color: var(--primary-color);
             border: 2px solid var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .btn-secondary:hover {
             background: var(--primary-color);
             color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-whatsapp {
+            background: var(--whatsapp-green);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-mercadopago {
+            background: var(--mercadopago-blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 158, 227, 0.3);
+        }
+
+        .btn-mercadopago:hover {
+            background: #007BB8;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 158, 227, 0.4);
+        }
+
+        /* Sección de Beneficios */
+        .benefits {
+            padding: 3rem 5%;
+            background: white;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: var(--light-color);
+            transition: transform 0.3s;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
         /* Sección de Categorías */
         .categories {
             padding: 4rem 5%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--primary-color);
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             position: relative;
+            font-weight: 300;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 3rem;
+            opacity: 0.8;
         }
 
         .section-title::after {
             content: '';
             width: 100px;
             height: 3px;
-            background: var(--secondary-color);
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
+            border-radius: 2px;
         }
 
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
 
         .category-card {
             background: white;
-            border-radius: 10px;
-            padding: 2rem;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .category-card:hover::before {
+            left: 100%;
         }
 
         .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
         .category-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1);
         }
 
         .category-card h3 {
             color: var(--primary-color);
             margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .category-card p {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Filtros de productos */
+        .product-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--primary-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
         }
 
         /* Productos Destacados */
@@ -249,22 +501,24 @@
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .product-card {
             background: var(--light-color);
-            border-radius: 10px;
+            border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: all 0.3s;
             position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
         .product-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
         .product-image {
@@ -275,6 +529,19 @@
                         linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
         }
 
         .product-info {
@@ -284,47 +551,72 @@
         .product-info h3 {
             color: var(--primary-color);
             margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .product-description {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
         }
 
         .product-price {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--secondary-color);
             font-weight: bold;
             margin-bottom: 1rem;
         }
 
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
         .product-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             background: var(--secondary-color);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 8px 15px;
+            border-radius: 25px;
             font-size: 0.8rem;
             font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-new {
+            background: var(--success-color);
+        }
+
+        .product-sale {
+            background: var(--danger-color);
         }
 
         /* About Section */
         .about {
             padding: 4rem 5%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 4rem;
             align-items: center;
         }
 
         .about-content h2 {
             color: var(--primary-color);
             margin-bottom: 1.5rem;
-            font-size: 2rem;
+            font-size: 2.5rem;
+            font-weight: 300;
         }
 
         .about-content p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             line-height: 1.8;
+            font-size: 1.1rem;
         }
 
         .features {
@@ -338,6 +630,10 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .feature-icon {
@@ -345,40 +641,86 @@
             font-size: 1.5rem;
         }
 
+        .about-image {
+            position: relative;
+        }
+
+        .about-image-placeholder {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            height: 400px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="none" stroke="white" stroke-width="0.5" opacity="0.2"/></svg>') repeat;
+            animation: float 15s infinite linear;
+        }
+
         /* Contact Section */
         .contact {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: white;
             padding: 4rem 5%;
             text-align: center;
         }
 
         .contact h2 {
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-size: 2.8rem;
+            font-weight: 300;
+        }
+
+        .contact-subtitle {
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            font-size: 1.2rem;
         }
 
         .contact-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto 3rem;
         }
 
         .contact-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
         }
 
         .contact-icon {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--secondary-color);
+            margin-bottom: 1rem;
         }
 
-        /* WhatsApp Button */
+        .contact-item h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        /* WhatsApp Float Button */
         .whatsapp-float {
             position: fixed;
             bottom: 20px;
@@ -391,41 +733,115 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            font-size: 1.8rem;
+            box-shadow: 0 5px 25px rgba(37, 211, 102, 0.4);
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s;
             z-index: 999;
             text-decoration: none;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
         }
 
         .whatsapp-float:hover {
             transform: scale(1.1);
+            background: #128C7E;
+            animation: none;
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* Footer */
         footer {
             background: var(--dark-color);
             color: white;
-            text-align: center;
-            padding: 2rem 5%;
+            padding: 3rem 5% 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
         }
 
         .social-links {
             display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
         .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transition: all 0.3s;
         }
 
         .social-links a:hover {
-            color: var(--secondary-color);
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
         }
 
         /* Modal para productos */
@@ -438,25 +854,142 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
             background-color: white;
-            margin: 5% auto;
-            padding: 2rem;
+            margin: 2% auto;
+            padding: 0;
             width: 90%;
-            max-width: 600px;
-            border-radius: 10px;
+            max-width: 800px;
+            border-radius: 20px;
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            position: relative;
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-body {
+            padding: 2rem;
         }
 
         .close {
             position: absolute;
-            right: 1rem;
-            top: 1rem;
+            right: 1.5rem;
+            top: 1.5rem;
             font-size: 2rem;
             cursor: pointer;
             color: var(--text-color);
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: var(--danger-color);
+        }
+
+        .modal-product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            z-index: 1500;
+            transition: right 0.3s;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .cart-items {
+            padding: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-footer {
+            padding: 2rem;
+            border-top: 1px solid #eee;
+            background: var(--light-color);
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--success-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            z-index: 3000;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+        }
+
+        .toast.show {
+            transform: translateX(0);
         }
 
         /* Responsive */
@@ -482,38 +1015,122 @@
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
-            .hero p {
-                font-size: 1.1rem;
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-features {
+                flex-direction: column;
+                gap: 1rem;
             }
 
             .about {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .features {
                 grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                margin: 5% auto;
+                width: 95%;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
         }
 
         /* Animaciones */
         .fade-in {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s, transform 0.6s;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
         }
 
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease-out;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s ease-out;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 998;
+        }
+
+        .scroll-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
     <!-- Header -->
-    <header>
+    <header id="header">
         <nav>
             <a href="#" class="logo">
                 <img src="https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/e8e171f0-7429-21f9-ac72-59af6300ea53.png" alt="T.H Joyas Logo">
@@ -525,6 +1142,12 @@
                 <li><a href="#productos">Productos</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#contacto">Contacto</a></li>
+                <li>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </li>
             </ul>
             <div class="menu-toggle" id="menuToggle">
                 <span></span>
@@ -538,10 +1161,64 @@
     <section class="hero" id="inicio">
         <div class="hero-content fade-in">
             <h1>Joyas de Plata 925</h1>
-            <p>Elegancia y calidad en cada pieza. Venta por mayor y menor.</p>
+            <p class="hero-subtitle">Elegancia y calidad en cada pieza. Venta por mayor y menor.</p>
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <i class="fas fa-gem"></i>
+                    <span>Plata 925 Genuina</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Envíos a Todo el País</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Garantía de Calidad</span>
+                </div>
+            </div>
             <div class="cta-buttons">
-                <a href="#productos" class="btn btn-primary">Ver Catálogo</a>
-                <a href="https://wa.me/549XXXXXXXXX" class="btn btn-secondary" target="_blank">Contactar Ahora</a>
+                <a href="#productos" class="btn btn-primary">
+                    <i class="fas fa-eye"></i>
+                    Ver Catálogo
+                </a>
+                <a href="https://wa.me/5493541234567?text=Hola! Quiero más información sobre sus joyas de plata 925" class="btn btn-whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    Contactar por WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="benefits-grid">
+            <div class="benefit-item fade-in">
+                <div class="benefit-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3>Plata 925 Certificada</h3>
+                <p>Todas nuestras joyas están hechas con plata de ley 925, garantizando pureza y durabilidad.</p>
+            </div>
+            <div class="benefit-item fade-in">
+                <div class="benefit-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h3>Envíos Rápidos</h3>
+                <p>Entregamos en 24-48hs en CABA y GBA. Al resto del país en 3-5 días hábiles.</p>
+            </div>
+            <div class="benefit-item fade-in">
+                <div class="benefit-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <h3>Pagos Seguros</h3>
+                <p>Acepta todos los medios de pago a través de Mercado Pago. Compra 100% segura.</p>
+            </div>
+            <div class="benefit-item fade-in">
+                <div class="benefit-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Atención Personalizada</h3>
+                <p>Nuestro equipo está disponible para asesorarte en tu compra por WhatsApp.</p>
             </div>
         </div>
     </section>
@@ -549,31 +1226,49 @@
     <!-- Categorías -->
     <section class="categories" id="categorias">
         <h2 class="section-title fade-in">Nuestras Categorías</h2>
+        <p class="section-subtitle fade-in">Descubre nuestra amplia variedad de joyas de plata 925</p>
         <div class="category-grid">
             <div class="category-card fade-in" onclick="filterProducts('aros')">
-                <div class="category-icon">👂</div>
+                <div class="category-icon">
+                    <i class="fas fa-circle"></i>
+                </div>
                 <h3>Aros</h3>
-                <p>Diseños únicos y elegantes</p>
+                <p>Diseños únicos y elegantes para cada ocasión</p>
             </div>
             <div class="category-card fade-in" onclick="filterProducts('anillos')">
-                <div class="category-icon">💍</div>
+                <div class="category-icon">
+                    <i class="fas fa-ring"></i>
+                </div>
                 <h3>Anillos</h3>
-                <p>Elegancia en cada dedo</p>
+                <p>Elegancia en cada dedo, desde clásicos hasta modernos</p>
             </div>
             <div class="category-card fade-in" onclick="filterProducts('conjuntos')">
-                <div class="category-icon">💎</div>
+                <div class="category-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
                 <h3>Conjuntos</h3>
-                <p>Combinaciones perfectas</p>
+                <p>Combinaciones perfectas que realzan tu belleza</p>
             </div>
             <div class="category-card fade-in" onclick="filterProducts('brazaletes')">
-                <div class="category-icon">⭐</div>
+                <div class="category-icon">
+                    <i class="fas fa-link"></i>
+                </div>
                 <h3>Brazaletes</h3>
-                <p>Estilo y sofisticación</p>
+                <p>Estilo y sofisticación para tu muñeca</p>
             </div>
             <div class="category-card fade-in" onclick="filterProducts('collares')">
-                <div class="category-icon">✨</div>
+                <div class="category-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
                 <h3>Collares</h3>
-                <p>Para cada ocasión</p>
+                <p>Para cada ocasión, desde casual hasta elegante</p>
+            </div>
+            <div class="category-card fade-in" onclick="filterProducts('dijes')">
+                <div class="category-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Dijes</h3>
+                <p>Personaliza tu estilo con nuestros dijes únicos</p>
             </div>
         </div>
     </section>
@@ -582,7 +1277,19 @@
     <section class="featured-products" id="productos">
         <div class="section-title fade-in">
             <h2>Productos Destacados</h2>
+            <p class="section-subtitle">Los más elegidos por nuestros clientes</p>
         </div>
+        
+        <!-- Filtros -->
+        <div class="product-filters fade-in">
+            <button class="filter-btn active" onclick="filterProducts('all')">Todos</button>
+            <button class="filter-btn" onclick="filterProducts('aros')">Aros</button>
+            <button class="filter-btn" onclick="filterProducts('anillos')">Anillos</button>
+            <button class="filter-btn" onclick="filterProducts('collares')">Collares</button>
+            <button class="filter-btn" onclick="filterProducts('brazaletes')">Brazaletes</button>
+            <button class="filter-btn" onclick="filterProducts('conjuntos')">Conjuntos</button>
+        </div>
+
         <div class="product-grid" id="productGrid">
             <!-- Los productos se cargarán dinámicamente aquí -->
         </div>
@@ -590,32 +1297,40 @@
 
     <!-- About Section -->
     <section class="about" id="nosotros">
-        <div class="about-content fade-in">
+        <div class="about-content slide-in-left">
             <h2>Sobre T.H Joyas</h2>
             <p>Somos una empresa familiar dedicada a la venta de joyas de plata 925 de la más alta calidad. Con años de experiencia en el rubro, nos especializamos en ofrecer diseños únicos y elegantes para cada ocasión.</p>
-            <p>Trabajamos tanto con clientes minoristas como mayoristas, garantizando siempre el mejor precio y servicio.</p>
+            <p>Trabajamos tanto con clientes minoristas como mayoristas, garantizando siempre el mejor precio y servicio. Nuestra pasión por la joyería nos impulsa a buscar constantemente las mejores piezas para nuestros clientes.</p>
             <div class="features">
                 <div class="feature">
-                    <span class="feature-icon">✓</span>
-                    <span>Plata 925 genuina</span>
+                    <span class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </span>
+                    <span>Plata 925 genuina certificada</span>
                 </div>
                 <div class="feature">
-                    <span class="feature-icon">✓</span>
+                    <span class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </span>
                     <span>Envíos a todo el país</span>
                 </div>
                 <div class="feature">
-                    <span class="feature-icon">✓</span>
-                    <span>Precios mayoristas</span>
+                    <span class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </span>
+                    <span>Precios mayoristas y minoristas</span>
                 </div>
                 <div class="feature">
-                    <span class="feature-icon">✓</span>
-                    <span>Garantía de calidad</span>
+                    <span class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </span>
+                    <span>Garantía de calidad premium</span>
                 </div>
             </div>
         </div>
-        <div class="about-image fade-in">
-            <div style="background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); height: 400px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--primary-color);">
-                💎
+        <div class="about-image slide-in-right">
+            <div class="about-image-placeholder">
+                <i class="fas fa-gem"></i>
             </div>
         </div>
     </section>
@@ -623,107 +1338,273 @@
     <!-- Contact Section -->
     <section class="contact" id="contacto">
         <h2 class="fade-in">¡Contáctanos!</h2>
+        <p class="contact-subtitle fade-in">Estamos aquí para ayudarte a encontrar la joya perfecta</p>
         <div class="contact-info fade-in">
             <div class="contact-item">
-                <div class="contact-icon">📍</div>
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
                 <h3>Ubicación</h3>
-                <p>Córdoba Capital<br>Salsacate</p>
+                <p>Córdoba Capital<br>Salsacate, Argentina</p>
             </div>
             <div class="contact-item">
-                <div class="contact-icon">📱</div>
+                <div class="contact-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
                 <h3>WhatsApp</h3>
-                <p>+54 9 XXX XXX-XXXX</p>
+                <p>+54 9 354 123-4567</p>
+                <a href="https://wa.me/5493541234567" class="btn btn-whatsapp" target="_blank" style="margin-top: 10px;">
+                    <i class="fab fa-whatsapp"></i>
+                    Contactar Ahora
+                </a>
             </div>
             <div class="contact-item">
-                <div class="contact-icon">📦</div>
+                <div class="contact-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
                 <h3>Envíos</h3>
-                <p>Correo Argentino<br>A todo el país</p>
+                <p>Correo Argentino y OCA<br>A todo el país</p>
             </div>
         </div>
-        <a href="#" class="btn btn-secondary fade-in">Solicitar Catálogo Completo</a>
+        <a href="https://wa.me/5493541234567?text=Hola! Me gustaría recibir el catálogo completo de T.H Joyas" class="btn btn-secondary fade-in" target="_blank">
+            <i class="fas fa-download"></i>
+            Solicitar Catálogo Completo
+        </a>
     </section>
 
     <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/549XXXXXXXXX" class="whatsapp-float" target="_blank">
-        📱
+    <a href="https://wa.me/5493541234567?text=Hola! Tengo una consulta sobre las joyas de T.H Joyas" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <div class="whatsapp-tooltip">¿Necesitas ayuda?</div>
     </a>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Carrito de Compras</h3>
+            <button onclick="toggleCart()" style="background: none; border: none; color: white; float: right; font-size: 1.5rem; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p style="text-align: center; color: #666; padding: 2rem;">Tu carrito está vacío</p>
+        </div>
+        <div class="cart-footer">
+            <div id="cartTotal" style="font-size: 1.2rem; font-weight: bold; margin-bottom: 1rem;"></div>
+            <button class="btn btn-mercadopago" style="width: 100%;" onclick="proceedToCheckout()">
+                <i class="fas fa-credit-card"></i>
+                Finalizar Compra
+            </button>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
-        <div class="social-links">
-            <a href="https://instagram.com/ialisagristani" target="_blank">📷</a>
-            <a href="https://facebook.com/thjoyas" target="_blank">📘</a>
-            <a href="mailto:info@thjoyas.com">✉️</a>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>T.H Joyas</h3>
+                <p>Especializados en joyas de plata 925 de la más alta calidad. Elegancia y distinción en cada pieza.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/ialisagristani" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://facebook.com/thjoyas" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="mailto:info@thjoyas.com">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <p><a href="#inicio">Inicio</a></p>
+                <p><a href="#categorias">Categorías</a></p>
+                <p><a href="#productos">Productos</a></p>
+                <p><a href="#nosotros">Nosotros</a></p>
+                <p><a href="#contacto">Contacto</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Información</h3>
+                <p>Envíos a todo el país</p>
+                <p>Pagos seguros con Mercado Pago</p>
+                <p>Garantía de calidad</p>
+                <p>Atención personalizada</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    Córdoba Capital, Argentina
+                </p>
+                <p>
+                    <i class="fab fa-whatsapp"></i>
+                    +54 9 354 123-4567
+                </p>
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    info@thjoyas.com
+                </p>
+            </div>
         </div>
-        <p>&copy; 2025 T.H Joyas - Todos los derechos reservados</p>
-        <p>Diseñado con 💎 en Córdoba, Argentina</p>
+        <div class="footer-bottom">
+            <p>&copy; 2025 T.H Joyas - Todos los derechos reservados</p>
+            <p>Diseñado con <i class="fas fa-heart" style="color: var(--secondary-color);"></i> en Córdoba, Argentina</p>
+        </div>
     </footer>
 
     <!-- Modal para producto detallado -->
     <div id="productModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modalContent">
-                <!-- Contenido del modal se cargará dinámicamente -->
+            <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div id="modalContent">
+                    <!-- Contenido del modal se cargará dinámicamente -->
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Producto agregado al carrito</span>
+    </div>
+
     <script>
-        // Productos de ejemplo
+        // Productos de ejemplo con enlaces de Mercado Pago
         const products = [
             {
                 id: 1,
-                name: "Anillo de Plata 925",
+                name: "Anillo Solitario Plata 925",
                 category: "anillos",
-                price: "$15.000",
-                description: "Anillo clasico de plata 925",
+                price: 15000,
+                originalPrice: 18000,
+                description: "Elegante anillo solitario de plata 925 con circón cúbico. Perfecto para ocasiones especiales.",
                 featured: true,
-                image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/91557983-f763-3186-394a-86b688a9aebb.png"
+                isNew: true,
+                image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/91557983-f763-3186-394a-86b688a9aebb.png",
+                mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
                 id: 2,
-                name: "Cadena y Dije",
+                name: "Cadena con Dije Corazón",
                 category: "collares",
-                price: "$28.900",
-                description: "Cadena de plata 925 con dije a juego",
+                price: 28900,
+                originalPrice: 32000,
+                description: "Hermosa cadena de plata 925 con dije de corazón. Incluye certificado de autenticidad.",
                 featured: true,
-                image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/d90856e9-cb74-2c8b-88c8-5920376a53a6.png"
+                isSale: true,
+                image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/d90856e9-cb74-2c8b-88c8-5920376a53a6.png",
+                mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
                 id: 3,
-                name: "Aros de Plata",
+                name: "Aros Aro Clásicos",
                 category: "aros",
-                price: "$18.700",
-                description: "Aros elegantes de plata 925",
+                price: 18700,
+                description: "Aros aro clásicos de plata 925. Un básico que no puede faltar en tu joyero.",
                 featured: true,
-                image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/4165370b-6fcc-b78d-947a-057f2acc67bf.png"
+                image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/4165370b-6fcc-b78d-947a-057f2acc67bf.png",
+                mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
                 id: 4,
                 name: "Collar Cubo Cristal",
                 category: "collares",
-                price: "$15.400",
-                description: "Collar con dije de cubo en cristal",
-                featured: true
+                price: 15400,
+                description: "Moderno collar con dije de cubo en cristal facetado. Brillo garantizado.",
+                featured: true,
+                mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
                 id: 5,
-                name: "Aros Colgantes",
+                name: "Aros Colgantes Perlas",
                 category: "aros",
-                price: "$9.800",
-                description: "Aros colgantes con perlas",
-                featured: false
+                price: 9800,
+                originalPrice: 12000,
+                description: "Delicados aros colgantes con perlas cultivadas. Elegancia pura.",
+                featured: false,
+                isSale: true,
+                mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
                 id: 6,
-                name: "Pulsera Múltiple",
+                name: "Set Pulseras Múltiples",
                 category: "brazaletes",
-                price: "$22.300",
-                description: "Set de pulseras negras texturizadas",
-                featured: true
+                price: 22300,
+                description: "Set de 3 pulseras texturizadas en diferentes diseños. Combínalas como quieras.",
+                featured: true,
+                isNew: true,
+                mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+            },
+            {
+                id: 7,
+                name: "Anillo Infinito",
+                category: "anillos",
+                price: 13500,
+                description: "Romántico anillo con diseño de infinito. Símbolo de amor eterno.",
+                featured: false,
+                mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+            },
+            {
+                id: 8,
+                name: "Conjunto Completo Elegance",
+                category: "conjuntos",
+                price: 45000,
+                originalPrice: 52000,
+                description: "Conjunto completo: collar, aros y anillo. Perfecto para ocasiones especiales.",
+                featured: true,
+                isSale: true,
+                mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+            },
+            {
+                id: 9,
+                name: "Aros Mariposa",
+                category: "aros",
+                price: 16800,
+                description: "Delicados aros con forma de mariposa. Perfectos para looks románticos.",
+                featured: false,
+                isNew: true,
+                mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+            },
+            {
+                id: 10,
+                name: "Brazalete Rígido Grabado",
+                category: "brazaletes",
+                price: 24900,
+                description: "Brazalete rígido con grabados florales. Una pieza statement única.",
+                featured: false,
+                mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             }
         ];
+
+        // Variables globales
+        let cart = [];
+        let currentFilter = 'all';
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ocultar loading screen
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 500);
+            }, 1000);
+
+            // Inicializar componentes
+            initializeAnimations();
+            loadProducts();
+            updateCartDisplay();
+            setupScrollEffects();
+            setupMobileMenu();
+        });
 
         // Cargar productos
         function loadProducts(category = 'all') {
@@ -731,34 +1612,103 @@
             grid.innerHTML = '';
             
             const filteredProducts = category === 'all' 
-                ? products 
+                ? products.filter(p => p.featured) 
                 : products.filter(p => p.category === category);
             
             filteredProducts.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card fade-in';
-                const imgStyle = product.image ? `style="background-image: url('${product.image}'); background-size: cover; background-position: center;"` : '';
+                
+                const badge = product.isNew ? 'product-new">NUEVO' : 
+                             product.isSale ? 'product-sale">OFERTA' : 
+                             product.featured ? '">DESTACADO' : '';
+                
+                const priceDisplay = product.originalPrice ? 
+                    `<span style="text-decoration: line-through; color: #999; font-size: 1rem;">$${product.originalPrice.toLocaleString()}</span><br>
+                     <span style="color: var(--danger-color); font-size: 1.4rem; font-weight: bold;">$${product.price.toLocaleString()}</span>` :
+                    `$${product.price.toLocaleString()}`;
+
                 card.innerHTML = `
-                    <div class="product-image" ${imgStyle}></div>
-                    ${product.featured ? '<div class="product-badge">DESTACADO</div>' : ''}
+                    ${badge ? `<div class="product-badge ${badge}</div>` : ''}
+                    <div class="product-image">
+                        ${product.image ? `<img src="${product.image}" alt="${product.name}" loading="lazy">` : ''}
+                    </div>
                     <div class="product-info">
                         <h3>${product.name}</h3>
-                        <p class="product-price">${product.price}</p>
-                        <a href="#" class="btn btn-primary" onclick="showProduct(${product.id}); return false;">Ver Detalles</a>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">${priceDisplay}</div>
+                        <div class="product-actions">
+                            <button class="btn btn-mercadopago" onclick="buyProduct(${product.id})">
+                                <i class="fas fa-credit-card"></i>
+                                Comprar
+                            </button>
+                            <button class="btn btn-secondary" onclick="showProduct(${product.id})">
+                                <i class="fas fa-eye"></i>
+                                Ver
+                            </button>
+                            <button class="btn btn-whatsapp" onclick="consultProduct(${product.id})">
+                                <i class="fab fa-whatsapp"></i>
+                                Consultar
+                            </button>
+                        </div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
             
+            // Update filter buttons
+            updateFilterButtons(category);
+            
             // Trigger animations
             setTimeout(() => {
-                document.querySelectorAll('.product-card').forEach(card => {
-                    card.classList.add('visible');
+                document.querySelectorAll('.product-card').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 100);
                 });
             }, 100);
         }
 
-        // Mostrar producto individual
+        // Actualizar botones de filtro
+        function updateFilterButtons(activeCategory) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const activeBtn = Array.from(document.querySelectorAll('.filter-btn')).find(btn => {
+                const category = btn.textContent.toLowerCase();
+                return (activeCategory === 'all' && category === 'todos') ||
+                       category === activeCategory;
+            });
+            
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+
+        // Comprar producto (redirige a Mercado Pago)
+        function buyProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            // En un entorno real, aquí harías una llamada al backend para crear la preferencia de pago
+            window.open(product.mercadoPagoLink, '_blank');
+            
+            // Mostrar notificación
+            showToast(`Redirigiendo a Mercado Pago para comprar: ${product.name}`);
+        }
+
+        // Consultar producto por WhatsApp
+        function consultProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const message = `Hola! Me interesa el producto: ${product.name} - $${product.price.toLocaleString()}. ¿Podrías darme más información?`;
+            const whatsappUrl = `https://wa.me/5493541234567?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Mostrar producto en modal
         function showProduct(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
@@ -766,68 +1716,166 @@
             const modal = document.getElementById('productModal');
             const modalContent = document.getElementById('modalContent');
             
+            const priceDisplay = product.originalPrice ? 
+                `<div style="margin: 1rem 0;">
+                    <span style="text-decoration: line-through; color: #999; font-size: 1.2rem;">$${product.originalPrice.toLocaleString()}</span><br>
+                    <span style="color: var(--danger-color); font-size: 2rem; font-weight: bold;">$${product.price.toLocaleString()}</span>
+                    <span style="background: var(--danger-color); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-left: 10px;">
+                        OFERTA
+                    </span>
+                </div>` :
+                `<div style="font-size: 2rem; color: var(--secondary-color); margin: 1rem 0; font-weight: bold;">$${product.price.toLocaleString()}</div>`;
+            
             modalContent.innerHTML = `
                 <h2>${product.name}</h2>
-                <img src="${product.image || ''}" alt="${product.name}" style="width:100%; height:300px; object-fit:cover; margin:1rem 0; border-radius:10px;" />
-                <p class="product-price" style="font-size: 2rem; color: var(--secondary-color); margin: 1rem 0;">${product.price}</p>
-                <p>${product.description}</p>
-                <p><strong>Material:</strong> Plata 925</p>
+                ${product.image ? `<img src="${product.image}" alt="${product.name}" class="modal-product-image" />` : ''}
+                ${priceDisplay}
+                <p><strong>Descripción:</strong> ${product.description}</p>
+                <p><strong>Material:</strong> Plata 925 de ley</p>
                 <p><strong>Disponibilidad:</strong> En stock</p>
-                <div style="margin-top: 2rem;">
-                    <a href="https://wa.me/549XXXXXXXXX?text=Hola! Me interesa el producto: ${product.name}" 
-                       class="btn btn-primary" target="_blank">Consultar por WhatsApp</a>
+                <p><strong>Garantía:</strong> 6 meses contra defectos de fabricación</p>
+                <p><strong>Envíos:</strong> A todo el país</p>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-mercadopago" onclick="buyProduct(${product.id})">
+                        <i class="fas fa-credit-card"></i>
+                        Comprar con Mercado Pago
+                    </button>
+                    <button class="btn btn-whatsapp" onclick="consultProduct(${product.id})">
+                        <i class="fab fa-whatsapp"></i>
+                        Consultar por WhatsApp
+                    </button>
                 </div>
             `;
             
             modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
 
         // Cerrar modal
         function closeModal() {
             document.getElementById('productModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
         // Filtrar productos
         function filterProducts(category) {
+            currentFilter = category;
             loadProducts(category);
-            document.getElementById('productos').scrollIntoView({ behavior: 'smooth' });
+            
+            // Scroll suave a la sección de productos
+            document.getElementById('productos').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
 
-        // Mobile menu toggle
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.getElementById('navLinks').classList.toggle('active');
-        });
+        // Toggle carrito (funcionalidad básica)
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('open');
+        }
 
-        // Cerrar menú al hacer click en un link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('navLinks').classList.remove('active');
+        // Finalizar compra
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showToast('Tu carrito está vacío', 'warning');
+                return;
+            }
+            
+            // En un entorno real, aquí crearías una preferencia de pago con todos los productos del carrito
+            const cartItems = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
+            const message = `Hola! Quiero finalizar mi compra. Productos: ${cartItems}`;
+            const whatsappUrl = `https://wa.me/5493541234567?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Actualizar display del carrito
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cartCount');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
+
+        // Mostrar notificación toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Configurar menú móvil
+        function setupMobileMenu() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            menuToggle.addEventListener('click', function() {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
             });
-        });
 
-        // Intersection Observer para animaciones
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
+            // Cerrar menú al hacer click en un link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        // Configurar efectos de scroll
+        function setupScrollEffects() {
+            const header = document.getElementById('header');
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
+            window.addEventListener('scroll', () => {
+                // Header effect
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                    scrollToTopBtn.style.display = 'flex';
+                } else {
+                    header.classList.remove('scrolled');
+                    scrollToTopBtn.style.display = 'none';
                 }
             });
-        }, observerOptions);
+        }
 
-        // Observar elementos con fade-in
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.fade-in').forEach(el => {
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Inicializar animaciones con Intersection Observer
+        function initializeAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observar elementos con animaciones
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
                 observer.observe(el);
             });
-            
-            // Cargar productos iniciales
-            loadProducts();
-        });
+        }
 
         // Cerrar modal al hacer click fuera
         window.onclick = function(event) {
@@ -849,6 +1897,15 @@
                     });
                 }
             });
+        });
+
+        // Manejo de teclado para accesibilidad
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                const cartSidebar = document.getElementById('cartSidebar');
+                cartSidebar.classList.remove('open');
+            }
         });
     </script>
 </body>
