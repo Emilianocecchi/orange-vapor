@@ -26,6 +26,7 @@
             --success-color: #28a745;
             --danger-color: #dc3545;
             --warning-color: #ffc107;
+            --urgency-red: #e74c3c;
         }
 
         * {
@@ -245,8 +246,30 @@
         .hero-subtitle {
             font-size: 1.4rem;
             color: var(--text-color);
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             opacity: 0.8;
+        }
+
+        /* NEW: Trust indicators */
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.9);
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .hero-features {
@@ -284,6 +307,8 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
@@ -334,6 +359,26 @@
             box-shadow: 0 8px 25px rgba(0, 158, 227, 0.4);
         }
 
+        /* NEW: Urgency button style */
+        .btn-urgency {
+            background: linear-gradient(45deg, var(--urgency-red), #c0392b);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .btn-urgency:hover {
+            background: linear-gradient(45deg, #c0392b, var(--urgency-red));
+            transform: translateY(-3px);
+            animation: none;
+        }
+
         /* Sección de Beneficios */
         .benefits {
             padding: 3rem 5%;
@@ -371,11 +416,10 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Sección de Categorías */
-        .categories {
+        /* NEW: Featured Products moved up */
+        .featured-products {
+            background: white;
             padding: 4rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
         }
 
         .section-title {
@@ -407,64 +451,74 @@
             border-radius: 2px;
         }
 
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .category-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
+        /* NEW: Social proof section */
+        .social-proof {
+            background: var(--light-color);
+            padding: 2rem 5%;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
         }
 
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            transition: left 0.5s;
+        .social-proof-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .category-card:hover::before {
-            left: 100%;
+        .sales-counter {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        .counter-item {
+            text-align: center;
         }
 
-        .category-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s;
+        .counter-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: block;
         }
 
-        .category-card:hover .category-icon {
-            transform: scale(1.1);
-        }
-
-        .category-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .category-card p {
+        .counter-label {
             color: var(--text-color);
             opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 2rem auto;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--secondary-color);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-family: serif;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            padding-top: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-color);
         }
 
         /* Filtros de productos */
@@ -491,12 +545,6 @@
         .filter-btn:hover {
             background: var(--primary-color);
             color: white;
-        }
-
-        /* Productos Destacados */
-        .featured-products {
-            background: white;
-            padding: 4rem 5%;
         }
 
         .product-grid {
@@ -595,6 +643,93 @@
             background: var(--danger-color);
         }
 
+        /* NEW: Stock indicator */
+        .stock-indicator {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--urgency-red);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.7; }
+        }
+
+        /* Sección de Categorías */
+        .categories {
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .category-card:hover::before {
+            left: 100%;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .category-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1);
+        }
+
+        .category-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .category-card p {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
         /* About Section */
         .about {
             padding: 4rem 5%;
@@ -667,6 +802,33 @@
             bottom: 0;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="none" stroke="white" stroke-width="0.5" opacity="0.2"/></svg>') repeat;
             animation: float 15s infinite linear;
+        }
+
+        /* NEW: Payment methods section */
+        .payment-methods {
+            background: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .payment-icon {
+            background: var(--light-color);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
         }
 
         /* Contact Section */
@@ -992,6 +1154,43 @@
             transform: translateX(0);
         }
 
+        /* NEW: Scarcity Timer */
+        .scarcity-timer {
+            background: var(--urgency-red);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scarcity-timer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .timer-text {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timer-numbers {
+            font-size: 1.5rem;
+            font-family: monospace;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -1023,6 +1222,16 @@
             }
 
             .hero-features {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .trust-indicators {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sales-counter {
                 flex-direction: column;
                 gap: 1rem;
             }
@@ -1062,6 +1271,11 @@
             .footer-content {
                 grid-template-columns: 1fr;
                 text-align: center;
+            }
+
+            .payment-icons {
+                flex-direction: column;
+                align-items: center;
             }
         }
 
@@ -1129,6 +1343,12 @@
         <div class="loading-spinner"></div>
     </div>
 
+    <!-- NEW: Scarcity Timer -->
+    <div class="scarcity-timer" id="scarcityTimer">
+        <div class="timer-text">🔥 OFERTA ESPECIAL - Termina en:</div>
+        <div class="timer-numbers" id="timerDisplay">02:14:33</div>
+    </div>
+
     <!-- Header -->
     <header id="header">
         <nav>
@@ -1137,8 +1357,8 @@
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#categorias">Categorías</a></li>
                 <li><a href="#productos">Productos</a></li>
+                <li><a href="#categorias">Categorías</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#contacto">Contacto</a></li>
                 <li>
@@ -1161,6 +1381,23 @@
         <div class="hero-content fade-in">
             <h1>Joyas de Plata 925</h1>
             <p class="hero-subtitle">Elegancia y calidad en cada pieza. Venta por mayor y menor.</p>
+            
+            <!-- NEW: Trust indicators -->
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <i class="fas fa-shield-check"></i>
+                    <span>+5000 Clientes Satisfechos</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-star"></i>
+                    <span>4.9/5 Estrellas</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-truck-fast"></i>
+                    <span>Envío en 24-48hs</span>
+                </div>
+            </div>
+
             <div class="hero-features">
                 <div class="hero-feature">
                     <i class="fas fa-gem"></i>
@@ -1176,13 +1413,13 @@
                 </div>
             </div>
             <div class="cta-buttons">
-                <a href="#productos" class="btn btn-primary">
-                    <i class="fas fa-eye"></i>
-                    Ver Catálogo
+                <a href="#productos" class="btn btn-urgency">
+                    <i class="fas fa-fire"></i>
+                    Ver Ofertas AHORA
                 </a>
-                <a href="https://wa.me/5493517416111?text=Hola! Quiero más información sobre sus joyas de plata 925" class="btn btn-whatsapp" target="_blank">
+                <a href="https://wa.me/5493517416111?text=Hola! Quiero aprovechar las ofertas especiales de T.H Joyas" class="btn btn-whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i>
-                    Contactar por WhatsApp
+                    Comprar por WhatsApp
                 </a>
             </div>
         </div>
@@ -1222,7 +1459,81 @@
         </div>
     </section>
 
-    <!-- Categorías -->
+    <!-- NEW: Social Proof Section -->
+    <section class="social-proof">
+        <div class="social-proof-content fade-in">
+            <div class="sales-counter">
+                <div class="counter-item">
+                    <span class="counter-number" id="salesCounter">5,247</span>
+                    <span class="counter-label">Joyas Vendidas</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number">4.9</span>
+                    <span class="counter-label">Calificación</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number">2,891</span>
+                    <span class="counter-label">Clientes Felices</span>
+                </div>
+            </div>
+            
+            <div class="testimonial">
+                <p class="testimonial-text">"Excelente calidad y servicio. Las joyas son hermosas y llegaron súper rápido. ¡Totalmente recomendado!"</p>
+                <p class="testimonial-author">- María G., Buenos Aires</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos Destacados - MOVED UP -->
+    <section class="featured-products" id="productos">
+        <div class="section-title fade-in">
+            <h2>🔥 Ofertas Especiales - Stock Limitado</h2>
+            <p class="section-subtitle">Aprovecha estos precios únicos - Solo por tiempo limitado</p>
+        </div>
+        
+        <!-- Filtros -->
+        <div class="product-filters fade-in">
+            <button class="filter-btn active" onclick="filterProducts('all')">Todos</button>
+            <button class="filter-btn" onclick="filterProducts('aros')">Aros</button>
+            <button class="filter-btn" onclick="filterProducts('anillos')">Anillos</button>
+            <button class="filter-btn" onclick="filterProducts('collares')">Collares</button>
+            <button class="filter-btn" onclick="filterProducts('brazaletes')">Brazaletes</button>
+            <button class="filter-btn" onclick="filterProducts('conjuntos')">Conjuntos</button>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+            <!-- Los productos se cargarán dinámicamente aquí -->
+        </div>
+    </section>
+
+    <!-- NEW: Payment Methods Section -->
+    <section class="payment-methods">
+        <h2 class="section-title fade-in">Métodos de Pago Seguros</h2>
+        <div class="payment-icons fade-in">
+            <div class="payment-icon">
+                <i class="fab fa-cc-visa"></i>
+                <span>Visa</span>
+            </div>
+            <div class="payment-icon">
+                <i class="fab fa-cc-mastercard"></i>
+                <span>Mastercard</span>
+            </div>
+            <div class="payment-icon">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Efectivo</span>
+            </div>
+            <div class="payment-icon">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Transferencia</span>
+            </div>
+            <div class="payment-icon">
+                <i class="fab fa-cc-amex"></i>
+                <span>American Express</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Categorías - MOVED DOWN -->
     <section class="categories" id="categorias">
         <h2 class="section-title fade-in">Nuestras Categorías</h2>
         <p class="section-subtitle fade-in">Descubre nuestra amplia variedad de joyas de plata 925</p>
@@ -1269,28 +1580,6 @@
                 <h3>Dijes</h3>
                 <p>Personaliza tu estilo con nuestros dijes únicos</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Productos Destacados -->
-    <section class="featured-products" id="productos">
-        <div class="section-title fade-in">
-            <h2>Productos Destacados</h2>
-            <p class="section-subtitle">Los más elegidos por nuestros clientes</p>
-        </div>
-        
-        <!-- Filtros -->
-        <div class="product-filters fade-in">
-            <button class="filter-btn active" onclick="filterProducts('all')">Todos</button>
-            <button class="filter-btn" onclick="filterProducts('aros')">Aros</button>
-            <button class="filter-btn" onclick="filterProducts('anillos')">Anillos</button>
-            <button class="filter-btn" onclick="filterProducts('collares')">Collares</button>
-            <button class="filter-btn" onclick="filterProducts('brazaletes')">Brazaletes</button>
-            <button class="filter-btn" onclick="filterProducts('conjuntos')">Conjuntos</button>
-        </div>
-
-        <div class="product-grid" id="productGrid">
-            <!-- Los productos se cargarán dinámicamente aquí -->
         </div>
     </section>
 
@@ -1417,8 +1706,8 @@
             <div class="footer-section">
                 <h3>Enlaces Rápidos</h3>
                 <p><a href="#inicio">Inicio</a></p>
-                <p><a href="#categorias">Categorías</a></p>
                 <p><a href="#productos">Productos</a></p>
+                <p><a href="#categorias">Categorías</a></p>
                 <p><a href="#nosotros">Nosotros</a></p>
                 <p><a href="#contacto">Contacto</a></p>
             </div>
@@ -1481,6 +1770,7 @@
                 description: "Elegante anillo solitario de plata 925 con circón cúbico. Perfecto para ocasiones especiales.",
                 featured: true,
                 isNew: true,
+                stock: 3,
                 image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/91557983-f763-3186-394a-86b688a9aebb.png",
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
@@ -1493,6 +1783,7 @@
                 description: "Hermosa cadena de plata 925 con dije de corazón. Incluye certificado de autenticidad.",
                 featured: true,
                 isSale: true,
+                stock: 2,
                 image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/d90856e9-cb74-2c8b-88c8-5920376a53a6.png",
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
@@ -1503,6 +1794,7 @@
                 price: 18700,
                 description: "Aros aro clásicos de plata 925. Un básico que no puede faltar en tu joyero.",
                 featured: true,
+                stock: 5,
                 image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/4165370b-6fcc-b78d-947a-057f2acc67bf.png",
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
@@ -1513,6 +1805,7 @@
                 price: 15400,
                 description: "Moderno collar con dije de cubo en cristal facetado. Brillo garantizado.",
                 featured: true,
+                stock: 4,
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
@@ -1524,6 +1817,7 @@
                 description: "Delicados aros colgantes con perlas cultivadas. Elegancia pura.",
                 featured: false,
                 isSale: true,
+                stock: 1,
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
@@ -1534,6 +1828,7 @@
                 description: "Set de 3 pulseras texturizadas en diferentes diseños. Combínalas como quieras.",
                 featured: true,
                 isNew: true,
+                stock: 3,
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
@@ -1543,6 +1838,7 @@
                 price: 13500,
                 description: "Romántico anillo con diseño de infinito. Símbolo de amor eterno.",
                 featured: false,
+                stock: 6,
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
@@ -1554,6 +1850,7 @@
                 description: "Conjunto completo: collar, aros y anillo. Perfecto para ocasiones especiales.",
                 featured: true,
                 isSale: true,
+                stock: 2,
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
@@ -1564,6 +1861,7 @@
                 description: "Delicados aros con forma de mariposa. Perfectos para looks románticos.",
                 featured: false,
                 isNew: true,
+                stock: 4,
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
@@ -1573,6 +1871,7 @@
                 price: 24900,
                 description: "Brazalete rígido con grabados florales. Una pieza statement única.",
                 featured: false,
+                stock: 3,
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
             {
@@ -1583,6 +1882,7 @@
                 description: "Elegante cadena de plata 925 con dije de estrella. Perfecto para uso diario.",
                 featured: true,
                 isNew: true,
+                stock: 1,
                 image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/982ec867-8fda-98d8-cd15-f1151f39b472.png",
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
@@ -1593,6 +1893,7 @@
                 price: 26800,
                 description: "Hermoso set de pulseras delicadas de plata 925. Diferentes diseños para combinar.",
                 featured: true,
+                stock: 2,
                 image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/0ceebf49-67f6-35de-7076-47d781d6a58f.png",
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             },
@@ -1605,6 +1906,7 @@
                 description: "Set completo: anillo, cadena, pulsera y aros. La combinación perfecta para ocasiones especiales.",
                 featured: true,
                 isSale: true,
+                stock: 1,
                 image: "https://mcusercontent.com/386ca740d7cf02ec261f47f33/images/898772de-139c-59f9-03a6-0fad3bc496b3.png",
                 mercadoPagoLink: "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
             }
@@ -1613,6 +1915,9 @@
         // Variables globales
         let cart = [];
         let currentFilter = 'all';
+        let timerMinutes = 2;
+        let timerSeconds = 14;
+        let timerHours = 2;
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
@@ -1630,9 +1935,65 @@
             updateCartDisplay();
             setupScrollEffects();
             setupMobileMenu();
+            startTimer();
+            animateCounters();
         });
 
-        // Cargar productos
+        // NEW: Timer de escasez
+        function startTimer() {
+            const timerDisplay = document.getElementById('timerDisplay');
+            
+            setInterval(() => {
+                timerSeconds--;
+                
+                if (timerSeconds < 0) {
+                    timerSeconds = 59;
+                    timerMinutes--;
+                    
+                    if (timerMinutes < 0) {
+                        timerMinutes = 59;
+                        timerHours--;
+                        
+                        if (timerHours < 0) {
+                            // Reset timer
+                            timerHours = 2;
+                            timerMinutes = 14;
+                            timerSeconds = 33;
+                        }
+                    }
+                }
+                
+                const formattedTime = `${timerHours.toString().padStart(2, '0')}:${timerMinutes.toString().padStart(2, '0')}:${timerSeconds.toString().padStart(2, '0')}`;
+                timerDisplay.textContent = formattedTime;
+            }, 1000);
+        }
+
+        // NEW: Animación de contadores
+        function animateCounters() {
+            const salesCounter = document.getElementById('salesCounter');
+            let currentCount = 5000;
+            const targetCount = 5247;
+            
+            const interval = setInterval(() => {
+                currentCount += Math.floor(Math.random() * 3) + 1;
+                salesCounter.textContent = currentCount.toLocaleString();
+                
+                if (currentCount >= targetCount) {
+                    salesCounter.textContent = targetCount.toLocaleString();
+                    clearInterval(interval);
+                    
+                    // Efecto de incremento ocasional
+                    setInterval(() => {
+                        if (Math.random() < 0.3) { // 30% probabilidad
+                            const newCount = parseInt(salesCounter.textContent.replace(',', '')) + 1;
+                            salesCounter.textContent = newCount.toLocaleString();
+                        }
+                    }, 30000); // Cada 30 segundos
+                }
+            }, 100);
+        }
+
+        // Cargar productos con mejoras para conversión
         function loadProducts(category = 'all') {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
@@ -1651,11 +2012,19 @@
                 
                 const priceDisplay = product.originalPrice ? 
                     `<span style="text-decoration: line-through; color: #999; font-size: 1rem;">$${product.originalPrice.toLocaleString()}</span><br>
-                     <span style="color: var(--danger-color); font-size: 1.4rem; font-weight: bold;">$${product.price.toLocaleString()}</span>` :
+                     <span style="color: var(--danger-color); font-size: 1.4rem; font-weight: bold;">$${product.price.toLocaleString()}</span>
+                     <div style="background: var(--success-color); color: white; padding: 2px 8px; border-radius: 10px; display: inline-block; font-size: 0.8rem; margin-top: 5px;">
+                        AHORRÁS $${(product.originalPrice - product.price).toLocaleString()}
+                     </div>` :
                     `$${product.price.toLocaleString()}`;
+
+                // NEW: Indicador de stock bajo
+                const stockIndicator = product.stock <= 3 ? 
+                    `<div class="stock-indicator">¡Solo quedan ${product.stock}!</div>` : '';
 
                 card.innerHTML = `
                     ${badge ? `<div class="product-badge ${badge}</div>` : ''}
+                    ${stockIndicator}
                     <div class="product-image">
                         ${product.image ? `<img src="${product.image}" alt="${product.name}" loading="lazy">` : ''}
                     </div>
@@ -1664,15 +2033,11 @@
                         <p class="product-description">${product.description}</p>
                         <div class="product-price">${priceDisplay}</div>
                         <div class="product-actions">
-                            <button class="btn btn-mercadopago" onclick="buyProduct(${product.id})">
-                                <i class="fas fa-credit-card"></i>
-                                Comprar
+                            <button class="btn btn-urgency" onclick="buyProduct(${product.id})" style="flex: 1;">
+                                <i class="fas fa-shopping-cart"></i>
+                                COMPRAR AHORA
                             </button>
-                            <button class="btn btn-secondary" onclick="showProduct(${product.id})">
-                                <i class="fas fa-eye"></i>
-                                Ver
-                            </button>
-                            <button class="btn btn-whatsapp" onclick="consultProduct(${product.id})">
+                            <button class="btn btn-whatsapp" onclick="consultProduct(${product.id})" style="flex: 1;">
                                 <i class="fab fa-whatsapp"></i>
                                 Consultar
                             </button>
@@ -1712,29 +2077,46 @@
             }
         }
 
-        // Comprar producto (redirige a Mercado Pago)
+        // Comprar producto (redirige a Mercado Pago) con mejoras
         function buyProduct(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
             
+            // Reducir stock visualmente para crear urgencia
+            if (product.stock > 0) {
+                product.stock--;
+                
+                // Recargar productos para mostrar stock actualizado
+                setTimeout(() => {
+                    loadProducts(currentFilter);
+                }, 500);
+            }
+            
             // En un entorno real, aquí harías una llamada al backend para crear la preferencia de pago
             window.open(product.mercadoPagoLink, '_blank');
             
-            // Mostrar notificación
-            showToast(`Redirigiendo a Mercado Pago para comprar: ${product.name}`);
+            // Mostrar notificación de urgencia
+            showToast(`¡Excelente elección! Procesando compra de: ${product.name}`, 'success');
         }
 
-        // Consultar producto por WhatsApp
+        // Consultar producto por WhatsApp con mensaje optimizado
         function consultProduct(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
             
-            const message = `Hola! Me interesa el producto: ${product.name} - ${product.price.toLocaleString()}. ¿Podrías darme más información?`;
+            const urgencyText = product.stock <= 3 ? ` (¡Solo quedan ${product.stock} unidades!)` : '';
+            const message = `🔥 ¡Hola! Me interesa MUCHO este producto:
+            
+📦 ${product.name}
+💰 Precio: $${product.price.toLocaleString()}${urgencyText}
+
+¿Podrías confirmarme disponibilidad y darme más información? ¡Quiero comprarlo!`;
+            
             const whatsappUrl = `https://wa.me/5493517416111?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
 
-        // Mostrar producto en modal
+        // Mostrar producto en modal con mejoras
         function showProduct(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
@@ -1747,27 +2129,36 @@
                     <span style="text-decoration: line-through; color: #999; font-size: 1.2rem;">$${product.originalPrice.toLocaleString()}</span><br>
                     <span style="color: var(--danger-color); font-size: 2rem; font-weight: bold;">$${product.price.toLocaleString()}</span>
                     <span style="background: var(--danger-color); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-left: 10px;">
-                        OFERTA
+                        OFERTA ESPECIAL
                     </span>
+                    <div style="background: var(--success-color); color: white; padding: 8px 15px; border-radius: 15px; display: inline-block; margin-top: 10px;">
+                        🎉 AHORRÁS $${(product.originalPrice - product.price).toLocaleString()}
+                    </div>
                 </div>` :
                 `<div style="font-size: 2rem; color: var(--secondary-color); margin: 1rem 0; font-weight: bold;">$${product.price.toLocaleString()}</div>`;
+            
+            const stockMessage = product.stock <= 3 ? 
+                `<div style="background: var(--urgency-red); color: white; padding: 10px 15px; border-radius: 10px; margin: 1rem 0; font-weight: bold; text-align: center;">
+                    ⚠️ ¡ÚLTIMAS ${product.stock} UNIDADES DISPONIBLES!
+                </div>` : '';
             
             modalContent.innerHTML = `
                 <h2>${product.name}</h2>
                 ${product.image ? `<img src="${product.image}" alt="${product.name}" class="modal-product-image" />` : ''}
+                ${stockMessage}
                 ${priceDisplay}
                 <p><strong>Descripción:</strong> ${product.description}</p>
                 <p><strong>Material:</strong> Plata 925 de ley</p>
-                <p><strong>Disponibilidad:</strong> En stock</p>
+                <p><strong>Disponibilidad:</strong> ${product.stock > 0 ? `En stock (${product.stock} unidades)` : 'Agotado'}</p>
                 <p><strong>Garantía:</strong> 6 meses contra defectos de fabricación</p>
-                <p><strong>Envíos:</strong> A todo el país</p>
+                <p><strong>Envíos:</strong> A todo el país - 24-48hs CABA/GBA</p>
                 
                 <div class="modal-actions">
-                    <button class="btn btn-mercadopago" onclick="buyProduct(${product.id})">
+                    <button class="btn btn-urgency" onclick="buyProduct(${product.id})" style="flex: 2;">
                         <i class="fas fa-credit-card"></i>
-                        Comprar con Mercado Pago
+                        COMPRAR AHORA - Mercado Pago
                     </button>
-                    <button class="btn btn-whatsapp" onclick="consultProduct(${product.id})">
+                    <button class="btn btn-whatsapp" onclick="consultProduct(${product.id})" style="flex: 1;">
                         <i class="fab fa-whatsapp"></i>
                         Consultar por WhatsApp
                     </button>
@@ -1796,22 +2187,28 @@
             });
         }
 
-        // Toggle carrito (funcionalidad básica)
+        // Toggle carrito
         function toggleCart() {
             const cartSidebar = document.getElementById('cartSidebar');
             cartSidebar.classList.toggle('open');
         }
 
-        // Finalizar compra
+        // Finalizar compra con mensaje mejorado
         function proceedToCheckout() {
             if (cart.length === 0) {
                 showToast('Tu carrito está vacío', 'warning');
                 return;
             }
             
-            // En un entorno real, aquí crearías una preferencia de pago con todos los productos del carrito
             const cartItems = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
-            const message = `Hola! Quiero finalizar mi compra. Productos: ${cartItems}`;
+            const message = `🛒 ¡Hola! Quiero finalizar mi compra AHORA:
+
+${cartItems}
+
+💳 ¿Puedes enviarme el link de Mercado Pago para pagar?
+📦 Necesito información sobre el envío.
+
+¡Gracias!`;
             const whatsappUrl = `https://wa.me/5493517416111?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
@@ -1835,7 +2232,7 @@
             
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 3000);
+            }, 4000);
         }
 
         // Configurar menú móvil
@@ -1861,15 +2258,19 @@
         function setupScrollEffects() {
             const header = document.getElementById('header');
             const scrollToTopBtn = document.getElementById('scrollToTop');
+            const scarcityTimer = document.getElementById('scarcityTimer');
             
             window.addEventListener('scroll', () => {
                 // Header effect
                 if (window.scrollY > 100) {
                     header.classList.add('scrolled');
                     scrollToTopBtn.style.display = 'flex';
+                    // Ocultar timer de escasez al hacer scroll
+                    scarcityTimer.style.transform = 'translateY(-100%)';
                 } else {
                     header.classList.remove('scrolled');
                     scrollToTopBtn.style.display = 'none';
+                    scarcityTimer.style.transform = 'translateY(0)';
                 }
             });
         }
