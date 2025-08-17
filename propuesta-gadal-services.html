@@ -4,159 +4,832 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Propuesta de Publicidad Digital – Gadal Services</title>
+    
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Provided Stylesheet -->
     <link rel="stylesheet" href="style-rediseno.css">
+
     <style>
+        /* This is a placeholder for the content of 'style-rediseno.css' */
+        /* Paste the entire CSS content you provided here to make this file self-contained */
+        :root {
+         /* Colores principales - Paleta expandida con HDR */
+         --naranja: #ff6b35;
+         --naranja-hover: #ff5722;
+         --naranja-light: #fff3e0;
+         --naranja-glow: rgba(255, 107, 53, 0.6);
+         --naranja-gradient: linear-gradient(
+           135deg,
+           #ff6b35 0%,
+           #ff8a50 50%,
+           #ff5722 100%
+         );
+         --naranja-animated: linear-gradient(
+           -45deg,
+           #ff6b35,
+           #ff8a50,
+           #ff5722,
+           #ff7043
+         );
+        
+         --verde-exito: #00c853;
+         --verde-hover: #00a844;
+         --verde-glow: rgba(0, 200, 83, 0.4);
+         --verde-gradient: linear-gradient(
+           135deg,
+           #00c853 0%,
+           #4caf50 50%,
+           #00a844 100%
+         );
+        
+         --azul-confianza: #1976d2;
+         --azul-facebook: #1877f2;
+         --azul-google: #4285f4;
+         --azul-glow: rgba(25, 118, 210, 0.3);
+        
+         /* Grises con más matices */
+         --negro: #0a0a0a;
+         --gris-ultra-oscuro: #1a1a1a;
+         --gris-oscuro: #2a2a2a;
+         --gris-medio: #505050;
+         --gris-claro: #f8f9fa;
+         --gris-ultra-claro: #fcfcfd;
+         --blanco: #ffffff;
+         --blanco-glass: rgba(255, 255, 255, 0.1);
+         --blanco-glass-strong: rgba(255, 255, 255, 0.2);
+         --overlay-bg: rgba(255, 255, 255, 0.95);
+         --glass-heavy: rgba(255, 255, 255, 0.9);
+        
+         /* Espaciado fluido con clamp() */
+         --espacio-1: clamp(6px, 1vw, 8px);
+         --espacio-2: clamp(12px, 2vw, 16px);
+         --espacio-3: clamp(18px, 3vw, 24px);
+         --espacio-4: clamp(24px, 4vw, 32px);
+         --espacio-5: clamp(30px, 5vw, 40px);
+         --espacio-6: clamp(36px, 6vw, 48px);
+         --espacio-8: clamp(48px, 8vw, 64px);
+         --espacio-10: clamp(60px, 10vw, 80px);
+         --espacio-12: clamp(72px, 12vw, 96px);
+         --espacio-16: clamp(96px, 16vw, 128px);
+        
+         /* Tipografía fluida y futurista */
+         --fuente: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        
+         --texto-xs: clamp(0.7rem, 1.5vw, 0.75rem);
+         --texto-sm: clamp(0.8rem, 1.8vw, 0.875rem);
+         --texto-base: clamp(0.9rem, 2vw, 1rem);
+         --texto-lg: clamp(1rem, 2.2vw, 1.125rem);
+         --texto-xl: clamp(1.1rem, 2.5vw, 1.25rem);
+         --texto-2xl: clamp(1.3rem, 3vw, 1.5rem);
+         --texto-3xl: clamp(1.6rem, 4vw, 2rem);
+         --texto-4xl: clamp(2rem, 5vw, 2.5rem);
+         --texto-5xl: clamp(2.5rem, 6vw, 3.5rem);
+         --texto-6xl: clamp(3rem, 8vw, 4rem);
+        
+         /* Sombras cinematográficas con múltiples capas */
+         --sombra-xs: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.06);
+         --sombra-sm:
+           0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06),
+           0 1px 2px rgba(0, 0, 0, 0.05);
+         --sombra-md:
+           0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05),
+           0 2px 4px rgba(0, 0, 0, 0.06);
+         --sombra-lg:
+           0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.04),
+           0 6px 6px rgba(0, 0, 0, 0.07);
+         --sombra-xl:
+           0 25px 50px rgba(0, 0, 0, 0.25), 0 15px 30px rgba(0, 0, 0, 0.1),
+           0 8px 16px rgba(0, 0, 0, 0.1);
+         --sombra-glow: 0 0 30px var(--naranja-glow);
+         --sombra-verde-glow: 0 0 25px var(--verde-glow);
+         --sombra-azul-glow: 0 0 20px var(--azul-glow);
+        
+         /* Sombras neomórficas */
+         --sombra-neo-convex:
+           8px 8px 16px rgba(0, 0, 0, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.7);
+         --sombra-neo-concave:
+           inset 8px 8px 16px rgba(0, 0, 0, 0.15),
+           inset -8px -8px 16px rgba(255, 255, 255, 0.7);
+        
+         /* Bordes fluidos */
+         --radio-xs: 4px;
+         --radio-sm: 8px;
+         --radio-md: 12px;
+         --radio-lg: 18px;
+         --radio-xl: 24px;
+         --radio-2xl: 32px;
+         --radio-full: 9999px;
+        
+         /* Transiciones cinematográficas */
+         --transicion-rapida: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+         --transicion: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+         --transicion-lenta: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+         --transicion-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+         --transicion-elastic: 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        
+         /* Layout */
+         --max-width: 1400px;
+         --navbar-height: 80px;
+        
+         /* Gradientes de fondo animados */
+         --bg-gradient-1: linear-gradient(-45deg, #ff6b35, #ff8a50, #ff5722, #ff7043);
+         --bg-gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+         --bg-gradient-3: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+         --bg-mesh:
+           radial-gradient(at 40% 20%, hsla(28, 100%, 74%, 1) 0px, transparent 50%),
+           radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
+           radial-gradient(at 40% 50%, hsla(355, 100%, 93%, 1) 0px, transparent 50%),
+           radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 1) 0px, transparent 50%),
+           radial-gradient(at 40% 80%, hsla(22, 100%, 77%, 1) 0px, transparent 50%),
+           radial-gradient(at 80% 80%, hsla(242, 100%, 70%, 1) 0px, transparent 50%),
+           radial-gradient(at 40% 40%, hsla(320, 100%, 80%, 1) 0px, transparent 50%);
+        }
+        
+        *,
+        *::before,
+        *::after {
+         box-sizing: border-box;
+         margin: 0;
+         padding: 0;
+        }
+        
+        html {
+         font-size: 16px;
+         scroll-behavior: smooth;
+         -webkit-font-smoothing: antialiased;
+         -moz-osx-font-smoothing: grayscale;
+         text-rendering: optimizeLegibility;
+        }
+        
         body {
-            font-family: var(--fuente);
-            background: var(--gris-claro);
-            color: var(--gris-oscuro);
-            margin: 0;
+         font-family: var(--fuente);
+         font-size: var(--texto-base);
+         line-height: 1.6;
+         color: var(--negro);
+         background: var(--gris-ultra-claro);
+         overflow-x: hidden;
+         font-weight: 400;
         }
-
-        header {
-            background: var(--naranja-gradient);
-            color: var(--blanco);
-            text-align: center;
-            padding: var(--espacio-4) var(--espacio-2);
-        }
-
-        main {
-            max-width: 800px;
-            margin: var(--espacio-6) auto;
-            padding: 0 var(--espacio-2);
-        }
-
-        section {
-            background: var(--blanco);
-            padding: var(--espacio-4);
-            border-radius: var(--radio-md);
-            box-shadow: var(--sombra-sm);
-            margin-bottom: var(--espacio-5);
-        }
-
+        
         h1,
         h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+         font-weight: 700;
+         line-height: 1.2;
+         margin-bottom: var(--espacio-2);
+         letter-spacing: -0.02em;
+        }
+        
+        h1 {
+         font-size: var(--texto-6xl);
+         font-weight: 800;
+         line-height: 1.1;
+        }
+        h2 {
+         font-size: var(--texto-4xl);
+         font-weight: 700;
+        }
         h3 {
-            margin-top: 0;
+         font-size: var(--texto-3xl);
+         font-weight: 600;
+        }
+        h4 {
+         font-size: var(--texto-2xl);
+         font-weight: 600;
+        }
+        
+        p {
+         margin-bottom: var(--espacio-2);
+         color: var(--gris-oscuro);
+         line-height: 1.7;
+        }
+        
+        strong {
+         font-weight: 600;
+         color: var(--negro);
+        }
+        
+        a {
+         color: inherit;
+         text-decoration: none;
+         transition: color var(--transicion);
+        }
+        
+        .navbar {
+         position: fixed;
+         top: 0;
+         width: 100%;
+         height: var(--navbar-height);
+         background: rgba(255, 255, 255, 0.05);
+         backdrop-filter: blur(20px) saturate(180%);
+         -webkit-backdrop-filter: blur(20px) saturate(180%);
+         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+         z-index: 1000;
+         transition: all var(--transicion);
+        }
+        
+        .navbar.scrolled {
+         background: rgba(255, 255, 255, 0.1);
+         backdrop-filter: blur(25px) saturate(200%);
+         box-shadow: var(--sombra-lg);
+        }
+        
+        .navbar .container {
+         height: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         position: relative;
+         z-index: 1;
+        }
+        
+        .logo {
+         font-size: var(--texto-2xl);
+         font-weight: 900;
+         letter-spacing: -0.03em;
+         background: var(--naranja-gradient);
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         background-clip: text;
+         position: relative;
+        }
+        
+        .nav-actions {
+         display: flex;
+         align-items: center;
+         gap: var(--espacio-4);
+        }
+        
+        .btn-nav {
+         background: var(--naranja-gradient);
+         color: var(--blanco);
+         padding: 14px 28px;
+         border-radius: var(--radio-full);
+         font-weight: 600;
+         transition: all var(--transicion);
+         box-shadow: var(--sombra-md);
+         position: relative;
+         overflow: hidden;
+        }
+        
+        .btn-nav:hover {
+         transform: translateY(-3px);
+         box-shadow: var(--sombra-glow);
+        }
+        
+        .container {
+         max-width: var(--max-width);
+         margin: 0 auto;
+         padding: 0 var(--espacio-4);
+        }
+        
+        .section-tag {
+         display: inline-block;
+         font-size: var(--texto-sm);
+         font-weight: 600;
+         text-transform: uppercase;
+         letter-spacing: 0.1em;
+         background: var(--naranja-gradient);
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         background-clip: text;
+         margin-bottom: var(--espacio-3);
+         position: relative;
+        }
+        
+        .section-tag::after {
+         content: "";
+         position: absolute;
+         bottom: -4px;
+         left: 0;
+         width: 60%;
+         height: 2px;
+         background: var(--naranja-gradient);
+         border-radius: var(--radio-full);
         }
 
+        .hero {
+         min-height: 60vh;
+         padding: calc(var(--navbar-height) + var(--espacio-8)) 0 var(--espacio-12);
+         background: var(--bg-mesh);
+         background-size: 400% 400%;
+         animation: gradient 15s ease infinite;
+         position: relative;
+         overflow: hidden;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         text-align: center;
+        }
+        
+        @keyframes gradient {
+         0% {
+           background-position: 0% 50%;
+         }
+         50% {
+           background-position: 100% 50%;
+         }
+         100% {
+           background-position: 0% 50%;
+         }
+        }
+        
+        .hero::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: var(--overlay-bg);
+         backdrop-filter: blur(1px);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-headline {
+         font-size: var(--texto-5xl);
+         font-weight: 900;
+         line-height: 1.1;
+         margin-bottom: var(--espacio-4);
+         color: var(--negro);
+         letter-spacing: -0.04em;
+        }
+        
+        .hero-subheadline {
+         font-size: var(--texto-xl);
+         line-height: 1.6;
+         color: var(--gris-oscuro);
+         margin-bottom: var(--espacio-5);
+         font-weight: 400;
+         max-width: 700px;
+         margin-left: auto;
+         margin-right: auto;
+        }
+        
+        .section {
+            padding: var(--espacio-12) 0;
+        }
+
+        .section-header {
+         text-align: center;
+         max-width: 800px;
+         margin: 0 auto var(--espacio-10);
+        }
+        
+        .section-subtitle {
+         font-size: var(--texto-xl);
+         color: var(--gris-medio);
+         margin-top: var(--espacio-3);
+         line-height: 1.6;
+        }
+        
+        .services-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+         gap: var(--espacio-6);
+         margin-bottom: var(--espacio-8);
+        }
+        
+        .service-card {
+         background: var(--blanco);
+         border-radius: var(--radio-2xl);
+         padding: var(--espacio-6);
+         position: relative;
+         transition: all var(--transicion-lenta);
+         box-shadow: var(--sombra-neo-convex);
+         border: 1px solid rgba(255, 255, 255, 0.8);
+         overflow: hidden;
+        }
+        
+        .service-card:hover {
+         transform: translateY(-15px);
+         box-shadow: var(--sombra-xl);
+        }
+        
+        .service-header {
+         text-align: center;
+         margin-bottom: var(--espacio-5);
+        }
+        
+        .service-icon {
+         width: 80px;
+         height: 80px;
+         margin: 0 auto var(--espacio-4);
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: var(--texto-3xl);
+         box-shadow: var(--sombra-md);
+        }
+        
+        .service-card.meta .service-icon {
+         background: linear-gradient(135deg, rgba(24, 119, 242, 0.2), rgba(24, 119, 242, 0.1));
+         color: var(--azul-facebook);
+        }
+        
+        .service-card.google .service-icon {
+         background: linear-gradient(135deg, rgba(66, 133, 244, 0.2), rgba(66, 133, 244, 0.1));
+         color: var(--azul-google);
+        }
+        
+        .service-header h3 {
+         font-size: var(--texto-2xl);
+         margin-bottom: var(--espacio-2);
+        }
+        
+        .service-features {
+         list-style: none;
+         margin-bottom: var(--espacio-5);
+        }
+        
+        .service-features li {
+         padding: var(--espacio-2) 0;
+         padding-left: var(--espacio-4);
+         position: relative;
+         transition: all var(--transicion);
+         display: flex;
+         align-items: flex-start;
+         gap: var(--espacio-2);
+        }
+        
+        .service-features li::before {
+         content: "✓";
+         position: absolute;
+         left: 0;
+         color: var(--verde-exito);
+         font-weight: 700;
+         font-size: var(--texto-lg);
+        }
+
+        .comparison-table-wrapper {
+            background: var(--blanco);
+            padding: var(--espacio-6);
+            border-radius: var(--radio-2xl);
+            box-shadow: var(--sombra-lg);
+            overflow-x: auto;
+        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
+            font-size: var(--texto-base);
         }
-
-        th,
-        td {
-            border: 1px solid var(--gris-claro);
-            padding: var(--espacio-2);
+        
+        th, td {
+            padding: var(--espacio-3);
             text-align: left;
+            border-bottom: 1px solid var(--gris-claro);
         }
-
+        
         th {
             background: var(--naranja-light);
+            font-weight: 600;
+            color: var(--negro);
+            font-size: var(--texto-lg);
+        }
+
+        tbody tr:hover {
+            background-color: var(--gris-ultra-claro);
+        }
+
+        .recommendation-box {
+            background: var(--naranja-light);
+            border-left: 5px solid var(--naranja);
+            padding: var(--espacio-5);
+            margin-top: var(--espacio-5);
+            border-radius: var(--radio-lg);
+            box-shadow: var(--sombra-md);
+        }
+
+        .recommendation-box p, .recommendation-box ul {
+            color: var(--gris-oscuro);
+        }
+
+        .recommendation-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .recommendation-box li {
+            position: relative;
+            padding-left: var(--espacio-4);
+            margin-bottom: var(--espacio-2);
+        }
+
+        .recommendation-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--verde-exito);
+            font-weight: 700;
+        }
+
+        .final-cta {
+         padding: var(--espacio-12) 0;
+         background: var(--bg-gradient-1);
+         background-size: 400% 400%;
+         animation: gradient 15s ease infinite;
+         color: var(--blanco);
+         position: relative;
+         overflow: hidden;
+        }
+        
+        .final-cta::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .cta-content {
+         text-align: center;
+         max-width: 800px;
+         margin: 0 auto;
+         position: relative;
+         z-index: 1;
+        }
+        
+        .cta-content h2 {
+         color: var(--blanco);
+         margin-bottom: var(--espacio-4);
+         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cta-content p {
+         color: rgba(255, 255, 255, 0.9);
+         font-size: var(--texto-xl);
+         margin-bottom: var(--espacio-5);
+         text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-final {
+         display: inline-flex;
+         align-items: center;
+         gap: var(--espacio-2);
+         background: var(--blanco);
+         color: var(--naranja);
+         padding: 20px 40px;
+         border-radius: var(--radio-full);
+         font-size: var(--texto-xl);
+         font-weight: 800;
+         transition: all var(--transicion);
+         box-shadow: var(--sombra-xl);
+        }
+        
+        .btn-final:hover {
+         transform: translateY(-6px) scale(1.05);
+         box-shadow: var(--sombra-xl), 0 0 50px rgba(255, 255, 255, 0.5);
+        }
+
+        .footer {
+         background: linear-gradient(135deg, var(--negro) 0%, var(--gris-ultra-oscuro) 100%);
+         color: var(--blanco);
+         padding: var(--espacio-8) 0 var(--espacio-5);
+         text-align: center;
+        }
+
+        .footer-logo {
+            font-size: var(--texto-2xl);
+            font-weight: 900;
+            margin-bottom: var(--espacio-3);
+            background: var(--naranja-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--texto-sm);
+            margin: 0;
+        }
+        
+        @media (max-width: 991px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Propuesta de Publicidad Digital – Gadal Services</h1>
+
+    <!-- ==========================================================================
+     1. NAVBAR
+     ========================================================================== -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">Gadal Services</a>
+            <div class="nav-actions">
+                <a href="#final-cta" class="btn-nav">Comenzar Ahora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==========================================================================
+     2. HERO SECTION
+     ========================================================================== -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="hero-headline">Propuesta de Publicidad Digital</h1>
+            <p class="hero-subheadline">Una estrategia diseñada para generar leads calificados, maximizar el ROI y posicionar a <strong>Gadal Services</strong> como líder en consultoría para clínicas privadas.</p>
+        </div>
     </header>
+
     <main>
-    <section>
-        <h2>Objetivo General</h2>
-        <p>Generar leads calificados (dueños y administradores de clínicas privadas) interesados en los planes de consultoría, a través de canales digitales de alta efectividad, maximizando el ROI con un presupuesto controlado.</p>
-    </section>
-    <section>
-        <h2>1. Propuesta Google Ads (USD 100/mes)</h2>
-        <h3>Estrategia</h3>
-        <ul>
-            <li>Enfoque principal: campañas de búsqueda (Search) para captar a usuarios con intención activa de contratar consultoría en gestión de clínicas.</li>
-            <li>Apoyo secundario: remarketing en Display para mantener presencia frente a visitantes web.</li>
-            <li>Protección de marca: campaña de palabras clave relacionadas a “Gadal Services”.</li>
-        </ul>
-        <h3>Estructura</h3>
-        <ul>
-            <li>70% Presupuesto (USD 70): Campaña Search → keywords de intención alta (“consultoría para clínicas privadas”, “gestión clínica Costa Rica”, etc.).</li>
-            <li>20% (USD 20): Remarketing Display → impactar visitantes que no convirtieron.</li>
-            <li>10% (USD 10): Campaña de Marca → proteger búsquedas de la empresa.</li>
-        </ul>
-        <h3>Resultados esperados</h3>
-        <ul>
-            <li>CTR: &gt; 4%</li>
-            <li>CPC promedio: USD 0,20–0,50</li>
-            <li>Leads estimados: 8–12 mensuales</li>
-            <li>CPL esperado: USD 8–12</li>
-            <li>Con solo 1 cliente nuevo (ticket USD 400–800/mes) → ROI muy positivo.</li>
-        </ul>
-        <p><strong>Ventaja clave:</strong> Google Ads capta a personas que ya buscan activamente soluciones, ideal para un servicio B2B de alto ticket.</p>
-    </section>
-    <section>
-        <h2>2. Propuesta Meta Ads (USD 100/mes)</h2>
-        <h3>Estrategia</h3>
-        <p><em>“El 90% del éxito está en el objetivo correcto + creatividades de alto impacto”.</em></p>
-        <ul>
-            <li>Campaña de Presentación (Frío): 70% presupuesto → intereses en sector salud, lookalikes, segmentación abierta.</li>
-            <li>Campaña de Retargeting (Caliente): 30% → visitantes web, engagers en redes, viewers de videos.</li>
-            <li>Optimización: objetivo exclusivo “Clientes Potenciales” (no tráfico ni engagement).</li>
-        </ul>
-        <h3>Creatividades Premium</h3>
-        <ul>
-            <li>12–15 piezas/mes:</li>
-            <li>Videos testimoniales.</li>
-            <li>Carruseles problema → solución.</li>
-            <li>Animaciones con métricas.</li>
-            <li>Banners de urgencia (ej. “Últimos 5 diagnósticos gratis este mes”).</li>
-            <li>Formatos optimizados: Reels/Stories, Feed, Right Column.</li>
-        </ul>
-        <p><strong>Ventaja clave:</strong> Meta Ads genera visibilidad, construcción de marca y un flujo de leads desde la interrupción/publicidad directa.</p>
-    </section>
-    <section>
-        <h2>Comparación rápida</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Aspecto</th>
-                    <th>Google Ads</th>
-                    <th>Meta Ads</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Tipo de demanda</td>
-                    <td>Captura demanda activa (personas que ya buscan el servicio).</td>
-                    <td>Genera demanda desde awareness (interrupción/publicidad).</td>
-                </tr>
-                <tr>
-                    <td>Adecuación al negocio</td>
-                    <td>Muy alta: ticket alto + B2B consultivo.</td>
-                    <td>Media: útil para visibilidad y remarketing, pero menos eficiente en cierres directos.</td>
-                </tr>
-                <tr>
-                    <td>Inversión mínima efectiva</td>
-                    <td>USD 100/mes (Search precisa).</td>
-                    <td>USD 200–300/mes recomendado para volumen de creatividades.</td>
-                </tr>
-                <tr>
-                    <td>ROI esperado</td>
-                    <td>Alto: 1 cliente cubre la inversión por varios meses.</td>
-                    <td>Medio: requiere tiempo y constancia en creatividades.</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-    <section>
-        <h2>Recomendación</h2>
-        <p>Dado el modelo de negocio de Gadal Services (B2B, ticket alto, cliente muy específico), sugerimos iniciar con Google Ads como canal prioritario.</p>
-        <ul>
-            <li>Permite aprovechar el presupuesto reducido (USD 100/mes).</li>
-            <li>Capta directamente a quienes ya tienen la necesidad de ordenar sus clínicas.</li>
-            <li>El ROI es inmediato si se cierra un solo cliente.</li>
-        </ul>
-        <p>Una vez validada la estrategia y generados los primeros clientes, se recomienda sumar Meta Ads como canal de soporte para awareness, remarketing y construcción de marca.</p>
-    </section>
+        <!-- ==========================================================================
+         3. OBJETIVO GENERAL
+         ========================================================================== -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">El Plan</span>
+                    <h2>Nuestro Objetivo Principal</h2>
+                    <p class="section-subtitle">Generar leads calificados (dueños y administradores de clínicas privadas) interesados en los planes de consultoría, a través de canales digitales de alta efectividad, maximizando el ROI con un presupuesto controlado.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+         4. PROPUESTAS DE PLATAFORMAS
+         ========================================================================== -->
+        <section class="section services-section">
+            <div class="container">
+                <div class="services-grid">
+                    <!-- Google Ads Card -->
+                    <div class="service-card google">
+                        <div class="service-header">
+                            <div class="service-icon"><i class="fab fa-google"></i></div>
+                            <h3>Propuesta Google Ads</h3>
+                            <p>USD 100/mes</p>
+                        </div>
+                        <h4>Estrategia</h4>
+                        <ul class="service-features">
+                            <li><strong>Búsqueda Activa:</strong> Captar usuarios con intención de contratar consultoría.</li>
+                            <li><strong>Remarketing:</strong> Mantener presencia frente a visitantes del sitio web.</li>
+                            <li><strong>Protección de Marca:</strong> Dominar las búsquedas de "Gadal Services".</li>
+                        </ul>
+                        <h4>Estructura de Inversión</h4>
+                         <ul class="service-features">
+                            <li><strong>70% (USD 70):</strong> Campaña de Búsqueda (Search).</li>
+                            <li><strong>20% (USD 20):</strong> Campaña de Remarketing (Display).</li>
+                            <li><strong>10% (USD 10):</strong> Campaña de Marca.</li>
+                        </ul>
+                        <h4>Resultados Esperados</h4>
+                        <ul class="service-features">
+                            <li><strong>Leads Estimados:</strong> 8–12 mensuales.</li>
+                            <li><strong>Costo por Lead (CPL):</strong> USD 8–12.</li>
+                            <li><strong>ROI:</strong> Altamente positivo con un solo cliente nuevo.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Meta Ads Card -->
+                    <div class="service-card meta">
+                        <div class="service-header">
+                            <div class="service-icon"><i class="fab fa-meta"></i></div>
+                            <h3>Propuesta Meta Ads</h3>
+                            <p>USD 100/mes</p>
+                        </div>
+                        <h4>Estrategia</h4>
+                        <ul class="service-features">
+                            <li><strong>Generación de Demanda:</strong> Alcanzar a audiencias frías con creatividades de alto impacto.</li>
+                            <li><strong>Retargeting:</strong> Re-impactar a usuarios que ya interactuaron con la marca.</li>
+                            <li><strong>Optimización a Conversión:</strong> Enfoque exclusivo en "Clientes Potenciales".</li>
+                        </ul>
+                        <h4>Creatividades Premium (12-15/mes)</h4>
+                        <ul class="service-features">
+                            <li>Videos testimoniales.</li>
+                            <li>Carruseles problema → solución.</li>
+                            <li>Animaciones con métricas de éxito.</li>
+                            <li>Banners de urgencia y escasez.</li>
+                        </ul>
+                        <h4>Ventaja Clave</h4>
+                        <p>Meta Ads genera visibilidad, construye marca y crea un flujo constante de leads a través de la publicidad directa e interrupción estratégica.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==========================================================================
+         5. COMPARACIÓN RÁPIDA
+         ========================================================================== -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Análisis</span>
+                    <h2>Comparación Rápida</h2>
+                </div>
+                <div class="comparison-table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Aspecto</th>
+                                <th>Google Ads</th>
+                                <th>Meta Ads</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tipo de demanda</strong></td>
+                                <td>Captura demanda activa (personas que ya buscan el servicio).</td>
+                                <td>Genera demanda desde awareness (interrupción/publicidad).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Adecuación al negocio</strong></td>
+                                <td>Muy alta: ticket alto + B2B consultivo.</td>
+                                <td>Media: útil para visibilidad y remarketing, pero menos eficiente en cierres directos.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Inversión mínima efectiva</strong></td>
+                                <td>USD 100/mes (Search precisa).</td>
+                                <td>USD 200–300/mes recomendado para volumen de creatividades.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ROI esperado</strong></td>
+                                <td>Alto: 1 cliente cubre la inversión por varios meses.</td>
+                                <td>Medio: requiere tiempo y constancia en creatividades.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+         6. RECOMENDACIÓN FINAL
+         ========================================================================== -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Estrategia Sugerida</span>
+                    <h2>Nuestra Recomendación</h2>
+                </div>
+                <div class="recommendation-box">
+                    <p>Dado el modelo de negocio de Gadal Services (B2B, ticket alto, cliente muy específico), <strong>sugerimos iniciar con Google Ads como canal prioritario.</strong></p>
+                    <ul>
+                        <li>Permite aprovechar al máximo el presupuesto reducido (USD 100/mes).</li>
+                        <li>Capta directamente a quienes ya tienen la necesidad de ordenar sus clínicas.</li>
+                        <li>El ROI es potencialmente inmediato si se cierra un solo cliente.</li>
+                    </ul>
+                    <p>Una vez validada la estrategia y generados los primeros clientes, se recomienda sumar Meta Ads como canal de soporte para awareness, remarketing y construcción de marca.</p>
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <!-- ==========================================================================
+     7. FINAL CTA
+     ========================================================================== -->
+    <section id="final-cta" class="final-cta">
+        <div class="cta-content">
+            <h2>¿Listo para conseguir más clientes?</h2>
+            <p>Implementemos esta estrategia y comencemos a generar leads de alto valor para Gadal Services.</p>
+            <a href="mailto:contacto@gadalservices.com" class="btn-final">
+                <i class="fas fa-rocket"></i>
+                Aprobar Propuesta
+            </a>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+     8. FOOTER
+     ========================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">Gadal Services</div>
+            <p>&copy; 2024. Propuesta de Marketing Digital. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to add a class to the navbar on scroll for a subtle effect
+        const navbar = document.querySelector('.navbar');
+        window.onscroll = () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        };
+    </script>
+
 </body>
 </html>
