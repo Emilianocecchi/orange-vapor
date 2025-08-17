@@ -13,62 +13,31 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Provided Stylesheet -->
-    <link rel="stylesheet" href="style-rediseno.css">
-
     <style>
-        /* This is a placeholder for the content of 'style-rediseno.css' */
-        /* Paste the entire CSS content you provided here to make this file self-contained */
+        /* ==========================================================================
+           1. VARIABLES Y RESET BÁSICO
+           ========================================================================== */
         :root {
-         /* Colores principales - Paleta expandida con HDR */
+         /* Colores principales */
          --naranja: #ff6b35;
          --naranja-hover: #ff5722;
          --naranja-light: #fff3e0;
-         --naranja-glow: rgba(255, 107, 53, 0.6);
-         --naranja-gradient: linear-gradient(
-           135deg,
-           #ff6b35 0%,
-           #ff8a50 50%,
-           #ff5722 100%
-         );
-         --naranja-animated: linear-gradient(
-           -45deg,
-           #ff6b35,
-           #ff8a50,
-           #ff5722,
-           #ff7043
-         );
+         --naranja-gradient: linear-gradient(135deg, #ff6b35 0%, #ff8a50 100%);
         
          --verde-exito: #00c853;
-         --verde-hover: #00a844;
-         --verde-glow: rgba(0, 200, 83, 0.4);
-         --verde-gradient: linear-gradient(
-           135deg,
-           #00c853 0%,
-           #4caf50 50%,
-           #00a844 100%
-         );
-        
-         --azul-confianza: #1976d2;
-         --azul-facebook: #1877f2;
          --azul-google: #4285f4;
-         --azul-glow: rgba(25, 118, 210, 0.3);
+         --azul-meta: #1877f2;
         
-         /* Grises con más matices */
-         --negro: #0a0a0a;
-         --gris-ultra-oscuro: #1a1a1a;
-         --gris-oscuro: #2a2a2a;
-         --gris-medio: #505050;
-         --gris-claro: #f8f9fa;
-         --gris-ultra-claro: #fcfcfd;
+         /* Grises y Fondos */
+         --negro: #1a1a1a;
+         --gris-oscuro: #333333;
+         --gris-medio: #666666;
+         --gris-claro: #e9ecef;
+         --gris-borde: #dee2e6;
          --blanco: #ffffff;
-         --blanco-glass: rgba(255, 255, 255, 0.1);
-         --blanco-glass-strong: rgba(255, 255, 255, 0.2);
-         --overlay-bg: rgba(255, 255, 255, 0.95);
-         --glass-heavy: rgba(255, 255, 255, 0.9);
-        
-         /* Espaciado fluido con clamp() */
-         --espacio-1: clamp(6px, 1vw, 8px);
+         --fondo: #f8f9fa;
+
+         /* Espaciado fluido */
          --espacio-2: clamp(12px, 2vw, 16px);
          --espacio-3: clamp(18px, 3vw, 24px);
          --espacio-4: clamp(24px, 4vw, 32px);
@@ -76,14 +45,9 @@
          --espacio-6: clamp(36px, 6vw, 48px);
          --espacio-8: clamp(48px, 8vw, 64px);
          --espacio-10: clamp(60px, 10vw, 80px);
-         --espacio-12: clamp(72px, 12vw, 96px);
-         --espacio-16: clamp(96px, 16vw, 128px);
         
-         /* Tipografía fluida y futurista */
+         /* Tipografía fluida */
          --fuente: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-        
-         --texto-xs: clamp(0.7rem, 1.5vw, 0.75rem);
-         --texto-sm: clamp(0.8rem, 1.8vw, 0.875rem);
          --texto-base: clamp(0.9rem, 2vw, 1rem);
          --texto-lg: clamp(1rem, 2.2vw, 1.125rem);
          --texto-xl: clamp(1.1rem, 2.5vw, 1.25rem);
@@ -91,612 +55,279 @@
          --texto-3xl: clamp(1.6rem, 4vw, 2rem);
          --texto-4xl: clamp(2rem, 5vw, 2.5rem);
          --texto-5xl: clamp(2.5rem, 6vw, 3.5rem);
-         --texto-6xl: clamp(3rem, 8vw, 4rem);
         
-         /* Sombras cinematográficas con múltiples capas */
-         --sombra-xs: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.06);
-         --sombra-sm:
-           0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06),
-           0 1px 2px rgba(0, 0, 0, 0.05);
-         --sombra-md:
-           0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05),
-           0 2px 4px rgba(0, 0, 0, 0.06);
-         --sombra-lg:
-           0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.04),
-           0 6px 6px rgba(0, 0, 0, 0.07);
-         --sombra-xl:
-           0 25px 50px rgba(0, 0, 0, 0.25), 0 15px 30px rgba(0, 0, 0, 0.1),
-           0 8px 16px rgba(0, 0, 0, 0.1);
-         --sombra-glow: 0 0 30px var(--naranja-glow);
-         --sombra-verde-glow: 0 0 25px var(--verde-glow);
-         --sombra-azul-glow: 0 0 20px var(--azul-glow);
+         /* Sombras sutiles */
+         --sombra-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+         --sombra-md: 0 5px 15px rgba(0, 0, 0, 0.08);
+         --sombra-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
         
-         /* Sombras neomórficas */
-         --sombra-neo-convex:
-           8px 8px 16px rgba(0, 0, 0, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.7);
-         --sombra-neo-concave:
-           inset 8px 8px 16px rgba(0, 0, 0, 0.15),
-           inset -8px -8px 16px rgba(255, 255, 255, 0.7);
-        
-         /* Bordes fluidos */
-         --radio-xs: 4px;
-         --radio-sm: 8px;
+         /* Bordes */
          --radio-md: 12px;
          --radio-lg: 18px;
-         --radio-xl: 24px;
-         --radio-2xl: 32px;
          --radio-full: 9999px;
         
-         /* Transiciones cinematográficas */
-         --transicion-rapida: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+         /* Transiciones */
          --transicion: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-         --transicion-lenta: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-         --transicion-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-         --transicion-elastic: 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         
          /* Layout */
-         --max-width: 1400px;
-         --navbar-height: 80px;
-        
-         /* Gradientes de fondo animados */
-         --bg-gradient-1: linear-gradient(-45deg, #ff6b35, #ff8a50, #ff5722, #ff7043);
-         --bg-gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-         --bg-gradient-3: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-         --bg-mesh:
-           radial-gradient(at 40% 20%, hsla(28, 100%, 74%, 1) 0px, transparent 50%),
-           radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
-           radial-gradient(at 40% 50%, hsla(355, 100%, 93%, 1) 0px, transparent 50%),
-           radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 1) 0px, transparent 50%),
-           radial-gradient(at 40% 80%, hsla(22, 100%, 77%, 1) 0px, transparent 50%),
-           radial-gradient(at 80% 80%, hsla(242, 100%, 70%, 1) 0px, transparent 50%),
-           radial-gradient(at 40% 40%, hsla(320, 100%, 80%, 1) 0px, transparent 50%);
+         --max-width: 1200px;
+         --navbar-height: 70px;
         }
         
-        *,
-        *::before,
-        *::after {
-         box-sizing: border-box;
-         margin: 0;
-         padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         
-        html {
-         font-size: 16px;
-         scroll-behavior: smooth;
-         -webkit-font-smoothing: antialiased;
-         -moz-osx-font-smoothing: grayscale;
-         text-rendering: optimizeLegibility;
-        }
+        html { font-size: 16px; scroll-behavior: smooth; }
         
         body {
          font-family: var(--fuente);
          font-size: var(--texto-base);
-         line-height: 1.6;
-         color: var(--negro);
-         background: var(--gris-ultra-claro);
-         overflow-x: hidden;
-         font-weight: 400;
+         line-height: 1.7;
+         color: var(--gris-oscuro);
+         background-color: var(--fondo);
+         -webkit-font-smoothing: antialiased;
+         -moz-osx-font-smoothing: grayscale;
         }
-        
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+
+        /* ==========================================================================
+           2. TIPOGRAFÍA Y ENCABEZADOS
+           ========================================================================== */
+        h1, h2, h3, h4 {
          font-weight: 700;
-         line-height: 1.2;
-         margin-bottom: var(--espacio-2);
+         line-height: 1.3;
+         margin-bottom: var(--espacio-3);
+         color: var(--negro);
          letter-spacing: -0.02em;
         }
-        
-        h1 {
-         font-size: var(--texto-6xl);
-         font-weight: 800;
-         line-height: 1.1;
-        }
-        h2 {
-         font-size: var(--texto-4xl);
-         font-weight: 700;
-        }
-        h3 {
-         font-size: var(--texto-3xl);
-         font-weight: 600;
-        }
-        h4 {
-         font-size: var(--texto-2xl);
-         font-weight: 600;
-        }
-        
-        p {
-         margin-bottom: var(--espacio-2);
-         color: var(--gris-oscuro);
-         line-height: 1.7;
-        }
-        
-        strong {
-         font-weight: 600;
-         color: var(--negro);
-        }
-        
-        a {
-         color: inherit;
-         text-decoration: none;
-         transition: color var(--transicion);
-        }
-        
+        h1 { font-size: var(--texto-5xl); }
+        h2 { font-size: var(--texto-4xl); margin-top: var(--espacio-4); }
+        h3 { font-size: var(--texto-3xl); }
+        h4 { font-size: var(--texto-2xl); }
+        p { margin-bottom: var(--espacio-3); max-width: 65ch; }
+        strong { font-weight: 600; color: var(--negro); }
+        a { color: var(--naranja); text-decoration: none; transition: color var(--transicion); }
+        a:hover { color: var(--naranja-hover); }
+
+        /* ==========================================================================
+           3. LAYOUT Y COMPONENTES
+           ========================================================================== */
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--espacio-4); }
+        .section { padding: var(--espacio-10) 0; }
+        .section-header { text-align: center; max-width: 750px; margin: 0 auto var(--espacio-8); }
+        .section-header h2 { margin-bottom: var(--espacio-3); }
+        .section-header p { margin-left: auto; margin-right: auto; color: var(--gris-medio); font-size: var(--texto-lg); }
+        .section-tag { display: inline-block; font-size: var(--texto-base); font-weight: 600; color: var(--naranja); margin-bottom: var(--espacio-2); }
+
+        /* ==========================================================================
+           4. NAVBAR
+           ========================================================================== */
         .navbar {
          position: fixed;
          top: 0;
          width: 100%;
          height: var(--navbar-height);
-         background: rgba(255, 255, 255, 0.05);
-         backdrop-filter: blur(20px) saturate(180%);
-         -webkit-backdrop-filter: blur(20px) saturate(180%);
-         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+         background: rgba(255, 255, 255, 0.8);
+         backdrop-filter: blur(10px);
+         -webkit-backdrop-filter: blur(10px);
+         border-bottom: 1px solid var(--gris-borde);
          z-index: 1000;
-         transition: all var(--transicion);
+         transition: box-shadow var(--transicion);
         }
-        
-        .navbar.scrolled {
-         background: rgba(255, 255, 255, 0.1);
-         backdrop-filter: blur(25px) saturate(200%);
-         box-shadow: var(--sombra-lg);
-        }
-        
-        .navbar .container {
-         height: 100%;
-         display: flex;
-         align-items: center;
-         justify-content: space-between;
-         position: relative;
-         z-index: 1;
-        }
-        
-        .logo {
-         font-size: var(--texto-2xl);
-         font-weight: 900;
-         letter-spacing: -0.03em;
-         background: var(--naranja-gradient);
-         -webkit-background-clip: text;
-         -webkit-text-fill-color: transparent;
-         background-clip: text;
-         position: relative;
-        }
-        
-        .nav-actions {
-         display: flex;
-         align-items: center;
-         gap: var(--espacio-4);
-        }
-        
+        .navbar.scrolled { box-shadow: var(--sombra-md); }
+        .navbar .container { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: var(--texto-xl); font-weight: 800; color: var(--negro); }
+        .logo span { color: var(--naranja); }
         .btn-nav {
          background: var(--naranja-gradient);
          color: var(--blanco);
-         padding: 14px 28px;
+         padding: var(--espacio-2) var(--espacio-4);
          border-radius: var(--radio-full);
          font-weight: 600;
-         transition: all var(--transicion);
-         box-shadow: var(--sombra-md);
-         position: relative;
-         overflow: hidden;
+         transition: transform var(--transicion), box-shadow var(--transicion);
         }
-        
-        .btn-nav:hover {
-         transform: translateY(-3px);
-         box-shadow: var(--sombra-glow);
-        }
-        
-        .container {
-         max-width: var(--max-width);
-         margin: 0 auto;
-         padding: 0 var(--espacio-4);
-        }
-        
-        .section-tag {
-         display: inline-block;
-         font-size: var(--texto-sm);
-         font-weight: 600;
-         text-transform: uppercase;
-         letter-spacing: 0.1em;
-         background: var(--naranja-gradient);
-         -webkit-background-clip: text;
-         -webkit-text-fill-color: transparent;
-         background-clip: text;
-         margin-bottom: var(--espacio-3);
-         position: relative;
-        }
-        
-        .section-tag::after {
-         content: "";
-         position: absolute;
-         bottom: -4px;
-         left: 0;
-         width: 60%;
-         height: 2px;
-         background: var(--naranja-gradient);
-         border-radius: var(--radio-full);
-        }
+        .btn-nav:hover { transform: translateY(-2px); box-shadow: var(--sombra-md); }
 
+        /* ==========================================================================
+           5. HERO SECTION
+           ========================================================================== */
         .hero {
-         min-height: 60vh;
-         padding: calc(var(--navbar-height) + var(--espacio-8)) 0 var(--espacio-12);
-         background: var(--bg-mesh);
-         background-size: 400% 400%;
-         animation: gradient 15s ease infinite;
-         position: relative;
-         overflow: hidden;
-         display: flex;
-         align-items: center;
-         justify-content: center;
+         padding: calc(var(--navbar-height) + var(--espacio-8)) 0;
+         background-color: var(--blanco);
          text-align: center;
         }
-        
-        @keyframes gradient {
-         0% {
-           background-position: 0% 50%;
-         }
-         50% {
-           background-position: 100% 50%;
-         }
-         100% {
-           background-position: 0% 50%;
-         }
-        }
-        
-        .hero::before {
-         content: "";
-         position: absolute;
-         top: 0;
-         left: 0;
-         right: 0;
-         bottom: 0;
-         background: var(--overlay-bg);
-         backdrop-filter: blur(1px);
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        
+        .hero-content { max-width: 800px; margin: 0 auto; }
         .hero-headline {
-         font-size: var(--texto-5xl);
-         font-weight: 900;
-         line-height: 1.1;
-         margin-bottom: var(--espacio-4);
-         color: var(--negro);
-         letter-spacing: -0.04em;
+            background: var(--naranja-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .hero-subheadline {
-         font-size: var(--texto-xl);
-         line-height: 1.6;
-         color: var(--gris-oscuro);
-         margin-bottom: var(--espacio-5);
-         font-weight: 400;
-         max-width: 700px;
-         margin-left: auto;
-         margin-right: auto;
-        }
-        
-        .section {
-            padding: var(--espacio-12) 0;
-        }
+        .hero-subheadline { font-size: var(--texto-xl); color: var(--gris-medio); }
 
-        .section-header {
-         text-align: center;
-         max-width: 800px;
-         margin: 0 auto var(--espacio-10);
-        }
-        
-        .section-subtitle {
-         font-size: var(--texto-xl);
-         color: var(--gris-medio);
-         margin-top: var(--espacio-3);
-         line-height: 1.6;
-        }
-        
+        /* ==========================================================================
+           6. CARDS DE SERVICIOS
+           ========================================================================== */
         .services-grid {
          display: grid;
-         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-         gap: var(--espacio-6);
-         margin-bottom: var(--espacio-8);
+         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+         gap: var(--espacio-5);
         }
-        
         .service-card {
          background: var(--blanco);
-         border-radius: var(--radio-2xl);
-         padding: var(--espacio-6);
-         position: relative;
-         transition: all var(--transicion-lenta);
-         box-shadow: var(--sombra-neo-convex);
-         border: 1px solid rgba(255, 255, 255, 0.8);
-         overflow: hidden;
+         border-radius: var(--radio-lg);
+         padding: var(--espacio-5);
+         border: 1px solid var(--gris-borde);
+         box-shadow: var(--sombra-sm);
+         transition: transform var(--transicion), box-shadow var(--transicion);
         }
-        
-        .service-card:hover {
-         transform: translateY(-15px);
-         box-shadow: var(--sombra-xl);
-        }
-        
-        .service-header {
-         text-align: center;
-         margin-bottom: var(--espacio-5);
-        }
-        
+        .service-card:hover { transform: translateY(-5px); box-shadow: var(--sombra-lg); }
+        .service-header { display: flex; align-items: center; gap: var(--espacio-3); margin-bottom: var(--espacio-4); }
         .service-icon {
-         width: 80px;
-         height: 80px;
-         margin: 0 auto var(--espacio-4);
-         border-radius: 50%;
+         width: 50px;
+         height: 50px;
+         border-radius: var(--radio-md);
          display: flex;
          align-items: center;
          justify-content: center;
-         font-size: var(--texto-3xl);
-         box-shadow: var(--sombra-md);
-        }
-        
-        .service-card.meta .service-icon {
-         background: linear-gradient(135deg, rgba(24, 119, 242, 0.2), rgba(24, 119, 242, 0.1));
-         color: var(--azul-facebook);
-        }
-        
-        .service-card.google .service-icon {
-         background: linear-gradient(135deg, rgba(66, 133, 244, 0.2), rgba(66, 133, 244, 0.1));
-         color: var(--azul-google);
-        }
-        
-        .service-header h3 {
          font-size: var(--texto-2xl);
-         margin-bottom: var(--espacio-2);
+         color: var(--blanco);
+         flex-shrink: 0;
         }
-        
-        .service-features {
-         list-style: none;
-         margin-bottom: var(--espacio-5);
-        }
-        
-        .service-features li {
-         padding: var(--espacio-2) 0;
-         padding-left: var(--espacio-4);
-         position: relative;
-         transition: all var(--transicion);
-         display: flex;
-         align-items: flex-start;
-         gap: var(--espacio-2);
-        }
-        
+        .service-card.google .service-icon { background-color: var(--azul-google); }
+        .service-card.meta .service-icon { background-color: var(--azul-meta); }
+        .service-header h3 { font-size: var(--texto-xl); margin: 0; }
+        .service-card h4 { font-size: var(--texto-lg); margin-top: var(--espacio-4); margin-bottom: var(--espacio-2); border-top: 1px solid var(--gris-borde); padding-top: var(--espacio-3); }
+        .service-features { list-style: none; padding-left: 0; }
+        .service-features li { position: relative; padding-left: var(--espacio-4); margin-bottom: var(--espacio-2); }
         .service-features li::before {
          content: "✓";
          position: absolute;
          left: 0;
          color: var(--verde-exito);
          font-weight: 700;
-         font-size: var(--texto-lg);
         }
 
+        /* ==========================================================================
+           7. TABLA COMPARATIVA
+           ========================================================================== */
         .comparison-table-wrapper {
             background: var(--blanco);
-            padding: var(--espacio-6);
-            border-radius: var(--radio-2xl);
-            box-shadow: var(--sombra-lg);
-            overflow-x: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: var(--texto-base);
-        }
-        
-        th, td {
-            padding: var(--espacio-3);
-            text-align: left;
-            border-bottom: 1px solid var(--gris-claro);
-        }
-        
-        th {
-            background: var(--naranja-light);
-            font-weight: 600;
-            color: var(--negro);
-            font-size: var(--texto-lg);
-        }
-
-        tbody tr:hover {
-            background-color: var(--gris-ultra-claro);
-        }
-
-        .recommendation-box {
-            background: var(--naranja-light);
-            border-left: 5px solid var(--naranja);
-            padding: var(--espacio-5);
-            margin-top: var(--espacio-5);
             border-radius: var(--radio-lg);
             box-shadow: var(--sombra-md);
+            overflow-x: auto;
+            border: 1px solid var(--gris-borde);
         }
+        table { width: 100%; border-collapse: collapse; font-size: var(--texto-base); }
+        th, td { padding: var(--espacio-3); text-align: left; border-bottom: 1px solid var(--gris-borde); }
+        th { font-weight: 600; color: var(--negro); font-size: var(--texto-lg); }
+        tbody tr:last-child td { border-bottom: none; }
+        td:first-child { font-weight: 600; }
 
-        .recommendation-box p, .recommendation-box ul {
-            color: var(--gris-oscuro);
+        /* ==========================================================================
+           8. RECOMENDACIÓN Y CTA FINAL
+           ========================================================================== */
+        .recommendation-box {
+            background: var(--naranja-light);
+            border-left: 4px solid var(--naranja);
+            padding: var(--espacio-5);
+            border-radius: var(--radio-md);
         }
-
-        .recommendation-box ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .recommendation-box li {
-            position: relative;
-            padding-left: var(--espacio-4);
-            margin-bottom: var(--espacio-2);
-        }
-
-        .recommendation-box li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--verde-exito);
-            font-weight: 700;
-        }
+        .recommendation-box ul { list-style: none; padding-left: 0; }
+        .recommendation-box li { position: relative; padding-left: var(--espacio-4); margin-bottom: var(--espacio-2); }
+        .recommendation-box li::before { content: "✓"; position: absolute; left: 0; color: var(--verde-exito); font-weight: 700; }
 
         .final-cta {
-         padding: var(--espacio-12) 0;
-         background: var(--bg-gradient-1);
-         background-size: 400% 400%;
-         animation: gradient 15s ease infinite;
+         padding: var(--espacio-10) 0;
+         background: var(--naranja-gradient);
          color: var(--blanco);
-         position: relative;
-         overflow: hidden;
-        }
-        
-        .final-cta::before {
-         content: "";
-         position: absolute;
-         top: 0;
-         left: 0;
-         right: 0;
-         bottom: 0;
-         background: rgba(0, 0, 0, 0.3);
-        }
-        
-        .cta-content {
          text-align: center;
-         max-width: 800px;
-         margin: 0 auto;
-         position: relative;
-         z-index: 1;
         }
-        
-        .cta-content h2 {
-         color: var(--blanco);
-         margin-bottom: var(--espacio-4);
-         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .cta-content p {
-         color: rgba(255, 255, 255, 0.9);
-         font-size: var(--texto-xl);
-         margin-bottom: var(--espacio-5);
-         text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-        }
-        
+        .final-cta h2, .final-cta p { color: var(--blanco); }
         .btn-final {
          display: inline-flex;
          align-items: center;
          gap: var(--espacio-2);
          background: var(--blanco);
          color: var(--naranja);
-         padding: 20px 40px;
+         padding: var(--espacio-3) var(--espacio-5);
          border-radius: var(--radio-full);
-         font-size: var(--texto-xl);
-         font-weight: 800;
+         font-size: var(--texto-lg);
+         font-weight: 700;
          transition: all var(--transicion);
-         box-shadow: var(--sombra-xl);
+         box-shadow: var(--sombra-md);
         }
-        
-        .btn-final:hover {
-         transform: translateY(-6px) scale(1.05);
-         box-shadow: var(--sombra-xl), 0 0 50px rgba(255, 255, 255, 0.5);
-        }
+        .btn-final:hover { transform: translateY(-3px) scale(1.05); box-shadow: var(--sombra-lg); }
 
+        /* ==========================================================================
+           9. FOOTER
+           ========================================================================== */
         .footer {
-         background: linear-gradient(135deg, var(--negro) 0%, var(--gris-ultra-oscuro) 100%);
+         background: var(--negro);
          color: var(--blanco);
-         padding: var(--espacio-8) 0 var(--espacio-5);
+         padding: var(--espacio-6) 0;
          text-align: center;
         }
+        .footer p { color: var(--gris-medio); font-size: var(--texto-base); margin: 0; }
 
-        .footer-logo {
-            font-size: var(--texto-2xl);
-            font-weight: 900;
-            margin-bottom: var(--espacio-3);
-            background: var(--naranja-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: var(--texto-sm);
-            margin: 0;
-        }
-        
-        @media (max-width: 991px) {
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <!-- ==========================================================================
-     1. NAVBAR
-     ========================================================================== -->
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="logo">Gadal Services</a>
+            <a href="#" class="logo">Gadal<span>Services</span></a>
             <div class="nav-actions">
                 <a href="#final-cta" class="btn-nav">Comenzar Ahora</a>
             </div>
         </div>
     </nav>
 
-    <!-- ==========================================================================
-     2. HERO SECTION
-     ========================================================================== -->
     <header class="hero">
-        <div class="hero-content">
-            <h1 class="hero-headline">Propuesta de Publicidad Digital</h1>
-            <p class="hero-subheadline">Una estrategia diseñada para generar leads calificados, maximizar el ROI y posicionar a <strong>Gadal Services</strong> como líder en consultoría para clínicas privadas.</p>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-headline">Propuesta de Publicidad Digital</h1>
+                <p class="hero-subheadline">Una estrategia diseñada para generar leads calificados, maximizar el ROI y posicionar a <strong>Gadal Services</strong> como líder en consultoría para clínicas privadas.</p>
+            </div>
         </div>
     </header>
 
     <main>
-        <!-- ==========================================================================
-         3. OBJETIVO GENERAL
-         ========================================================================== -->
         <section class="section">
             <div class="container">
                 <div class="section-header">
                     <span class="section-tag">El Plan</span>
                     <h2>Nuestro Objetivo Principal</h2>
-                    <p class="section-subtitle">Generar leads calificados (dueños y administradores de clínicas privadas) interesados en los planes de consultoría, a través de canales digitales de alta efectividad, maximizando el ROI con un presupuesto controlado.</p>
+                    <p>Generar leads calificados (dueños y administradores de clínicas privadas) interesados en los planes de consultoría, a través de canales digitales de alta efectividad, maximizando el ROI con un presupuesto controlado.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ==========================================================================
-         4. PROPUESTAS DE PLATAFORMAS
-         ========================================================================== -->
-        <section class="section services-section">
+        <section class="section" style="background-color: var(--blanco);">
             <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Plataformas</span>
+                    <h2>Propuestas de Inversión</h2>
+                </div>
                 <div class="services-grid">
                     <!-- Google Ads Card -->
                     <div class="service-card google">
                         <div class="service-header">
                             <div class="service-icon"><i class="fab fa-google"></i></div>
-                            <h3>Propuesta Google Ads</h3>
-                            <p>USD 100/mes</p>
+                            <div>
+                                <h3>Propuesta Google Ads</h3>
+                                <p style="margin:0; color: var(--gris-medio);">USD 100/mes</p>
+                            </div>
                         </div>
                         <h4>Estrategia</h4>
                         <ul class="service-features">
-                            <li><strong>Búsqueda Activa:</strong> Captar usuarios con intención de contratar consultoría.</li>
-                            <li><strong>Remarketing:</strong> Mantener presencia frente a visitantes del sitio web.</li>
+                            <li><strong>Búsqueda Activa:</strong> Captar usuarios con intención de contratar.</li>
+                            <li><strong>Remarketing:</strong> Mantener presencia frente a visitantes web.</li>
                             <li><strong>Protección de Marca:</strong> Dominar las búsquedas de "Gadal Services".</li>
-                        </ul>
-                        <h4>Estructura de Inversión</h4>
-                         <ul class="service-features">
-                            <li><strong>70% (USD 70):</strong> Campaña de Búsqueda (Search).</li>
-                            <li><strong>20% (USD 20):</strong> Campaña de Remarketing (Display).</li>
-                            <li><strong>10% (USD 10):</strong> Campaña de Marca.</li>
                         </ul>
                         <h4>Resultados Esperados</h4>
                         <ul class="service-features">
                             <li><strong>Leads Estimados:</strong> 8–12 mensuales.</li>
                             <li><strong>Costo por Lead (CPL):</strong> USD 8–12.</li>
-                            <li><strong>ROI:</strong> Altamente positivo con un solo cliente nuevo.</li>
+                            <li><strong>ROI:</strong> Altamente positivo con 1 solo cliente.</li>
                         </ul>
                     </div>
 
@@ -704,32 +335,28 @@
                     <div class="service-card meta">
                         <div class="service-header">
                             <div class="service-icon"><i class="fab fa-meta"></i></div>
-                            <h3>Propuesta Meta Ads</h3>
-                            <p>USD 100/mes</p>
+                            <div>
+                                <h3>Propuesta Meta Ads</h3>
+                                <p style="margin:0; color: var(--gris-medio);">USD 100/mes</p>
+                            </div>
                         </div>
                         <h4>Estrategia</h4>
                         <ul class="service-features">
-                            <li><strong>Generación de Demanda:</strong> Alcanzar a audiencias frías con creatividades de alto impacto.</li>
-                            <li><strong>Retargeting:</strong> Re-impactar a usuarios que ya interactuaron con la marca.</li>
-                            <li><strong>Optimización a Conversión:</strong> Enfoque exclusivo en "Clientes Potenciales".</li>
+                            <li><strong>Generación de Demanda:</strong> Alcanzar audiencias frías con creatividades de impacto.</li>
+                            <li><strong>Retargeting:</strong> Re-impactar a usuarios que ya interactuaron.</li>
+                            <li><strong>Optimización a Conversión:</strong> Enfoque en "Clientes Potenciales".</li>
                         </ul>
-                        <h4>Creatividades Premium (12-15/mes)</h4>
+                        <h4>Creatividades Clave</h4>
                         <ul class="service-features">
                             <li>Videos testimoniales.</li>
                             <li>Carruseles problema → solución.</li>
-                            <li>Animaciones con métricas de éxito.</li>
                             <li>Banners de urgencia y escasez.</li>
                         </ul>
-                        <h4>Ventaja Clave</h4>
-                        <p>Meta Ads genera visibilidad, construye marca y crea un flujo constante de leads a través de la publicidad directa e interrupción estratégica.</p>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- ==========================================================================
-         5. COMPARACIÓN RÁPIDA
-         ========================================================================== -->
         <section class="section">
             <div class="container">
                 <div class="section-header">
@@ -747,24 +374,24 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Tipo de demanda</strong></td>
-                                <td>Captura demanda activa (personas que ya buscan el servicio).</td>
-                                <td>Genera demanda desde awareness (interrupción/publicidad).</td>
+                                <td>Tipo de demanda</td>
+                                <td>Captura demanda activa (ya buscan el servicio).</td>
+                                <td>Genera demanda desde cero (interrupción/publicidad).</td>
                             </tr>
                             <tr>
-                                <td><strong>Adecuación al negocio</strong></td>
-                                <td>Muy alta: ticket alto + B2B consultivo.</td>
-                                <td>Media: útil para visibilidad y remarketing, pero menos eficiente en cierres directos.</td>
+                                <td>Adecuación al negocio</td>
+                                <td><strong>Muy alta:</strong> ideal para ticket alto y B2B consultivo.</td>
+                                <td><strong>Media:</strong> útil para visibilidad y remarketing.</td>
                             </tr>
                             <tr>
-                                <td><strong>Inversión mínima efectiva</strong></td>
-                                <td>USD 100/mes (Search precisa).</td>
-                                <td>USD 200–300/mes recomendado para volumen de creatividades.</td>
+                                <td>Inversión Mínima</td>
+                                <td>USD 100/mes (suficiente para Search).</td>
+                                <td>USD 200–300/mes (recomendado para creatividades).</td>
                             </tr>
                             <tr>
-                                <td><strong>ROI esperado</strong></td>
-                                <td>Alto: 1 cliente cubre la inversión por varios meses.</td>
-                                <td>Medio: requiere tiempo y constancia en creatividades.</td>
+                                <td>ROI Esperado</td>
+                                <td><strong>Alto:</strong> 1 cliente cubre la inversión por meses.</td>
+                                <td><strong>Medio:</strong> requiere más tiempo y constancia.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -772,58 +399,49 @@
             </div>
         </section>
 
-        <!-- ==========================================================================
-         6. RECOMENDACIÓN FINAL
-         ========================================================================== -->
-        <section class="section">
+        <section class="section" style="background-color: var(--blanco);">
             <div class="container">
                 <div class="section-header">
                     <span class="section-tag">Estrategia Sugerida</span>
                     <h2>Nuestra Recomendación</h2>
                 </div>
                 <div class="recommendation-box">
-                    <p>Dado el modelo de negocio de Gadal Services (B2B, ticket alto, cliente muy específico), <strong>sugerimos iniciar con Google Ads como canal prioritario.</strong></p>
+                    <p>Dado el modelo de negocio de Gadal Services (B2B, ticket alto, cliente específico), <strong>sugerimos iniciar con Google Ads como canal prioritario.</strong></p>
                     <ul>
-                        <li>Permite aprovechar al máximo el presupuesto reducido (USD 100/mes).</li>
-                        <li>Capta directamente a quienes ya tienen la necesidad de ordenar sus clínicas.</li>
-                        <li>El ROI es potencialmente inmediato si se cierra un solo cliente.</li>
+                        <li>Permite aprovechar al máximo el presupuesto reducido.</li>
+                        <li>Capta directamente a quienes ya tienen la necesidad.</li>
+                        <li>El ROI es potencialmente inmediato al cerrar un solo cliente.</li>
                     </ul>
-                    <p>Una vez validada la estrategia y generados los primeros clientes, se recomienda sumar Meta Ads como canal de soporte para awareness, remarketing y construcción de marca.</p>
+                    <p>Una vez validada la estrategia, se puede sumar Meta Ads para escalar la visibilidad y construir marca.</p>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- ==========================================================================
-     7. FINAL CTA
-     ========================================================================== -->
     <section id="final-cta" class="final-cta">
-        <div class="cta-content">
-            <h2>¿Listo para conseguir más clientes?</h2>
-            <p>Implementemos esta estrategia y comencemos a generar leads de alto valor para Gadal Services.</p>
-            <a href="mailto:contacto@gadalservices.com" class="btn-final">
-                <i class="fas fa-rocket"></i>
-                Aprobar Propuesta
-            </a>
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Listo para conseguir más clientes?</h2>
+                <p>Implementemos esta estrategia y comencemos a generar leads de alto valor para Gadal Services.</p>
+                <a href="mailto:contacto@gadalservices.com" class="btn-final">
+                    <i class="fas fa-rocket"></i>
+                    Aprobar Propuesta
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- ==========================================================================
-     8. FOOTER
-     ========================================================================== -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-logo">Gadal Services</div>
-            <p>&copy; 2024. Propuesta de Marketing Digital. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Gadal Services. Propuesta de Marketing Digital.</p>
         </div>
     </footer>
 
     <script>
-        // Simple script to add a class to the navbar on scroll for a subtle effect
+        // Script para añadir sombra al navbar durante el scroll
         const navbar = document.querySelector('.navbar');
         window.onscroll = () => {
-            if (window.scrollY > 50) {
+            if (window.scrollY > 20) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
