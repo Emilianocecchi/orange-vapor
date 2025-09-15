@@ -1,11 +1,10 @@
 :root {
-    --primary-color: #2C5282; /* Azul Salsacate */
-    --secondary-color: #B3523B; /* Tierra Roja */
-    --tertiary-color: #6C7A89; /* Gris Rocas */
-    --accent-color: #54A887; /* Verde Serranía */
-    --background-color: #f4f7f6;
+    --primary-color: #2C5282; /* Azul para títulos y elementos principales */
+    --secondary-color: #B3523B; /* Color cálido para acentos y líneas */
+    --tertiary-color: #54A887; /* Color de acento para viñetas y elementos */
+    --text-color: #6C7A89; /* Gris oscuro para el cuerpo del texto */
+    --background-color: #f4f7f6; /* Fondo general */
     --card-background: #ffffff;
-    --text-color: #555;
     --border-radius: 8px;
     --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -81,7 +80,7 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--tertiary-color);
+    color: var(--primary-color);
     margin-bottom: 1.5rem;
     border-bottom: 2px solid var(--secondary-color);
     padding-bottom: 0.5rem;
@@ -128,7 +127,7 @@ li::before {
     content: '✓';
     position: absolute;
     left: 0;
-    color: var(--accent-color);
+    color: var(--tertiary-color);
     font-size: 1.2rem;
     font-weight: bold;
 }
@@ -154,6 +153,7 @@ li::before {
 .pillar-title {
     color: var(--primary-color);
     margin-bottom: 0.5rem;
+    font-size: 1.2rem;
 }
 
 .plan-card {
@@ -171,7 +171,7 @@ li::before {
 
 .plan-card.basic { border-left-color: var(--primary-color); }
 .plan-card.integral { border-left-color: var(--secondary-color); }
-.plan-card.strategic { border-left-color: var(--accent-color); }
+.plan-card.strategic { border-left-color: var(--tertiary-color); }
 
 .plan-header {
     display: flex;
@@ -182,7 +182,7 @@ li::before {
 
 .plan-title {
     font-size: 1.2rem;
-    color: var(--tertiary-color);
+    color: var(--primary-color);
 }
 
 .plan-price {
@@ -194,6 +194,20 @@ li::before {
     font-size: 0.9rem;
     margin-bottom: 1rem;
     font-style: italic;
+}
+
+/* New: Styles for the Mood Board Section */
+.moodboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.moodboard-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
 }
 
 @media (min-width: 600px) {
@@ -213,7 +227,7 @@ li::before {
     .hero-title {
         font-size: 3.5rem;
     }
-
+    
     .main-content {
         padding: 2rem;
     }
