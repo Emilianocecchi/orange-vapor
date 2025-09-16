@@ -106,7 +106,7 @@ body {
 
 .image-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Comportamiento por defecto para móviles */
     gap: 1.5rem;
     margin: 1.5rem 0;
 }
@@ -264,7 +264,17 @@ li::before {
     .pillars-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+    
+    /* --- INICIO DE LA CORRECCIÓN --- */
     .image-container {
-        flex-direction: row;
+        flex-direction: row; /* Las pone una al lado de la otra */
+        align-items: flex-start; /* Las alinea arriba si tienen distinta altura */
     }
+
+    /* Le decimos a las imágenes que sean flexibles */
+    .image-container img {
+        flex: 1; /* Ocupa el espacio disponible de forma equitativa */
+        min-width: 0; /* Permite que la imagen se encoja por debajo de su tamaño original */
+    }
+    /* --- FIN DE LA CORRECCIÓN --- */
 }
