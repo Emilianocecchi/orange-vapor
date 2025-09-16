@@ -1,12 +1,17 @@
 :root {
-    --primary-color: #2C5282; /* Azul para títulos y elementos principales */
-    --secondary-color: #B3523B; /* Color cálido para acentos y líneas */
-    --tertiary-color: #54A887; /* Color de acento para viñetas y elementos */
-    --text-color: #6C7A89; /* Gris oscuro para el cuerpo del texto */
-    --background-color: #f4f7f6; /* Fondo general */
-    --card-background: #ffffff;
-    --border-radius: 8px;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Paleta Institucional extraída del Moodboard */
+    --color-institucional: #2C5282;  /* Azul oscuro (Gestión) */
+    --color-humano: #B3523B;         /* Terracota (Lado Humano) */
+    --color-region: #54A887;         /* Verde (Defensora de la Región) */
+    --color-texto: #6C7A89;         /* Gris azulado para texto */
+    
+    /* Variables de UI */
+    --background-general: #F8F9FA;  /* Un blanco ligeramente cálido */
+    --background-card: #FFFFFF;
+    --border-radius: 12px;
+    --shadow-suave: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.1);
+    --transicion: all 0.3s ease-in-out;
 }
 
 * {
@@ -17,227 +22,249 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    line-height: 1.7;
+    color: var(--color-texto);
+    background-color: var(--background-general);
     scroll-behavior: smooth;
 }
 
-/* Hero Section Styles */
+/* --- HERO SECTION --- */
 .hero-section {
     position: relative;
-    height: 70vh;
+    height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--card-background);
+    color: var(--background-card);
     text-align: center;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517439360589-32219195e54d?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+    background: linear-gradient(rgba(44, 82, 130, 0.6), rgba(44, 82, 130, 0.8)), url('https://images.unsplash.com/photo-1517439360589-32219195e54d?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
 }
 
 .hero-content {
     padding: 2rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 400;
     margin-bottom: 1rem;
+    opacity: 0.9;
 }
 
 .hero-presenter {
     font-size: 1rem;
-    font-weight: 400;
     font-style: italic;
     opacity: 0.8;
 }
 
-/* General Section Styles */
+/* --- CONTENIDO PRINCIPAL --- */
 .main-content {
     padding: 1rem;
     max-width: 900px;
-    margin: -5rem auto 0; /* Pulls content up over hero section */
+    margin: -6rem auto 2rem;
     position: relative;
     z-index: 10;
 }
 
 .section {
-    background-color: var(--card-background);
-    padding: 2rem;
+    background-color: var(--background-card);
+    padding: 2.5rem;
     border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    margin-bottom: 2rem;
+    box-shadow: var(--shadow-suave);
+    margin-bottom: 2.5rem;
 }
 
 .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--color-institucional);
     margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--secondary-color);
-    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--color-institucional);
+    padding-bottom: 0.75rem;
+    display: inline-block;
 }
 
 .highlight-text {
     font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--secondary-color);
-    margin-top: 1rem;
+    font-weight: bold;
+    color: var(--color-humano);
+    margin-top: 1.5rem;
+    background-color: #fdf6f4;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    display: inline-block;
 }
 
 .image-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
 }
 
 .image-container img {
     max-width: 100%;
     height: auto;
     border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    transition: transform 0.3s ease;
+    box-shadow: var(--shadow-suave);
+    transition: var(--transicion);
 }
 
 .image-container img:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
+    box-shadow: var(--shadow-hover);
 }
 
+/* --- LISTAS MEJORADAS --- */
 ul {
     list-style-type: none;
     padding-left: 0;
 }
 
 li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     padding-left: 1.5rem;
     position: relative;
 }
 
 li::before {
-    content: '✓';
+    content: '';
     position: absolute;
     left: 0;
-    color: var(--tertiary-color);
-    font-size: 1.2rem;
-    font-weight: bold;
+    top: 6px;
+    width: 4px;
+    height: 16px;
+    background-color: var(--color-region);
+    border-radius: 2px;
 }
 
+/* --- PILARES DE COMUNICACIÓN --- */
 .pillars-grid {
     display: grid;
     gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .pillar {
-    background-color: #f9f9f9;
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: var(--border-radius);
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
+    background-color: var(--background-general);
+    border-top: 4px solid;
+    transition: var(--transicion);
 }
 
 .pillar:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
 }
+
+/* Asignación de colores del moodboard a cada pilar */
+.pillar:nth-child(1) { border-color: var(--color-institucional); }
+.pillar:nth-child(2) { border-color: var(--color-humano); }
+.pillar:nth-child(3) { border-color: var(--color-region); }
 
 .pillar-title {
-    color: var(--primary-color);
+    font-family: 'Playfair Display', serif;
     margin-bottom: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 700;
 }
+.pillar:nth-child(1) .pillar-title { color: var(--color-institucional); }
+.pillar:nth-child(2) .pillar-title { color: var(--color-humano); }
+.pillar:nth-child(3) .pillar-title { color: var(--color-region); }
 
+
+/* --- PLANES DE ACCIÓN --- */
 .plan-card {
-    border-left: 5px solid var(--primary-color);
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    margin-bottom: 1.5rem;
-    background-color: #f9f9f9;
-    transition: transform 0.3s ease;
+    border-left: 6px solid;
+    padding: 2rem;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    margin-bottom: 2rem;
+    background-color: var(--background-card);
+    box-shadow: var(--shadow-suave);
+    transition: var(--transicion);
 }
 
 .plan-card:hover {
-    transform: translateY(-5px);
+    transform: translateX(10px);
+    box-shadow: var(--shadow-hover);
 }
 
-.plan-card.basic { border-left-color: var(--primary-color); }
-.plan-card.integral { border-left-color: var(--secondary-color); }
-.plan-card.strategic { border-left-color: var(--tertiary-color); }
+.plan-card.basic { border-left-color: var(--color-institucional); }
+.plan-card.integral { border-left-color: var(--color-humano); }
+.plan-card.strategic { border-left-color: var(--color-region); }
 
 .plan-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .plan-title {
-    font-size: 1.2rem;
-    color: var(--primary-color);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
+.plan-card.basic .plan-title { color: var(--color-institucional); }
+.plan-card.integral .plan-title { color: var(--color-humano); }
+.plan-card.strategic .plan-title { color: var(--color-region); }
+
 
 .plan-price {
     font-weight: 700;
-    color: var(--secondary-color);
+    font-size: 1.1rem;
+    background-color: var(--background-general);
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
 }
+.plan-card.basic .plan-price { color: var(--color-institucional); }
+.plan-card.integral .plan-price { color: var(--color-humano); }
+.plan-card.strategic .plan-price { color: var(--color-region); }
+
 
 .plan-description {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
     font-style: italic;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1.5rem;
 }
 
-/* New: Styles for the Mood Board Section */
+/* --- MOODBOARD --- */
 .moodboard-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
+    margin-top: 1rem;
 }
 
 .moodboard-container img {
     max-width: 100%;
     height: auto;
     border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--shadow-suave);
 }
 
-@media (min-width: 600px) {
-    .pillars-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .image-container {
-        flex-direction: row;
-        gap: 1.5rem;
-    }
-    .image-container img {
-        width: 50%;
-    }
-}
-
-@media (min-width: 900px) {
+/* --- MEDIA QUERIES --- */
+@media (min-width: 768px) {
     .hero-title {
         font-size: 3.5rem;
     }
-    
     .main-content {
         padding: 2rem;
     }
-    
     .pillars-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-    
-    .plan-card {
-        padding: 2rem;
+    .image-container {
+        flex-direction: row;
     }
 }
