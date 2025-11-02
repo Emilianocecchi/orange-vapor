@@ -60,26 +60,39 @@
             }
         }
 
-        /* Estilo de cortinas verticales para fondo */
+        /* Estilo de cortinas roller para fondo general (líneas horizontales suaves) */
         body {
-            background: repeating-linear-gradient(to right, #f8f8f8, #f8f8f8 20px, #e0e0e0 20px, #e0e0e0 40px);
-            background-size: 40px 100%;
+            background: repeating-linear-gradient(to bottom, #f8f8f8, #f8f8f8 30px, #e0e0e0 30px, #e0e0e0 32px);
+            background-size: 100% 32px;
+        }
+
+        /* Efecto de cortina roller cerrándose en el footer */
+        footer {
+            overflow: hidden;
+            max-height: 0;
+            animation: rollDown 1.5s ease-in-out 1s forwards;
+            border-top: 2px solid #FF6B35; /* Borde superior como el rodillo */
+            box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1); /* Sombra para efecto de profundidad */
+        }
+
+        @keyframes rollDown {
+            from {
+                max-height: 0;
+            }
+            to {
+                max-height: 500px; /* Ajusta según el contenido real del footer */
+            }
         }
     </style>
 </head>
-<body class="bg-white text-gray-900 antialiased">
+<body class="text-gray-900 antialiased">
    
     <!-- Header/Navigation -->
     <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
+                <!-- Logo sin icono -->
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 gradient-orange rounded-lg flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
-                        </svg>
-                    </div>
                     <span class="text-2xl font-bold text-dark-vapor">Orange<span class="text-gradient">Vapor</span></span>
                 </div>
                
@@ -240,7 +253,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 flex-shrink-0 mt-0.5">
                                 <polyline points="20 6 9 17 4 12"></polyline>
                             </svg>
-                           <span>Optimización para SEO en nicho</span>
+                            <span>Optimización para SEO en nicho</span>
                         </li>
                         <li class="flex items-start">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 flex-shrink-0 mt-0.5">
@@ -697,11 +710,6 @@
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div class="md:col-span-2">
                     <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 gradient-orange rounded-lg flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
-                            </svg>
-                        </div>
                         <span class="text-2xl font-bold">Orange<span class="text-gradient">Vapor</span></span>
                     </div>
                     <p class="text-gray-400 mb-4">
