@@ -60,10 +60,37 @@
             }
         }
 
-        /* Estilo de cortinas roller para fondo general (líneas horizontales suaves) */
+        /* Estilo de cortinas roller para fondo general (líneas horizontales suaves simulando roller blinds) */
         body {
             background: repeating-linear-gradient(to bottom, #f8f8f8, #f8f8f8 30px, #e0e0e0 30px, #e0e0e0 32px);
             background-size: 100% 32px;
+        }
+
+        /* Efecto de cortina roller en secciones: bordes con 'rodillo' y sombras */
+        section {
+            position: relative;
+            border-top: 4px solid #FF6B35; /* Simula el rodillo superior de la cortina */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para efecto de profundidad */
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to bottom, transparent, #f8f8f8); /* Efecto de 'desenrollado' */
+        }
+
+        /* Iconos de cortinas roller en encabezados de secciones */
+        .section-header-icon {
+            background-image: url('https://www.shutterstock.com/image-vector/blinds-icon-symbol-your-web-260nw-2683390351.jpg'); /* Icono de roller blind de la búsqueda */
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
         }
 
         /* Efecto de cortina roller cerrándose en el footer */
@@ -71,8 +98,8 @@
             overflow: hidden;
             max-height: 0;
             animation: rollDown 1.5s ease-in-out 1s forwards;
-            border-top: 2px solid #FF6B35; /* Borde superior como el rodillo */
-            box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1); /* Sombra para efecto de profundidad */
+            border-top: 4px solid #FF6B35; /* Rodillo superior */
+            box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1); /* Sombra para efecto de cierre */
         }
 
         @keyframes rollDown {
@@ -80,7 +107,7 @@
                 max-height: 0;
             }
             to {
-                max-height: 500px; /* Ajusta según el contenido real del footer */
+                max-height: 500px; /* Ajusta según el contenido */
             }
         }
     </style>
@@ -208,6 +235,7 @@
     <!-- Authority Section -->
     <section class="section-padding bg-dark-vapor text-white">
         <div class="max-w-5xl mx-auto text-center">
+            <div class="section-header-icon"></div>
             <div class="mb-8">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4">
                     <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
@@ -225,6 +253,7 @@
     <section id="servicios" class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
+                <div class="section-header-icon"></div>
                 <h2 class="text-4xl md:text-5xl font-bold text-dark-vapor mb-4">Nuestros Servicios para el Sector de Recubrimientos de Ventanas</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">Enfocados en generar leads cualificados y ventas a través de soluciones digitales adaptadas a cortinas roller, verticales, toldos y similares, incluyendo chatbots y email marketing.</p>
             </div>
@@ -384,6 +413,7 @@
     <section id="recursos" class="section-padding bg-gradient-to-br from-gray-50 to-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
+                <div class="section-header-icon"></div>
                 <h2 class="text-4xl md:text-5xl font-bold text-dark-vapor mb-4">Recursos y Contenido Útil</h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">Guías, artículos y tips para mejorar el marketing de tu negocio de cortinas y toldos.</p>
             </div>
@@ -417,6 +447,7 @@
     <section id="lead-magnets" class="section-padding bg-gradient-to-br from-gray-50 to-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
+                <div class="section-header-icon"></div>
                 <h2 class="text-4xl md:text-5xl font-bold text-dark-vapor mb-4">Lead Magnets</h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">Únete a nuestros webinars cada 2 semanas o descarga guías gratuitas para atraer más clientes.</p>
             </div>
@@ -454,22 +485,25 @@
     <!-- About Section -->
     <section id="acerca" class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <div class="section-header-icon"></div>
+                <h2 class="text-4xl md:text-5xl font-bold text-dark-vapor mb-4">Acerca de OrangeVapor</h2>
+            </div>
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <img src="https://www.andrewnorris-assoc.com/wp-content/uploads/2020/01/Hero_homepage_mobile3-768x549.jpg" alt="Emiliano Cecchi" class="rounded-3xl shadow-2xl w-full h-auto">
                 </div>
                
                 <div>
-                    <h2 class="text-4xl md:text-5xl font-bold text-dark-vapor mb-6">Acerca de OrangeVapor</h2>
                     <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
                         <p>
                             OrangeVapor es una agencia especializada en marketing digital para el sector de recubrimientos de ventanas, liderada por Emiliano Cecchi.
                         </p>
                         <p>
-                            Con más de 10 años de experiencia en marketing y ventas, Emiliano se desempeñó como Líder de E-commerce en Hunter Douglas Argentina por 3.5 años, donde desarrolló estrategias exitosas para el nicho.
+                            Con más de 10 años de experiencia en marketing y ventas, Emiliano se desempeñó como Líder de E-commerce en Hunter Douglas Argentina por 3.5 años. Durante este tiempo, lanzó el e-commerce Tuiss en Argentina desde cero, gestionando la tienda a través de VTEX y colaborando con agencias líderes como Infracommerce Brandlive para implementar estrategias de marketing efectivas. Adquirió conocimiento en logística con plataformas como Enviopack, manejo de medidas personalizadas para cortinas y telas, entendiendo los dolores de los clientes a través de decenas de chats diarios, sus preferencias y objeciones. También participó en el desarrollo de productos y gestionó la estacionalidad de la demanda.
                         </p>
                         <p>
-                            Nuestro enfoque es en soluciones prácticas que generen leads y ventas, basadas en conocimiento profundo del mercado de cortinas roller, verticales, toldos y similares.
+                            Nos enfocamos en zonas geográficas específicas para ofrecer exclusividad a nuestros clientes, evitando trabajar con competidores directos y proporcionando estrategias diferenciadas que marcan la diferencia en el mercado.
                         </p>
                         <p class="text-orange-vapor font-semibold text-xl">
                             "Entendemos tu negocio porque hemos estado en él."
@@ -499,6 +533,7 @@
     <section class="section-padding bg-gradient-to-br from-gray-50 to-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
+                <div class="section-header-icon"></div>
                 <h2 class="text-4xl md:text-5xl font-bold text-dark-vapor mb-4">Nuestro Proceso</h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">Un enfoque paso a paso para entregar resultados.</p>
             </div>
@@ -543,6 +578,7 @@
     <section class="section-padding bg-dark-vapor text-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
+                <div class="section-header-icon"></div>
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">¿Por Qué Elegir OrangeVapor?</h2>
                 <p class="text-xl text-gray-300 max-w-2xl mx-auto">Somos especialistas en tu nicho, con un enfoque en resultados reales.</p>
             </div>
@@ -625,6 +661,7 @@
     <section class="section-padding bg-white">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-16">
+                <div class="section-header-icon"></div>
                 <h2 class="text-4xl md:text-5xl font-bold text-dark-vapor mb-4">Preguntas Frecuentes</h2>
                 <p class="text-xl text-gray-600">Respuestas a dudas comunes sobre nuestros servicios.</p>
             </div>
@@ -661,6 +698,7 @@
     <!-- Final CTA Section -->
     <section class="section-padding bg-gradient-to-br from-orange-vapor to-orange-600 text-white">
         <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="section-header-icon"></div>
             <h2 class="text-4xl md:text-5xl font-bold mb-6">¿Listo para Escalar tu Negocio?</h2>
             <p class="text-xl mb-8 opacity-90 leading-relaxed">
                 Agenda una sesión gratuita para discutir cómo podemos ayudarte a generar más leads y ventas.
