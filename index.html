@@ -1,1363 +1,1680 @@
-<!DOCTYPE html>
-<html lang="es">
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { 
+  BookOpen, CheckCircle, Brain, Trophy, ChevronRight, ChevronLeft, 
+  Volume2, RefreshCcw, Home, BarChart, Lock, Star, Flame, Heart,
+  Target, Zap, Award, TrendingUp, Clock, Calendar, Settings,
+  Moon, Sun, X, Check, AlertCircle, Sparkles, GraduationCap,
+  Headphones, PenTool, Eye, Shuffle, RotateCcw, Play, Pause,
+  ChevronDown, ChevronUp, Info, Gift, Crown, Medal, Shield
+} from 'lucide-react';
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OrangeVapor | Creación y Rediseño de Sitios Web</title>
-  <meta name="description"
-    content="Creamos tu nuevo sitio web One Page o E-commerce. También rediseñamos sitios existentes para potenciar tu negocio.">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'orange-vapor': '#FF6B35',
-            'dark-vapor': '#1a1a1a',
-            'gray-vapor': '#2d2d2d',
-          },
-          animation: {
-            'fade-in': 'fadeIn 0.6s ease-out',
-            'slide-up': 'slideUp 0.6s ease-out',
-            'scale-in': 'scaleIn 0.4s ease-out',
-            'float': 'float 3s ease-in-out infinite',
-          },
-          keyframes: {
-            fadeIn: {
-              '0%': { opacity: '0' },
-              '100%': { opacity: '1' },
-            },
-            slideUp: {
-              '0%': { transform: 'translateY(30px)', opacity: '0' },
-              '100%': { transform: 'translateY(0)', opacity: '1' },
-            },
-            scaleIn: {
-              '0%': { transform: 'scale(0.95)', opacity: '0' },
-              '100%': { transform: 'scale(1)', opacity: '1' },
-            },
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-10px)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+// ═══════════════════════════════════════════════════════════════════════════════
+// HSK1 COMPLETE DATABASE - 150 OFFICIAL WORDS
+// ═══════════════════════════════════════════════════════════════════════════════
 
-    * {
-      font-family: 'Inter', sans-serif;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    .gradient-orange {
-      background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
-    }
-
-    .text-gradient {
-      background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hover-lift {
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .hover-lift:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(255, 107, 53, 0.15);
-    }
-
-    .section-padding {
-      padding: 5rem 1rem;
-    }
-
-    @media (max-width: 768px) {
-      .section-padding {
-        padding: 3rem 1rem;
-      }
-    }
-
-    body {
-      background-color: #f8f8f8;
-    }
-
-    section {
-      position: relative;
-    }
-
-    /* Carousel Styles */
-    .carousel-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 1.5rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-
-    .carousel-track {
-      display: flex;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .carousel-slide {
-      min-width: 100%;
-      position: relative;
-    }
-
-    .carousel-slide img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .carousel-indicators {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 0.5rem;
-      z-index: 10;
-    }
-
-    .carousel-indicator {
-      width: 2.5rem;
-      height: 0.375rem;
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 0.25rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .carousel-indicator.active {
-      background: #FF6B35;
-      width: 3.5rem;
-    }
-
-    .carousel-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.95);
-      border: none;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 10;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .carousel-nav:hover {
-      background: #FF6B35;
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    .carousel-nav:hover svg {
-      stroke: white;
-    }
-
-    .carousel-nav.prev {
-      left: 1rem;
-    }
-
-    .carousel-nav.next {
-      right: 1rem;
-    }
-
-    /* Enhanced button styles */
-    .btn-primary {
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-
-    .btn-primary:hover::before {
-      width: 300px;
-      height: 300px;
-    }
-
-    /* Improved card styles */
-    .service-card {
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 140, 66, 0.05) 100%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .service-card:hover::before {
-      opacity: 1;
-    }
-
-    /* Glassmorphism effect */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    /* Animated gradient background */
-    .animated-gradient {
-      background: linear-gradient(270deg, #FF6B35, #FF8C42, #FFB347);
-      background-size: 600% 600%;
-      animation: gradientShift 8s ease infinite;
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Floating animation for elements */
-    .float-element {
-      animation: float 3s ease-in-out infinite;
-    }
-
-    /* Pulse effect */
-    .pulse-effect {
-      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-
-    /* Badge style */
-    .badge-orange {
-      background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 140, 66, 0.1) 100%);
-      border: 1px solid rgba(255, 107, 53, 0.2);
-    }
-
-    /* WhatsApp Floating Button */
-    .whatsapp-float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 30px;
-      right: 30px;
-      background-color: #25d366;
-      color: #FFF;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 30px;
-      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
-    }
-
-    @media (max-width: 768px) {
-      .whatsapp-float {
-        width: 50px;
-        height: 50px;
-        bottom: 20px;
-        right: 20px;
-        font-size: 25px;
-      }
-    }
-  </style>
-
-  <script type="application/ld+json">
+const courseData = [
   {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "OrangeVapor",
-    "image": "",
-    "@id": "",
-    "url": "",
-    "telephone": "",
-    "description": "Agencia de creación y rediseño de sitios web One Page y E-commerce.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Buenos Aires",
-      "addressCountry": "AR"
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "09:00",
-      "closes": "18:00"
-    }
+    id: 1,
+    title: "Saludos y Cortesía",
+    subtitle: "问候与礼貌",
+    description: "Las expresiones fundamentales para cualquier interacción social.",
+    icon: "👋",
+    color: "from-emerald-500 to-teal-600",
+    bgPattern: "emerald",
+    grammar: [
+      { title: "La estructura básica", content: "En chino, las frases de saludo suelen ser muy directas. 你好 (nǐ hǎo) literalmente significa 'tú bueno', pero se usa como 'hola'." },
+      { title: "Formalidad", content: "Para ser más formal, usa 您好 (nín hǎo) con personas mayores o en contextos profesionales." }
+    ],
+    content: [
+      { id: '1-1', hanzi: '你好', pinyin: 'nǐ hǎo', translation: 'Hola', type: 'saludo', example: '你好，我是学生。', exampleTr: 'Hola, soy estudiante.', audio: true, difficulty: 1 },
+      { id: '1-2', hanzi: '您好', pinyin: 'nín hǎo', translation: 'Hola (formal)', type: 'saludo', example: '您好，王老师！', exampleTr: '¡Hola, profesor Wang!', audio: true, difficulty: 2 },
+      { id: '1-3', hanzi: '再见', pinyin: 'zài jiàn', translation: 'Adiós', type: 'despedida', example: '明天见，再见！', exampleTr: '¡Nos vemos mañana, adiós!', audio: true, difficulty: 1 },
+      { id: '1-4', hanzi: '谢谢', pinyin: 'xiè xie', translation: 'Gracias', type: 'cortesía', example: '谢谢你的帮助。', exampleTr: 'Gracias por tu ayuda.', audio: true, difficulty: 1 },
+      { id: '1-5', hanzi: '不客气', pinyin: 'bú kè qi', translation: 'De nada', type: 'cortesía', example: 'A: 谢谢！B: 不客气。', exampleTr: 'A: ¡Gracias! B: De nada.', audio: true, difficulty: 2 },
+      { id: '1-6', hanzi: '对不起', pinyin: 'duì bu qǐ', translation: 'Lo siento / Perdón', type: 'cortesía', example: '对不起，我迟到了。', exampleTr: 'Lo siento, llegué tarde.', audio: true, difficulty: 2 },
+      { id: '1-7', hanzi: '没关系', pinyin: 'méi guān xi', translation: 'No importa / Está bien', type: 'cortesía', example: 'A: 对不起。B: 没关系。', exampleTr: 'A: Perdón. B: No pasa nada.', audio: true, difficulty: 2 },
+      { id: '1-8', hanzi: '请', pinyin: 'qǐng', translation: 'Por favor / Invitar', type: 'cortesía', example: '请坐。', exampleTr: 'Por favor, siéntate.', audio: true, difficulty: 1 },
+    ]
+  },
+  {
+    id: 2,
+    title: "Pronombres Personales",
+    subtitle: "人称代词",
+    description: "Identifícate y refiere a otros con precisión.",
+    icon: "👤",
+    color: "from-blue-500 to-indigo-600",
+    bgPattern: "blue",
+    grammar: [
+      { title: "Plurales", content: "Agrega 们 (men) a cualquier pronombre singular para hacerlo plural: 我→我们, 你→你们, 他→他们" },
+      { title: "Género", content: "他 (él), 她 (ella), 它 (ello) suenan igual (tā) pero se escriben diferente." }
+    ],
+    content: [
+      { id: '2-1', hanzi: '我', pinyin: 'wǒ', translation: 'Yo', type: 'pronombre', example: '我是中国人。', exampleTr: 'Soy chino.', audio: true, difficulty: 1 },
+      { id: '2-2', hanzi: '你', pinyin: 'nǐ', translation: 'Tú', type: 'pronombre', example: '你是谁？', exampleTr: '¿Quién eres tú?', audio: true, difficulty: 1 },
+      { id: '2-3', hanzi: '您', pinyin: 'nín', translation: 'Usted (formal)', type: 'pronombre', example: '您贵姓？', exampleTr: '¿Cuál es su apellido?', audio: true, difficulty: 2 },
+      { id: '2-4', hanzi: '他', pinyin: 'tā', translation: 'Él', type: 'pronombre', example: '他是我的朋友。', exampleTr: 'Él es mi amigo.', audio: true, difficulty: 1 },
+      { id: '2-5', hanzi: '她', pinyin: 'tā', translation: 'Ella', type: 'pronombre', example: '她很漂亮。', exampleTr: 'Ella es muy bonita.', audio: true, difficulty: 1 },
+      { id: '2-6', hanzi: '我们', pinyin: 'wǒ men', translation: 'Nosotros', type: 'pronombre', example: '我们是学生。', exampleTr: 'Somos estudiantes.', audio: true, difficulty: 1 },
+      { id: '2-7', hanzi: '他们', pinyin: 'tā men', translation: 'Ellos/Ellas', type: 'pronombre', example: '他们在哪儿？', exampleTr: '¿Dónde están ellos?', audio: true, difficulty: 1 },
+      { id: '2-8', hanzi: '这', pinyin: 'zhè', translation: 'Este/Esto', type: 'demostrativo', example: '这是什么？', exampleTr: '¿Qué es esto?', audio: true, difficulty: 1 },
+      { id: '2-9', hanzi: '那', pinyin: 'nà', translation: 'Ese/Eso/Aquel', type: 'demostrativo', example: '那是我的书。', exampleTr: 'Ese es mi libro.', audio: true, difficulty: 1 },
+      { id: '2-10', hanzi: '哪', pinyin: 'nǎ', translation: '¿Cuál? ¿Qué?', type: 'interrogativo', example: '你是哪国人？', exampleTr: '¿De qué país eres?', audio: true, difficulty: 2 },
+    ]
+  },
+  {
+    id: 3,
+    title: "Números del 1 al 10",
+    subtitle: "数字 一到十",
+    description: "La base de todo cálculo y expresión numérica.",
+    icon: "🔢",
+    color: "from-violet-500 to-purple-600",
+    bgPattern: "violet",
+    grammar: [
+      { title: "Contar con los dedos", content: "Los chinos usan una mano para contar del 1 al 10 con gestos únicos. Es útil aprenderlos." },
+      { title: "二 vs 两", content: "二 (èr) se usa para contar y en números. 两 (liǎng) se usa antes de clasificadores: 两个人 (dos personas)." }
+    ],
+    content: [
+      { id: '3-1', hanzi: '一', pinyin: 'yī', translation: 'Uno (1)', type: 'número', example: '一个苹果。', exampleTr: 'Una manzana.', audio: true, difficulty: 1 },
+      { id: '3-2', hanzi: '二', pinyin: 'èr', translation: 'Dos (2)', type: 'número', example: '第二个。', exampleTr: 'El segundo.', audio: true, difficulty: 1 },
+      { id: '3-3', hanzi: '三', pinyin: 'sān', translation: 'Tres (3)', type: 'número', example: '三月。', exampleTr: 'Marzo.', audio: true, difficulty: 1 },
+      { id: '3-4', hanzi: '四', pinyin: 'sì', translation: 'Cuatro (4)', type: 'número', example: '四点。', exampleTr: 'Las cuatro.', audio: true, difficulty: 1 },
+      { id: '3-5', hanzi: '五', pinyin: 'wǔ', translation: 'Cinco (5)', type: 'número', example: '五岁。', exampleTr: 'Cinco años.', audio: true, difficulty: 1 },
+      { id: '3-6', hanzi: '六', pinyin: 'liù', translation: 'Seis (6)', type: 'número', example: '六个人。', exampleTr: 'Seis personas.', audio: true, difficulty: 1 },
+      { id: '3-7', hanzi: '七', pinyin: 'qī', translation: 'Siete (7)', type: 'número', example: '七天。', exampleTr: 'Siete días.', audio: true, difficulty: 1 },
+      { id: '3-8', hanzi: '八', pinyin: 'bā', translation: 'Ocho (8)', type: 'número', example: '八月。', exampleTr: 'Agosto.', audio: true, difficulty: 1 },
+      { id: '3-9', hanzi: '九', pinyin: 'jiǔ', translation: 'Nueve (9)', type: 'número', example: '九块钱。', exampleTr: 'Nueve yuanes.', audio: true, difficulty: 1 },
+      { id: '3-10', hanzi: '十', pinyin: 'shí', translation: 'Diez (10)', type: 'número', example: '十分钟。', exampleTr: 'Diez minutos.', audio: true, difficulty: 1 },
+      { id: '3-11', hanzi: '两', pinyin: 'liǎng', translation: 'Dos (antes de clasificador)', type: 'número', example: '两个学生。', exampleTr: 'Dos estudiantes.', audio: true, difficulty: 2 },
+      { id: '3-12', hanzi: '零', pinyin: 'líng', translation: 'Cero (0)', type: 'número', example: '零度。', exampleTr: 'Cero grados.', audio: true, difficulty: 1 },
+    ]
+  },
+  {
+    id: 4,
+    title: "La Familia",
+    subtitle: "家庭",
+    description: "Vocabulario esencial para hablar de tu entorno más cercano.",
+    icon: "👨‍👩‍👧‍👦",
+    color: "from-rose-500 to-pink-600",
+    bgPattern: "rose",
+    grammar: [
+      { title: "Posesivos", content: "Agrega 的 (de) después del pronombre para indicar posesión: 我的 (mi), 你的 (tu), 他的 (su)" },
+      { title: "Familia extendida", content: "El chino tiene términos específicos para cada pariente según si es paterno/materno, mayor/menor." }
+    ],
+    content: [
+      { id: '4-1', hanzi: '爸爸', pinyin: 'bà ba', translation: 'Papá', type: 'familia', example: '我爸爸是医生。', exampleTr: 'Mi papá es médico.', audio: true, difficulty: 1 },
+      { id: '4-2', hanzi: '妈妈', pinyin: 'mā ma', translation: 'Mamá', type: 'familia', example: '我爱妈妈。', exampleTr: 'Amo a mamá.', audio: true, difficulty: 1 },
+      { id: '4-3', hanzi: '儿子', pinyin: 'ér zi', translation: 'Hijo', type: 'familia', example: '他有一个儿子。', exampleTr: 'Él tiene un hijo.', audio: true, difficulty: 2 },
+      { id: '4-4', hanzi: '女儿', pinyin: 'nǚ ér', translation: 'Hija', type: 'familia', example: '她的女儿很可爱。', exampleTr: 'Su hija es muy linda.', audio: true, difficulty: 2 },
+      { id: '4-5', hanzi: '家', pinyin: 'jiā', translation: 'Casa / Familia', type: 'familia', example: '我的家在北京。', exampleTr: 'Mi casa está en Pekín.', audio: true, difficulty: 1 },
+      { id: '4-6', hanzi: '朋友', pinyin: 'péng you', translation: 'Amigo', type: 'relación', example: '他是我的好朋友。', exampleTr: 'Él es mi buen amigo.', audio: true, difficulty: 1 },
+      { id: '4-7', hanzi: '同学', pinyin: 'tóng xué', translation: 'Compañero de clase', type: 'relación', example: '她是我的同学。', exampleTr: 'Ella es mi compañera.', audio: true, difficulty: 2 },
+      { id: '4-8', hanzi: '老师', pinyin: 'lǎo shī', translation: 'Profesor/a', type: 'relación', example: '王老师很好。', exampleTr: 'El profesor Wang es muy bueno.', audio: true, difficulty: 1 },
+      { id: '4-9', hanzi: '学生', pinyin: 'xué sheng', translation: 'Estudiante', type: 'relación', example: '我是学生。', exampleTr: 'Soy estudiante.', audio: true, difficulty: 1 },
+      { id: '4-10', hanzi: '先生', pinyin: 'xiān sheng', translation: 'Señor / Esposo', type: 'relación', example: '王先生好！', exampleTr: '¡Hola, señor Wang!', audio: true, difficulty: 2 },
+      { id: '4-11', hanzi: '小姐', pinyin: 'xiǎo jiě', translation: 'Señorita', type: 'relación', example: '李小姐，您好！', exampleTr: '¡Hola, señorita Li!', audio: true, difficulty: 2 },
+    ]
+  },
+  {
+    id: 5,
+    title: "Verbos Esenciales",
+    subtitle: "基本动词",
+    description: "Las acciones más usadas en conversaciones diarias.",
+    icon: "🏃",
+    color: "from-amber-500 to-orange-600",
+    bgPattern: "amber",
+    grammar: [
+      { title: "Sin conjugación", content: "Los verbos chinos NO se conjugan. 我吃 (yo como), 他吃 (él come), 我们吃 (nosotros comemos)." },
+      { title: "Negación", content: "Usa 不 (bù) antes del verbo para negar: 我不吃 (no como). Excepción: 没 (méi) para 有." }
+    ],
+    content: [
+      { id: '5-1', hanzi: '是', pinyin: 'shì', translation: 'Ser / Estar', type: 'verbo', example: '我是中国人。', exampleTr: 'Soy chino.', audio: true, difficulty: 1 },
+      { id: '5-2', hanzi: '有', pinyin: 'yǒu', translation: 'Tener / Haber', type: 'verbo', example: '我有一本书。', exampleTr: 'Tengo un libro.', audio: true, difficulty: 1 },
+      { id: '5-3', hanzi: '吃', pinyin: 'chī', translation: 'Comer', type: 'verbo', example: '我想吃米饭。', exampleTr: 'Quiero comer arroz.', audio: true, difficulty: 1 },
+      { id: '5-4', hanzi: '喝', pinyin: 'hē', translation: 'Beber', type: 'verbo', example: '你喝茶吗？', exampleTr: '¿Bebes té?', audio: true, difficulty: 1 },
+      { id: '5-5', hanzi: '看', pinyin: 'kàn', translation: 'Mirar / Leer', type: 'verbo', example: '我在看书。', exampleTr: 'Estoy leyendo.', audio: true, difficulty: 1 },
+      { id: '5-6', hanzi: '听', pinyin: 'tīng', translation: 'Escuchar', type: 'verbo', example: '听音乐。', exampleTr: 'Escuchar música.', audio: true, difficulty: 1 },
+      { id: '5-7', hanzi: '说', pinyin: 'shuō', translation: 'Hablar / Decir', type: 'verbo', example: '他会说中文。', exampleTr: 'Él puede hablar chino.', audio: true, difficulty: 1 },
+      { id: '5-8', hanzi: '读', pinyin: 'dú', translation: 'Leer (en voz alta)', type: 'verbo', example: '请读这个字。', exampleTr: 'Por favor lee este carácter.', audio: true, difficulty: 2 },
+      { id: '5-9', hanzi: '写', pinyin: 'xiě', translation: 'Escribir', type: 'verbo', example: '我在写汉字。', exampleTr: 'Estoy escribiendo caracteres.', audio: true, difficulty: 2 },
+      { id: '5-10', hanzi: '去', pinyin: 'qù', translation: 'Ir', type: 'verbo', example: '我去学校。', exampleTr: 'Voy a la escuela.', audio: true, difficulty: 1 },
+      { id: '5-11', hanzi: '来', pinyin: 'lái', translation: 'Venir', type: 'verbo', example: '他来中国。', exampleTr: 'Él viene a China.', audio: true, difficulty: 1 },
+      { id: '5-12', hanzi: '回', pinyin: 'huí', translation: 'Regresar / Volver', type: 'verbo', example: '我回家。', exampleTr: 'Vuelvo a casa.', audio: true, difficulty: 2 },
+    ]
+  },
+  {
+    id: 6,
+    title: "Verbos de Acción II",
+    subtitle: "动作动词 II",
+    description: "Más acciones para expresar actividades diarias.",
+    icon: "⚡",
+    color: "from-cyan-500 to-blue-600",
+    bgPattern: "cyan",
+    grammar: [
+      { title: "想 (xiǎng) = querer/pensar", content: "想 + verbo = querer hacer algo. 我想吃 (quiero comer)." },
+      { title: "会 (huì) = saber/poder", content: "会 indica habilidad aprendida: 我会说中文 (sé hablar chino)." }
+    ],
+    content: [
+      { id: '6-1', hanzi: '想', pinyin: 'xiǎng', translation: 'Querer / Pensar / Extrañar', type: 'verbo', example: '我想你。', exampleTr: 'Te extraño.', audio: true, difficulty: 1 },
+      { id: '6-2', hanzi: '喜欢', pinyin: 'xǐ huan', translation: 'Gustar', type: 'verbo', example: '我喜欢中国菜。', exampleTr: 'Me gusta la comida china.', audio: true, difficulty: 1 },
+      { id: '6-3', hanzi: '爱', pinyin: 'ài', translation: 'Amar', type: 'verbo', example: '我爱你。', exampleTr: 'Te amo.', audio: true, difficulty: 1 },
+      { id: '6-4', hanzi: '会', pinyin: 'huì', translation: 'Saber (hacer) / Poder', type: 'verbo', example: '你会游泳吗？', exampleTr: '¿Sabes nadar?', audio: true, difficulty: 2 },
+      { id: '6-5', hanzi: '能', pinyin: 'néng', translation: 'Poder (capacidad)', type: 'verbo', example: '我能帮你。', exampleTr: 'Puedo ayudarte.', audio: true, difficulty: 2 },
+      { id: '6-6', hanzi: '做', pinyin: 'zuò', translation: 'Hacer', type: 'verbo', example: '你在做什么？', exampleTr: '¿Qué estás haciendo?', audio: true, difficulty: 1 },
+      { id: '6-7', hanzi: '工作', pinyin: 'gōng zuò', translation: 'Trabajar / Trabajo', type: 'verbo', example: '我在工作。', exampleTr: 'Estoy trabajando.', audio: true, difficulty: 2 },
+      { id: '6-8', hanzi: '学习', pinyin: 'xué xí', translation: 'Estudiar / Aprender', type: 'verbo', example: '我学习中文。', exampleTr: 'Estudio chino.', audio: true, difficulty: 1 },
+      { id: '6-9', hanzi: '睡觉', pinyin: 'shuì jiào', translation: 'Dormir', type: 'verbo', example: '我想睡觉。', exampleTr: 'Quiero dormir.', audio: true, difficulty: 2 },
+      { id: '6-10', hanzi: '住', pinyin: 'zhù', translation: 'Vivir / Habitar', type: 'verbo', example: '你住在哪儿？', exampleTr: '¿Dónde vives?', audio: true, difficulty: 2 },
+      { id: '6-11', hanzi: '叫', pinyin: 'jiào', translation: 'Llamarse / Llamar', type: 'verbo', example: '我叫Emiliano。', exampleTr: 'Me llamo Emiliano.', audio: true, difficulty: 1 },
+      { id: '6-12', hanzi: '认识', pinyin: 'rèn shi', translation: 'Conocer', type: 'verbo', example: '认识你很高兴。', exampleTr: 'Encantado de conocerte.', audio: true, difficulty: 2 },
+    ]
+  },
+  {
+    id: 7,
+    title: "Tiempo y Fechas",
+    subtitle: "时间与日期",
+    description: "Domina las expresiones temporales básicas.",
+    icon: "📅",
+    color: "from-teal-500 to-emerald-600",
+    bgPattern: "teal",
+    grammar: [
+      { title: "Orden temporal", content: "El tiempo va ANTES del verbo: 我今天去 (Yo hoy voy)." },
+      { title: "星期 (xīng qī)", content: "Para días: 星期一 (lunes), 星期二 (martes)... 星期日/天 (domingo)." }
+    ],
+    content: [
+      { id: '7-1', hanzi: '今天', pinyin: 'jīn tiān', translation: 'Hoy', type: 'tiempo', example: '今天星期几？', exampleTr: '¿Qué día es hoy?', audio: true, difficulty: 1 },
+      { id: '7-2', hanzi: '明天', pinyin: 'míng tiān', translation: 'Mañana', type: 'tiempo', example: '明天见！', exampleTr: '¡Hasta mañana!', audio: true, difficulty: 1 },
+      { id: '7-3', hanzi: '昨天', pinyin: 'zuó tiān', translation: 'Ayer', type: 'tiempo', example: '昨天很冷。', exampleTr: 'Ayer hizo frío.', audio: true, difficulty: 1 },
+      { id: '7-4', hanzi: '现在', pinyin: 'xiàn zài', translation: 'Ahora', type: 'tiempo', example: '现在几点？', exampleTr: '¿Qué hora es ahora?', audio: true, difficulty: 1 },
+      { id: '7-5', hanzi: '时候', pinyin: 'shí hou', translation: 'Momento / Cuando', type: 'tiempo', example: '什么时候？', exampleTr: '¿Cuándo?', audio: true, difficulty: 2 },
+      { id: '7-6', hanzi: '年', pinyin: 'nián', translation: 'Año', type: 'tiempo', example: '今年是2024年。', exampleTr: 'Este año es 2024.', audio: true, difficulty: 1 },
+      { id: '7-7', hanzi: '月', pinyin: 'yuè', translation: 'Mes / Luna', type: 'tiempo', example: '这个月。', exampleTr: 'Este mes.', audio: true, difficulty: 1 },
+      { id: '7-8', hanzi: '日', pinyin: 'rì', translation: 'Día / Sol', type: 'tiempo', example: '三月十五日。', exampleTr: '15 de marzo.', audio: true, difficulty: 1 },
+      { id: '7-9', hanzi: '号', pinyin: 'hào', translation: 'Día (coloquial) / Número', type: 'tiempo', example: '今天几号？', exampleTr: '¿Qué fecha es hoy?', audio: true, difficulty: 2 },
+      { id: '7-10', hanzi: '星期', pinyin: 'xīng qī', translation: 'Semana', type: 'tiempo', example: '这个星期。', exampleTr: 'Esta semana.', audio: true, difficulty: 2 },
+      { id: '7-11', hanzi: '点', pinyin: 'diǎn', translation: 'Hora (en punto)', type: 'tiempo', example: '现在三点。', exampleTr: 'Ahora son las 3.', audio: true, difficulty: 1 },
+      { id: '7-12', hanzi: '分钟', pinyin: 'fēn zhōng', translation: 'Minuto', type: 'tiempo', example: '十分钟。', exampleTr: 'Diez minutos.', audio: true, difficulty: 2 },
+    ]
+  },
+  {
+    id: 8,
+    title: "Adjetivos Comunes",
+    subtitle: "常用形容词",
+    description: "Describe personas, objetos y situaciones.",
+    icon: "🎨",
+    color: "from-fuchsia-500 to-pink-600",
+    bgPattern: "fuchsia",
+    grammar: [
+      { title: "很 (hěn) = muy", content: "Casi siempre usamos 很 antes de adjetivos: 他很高 (él es alto). Sin 很 suena comparativo." },
+      { title: "Adjetivos como verbos", content: "Los adjetivos funcionan como verbos: 我高 (soy alto), no necesitas 是." }
+    ],
+    content: [
+      { id: '8-1', hanzi: '大', pinyin: 'dà', translation: 'Grande', type: 'adjetivo', example: '这个很大。', exampleTr: 'Esto es muy grande.', audio: true, difficulty: 1 },
+      { id: '8-2', hanzi: '小', pinyin: 'xiǎo', translation: 'Pequeño', type: 'adjetivo', example: '我的房间很小。', exampleTr: 'Mi habitación es pequeña.', audio: true, difficulty: 1 },
+      { id: '8-3', hanzi: '多', pinyin: 'duō', translation: 'Mucho', type: 'adjetivo', example: '人很多。', exampleTr: 'Hay mucha gente.', audio: true, difficulty: 1 },
+      { id: '8-4', hanzi: '少', pinyin: 'shǎo', translation: 'Poco', type: 'adjetivo', example: '钱很少。', exampleTr: 'Hay poco dinero.', audio: true, difficulty: 1 },
+      { id: '8-5', hanzi: '好', pinyin: 'hǎo', translation: 'Bueno / Bien', type: 'adjetivo', example: '这本书很好。', exampleTr: 'Este libro es muy bueno.', audio: true, difficulty: 1 },
+      { id: '8-6', hanzi: '高兴', pinyin: 'gāo xìng', translation: 'Contento / Feliz', type: 'adjetivo', example: '我很高兴。', exampleTr: 'Estoy muy contento.', audio: true, difficulty: 1 },
+      { id: '8-7', hanzi: '漂亮', pinyin: 'piào liang', translation: 'Bonito/a', type: 'adjetivo', example: '她很漂亮。', exampleTr: 'Ella es muy bonita.', audio: true, difficulty: 2 },
+      { id: '8-8', hanzi: '冷', pinyin: 'lěng', translation: 'Frío', type: 'adjetivo', example: '今天很冷。', exampleTr: 'Hoy hace frío.', audio: true, difficulty: 1 },
+      { id: '8-9', hanzi: '热', pinyin: 'rè', translation: 'Caliente / Calor', type: 'adjetivo', example: '天气很热。', exampleTr: 'El clima es caluroso.', audio: true, difficulty: 1 },
+      { id: '8-10', hanzi: '高', pinyin: 'gāo', translation: 'Alto', type: 'adjetivo', example: '他很高。', exampleTr: 'Él es muy alto.', audio: true, difficulty: 1 },
+    ]
+  },
+  {
+    id: 9,
+    title: "Comida y Bebida",
+    subtitle: "食物与饮料",
+    description: "Vocabulario para sobrevivir en restaurantes.",
+    icon: "🍜",
+    color: "from-red-500 to-rose-600",
+    bgPattern: "red",
+    grammar: [
+      { title: "Pedir comida", content: "我要... (wǒ yào...) = Quiero... Es la forma más común de ordenar." },
+      { title: "Clasificadores", content: "杯 (bēi) para tazas/vasos, 个 (gè) clasificador general." }
+    ],
+    content: [
+      { id: '9-1', hanzi: '水', pinyin: 'shuǐ', translation: 'Agua', type: 'bebida', example: '我要一杯水。', exampleTr: 'Quiero un vaso de agua.', audio: true, difficulty: 1 },
+      { id: '9-2', hanzi: '茶', pinyin: 'chá', translation: 'Té', type: 'bebida', example: '你喝茶吗？', exampleTr: '¿Bebes té?', audio: true, difficulty: 1 },
+      { id: '9-3', hanzi: '咖啡', pinyin: 'kā fēi', translation: 'Café', type: 'bebida', example: '我喜欢喝咖啡。', exampleTr: 'Me gusta beber café.', audio: true, difficulty: 1 },
+      { id: '9-4', hanzi: '米饭', pinyin: 'mǐ fàn', translation: 'Arroz (cocido)', type: 'comida', example: '我吃米饭。', exampleTr: 'Como arroz.', audio: true, difficulty: 1 },
+      { id: '9-5', hanzi: '菜', pinyin: 'cài', translation: 'Plato / Verdura', type: 'comida', example: '中国菜很好吃。', exampleTr: 'La comida china es deliciosa.', audio: true, difficulty: 1 },
+      { id: '9-6', hanzi: '水果', pinyin: 'shuǐ guǒ', translation: 'Fruta', type: 'comida', example: '我喜欢吃水果。', exampleTr: 'Me gusta comer fruta.', audio: true, difficulty: 2 },
+      { id: '9-7', hanzi: '苹果', pinyin: 'píng guǒ', translation: 'Manzana', type: 'comida', example: '这个苹果很好吃。', exampleTr: 'Esta manzana es deliciosa.', audio: true, difficulty: 2 },
+      { id: '9-8', hanzi: '杯子', pinyin: 'bēi zi', translation: 'Vaso / Taza', type: 'objeto', example: '这是我的杯子。', exampleTr: 'Este es mi vaso.', audio: true, difficulty: 2 },
+      { id: '9-9', hanzi: '饭店', pinyin: 'fàn diàn', translation: 'Restaurante / Hotel', type: 'lugar', example: '我们去饭店。', exampleTr: 'Vamos al restaurante.', audio: true, difficulty: 2 },
+      { id: '9-10', hanzi: '商店', pinyin: 'shāng diàn', translation: 'Tienda', type: 'lugar', example: '商店在哪儿？', exampleTr: '¿Dónde está la tienda?', audio: true, difficulty: 2 },
+    ]
+  },
+  {
+    id: 10,
+    title: "Lugares y Direcciones",
+    subtitle: "地点与方位",
+    description: "Navega y ubícate en cualquier entorno.",
+    icon: "🗺️",
+    color: "from-sky-500 to-blue-600",
+    bgPattern: "sky",
+    grammar: [
+      { title: "在 (zài) = en/estar", content: "Indica ubicación: 我在家 (Estoy en casa), 书在桌子上 (El libro está en la mesa)." },
+      { title: "Preguntar ubicación", content: "...在哪儿？ (...zài nǎr?) = ¿Dónde está...?" }
+    ],
+    content: [
+      { id: '10-1', hanzi: '中国', pinyin: 'Zhōng guó', translation: 'China', type: 'lugar', example: '我在中国。', exampleTr: 'Estoy en China.', audio: true, difficulty: 1 },
+      { id: '10-2', hanzi: '北京', pinyin: 'Běi jīng', translation: 'Pekín', type: 'lugar', example: '北京是中国的首都。', exampleTr: 'Pekín es la capital de China.', audio: true, difficulty: 2 },
+      { id: '10-3', hanzi: '学校', pinyin: 'xué xiào', translation: 'Escuela', type: 'lugar', example: '我去学校。', exampleTr: 'Voy a la escuela.', audio: true, difficulty: 1 },
+      { id: '10-4', hanzi: '医院', pinyin: 'yī yuàn', translation: 'Hospital', type: 'lugar', example: '医院在哪儿？', exampleTr: '¿Dónde está el hospital?', audio: true, difficulty: 2 },
+      { id: '10-5', hanzi: '在', pinyin: 'zài', translation: 'En / Estar (ubicación)', type: 'preposición', example: '他在家。', exampleTr: 'Él está en casa.', audio: true, difficulty: 1 },
+      { id: '10-6', hanzi: '里', pinyin: 'lǐ', translation: 'Dentro', type: 'posición', example: '书在书包里。', exampleTr: 'El libro está dentro de la mochila.', audio: true, difficulty: 2 },
+      { id: '10-7', hanzi: '上', pinyin: 'shàng', translation: 'Arriba / Encima', type: 'posición', example: '猫在桌子上。', exampleTr: 'El gato está en la mesa.', audio: true, difficulty: 1 },
+      { id: '10-8', hanzi: '下', pinyin: 'xià', translation: 'Abajo / Debajo', type: 'posición', example: '狗在床下。', exampleTr: 'El perro está debajo de la cama.', audio: true, difficulty: 1 },
+      { id: '10-9', hanzi: '前面', pinyin: 'qián miàn', translation: 'Delante / Enfrente', type: 'posición', example: '学校在前面。', exampleTr: 'La escuela está adelante.', audio: true, difficulty: 2 },
+      { id: '10-10', hanzi: '后面', pinyin: 'hòu miàn', translation: 'Detrás', type: 'posición', example: '他在我后面。', exampleTr: 'Él está detrás de mí.', audio: true, difficulty: 2 },
+      { id: '10-11', hanzi: '哪儿', pinyin: 'nǎr', translation: '¿Dónde?', type: 'interrogativo', example: '你去哪儿？', exampleTr: '¿A dónde vas?', audio: true, difficulty: 1 },
+      { id: '10-12', hanzi: '这儿', pinyin: 'zhèr', translation: 'Aquí', type: 'lugar', example: '我在这儿。', exampleTr: 'Estoy aquí.', audio: true, difficulty: 1 },
+    ]
+  },
+  {
+    id: 11,
+    title: "Preguntas Esenciales",
+    subtitle: "基本问句",
+    description: "Las palabras clave para hacer preguntas.",
+    icon: "❓",
+    color: "from-orange-500 to-amber-600",
+    bgPattern: "orange",
+    grammar: [
+      { title: "Partícula 吗 (ma)", content: "Agrega 吗 al final de una afirmación para convertirla en pregunta sí/no: 你好吗？" },
+      { title: "Preguntas con 什么/谁/哪", content: "La palabra interrogativa va donde iría la respuesta: 你叫什么？(¿Cómo te llamas?)" }
+    ],
+    content: [
+      { id: '11-1', hanzi: '什么', pinyin: 'shén me', translation: '¿Qué?', type: 'interrogativo', example: '这是什么？', exampleTr: '¿Qué es esto?', audio: true, difficulty: 1 },
+      { id: '11-2', hanzi: '谁', pinyin: 'shéi', translation: '¿Quién?', type: 'interrogativo', example: '他是谁？', exampleTr: '¿Quién es él?', audio: true, difficulty: 1 },
+      { id: '11-3', hanzi: '怎么', pinyin: 'zěn me', translation: '¿Cómo?', type: 'interrogativo', example: '你怎么去？', exampleTr: '¿Cómo vas?', audio: true, difficulty: 2 },
+      { id: '11-4', hanzi: '怎么样', pinyin: 'zěn me yàng', translation: '¿Qué tal? / ¿Cómo es?', type: 'interrogativo', example: '天气怎么样？', exampleTr: '¿Cómo está el clima?', audio: true, difficulty: 2 },
+      { id: '11-5', hanzi: '为什么', pinyin: 'wèi shén me', translation: '¿Por qué?', type: 'interrogativo', example: '为什么不去？', exampleTr: '¿Por qué no vas?', audio: true, difficulty: 2 },
+      { id: '11-6', hanzi: '几', pinyin: 'jǐ', translation: '¿Cuántos? (1-10)', type: 'interrogativo', example: '你几岁？', exampleTr: '¿Cuántos años tienes?', audio: true, difficulty: 1 },
+      { id: '11-7', hanzi: '多少', pinyin: 'duō shao', translation: '¿Cuánto/s?', type: 'interrogativo', example: '这个多少钱？', exampleTr: '¿Cuánto cuesta esto?', audio: true, difficulty: 1 },
+      { id: '11-8', hanzi: '吗', pinyin: 'ma', translation: '(partícula de pregunta)', type: 'partícula', example: '你好吗？', exampleTr: '¿Cómo estás?', audio: true, difficulty: 1 },
+      { id: '11-9', hanzi: '呢', pinyin: 'ne', translation: '¿Y tú/él...?', type: 'partícula', example: '我很好，你呢？', exampleTr: 'Estoy bien, ¿y tú?', audio: true, difficulty: 2 },
+    ]
+  },
+  {
+    id: 12,
+    title: "Objetos Cotidianos",
+    subtitle: "日常物品",
+    description: "Nombra los objetos que te rodean.",
+    icon: "📚",
+    color: "from-lime-500 to-green-600",
+    bgPattern: "lime",
+    grammar: [
+      { title: "Clasificador 个 (gè)", content: "Clasificador general: 一个人 (una persona), 两个苹果 (dos manzanas)." },
+      { title: "Clasificador 本 (běn)", content: "Para libros: 一本书 (un libro), 三本杂志 (tres revistas)." }
+    ],
+    content: [
+      { id: '12-1', hanzi: '书', pinyin: 'shū', translation: 'Libro', type: 'objeto', example: '我在看书。', exampleTr: 'Estoy leyendo un libro.', audio: true, difficulty: 1 },
+      { id: '12-2', hanzi: '本', pinyin: 'běn', translation: 'Clasificador (libros)', type: 'clasificador', example: '一本书。', exampleTr: 'Un libro.', audio: true, difficulty: 2 },
+      { id: '12-3', hanzi: '个', pinyin: 'gè', translation: 'Clasificador (general)', type: 'clasificador', example: '一个人。', exampleTr: 'Una persona.', audio: true, difficulty: 1 },
+      { id: '12-4', hanzi: '些', pinyin: 'xiē', translation: 'Algunos / Unos', type: 'clasificador', example: '一些水果。', exampleTr: 'Algunas frutas.', audio: true, difficulty: 2 },
+      { id: '12-5', hanzi: '电脑', pinyin: 'diàn nǎo', translation: 'Computadora', type: 'objeto', example: '我的电脑很新。', exampleTr: 'Mi computadora es nueva.', audio: true, difficulty: 2 },
+      { id: '12-6', hanzi: '电视', pinyin: 'diàn shì', translation: 'Televisión', type: 'objeto', example: '我在看电视。', exampleTr: 'Estoy viendo televisión.', audio: true, difficulty: 2 },
+      { id: '12-7', hanzi: '电影', pinyin: 'diàn yǐng', translation: 'Película', type: 'objeto', example: '我们看电影吧。', exampleTr: 'Veamos una película.', audio: true, difficulty: 2 },
+      { id: '12-8', hanzi: '钱', pinyin: 'qián', translation: 'Dinero', type: 'objeto', example: '我没有钱。', exampleTr: 'No tengo dinero.', audio: true, difficulty: 1 },
+      { id: '12-9', hanzi: '块', pinyin: 'kuài', translation: 'Yuan (coloquial)', type: 'clasificador', example: '十块钱。', exampleTr: 'Diez yuanes.', audio: true, difficulty: 2 },
+      { id: '12-10', hanzi: '东西', pinyin: 'dōng xi', translation: 'Cosa / Objeto', type: 'objeto', example: '这是什么东西？', exampleTr: '¿Qué cosa es esta?', audio: true, difficulty: 2 },
+      { id: '12-11', hanzi: '衣服', pinyin: 'yī fu', translation: 'Ropa', type: 'objeto', example: '我买衣服。', exampleTr: 'Compro ropa.', audio: true, difficulty: 2 },
+      { id: '12-12', hanzi: '名字', pinyin: 'míng zi', translation: 'Nombre', type: 'objeto', example: '你叫什么名字？', exampleTr: '¿Cómo te llamas?', audio: true, difficulty: 1 },
+    ]
+  },
+  {
+    id: 13,
+    title: "Partes del Cuerpo y Salud",
+    subtitle: "身体与健康",
+    description: "Vocabulario básico sobre el cuerpo.",
+    icon: "🏥",
+    color: "from-pink-500 to-rose-600",
+    bgPattern: "pink",
+    grammar: [
+      { title: "Expresar malestar", content: "我 + parte del cuerpo + 疼/不舒服: 我头疼 (Me duele la cabeza)." }
+    ],
+    content: [
+      { id: '13-1', hanzi: '人', pinyin: 'rén', translation: 'Persona', type: 'sustantivo', example: '那个人是谁？', exampleTr: '¿Quién es esa persona?', audio: true, difficulty: 1 },
+      { id: '13-2', hanzi: '医生', pinyin: 'yī shēng', translation: 'Médico / Doctor', type: 'profesión', example: '她是医生。', exampleTr: 'Ella es médica.', audio: true, difficulty: 2 },
+      { id: '13-3', hanzi: '岁', pinyin: 'suì', translation: 'Años (edad)', type: 'clasificador', example: '我二十岁。', exampleTr: 'Tengo 20 años.', audio: true, difficulty: 1 },
+      { id: '13-4', hanzi: '身体', pinyin: 'shēn tǐ', translation: 'Cuerpo', type: 'sustantivo', example: '身体好吗？', exampleTr: '¿Cómo está tu salud?', audio: true, difficulty: 2 },
+    ]
+  },
+  {
+    id: 14,
+    title: "Transporte y Movimiento",
+    subtitle: "交通与出行",
+    description: "Cómo moverse y llegar a lugares.",
+    icon: "🚗",
+    color: "from-indigo-500 to-violet-600",
+    bgPattern: "indigo",
+    grammar: [
+      { title: "坐 (zuò) = sentarse/tomar", content: "坐 + transporte = tomar: 坐飞机 (tomar avión), 坐出租车 (tomar taxi)." },
+      { title: "开 (kāi) = conducir/abrir", content: "开车 (conducir), 开门 (abrir la puerta)." }
+    ],
+    content: [
+      { id: '14-1', hanzi: '坐', pinyin: 'zuò', translation: 'Sentarse / Tomar (transporte)', type: 'verbo', example: '请坐！', exampleTr: '¡Por favor siéntate!', audio: true, difficulty: 1 },
+      { id: '14-2', hanzi: '飞机', pinyin: 'fēi jī', translation: 'Avión', type: 'transporte', example: '我坐飞机去。', exampleTr: 'Voy en avión.', audio: true, difficulty: 2 },
+      { id: '14-3', hanzi: '出租车', pinyin: 'chū zū chē', translation: 'Taxi', type: 'transporte', example: '我们坐出租车吧。', exampleTr: 'Tomemos un taxi.', audio: true, difficulty: 2 },
+      { id: '14-4', hanzi: '开', pinyin: 'kāi', translation: 'Abrir / Conducir', type: 'verbo', example: '他会开车。', exampleTr: 'Él sabe conducir.', audio: true, difficulty: 2 },
+      { id: '14-5', hanzi: '车站', pinyin: 'chē zhàn', translation: 'Estación', type: 'lugar', example: '车站在哪儿？', exampleTr: '¿Dónde está la estación?', audio: true, difficulty: 2 },
+    ]
+  },
+  {
+    id: 15,
+    title: "Clima y Naturaleza",
+    subtitle: "天气与自然",
+    description: "Habla sobre el tiempo y el entorno.",
+    icon: "🌤️",
+    color: "from-yellow-500 to-orange-500",
+    bgPattern: "yellow",
+    grammar: [
+      { title: "Hablar del clima", content: "天气 + adjetivo: 天气很好 (El clima es bueno), 天气很冷 (Hace frío)." },
+      { title: "下雨 (xià yǔ)", content: "下 = caer, 雨 = lluvia. 下雨了 (Está lloviendo)." }
+    ],
+    content: [
+      { id: '15-1', hanzi: '天气', pinyin: 'tiān qì', translation: 'Clima / Tiempo', type: 'sustantivo', example: '今天天气很好。', exampleTr: 'Hoy el clima es muy bueno.', audio: true, difficulty: 2 },
+      { id: '15-2', hanzi: '下雨', pinyin: 'xià yǔ', translation: 'Llover', type: 'verbo', example: '明天下雨吗？', exampleTr: '¿Lloverá mañana?', audio: true, difficulty: 2 },
+      { id: '15-3', hanzi: '太阳', pinyin: 'tài yáng', translation: 'Sol', type: 'sustantivo', example: '太阳很大。', exampleTr: 'El sol es muy fuerte.', audio: true, difficulty: 2 },
+    ]
+  },
+  {
+    id: 16,
+    title: "Partículas y Conectores",
+    subtitle: "助词与连词",
+    description: "Las palabras que dan fluidez al idioma.",
+    icon: "🔗",
+    color: "from-slate-500 to-gray-600",
+    bgPattern: "slate",
+    grammar: [
+      { title: "的 (de) posesivo/descriptivo", content: "我的书 (mi libro), 漂亮的女孩 (chica bonita)." },
+      { title: "了 (le) cambio/pasado", content: "Indica cambio de estado o acción completada: 我吃了 (comí), 下雨了 (empezó a llover)." }
+    ],
+    content: [
+      { id: '16-1', hanzi: '的', pinyin: 'de', translation: 'De (posesivo/descriptivo)', type: 'partícula', example: '我的书。', exampleTr: 'Mi libro.', audio: true, difficulty: 1 },
+      { id: '16-2', hanzi: '了', pinyin: 'le', translation: '(cambio de estado/pasado)', type: 'partícula', example: '我吃了。', exampleTr: 'Ya comí.', audio: true, difficulty: 2 },
+      { id: '16-3', hanzi: '和', pinyin: 'hé', translation: 'Y / Con', type: 'conjunción', example: '你和我。', exampleTr: 'Tú y yo.', audio: true, difficulty: 1 },
+      { id: '16-4', hanzi: '不', pinyin: 'bù', translation: 'No (negación)', type: 'adverbio', example: '我不去。', exampleTr: 'No voy.', audio: true, difficulty: 1 },
+      { id: '16-5', hanzi: '没', pinyin: 'méi', translation: 'No (negación de 有)', type: 'adverbio', example: '我没有钱。', exampleTr: 'No tengo dinero.', audio: true, difficulty: 1 },
+      { id: '16-6', hanzi: '很', pinyin: 'hěn', translation: 'Muy', type: 'adverbio', example: '他很高。', exampleTr: 'Él es muy alto.', audio: true, difficulty: 1 },
+      { id: '16-7', hanzi: '太', pinyin: 'tài', translation: 'Demasiado', type: 'adverbio', example: '太贵了！', exampleTr: '¡Demasiado caro!', audio: true, difficulty: 2 },
+      { id: '16-8', hanzi: '都', pinyin: 'dōu', translation: 'Todo/Todos', type: 'adverbio', example: '我们都去。', exampleTr: 'Todos vamos.', audio: true, difficulty: 2 },
+      { id: '16-9', hanzi: '也', pinyin: 'yě', translation: 'También', type: 'adverbio', example: '我也去。', exampleTr: 'Yo también voy.', audio: true, difficulty: 1 },
+    ]
   }
-  </script>
-</head>
+];
 
-<body class="text-gray-900 antialiased">
+// ═══════════════════════════════════════════════════════════════════════════════
+// ACHIEVEMENTS SYSTEM
+// ═══════════════════════════════════════════════════════════════════════════════
 
-  <!-- WhatsApp Floating Button -->
-  <a href="https://api.whatsapp.com/send?phone=5491130011554" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Contactar por WhatsApp">
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-    </svg>
-  </a>
+const achievementsList = [
+  { id: 'first_lesson', title: 'Primer Paso', desc: 'Completa tu primera lección', icon: '🎯', xp: 50, condition: (stats) => stats.lessonsCompleted >= 1 },
+  { id: 'streak_3', title: 'En Racha', desc: '3 días consecutivos', icon: '🔥', xp: 100, condition: (stats) => stats.streak >= 3 },
+  { id: 'streak_7', title: 'Semana Perfecta', desc: '7 días consecutivos', icon: '💪', xp: 250, condition: (stats) => stats.streak >= 7 },
+  { id: 'streak_30', title: 'Maestro Disciplinado', desc: '30 días consecutivos', icon: '👑', xp: 1000, condition: (stats) => stats.streak >= 30 },
+  { id: 'perfect_quiz', title: 'Perfeccionista', desc: '100% en un quiz', icon: '💯', xp: 150, condition: (stats) => stats.perfectQuizzes >= 1 },
+  { id: 'five_perfect', title: 'Imparable', desc: '5 quizzes perfectos', icon: '⭐', xp: 500, condition: (stats) => stats.perfectQuizzes >= 5 },
+  { id: 'half_course', title: 'Mitad del Camino', desc: 'Completa el 50% del curso', icon: '🏔️', xp: 300, condition: (stats) => stats.lessonsCompleted >= 8 },
+  { id: 'course_complete', title: 'HSK1 Dominado', desc: 'Completa todo el curso', icon: '🏆', xp: 1000, condition: (stats) => stats.lessonsCompleted >= 16 },
+  { id: 'words_50', title: 'Vocabulario Básico', desc: 'Aprende 50 palabras', icon: '📖', xp: 200, condition: (stats) => stats.wordsLearned >= 50 },
+  { id: 'words_100', title: 'Vocabulario Intermedio', desc: 'Aprende 100 palabras', icon: '📚', xp: 400, condition: (stats) => stats.wordsLearned >= 100 },
+  { id: 'words_150', title: 'Vocabulario Completo', desc: 'Aprende todas las palabras HSK1', icon: '🎓', xp: 750, condition: (stats) => stats.wordsLearned >= 150 },
+  { id: 'night_owl', title: 'Búho Nocturno', desc: 'Estudia después de las 11pm', icon: '🦉', xp: 75, condition: (stats) => stats.nightStudy },
+  { id: 'early_bird', title: 'Madrugador', desc: 'Estudia antes de las 7am', icon: '🐦', xp: 75, condition: (stats) => stats.earlyStudy },
+];
 
-  <!-- Header/Navigation -->
-  <header class="fixed w-full top-0 z-50 glass-card shadow-lg">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-20">
-        <!-- Logo -->
-        <div class="flex items-center space-x-3 animate-fade-in">
-          <span class="text-2xl font-bold text-dark-vapor">Orange<span class="text-gradient">Vapor</span></span>
+// ═══════════════════════════════════════════════════════════════════════════════
+// SPACED REPETITION SYSTEM (SRS)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const calculateNextReview = (item, quality) => {
+  // Quality: 0-2 = fail, 3 = hard, 4 = good, 5 = easy
+  const now = Date.now();
+  let { interval = 1, easeFactor = 2.5, repetitions = 0 } = item.srs || {};
+  
+  if (quality < 3) {
+    repetitions = 0;
+    interval = 1;
+  } else {
+    if (repetitions === 0) interval = 1;
+    else if (repetitions === 1) interval = 6;
+    else interval = Math.round(interval * easeFactor);
+    
+    easeFactor = Math.max(1.3, easeFactor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)));
+    repetitions += 1;
+  }
+  
+  return {
+    interval,
+    easeFactor,
+    repetitions,
+    nextReview: now + interval * 24 * 60 * 60 * 1000,
+    lastReview: now
+  };
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// UTILITY FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const speak = (text, rate = 0.8) => {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'zh-CN';
+    utterance.rate = rate;
+    window.speechSynthesis.speak(utterance);
+  }
+};
+
+const getToneColor = (pinyin) => {
+  if (pinyin.match(/[āēīōūǖ]/)) return 'text-red-500';
+  if (pinyin.match(/[áéíóúǘ]/)) return 'text-orange-500';
+  if (pinyin.match(/[ǎěǐǒǔǚ]/)) return 'text-green-500';
+  if (pinyin.match(/[àèìòùǜ]/)) return 'text-blue-500';
+  return 'text-slate-500';
+};
+
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// MAIN APP COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const App = () => {
+  // Core State
+  const [activeView, setActiveView] = useState('dashboard');
+  const [currentUnitId, setCurrentUnitId] = useState(null);
+  const [darkMode, setDarkMode] = useState(false);
+  
+  // User Progress State
+  const [userProgress, setUserProgress] = useState({
+    completedUnits: [],
+    unitScores: {},
+    xp: 0,
+    streak: 1,
+    lastStudyDate: null,
+    hearts: 5,
+    level: 1,
+    wordsLearned: [],
+    srsData: {},
+    achievements: [],
+    stats: {
+      lessonsCompleted: 0,
+      perfectQuizzes: 0,
+      totalQuizzes: 0,
+      nightStudy: false,
+      earlyStudy: false,
+      wordsLearned: 0
+    }
+  });
+
+  // UI State
+  const [showAchievement, setShowAchievement] = useState(null);
+  const [showSettings, setShowSettings] = useState(false);
+
+  // Load Progress
+  useEffect(() => {
+    const saved = localStorage.getItem('hsk1_pro_progress_v2');
+    if (saved) {
+      const data = JSON.parse(saved);
+      setUserProgress(data);
+    }
+    
+    // Check time of day for achievements
+    const hour = new Date().getHours();
+    if (hour >= 23 || hour < 4) {
+      updateStats('nightStudy', true);
+    }
+    if (hour >= 5 && hour < 7) {
+      updateStats('earlyStudy', true);
+    }
+  }, []);
+
+  // Save Progress
+  const saveProgress = useCallback((newProgress) => {
+    localStorage.setItem('hsk1_pro_progress_v2', JSON.stringify(newProgress));
+  }, []);
+
+  // Update Stats Helper
+  const updateStats = useCallback((key, value) => {
+    setUserProgress(prev => {
+      const updated = {
+        ...prev,
+        stats: { ...prev.stats, [key]: value }
+      };
+      saveProgress(updated);
+      return updated;
+    });
+  }, [saveProgress]);
+
+  // Check Achievements
+  const checkAchievements = useCallback((progress) => {
+    const newAchievements = [];
+    achievementsList.forEach(achievement => {
+      if (!progress.achievements.includes(achievement.id) && achievement.condition(progress.stats)) {
+        newAchievements.push(achievement);
+      }
+    });
+    
+    if (newAchievements.length > 0) {
+      const achievement = newAchievements[0];
+      setShowAchievement(achievement);
+      
+      setUserProgress(prev => {
+        const updated = {
+          ...prev,
+          achievements: [...prev.achievements, achievement.id],
+          xp: prev.xp + achievement.xp
+        };
+        saveProgress(updated);
+        return updated;
+      });
+      
+      setTimeout(() => setShowAchievement(null), 4000);
+    }
+  }, [saveProgress]);
+
+  // Handle Unit Completion
+  const handleUnitComplete = useCallback((unitId, score, perfectScore) => {
+    setUserProgress(prev => {
+      const isNewCompletion = !prev.completedUnits.includes(unitId);
+      const unit = courseData.find(u => u.id === unitId);
+      const wordsInUnit = unit?.content.map(c => c.id) || [];
+      
+      const updated = {
+        ...prev,
+        completedUnits: isNewCompletion ? [...prev.completedUnits, unitId] : prev.completedUnits,
+        unitScores: { ...prev.unitScores, [unitId]: Math.max(prev.unitScores[unitId] || 0, score) },
+        xp: prev.xp + (isNewCompletion ? 100 : 10) + score,
+        wordsLearned: [...new Set([...prev.wordsLearned, ...wordsInUnit])],
+        level: Math.floor((prev.xp + 100 + score) / 500) + 1,
+        stats: {
+          ...prev.stats,
+          lessonsCompleted: isNewCompletion ? prev.stats.lessonsCompleted + 1 : prev.stats.lessonsCompleted,
+          perfectQuizzes: perfectScore ? prev.stats.perfectQuizzes + 1 : prev.stats.perfectQuizzes,
+          totalQuizzes: prev.stats.totalQuizzes + 1,
+          wordsLearned: [...new Set([...prev.wordsLearned, ...wordsInUnit])].length
+        }
+      };
+      
+      saveProgress(updated);
+      checkAchievements(updated);
+      return updated;
+    });
+    
+    setActiveView('results');
+  }, [saveProgress, checkAchievements]);
+
+  // Calculate Level Progress
+  const levelProgress = useMemo(() => {
+    const currentLevelXP = (userProgress.level - 1) * 500;
+    const nextLevelXP = userProgress.level * 500;
+    return ((userProgress.xp - currentLevelXP) / (nextLevelXP - currentLevelXP)) * 100;
+  }, [userProgress.xp, userProgress.level]);
+
+  // Get words due for review
+  const wordsDueForReview = useMemo(() => {
+    const now = Date.now();
+    return userProgress.wordsLearned.filter(wordId => {
+      const srs = userProgress.srsData[wordId];
+      return !srs || srs.nextReview <= now;
+    });
+  }, [userProgress.wordsLearned, userProgress.srsData]);
+
+  // Theme Classes
+  const theme = {
+    bg: darkMode ? 'bg-slate-900' : 'bg-slate-50',
+    card: darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200',
+    text: darkMode ? 'text-white' : 'text-slate-800',
+    textMuted: darkMode ? 'text-slate-400' : 'text-slate-500',
+    border: darkMode ? 'border-slate-700' : 'border-slate-200'
+  };
+
+  return (
+    <div className={`min-h-screen ${theme.bg} ${theme.text} font-sans transition-colors duration-300`}>
+      {/* Achievement Popup */}
+      {showAchievement && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 animate-bounce">
+          <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4">
+            <span className="text-4xl">{showAchievement.icon}</span>
+            <div>
+              <p className="text-sm font-medium opacity-90">¡Logro Desbloqueado!</p>
+              <p className="font-bold text-lg">{showAchievement.title}</p>
+              <p className="text-sm opacity-90">+{showAchievement.xp} XP</p>
+            </div>
+          </div>
         </div>
+      )}
 
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center space-x-8">
-          <a href="#inicio" class="text-gray-700 hover:text-orange-vapor transition-all font-medium relative group">
-            Inicio
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-vapor transition-all group-hover:w-full"></span>
-          </a>
-          <a href="#servicios" class="text-gray-700 hover:text-orange-vapor transition-all font-medium relative group">
-            Servicios
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-vapor transition-all group-hover:w-full"></span>
-          </a>
-          <a href="#precios" class="text-gray-700 hover:text-orange-vapor transition-all font-medium relative group">
-            Precios
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-vapor transition-all group-hover:w-full"></span>
-          </a>
-          <a href="#clientes" class="text-gray-700 hover:text-orange-vapor transition-all font-medium relative group">
-            Clientes
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-vapor transition-all group-hover:w-full"></span>
-          </a>
-          <a href="#agendar" class="gradient-orange text-white px-6 py-3 rounded-full font-semibold hover:shadow-xl transition-all transform hover:scale-105 btn-primary">
-            Agendar Cita
-          </a>
+      {/* Header */}
+      <header className={`${theme.card} border-b sticky top-0 z-40 px-4 py-3 shadow-sm`}>
+        <div className="max-w-4xl mx-auto flex justify-between items-center">
+          <div 
+            className="flex items-center gap-3 cursor-pointer" 
+            onClick={() => { setActiveView('dashboard'); setCurrentUnitId(null); }}
+          >
+            <div className="relative">
+              <div className="bg-gradient-to-br from-red-500 to-red-600 text-white font-bold px-2.5 py-1.5 rounded-lg text-sm shadow-lg">
+                HSK1
+              </div>
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white"></div>
+            </div>
+            <div>
+              <h1 className="font-bold text-lg tracking-tight">
+                Mandarín<span className="text-indigo-500">Pro</span>
+              </h1>
+              <p className={`text-xs ${theme.textMuted}`}>150 palabras oficiales</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            {/* Streak */}
+            <div className="flex items-center gap-1.5 text-orange-500">
+              <Flame size={18} fill="currentColor" />
+              <span className="font-bold text-sm">{userProgress.streak}</span>
+            </div>
+            
+            {/* Hearts */}
+            <div className="flex items-center gap-1.5 text-red-500">
+              <Heart size={18} fill="currentColor" />
+              <span className="font-bold text-sm">{userProgress.hearts}</span>
+            </div>
+            
+            {/* XP / Level */}
+            <div className="hidden sm:flex items-center gap-2">
+              <div className="relative">
+                <div className={`w-10 h-10 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-100'} flex items-center justify-center`}>
+                  <span className="font-bold text-indigo-500">{userProgress.level}</span>
+                </div>
+                <svg className="absolute inset-0 w-10 h-10 -rotate-90">
+                  <circle
+                    cx="20" cy="20" r="18"
+                    fill="none"
+                    stroke={darkMode ? '#334155' : '#e2e8f0'}
+                    strokeWidth="3"
+                  />
+                  <circle
+                    cx="20" cy="20" r="18"
+                    fill="none"
+                    stroke="#6366f1"
+                    strokeWidth="3"
+                    strokeDasharray={`${levelProgress * 1.13} 113`}
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+              <div className="text-xs">
+                <p className="font-bold">{userProgress.xp} XP</p>
+                <p className={theme.textMuted}>Nivel {userProgress.level}</p>
+              </div>
+            </div>
+            
+            {/* Settings */}
+            <button 
+              onClick={() => setShowSettings(!showSettings)}
+              className={`p-2 rounded-lg ${darkMode ? 'hover:bg-slate-700' : 'hover:bg-slate-100'} transition-colors`}
+            >
+              <Settings size={20} className={theme.textMuted} />
+            </button>
+          </div>
         </div>
+        
+        {/* Settings Panel */}
+        {showSettings && (
+          <div className={`absolute right-4 top-16 ${theme.card} border rounded-xl shadow-xl p-4 min-w-[200px]`}>
+            <div className="flex items-center justify-between mb-4">
+              <span className="font-medium">Modo Oscuro</span>
+              <button 
+                onClick={() => setDarkMode(!darkMode)}
+                className={`p-2 rounded-lg ${darkMode ? 'bg-slate-700' : 'bg-slate-100'}`}
+              >
+                {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+            </div>
+            <div className={`border-t ${theme.border} pt-4`}>
+              <p className={`text-xs ${theme.textMuted} mb-2`}>Progreso Total</p>
+              <div className="flex items-center gap-2">
+                <div className={`flex-1 h-2 ${darkMode ? 'bg-slate-700' : 'bg-slate-200'} rounded-full overflow-hidden`}>
+                  <div 
+                    className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all"
+                    style={{ width: `${(userProgress.completedUnits.length / courseData.length) * 100}%` }}
+                  />
+                </div>
+                <span className="text-xs font-bold">
+                  {Math.round((userProgress.completedUnits.length / courseData.length) * 100)}%
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
 
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-orange-vapor transition-colors" aria-label="Abrir menú principal">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto p-4 md:p-6 pb-24">
+        {activeView === 'dashboard' && (
+          <Dashboard 
+            units={courseData}
+            progress={userProgress}
+            theme={theme}
+            darkMode={darkMode}
+            onSelectUnit={(id) => { setCurrentUnitId(id); setActiveView('learning'); }}
+            wordsDueForReview={wordsDueForReview}
+            onStartReview={() => setActiveView('review')}
+          />
+        )}
+        
+        {activeView === 'learning' && currentUnitId && (
+          <LearningMode
+            unit={courseData.find(u => u.id === currentUnitId)}
+            theme={theme}
+            darkMode={darkMode}
+            onFinish={() => setActiveView('quiz')}
+            onBack={() => { setActiveView('dashboard'); setCurrentUnitId(null); }}
+          />
+        )}
+        
+        {activeView === 'quiz' && currentUnitId && (
+          <QuizMode
+            unit={courseData.find(u => u.id === currentUnitId)}
+            theme={theme}
+            darkMode={darkMode}
+            hearts={userProgress.hearts}
+            onComplete={(score, perfect) => handleUnitComplete(currentUnitId, score, perfect)}
+            onHeartLost={() => setUserProgress(prev => ({ ...prev, hearts: Math.max(0, prev.hearts - 1) }))}
+          />
+        )}
+
+        {activeView === 'results' && (
+          <ResultsScreen
+            unit={courseData.find(u => u.id === currentUnitId)}
+            score={userProgress.unitScores[currentUnitId] || 0}
+            theme={theme}
+            darkMode={darkMode}
+            onContinue={() => { setActiveView('dashboard'); setCurrentUnitId(null); }}
+            onRetry={() => setActiveView('learning')}
+          />
+        )}
+
+        {activeView === 'stats' && (
+          <StatsView
+            progress={userProgress}
+            achievements={achievementsList}
+            theme={theme}
+            darkMode={darkMode}
+          />
+        )}
+
+        {activeView === 'review' && (
+          <ReviewMode
+            wordsToReview={wordsDueForReview}
+            allWords={courseData.flatMap(u => u.content)}
+            theme={theme}
+            darkMode={darkMode}
+            srsData={userProgress.srsData}
+            onUpdateSRS={(wordId, quality) => {
+              setUserProgress(prev => {
+                const currentSRS = prev.srsData[wordId] || {};
+                const newSRS = calculateNextReview({ srs: currentSRS }, quality);
+                const updated = {
+                  ...prev,
+                  srsData: { ...prev.srsData, [wordId]: newSRS }
+                };
+                saveProgress(updated);
+                return updated;
+              });
+            }}
+            onFinish={() => setActiveView('dashboard')}
+          />
+        )}
+      </main>
+
+      {/* Bottom Navigation */}
+      <nav className={`fixed bottom-0 left-0 w-full ${theme.card} border-t flex justify-around py-2 z-50`}>
+        {[
+          { id: 'dashboard', icon: Home, label: 'Inicio' },
+          { id: 'review', icon: Brain, label: 'Repasar', badge: wordsDueForReview.length },
+          { id: 'stats', icon: BarChart, label: 'Estadísticas' },
+        ].map(item => (
+          <button
+            key={item.id}
+            onClick={() => setActiveView(item.id)}
+            className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all relative
+              ${activeView === item.id 
+                ? 'text-indigo-500' 
+                : theme.textMuted + ' hover:text-indigo-400'
+              }`}
+          >
+            <item.icon size={22} strokeWidth={activeView === item.id ? 2.5 : 2} />
+            <span className="text-xs font-medium">{item.label}</span>
+            {item.badge > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+                {item.badge > 9 ? '9+' : item.badge}
+              </span>
+            )}
+          </button>
+        ))}
+      </nav>
+    </div>
+  );
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// DASHBOARD COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const Dashboard = ({ units, progress, theme, darkMode, onSelectUnit, wordsDueForReview, onStartReview }) => {
+  const totalWords = units.reduce((acc, u) => acc + u.content.length, 0);
+  const learnedWords = progress.wordsLearned.length;
+  const progressPercent = Math.round((progress.completedUnits.length / units.length) * 100);
+
+  return (
+    <div className="space-y-6 animate-in fade-in duration-500">
+      {/* Hero Card */}
+      <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 rounded-3xl p-6 text-white shadow-2xl overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl -ml-24 -mb-24" />
+        
+        <div className="relative z-10">
+          <div className="flex items-start justify-between mb-6">
+            <div>
+              <p className="text-white/80 text-sm font-medium mb-1">Tu Progreso</p>
+              <h2 className="text-3xl font-bold mb-1">¡Hola, Emiliano!</h2>
+              <p className="text-white/70 text-sm">Continúa tu camino al HSK1</p>
+            </div>
+            <div className="text-right">
+              <div className="text-4xl font-bold">{progressPercent}%</div>
+              <p className="text-white/70 text-xs">completado</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-3 gap-3">
+            <div className="bg-white/15 backdrop-blur-sm rounded-xl p-3 text-center">
+              <p className="text-2xl font-bold">{learnedWords}</p>
+              <p className="text-xs text-white/70">Palabras</p>
+            </div>
+            <div className="bg-white/15 backdrop-blur-sm rounded-xl p-3 text-center">
+              <p className="text-2xl font-bold">{progress.streak}</p>
+              <p className="text-xs text-white/70">Racha 🔥</p>
+            </div>
+            <div className="bg-white/15 backdrop-blur-sm rounded-xl p-3 text-center">
+              <p className="text-2xl font-bold">{progress.xp}</p>
+              <p className="text-xs text-white/70">XP Total</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Review Reminder */}
+      {wordsDueForReview.length > 0 && (
+        <button
+          onClick={onStartReview}
+          className={`w-full ${theme.card} border rounded-2xl p-4 flex items-center gap-4 hover:border-indigo-300 transition-all group`}
+        >
+          <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+            <Brain size={28} className="text-white" />
+          </div>
+          <div className="flex-1 text-left">
+            <h3 className="font-bold text-lg">Repaso Pendiente</h3>
+            <p className={theme.textMuted}>{wordsDueForReview.length} palabras listas para repasar</p>
+          </div>
+          <ChevronRight size={24} className={`${theme.textMuted} group-hover:translate-x-1 transition-transform`} />
+        </button>
+      )}
+
+      {/* Units Grid */}
+      <div>
+        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <GraduationCap className="text-indigo-500" size={24} />
+          Ruta de Aprendizaje
+        </h3>
+        
+        <div className="space-y-3">
+          {units.map((unit, index) => {
+            const isCompleted = progress.completedUnits.includes(unit.id);
+            const isLocked = index > 0 && !progress.completedUnits.includes(units[index - 1].id) && !isCompleted;
+            const score = progress.unitScores[unit.id];
+            const stars = score ? Math.ceil((score / (unit.content.length * 10)) * 3) : 0;
+            
+            return (
+              <div
+                key={unit.id}
+                onClick={() => !isLocked && onSelectUnit(unit.id)}
+                className={`
+                  ${theme.card} border rounded-2xl p-4 transition-all duration-300 group
+                  ${isLocked 
+                    ? 'opacity-50 cursor-not-allowed' 
+                    : 'cursor-pointer hover:shadow-lg hover:border-indigo-300 hover:-translate-y-0.5'
+                  }
+                  ${isCompleted ? 'border-emerald-300' : ''}
+                `}
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`
+                    w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-lg
+                    ${isLocked 
+                      ? (darkMode ? 'bg-slate-700' : 'bg-slate-200')
+                      : `bg-gradient-to-br ${unit.color}`
+                    }
+                  `}>
+                    {isLocked ? <Lock size={24} className={theme.textMuted} /> : unit.icon}
+                  </div>
+                  
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className={`font-bold truncate ${isLocked ? theme.textMuted : ''}`}>
+                        {unit.title}
+                      </h4>
+                      {isCompleted && (
+                        <CheckCircle size={18} className="text-emerald-500 shrink-0" />
+                      )}
+                    </div>
+                    <p className={`text-sm ${theme.textMuted} truncate`}>{unit.description}</p>
+                    <div className="flex items-center gap-3 mt-2">
+                      <span className={`text-xs ${darkMode ? 'bg-slate-700' : 'bg-slate-100'} px-2 py-0.5 rounded-full`}>
+                        {unit.content.length} palabras
+                      </span>
+                      {isCompleted && (
+                        <div className="flex items-center gap-0.5">
+                          {[1, 2, 3].map(i => (
+                            <Star 
+                              key={i} 
+                              size={14} 
+                              className={i <= stars ? 'text-amber-400 fill-amber-400' : theme.textMuted}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {!isLocked && (
+                    <ChevronRight 
+                      size={24} 
+                      className={`${theme.textMuted} group-hover:translate-x-1 transition-transform shrink-0`} 
+                    />
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// LEARNING MODE COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const LearningMode = ({ unit, theme, darkMode, onFinish, onBack }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [showGrammar, setShowGrammar] = useState(false);
+  const [autoPlay, setAutoPlay] = useState(false);
+  
+  const item = unit.content[currentIndex];
+  const progress = ((currentIndex + 1) / unit.content.length) * 100;
+
+  useEffect(() => {
+    setIsFlipped(false);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    if (autoPlay && isFlipped) {
+      const timer = setTimeout(() => {
+        if (currentIndex < unit.content.length - 1) {
+          setCurrentIndex(prev => prev + 1);
+        }
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [autoPlay, isFlipped, currentIndex, unit.content.length]);
+
+  const nextCard = () => {
+    if (currentIndex < unit.content.length - 1) {
+      setCurrentIndex(prev => prev + 1);
+    } else {
+      onFinish();
+    }
+  };
+
+  const prevCard = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(prev => prev - 1);
+    }
+  };
+
+  return (
+    <div className="min-h-[85vh] flex flex-col">
+      {/* Top Bar */}
+      <div className="flex items-center gap-4 mb-6">
+        <button 
+          onClick={onBack} 
+          className={`p-2 rounded-xl ${darkMode ? 'hover:bg-slate-800' : 'hover:bg-slate-100'} transition-colors`}
+        >
+          <ChevronLeft size={24} />
+        </button>
+        
+        <div className="flex-1">
+          <div className={`h-3 ${darkMode ? 'bg-slate-800' : 'bg-slate-200'} rounded-full overflow-hidden`}>
+            <div 
+              className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+        
+        <span className={`text-sm font-medium ${theme.textMuted}`}>
+          {currentIndex + 1}/{unit.content.length}
+        </span>
+        
+        <button
+          onClick={() => setAutoPlay(!autoPlay)}
+          className={`p-2 rounded-xl transition-colors ${autoPlay ? 'bg-indigo-500 text-white' : (darkMode ? 'bg-slate-800' : 'bg-slate-100')}`}
+        >
+          {autoPlay ? <Pause size={20} /> : <Play size={20} />}
         </button>
       </div>
 
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="hidden md:hidden pb-6">
-        <div class="flex flex-col space-y-4">
-          <a href="#inicio" class="text-gray-700 hover:text-orange-vapor transition-colors font-medium">Inicio</a>
-          <a href="#servicios" class="text-gray-700 hover:text-orange-vapor transition-colors font-medium">Servicios</a>
-          <a href="#precios" class="text-gray-700 hover:text-orange-vapor transition-colors font-medium">Precios</a>
-          <a href="#clientes" class="text-gray-700 hover:text-orange-vapor transition-colors font-medium">Clientes</a>
-          <a href="#agendar" class="gradient-orange text-white px-6 py-3 rounded-full font-semibold text-center">
-            Agendar Cita
-          </a>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Hero Section with Carousel -->
-  <section id="inicio" class="pt-32 pb-20 px-4 bg-gradient-to-br from-gray-50 via-white to-orange-50">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="animate-slide-up">
-          <div class="inline-block mb-6 px-5 py-2.5 badge-orange rounded-full">
-            <span class="text-orange-vapor font-bold text-sm tracking-wide">Sitios Web One Page & E-commerce</span>
+      {/* Grammar Section */}
+      {unit.grammar && unit.grammar.length > 0 && (
+        <button
+          onClick={() => setShowGrammar(!showGrammar)}
+          className={`${theme.card} border rounded-xl p-3 mb-4 w-full text-left flex items-center justify-between`}
+        >
+          <div className="flex items-center gap-2">
+            <Info size={18} className="text-indigo-500" />
+            <span className="font-medium">Tips de Gramática</span>
           </div>
-          <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-dark-vapor leading-tight mb-6">
-            Lanzá tu Nuevo Sitio Web o 
-            <span class="text-gradient">Rediseñá</span> el Actual
-          </h1>
-          <p class="text-xl md:text-2xl text-gray-600 mb-10 leading-relaxed">
-            Creamos sitios web <span class="font-semibold text-orange-vapor">One Page</span> y <span class="font-semibold text-orange-vapor">E-commerce</span> para negocios nuevos que necesitan arrancar, o le damos un "lavado de cara" a tu web existente para que vuelva a convertir.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#agendar" class="gradient-orange text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105 text-center btn-primary flex items-center justify-center gap-2">
-              <span>Agendá tu Cita Gratuita</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
-            <a href="#servicios"
-              class="border-2 border-gray-300 text-gray-700 px-10 py-5 rounded-full font-bold text-lg hover:border-orange-vapor hover:text-orange-vapor transition-all transform hover:scale-105 text-center flex items-center justify-center gap-2">
-              <span>Ver Servicios</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Carousel Section -->
-        <div class="relative animate-scale-in">
-          <div class="carousel-container">
-            <div class="carousel-track" id="carouselTrack">
-              <div class="carousel-slide">
-                <img src="https://github.com/Emilianocecchi/orange-vapor/blob/main/hero.png?raw=true"
-                  alt="Ejemplo de diseño web 1" loading="eager">
-                <div class="absolute bottom-6 left-6 right-6">
-                  <div class="glass-card p-4 rounded-xl">
-                    <p class="text-gray-800 font-medium text-sm">Ejemplo de un sitio creado con OrangeVapor</p>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="https://github.com/Emilianocecchi/orange-vapor/blob/main/hero2.png?raw=true"
-                  alt="Ejemplo de diseño web 2" loading="lazy">
-                <div class="absolute bottom-6 left-6 right-6">
-                  <div class="glass-card p-4 rounded-xl">
-                    <p class="text-gray-800 font-medium text-sm">Ejemplo de un sitio creado con OrangeVapor</p>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="https://github.com/Emilianocecchi/orange-vapor/blob/main/hero3.png?raw=true"
-                  alt="Ejemplo de diseño web 3" loading="lazy">
-                <div class="absolute bottom-6 left-6 right-6">
-                  <div class="glass-card p-4 rounded-xl">
-                    <p class="text-gray-800 font-medium text-sm">Ejemplo de un sitio creado con OrangeVapor</p>
-                  </div>
-                </div>
-              </div>
+          {showGrammar ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+        </button>
+      )}
+      
+      {showGrammar && (
+        <div className={`${theme.card} border rounded-xl p-4 mb-4 space-y-3`}>
+          {unit.grammar.map((g, i) => (
+            <div key={i}>
+              <h4 className="font-bold text-sm text-indigo-500">{g.title}</h4>
+              <p className={`text-sm ${theme.textMuted}`}>{g.content}</p>
             </div>
+          ))}
+        </div>
+      )}
+
+      {/* Main Card */}
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <div 
+          onClick={() => setIsFlipped(!isFlipped)}
+          className={`
+            relative w-full max-w-sm aspect-[3/4] cursor-pointer
+            transition-all duration-700
+            [transform-style:preserve-3d]
+            ${isFlipped ? '[transform:rotateY(180deg)]' : ''}
+          `}
+        >
+          {/* Front */}
+          <div className={`
+            absolute inset-0 ${theme.card} border rounded-3xl shadow-2xl p-6
+            flex flex-col items-center justify-center text-center
+            [backface-visibility:hidden]
+          `}>
+            <span className={`text-xs uppercase tracking-widest ${theme.textMuted} mb-4 font-semibold px-3 py-1 ${darkMode ? 'bg-slate-700' : 'bg-slate-100'} rounded-full`}>
+              {item.type}
+            </span>
             
-            <!-- Navigation Buttons -->
-            <button class="carousel-nav prev" onclick="moveCarousel(-1)" aria-label="Anterior">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6"></polyline>
-              </svg>
-            </button>
-            <button class="carousel-nav next" onclick="moveCarousel(1)" aria-label="Siguiente">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
+            <h2 className="text-7xl font-bold mb-4 font-serif">{item.hanzi}</h2>
+            
+            <button 
+              onClick={(e) => { e.stopPropagation(); speak(item.hanzi); }}
+              className="p-4 bg-gradient-to-br from-indigo-500 to-purple-500 text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all mb-6"
+            >
+              <Volume2 size={28} />
             </button>
             
-            <!-- Indicators -->
-            <div class="carousel-indicators">
-              <div class="carousel-indicator active" onclick="goToSlide(0)"></div>
-              <div class="carousel-indicator" onclick="goToSlide(1)"></div>
-              <div class="carousel-indicator" onclick="goToSlide(2)"></div>
+            <p className={`${theme.textMuted} text-sm mt-auto flex items-center gap-2`}>
+              <Eye size={16} />
+              Toca para revelar
+            </p>
+          </div>
+
+          {/* Back */}
+          <div className={`
+            absolute inset-0 rounded-3xl shadow-2xl p-6
+            flex flex-col items-center justify-center text-center
+            [backface-visibility:hidden] [transform:rotateY(180deg)]
+            bg-gradient-to-br ${unit.color} text-white
+          `}>
+            <h3 className={`text-3xl font-bold mb-2 ${getToneColor(item.pinyin).replace('text-', 'text-white/')}`}>
+              {item.pinyin}
+            </h3>
+            <h4 className="text-xl font-medium mb-6 text-white/90">{item.translation}</h4>
+            
+            <div className="w-full bg-white/20 backdrop-blur-sm p-4 rounded-2xl text-left">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-xs font-bold uppercase opacity-80">Ejemplo</span>
+                <button 
+                  onClick={(e) => { e.stopPropagation(); speak(item.example); }} 
+                  className="text-white/80 hover:text-white p-1"
+                >
+                  <Volume2 size={18} />
+                </button>
+              </div>
+              <p className="text-lg mb-1 font-serif">{item.example}</p>
+              <p className="text-sm opacity-80">{item.exampleTr}</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Services Section -->
-  <section id="servicios" class="section-padding bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-20">
-        <div class="inline-block mb-4 px-4 py-2 badge-orange rounded-full">
-          <span class="text-orange-vapor font-bold text-sm">NUESTROS SERVICIOS</span>
-        </div>
-        <h2 class="text-5xl md:text-6xl font-black text-dark-vapor mb-6">Creación Web</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-          Nos enfocamos en dos soluciones claras para que tu negocio tenga presencia digital: <span class="font-semibold text-orange-vapor">Sitios One Page</span> y <span class="font-semibold text-orange-vapor">Tiendas E-commerce</span>.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
-        <!-- Servicio 1: One Page -->
-        <div class="service-card bg-gradient-to-br from-gray-50 to-white p-10 rounded-3xl border-2 border-gray-100 hover:border-orange-vapor transition-all hover-lift">
-          <div class="w-20 h-20 gradient-orange rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-              stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="3" y1="9" x2="21" y2="9"></line>
-              <line x1="9" y1="21" x2="9" y2="9"></line>
-            </svg>
-          </div>
-          <h3 class="text-3xl font-black text-dark-vapor mb-4">Sitios Web One Page</h3>
-          <p class="text-gray-600 text-lg mb-8 leading-relaxed">Ideales para startups, portfolios o lanzamiento de productos. Un diseño impactante en una sola página.</p>
-          
-          <ul class="space-y-4 text-gray-700">
-            <li class="flex items-start">
-              <div class="w-6 h-6 gradient-orange rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                  stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <span class="font-medium">Diseño rápido y moderno</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 gradient-orange rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                  stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <span class="font-medium">Enfoque 100% en conversión</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Servicio 2: E-commerce -->
-        <div class="service-card bg-gradient-to-br from-gray-50 to-white p-10 rounded-3xl border-2 border-gray-100 hover:border-orange-vapor transition-all hover-lift">
-          <div class="w-20 h-20 gradient-orange rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-              stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <path d="M16 10a4 4 0 0 1-8 0"></path>
-            </svg>
-          </div>
-          <h3 class="text-3xl font-black text-dark-vapor mb-4">Tiendas E-commerce</h3>
-          <p class="text-gray-600 text-lg mb-8 leading-relaxed">Soluciones completas para vender online. Carrito de compras, pasarelas de pago y gestión de inventario.</p>
-          
-          <ul class="space-y-4 text-gray-700">
-            <li class="flex items-start">
-              <div class="w-6 h-6 gradient-orange rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                  stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <span class="font-medium">Integración con pasarelas de pago</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 gradient-orange rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                  stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <span class="font-medium">Panel para gestionar tus productos</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="animated-gradient rounded-3xl p-10 md:p-12 text-center shadow-2xl">
-        <div class="max-w-3xl mx-auto">
-          <div class="inline-block mb-4 px-4 py-2 bg-white/20 rounded-full">
-            <span class="text-white font-bold text-sm">REDISEÑO WEB</span>
-          </div>
-          <h3 class="text-3xl md:text-4xl font-black text-white mb-6">¿Necesitás un rediseño?</h3>
-          <p class="text-white/95 text-xl max-w-3xl mx-auto mb-8 leading-relaxed">
-            Si tu sitio actual se ve anticuado o no funciona en móviles, lo modernizamos. Le damos un "lavado de cara" para que vuelva a generar confianza y ventas.
-          </p>
-          <a href="#agendar"
-            class="inline-block bg-white text-orange-vapor px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105">
-            Pedí un análisis gratuito
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Precios Section -->
-  <section id="precios" class="section-padding bg-gradient-to-br from-gray-50 to-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-20">
-        <div class="inline-block mb-4 px-4 py-2 badge-orange rounded-full">
-          <span class="text-orange-vapor font-bold text-sm">PRECIOS TRANSPARENTES</span>
-        </div>
-        <h2 class="text-5xl md:text-6xl font-black text-dark-vapor mb-6">Planes y Precios</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          Dos únicos planes, sin sorpresas. <span class="font-semibold text-orange-vapor">Precios claros</span> para tu proyecto web.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        <!-- Plan 1: One Page -->
-        <div class="bg-white p-10 rounded-3xl shadow-xl border-2 border-gray-100 hover-lift flex flex-col">
-          <div class="mb-6">
-            <h3 class="text-3xl font-black text-dark-vapor mb-3">Sitio One Page</h3>
-            <div class="flex items-baseline gap-2 mb-2">
-              <p class="text-5xl font-black text-gradient">$450.000</p>
-            </div>
-            <p class="text-gray-500 font-semibold">Pago único</p>
-          </div>
-          <ul class="space-y-4 text-gray-700 mb-10 flex-grow">
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Diseño y maquetación estática (HTML/CSS/JS)</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">1-3 secciones (home, servicios, contacto)</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Formulario de contacto integrado</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Optimización responsive (móvil + desktop)</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">SEO básico en títulos y descripciones</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">1 ronda de revisiones y ajustes</span>
-            </li>
-          </ul>
-          <a href="https://api.whatsapp.com/send?phone=5491130011554" target="_blank" rel="noopener noreferrer" class="mt-auto w-full text-center border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-full font-bold text-lg hover:border-orange-vapor hover:text-orange-vapor transition-all transform hover:scale-105">
-            Consultar por WhatsApp
-          </a>
-        </div>
-
-        <!-- Plan 2: E-commerce -->
-        <div class="bg-white p-10 rounded-3xl shadow-xl border-2 border-orange-vapor hover-lift flex flex-col relative overflow-hidden">
-          <div class="absolute -top-12 -right-12 w-32 h-32 gradient-orange rounded-full opacity-10"></div>
-          <span class="absolute top-6 right-6 bg-gradient-to-r from-orange-vapor to-orange-600 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg">Más Popular</span>
-          <div class="mb-6 relative z-10">
-            <h3 class="text-3xl font-black text-dark-vapor mb-3">Ecommerce</h3>
-            <div class="flex items-baseline gap-2 mb-2">
-              <p class="text-5xl font-black text-gradient">$800.000</p>
-            </div>
-            <p class="text-gray-500 font-semibold">Pago único</p>
-          </div>
-          <ul class="space-y-4 text-gray-700 mb-10 flex-grow relative z-10">
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Diseño y personalización en WordPress con WooCommerce</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Configuración de pasarela de pago y envíos</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Carga inicial de hasta 20 productos con variantes</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Optimización responsive (móvil + desktop)</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">SEO básico en categorías y productos</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">2 rondas de revisiones y ajustes</span>
-            </li>
-          </ul>
-          <a href="https://api.whatsapp.com/send?phone=5491130011554" target="_blank" rel="noopener noreferrer" class="mt-auto w-full text-center gradient-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105 btn-primary relative z-10">
-            Consultar por WhatsApp
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Planes de Mantenimiento Section -->
-  <section id="mantenimiento" class="section-padding bg-gradient-to-br from-gray-50 to-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-20">
-        <div class="inline-block mb-4 px-4 py-2 badge-orange rounded-full">
-          <span class="text-orange-vapor font-bold text-sm">TU SITIO SIEMPRE ACTIVO</span>
-        </div>
-        <h2 class="text-5xl md:text-6xl font-black text-dark-vapor mb-6">Planes de Mantenimiento</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          Un sitio web necesita funcionar 24/7. Nuestros planes de mantenimiento y alojamiento gestionado te dan <span class="font-semibold text-orange-vapor">seguridad, velocidad y tranquilidad</span> total.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        <!-- Plan 1: PME -->
-        <div class="bg-white p-10 rounded-3xl shadow-xl border-2 border-gray-100 hover-lift flex flex-col">
-          <div class="mb-6">
-            <h3 class="text-3xl font-black text-dark-vapor mb-2">Plan Mantenimiento Estático (PME)</h3>
-            <p class="text-gray-600 text-sm font-semibold mb-4">Sugerido para Sitios One Page</p>
-            <div class="flex items-baseline gap-2 mb-2">
-              <p class="text-5xl font-black text-gradient">$35.000</p>
-              <span class="text-2xl text-gray-500 font-semibold">/ mes</span>
-            </div>
-          </div>
-          <p class="text-gray-600 text-lg mb-8 leading-relaxed">La solución ideal para sitios estáticos (HTML/CSS). Aseguramos que tu web esté siempre online, rápida y segura, con un costo 100% predecible.</p>
-          <ul class="space-y-4 text-gray-700 mb-10 flex-grow">
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Alojamiento Gestionado (Hosting) Incluido</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Certificado de Seguridad (SSL)</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Soporte técnico (email/WhatsApp)</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Hasta 30 min/mes de cambios de contenido</span>
-            </li>
-          </ul>
-          <a href="https://api.whatsapp.com/send?phone=5491130011554" target="_blank" rel="noopener noreferrer" class="mt-auto w-full text-center border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-full font-bold text-lg hover:border-orange-vapor hover:text-orange-vapor transition-all transform hover:scale-105">
-            Consultar por WhatsApp
-          </a>
-        </div>
-
-        <!-- Plan 2: PMEC -->
-        <div class="bg-white p-10 rounded-3xl shadow-xl border-2 border-orange-vapor hover-lift flex flex-col relative overflow-hidden">
-          <div class="absolute -top-12 -right-12 w-32 h-32 gradient-orange rounded-full opacity-10"></div>
-          <span class="absolute top-6 right-6 bg-gradient-to-r from-orange-vapor to-orange-600 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg">Recomendado</span>
-          <div class="mb-6 relative z-10">
-            <h3 class="text-3xl font-black text-dark-vapor mb-2">Plan Mantenimiento Ecommerce (PMEC)</h3>
-            <p class="text-gray-600 text-sm font-semibold mb-4">Sugerido para Tiendas E-commerce</p>
-            <div class="flex items-baseline gap-2 mb-2">
-              <p class="text-5xl font-black text-gradient">$65.000</p>
-              <span class="text-2xl text-gray-500 font-semibold">/ mes</span>
-            </div>
-          </div>
-          <p class="text-gray-600 text-lg mb-8 leading-relaxed">Protección activa para tu tienda online (WordPress/WooCommerce). Gestionamos el riesgo técnico para que vos te enfoques en vender.</p>
-          <ul class="space-y-4 text-gray-700 mb-10 flex-grow relative z-10">
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Todo lo del Plan PME (Hosting, SSL, Soporte)</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Actualizaciones (WordPress, Plugins, Theme)</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Backups (Copias de seguridad)</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Monitoreo de Seguridad Activo</span>
-            </li>
-            <li class="flex items-start">
-              <div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-              </div>
-              <span class="font-medium">Hasta 1 hora/mes de cambios (contenido o productos)</span>
-            </li>
-          </ul>
-          <a href="https://api.whatsapp.com/send?phone=5491130011554" target="_blank" rel="noopener noreferrer" class="mt-auto w-full text-center gradient-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105 btn-primary relative z-10">
-            Consultar por WhatsApp
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Clientes Section -->
-  <section id="clientes" class="section-padding bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-20">
-        <div class="inline-block mb-4 px-4 py-2 badge-orange rounded-full">
-          <span class="text-orange-vapor font-bold text-sm">CASOS DE ÉXITO</span>
-        </div>
-        <h2 class="text-5xl md:text-6xl font-black text-dark-vapor mb-6">Nuestros Clientes</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          Visitá algunos de los <span class="font-semibold text-orange-vapor">proyectos que hemos lanzado</span>.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <a href="https://fisiofix.com.ar/" target="_blank" rel="noopener noreferrer"
-          class="group block p-8 bg-gradient-to-br from-gray-50 to-white rounded-3xl shadow-lg hover-lift border-2 border-gray-100 hover:border-orange-vapor transition-all">
-          <img src="https://placehold.co/400x300/CCCCCC/FFFFFF?text=Fisiofix" alt="Logo Fisiofix"
-            class="rounded-2xl mb-6 h-40 w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-            loading="lazy">
-          <h3 class="text-xl font-bold text-dark-vapor text-center group-hover:text-orange-vapor transition-colors">
-            Fisiofix
-          </h3>
-        </a>
-
-        <a href="https://brandestudio.net/" target="_blank" rel="noopener noreferrer"
-          class="group block p-8 bg-gradient-to-br from-gray-50 to-white rounded-3xl shadow-lg hover-lift border-2 border-gray-100 hover:border-orange-vapor transition-all">
-          <img src="https://placehold.co/400x300/CCCCCC/FFFFFF?text=Brand+Estudio" alt="Logo Brand Estudio"
-            class="rounded-2xl mb-6 h-40 w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-            loading="lazy">
-          <h3 class="text-xl font-bold text-dark-vapor text-center group-hover:text-orange-vapor transition-colors">
-            Brand Estudio
-          </h3>
-        </a>
-
-        <a href="https://cascadacasadeplata.com.ar/" target="_blank" rel="noopener noreferrer"
-          class="group block p-8 bg-gradient-to-br from-gray-50 to-white rounded-3xl shadow-lg hover-lift border-2 border-gray-100 hover:border-orange-vapor transition-all">
-          <img src="https://placehold.co/400x300/CCCCCC/FFFFFF?text=Cascada+Plata" alt="Logo Cascada Casa de Plata"
-            class="rounded-2xl mb-6 h-40 w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-            loading="lazy">
-          <h3 class="text-xl font-bold text-dark-vapor text-center group-hover:text-orange-vapor transition-colors">
-            Cascada Plata
-          </h3>
-        </a>
-
-        <a href="https://carniceriaelmolino.com/" target="_blank" rel="noopener noreferrer"
-          class="group block p-8 bg-gradient-to-br from-gray-50 to-white rounded-3xl shadow-lg hover-lift border-2 border-gray-100 hover:border-orange-vapor transition-all">
-          <img src="https://placehold.co/400x300/CCCCCC/FFFFFF?text=Carnicer%C3%ADa+El+Molino" alt="Logo Carnicería El Molino"
-            class="rounded-2xl mb-6 h-40 w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-            loading="lazy">
-          <h3 class="text-xl font-bold text-dark-vapor text-center group-hover:text-orange-vapor transition-colors">
-            Carnicería El Molino
-          </h3>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Process Section -->
-  <section class="section-padding bg-gradient-to-br from-gray-50 to-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-20">
-        <div class="inline-block mb-4 px-4 py-2 badge-orange rounded-full">
-          <span class="text-orange-vapor font-bold text-sm">METODOLOGÍA</span>
-        </div>
-        <h2 class="text-5xl md:text-6xl font-black text-dark-vapor mb-6">Nuestro Proceso</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Un enfoque <span class="font-semibold text-orange-vapor">paso a paso</span> para entregar resultados.</p>
-      </div>
-
-      <div class="grid md:grid-cols-4 gap-8">
-        <div class="text-center group">
-          <div class="w-24 h-24 gradient-orange rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 transition-transform">
-            <span class="text-white text-4xl font-black">1</span>
-          </div>
-          <h3 class="text-2xl font-black text-dark-vapor mb-4">Análisis Inicial</h3>
-          <p class="text-gray-600 text-lg">Evaluamos tu negocio y objetivos.</p>
-        </div>
-
-        <div class="text-center group">
-          <div class="w-24 h-24 gradient-orange rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 transition-transform">
-            <span class="text-white text-4xl font-black">2</span>
-          </div>
-          <h3 class="text-2xl font-black text-dark-vapor mb-4">Estrategia Personalizada</h3>
-          <p class="text-gray-600 text-lg">Diseñamos un plan adaptado a vos.</p>
-        </div>
-
-        <div class="text-center group">
-          <div class="w-24 h-24 gradient-orange rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 transition-transform">
-            <span class="text-white text-4xl font-black">3</span>
-          </div>
-          <h3 class="text-2xl font-black text-dark-vapor mb-4">Implementación</h3>
-          <p class="text-gray-600 text-lg">Lanzamos tu nuevo sitio web.</p>
-        </div>
-
-        <div class="text-center group">
-          <div class="w-24 h-24 gradient-orange rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 transition-transform">
-            <span class="text-white text-4xl font-black">4</span>
-          </div>
-          <h3 class="text-2xl font-black text-dark-vapor mb-4">Optimización</h3>
-          <p class="text-gray-600 text-lg">Ajustamos detalles y te entregamos el sitio.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why Us Section -->
-  <section class="section-padding bg-dark-vapor text-white overflow-hidden relative">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-orange-vapor/10 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-orange-vapor/10 rounded-full blur-3xl"></div>
-    <div class="max-w-7xl mx-auto px-4 relative z-10">
-      <div class="text-center mb-20">
-        <div class="inline-block mb-4 px-4 py-2 bg-white/10 rounded-full">
-          <span class="text-white font-bold text-sm">NUESTRAS VENTAJAS</span>
-        </div>
-        <h2 class="text-5xl md:text-6xl font-black mb-6">¿Por Qué Elegir <span class="text-gradient">OrangeVapor</span>?</h2>
-        <p class="text-xl text-gray-300 max-w-2xl mx-auto">Nos enfocamos en un <span class="font-semibold text-orange-vapor">servicio directo</span> y en <span class="font-semibold text-orange-vapor">resultados reales</span>.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-gray-vapor/50 backdrop-blur-sm p-8 rounded-3xl border border-white/10 hover:border-orange-vapor transition-all hover-lift">
-          <div class="w-16 h-16 bg-orange-vapor/20 rounded-2xl flex items-center justify-center mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-              stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-              <path d="M2 17l10 5 10-5"></path>
-              <path d="M2 12l10 5 10-5"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Diseño Enfocado en Conversión</h3>
-          <p class="text-gray-300">Creamos sitios que no solo se ven bien, sino que convierten visitantes.</p>
-        </div>
-
-        <div class="bg-gray-vapor/50 backdrop-blur-sm p-8 rounded-3xl border border-white/10 hover:border-orange-vapor transition-all hover-lift">
-          <div class="w-16 h-16 bg-orange-vapor/20 rounded-2xl flex items-center justify-center mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-              stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Experiencia Probada</h3>
-          <p class="text-gray-300">Liderazgo en empresas líderes del sector.</p>
-        </div>
-
-        <div class="bg-gray-vapor/50 backdrop-blur-sm p-8 rounded-3xl border border-white/10 hover:border-orange-vapor transition-all hover-lift">
-          <div class="w-16 h-16 bg-orange-vapor/20 rounded-2xl flex items-center justify-center mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-              stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Soluciones Claras</h3>
-          <p class="text-gray-300">Dos planes simples: One Page o E-commerce.</p>
-        </div>
-
-        <div class="bg-gray-vapor/50 backdrop-blur-sm p-8 rounded-3xl border border-white/10 hover:border-orange-vapor transition-all hover-lift">
-          <div class="w-16 h-16 bg-orange-vapor/20 rounded-2xl flex items-center justify-center mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-              stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="12"></line>
-              <line x1="12" y1="16" x2="12.01" y2="16"></line>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Transparencia</h3>
-          <p class="text-gray-300">Precios claros y comunicación constante.</p>
-        </div>
-
-        <div class="bg-gray-vapor/50 backdrop-blur-sm p-8 rounded-3xl border border-white/10 hover:border-orange-vapor transition-all hover-lift">
-          <div class="w-16 h-16 bg-orange-vapor/20 rounded-2xl flex items-center justify-center mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-              stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-              <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Enfoque en ROI</h3>
-          <p class="text-gray-300">Estrategias diseñadas para generar retorno.</p>
-        </div>
-
-        <div class="bg-gray-vapor/50 backdrop-blur-sm p-8 rounded-3xl border border-white/10 hover:border-orange-vapor transition-all hover-lift">
-          <div class="w-16 h-16 bg-orange-vapor/20 rounded-2xl flex items-center justify-center mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-              stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Socios Estratégicos</h3>
-          <p class="text-gray-300">Trabajamos como parte de tu equipo.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Agendar Cita Section -->
-  <section id="agendar" class="section-padding bg-gradient-to-br from-gray-50 to-white">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-16">
-        <div class="inline-block mb-4 px-4 py-2 badge-orange rounded-full">
-          <span class="text-orange-vapor font-bold text-sm">AGENDA UNA REUNIÓN</span>
-        </div>
-        <h2 class="text-5xl md:text-6xl font-black text-dark-vapor mb-6">Agendá una Cita Gratuita</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          Conversá conmigo <span class="font-semibold text-orange-vapor">30 minutos sin costo</span>. Revisamos tu idea de negocio nuevo o analizamos el "lavado de cara" que necesita tu sitio actual.
-        </p>
-      </div>
-
-      <div class="bg-white rounded-3xl shadow-2xl border-2 border-gray-100 overflow-hidden" style="max-width: 100%;">
-        <iframe
-          src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0QlgREGGRYoR6bzEKQd__E6-JPqV3kHose9et4p1z1T6HTkZOh1WI5RS5u1-OGYphDIekOq99Q?gv=true"
-          style="border: 0" width="100%" height="800" frameborder="0"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="section-padding bg-white">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="text-center mb-20">
-        <div class="inline-block mb-4 px-4 py-2 badge-orange rounded-full">
-          <span class="text-orange-vapor font-bold text-sm">PREGUNTAS FRECUENTES</span>
-        </div>
-        <h2 class="text-5xl md:text-6xl font-black text-dark-vapor mb-6">FAQ</h2>
-        <p class="text-xl text-gray-600">Respuestas a <span class="font-semibold text-orange-vapor">dudas comunes</span>.</p>
-      </div>
-
-      <div class="space-y-6">
-        <div class="bg-gradient-to-br from-gray-50 to-white p-8 rounded-3xl shadow-lg border-2 border-gray-100 hover:border-orange-vapor transition-all">
-          <h3 class="text-2xl font-bold text-dark-vapor mb-4 flex items-center gap-3">
-            <span class="w-8 h-8 gradient-orange rounded-lg flex items-center justify-center text-white text-sm font-black">1</span>
-            ¿Qué tipo de sitios web crean?
-          </h3>
-          <p class="text-gray-700 text-lg leading-relaxed">Nos especializamos en dos tipos:
-            <br><br>
-            <strong class="text-orange-vapor">1. Sitios Web "One Page":</strong> Es una página web de una sola sección, ideal para presentar tu servicio o portfolio de forma rápida y directa. Es una solución sin un panel de gestión complejo (sin backend).
-            <br><br>
-            <strong class="text-orange-vapor">2. Tiendas "E-commerce":</strong> Es una tienda online completa con un panel de administración (backend) que te permite gestionar productos, inventario y pedidos.
-          </p>
-        </div>
+      {/* Controls */}
+      <div className="mt-6 flex justify-between items-center max-w-sm mx-auto w-full px-4">
+        <button 
+          onClick={prevCard}
+          disabled={currentIndex === 0}
+          className={`p-4 rounded-2xl transition-all ${darkMode ? 'hover:bg-slate-800' : 'hover:bg-slate-100'} disabled:opacity-30`}
+        >
+          <ChevronLeft size={28} />
+        </button>
         
-        <div class="bg-gradient-to-br from-gray-50 to-white p-8 rounded-3xl shadow-lg border-2 border-gray-100 hover:border-orange-vapor transition-all">
-          <h3 class="text-2xl font-bold text-dark-vapor mb-4 flex items-center gap-3">
-            <span class="w-8 h-8 gradient-orange rounded-lg flex items-center justify-center text-white text-sm font-black">2</span>
-            Tengo un sitio web pero se ve viejo. ¿Lo pueden rediseñar?
-          </h3>
-          <p class="text-gray-700 text-lg leading-relaxed">¡Absolutamente! Es una de nuestras especialidades. Analizamos tu sitio actual, rescatamos el contenido que sirve y le damos un "lavado de cara" completo para modernizarlo, hacerlo 100% responsive (visible en móviles) y enfocarlo en tus objetivos actuales.</p>
-        </div>
-
-        <div class="bg-gradient-to-br from-gray-50 to-white p-8 rounded-3xl shadow-lg border-2 border-gray-100 hover:border-orange-vapor transition-all">
-          <h3 class="text-2xl font-bold text-dark-vapor mb-4 flex items-center gap-3">
-            <span class="w-8 h-8 gradient-orange rounded-lg flex items-center justify-center text-white text-sm font-black">3</span>
-            ¿Qué necesito tener para empezar?
-          </h3>
-          <p class="text-gray-700 text-lg leading-relaxed">Principalmente, la idea clara de tu negocio. Si ya tenés un logo, colores de marca o textos, ¡genial! Si no, te guiamos en el proceso.</p>
-        </div>
-
-        <div class="bg-gradient-to-br from-gray-50 to-white p-8 rounded-3xl shadow-lg border-2 border-gray-100 hover:border-orange-vapor transition-all">
-          <h3 class="text-2xl font-bold text-dark-vapor mb-4 flex items-center gap-3">
-            <span class="w-8 h-8 gradient-orange rounded-lg flex items-center justify-center text-white text-sm font-black">4</span>
-            ¿En cuánto tiempo está listo mi sitio?
-          </h3>
-          <p class="text-gray-700 text-lg leading-relaxed">Un sitio "One Page" suele tomar de 1 a 2 semanas, mientras que un "E-commerce" puede llevar de 3 a 5 semanas, dependiendo de la cantidad de productos y la complejidad.</p>
-        </div>
-
-        <div class="bg-gradient-to-br from-gray-50 to-white p-8 rounded-3xl shadow-lg border-2 border-gray-100 hover:border-orange-vapor transition-all">
-          <h3 class="text-2xl font-bold text-dark-vapor mb-4 flex items-center gap-3">
-            <span class="w-8 h-8 gradient-orange rounded-lg flex items-center justify-center text-white text-sm font-black">5</span>
-            ¿Qué pasa con el hosting y el dominio?
-          </h3>
-          <p class="text-gray-700 text-lg leading-relaxed">Es simple:
-            <br><br>
-            <strong class="text-orange-vapor">1. El Dominio (.com, .com.ar):</strong> Lo comprás vos a tu nombre. Vos sos 100% dueño del dominio. (Si no sabés cómo, te guiamos, es fácil).
-            <br><br>
-            <strong class="text-orange-vapor">2. El Hosting (Alojamiento):</strong> Nosotros nos encargamos de todo. El hosting de alta velocidad está incluido en nuestros Planes de Mantenimiento (PME y PMEC). Así, te asegurás de que todo funcione perfecto y tenés un solo proveedor para todo.
-          </p>
-        </div>
+        {currentIndex === unit.content.length - 1 ? (
+          <button 
+            onClick={onFinish}
+            className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
+          >
+            Hacer Quiz 🎯
+          </button>
+        ) : (
+          <button 
+            onClick={nextCard}
+            className="px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
+          >
+            Siguiente →
+          </button>
+        )}
       </div>
     </div>
-  </section>
+  );
+};
 
-  <!-- Final CTA Section -->
-  <section class="section-padding animated-gradient text-white overflow-hidden relative">
-    <div class="absolute top-0 left-0 w-full h-full opacity-10">
-      <div class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full"></div>
-      <div class="absolute bottom-10 right-10 w-48 h-48 bg-white rounded-full"></div>
-      <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-white rounded-full"></div>
+// ═══════════════════════════════════════════════════════════════════════════════
+// QUIZ MODE COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const QuizMode = ({ unit, theme, darkMode, hearts, onComplete, onHeartLost }) => {
+  const [qIndex, setQIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [currentHearts, setCurrentHearts] = useState(hearts);
+  const [showFeedback, setShowFeedback] = useState(false);
+  
+  const questions = useMemo(() => {
+    return shuffleArray(unit.content).map(item => {
+      const otherItems = unit.content.filter(i => i.id !== item.id);
+      const wrong = shuffleArray(otherItems).slice(0, 3);
+      const options = shuffleArray([...wrong, item]);
+      
+      // Different question types
+      const types = ['hanzi_to_trans', 'trans_to_hanzi', 'pinyin_to_hanzi', 'audio_to_trans'];
+      const type = types[Math.floor(Math.random() * types.length)];
+      
+      return { target: item, options, type };
+    });
+  }, [unit.content]);
+
+  const handleAnswer = (option) => {
+    if (selectedOption) return;
+    
+    setSelectedOption(option);
+    const correct = option.id === questions[qIndex].target.id;
+    setIsCorrect(correct);
+    setShowFeedback(true);
+    
+    if (correct) {
+      setScore(s => s + 10);
+      speak(questions[qIndex].target.hanzi);
+    } else {
+      setCurrentHearts(h => h - 1);
+      onHeartLost();
+    }
+
+    setTimeout(() => {
+      if (qIndex < questions.length - 1 && currentHearts > (correct ? 0 : 1)) {
+        setQIndex(prev => prev + 1);
+        setSelectedOption(null);
+        setIsCorrect(null);
+        setShowFeedback(false);
+      } else {
+        const perfectScore = score + (correct ? 10 : 0) === questions.length * 10;
+        onComplete(score + (correct ? 10 : 0), perfectScore);
+      }
+    }, 1500);
+  };
+
+  const currentQ = questions[qIndex];
+
+  // Auto-play audio for audio questions
+  useEffect(() => {
+    if (currentQ?.type === 'audio_to_trans') {
+      setTimeout(() => speak(currentQ.target.hanzi), 500);
+    }
+  }, [qIndex, currentQ]);
+
+  return (
+    <div className="max-w-md mx-auto pt-4">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-1">
+          {Array(5).fill(0).map((_, i) => (
+            <Heart 
+              key={i} 
+              size={24} 
+              className={i < currentHearts ? 'text-red-500 fill-red-500' : theme.textMuted}
+            />
+          ))}
+        </div>
+        <div className={`flex-1 mx-4 h-3 ${darkMode ? 'bg-slate-800' : 'bg-slate-200'} rounded-full overflow-hidden`}>
+          <div 
+            className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300"
+            style={{ width: `${((qIndex) / questions.length) * 100}%` }}
+          />
+        </div>
+        <span className={`font-bold ${theme.textMuted}`}>{qIndex + 1}/{questions.length}</span>
+      </div>
+
+      {/* Question Card */}
+      <div className={`${theme.card} border rounded-3xl shadow-xl p-8 text-center mb-6`}>
+        <span className={`text-xs font-bold ${theme.textMuted} uppercase tracking-wider mb-4 block`}>
+          {currentQ.type === 'hanzi_to_trans' && '¿Qué significa este carácter?'}
+          {currentQ.type === 'trans_to_hanzi' && 'Selecciona el carácter correcto'}
+          {currentQ.type === 'pinyin_to_hanzi' && '¿Qué carácter tiene este pinyin?'}
+          {currentQ.type === 'audio_to_trans' && '¿Qué escuchaste?'}
+        </span>
+        
+        {currentQ.type === 'audio_to_trans' ? (
+          <button 
+            onClick={() => speak(currentQ.target.hanzi)}
+            className="w-24 h-24 mx-auto bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform"
+          >
+            <Headphones size={48} />
+          </button>
+        ) : (
+          <h2 className="text-5xl font-bold mb-4 font-serif">
+            {currentQ.type === 'hanzi_to_trans' && currentQ.target.hanzi}
+            {currentQ.type === 'trans_to_hanzi' && currentQ.target.translation}
+            {currentQ.type === 'pinyin_to_hanzi' && currentQ.target.pinyin}
+          </h2>
+        )}
+        
+        {(currentQ.type === 'hanzi_to_trans' || currentQ.type === 'pinyin_to_hanzi') && (
+          <button 
+            onClick={() => speak(currentQ.target.hanzi)} 
+            className="mx-auto text-indigo-500 bg-indigo-50 p-3 rounded-full hover:bg-indigo-100 transition-colors"
+          >
+            <Volume2 size={24} />
+          </button>
+        )}
+      </div>
+
+      {/* Options */}
+      <div className="grid grid-cols-1 gap-3">
+        {currentQ.options.map((opt) => {
+          let statusClass = `${theme.card} border-2 ${theme.border} hover:border-indigo-400`;
+          
+          if (selectedOption) {
+            if (opt.id === currentQ.target.id) {
+              statusClass = "bg-emerald-500 border-2 border-emerald-500 text-white";
+            } else if (opt.id === selectedOption.id) {
+              statusClass = "bg-red-500 border-2 border-red-500 text-white";
+            } else {
+              statusClass = `${darkMode ? 'bg-slate-800' : 'bg-slate-100'} border-2 ${theme.border} opacity-50`;
+            }
+          }
+
+          return (
+            <button
+              key={opt.id}
+              disabled={!!selectedOption}
+              onClick={() => handleAnswer(opt)}
+              className={`p-4 rounded-2xl font-medium text-lg transition-all duration-200 ${statusClass}`}
+            >
+              <div className="flex items-center justify-center gap-2">
+                {currentQ.type === 'trans_to_hanzi' || currentQ.type === 'pinyin_to_hanzi' ? (
+                  <>
+                    <span className="text-2xl font-serif">{opt.hanzi}</span>
+                    <span className={`text-sm ${selectedOption ? 'opacity-70' : theme.textMuted}`}>({opt.pinyin})</span>
+                  </>
+                ) : (
+                  <span>{opt.translation}</span>
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Feedback */}
+      {showFeedback && (
+        <div className={`mt-6 p-4 rounded-2xl ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
+          <div className="flex items-center gap-3">
+            {isCorrect ? <Check size={24} /> : <X size={24} />}
+            <div>
+              <p className="font-bold">{isCorrect ? '¡Correcto!' : 'Incorrecto'}</p>
+              {!isCorrect && (
+                <p className="text-sm">
+                  La respuesta era: {currentQ.target.hanzi} ({currentQ.target.translation})
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-    <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-      <h2 class="text-5xl md:text-6xl font-black mb-8">¿Listo para Lanzar o Renovar tu Web?</h2>
-      <p class="text-2xl mb-12 opacity-95 leading-relaxed">
-        Agendá una cita gratuita de <span class="font-bold">30 minutos</span> y hablemos de tu proyecto.
+  );
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// RESULTS SCREEN COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const ResultsScreen = ({ unit, score, theme, darkMode, onContinue, onRetry }) => {
+  const maxScore = unit.content.length * 10;
+  const percentage = Math.round((score / maxScore) * 100);
+  const stars = Math.ceil(percentage / 33.33);
+  const passed = percentage >= 70;
+
+  return (
+    <div className="min-h-[80vh] flex flex-col items-center justify-center text-center animate-in zoom-in duration-300">
+      {/* Stars Animation */}
+      <div className="flex items-center gap-2 mb-6">
+        {[1, 2, 3].map(i => (
+          <Star 
+            key={i}
+            size={48}
+            className={`transition-all duration-500 delay-${i * 200} ${
+              i <= stars 
+                ? 'text-amber-400 fill-amber-400 scale-100' 
+                : `${theme.textMuted} scale-75`
+            }`}
+            style={{ animationDelay: `${i * 200}ms` }}
+          />
+        ))}
+      </div>
+
+      {/* Icon */}
+      <div className={`w-24 h-24 rounded-full flex items-center justify-center mb-6 ${
+        passed 
+          ? 'bg-gradient-to-br from-emerald-400 to-teal-500' 
+          : 'bg-gradient-to-br from-orange-400 to-amber-500'
+      } shadow-xl`}>
+        {passed ? <Trophy size={48} className="text-white" /> : <RefreshCcw size={48} className="text-white" />}
+      </div>
+
+      {/* Title */}
+      <h2 className="text-3xl font-bold mb-2">
+        {percentage === 100 ? '¡Perfecto!' : passed ? '¡Excelente!' : '¡Buen intento!'}
+      </h2>
+      
+      <p className={theme.textMuted + ' mb-2'}>
+        {unit.title}
+      </p>
+      
+      <p className="text-xl font-bold mb-8">
+        {score} / {maxScore} puntos ({percentage}%)
       </p>
 
-      <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-10 mb-12">
-        <h3 class="text-3xl font-bold mb-8">En esta sesión vamos a:</h3>
-        <div class="grid md:grid-cols-2 gap-6 text-left">
-          <div class="flex items-start">
-            <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="#FF6B35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <span class="text-lg font-medium">Analizar tu idea o sitio actual</span>
-          </div>
-          <div class="flex items-start">
-            <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="#FF6B35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <span class="text-lg font-medium">Ver oportunidades de crecimiento</span>
-          </div>
-          <div class="flex items-start">
-            <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="#FF6B35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <span class="text-lg font-medium">Definir qué plan te conviene más</span>
-          </div>
-          <div class="flex items-start">
-            <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="#FF6B35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <span class="text-lg font-medium">Resolver todas tus dudas</span>
-          </div>
+      {/* XP Earned */}
+      <div className={`${theme.card} border rounded-2xl p-4 mb-8 flex items-center gap-4`}>
+        <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center">
+          <Zap size={24} className="text-white" />
+        </div>
+        <div className="text-left">
+          <p className={theme.textMuted + ' text-sm'}>XP Ganado</p>
+          <p className="text-2xl font-bold">+{100 + score}</p>
         </div>
       </div>
 
-      <a href="#agendar"
-        class="inline-block bg-white text-orange-vapor px-12 py-6 rounded-full font-black text-2xl hover:shadow-2xl transition-all transform hover:scale-110">
-        Agendar Cita Gratuita
-      </a>
-
-      <p class="mt-8 text-lg opacity-90">Sin compromiso, solo valor para tu proyecto.</p>
+      {/* Actions */}
+      <div className="flex gap-4">
+        <button 
+          onClick={onRetry}
+          className={`px-6 py-3 ${theme.card} border rounded-2xl font-bold hover:shadow-lg transition-all`}
+        >
+          Practicar de Nuevo
+        </button>
+        <button 
+          onClick={onContinue}
+          className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
+        >
+          Continuar →
+        </button>
+      </div>
     </div>
-  </section>
+  );
+};
 
-  <!-- Footer -->
-  <footer class="bg-dark-vapor text-white py-16">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="grid md:grid-cols-4 gap-12 mb-12">
-        <div class="md:col-span-2">
-          <div class="flex items-center space-x-3 mb-6">
-            <span class="text-3xl font-bold">Orange<span class="text-gradient">Vapor</span></span>
+// ═══════════════════════════════════════════════════════════════════════════════
+// STATS VIEW COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const StatsView = ({ progress, achievements, theme, darkMode }) => {
+  const totalWords = courseData.reduce((acc, u) => acc + u.content.length, 0);
+  
+  return (
+    <div className="space-y-6 animate-in fade-in duration-500">
+      <h2 className="text-2xl font-bold flex items-center gap-2">
+        <BarChart className="text-indigo-500" />
+        Estadísticas
+      </h2>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 gap-4">
+        {[
+          { label: 'Palabras Aprendidas', value: `${progress.wordsLearned.length}/${totalWords}`, icon: BookOpen, color: 'from-blue-500 to-indigo-500' },
+          { label: 'Lecciones Completadas', value: `${progress.completedUnits.length}/${courseData.length}`, icon: CheckCircle, color: 'from-emerald-500 to-teal-500' },
+          { label: 'Racha Actual', value: `${progress.streak} días`, icon: Flame, color: 'from-orange-500 to-red-500' },
+          { label: 'XP Total', value: progress.xp, icon: Zap, color: 'from-amber-500 to-orange-500' },
+          { label: 'Nivel Actual', value: progress.level, icon: Award, color: 'from-purple-500 to-pink-500' },
+          { label: 'Quizzes Perfectos', value: progress.stats.perfectQuizzes, icon: Star, color: 'from-yellow-500 to-amber-500' },
+        ].map((stat, i) => (
+          <div key={i} className={`${theme.card} border rounded-2xl p-4`}>
+            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3`}>
+              <stat.icon size={20} className="text-white" />
+            </div>
+            <p className={theme.textMuted + ' text-sm'}>{stat.label}</p>
+            <p className="text-2xl font-bold">{stat.value}</p>
           </div>
-          <p class="text-gray-400 mb-6 text-lg leading-relaxed">
-            Especialistas en creación y rediseño de sitios web One Page y E-commerce.
-          </p>
-          <p class="text-gray-400 text-lg">
-            Lanzá o renová tu presencia digital.
-          </p>
-        </div>
-
-        <div>
-          <h4 class="font-bold text-xl mb-6">Navegación</h4>
-          <ul class="space-y-3 text-gray-400">
-            <li><a href="#inicio" class="hover:text-orange-vapor transition-colors text-lg">Inicio</a></li>
-            <li><a href="#servicios" class="hover:text-orange-vapor transition-colors text-lg">Servicios</a></li>
-            <li><a href="#precios" class="hover:text-orange-vapor transition-colors text-lg">Precios</a></li>
-            <li><a href="#clientes" class="hover:text-orange-vapor transition-colors text-lg">Clientes</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="font-bold text-xl mb-6">Contacto</h4>
-          <ul class="space-y-3 text-gray-400">
-            <li>
-              <a href="#agendar" class="hover:text-orange-vapor transition-colors text-lg flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                Agendar Cita
-              </a>
-            </li>
-            <li>
-              <a href="https://api.whatsapp.com/send?phone=5491130011554" target="_blank" rel="noopener noreferrer" class="hover:text-orange-vapor transition-colors text-lg flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                </svg>
-                WhatsApp
-              </a>
-            </li>
-          </ul>
-        </div>
+        ))}
       </div>
 
-      <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
-        <p class="text-gray-400 mb-4 md:mb-0 text-lg">
-          © 2025 OrangeVapor. Todos los derechos reservados.
-        </p>
-        <div class="flex space-x-8 text-gray-400">
-          <a href="#" class="hover:text-orange-vapor transition-colors text-lg">Términos</a>
-          <a href="#" class="hover:text-orange-vapor transition-colors text-lg">Privacidad</a>
+      {/* Achievements */}
+      <div>
+        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <Trophy className="text-amber-500" />
+          Logros
+        </h3>
+        
+        <div className="grid grid-cols-1 gap-3">
+          {achievements.map(achievement => {
+            const unlocked = progress.achievements.includes(achievement.id);
+            
+            return (
+              <div 
+                key={achievement.id}
+                className={`${theme.card} border rounded-2xl p-4 flex items-center gap-4 ${!unlocked && 'opacity-50'}`}
+              >
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl ${
+                  unlocked 
+                    ? 'bg-gradient-to-br from-amber-400 to-orange-500' 
+                    : (darkMode ? 'bg-slate-700' : 'bg-slate-200')
+                }`}>
+                  {unlocked ? achievement.icon : <Lock size={24} className={theme.textMuted} />}
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-bold">{achievement.title}</h4>
+                  <p className={theme.textMuted + ' text-sm'}>{achievement.desc}</p>
+                </div>
+                <div className="text-right">
+                  <p className={`text-sm font-bold ${unlocked ? 'text-amber-500' : theme.textMuted}`}>
+                    +{achievement.xp} XP
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
-  </footer>
+  );
+};
 
-  <script>
-    // Mobile menu toggle
-    document.getElementById('mobile-menu-btn').addEventListener('click', function () {
-      const mobileMenu = document.getElementById('mobile-menu');
-      mobileMenu.classList.toggle('hidden');
-    });
+// ═══════════════════════════════════════════════════════════════════════════════
+// REVIEW MODE COMPONENT (SRS)
+// ═══════════════════════════════════════════════════════════════════════════════
 
-    // Close mobile menu on link click
-    document.querySelectorAll('#mobile-menu a').forEach(link => {
-      link.addEventListener('click', function () {
-        document.getElementById('mobile-menu').classList.add('hidden');
-      });
-    });
+const ReviewMode = ({ wordsToReview, allWords, theme, darkMode, srsData, onUpdateSRS, onFinish }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [reviewed, setReviewed] = useState(0);
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          const headerOffset = 80;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
+  const reviewWords = useMemo(() => {
+    return wordsToReview.slice(0, 20).map(wordId => 
+      allWords.find(w => w.id === wordId)
+    ).filter(Boolean);
+  }, [wordsToReview, allWords]);
 
-    // Header shadow on scroll
-    window.addEventListener('scroll', function () {
-      const header = document.querySelector('header');
-      if (window.scrollY > 50) {
-        header.classList.add('shadow-2xl');
-      } else {
-        header.classList.remove('shadow-2xl');
-      }
-    });
+  if (reviewWords.length === 0) {
+    return (
+      <div className="min-h-[80vh] flex flex-col items-center justify-center text-center">
+        <div className="w-24 h-24 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mb-6">
+          <CheckCircle size={48} className="text-white" />
+        </div>
+        <h2 className="text-2xl font-bold mb-2">¡Todo al día!</h2>
+        <p className={theme.textMuted + ' mb-6'}>No tienes palabras pendientes de repaso.</p>
+        <button 
+          onClick={onFinish}
+          className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-bold"
+        >
+          Volver al Inicio
+        </button>
+      </div>
+    );
+  }
 
-    // Carousel functionality
-    let currentSlide = 0;
-    const totalSlides = 3;
-    let autoplayInterval;
+  const item = reviewWords[currentIndex];
 
-    function updateCarousel() {
-      const track = document.getElementById('carouselTrack');
-      const indicators = document.querySelectorAll('.carousel-indicator');
-      
-      track.style.transform = `translateX(-${currentSlide * 100}%)`;
-      
-      indicators.forEach((indicator, index) => {
-        if (index === currentSlide) {
-          indicator.classList.add('active');
-        } else {
-          indicator.classList.remove('active');
-        }
-      });
+  const handleQuality = (quality) => {
+    onUpdateSRS(item.id, quality);
+    setReviewed(prev => prev + 1);
+    setIsFlipped(false);
+    
+    if (currentIndex < reviewWords.length - 1) {
+      setCurrentIndex(prev => prev + 1);
+    } else {
+      onFinish();
     }
+  };
 
-    function moveCarousel(direction) {
-      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-      updateCarousel();
-      resetAutoplay();
-    }
+  if (!item) {
+    onFinish();
+    return null;
+  }
 
-    function goToSlide(index) {
-      currentSlide = index;
-      updateCarousel();
-      resetAutoplay();
-    }
+  return (
+    <div className="min-h-[85vh] flex flex-col">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <button onClick={onFinish} className={`p-2 rounded-xl ${darkMode ? 'hover:bg-slate-800' : 'hover:bg-slate-100'}`}>
+          <X size={24} />
+        </button>
+        <div className="flex-1 mx-4">
+          <div className={`h-3 ${darkMode ? 'bg-slate-800' : 'bg-slate-200'} rounded-full overflow-hidden`}>
+            <div 
+              className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all"
+              style={{ width: `${(currentIndex / reviewWords.length) * 100}%` }}
+            />
+          </div>
+        </div>
+        <span className={theme.textMuted}>{currentIndex + 1}/{reviewWords.length}</span>
+      </div>
 
-    function startAutoplay() {
-      autoplayInterval = setInterval(() => {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateCarousel();
-      }, 5000);
-    }
+      {/* Card */}
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <div 
+          onClick={() => setIsFlipped(!isFlipped)}
+          className={`
+            relative w-full max-w-sm aspect-[3/4] cursor-pointer
+            transition-all duration-700 [transform-style:preserve-3d]
+            ${isFlipped ? '[transform:rotateY(180deg)]' : ''}
+          `}
+        >
+          {/* Front */}
+          <div className={`
+            absolute inset-0 ${theme.card} border rounded-3xl shadow-2xl p-6
+            flex flex-col items-center justify-center text-center [backface-visibility:hidden]
+          `}>
+            <span className={`text-xs uppercase tracking-widest ${theme.textMuted} mb-4 px-3 py-1 ${darkMode ? 'bg-slate-700' : 'bg-slate-100'} rounded-full`}>
+              Repaso SRS
+            </span>
+            <h2 className="text-7xl font-bold mb-4 font-serif">{item.hanzi}</h2>
+            <button 
+              onClick={(e) => { e.stopPropagation(); speak(item.hanzi); }}
+              className="p-4 bg-gradient-to-br from-amber-500 to-orange-500 text-white rounded-full shadow-lg mb-6"
+            >
+              <Volume2 size={28} />
+            </button>
+            <p className={theme.textMuted + ' text-sm'}>Toca para ver respuesta</p>
+          </div>
 
-    function resetAutoplay() {
-      clearInterval(autoplayInterval);
-      startAutoplay();
-    }
+          {/* Back */}
+          <div className={`
+            absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl shadow-2xl p-6
+            flex flex-col items-center justify-center text-center text-white
+            [backface-visibility:hidden] [transform:rotateY(180deg)]
+          `}>
+            <h3 className="text-3xl font-bold mb-2">{item.pinyin}</h3>
+            <h4 className="text-xl mb-4">{item.translation}</h4>
+            <p className="text-sm opacity-80 mb-4">{item.example}</p>
+            <p className="text-xs opacity-60">{item.exampleTr}</p>
+          </div>
+        </div>
+      </div>
 
-    // Start autoplay on page load
-    startAutoplay();
+      {/* Rating Buttons */}
+      {isFlipped && (
+        <div className="mt-6 space-y-3 max-w-sm mx-auto w-full px-4 animate-in slide-in-from-bottom duration-300">
+          <p className={`text-center ${theme.textMuted} text-sm mb-2`}>¿Qué tan bien lo recordaste?</p>
+          <div className="grid grid-cols-4 gap-2">
+            {[
+              { quality: 1, label: 'Olvidado', color: 'bg-red-500' },
+              { quality: 3, label: 'Difícil', color: 'bg-orange-500' },
+              { quality: 4, label: 'Bien', color: 'bg-emerald-500' },
+              { quality: 5, label: 'Fácil', color: 'bg-indigo-500' },
+            ].map(btn => (
+              <button
+                key={btn.quality}
+                onClick={() => handleQuality(btn.quality)}
+                className={`${btn.color} text-white py-3 rounded-xl font-medium text-sm hover:opacity-90 transition-opacity`}
+              >
+                {btn.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
-    // Pause autoplay on hover
-    const carouselContainer = document.querySelector('.carousel-container');
-    carouselContainer.addEventListener('mouseenter', () => {
-      clearInterval(autoplayInterval);
-    });
-
-    carouselContainer.addEventListener('mouseleave', () => {
-      startAutoplay();
-    });
-
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.service-card, .hover-lift').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'all 0.6s ease-out';
-      observer.observe(el);
-    });
-  </script>
-
-</body>
-
-</html>
+export default App;
